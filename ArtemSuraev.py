@@ -4,7 +4,78 @@
 # #
 # #
 # region Урок: *********************************************************************
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x <= y) <= z) or (not w)
+                if F == 0:  # или 1
+                    print(x, y, z, w)
+'''
 
+
+# 5
+'''
+R = []
+for n in range(1, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    if s.count('1') % 2 == 0:
+        s = '10' + s[2:] + '0'
+    else:
+        s = '11' + s[2:] + '1'
+    r = int(s, 2)
+    if r < 20:
+        R.append(n)
+print(max(R))
+'''
+
+'''
+# bit = a * b * c * t
+a = 2
+b = 48000
+c = 34
+t = 42 * 60 + 20
+bit = a * b * c * t  # бит
+ves = bit + 13 * 110 * 2**13  # бит
+print(ves / 314_572_800)
+'''
+
+
+'''
+s = '012345678'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        num = a + b + c + d + e + f
+                        if a != '0' and a not in '1357':
+                            if f not in '23' and num.count('1') >= 2:
+                                cnt += 1
+print(cnt)
+'''
+
+'''
+symbols = 6
+alphabet = 20 + 10
+i = 5  # 2**i >= alphabet, бит на один символ
+bit = symbols * i
+print(bit / 8)  # 3.75 -> 4
+byte = 4
+print(byte * 60)
+'''
+
+s = '7' * 108
+while '33333' in s or '777' in s:
+    if '33333' in s:
+        s = s.replace('33333', '7', 1)
+    else:
+        s = s.replace('777', '3', 1)
+print(s)
 
 # endregion Урок: ******************************************************************
 # #
