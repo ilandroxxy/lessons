@@ -4,78 +4,79 @@
 # #
 # #
 # region Урок: *********************************************************************
+
+
+# 2
 '''
 print('x y z w')
 for x in 0, 1:
     for y in 0, 1:
         for z in 0, 1:
             for w in 0, 1:
-                F = ((x <= y) <= z) or (not w)
-                if F == 0:  # или 1
+                F = (not (x <= w)) or (y <= z) or (not y)
+                if F == 0:
                     print(x, y, z, w)
 '''
 
-
 # 5
 '''
-R = []
+a = []
 for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
+    s = bin(n)[2:]  # [2:] забыл добавит срез
     if s.count('1') % 2 == 0:
         s = '10' + s[2:] + '0'
     else:
         s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    if r < 20:
-        R.append(n)
-print(max(R))
-'''
-
-'''
-# bit = a * b * c * t
-a = 2
-b = 48000
-c = 34
-t = 42 * 60 + 20
-bit = a * b * c * t  # бит
-ves = bit + 13 * 110 * 2**13  # бит
-print(ves / 314_572_800)
+    r = int(s, 2)  # Эта строчка всегда лежит именно в цикле for
+    if r > 50:
+        a.append(n)
+print(min(a))  # Эту строчку можно вынести в самый левый край вне цикла for
 '''
 
 
+# 6
 '''
-s = '012345678'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        num = a + b + c + d + e + f
-                        if a != '0' and a not in '1357':
-                            if f not in '23' and num.count('1') >= 2:
-                                cnt += 1
-print(cnt)
+from turtle import*
+tracer(0)
+k = 20
+left(90)
+for i in range(9):
+    forward(22*k)
+    right(90)
+    forward(6*k)
+    right(90)
+up()
+forward(1*k)
+right(90)
+forward(5*k)
+left(90)
+down()
+for i in range(9):
+    forward(53*k)
+    right(90)
+    forward(75*k)
+    right(90)
+
+up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        goto(k*x, k*y)
+        dot(2, 'red')
+update()
+done()
 '''
 
+# 7
 '''
-symbols = 6
-alphabet = 20 + 10
-i = 5  # 2**i >= alphabet, бит на один символ
-bit = symbols * i
-print(bit / 8)  # 3.75 -> 4
-byte = 4
-print(byte * 60)
+pixels = 1024*960
+colors = 8192  # 2**i >= 8192
+i = 13  # бит на один пиксель
+bit = pixels * i  # бит
+
+I = 280 * 1_474_560  # бит
+print(I / bit)  # 32.30769 -> 32
 '''
 
-s = '7' * 108
-while '33333' in s or '777' in s:
-    if '33333' in s:
-        s = s.replace('33333', '7', 1)
-    else:
-        s = s.replace('777', '3', 1)
-print(s)
 
 # endregion Урок: ******************************************************************
 # #
@@ -87,5 +88,5 @@ print(s)
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = []
+# КЕГЭ  = [3, 7, 4, 10, 12]
 # на следующем уроке:

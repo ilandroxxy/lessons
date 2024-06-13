@@ -1,198 +1,232 @@
 # region Домашка: ******************************************************************
 
+# Три числа - три действия
+'''
+a = input()
+b = input()
+c = input()
 
+print('razn a,b  ^', int(a) - int(b))
+
+print('summ a,c  ^', int(a) + int(c))
+
+print('ostat a,b  ^', int(a) % int(b))
+
+
+a = int(input())
+b = int(input())
+c = int(input())
+
+print(a - b)
+print(a + b)
+print(a % b)
+'''
+
+'''
+a = (input(('число пятизначное целое')))
+b = [int(a) for i in a]
+print(b[0] * b[1] * b[2] * b[3] * b[4])
+print('произведение   ^')
+print(sum(b))
+print('сумма   ^')
+'''
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Теория множеств:
-# P: {2, 3, 5, 7, 11, 13, 17, 19, ..., +inf} - множество простых чисел
-# N: {1, 2, 3, ..., 1000, ..., +inf} - множество натуральных чисел
-# Z: {-inf, ..., -1000, ..., -2, -1, 0, 1, 2, ..., 1000, ..., +inf} - множество целых чисел  N ∈ Z
-# Q: {-inf,..., -3.4, -1/2, 0, 2, 1/2, 3/4,..., 1000/1, ..., +inf} - множество рациональных чисел N ∈ Z ∈ Q
-# I: {-inf,..., -pi, 0, pi, 0.12321321312321.., ..., +inf} - множество иррациональных чисел N ∈ Z ∈ Q ∈ I
-# R: N ∈ Z ∈ Q ∈ I ∈ R - множество вещественных/действительных значений
-# C: множество комплексных чисел
+# Циклы for и while
 
+# for: "Повтори n раз", "Пробеги числа от a до b"
 
-# Типы данных переменных
+# Цикл for - работа с функцией range():
 '''
-a = 5  # int (integer) - целочисленные значения
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-b = 5.0  # float (число с плавающей точкой) - вещественные значения (дроби)
-print(7 / 2)  # 3.5
-print(4 / 2)  # 2.0
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-c = '5'  # str (string) - строчные значения, любые символы, буквы и тд
-print(a * 4, c * 4)  # 20 5555
-print('hello ' * 4)  # hello hello hello hello
-print('hello, ' + 'world')  # hello, world
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()  # Все числа кратные 2, Все четные числа
 
-d1 = True  # bool (Boolean) - Булева алгебра (Математическая логика)
-d0 = False
-print(4 < 10)  # True
-'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-# Типы данных коллекций (последовательностей)
-'''
-A = [1, 2, 3]  # list (список)
-# 1. Могут хранить в себе неограниченное кол-во элементов разных типов данных
-# 2. Каждый элемент списка имеет свой порядковый номер, начинающийся с 0 (индексы)
-# 3. Элементы списков можно брать по индексам и изменять их
+for i in range(10, 0, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
 
 # i   0    1    2    3    4
 M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2    -1
 
-print(f'Первый элемент списка М: {M[0]}')
-# Первый элемент списка М: a
-print(f'Последний элемент списка М: {M[-1]}')
-# Последний элемент списка М: e
-
-M[0] = '000'
-print(M)  # ['000', 'b', 'c', 'd', 'e']
-
-B = (1, 2, 3)  # tuple (кортеж)
-# Полностью идентичен спискам, но менять элементы кортежа нельзя.
-
-C = {1, 2, 3, 2, 3}  # set (множество)
-# В множестве нельзя хранить копии элементов (то есть копии удаляются)
-print(C)  # {1, 2, 3}
-
-D = {'один': 'one', 'два': 'two'}  # dict (словарь)
-# Элемент словаря разбивается на две части: ключ и значение
-# Доступ к значению элемента осуществляется через ключ (индивидуальный)
-print(D['один'])  # one
-
-D['один'] = 1
-print(D)  # {'один': 1, 'два': 'two'}
-
-for key, value in D.items():
-    print(key, value)
-    # один 1
-    # два two
-'''
-
-'''
-M = [2, 2.0, '2', True, 2+2, 7/2, '2' * 3, 4 < 10, [1, 2, 3], (1, 2, 3), {1, 2, 3}, {'один': 1, 'два': 'two'}]
-for x in M:
-    print(x, type(x))
-    # 2 <class 'int'>
-    # 2.0 <class 'float'>
-    # 2 <class 'str'>
-    # True <class 'bool'>
-    # 4 <class 'int'>
-    # 3.5 <class 'float'>
-    # 222 <class 'str'>
-    # True <class 'bool'>
-    # [1, 2, 3] <class 'list'>
-    # (1, 2, 3) <class 'tuple'>
-    # {1, 2, 3} <class 'set'>
-    # {'один': 1, 'два': 'two'} <class 'dict'>
-'''
-
-'''
-id = '123.23.231.0'
-ID = id.split('.')
-print(ID)  # ['123', '23', '231', '0']
-new_id = '**'.join(ID)
-print(new_id)  # 123**23**231**0
-'''
-
-
-
-# Конвертирование типов данных
-'''
-a = 5
-print(a, type(a))  # 5 <class 'int'>
-
-a = str(a)
-print(a, type(a))  # 5 <class 'str'>
-
-a = float(a)
-print(a, type(a))  # 5.0 <class 'float'>
-
-a = int(a)
-print(a, type(a))  # 5 <class 'int'>
-
-A = [1, 2, 3, 2, 3]
-print(A, type(A))  # [1, 2, 3, 2, 3] <class 'list'>
-
-A = tuple(A)
-print(A, type(A))  # (1, 2, 3, 2, 3) <class 'tuple'>
-
-A = set(A)
-print(A, type(A))  # {1, 2, 3} <class 'set'>
-
-A = list(A)
-print(A, type(A))  # [1, 2, 3] <class 'list'>
-'''
-
-
-# Работа с а-строками и работа с вводом данных с клавиатуры
-'''
-weather = input('Введите параметр: ')
-temperature = int(input('Введите температуру: '))
-# Сегодня облачно, а температура 24 градуса!
-print('Сегодня ', weather, ', а температура ', temperature, ' градуса!')
-print('Сегодня ' + weather + ', а температура ' + str(temperature) + ' градуса!')
-print('Сегодня {}, а температура {} градуса!'.format(weather, temperature))
-print(f'Сегодня {weather}, а температура {temperature} градуса!')
-'''
-
-# Базовая арифметика
-'''
-a = 7
-b = 2
-
-print(f'{a} + {b} = {a + b} \n'
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b}')
-
-print()  # В каждом print() есть один '\n'
-
-# Деления
-print(f'{a} / {b} = {a / b} \n'  # Вещественное деление
-      f'{a} // {b} = {a // b} \n'  # Взятие только целой части 
-      f'{a} % {b} = {a % b}')  # Взятие остатка от деления
-
-print(123 // 10)  # 12
-print(123 % 10)  # 3
-
-print(134 % 10 == 4)  # Спрашиваем "окначивается ли на 4"
-print(str(134)[-2:] == '34')  # Спрашиваем "окначивается ли на 34"
-
-print(5 % 2 == 0)  # Четное, Кратно 2, Делится на 2
-print(5 % 2 != 0)
-
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
 print()
 
-print(f'Возведем число {a} в степень {b}: a ** b = {a**b}')
-# Возведем число 7 в степень 2: a ** b = 49
-print(f'Возьмите квадратный корень от числа 16: {16 ** 0.5}')
-# Возьмите квадратный корень от числа 16: 4.0
-print(f'Возьмите кубический корень от числа 27: {27 ** (1 / 3)}')
-# Возьмите кубический корень от числа 27: 3.0
+# Через индексы мы можем изменять элементы списка
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
+
+# Цикл for - работа с последовательностями:
+'''
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
+'''
+
+# while: "Пока условие верно, делай действие", "Бесконечные циклы"
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
+
+# 14 17555
+'''
+for x in range(0, 2030+1):
+    n = 7**91 + 7**160 - x
+    M = []  # сюда будем складывать остатки от деления
+    while n > 0:
+        M.append(n % 7)
+        n //= 7
+    M.reverse()
+    if M.count(0) == 70:
+        print(x)
+
+# '20202020'.count('0') = 4  [20, 20, 20, 20].count(0) == 0
+
+for x in range(0, 2030+1):
+    n = 7**91 + 7**160 - x
+    s = ''  # сюда будем складывать остатки от деления
+    while n > 0:
+        s += str(n % 7)
+        n //= 7
+    s = s[::-1]
+    if s.count('0') == 70:
+        print(x)
 '''
 
 
-# elif
-x = 0
-y = 7
+# Бесконечный цикл while
+'''
+k = 0
+while True:
+    k += 1
+    print(k)
+'''
+'''
+while True:
+    case = int(input('case 1:  ...\n'
+                     'case 2: ... \n'
+                     'case 3: ... \n'
+                     'case 0: exit \n'))
+    if case == 1:
+        pass
 
-if x > 0 and y > 0:   # если - главное условие
-    print(1)
-elif x < 0 and y > 0:  # иначе если - промежуточные условия
-    print(2)
-elif x < 0 and y < 0:
-    print(3)
-elif x > 0 and y < 0:
-    print(4)
-else:  # иначе - завершающее, противоположное, зависит от if
-    print('Лежит на осях')
-print('Конец')
+    if case == 2:
+        pass
 
+    if case == 3:
+        pass
+
+    if case == 0:
+        exit()
+'''
+
+
+# continue и break
+'''
+for i in range(0, 50, 2):
+    print(i, end=' ')
+print()
+
+for i in range(0, 50, 2):
+    if i % 2 != 0:
+        continue  # Прерывает итерацию цикла (шаг)
+        print('HELLO')
+    if i == 30:
+        print('КОНЕЦ')
+        break  # Прерывает цикл
+        print('КОНЕЦ')  # До сюдого мы не успеем дойти
+    print(i, end=' ')
+print()
+'''
+
+# КЕГЭ № 6598 Пробник ИМЦ СПб (Уровень: Базовый)
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x <= w) and ((not y) <= z)) <= ((z == x) or (w and (not y)))
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x and (not y)) or (y == z) or (not w)
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y and (x == (not z))) <= w) and (z <= y)
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x or (not y)) and z and (not w)
+                if F == 1:
+                    print(x, y, z, w)
+'''
+
+
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                print(x, y, z, w, int(F))
 
 # endregion Урок: *************************************************************
 # #
@@ -204,5 +238,5 @@ print('Конец')
 # #
 # #
 # ФИПИ = [1, 2*, 3, 4, 6, 7, 9*, 10, 11, 18, 19-21]
-# КЕГЭ  = []
+# КЕГЭ  = [2]
 # на следующем уроке:
