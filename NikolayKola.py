@@ -1,24 +1,5 @@
 # region Домашка: ******************************************************************
-'''
-print('w x y z F')
-for w in range(2):
-    for x in range(2):
-        for y in range(2):
-            for z in range(2):
-                F = ((z == (not x)) <= ((w <= (not y)) and (y <= x)))
-                if F == 1:
-                    print(w, x, y, z, int(F))
 
-
-for w in range(2):
-    for x in range(2):
-        for y in range(2):
-            for z in range(2):
-                F = ((z == (not x)) <= ((w <= (not y)) and (y <= x)))
-                if F == 0:
-                    print(w, x, y, z, int(F))
-'''
-import math
 
 # endregion Домашка: ******************************************************************
 # #
@@ -26,221 +7,212 @@ import math
 # region Урок: ********************************************************************
 
 '''
-import turtle as t
-t.screensize(20000, 20000)
-t.tracer(0)
-t.lt(90)
-l = 40
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-for _ in range(3):
-    t.fd(7 * l)
-    t.rt(90)
-    t.fd(12 * l)
-    t.rt(90)
-t.up()
-t.fd(4*l)
-t.rt(90)
-t.fd(6*l)
-t.lt(90)
-t.down()
-for _ in range(4):
-    t.fd(83*l)
-    t.rt(90)
-    t.fd(77*l)
-    t.rt(90)
-
-
-t.up()
-for x in range(-30, 30):
-    for y in range(-30, 30):
-        t.goto(x*l, y*l)
-        t.dot(2, 'red')
-
-t.done()
-'''
-
-
-'''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-for x in M:
-    print(x, end=' ')  # a b c d e 
-print()
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-'''
-
-
-# Срезы
-'''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(M[1:3])  # ['b', 'c']
-print(M[:3])  # ['a', 'b', 'c']
-print(M[3:])  # ['d', 'e']
-print(M[::])  # ['a', 'b', 'c', 'd', 'e']
-print(M[::2])  # ['a', 'c', 'e'] - все четные индексы
-print(M[1::2])  # ['b', 'd'] - все нечетные индексы
-print(M[::-1])  # ['e', 'd', 'c', 'b', 'a']
-'''
-
-# Функции списков
-'''
-from math import prod
-
-M = [5, 1, 2, 4, 3, 1, 1]
-print(min(M))  # 1
-print(max(M))  # 5
-print(len(M))  # 7
-print(sum(M))  # 17
-print(prod(M))  # 120
-print(sorted(M))  # [1, 1, 1, 2, 3, 4, 5]
-print(sorted(M, reverse=True))  # [5, 4, 3, 2, 1, 1, 1]
-print(set(M))  # {1, 2, 3, 4, 5}
-print(len(set(M)))  # 5 - кол-во различных элементов списка 
-'''
-
-# Методы списков (Методы это локальные функции, работающие только с одним типом данных)
-
-'''
-# Метод .append() используется для добавления элемента в конец списка. Пример:
-my_list = [1, 2, 3]
-my_list.append(4)
-print(my_list)  # Вывод: [1, 2, 3, 4]
-
-# Можно реализовать через конкатенацию (склеивание) списков:
-my_list = [1, 2, 3]
-my_list += [4]
-my_list = [0] + my_list
-print(my_list)  # Вывод: [0, 1, 2, 3, 4]
-
-
-
-# Метод .reverse() изменяет порядок элементов в списке на обратный. Пример:
-my_list = [1, 2, 3, 4]
-my_list.reverse()
-print(my_list)  # Вывод: [4, 3, 2, 1]
-
-# Можно записать по другому через срез:
-my_list = [1, 2, 3, 4]
-my_list = my_list[::-1]
-print(my_list)  # Вывод: [4, 3, 2, 1]
-
-
-# Метод .count() возвращает количество вхождений заданного элемента в список. Пример:
-my_list = [1, 2, 2, 3, 4, 2]
-count_of_twos = my_list.count(2)
-print(count_of_twos)  # Вывод: 3
-
-
-# Метод .remove() удаляет первое вхождение указанного элемента из списка. Пример:
-my_list = [1, 2, 3, 2, 4]
-my_list_new = [x for x in my_list if x != 2]
-print(my_list_new)  # [1, 3, 4]
-my_list.remove(2)  # первая найденная двойка
-print(my_list)  # Вывод: [1, 3, 2, 4]
-
-# Можно удалить элемент через его индекс используя del:
-my_list = [1, 2, 3, 2, 4]
-del my_list[1]  # индекс удаляемого элемента
-print(my_list)  # Вывод: [1, 3, 2, 4]
-
-
-# Метод .index() возвращает индекс первого вхождения заданного элемента в списке. Пример:
-my_list = [1, 2, 3, 2, 4]
-index_of_two = my_list.index(2)
-print(index_of_two)  # Вывод: 1
-
-
-# Метод .sort() сортирует элементы списка по возрастанию (по умолчанию) или в обратном порядке, если передан аргумент reverse=True. Пример:
-my_list = [4, 1, 3, 2]
-my_list.sort()
-print(my_list)  # Вывод: [1, 2, 3, 4]
-
-my_list.sort(reverse=True)
-print(my_list)  # Вывод: [4, 3, 2, 1]
-
-# Скажу честно я не любитель этого метода, считаю, что удобнее будет использовать функцию sorted():
-my_list = [4, 1, 3, 2]
-my_list = sorted(my_list)
-print(my_list)  # Вывод: [1, 2, 3, 4]
-
-my_list = sorted(my_list, reverse=True)
-print(my_list)  # Вывод: [4, 3, 2, 1]
-'''
-
-
-# Генераторы списка
-'''
-import random
-M = [random.randint(1, 100) for _ in range(20)]
-chet = [x for x in M if x % 2 == 0]
-nechet = [x for x in M if x % 2 != 0]
-copied = [x for x in M if M.count(x) > 1]
-print(M)
-print(chet)
-print(nechet)
-print(copied)
-
-s = '23256134125iuerhgj6342156'
-chet = [x for x in s if x in '02468']
-print(chet)
-
-M = [int(x) for x in open('17.txt')]
+for y in alphabet[:17]:
+    for x in alphabet[:15]:
+        A = int(f'123{x}5', 15)
+        B = int(f'67{y}9', 17)
+        if (A + B) % 131 == 0:
+            print((A + B) // 131)
+            exit()
 '''
 
 '''
-x = 4 * 3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
+for x in range(9999999):
+    if str(bin(4**2015+2**x-2**2015+15)).count('1')==500:
+        print(x)
+        break
+'''
+
+'''
+x = 4
+print(f'123{x}56')  # 123456
+
+print(f'{8:b}')
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+for p in range(8, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            if int(f'1{x}77', p) + int(f'{x}{x}77', p) == int(f'{y}0{y}{y}', p):
+                print(int(y+x+y+x, p))
+'''
+
+
+# № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+x = 4*3125**2019 + 3* 625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
 M = []
 while x > 0:
     M.append(x % 25)
     x //= 25
 M.reverse()
-print(len([i for i in M if i > 10]))
-print(M.count(0))
+print(len([x for x in M if x > 10]))
 '''
 
 # № 17555 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-for x in range(0, 2030+1):
-    n = 7**91 + 7**160 - x
+for x in range(2030+1):
+    n = 7**91 + 7 ** 160 - x
     M = []
     while n > 0:
         M.append(n % 7)
         n //= 7
+    M.reverse()
     if M.count(0) == 70:
         print(x)
 '''
+# Ответ: 2029
 
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:27]:
-    A = int('123' + x + '24', 27)
-    B = int(f'135{x}78', 27)
-    if (A + B) % 26 == 0:
-        print((A + B) // 26)
+s = 'abcde'
+
+print(f'Первый элемент строки s: {s[0]}')
+print(f'Второй элемент строки s: {s[1]}')
+print(f'Последний элемент строки s: {s[-1]}')
+# Первый элемент строки s: a
+# Второй элемент строки s: b
+# Последний элемент строки s: e
+
+
+# Срезы строк:
+
+s = 'abcde'
+
+print(s[2:4])  # cd
+print(s[::2])  # ace
+print(s[1::2])  # bd
+print(s[::-1])  # edcba
 '''
 
+# Методы строк:
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:7]:
-    for y in alphabet[:7]:
-        A = int(f'{y}{x}320', 7)
-        B = int(f'1{x}3{y}3', 9)
-        if (A + B) % 181 == 0:
-            print((A + B) // 181)
+s = '213213412312'
+s = s.replace('2', '*')
+print(s)  # *13*1341*31*
+
+s = s.replace('*', '2', 2)
+print(s)  # 21321341*31*
+
+
+s = s.replace('2', '*', 1)
+print(s)  # *1321341*31*
+
+
+print(s.count('*'))  #
+
+print(s.index('*'))  # 0
+print(s.rindex('*'))  # 11
+
+id = '192.213.12.9'
+print(id.split('.'))  # ['192', '213', '12', '9']
+print([int(x) for x in id.split('.')])  # [192, 213, 12, 9]
+ID = id.split('.')
+
+new_id = '**'.join(ID)
+print(new_id)  # 192**213**12**9
+'''
+
+# № 17553 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+s = '8' * 83
+while '111' in s or '88888' in s:
+    if '111' in s:
+        s = s.replace('111', '88', 1)
+    else:
+        s = s.replace('88888', '8', 1)
+print(s)  # 888
+'''
+
+
+# № 16378 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+R = []
+for n in range(4, 10000):
+    s = '8' + '4' * n
+    while '11' in s or '444' in s or '8888' in s:
+        if '11' in s:
+            s = s.replace('11', '4', 1)
+        if '444' in s:
+            s = s.replace('444', '88', 1)
+        if '8888' in s:
+            s = s.replace('8888', '1', 1)
+    summa = sum([int(x) for x in s])
+    R.append(summa)
+    print(max(R))
+'''
+
+# № 17557 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n-1)
+
+print((F(2024) // 16 - F(2023)) / F(2022))
+'''
+# 253886.5
+
+# OverflowError: integer division result too large for a float
+
+
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
+'''
+def F(a, b):
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+print(F(5, 7) * F(7, 11))
+
+
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+print(F(5, 7) * F(7, 11))
+'''
+
+# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-1, b) + F(a//2, b)
+
+print(F(30, 8) * F(8, 1))
+'''
+
+
+# № 16387 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a > b or a == 16:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+print(F(2, 9) * F(9, 18))
 '''
 # endregion Урок: *************************************************************
 # #
@@ -252,5 +224,5 @@ for x in alphabet[:7]:
 # #
 # #
 # ФИПИ = [1, 2*, 3, 4, 6, 7, 9*, 10, 11, 18, 19-21]
-# КЕГЭ  = [2]
+# КЕГЭ  = [2, 12, 14, 16, 23]
 # на следующем уроке:
