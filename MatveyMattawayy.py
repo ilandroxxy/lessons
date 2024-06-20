@@ -5,172 +5,133 @@
 # #
 # #
 # region Урок: ********************************************************************
-
 '''
-def F(x, A):
-    B = 50 <= x <= 70
-    return (x % A == 0) or (B <= (x % 16 != 0))
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-
-# № 17546 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-# На вход алгоритма подаётся натуральное число N
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 R = []
-for n in range(1, 12+1):
-
-    # 1. Строится двоичная запись числа N.
-    s = f'{n:b}'  # s = bin(n)[2:]
-
-    # а) если число чётное, то к двоичной записи слева дописывается 10;
-    if n % 2 == 0:
-        s = '10' + s
-
-    # б) если число нечётное, то к двоичной записи слева дописывается 1 и справа дописывается 01.
-    else:
-        s = '1' + s + '01'
-
-    # 3. Результат переводится в десятичную систему и выводится на экран.
-    r = int(s, 2)
-    R.append(r)
-
+for x in alphabet[:13]:
+    a = int(f'537{x}623', 13) - int(f'6{x}35{x}2', 13)
+    if a % 3 == 0:
+        R.append(int(x, 13))
 print(max(R))
 '''
 
-
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-'''
-
-'''
-import string
-alphabet = string.digits + string.ascii_uppercase
-print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-'''
-
-
-'''
-alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
-'''
-
-
-# Найдите сумму цифр строки:
-summa = sum(map(int, '12345'))
-
-
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-
-for n in range(1, 1000):
-    s = convert(n, 2)
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    if r > 50:
-        print(n)
-        break
-'''
-
-# № 11478 (Уровень: Базовый)
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-for n in range(1, 10000):
-    s = convert(n, 3)
-    if n % 2 == 0:
-        s = '1' + s + '00'
-    else:
-        s = s + convert(s.count('1') + s.count('2' * 2), 3)
-    r = int(s, 3)
-    if r > 168:
-        print(n)
+for p in range(6, 36+1):
+    a = 7**500 - int('53', p)
+    if a % 6 == 0:
+        print(p)
         break
 '''
 
 '''
-alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-
-for x in alphabet[:27]:
-    a = int(f'123{x}24',27) + int(f'135{x}78',27)
-    if a % 26 == 0:
-        print(x, a//26)
-'''
-
-# № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
-s = 4 * 3125**2019 + 3 * 625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
-b = []
-while s > 0:
-    b = [s % 25] + b
-    s //= 25
-print(len([i for i in b if i > 10]))
-'''
-
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-for x in range(2030+1):
-    s = 7**91 + 7**160 - x
-    b = []
-    while s > 0:
-        b = [s % 7] + b
-        s //= 7
-    if b.count(0) == 70:
-        print(x)
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for p in range(7, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            for z in alphabet[:p]:
+                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
+                    print(int(x+y+z, p))
 '''
 
 '''
-for x in range(2030+1):
-    s = 3 ** 100 - x
-    b = []
-    while s > 0:
-        b = [s % 3] + b
-        s //= 3
-    if b.count(0) == 5:
-        print(x)
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n-1)
+
+print((F(2024) - 4 * F(2023)) / F(2022))
+'''
+# Ответ: 16362024
+
+
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n-1)
+
+print((F(2024) // 16 - F(2023)) / F(2022))
+'''
+#      print((F(2024) / 16 - F(2023)) / F(2022))
+#             ~~~~~~~~^~~~
+# OverflowError: integer division result too large for a float
+
+
+# № 16324 Открытый вариант 2024 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('122.159.136.144/255.255.255.248', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 4 !=0 :
+        cnt += 1
+print(cnt)
 '''
 
+# № 12922 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('136.36.240.16/255.255.255.248', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if '101' not in b:
+        cnt += 1
+print(cnt)
+'''
+
+'''
 R = []
 for n in range(4, 10000):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
+    s = '5' + '7' * n
+    while '57' in s or '877' in s or '777' in s:
+        if '57' in s:
+            s = s.replace('57', '7', 1)
+        if '877' in s:
+            s = s.replace('877', '75', 1)
+        if '777' in s:
+            s = s.replace('777', '8', 1)
     summa = sum(map(int, s))
     R.append(summa)
     print(max(R))
+'''
+
+
+# № 12930 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+#     A. Прибавить 1
+#     B. Умножить на 2
+#     C. Возвести в квадрат
+# Сколько существует программ, для которых при исходном числе 2
+# результатом является число 40, при этом траектория вычислений
+# содержит число 10, не содержит числа 11 и не содержит числа 12?
+
+def F(a, b):
+    if a > b or a == 11 or a == 12:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a*2, b) + F(a**2, b)
+
+print(F(2, 10) * F(10, 40))
+
+
+def F(a, b):
+    if a >= b or a == 11 or a == 12:
+        return a == b
+    return F(a+1, b) + F(a*2, b) + F(a**2, b)
+
+print(F(2, 10) * F(10, 40))
 
 # endregion Урок: *************************************************************
 # #
@@ -181,6 +142,6 @@ for n in range(4, 10000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5*, 6, 7, 8*, 12*, 14*, 16, 18, 19-21]
-# КЕГЭ  = [5, 14, 15, 23]
-# на следующем уроке: 9, 11, 13, 25
+# ФИПИ = [1+, 2+, 3, 4, 5*, 6, 7, 8*, 10+, 12*+, 14*, 16, 18, 19-21+]
+# КЕГЭ  = [5, 12, 13, 14, 15, 16, 23]
+# на следующем уроке: 9, 11, 25

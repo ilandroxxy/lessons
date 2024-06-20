@@ -5,77 +5,44 @@
 # #
 # region Урок: *********************************************************************
 
-
-# 2
+# № 17556 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (not (x <= w)) or (y <= z) or (not y)
-                if F == 0:
-                    print(x, y, z, w)
+def F(x, A):
+    B = 70 <= x <= 90
+    return (x % A == 0) or (B <= (x % 22 != 0))
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
 '''
 
-# 5
 '''
-a = []
-for n in range(1, 1000):
-    s = bin(n)[2:]  # [2:] забыл добавит срез
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)  # Эта строчка всегда лежит именно в цикле for
-    if r > 50:
-        a.append(n)
-print(min(a))  # Эту строчку можно вынести в самый левый край вне цикла for
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
+
+R = []
+M = [x / 4 for x in range(10 * 4, 100 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
 '''
 
+# № 17529 Основная волна 07.06.24 (Уровень: Базовый)
 
-# 6
-'''
-from turtle import*
-tracer(0)
-k = 20
-left(90)
-for i in range(9):
-    forward(22*k)
-    right(90)
-    forward(6*k)
-    right(90)
-up()
-forward(1*k)
-right(90)
-forward(5*k)
-left(90)
-down()
-for i in range(9):
-    forward(53*k)
-    right(90)
-    forward(75*k)
-    right(90)
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n-1)
 
-up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        goto(k*x, k*y)
-        dot(2, 'red')
-update()
-done()
-'''
-
-# 7
-'''
-pixels = 1024*960
-colors = 8192  # 2**i >= 8192
-i = 13  # бит на один пиксель
-bit = pixels * i  # бит
-
-I = 280 * 1_474_560  # бит
-print(I / bit)  # 32.30769 -> 32
-'''
+print((2 * F(2024)+F(2023))/F(2022))
 
 
 # endregion Урок: ******************************************************************
@@ -88,5 +55,5 @@ print(I / bit)  # 32.30769 -> 32
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = [3, 7, 4, 10, 12]
+# КЕГЭ  = [3, 4, 6, 10, 12, 15, 16, 23]
 # на следующем уроке:

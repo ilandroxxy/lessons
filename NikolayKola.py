@@ -6,189 +6,202 @@
 # #
 # region Урок: ********************************************************************
 
+# № 17546 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+R = []
+for n in range(1, 12+1):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    if n % 2 == 0:
+        s = '10' + s
+    else:
+        s = '1' + s + '01'
+    r = int(s, 2)
+    R.append(r)
+print(max(R))
+'''
+
+
+# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+R = []
+for n in range(1, 1000):
+    s = f'{n:b}'
+    if n % 3 == 0:
+        s = s + s[-2:]
+    else:
+        x = (n % 3) * 3
+        s = s + f'{x:b}'
+    r = int(s, 2)
+    if r >= 195:
+        R.append(r)
+print(min(R))
+'''
+
+'''
+def convert(n, b):  # n - number, b - base
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+'''
+
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):  # n - number, b - base
+    r = ''
+    while n > 0:
+        r = alphabet[n % b] + r
+        n //= b
+    return r
 
-for y in alphabet[:17]:
-    for x in alphabet[:15]:
-        A = int(f'123{x}5', 15)
-        B = int(f'67{y}9', 17)
-        if (A + B) % 131 == 0:
-            print((A + B) // 131)
-            exit()
+
+print(convert(213435235, 25))
 '''
 
 '''
-for x in range(9999999):
-    if str(bin(4**2015+2**x-2**2015+15)).count('1')==500:
-        print(x)
+def convert(n, b):  # n - number, b - base
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
+    else:
+        x = (n % 3) * 4
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r < 199:
+        print(n)
+'''
+
+'''
+for b in range(1, 1000):
+    n = bin(b)[2:]   # забыл [2:]
+    if n.count('1') % 2 == 0:  # надо писать .count('1')
+        n = n + '0'
+        n = n[2:]
+        n = '10' + n
+        # n = '10' + n[2:] + '0'
+    else:
+        n = n + '1'
+        n = n[2:]
+        n = '11' + n
+    r = int(n, 2)  # забыл ,2
+    if r > 50:
+        print(b)
         break
 '''
 
+
+# № 16381 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
-x = 4
-print(f'123{x}56')  # 123456
+def F(x, A):
+    return (x % A != 0) <= ((x % 28 == 0) <= (x % 49 != 0))
 
-print(f'{8:b}')
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-for p in range(8, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            if int(f'1{x}77', p) + int(f'{x}{x}77', p) == int(f'{y}0{y}{y}', p):
-                print(int(y+x+y+x, p))
-'''
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
 
 
-# № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
-x = 4*3125**2019 + 3* 625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
-M = []
-while x > 0:
-    M.append(x % 25)
-    x //= 25
-M.reverse()
-print(len([x for x in M if x > 10]))
+
+for A in range(1, 1000):
+    if all(((x % A != 0) <= ((x % 28 == 0) <= (x % 49 != 0))) for x in range(1, 10000)):
+        print(A)
 '''
 
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
+
+# № 14656 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+def F(x, y, A):
+    return ((x > 68) or (y > 89)) or (2 * x - 7 * y < A)
+
+for A in range(1000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        print(A)
+        break
+'''
+
+
+'''
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
+
+
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 80 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
+'''
+# Ответ: 19.0 -> 19
+
 '''
 for x in range(2030+1):
-    n = 7**91 + 7 ** 160 - x
+    n = 3**100 - x
+    base = 3
     M = []
     while n > 0:
-        M.append(n % 7)
-        n //= 7
+        M.append(n % base)
+        n //= base
     M.reverse()
-    if M.count(0) == 70:
+    if M.count(0) == 5:
+        print(x)
+
+
+for x in range(2030+1):
+    n = 3**100 - x
+    base = 3
+    M = ''
+    while n > 0:
+        M += str(n % base)
+        n //= base
+    M = M[::-1]
+    if M.count('0') == 5:
         print(x)
 '''
-# Ответ: 2029
 
 '''
-s = 'abcde'
+n = 4 * 3125 ** 2019 + 3 * 625 ** 2020 - 2 * 125 ** 2021 + 25 ** 2022 - 4 * 5 ** 2023 - 2024
+r = ''
+while n > 0:
+    r += str(n % 25)
+    n //= 25
+r = r[::-1]
+print(r.count('0'))  # 2016
+print(r)
 
-print(f'Первый элемент строки s: {s[0]}')
-print(f'Второй элемент строки s: {s[1]}')
-print(f'Последний элемент строки s: {s[-1]}')
-# Первый элемент строки s: a
-# Второй элемент строки s: b
-# Последний элемент строки s: e
 
-
-# Срезы строк:
-
-s = 'abcde'
-
-print(s[2:4])  # cd
-print(s[::2])  # ace
-print(s[1::2])  # bd
-print(s[::-1])  # edcba
+n = 4 * 3125 ** 2019 + 3 * 625 ** 2020 - 2 * 125 ** 2021 + 25 ** 2022 - 4 * 5 ** 2023 - 2024
+M = []
+while n > 0:
+    M.append(n % 25)
+    n //= 25
+M.reverse()
+print(M)
+print(M.count(0))  # 2015
 '''
 
-# Методы строк:
-'''
-s = '213213412312'
-s = s.replace('2', '*')
-print(s)  # *13*1341*31*
-
-s = s.replace('*', '2', 2)
-print(s)  # 21321341*31*
-
-
-s = s.replace('2', '*', 1)
-print(s)  # *1321341*31*
-
-
-print(s.count('*'))  #
-
-print(s.index('*'))  # 0
-print(s.rindex('*'))  # 11
-
-id = '192.213.12.9'
-print(id.split('.'))  # ['192', '213', '12', '9']
-print([int(x) for x in id.split('.')])  # [192, 213, 12, 9]
-ID = id.split('.')
-
-new_id = '**'.join(ID)
-print(new_id)  # 192**213**12**9
-'''
-
-# № 17553 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-s = '8' * 83
-while '111' in s or '88888' in s:
-    if '111' in s:
-        s = s.replace('111', '88', 1)
-    else:
-        s = s.replace('88888', '8', 1)
-print(s)  # 888
-'''
-
-
-# № 16378 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
-R = []
-for n in range(4, 10000):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
-    summa = sum([int(x) for x in s])
-    R.append(summa)
-    print(max(R))
-'''
-
-# № 17557 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n-1)
-
-print((F(2024) // 16 - F(2023)) / F(2022))
-'''
-# 253886.5
-
-# OverflowError: integer division result too large for a float
-
-
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-print(F(5, 7) * F(7, 11))
-
-
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-print(F(5, 7) * F(7, 11))
-'''
 
 # № 17534 Основная волна 07.06.24 (Уровень: Базовый)
+# A. Вычти 1
+# B. Найти целую часть от деления на 2
+# Сколько существует программ, для которых при исходном
+# числе 30 результатом является число 1
+# и при этом тракетория вычислений содержит число 8?
 '''
 def F(a, b):
     if a < b:
@@ -199,21 +212,73 @@ def F(a, b):
         return F(a-1, b) + F(a//2, b)
 
 print(F(30, 8) * F(8, 1))
-'''
 
 
-# № 16387 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
+# Вариант 2
+
 def F(a, b):
-    if a > b or a == 16:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+    if a <= b:
+        return a == b
+    return F(a-1, b) + F(a//2, b)
 
-print(F(2, 9) * F(9, 18))
+print(F(30, 8) * F(8, 1))
+
+
+print(True + True + False)
 '''
+
+'''
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 80 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 19.0 -> 19
+'''
+
+#
+# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
+# Определите количество восьмеричных пятизначных чисел,
+# которые не начинаются с нечётных цифр,
+# не оканчиваются цифрами 2 или 6, а также содержат
+# не более двух цифр 7.
+'''
+s = '01234567'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0' and a not in '1357':
+                        if e not in '26' and num.count('7') <= 2:
+                            cnt += 1
+print(cnt)
+'''
+
+'''
+s = sorted('ФОКУС')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    num += 1
+                    if 'Ф' not in word and word.count('У') == 2:
+                        print(num, word)
+'''
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -223,6 +288,6 @@ print(F(2, 9) * F(9, 18))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2*, 3, 4, 6, 7, 9*, 10, 11, 18, 19-21]
-# КЕГЭ  = [2, 12, 14, 16, 23]
+# ФИПИ = [1+, 2*+, 3, 4+, 6+, 7, 9*+, 10+, 11, 18+, 19-21, 22+]
+# КЕГЭ  = [2, 5, 12, 14, 15, 16, 23]
 # на следующем уроке:
