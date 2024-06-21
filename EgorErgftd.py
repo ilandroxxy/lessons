@@ -1,110 +1,261 @@
 # region Домашка: ******************************************************************
+
+"""
+a = int(input())
+
+d = str(a)
+while len(d) != 5:
+    a = int(input())
+    d = str(a)
+
+q = [int(w) for w in str(a)]
 '''
-from math import prod
-M = [int(x) for x in input()]
-print(prod(M))
-print(sum(M))
+q = []
+for i in range(5):
+    w = a % 10
+    q.append(w)
+    a //= 10
+q.reverse()
 '''
+
+if q[0] * q[2] == q[1] + q[3] + q[4]:
+    print("Да")
+else:
+    print("Нет")
+"""
+
+"""
+a = int(input())
+b = int(input())
+c = int(input())
+
+suma = 0
+
+if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
+    suma += a
+if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
+    suma += b
+if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
+    suma += c
+
+print(suma)
+"""
+
+"""
+a = int(input())
+b = int(input())
+c = int(input())
+
+if a == b == c:
+    print('Это равносторонний треугольник')
+elif a == b and a + b > c or b == c and b + c > a or c == a and a + c > b:
+    print('Это равнобедренный треугольник')
+elif a + b > c or b + c > a or a + c > b:
+    print('Это разносторонний треугольник')
+else:
+    print('Это не треугольник')
+"""
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы if, elif, else
+# Два типа циклов for, while
 
-# x, y = int(input('x: ')), int(input('y: '))
+# for: отвечает на запросы: "повтори n раз", "пробеги от a до b"
 '''
-x, y = 6, 7
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:  # elif - иначе если
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Точка лежит на оси(ях)')
-print('КОНЕЦ')
-'''
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-'''
-x, y = int(input('x: ')), int(input('y: '))
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
 
-# Логические связки: and, or, not, ^, ==, !=
-'''
-a, b = 7, -4
-if a > 0 and b > 0:  # and - гарантирует, что оба верные
-    print('YES 1')
-if a > 0 or b > 0:  # or - хотя бы одно из условий истинно
-    print('YES 2')
-if (a > 0) ^ (b > 0):  # ^ - только одно из условий верно 
-    print('YES 3')
-'''
-
-'''
-print(14 and 5)  # 5 - конъюнкция
-print(14 & 5)   # 4 - операция побитовой конъюнкции
-print(bin(14)[2:])
-print(bin(5)[2:])
-'''
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 - все четные
+print()
 
 
-# Найдите кол-во и максимальную сумму троек, в которых только лишь два элемента двузначные
-'''
-M = [[1123, 43, 534], [213, 43, 56], [243, 23, 12], [1232, 432, 234]]
-R = []
-for troika in M:
-    x, y, z = troika
-    if (len(str(x)) == 2) + (len(str(y)) == 2) + (len(str(z)) == 2) == 2:
-        R.append(x + y + z)
-print(len(R), max(R))
+for i in range(1, 10, 2):  # range(START=1, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 1 3 5 7 9 - все нечетные
+print()
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+# через цикл for удобно работать с последовательностями
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  # 5
+
+for x in M:
+    print(x, end=' ')  # a b c d e 
+print()  
 
 
-M = [[1123, 43, 534], [213, 43, 56], [243, 23, 12], [1232, 432, 234]]
-R = []
-for troika in M:
-    x, y, z = troika
-    if len([p for p in (x, y, z) if len(str(p)) == 2]) == 2:
-        R.append(x + y + z)
-print(len(R), max(R))
+for x in M:
+    if x in 'aeui':
+        print(x, end=' ')  # a e 
+print()  
+
+
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
 '''
 
+# while: отвечает на запросы: "пока условие выполняется..", "бесконечный цикл"
 
-# Импортирование библиотек в Python
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
+
+# Функция для перевода в n-ую систему счисления
 '''
-import useful   # любая библиотека это просто .py файл
-print(useful.orel_or_reshka())
+num = 8
+base = 2
+res = ''
+while num > 0:
+    res += str(num % base)
+    num //= base
+res = res[::-1]
+print(res)
 '''
 
-# Как обращаться к библиотекам:
 '''
-import math
-print(math.sqrt(16))
-
-import math as m  # переименовываю библиотеку
-print(m.sqrt(16))
-
-from math import sqrt, prod, ceil, lcm  # импортирует только выбранные функции
-print(sqrt(16))
-
-from math import *  # импортирует сразу все функции
-print(sqrt(16))
+num = 8
+base = 2
+res = ''
+while num > 0:
+    res = str(num % base) + res
+    num //= base
+print(res)
 '''
-# Через сочетание клавиш ctrl + B можно посмотреть описание функции и содержимое библиотеки.
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+num = 8
+base = 2
+res = ''
+while num > 0:
+    res = alphabet[num % base] + res
+    num //= base
+print(res)
+'''
 
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+num = int(input('Введите 10-е число: '))
+base = int(input('Введите n-ю систему счисления: '))
+res = ''
+while num > 0:
+    res = alphabet[num % base] + res
+    num //= base
+print(res)
+'''
+
+
+# Бесконечный цикл
+'''
+k = 0
+while True:
+    k += 1
+    print(k)
+'''
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+while True:
+    case = int(input('case 1: Перевод из 10-й в base систему счисления \n'
+                     'case 2: Перевод из base системы счисления в 10-ю \n'
+                     'case 3: Перевод из base системы счисления в n-ю систему \n'
+                     'case 0: exit \n'))
+
+    if case == 1:
+        num = int(input('Введите 10-е число: '))
+        base = int(input('Введите base систему счисления: '))
+        res = ''
+        while num > 0:
+            res = alphabet[num % base] + res
+            num //= base
+        print(f'Результат перевода: {res} \n')
+
+    elif case == 2:
+        base = int(input('Введите base систему счисления: '))
+        res = input(f'Введите число в {base}-й системе счисления: ')
+        print(f'Результат перевода: {int(res, base)} \n')
+
+    elif case == 3:
+        pass
+
+    elif case == 0:
+        print('Конец программы.')
+        break
+'''
+
+from random import randint, choice
+import time
+
+list_of_variants = [
+    'Пароль неверный, повторите попытку: ',
+    'Неправильный пароль, пожалуйста, попробуйте еще раз: ',
+    'Пароль введен неверно, попробуйте еще раз: ',
+    'Не верный пароль, пожалуйста, повторите ввод: ',
+    'Введен неправильный пароль, попробуйте еще раз: '
+]
+
+
+def verify_captcha():
+    b = randint(0, 10)
+    c = choice(['+', '-', '//', '*'])
+    a = randint(b, 10+b)
+
+    x = int(input(f'Пройдите проверку на 🤖, решив задачу: {a} {c} {b} = '))
+    if c == '+' and x == a + b:
+        return 0
+    elif c == '-' and x == a - b:
+        return 0
+    elif c == '*' and x == a * b:
+        return 0
+    elif c == '//' and x == a // b:
+        return 0
+    else:
+        print('Вы не прошли проверку, попробуйте повторить попытку через 5 минут')
+        time.sleep(5 * 60)
+        return 0
+
+
+password = 'qwerty'
+pas = input('Введите ваш пароль: ')
+count = 0
+while True:
+    count += 1
+    if pas == password:
+        print('Welcome!')
+        break
+    if count == 3:
+        count = verify_captcha()
+    pas = input(choice(list_of_variants))
+
+print('Добро пожаловать в ваш личный кабинет..')
 
 # endregion Урок: *************************************************************
 # #
