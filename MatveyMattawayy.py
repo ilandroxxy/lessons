@@ -5,133 +5,129 @@
 # #
 # #
 # region Урок: ********************************************************************
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-R = []
-for x in alphabet[:13]:
-    a = int(f'537{x}623', 13) - int(f'6{x}35{x}2', 13)
-    if a % 3 == 0:
-        R.append(int(x, 13))
-print(max(R))
-'''
 
-'''
-for p in range(6, 36+1):
-    a = 7**500 - int('53', p)
-    if a % 6 == 0:
-        print(p)
-        break
-'''
 
+# Найти номер слова
+# № 17549 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(7, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            for z in alphabet[:p]:
-                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
-                    print(int(x+y+z, p))
+s = sorted('ФОКУС')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    num += 1
+                    if 'Ф' not in word and word.count('У') == 2:
+                        print(num, word)
 '''
 
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n-1)
-
-print((F(2024) - 4 * F(2023)) / F(2022))
+s = sorted('ПАРУС')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    num += 1
+                    if word.count('У') <= 1 and word.count('АА') == 0:
+                        print(num, word)
 '''
-# Ответ: 16362024
-
 
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n-1)
-
-print((F(2024) // 16 - F(2023)) / F(2022))
-'''
-#      print((F(2024) / 16 - F(2023)) / F(2022))
-#             ~~~~~~~~^~~~
-# OverflowError: integer division result too large for a float
-
-
-# № 16324 Открытый вариант 2024 (Уровень: Базовый)
-'''
-from ipaddress import *
-net = ip_network('122.159.136.144/255.255.255.248', 0)
+s = '01234567'
 cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 4 !=0 :
-        cnt += 1
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0' and a not in '1357':
+                        if e not in '26' and num.count('7') <= 2:
+                            cnt += 1
+print(cnt)
+'''
+'''
+s = '0123456'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            num = a + b + c + d + e + f + g
+                            if a != '0':
+                                chet = [x for x in num if x in '0246']
+                                if len(chet) == 2:
+                                    cnt += 1
 print(cnt)
 '''
 
-# № 12922 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+# № 12240 ЕГКР 16.12.23 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('136.36.240.16/255.255.255.248', 0)
+s = '012345678'
 cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if '101' not in b:
-        cnt += 1
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0' and num.count('5') == 1:
+                        if a != b and b != c and c != d and d != e:
+                            cnt += 1
 print(cnt)
 '''
 
 '''
-R = []
-for n in range(4, 10000):
-    s = '5' + '7' * n
-    while '57' in s or '877' in s or '777' in s:
-        if '57' in s:
-            s = s.replace('57', '7', 1)
-        if '877' in s:
-            s = s.replace('877', '75', 1)
-        if '777' in s:
-            s = s.replace('777', '8', 1)
-    summa = sum(map(int, s))
-    R.append(summa)
-    print(max(R))
+s = '0123456'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        num = a + b + c + d + e + f
+                        if a != '0' and int(f) >= 4:
+                            chet = [x for x in num if x in '0246']
+                            nechet = [x for x in num if x in '135']
+                            if len(chet) == len(nechet):
+                                cnt += 1
+print(cnt)
 '''
 
+# № 17550 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+cnt = 0
+for s in open('9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(not_copied) == 3:
+        if sum(copied) ** 2 > sum(not_copied) ** 2:
+            print(M, copied, not_copied)
+            cnt += 1
+print(cnt)
+'''
 
-# № 12930 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которые обозначены латинскими буквами:
-#     A. Прибавить 1
-#     B. Умножить на 2
-#     C. Возвести в квадрат
-# Сколько существует программ, для которых при исходном числе 2
-# результатом является число 40, при этом траектория вычислений
-# содержит число 10, не содержит числа 11 и не содержит числа 12?
+'''
+cnt = 0
+for s in open('9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    print(M)
+    if max(M) < (sum(M) - max(M)):
+        if len(set(M)) == 3:  # set([25, 30, 63, 25]) = {25, 30, 63}
+            cnt += 1
+print(cnt)
+'''
 
-def F(a, b):
-    if a > b or a == 11 or a == 12:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a*2, b) + F(a**2, b)
-
-print(F(2, 10) * F(10, 40))
-
-
-def F(a, b):
-    if a >= b or a == 11 or a == 12:
-        return a == b
-    return F(a+1, b) + F(a*2, b) + F(a**2, b)
-
-print(F(2, 10) * F(10, 40))
 
 # endregion Урок: *************************************************************
 # #
@@ -143,5 +139,5 @@ print(F(2, 10) * F(10, 40))
 # #
 # #
 # ФИПИ = [1+, 2+, 3, 4, 5*, 6, 7, 8*, 10+, 12*+, 14*, 16, 18, 19-21+]
-# КЕГЭ  = [5, 12, 13, 14, 15, 16, 23]
+# КЕГЭ  = [8, 9, 5, 12, 13, 14, 15, 16, 23]
 # на следующем уроке: 9, 11, 25
