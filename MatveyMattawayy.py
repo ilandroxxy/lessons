@@ -5,83 +5,69 @@
 # #
 # #
 # region Урок: ********************************************************************
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                print(x, y, z, w, int(F))
+'''
+# (x <= (y or (z and w)))
 
 '''
-import sys
-sys.setrecursionlimit(15000)
-def F(n):
-    if n > 10000:
-        return n - 10000
-    if 1 <= n <= 10000:
-        return F(n+1) + F(n+2)
-print (F(12345) *  1 + F(10101))
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y and (x == (not z))) <= w) and (z <= y)
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
+# V = pixels * i
+# вес картинки = кол-во пикселей * бит на один пиксель
 
+# colors = 2 ** i  (colors <= 2**i
+# Цветов = 2 ** бит на один пиксель
+
+
+# № 17548 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-def F(n):
-    if n <= 1:
-        return n
-    if n > 1 and n % 3 == 0:
-        return F(n - 1) + F(n - 2) + 1
-    if n > 1 and n % 3 != 0:
-        return G(n - 3)
+pixels = 1024 * 960
+colors = 2048
+i = 11  # бит на один пиксель
+V = pixels * i  # бит
 
-def G(n):
-    if n > 100:
-        return n
-    if n <= 100:
-        return G(n + 2) + 1
-
-
-print(F(15) + F(12))
+V_all = 96_468_992 * 280  # бит/с * c
+print(V_all / V)
 '''
-
-# s = '12345'
-# print(sum(map(int, s)))  # 15
+# 2497
 
 
-# КЕГЭ № 8585 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a - sum(map(int, str(a))), b) + F(a//2, b) + F(a-1, b)
-
-print(F(40, 25) * F(25, 10))
-'''
-
-'''
-from functools import *
-
-@lru_cache(None)
-def F(a, b):
-    if a > b or a == 100:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a + a % 10, b) + F(a + (a % 68), b) + F(a ** 2, b)
+# 1 бит - минимальная единица информации
+# 1 байт = 8 бит = 2**3 бит
+# 1 Кбайт = 1024 байт = 2**10 байт = 2**13 бит
+# 1 Мбайт = 1024 Кбайт = 2**20 байт = 2**23 бит
 
 
-print(F(2, 68) * F(68, 680))
-'''
+# 17605
+
+# bit = symbols * i
+
+alphabet = 10 + 2030
+i = 11  # i ** 2 >= alphabet
+
+byte = (67 * 2**10) / 318  # байт на один серийный номер
+print(byte)  # 215.7484
+byte = 216
+bit = byte * 8
+symbols = bit / i
+print(symbols)
 
 
-# № 17558 Основная волна 08.06.24 (Уровень: Базовый)
-
-M = [int(x) for x in open('17.txt')]
-D = [x for x in M if x % 32 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if x < 0 or y < 0:
-        if (x + y) < len(D):
-            R.append(x + y)
-print(len(R), max(R))
 
 # endregion Урок: *************************************************************
 # #
