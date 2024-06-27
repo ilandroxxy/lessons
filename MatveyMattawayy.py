@@ -6,67 +6,33 @@
 # #
 # region Урок: ********************************************************************
 '''
-print('x y z w F')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = ((y <= w) == (x <= (not z))) and (x or w)
-                print(x, y, z, w, int(F))
-'''
-# (x <= (y or (z and w)))
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((y and (x == (not z))) <= w) and (z <= y)
-                if F == 0:
-                    print(x, y, z, w)
+R = []
+for n in range(11, 1000):
+    s = f'{n:b}'
+    if n % 5 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 5) * 5
+        s = f'{x:b}' + s
+    r = int(s, 2)
+    if r > 512:
+        R.append(n)
+print(min(R))
 '''
 
-# V = pixels * i
-# вес картинки = кол-во пикселей * бит на один пиксель
 
-# colors = 2 ** i  (colors <= 2**i
-# Цветов = 2 ** бит на один пиксель
-
-
-# № 17548 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-pixels = 1024 * 960
-colors = 2048
-i = 11  # бит на один пиксель
-V = pixels * i  # бит
-
-V_all = 96_468_992 * 280  # бит/с * c
-print(V_all / V)
-'''
-# 2497
-
-
-# 1 бит - минимальная единица информации
-# 1 байт = 8 бит = 2**3 бит
-# 1 Кбайт = 1024 байт = 2**10 байт = 2**13 бит
-# 1 Мбайт = 1024 Кбайт = 2**20 байт = 2**23 бит
-
-
-# 17605
-
-# bit = symbols * i
-
-alphabet = 10 + 2030
-i = 11  # i ** 2 >= alphabet
-
-byte = (67 * 2**10) / 318  # байт на один серийный номер
-print(byte)  # 215.7484
-byte = 216
-bit = byte * 8
-symbols = bit / i
-print(symbols)
-
+R = []
+for x in range(1, 1000):
+    s = f'{x:b}'
+    if x % 3 == 0:
+        s = s + s[-3:]
+    else:
+        x = (x % 3) * 3
+        s = s + f'{x:b}'
+    r = int(s, 2)
+    if r > 151:
+        R.append(r)
+print(min(R))
 
 
 # endregion Урок: *************************************************************
