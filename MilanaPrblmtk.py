@@ -6,183 +6,130 @@
 # #
 # region Урок: ********************************************************************
 
-# Типы данных переменных:
+# Условные операторы (ветвление): if, elif, else
 '''
-a = 5  # int (integer) - целочисленные значения
-print(a, type(a))  # 5 <class 'int'>
-print(type(4+5))  # <class 'int'>
-
-b = 5.0  # float (число с плавающей точкой)
-print(type(4+2.0))  # 6.0 <class 'float'>
-print(4 / 2)  # 2.0
-
-
-c = '5'  # str (string) - строчный тип данных, хранит в себе символы, буквы и тд
-print(a * 4, c * 4)  # 20 5555
-print('hello ' * 4)  # hello hello hello hello - строка при умножении на целое число будет дублироваться
-print('Hello, ' + 'world!')  # Hello, world! - конкатенация строк (склеивание)
-
-d0 = False  # bool (Boolean) - Булева алгебра (Математическая логика)
-d1 = True
+n = int(input('n: '))
+if n % 2 == 0:  # if - если
+    print('Четное')
+else:  # else - иначе
+    print('Нечетное')
 '''
 
 
-# Типы данных коллекций (последовательностей)
+# x, y = int(input('x: ')), int(input('y: '))
 '''
-A = [1, 2, 3]  # list (список)
-# 1. Хранит в себе неограниченное кол-во элементов, разных типов данных
-# 2. У каждого элемента есть порядковы номер (индекс), который начинается с 0
-# 3. Через индексы элементов можно брать значения элементов или изменять их
-print(A[0])  # 1
-A[0] = 100
-print(A)  # [100, 2, 3]
+x, y = -7, 2
 
-B = (1, 2, 3)  # tuple (кортеж)
-# 1. Полностью идентичны спискам, но нельзя изменять элементы кортежа
-
-C = {1, 2, 3, 3, 3}  # set (множество)
-print(C)  # {1, 2, 3}
-# 2. Нельзя хранить два одинаковых элемента, то есть копии удаляются
-
-D = {'один': 'one', 'два': 'two'}  # dict (словарь)
-print(D['один'])  # one
-# 1. Элементы словаря разбиваются на две части: ключ и значение
-# 2. Доступ к значению элемента словаря предоставляется через его ключ (индивидуальный)
-D['один'] = 1
-print(D)  # {'один': 1, 'два': 'two'}
-
-for key, value in D.items():
-    print(key, value)
-    # один 1
-    # два two
+if x > 0 and y > 0:  # if - если
+    print('Первая четверть')
+elif x < 0 and y > 0:
+    print('Вторая четверть')
+elif x < 0 and y < 0:  # elif - иначе если
+    print('Третья четверть')
+elif x > 0 and y < 0:
+    print('Четвертая четверть')
+else:  # else - иначе
+    print('Лежит на осях')
+print('Конец')
 '''
 
+
+# Каскадные (вложенные) условные операторы
 '''
-M = [1, 2.0, '2', True, [1, 2, 3], (1, 2, 3), {1, 2, 3, 3, 3}, {'один': 'one', 'два': 'two'}]
-for x in M:
-    print(x, type(x))
-    # 1 <class 'int'>
-    # 2.0 <class 'float'>
-    # 2 <class 'str'>
-    # True <class 'bool'>
-    # [1, 2, 3] <class 'list'>
-    # (1, 2, 3) <class 'tuple'>
-    # {1, 2, 3} <class 'set'>
-    # {'один': 'one', 'два': 'two'} <class 'dict'>
+x, y = int(input('x: ')), int(input('y: '))
+
+if x > 0:
+    if y > 0:  # x > 0, y > 0
+        print('Первая четверть')
+    else:  # x > 0, y <= 0
+        print('Четвертая четверть')
+else:
+    if y > 0:  # x <= 0, y > 0
+        print('Вторая четверть')
+    else:  # x <= 0, y <= 0
+        print('Третья четверть')
 '''
 
-# Конвертирование типов данных
+
+# Логические связки: and, or, not, ^, ==, !=
 '''
-a = 5
-print(a, type(a))  # 5 <class 'int'>
+# a = 7
+# b = 2
+a, b = 7, -5
 
-a = str(a)
-print(a, type(a))  # 5 <class 'str'>
-# ValueError: invalid literal for int() with base 10: '5.0'
+if a > 0 and b > 0:  # and - гарантирует, что оба (все) условия выполняются
+    print('YES 1')
+if a > 0 or b > 0:  # or - говорит о том, что хотя бы одно условие выполняется.
+    print('YES 2')
+if (a > 0) ^ (b > 0):  # ^, != - гарантируют, что только одно условие выполняется
+    print('YES 3')
+if (a > 0) != (b > 0):
+    print('YES 4')
 
-a = float(a)
-print(a, type(a))  # 5.0 <class 'float'>
+print(a > 0)   # True
+print(b > 0)   # False
+print(a > b)   # True
+print(a == b)  # False
+print(a != b)  # True
+# = - присваивание (в переменную кладем значение)
+# == - сравнение (когда мы сравниваем две переменные)
 
-a = int(a)
-print(a, type(a))  # 5 <class 'int'>
+# Проверьте, что только два элемента положительные
+a, b, c = 5, 6, -6
+if (a > 0) + (b > 0) + (c > 0) == 2:
+    print('Только два элемента положительные')
+if (a > 0) + (b > 0) + (c > 0) == 1:
+    print('Только один элемент положительный')
 
+print(True + False + True)  # 2
 
-A = [1, 2, 3, 2, 3]
-print(A, type(A))  # [1, 2, 3, 2, 3] <class 'list'>
-
-A = tuple(A)
-print(A, type(A))  # (1, 2, 3, 2, 3) <class 'tuple'>
-
-A = set(A)
-print(A, type(A))  # {1, 2, 3} <class 'set'>
-
-A = list(A)
-print(A, type(A))  # [1, 2, 3] <class 'list'>
+# not - инверсия
+flag = True
+print(not flag)  # False
+print(not(not flag))  # True
 '''
+
 
 '''
 M = []
-n = int(input('Введите длину списка: '))
-for i in range(n):
-    x = int(input(f'{i+1}: '))
-    M.append(x)
-print(M)
-'''
-# [1, 2, 3, 4, 56, 6]
-
-'''
-M = [int(x) for x in input('Введите числа через пробел: ').split() if x.isdigit()]
-print(M)
+M.append(2)
+print(help(M.append))
+# append(object, /) method of builtins.list instance
+#     Append object to the end of the list.
 '''
 
-# Ввод данных с клавиатуры:
+# Способы взаимодействия с библиотеками:
 '''
-s = input('Введите строку: ')
-x = int(input('Введите число: '))
-print(s * 4, x * 4)  # 55555555 220
+import useful  # Просто импортируем библиотеку
+print(useful.orel_or_reshka())
+print(useful.ALPHABET)
+
+
+import useful as u  # Переименовали библиотеку в более короткую форму
+print(u.orel_or_reshka())
+print(u.ALPHABET)
+
+
+from useful import orel_or_reshka, ALPHABET, who_is_name  # Импортируем конкретные функции и константы
+print(orel_or_reshka())
+print(ALPHABET)
+
+
+# Не рекомендуется*
+from useful import *  # Импортируем сразу все содержимое
+print(orel_or_reshka())
+print(ALPHABET)
+print(who_is_name())
+
+# Сочетание клавиш ctrl + B - ведет к описанию функции (или библиотеки)
+print(who_is_name.__doc__)
+print(my_convert.__doc__)
+print(help(my_convert))
+# Универсальная функция для перевода в системы счисления от 2-ой до 36-ой
+#     :param number: Переводимое 10-ное число
+#     :param system: Система счисления в которую будем переводить
+#     :return: Результат вернем в виде строки
 '''
-
-# f-строка:
-'''
-weather = input('Введите погоду: ')
-temperature = int(input('Введите температуру: '))
-# Сегодня облачно, а температура 24 градуса!
-print('Сегодня ', weather, ', а температура ', temperature, ' градуса!')
-print('Сегодня ' + weather + ', а температура ' + str(temperature) + ' градуса!')
-print('Сегодня {}, а температура {} градуса!'.format(weather, temperature))
-print(f'Сегодня {weather}, а температура {temperature} градуса!')
-# TypeError: can only concatenate str (not "int") to str
-'''
-
-# - это однострочный комментарий
-
-'''
- - многострочный комментарий (ЗАКОММЕНТИРОВАТЬ БЛОК ПРОГРАММЫ) 
-"""
-print("Война и мир")
-"""
-'''
-
-# region Это тестовый region для урока
-'''
-print('Сегодня я читал "Войну и мир"!')
-'''
-# endregion
-
-# Базовая арифметика
-
-a = 7
-b = 2
-a, b = 7, 2
-
-print(f'{a} + {b} = {a+b} \n'
-      f'{a} - {b} = {a-b} \n'
-      f'{a} * {b} = {a*b}')
-
-print()  # В каждой функции print() есть переход на новую строку '/n'
-
-print(f'{a} + {b} = {a+b}')
-print(f'{a} - {b} = {a-b}')
-print(f'{a} * {b} = {a*b}')
-
-print()
-
-print(f'{a} / {b} = {a/b} \n'  # 3.5 - обычное вещественное деление 
-      f'{a} // {b} = {a//b} \n'  # 3 - взятие только лишь целой части от деления
-      f'{a} % {b} = {a%b}')  # 1 - взятие остатка от деления
-
-print(123 % 10)  # 3
-print(123 % 100)  # 23
-print(6 % 2 == 0)
-
-print()
-
-print(f'Вовзведем число {a} в степень {b}: {a**b}')
-# Вовзведем число 7 в степень 2: 49
-print(f'Возьмем квадратный корень от числа 16: {16 ** 0.5}')
-# Возьмем квадратный корень от числа 16: 4.0
-print(f'Возьмем кубический корень от числа 27: {27 ** (1/3)}')
-# Возьмем кубический корень от числа 27: 3.0
 
 # endregion Урок: *************************************************************
 # #
