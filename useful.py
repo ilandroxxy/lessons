@@ -36,6 +36,21 @@ def my_convert(number: int, system: int) -> str:
     return result[::-1]
 
 
+def divisors(num: int) -> list:
+    '''
+    Функция поиска делителей числа num
+    :param num: Принимает целое (int) число.
+    :return: Возвращает список делителей от 1 до числа num
+    '''
+    res = []
+    for j in range(1, int(num**0.5) + 1):
+        if num % j == 0:
+            res += [j, num // j]
+            # res.append(j)
+            # res.append(num // j)
+    return sorted(set(res))
+
+
 def orel_or_reshka():
     results = ['Орел 🪙', 'Решка 🪙']
     return random.choice(results)
