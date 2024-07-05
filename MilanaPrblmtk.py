@@ -1,135 +1,161 @@
 # region Домашка: ******************************************************************
 
+'''
+A = input()
+print(A)
+a = int(A[0])
+b = int(A[1])
+c = int(A[2])
+d = int(A[3])
+e = int(A[4])
+if (a*c) == (b+d+e):
+    print('Да')
+else:
+    print('Нет')
+'''
+
+
+'''
+print(83241 // 100)  # 832
+print(83241 % 100)  # 41
+
+# Число n оканчивается на 9
+n = int(input('n: '))  # 129
+print(n % 10 == 9)  # True
+print(-n % 10 == 9)  # False
+print(-129 % 10)  # 1
+print(abs(-129) % 10)  # 9 – abs() - взятие модуля от числа 
+'''
+
+'''
+x = int(input())  # 83241
+a = x // 10000
+b = (x // 1000) % 10
+c = (x // 100) % 10
+d = (x % 100) // 10
+e = x % 10
+if (a*c) == (b+d+e):
+    print('Да')
+else:
+    print('Нет')
+'''
+
+# print(sum([int(x) for x in input('Введите три числа: ').split() if (int(x) % 7 == 0 and int(x) % 49 != 0) or (int(x) % 40 == 0)]))
+# Метод .split() – разбивает строку на список строк (в данном случае по пробелам)
+
+'''
+a = int(input())
+b = int(input())
+if max(a, b) % min(a, b) == 0:
+    print('Делится')
+else:
+    print('Не делится')
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы (ветвление): if, elif, else
+# Циклы - это просто повторяющееся действие
+
+# for - отвечает на вопрос: "повтори n раз", "пробеги от a до b"
 '''
-n = int(input('n: '))
-if n % 2 == 0:  # if - если
-    print('Четное')
-else:  # else - иначе
-    print('Нечетное')
-'''
+# Работа с циклом for через функцию range()
+
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
 
-# x, y = int(input('x: ')), int(input('y: '))
-'''
-x, y = -7, 2
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:  # elif - иначе если
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Лежит на осях')
-print('Конец')
-'''
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 – пробежали все четные (или кратные 2) элементы
+print()
 
 
-# Каскадные (вложенные) условные операторы
-'''
-x, y = int(input('x: ')), int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
+for i in range(1, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 1 3 5 7 9  – пробежали все нечетные (или некратные 2) элементы
+print()
 
 
-# Логические связки: and, or, not, ^, ==, !=
-'''
-# a = 7
-# b = 2
-a, b = 7, -5
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-if a > 0 and b > 0:  # and - гарантирует, что оба (все) условия выполняются
-    print('YES 1')
-if a > 0 or b > 0:  # or - говорит о том, что хотя бы одно условие выполняется.
-    print('YES 2')
-if (a > 0) ^ (b > 0):  # ^, != - гарантируют, что только одно условие выполняется
-    print('YES 3')
-if (a > 0) != (b > 0):
-    print('YES 4')
+for i in range(10, 0):
+    print(i, end=' ')  # пусто
+print()
 
-print(a > 0)   # True
-print(b > 0)   # False
-print(a > b)   # True
-print(a == b)  # False
-print(a != b)  # True
-# = - присваивание (в переменную кладем значение)
-# == - сравнение (когда мы сравниваем две переменные)
+for i in range(10, 0, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
 
-# Проверьте, что только два элемента положительные
-a, b, c = 5, 6, -6
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два элемента положительные')
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Только один элемент положительный')
 
-print(True + False + True)  # 2
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+print(len(M))  # 5 - Функция len() возвращает длину последовательности
 
-# not - инверсия
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i]  # ['a', 'b', 'c', 'd', 'e']
+print(M)
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i  # ['', 'b', 'cc', 'ddd', 'eeee']
+print(M)
+
+# Работа с циклом for напрямую через последовательности
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
 '''
 
-
+# while - отвечает на вопрос: "выполняется пока условие истинно", "бесконечные циклы"
 '''
-M = []
-M.append(2)
-print(help(M.append))
-# append(object, /) method of builtins.list instance
-#     Append object to the end of the list.
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
 '''
 
-# Способы взаимодействия с библиотеками:
-'''
-import useful  # Просто импортируем библиотеку
-print(useful.orel_or_reshka())
-print(useful.ALPHABET)
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+n = int(input('Введите 10-е число: '))  # 123456789
+b = int(input('Введите base систему счисления: '))  # 16
+r = ''
+while n > 0:
+    r += alphabet[n % b]
+    n //= b
+r = r[::-1]
+print(r)  # 75BCD15
 
 
-import useful as u  # Переименовали библиотеку в более короткую форму
-print(u.orel_or_reshka())
-print(u.ALPHABET)
 
 
-from useful import orel_or_reshka, ALPHABET, who_is_name  # Импортируем конкретные функции и константы
-print(orel_or_reshka())
-print(ALPHABET)
-
-
-# Не рекомендуется*
-from useful import *  # Импортируем сразу все содержимое
-print(orel_or_reshka())
-print(ALPHABET)
-print(who_is_name())
-
-# Сочетание клавиш ctrl + B - ведет к описанию функции (или библиотеки)
-print(who_is_name.__doc__)
-print(my_convert.__doc__)
-print(help(my_convert))
-# Универсальная функция для перевода в системы счисления от 2-ой до 36-ой
-#     :param number: Переводимое 10-ное число
-#     :param system: Система счисления в которую будем переводить
-#     :return: Результат вернем в виде строки
-'''
 
 # endregion Урок: *************************************************************
 # #
