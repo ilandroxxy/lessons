@@ -6,163 +6,241 @@
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы (ветвление): if, elif, else
+# Циклы в python (цикл - повторяющееся событие)
 
+# for: Отвечает на запросы: "повтори n раз", "пробеги от a до b"
+
+# Работа с циклом for через функцию range()
 '''
-x = int(input('x: '))
-if x % 2 == 0:
-    print('Четное')
-else:
-    print('Нечетное')
-'''
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-'''
-x = -6
-y = 7
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:  # elif - иначе если 
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Лежит на осях')
-print('КОНЕЦ')
-'''
-
-# Каскадные условия:
-'''
-x = -6
-y = 7
-
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 - все четные числа (кратные 2)
+print()
 
 
-# Логические связки: not, and, or, ^, ==, !=, =
-'''
-# = - присваивание, когда нужно положить данные в переменную
-# == - сравнение, когда спрашиваем "равны ли"
-# != - сравнение, когда спрашиваем "не равны ли"
+for i in range(1, 10, 2):  # range(START=1, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 1 3 5 7 9 - все нечетные числа
+print()
 
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
 
-a, b, c = 7, 8, -8
-if a > 0 and b > 0:  # and - гарантирует, что оба (все) условия выполняются (истинны)
-    print('YES 1')
-if a > 0 or b > 0:  # or - хотя бы одно, то есть первое или второе или оба
-    print('YES 2')
-if (a > 0) ^ (b > 0):  # ^, != - гарантирует, что только одно из условий истинно
-    print('YES 3')
-if (a > 0) != (b > 0):
-    print('YES 4')
-if (a > 0) + (b > 0) + (c > 0) == 1:  # только одно из трех должно выполняться
-    print('YES 5')
-if (a > 0) + (b > 0) + (c > 0) == 2:  # только два из трех должно выполняться
-    print('YES 6')
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+
+for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
+    print(i, end=' ')  #
+print()
+
+
+for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  # 5  len() - возвращает длину последовательности (кол-во элементов).
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i]
+print(M)  # ['a', 'b', 'c', 'd', 'e']
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
 '''
 
-
-# Подключение и использование библиотек в Пайтон:
+# Работа с циклом for напрямую через итерируемый (последовательность) объект
 '''
-import useful
-print(useful.orel_or_reshka())
-# print(useful.)
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
 
-import useful as u  # переименовал библиотеку в отдельную короткую переменную
-print(u.who_is_name())
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
 
-from useful import orel_or_reshka, who_is_name, ALPHABET  # мы импортируем конкретные методы/константы
-print(ALPHABET)
 
-from useful import *  # импортируем из библиотеки сразу все содержимое
-print(ALPHABET)
-print(who_is_name())
-'''
-# Сочетание клавиш ctrl (cmd) + B
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
 
-'''
-import turtle as t
 
-t.tracer(0)
-
-t.fd(10)  # t.bk(10)
-t.rt(90)  # t.lt(90)
-
-t.up()
-t.down()
-
-x, y = 0, 0
-t.goto(x, y)
-t.dot(2, 'red')
-
-t.done()
+M = [int(x) for x in open('17.txt')]
+chet = [x for x in M if x % 2 == 0]
+otric = [x for x in M if x < 0]
+copied = [x for x in M if M.count(x) > 1]
+not_copied = [x for x in M if M.count(x) == 1]
+print(not_copied)
 '''
 
-from itertools import product
-from itertools import permutations
 
-combinations = list(product([1, 2, 3], repeat=2))
-for combination in combinations:
-    print(combination)
+# while: Отвечает на запросы: "повторяй пока условие истинно", "бесконечный цикл"
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-perms = list(permutations("abc"))
-for perm in perms:
-    print(''.join(perm))
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
+'''
+
+# Неконтролируемый бесконечный цикл
+'''
+i = 0
+while i < 10:
+    print(i)
+'''
+
+# Перевод в base систему счисления
+'''
+x = 8
+base = 2
+M = []
+while x > 0:
+    M.append(x % base)  # .append() - добавляет новый элемент в конец списка
+    x //= base
+M.reverse()
+print(M)  # [1, 0, 0, 0]
+'''
+
+'''
+x = int(input('Введите число в 10-й системе: '))
+base = int(input('Введите систему счисления base: '))
+r = ''
+while x > 0:
+    r += str(x % base)
+    x //= base
+r = r[::-1]
+print(r)  # 1000
+'''
+
+# Универсальное решение:
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+x = int(input('Введите число в 10-й системе: '))  # 567894325345
+base = int(input('Введите систему счисления base: '))  # 25
+r = ''
+while x > 0:
+    r += alphabet[x % base]
+    x //= base
+r = r[::-1]
+print(r)  # 3I129BKDK
+'''
 
 
-from ipaddress import *
+# Бесконечные циклы while:
 
-# net = ip_network('адрес узла/маска', 0)
-# print(net, net.netmask, net.num_addresses)
+# Операторы break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # Прерывает итерацию (шаг) цикла 
+    if k == 100000:
+        break  # Прерывает цикл (тот в котором он лежит)
+        exit()  # Прерывает всю программу
+    print(k)
+
+print('Hello')
+'''
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+while True:
+    case = int(input('\ncase 1: Перевод из 10-й в base систему счисления \n'
+                     'case 2: Перевод из base в 10-ю систему счисления \n'
+                     'case 3: Перевод из base в n-ю систему счисления \n'
+                     'case 0: exit \n'))
+
+    if case == 1:
+        x = int(input('Введите число в 10-й системе: '))
+        base = int(input('Введите систему счисления base: '))
+        r = ''
+        while x > 0:
+            r += alphabet[x % base]
+            x //= base
+        r = r[::-1]
+        print(f'Результат перевода: {r}')
+
+    elif case == 2:
+        base = int(input('Введите систему счисления base: '))
+        r = input(f'Введите число в {base}-й системе счисления: ')
+        print(f'Результат перевода: {int(r, base)}')
+
+    elif case == 3:
+        pass
+
+    elif case == 0:
+        exit()
+
+    else:
+        print('Команда введена ошибочно, повторите попытку снов. \n\n')
+'''
 
 
-import sys
-
-sys.setrecursionlimit(10000)
-
-
-from functools import *
+'''
+from random import randint, choice
+from time import sleep
 
 
-# @lru_cache(None)
-# def F(n):
+errors = [
+    "Пароль неверный, пожалуйста, попробуйте снова: ",
+    "Неправильный пароль, повторите ввод: ",
+    "Пароль не совпадает, попробуйте еще раз: ",
+    "Неверный ввод пароля, повторите попытку: ",
+    "Попробуйте еще раз, этот пароль неверен: ",
+    "Пароль некорректный, повторите попытку: ",
+    "Повторите ввод пароля, он неверный: ",
+    "Пароль не распознан, введите снова: ",
+    "Ошибка в пароле, повторите пожалуйста: ",
+    "Неверный пароль, введите еще раз: "
+]
 
 
+password = 'qwerty'
+pas = input('Введите пароль от своего аккаунта: ')
+cnt = 0
+while True:
+    if pas == password:
+        print('Welcome!')
+        break
+    cnt += 1
+    if cnt == 3:
+        a = randint(0, 100)
+        b = randint(0, 100)
+        print('Слишком много попыток.')
+        x = int(input(f'Пройдите проверку на робота, решив пример: {a} + {b} = '))
+        if x == a + b:
+            cnt = 0
+            print('Проверка успешно пройдена!')
+        else:
+            print('Проверка не пройдена, повторите попытку через 5 минут.')
+            sleep(5 * 60)
 
-from fnmatch import fnmatch
+    pas = input(choice(errors))
 
-if fnmatch('123', '*?3'):
-    pass
-
-
-import string
-
-alphabet = string.ascii_uppercase
-print(alphabet)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-print(string.punctuation)
-# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-
-import math as m
-
-print(m.sqrt(16))
-print(m.ceil(7 / 2))
-
+print('Вы попали в личный кабинет.')
+'''
 
 # endregion Урок: *************************************************************
 # #
