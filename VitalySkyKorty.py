@@ -1,4 +1,11 @@
 # region Домашка: ************************************************************
+'''
+a = int(input())
+if a % 2 == 0:
+    print("Чётное")
+else:
+    print("Нечётное")
+'''
 
 
 # endregion Домашка: *********************************************************
@@ -6,108 +13,30 @@
 # #
 # region Урок: ************************************************************
 
-# Условные операторы (ветвление): if, elif, else
-
 '''
-n = int(input('n: '))
-if n % 2 == 0:
-    print('Четное')
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+
+prodd = 1
+if a > 0:
+    prodd *= a
+if b > 0:
+'''
+'''
+a = int(input())
+if a % 13 == 0 or (a % 5 == 0 and 100 <= a <= 999):
+    print('Да')
 else:
-    print('Нечетное')
+    print('Нет')
 '''
 
 
-'''
-# x = int(input('x: '))
-# y = int(input('y: '))
-x, y = 7, 2
-
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:  # elif - иначе если 
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Лежит на осях')
-print('КОНЕЦ')
-'''
-
-
-# Каскадные (вложенные) условные операторы:
-'''
-x, y = 7, 2
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
-
-
-# Логические связки: not, and, or, ^, ==, !=
-'''
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
-'''
-
-'''
-# = - присваивание, когда в переменную кладем новое значение
-# == - сравнение "равны ли переменные"
-# != - сравнение "не равны ли переменные"
-print(4 == 4)  # True
-print(4 != 4)  # False
-'''
-
-'''
-a, b = 7, -5
-if a > 0 and b > 0:  # and - гарантирует, что оба (все) условия выполняются
-    print('YES 1')
-if a > 0 or b > 0:  # or - говорит о том, что хотя бы одно условие выполняется
-    print('YES 2')
-if (a > 0) ^ (b > 0):  # ^, != - гарантируют, что только одно условие выполняется
-    print('YES 3')
-if (a > 0) != (b > 0):
-    print('YES 4')
-
-print(a > b)  # True
-print(True + True + False)  # 2
-
-a, b, c = 7, 5, -4
-# Только два условия выполняются
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два условия выполняются')
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Только одно условие выполняется')
-'''
-
-
-# Способы взаимодействия с библиотеками:
-'''
-import useful
-print(useful.divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(useful.ALPHABET)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-import useful as u  # Сократили имя библиотеки (дали ей новое имя)
-print(u.divisors(24))
-print(u.ALPHABET)
-
-from useful import divisors, ALPHABET, orel_or_reshka
-print(divisors(24))
-print(ALPHABET)
-
-from useful import *
-print(divisors(24))
-print(ALPHABET)
-'''
+a = int(input())
+summa = 0
+if a % 160 == 0 or (a % 5 == 0 and a % 20 != 0):
+    summa += a
 
 # endregion Урок: ************************************************************
 # #
