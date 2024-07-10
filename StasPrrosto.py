@@ -6,220 +6,157 @@
 # #
 # region Урок: ********************************************************************
 
+# Тип 14 №15632
 '''
-import random
-M = [random.randint(10, 100) for _ in range(10)]
-print(M)
+print(bin(4**14+2**32-4)[2:].count('1'))
 
-chet = [x for x in M if x % 2 == 0]
-print(chet)
+print(f'{4**14 + 2**32 - 4:b}'.count('1'))
 
-M = [int(x) for x in open('17.txt')]
-# Найдите все четырехзначные, оканчивающиеся на 36
-D = [x for x in M if abs(x) % 100 == 36 and len(str(abs(x))) == 4]  #
-print(D)
+x = 4**14 + 2**32 - 4
+s = ''
+while x > 0:
+    s += str(x % 2)
+    x //= 2
+s = s[::-1]
+print(s.count("1"))
+
+x = 4**14 + 2**32 - 4
+L = []
+while x > 0:
+    L.append(x % 2)
+    x //= 2
+L.reverse()
+print(L.count(1))
+'''
+# Ответ: 27
+
+
+# Определите в 25-ричной записи числа количество цифр 0
+'''
+x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
+base = 25
+s = ''
+while x > 0:
+    s += str(x % base)
+    x //= base
+s = s[::-1]
+print(s.count("0"))
+print(s[:10])
+
+x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
+base = 25
+L = []
+while x > 0:
+    L.append(x % base)
+    x //= base
+L.reverse()
+print(L.count(0))
+print(L[:10])
+'''
+
+# # № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
+# Определите в 25-ричной записи числа количество цифр с числовым значением, превышающим 10:
+'''
+x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
+base = 25
+L = []
+while x > 0:
+    L.append(x % base)
+    x //= base
+L.reverse()
+
+# cnt = 0
+# for elem in L:
+#     if elem > 10:
+#         cnt += 1
+# print(cnt)
+
+print(len([elem for elem in L if elem > 10]))
 '''
 
 
-# Взятие суммы цифр строки
+# Тип 14 №33186
 '''
-s = '2013120912'
-# s.count('1') + s.count('2') * 2 + s.count('3') * 3 + ...
-summa1 = sum([int(x) for x in s])
-print(list(map(int, s)))  # [2, 0, 1, 3, 1, 2, 0, 9, 1, 2]
-summa2 = sum(map(int, s))
+x = 343**5 -7**9 + 48
+base = 7
+L = []
+while x > 0:
+    L.append(x % base)
+    x //= base
+L.reverse()
+print(L.count(6))
 '''
 
-
-# № 17624 Основная волна 19.06.24 (Уровень: Базовый)
-# Укажите минимальное число R, которое превышает число 75
-# и может являться результатом работы данного алгоритма.
+# № 17527 Основная волна 07.06.24 (Уровень: Базовый)
 '''
 R = []
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    s = s + str(s.count('1') % 2)
-    s = s + str(s.count('1') % 2)
-    r = int(s, 2)
-    if r > 75:
-        R.append(r)
-print(min(R))
-'''
-
-
-# № 17546 Основная волна 08.06.24 (Уровень: Базовый)
-# Укажите максимальное число R, которое может быть результатом
-# данного алгоритма, при условии, что N не больше 12.
-'''
-R = []
-for n in range(1, 12+1):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 2 == 0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)
-    R.append(r)
+for x in range(2030+1):
+    n = 3**100 - x
+    base = 3
+    L = []
+    while n > 0:
+        L.append(n % base)
+        n //= base
+    L.reverse()
+    if L.count(0) == 5:
+        R.append(x)
 print(max(R))
 '''
 
 
-# № 17518 Основная волна 07.06.24 (Уровень: Базовый)
-# Укажите минимальное число N, после обработки которого с
-# помощью этого алгоритма получается число R, большее 50.
+# № 17633 Основная волна 19.06.24 (Уровень: Базовый)
 '''
-R = []
-for n in range(1, 10000+1):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    if r > 50:
-        R.append(n)
-print(min(R))
-
-# Вариант 2
-
-
-def convert(n, b):  # n - number, b - base
-    r = ''
+for x in range(2030+1):
+    n = 6**260 + 6**160 + 6**60 - x
+    base = 6
+    L = []
     while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
+        L.append(n % base)
+        n //= base
+    L.reverse()
+    if L.count(0) == 202:
+        print(x)
+        break
+'''
+# Ответ: 216
 
 
-def convert(n, b):  # n - number, b - base
-    """
-    Функция перевода работает в системах счисления от 2 до 9
-    """
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):  # n - number, b - base
-    """
-    Функция перевода работает в системах счисления от 2 до 36
-    """
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
-
-
-R = []
-for n in range(1, 10000+1):
-    s = convert(n, 2)  # f'{n:b}'  # s = bin(n)[2:]
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    if r > 50:
-        R.append(n)
-print(min(R))
+# Тип 14 №55810
+'''
+alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:15]:
+    A = int(f'97968{x}13', 15)
+    B = int(f'7{x}213', 15)
+    if (A + B) % 14 == 0:
+        print((A + B) // 14)
 '''
 
-
-# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
-# Укажите минимальное число R, не меньшее,
-# чем 195, которое может быть получено в результате работы алгоритма.
+# Тип 14 №48392
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+from string import *
+alphabet = digits + ascii_uppercase
+print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-R = []
-for n in range(1, 10000):
-    s = convert(n, 2)
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        x = (n % 3) * 3
-        s = s + convert(x, 2)
-    r = int(s, 2)
-    if r >= 195:
-        R.append(r)
-print(min(R))
+alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:9]:
+    for y in alphabet[:9]:
+        A = int(f'2{y}66{x}', 9)
+        B = int(f'{x}0{y}1', 12)
+        if (A + B) % 170 == 0:
+            print((A + B) // 170)
 '''
 
+# Тип 14 №64899
+alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+for p in range(9, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            for z in alphabet[:p]:
+                for w in alphabet[:p]:
+                    if int(z+x+y+x+'4', p) + int(f'{x}{y}658', p) == int(f'{w}{z}{x}73', p):
+                        print(int(x+y+z+w, p))
 
-# 9828 Основная волна 27.06.23 (Уровень: Средний)
-# Укажите максимальное число N, после обработки
-# которого с помощью этого алгоритма получается число R, меньшее 199.
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-
-R = []
-for n in range(1, 10000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r < 199:
-        R.append(n)
-print(max(R))
-'''
-
-
-#
-# № 564 (Уровень: Средний)
-# Автомат обрабатывает натуральное число N < 128 по следующему алгоритму:
-# 1. Строится восьмибитная двоичная запись числа N.
-# 2. Инвертируются разряды исходного числа (0 заменяется на 1, 1 на 0).
-# 3. К полученному двоичному числу прибавляют единицу.
-# 4. Полученное число переводится в десятичную систему счисления.
-# Для какого числа N результат работы алгоритма равен 153?
-'''
-for n in range(1, 128):
-    s = f'{n:b}'.zfill(8)
-    # new_s = ''
-    # for x in s:
-    #     if x == '0':
-    #         new_s += '1'
-    #     else:
-    #         new_s += '0'
-    s = s.replace('0', '*').replace('1', '0').replace('*', '1')
-    r = int(s, 2)
-    r += 1  # "прибавляют единицу" - по мнению автора слово "прибавляется" означает работу с десятичной системой
-    if r == 153:
-        print(n)
-
-
-for n in range(1, 128):
-    s = f'{n:b}'.zfill(8)
-    # new_s = ''
-    # for x in s:
-    #     if x == '0':
-    #         new_s += '1'
-    #     else:
-    #         new_s += '0'
-    s = s.replace('0', '*').replace('1', '0').replace('*', '1')
-    r = int(s, 2)
-    r += 1  # "прибавляют единицу" - по мнению автора слово "прибавляется" означает работу с десятичной системой
-    if r == 221:
-        print(n)
-'''
-
+print(f'{7*512**120-6*64**100+8**210-255:o}'.count('0'))
 
 # endregion Урок: *************************************************************
 # #
@@ -230,6 +167,6 @@ for n in range(1, 128):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6]
+# ФИПИ = [2, 5, 6, 14]
 # КЕГЭ  = []
 # на следующем уроке:
