@@ -1,14 +1,11 @@
 # region Домашка: ******************************************************************
 
-# Произведение и сумма цифр пятизначного числа
 '''
-n = int(input())  # 74382
-a = n // 10000
-b = (n // 1000) % 10
-c = 0
-d = 0
-e = n % 10
-print(a, b, c, d, e)
+a, b, c = int(input()), int(input()), int(input())
+if (a == b) or (b == c) or (a == c):
+    print('Это равнобедренный треугольник')
+elif a == b == c:
+    print('Это равносторонний треугольник')
 '''
 
 # endregion Домашка: ******************************************************************
@@ -16,138 +13,198 @@ print(a, b, c, d, e)
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы (ветвление): if, elif, else
+# Цикл - это некоторое повторяющееся действие.
+
+# Цикл for отвечает на запросы: "Повтори n раз", "
+
+# Работа цикла for с функцией range()
 '''
-n = int(input('n: '))
-if n % 2 == 0:
-    print('Четное')
-else:
-    print('Нечетное')
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
+
+
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 - числа кратные 2
+print()
+
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10 - числа кратные 2
+print()
+
+
+for i in range(1, 10, 2):  # range(START=1, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 1 3 5 7 9 - числа некратные 2
+print()
+
+
+for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
+    print(i, end=' ')  # 2 4 6 8 - числа кратные 2
+print()
+
+for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1 - диапазон в обратном порядке
+print()
+'''
+
+'''
+for i in range(6518, 10**10, 6518):  
+    print(i, end=' ')  # 2 4 6 8 - числа кратные 6518
+print()
+'''
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+'''
+print(len(M))  # 5 - len() возвращает длину списка M (кол-во элементов в списке).
+
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+for i in range(len(M)):
+    M[i] = M[i]  # ['a', 'b', 'c', 'd', 'e']
+print(M)
+
+for i in range(len(M)):
+    M[i] = M[i] * i  # ['', 'b', 'cc', 'ddd', 'eeee']
+print(M)
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+s = ''
+for i in range(len(M)):
+    s += M[i]
+    M[i] = M[i] + s
+print(M)  # ['aa', 'bab', 'cabc', 'dabcd', 'eabcde']
+'''
+
+# Работа цикла for напрямую с последовательностями
+'''
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+import random
+M = [random.randint(0, 100) for _ in range(10)]
+for x in M:
+    if x % 2 == 0:  # Таким образом отсеиваем только четные элементы
+        print(x, end=' ')  # 70 4 58 40 84
+print()
+'''
+
+# Цикл while отвечает на запросы: "Повторяй действие пока условие истинно", "Бесконечные циклы"
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
 '''
 
 
-# x, y = int(input('x: ')), int(input('y: '))
+# Переводы в base системы счисления
 '''
-x, y = -4, -7
+n = 8  # n - number
+b = 2  # b - base
+r = ''  # r - result
+while n > 0:
+    r += str(n % b)
+    n //= b
+r = r[::-1]
+print(r)  # 1000
 
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:  # elif - иначе если
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Лежит на осях')
+
+n = 8  # n - number
+b = 2  # b - base
+r = ''  # r - result
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+r = r
+print(r)  # 1000
+
+alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alphabet)
+n = int(input('Введите число в 10-й системе: '))  # n - number
+b = int(input('Введите base систему счисления: '))  # b - base
+r = ''  # r - result
+while n > 0:
+    r = alphabet[n % b] + r
+    n //= b
+r = r
+print(r)  # 1000
+'''
+# 1112
+
+
+# Бесконечные циклы и операторы break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # - прерывает итерацию (шаг) цикла в котором лежит
+    if k == 50000:
+        exit()  # выходит полностью из выполнения программы
+    if k == 100000:
+        break  # - прерывает цикл в котором сейчас находится
+    print(k)
 print('КОНЕЦ')
 '''
 
+alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+while True:
 
-# Каскадные условные операторы
-'''
-x, y = int(input('x: ')), int(input('y: '))
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
+    case = int(input(f'\n'
+                     f'case 1: Перевод из 10-й в base систему счисления.\n'
+                     f'case 2: Перевод из base в 10-ю систему счисления.\n'
+                     f'case 3: Перевод из base в n-ю систему счисления.\n'
+                     f'case 0: \n\n'))
 
+    if case == 1:
+        n = int(input('Введите число в 10-й системе: '))  # n - number
+        b = int(input('Введите base систему счисления: '))  # b - base
+        r = ''  # r - result
+        while n > 0:
+            r = alphabet[n % b] + r
+            n //= b
+        r = r
+        print(f'Результат перевода в {b}-ю систему счисления: {r}')
 
-# Логические связки: not, and, or, ^, !=, ==
-'''
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
+    elif case == 2:
+        b = int(input('Введите base систему счисления: '))
+        r = input(f'Введите число в {b}-й системе: ')
+        print(f'Результат перевода в 10-ю систему счисления: {int(r, b)}')
+        # ValueError: int() base must be >= 2 and <= 36, or 0
 
+    elif case == 3:
+        pass  # todo #ДЗ попробовать прописать case 3
 
-a, b = 7, -2
-if a > 0 and b > 0:  # and - гарантирует, что оба (все) выполнимы
-    print('YES 1')
-if a > 0 or b > 0:  # or - говорит, что хотя бы одно выполнимо
-    print('YES 2')
-if (a > 0) ^ (b > 0):  # ^, != - гарантирует, что только один выполняется
-    print('YES 3')
-if (a > 0) != (b > 0):
-    print('YES 3')
+    elif case == 0:
+        break
 
-print(True + True + False)  # 2
-
-# = - присваивание значения 
-# == - сравнение значения (равны ли они)
-# != - сравнение значения (не равны ли они)
-
-a, b, c = 7, -2, 6
-# Только два элемента должны быть положительные
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два элемента должны быть положительные ')
-# Хотя бы два элемента положительные 
-if (a > 0) + (b > 0) + (c > 0) >= 2:
-    print('Только два элемента должны быть положительные ')
-'''
-
-# Работа с библиотеками в python
-'''
-import useful  # Самый топорный способ подключения, необходимо таскать с собой useful
-print(useful.divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(useful.ALPHABET)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    else:
+        print('Что-то я не очень понял вас. ')
 
 
-import useful as u  # Подключили библиотеку два ей короткое имя
-print(u.divisors(24))
-print(u.ALPHABET)
-
-from useful import divisors, ALPHABET, orel_or_reshka  # Подключаем конкретные функции
-print(divisors(24))
-print(ALPHABET)
-
-from useful import *  # Подключаем сразу все функции
-print(divisors(24))
-print(ALPHABET)
-
-
-# CTRL + B
-
-print(divisors.__doc__)
-#     Функция поиска делителей числа num
-#     :param num: Принимает целое (int) число.
-#     :return: Возвращает список делителей от 1 до числа num
-
-print(help(divisors))
-#     Функция поиска делителей числа num
-#     :param num: Принимает целое (int) число.
-#     :return: Возвращает список делителей от 1 до числа num
-'''
-
-# Список библиотек необходимых нам на экзамене
-
-# Для 6 номера
-'''
-import turtle as t
-t.forward(100)
-t.done()
-'''
-
-from fnmatch import *
-# Помогает нам решать 25 номер с масками
-
-
-from itertools import product, permutations
-# Помогает решать 1, 8 и не будет лишний в номерах: 9, 12, 24
-
-
-from ipaddress import *
-'''
-import sys
-from functools import *
-@lru_cache(None)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
