@@ -1,104 +1,135 @@
 # region Домашка: ******************************************************************
 
-# Примитивный поиск делителей
-'''
-n = int(input())  # 8
-for j in range(1, n+1):
-    if n % j == 0:
-        print(j, end=' ')
-        # print(j, end=', ')  # 1, 2, 3, 4, 6, 8, 12, 24,
-'''
-
-# Вариант 1
-'''
-n = int(input())
-r = 1
-for j in range(1, n+1):
-    if n % j == 0:
-        r *= j
-print(r)
-'''
-
-
-# Вариант 2
-'''
-from math import prod  # prod - возвращает произведение элементов списка
-
-n = int(input())
-r = []
-for j in range(1, n+1):
-    if n % j == 0:
-        r.append(j)  # .append() - добавляет новые элементы в конец списка
-print(prod(r))
-'''
-
-'''
-n = int(input())
-
-import time
-start = time.time()
-
-# r = []
-# for j in range(1, n+1):
-#     if n % j == 0:
-#         r.append(j)  # .append() - добавляет новые элементы в конец списка
-# print(r)  # [1, 2, 3, 4, 6, 8, 12, 24]
-
-
-r = []
-for j in range(1, int(n**0.5)+1):
-    if n % j == 0:
-        r.append(j)
-        r.append(n // j)
-print(sorted(set(r)))  # [1, 2, 3, 4, 6, 8, 12, 24]
-
-print(time.time() - start)  # 10.867799043655396 (100_000_000)
-# 0.0016 (100_000_000)
-'''
-
-'''
-n = int(input())
-R = []
-while n > 0:
-    end = n % 10
-    R.append(end)
-    n //= 10
-print(max(R))
-print(min(R))
-'''
-
-'''
-n = int(input())
-summa = 0
-count = 0
-prodd = 1
-while n > 0:
-    end = n % 10
-    summa += end
-    count += 1
-    prodd *= end
-    n //= 10
-print(summa)
-print(count)
-print(prodd)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 2 №28538
-# Логическая функция F задаётся выражением ((x ∧ y) → (¬z ∨ w))∧((¬w→x) ∨ ¬y).
-
+# № 11606 (Уровень: Базовый)
+# Логическая функция F задаётся выражением (x→y) ∧ (¬y→z) ∧ w
+'''
 print('x y z w')
 for x in 0, 1:
     for y in 0, 1:
         for z in 0, 1:
             for w in 0, 1:
-                F = ((x and y) <= ((not z) or w)) and (((not w) <= x) or (not y))
-                if F == 0:
+                F = (x <= y) and ((not y) <= z) and w
+                if F == 1:
                     print(x, y, z, w)
+'''
+
+
+# № 18483 (Уровень: Базовый)
+# Логическая функция F задаётся выражением ((y → w) ≡ (x → ¬z)) ∧ (x ∨ w).
+'''
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 0:
+                    print(x, y, z, w, int(F))
+
+
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 1:
+                    print(x, y, z, w, int(F))
+'''
+
+
+# № 17625 Основная волна 19.06.24 (Уровень: Базовый)
+# В начальный момент Черепаха находится в начале координат,
+# её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+
+# Черепахе был дан для исполнения следующий алгоритм:
+#
+# Повтори 10 [Вперёд 22 Направо 90 Вперед 16 Направо 90]
+# Поднять хвост
+# Вперед 1 Направо 90 Вперёд 1 Налево 90
+# Опустить хвост
+# Повтори 10 [Вперёд 72 Направо 90 Вперёд 79 Направо 90]
+'''
+import turtle as t
+t.screensize(-10000, 10000)
+t.tracer(0)
+t.left(90)
+l = 20
+
+# Тут пишется псевдокод
+t.color('green')
+for i in range(10):
+    t.forward(22 * l)
+    t.right(90)
+    t.forward(16 * l)
+    t.right(90)
+t.up()
+t.forward(1 * l)
+t.right(90)
+t.forward(1 * l)
+t.left(90)
+t.down()
+t.color('blue')
+for i in range(10):
+    t.fd(72 * l)
+    t.rt(90)
+    t.fd(79 * l)
+    t.rt(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+'''
+
+
+# № 17519 Основная волна 07.06.24 (Уровень: Базовый)
+# Повтори 9 [Вперёд 22 Направо 90 Вперед 6 Направо 90]
+# Поднять хвост
+# Вперед 1 Направо 90 Вперёд 5 Налево 90
+# Опустить хвост
+# Повтори 9 [Вперёд 53 Направо 90 Вперёд 75 Направо 90]
+
+import turtle as t
+t.screensize(-10000, 10000)
+t.tracer(0)
+t.left(90)
+l = 20
+for i in range(9):
+    t.fd(22 * l)
+    t.rt(90)
+    t.fd(6 * l)
+    t.rt(90)
+t.up()
+t.fd(1 * l)
+t.rt(90)
+t.fd(5 * l)
+t.lt(90)
+t.down()
+for i in range(9):
+    t.fd(53 * l)
+    t.rt(90)
+    t.fd(75 * l)
+    t.rt(90)
+t.up()
+
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+
 # endregion Урок: *************************************************************
 # #
 # #
