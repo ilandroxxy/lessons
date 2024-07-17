@@ -6,16 +6,31 @@
 # #
 # region Урок: ********************************************************************
 
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n - 1) * F(n - 1)
+# Тип 24 №27696
+# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
+# Определите длину самой длинной последовательности, состоящей из символов L.
+# Хотя бы один символ L находится в последовательности.
 
+# Вариант 1
+s = open('24.txt').readline()
+count = 1
+R = []
+maxi = 0
+for i in range(0, len(s)-1, 1):
+    # if s[i] == 'L' and s[i+1] == 'L':
+    if s[i:i+2] == 'LL':
+        count += 1
+        R.append(count)
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
+print(max(R))
 
-print((F(2024) // 7 - F(2023)) / F(2022))
+# Вариант 2
+s = open('24.txt').readline()
+s = s.replace('D', ' ').replace('R', ' ')
+print(max([len(x) for x in s.split()]))
 
 
 # endregion Урок: ******************************************************************

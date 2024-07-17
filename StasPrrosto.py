@@ -6,157 +6,93 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 14 №15632
+# Тип 12 №10477
+# Какая строка получится в результате применения приведённой ниже программы к строке,
+# состоящей из 1000 идущих подряд цифр 8? В ответе запишите полученную строку.
+#
+# ПОКА нашлось (999) ИЛИ нашлось (888)
+#   ЕСЛИ нашлось (888)
+#     ТО заменить (888, 9)
+#   ИНАЧЕ заменить (999, 8)
 '''
-print(bin(4**14+2**32-4)[2:].count('1'))
-
-print(f'{4**14 + 2**32 - 4:b}'.count('1'))
-
-x = 4**14 + 2**32 - 4
-s = ''
-while x > 0:
-    s += str(x % 2)
-    x //= 2
-s = s[::-1]
-print(s.count("1"))
-
-x = 4**14 + 2**32 - 4
-L = []
-while x > 0:
-    L.append(x % 2)
-    x //= 2
-L.reverse()
-print(L.count(1))
-'''
-# Ответ: 27
-
-
-# Определите в 25-ричной записи числа количество цифр 0
-'''
-x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
-base = 25
-s = ''
-while x > 0:
-    s += str(x % base)
-    x //= base
-s = s[::-1]
-print(s.count("0"))
-print(s[:10])
-
-x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
-base = 25
-L = []
-while x > 0:
-    L.append(x % base)
-    x //= base
-L.reverse()
-print(L.count(0))
-print(L[:10])
-'''
-
-# # № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
-# Определите в 25-ричной записи числа количество цифр с числовым значением, превышающим 10:
-'''
-x = 4 * 3125**2019 + 3 * 625**2020 - 2 * 125**2021 + 25**2022 - 4*5**2023 - 2024
-base = 25
-L = []
-while x > 0:
-    L.append(x % base)
-    x //= base
-L.reverse()
-
-# cnt = 0
-# for elem in L:
-#     if elem > 10:
-#         cnt += 1
-# print(cnt)
-
-print(len([elem for elem in L if elem > 10]))
+s = '8' * 1000
+while '999' in s or '888' in s:
+    if '888' in s:
+        s = s.replace('888', '9', 1)
+    else:
+        s = s.replace('999', '8', 1)
+print(s)
 '''
 
 
-# Тип 14 №33186
+# Тип 12 №59717
 '''
-x = 343**5 -7**9 + 48
-base = 7
-L = []
-while x > 0:
-    L.append(x % base)
-    x //= base
-L.reverse()
-print(L.count(6))
+for n in range(4, 10000):
+    s = '5' + '2' * n
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
+    # summa = sum(map(int, s))
+    summa = sum([int(x) for x in s])
+    if summa == 64:
+        print(n)
+        break
 '''
 
-# № 17527 Основная волна 07.06.24 (Уровень: Базовый)
+
+# Тип 12 №27240
+# ПОКА нашлось (11)
+#     ЕСЛИ нашлось (112)
+#         ТО заменить (112, 6)
+#         ИНАЧЕ заменить (11, 3)
+
+# Исходная строка содержит десять единиц и три двойки, других цифр нет,
+# точный порядок расположения единиц и двоек неизвестен.
+# Какую наибольшую сумму цифр может иметь строка,
+# которая получится после выполнения программы?
 '''
+from itertools import permutations, product
 R = []
-for x in range(2030+1):
-    n = 3**100 - x
-    base = 3
-    L = []
-    while n > 0:
-        L.append(n % base)
-        n //= base
-    L.reverse()
-    if L.count(0) == 5:
-        R.append(x)
+for per in product('12', repeat=13):
+    if per.count('2') == 3:
+        s = ''.join(per)
+        while '11' in s:
+            if '112' in s:
+                s = s.replace('112', '6', 1)
+            else:
+                s = s.replace('11', '3', 1)
+        summa = sum(map(int, s))
+        R.append(summa)
 print(max(R))
 '''
 
-
-# № 17633 Основная волна 19.06.24 (Уровень: Базовый)
 '''
-for x in range(2030+1):
-    n = 6**260 + 6**160 + 6**60 - x
-    base = 6
-    L = []
-    while n > 0:
-        L.append(n % base)
-        n //= base
-    L.reverse()
-    if L.count(0) == 202:
-        print(x)
+def prime(x):
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+
+for n in range(100, 200):
+    s = '0' + '1' * n + '2' * n + '0'
+    while '00' not in s:
+        s = s.replace('02', '101', 1)
+        s = s.replace('11', '2', 1)
+        s = s.replace('12', '21', 1)
+        s = s.replace('010', '00', 1)
+    summa = sum([int(x) for x in s])
+    if prime(summa):
+        print(n)
         break
 '''
-# Ответ: 216
 
 
-# Тип 14 №55810
-'''
-alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:15]:
-    A = int(f'97968{x}13', 15)
-    B = int(f'7{x}213', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
-'''
 
-# Тип 14 №48392
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:9]:
-    for y in alphabet[:9]:
-        A = int(f'2{y}66{x}', 9)
-        B = int(f'{x}0{y}1', 12)
-        if (A + B) % 170 == 0:
-            print((A + B) // 170)
-'''
-
-# Тип 14 №64899
-alphabet = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(9, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            for z in alphabet[:p]:
-                for w in alphabet[:p]:
-                    if int(z+x+y+x+'4', p) + int(f'{x}{y}658', p) == int(f'{w}{z}{x}73', p):
-                        print(int(x+y+z+w, p))
-
-print(f'{7*512**120-6*64**100+8**210-255:o}'.count('0'))
 
 # endregion Урок: *************************************************************
 # #
@@ -167,6 +103,6 @@ print(f'{7*512**120-6*64**100+8**210-255:o}'.count('0'))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 14]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
