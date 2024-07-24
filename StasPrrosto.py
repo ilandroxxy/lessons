@@ -1,95 +1,121 @@
 # region Домашка: ******************************************************************
 
+'''
+from itertools import permutations
+R = []
+for per in permutations(['1' * 20, '2' * 15, '3' * 40]):
+    s = '>' + ''.join(per) + '<'
+    while '><' not in s:
+        s = s.replace('>1', '3>', 1)
+        s = s.replace('>2', '2>', 1)
+        s = s.replace('>3', '1>', 1)
+        s = s.replace('3<', '<1', 1)
+        s = s.replace('2<', '<3', 1)
+        s = s.replace('1<', '<2', 1)
+    summa = sum(int(i) for i in s if i.isdigit())
+    R.append(summa)
+print(R)
+print(max(R))
+'''
+
+'''
+s = '>' + "1"*11 + '2'*12 + '3'*30
+while '>1' in s or '>2' in s or '>3' in s:
+    if '>1' in s:
+        s = s.replace('>1', '22>', 1)
+    if '>2' in s:
+        s = s.replace('>2', '222>', 1)
+    if '>3' in s:
+        s = s.replace('>3', '1>', 1)
+print(sum(int(i) for i in s if i.isdigit()))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 12 №10477
-# Какая строка получится в результате применения приведённой ниже программы к строке,
-# состоящей из 1000 идущих подряд цифр 8? В ответе запишите полученную строку.
-#
-# ПОКА нашлось (999) ИЛИ нашлось (888)
-#   ЕСЛИ нашлось (888)
-#     ТО заменить (888, 9)
-#   ИНАЧЕ заменить (999, 8)
+# Тип 8 №18789
+# Все четырёхбуквенные слова, составленные из букв С, Е, Н, О, записаны
+# в алфавитном порядке и пронумерованы, начиная с 1. Начало списка выглядит так:
+# 1. ЕЕЕЕ
+# 2. ЕЕЕН
+# 3. ЕЕЕО
+# 4. ЕЕЕС
+# 5. ЕЕНЕ
+# Под каким номером в списке идёт первое слово, которое начинается с буквы С?
 '''
-s = '8' * 1000
-while '999' in s or '888' in s:
-    if '888' in s:
-        s = s.replace('888', '9', 1)
-    else:
-        s = s.replace('999', '8', 1)
-print(s)
+s = sorted('СЕНО')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                slovo = a + b + c + d
+                num += 1
+                if a == 'С':
+                    print(num, slovo)
+                    exit()
 '''
-
-
-# Тип 12 №59717
 '''
-for n in range(4, 10000):
-    s = '5' + '2' * n
-    while '52' in s or '1122' in s or '2222' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-    # summa = sum(map(int, s))
-    summa = sum([int(x) for x in s])
-    if summa == 64:
-        print(n)
-        break
+from itertools import product
+num = 0
+for per in product(sorted('СЕНО'), repeat=4):
+    slovo = ''.join(per)
+    num += 1
+    if slovo[0] == 'С':
+        print(num, slovo)
+        exit()
 '''
 
 
-# Тип 12 №27240
-# ПОКА нашлось (11)
-#     ЕСЛИ нашлось (112)
-#         ТО заменить (112, 6)
-#         ИНАЧЕ заменить (11, 3)
-
-# Исходная строка содержит десять единиц и три двойки, других цифр нет,
-# точный порядок расположения единиц и двоек неизвестен.
-# Какую наибольшую сумму цифр может иметь строка,
-# которая получится после выполнения программы?
+# Тип 8 №16037
+# Вася составляет 5- буквенные слова, в которых есть только буквы З, И, М, А,
+# причём в каждом слове есть ровно одна гласная буква и она встречается ровно 1 раз.
+# Сколько существует таких слов, которые может написать Вася?
 '''
-from itertools import permutations, product
-R = []
-for per in product('12', repeat=13):
-    if per.count('2') == 3:
-        s = ''.join(per)
-        while '11' in s:
-            if '112' in s:
-                s = s.replace('112', '6', 1)
-            else:
-                s = s.replace('11', '3', 1)
-        summa = sum(map(int, s))
-        R.append(summa)
-print(max(R))
+from itertools import product
+cnt = 0
+for per in product('ЗИМА', repeat=5):
+    s = ''.join(per)
+    if s.count('И') + s.count('А') == 1:
+        cnt += 1
+print(cnt)
 '''
 
+# Тип 8 №58235
+# Сколько существует различных трёхзначных чисел, записанных в четверичной
+# системе счисления, в записи которых сумма первой и последней цифры
+# строго больше цифры стоящей по середине?
 '''
-def prime(x):
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            return False
-    return True
+from itertools import product
+cnt = 0
+for per in product('0123', repeat=3):
+    num = ''.join(per)
+    if num[0] != '0':
+        if int(num[0]) + int(num[2]) > int(num[1]):
+            cnt += 1
+print(cnt)
+'''
+
+# Тип 8 №59741
+# Сколько существует чисел, восьмеричная запись которых содержит 5 цифр,
+# причем в записи нет цифры 1.
+# Также все цифры записи различны и никакие две чётные и две нечётные
+# цифры не стоят рядом.
+
+from itertools import permutations
+cnt = 0
+for per in permutations('0234567', 5):
+    num = ''.join(per)
+    if num[0] != '0':
+        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
+        num = num.replace('5', '3').replace('7', '3')
+        if '22' not in num and '33' not in num:
+            cnt += 1
+print(cnt)
 
 
-for n in range(100, 200):
-    s = '0' + '1' * n + '2' * n + '0'
-    while '00' not in s:
-        s = s.replace('02', '101', 1)
-        s = s.replace('11', '2', 1)
-        s = s.replace('12', '21', 1)
-        s = s.replace('010', '00', 1)
-    summa = sum([int(x) for x in s])
-    if prime(summa):
-        print(n)
-        break
-'''
 
 
 
@@ -103,6 +129,6 @@ for n in range(100, 200):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
