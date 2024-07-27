@@ -6,32 +6,21 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 24 №27696
-# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
-# Определите длину самой длинной последовательности, состоящей из символов L.
-# Хотя бы один символ L находится в последовательности.
-
-# Вариант 1
-s = open('24.txt').readline()
-count = 1
-R = []
+s = open('24_10724.txt').readline()
+c = 0
 maxi = 0
-for i in range(0, len(s)-1, 1):
-    # if s[i] == 'L' and s[i+1] == 'L':
-    if s[i:i+2] == 'LL':
-        count += 1
-        R.append(count)
-        maxi = max(maxi, count)
+r = ''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for i in range(len(s)):
+    if s[i] in alp[:16]:
+        c +=1
+        r += s[i]
+        maxi = max(maxi, c)
+        print(c, r)
+        r = ''
     else:
-        count = 1
+        c = 0
 print(maxi)
-print(max(R))
-
-# Вариант 2
-s = open('24.txt').readline()
-s = s.replace('D', ' ').replace('R', ' ')
-print(max([len(x) for x in s.split()]))
-
 
 # endregion Урок: ******************************************************************
 # #
