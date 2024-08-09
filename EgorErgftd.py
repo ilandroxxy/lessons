@@ -5,86 +5,116 @@
 # #
 # region Урок: ********************************************************************
 
-# № 17675 Пересдача 04.07.24 (Уровень: Базовый)
-# Какая строка получится в результате применения приведённой
-# ниже программы к строке, состоящей из 134 идущих подряд цифр 9?
-# В ответе запишите полученную строку.
-#
-#   ПОКА нашлось (22222) ИЛИ нашлось (9999)
-#     ЕСЛИ нашлось (22222)
-#       ТО заменить (22222, 99)
-#     ИНАЧЕ заменить (9999, 2)
+# Тип 8 №15822
 '''
-s = '9' * 134
-while '22222' in s or '9999' in s:
-    if '22222' in s:
-        s = s.replace('22222', '99', 1)
-    else:
-        s = s.replace('9999', '2', 1)
-print(s)
-'''
-# Ответ: 22
-
-
-# № 16378 ЕГКР 27.04.24 (Уровень: Базовый)
-# На вход приведённой выше программе поступает строка,
-# начинающаяся с цифры «8», а затем содержащая и n цифр «4» (3 < n < 10 000).
-#
-# Определите наибольшее возможное значение суммы числовых
-# значений цифр в строке, которая может быть результатом выполнения программы.
-'''
+# Вариант 1
+s = sorted('РЕКА')
 R = []
-for n in range(4, 10000):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                slovo = a + b + c + d
+                num += 1
+                if 'А' not in slovo:
+                    print(num, slovo)
+                    R.append(num)
+print(min(R))
 
-    summa = sum([int(x) for x in s])
-    R.append(summa)
-print(max(R))
+# Вариант 2
+from itertools import *
+num = 0
+R = []
+for p in product(sorted('РЕКА'), repeat=4):
+    slovo = ''.join(p)
+    num += 1
+    if 'А' not in slovo:
+        R.append(num)
+print(min(R))
+
+# Вариант 3
+from itertools import *
+R = []
+for num, p in enumerate(product(sorted('РЕКА'), repeat=4), 1):
+    slovo = ''.join(p)
+    if 'А' not in slovo:
+        R.append(num)
+print(min(R))
 '''
 
 
-# Тип 12 №58479
-# Дана программа для Редактора:
-#
-# ПОКА НЕ нашлось (00)
-#   заменить (02, 101)
-#   заменить (11, 2)
-#   заменить (012, 30)
-#   заменить (010, 00)
+# Тип 8 №59713
+'''
+# Вариант 1
+s = 'ПЯТНИЦА'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    if a != 'Н' and slovo.count('Я') == 1:
+                        cnt += 1
+print(cnt)
 
-# Известно, что исходная строка A содержала ровно два нуля — на первом и на последнем месте,
-# 40 единиц, больше 40 двоек и не содержала других цифр.
-#
-# После выполнения данной программы получилась строка B, сумма цифр которой оказалась простым числом.
-# Какое наименьшее количество двоек могло быть в строке A?
+# Вариант 2
+from itertools import product
 
-def prime(x):
-    if x == 1:
-        return False
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
+count = 0
+for p in product("ПЯТНИЦА", repeat=5):
+    if p.count("Я") == 1 and p[0] != "Н":
+        count += 1
+print(count)
+'''
 
 
-for n in range(41, 100):
-    s = '0' + '1' * 40 + '2' * n + '0'
-    while '00' not in s:
-        s = s.replace('02', '101', 1)
-        s = s.replace('11', '2', 1)
-        s = s.replace('012', '30', 1)
-        s = s.replace('010', '00', 1)
-    summa = sum([int(x) for x in s])
-    if prime(summa):
-        print(n)
-        break
+# Тип 8 №51977
+'''
+from itertools import *
+cnt = 0
+for p in product('ВЕРОНИКА', repeat=6):
+    slovo = ''.join(p)
+    glas = [x for x in slovo if x in 'ЕОИА']
+    sogl = [x for x in slovo if x in 'ВРНК']
+    if len(glas) > len(sogl):
+        cnt += 1
+print(cnt)
+'''
+
+
+# Тип 8 №59741
+# Сколько существует чисел, восьмеричная запись которых содержит 5 цифр, причем в записи нет цифры 1.
+# Также все цифры записи различны и никакие две чётные и две нечётные цифры не стоят рядом.
+'''
+s = '01234567'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0' and '1' not in num:
+                        if len(num) == len(set(num)):
+                            num = num.replace('0', '2').replace('4', '2').replace('6', '2')
+                            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
+                            if '11' not in num and '22' not in num:
+                                cnt += 1
+print(cnt)
+
+from itertools import *
+cnt = 0
+for p in permutations('01234567', 5):
+    num = ''.join(p)
+    if num[0] != '0' and '1' not in num:
+        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
+        num = num.replace('3', '1').replace('5', '1').replace('7', '1')
+        if '11' not in num and '22' not in num:
+            cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -94,6 +124,6 @@ for n in range(41, 100):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
