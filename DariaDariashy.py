@@ -1,161 +1,89 @@
 # region Домашка: ******************************************************************
 
+'''
+from itertools import *
+num = 0
+R = []
+for p in product(sorted('МАРКСЛ'), repeat=6):
+    s = ''.join(p)
+    num += 1
+    if 'КС' not in s and 'СК' not in s:
+        if len(set(s)) == 4 and any(s.count(x) == 3 for x in s):
+            R.append(num)
+print(max(R))
+'''
+# 46605
+
+
+'''
+from itertools import *
+cnt = 0
+for p in permutations('ЯРОСЛАВ', 5):
+    s = ''.join(p)
+    sogl = [x for x in s if x in 'РСЛВ']
+    glas = [x for x in s if x in 'ЯОА']
+    if len(sogl) > len(glas):
+        s = s.replace('Я', 'А').replace('О', 'А')
+        if 'АА' not in s:
+            cnt += 1
+print(cnt)
+'''
+
+'''
+from itertools import *
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+cnt = 0
+print(alphabet[:15])
+for p in product(alphabet[:15], repeat=5):
+    n = ''.join(p)
+    if n[0] != '0':
+        if n.count('8') == 1:
+            if len([x for x in n if int(x, 15) > 9]) >= 2:
+                cnt += 1
+print(cnt)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-
-# Тип 8 №3227
-# Все 5-буквенные слова, составленные из букв И, О, У, записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. ИИИИИ
-# 2. ИИИИО
-# 3. ИИИИУ
-# 4. ИИИОИ
-# Запишите слово, которое стоит под номером 240.
 '''
-# Вариант 1
-
-s = sorted('ИОУ')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    num += 1
-                    if num == 240:
-                        print(slovo)
-
-# Вариант 2
-
-from itertools import *
-num = 0
-for p in product(sorted('ИОУ'), repeat=5):
-    slovo = ''.join(p)
-    num += 1
-    if num == 240:
-        print(slovo)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in range(2):
+            for w in [0, 1]:
+                F = (x or (not z)) and (x == (not w)) and (x <= y)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
-
-# Тип 8 №35466
-# Вероника составляет 3-буквенные коды из букв В, Е, Р, О, Н, И, К, А,
-# причём буква В должна входить в код ровно один раз.
-# Все полученные коды Вероника записала в алфавитном порядке и пронумеровала.
-# Начало списка выглядит так:
-#
-# 1. ААВ
-# 2. АВА
-# 3. АВЕ
-#
-# На каком месте будет записан первый код, не содержащий ни одной буквы А?
+# Тип 2 №18578
+# Логическая функция F задаётся выражением ((x ∧ ¬y) ∨ (w → z)) ≡ (z ≡ x).
 '''
-R = []
-s = sorted('ВЕРОНИКА')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            slovo = a + b + c
-            if slovo.count('В') == 1:
-                num += 1
-                if 'А' not in slovo:
-                    R.append(num)
-print(min(R))
-
-
-from itertools import *
-R = []
-num = 0
-for p in product(sorted('ВЕРОНИКА'), repeat=3):
-    slovo = ''.join(p)
-    if slovo.count('В') == 1:
-        num += 1
-        if 'А' not in slovo:
-            R.append(num)
-print(min(R))
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x and (not y)) or (w <= z)) == (z == x)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
-
-# Тип 8 №17374
-# Полина составляет 6-буквенные коды из букв П, О, Л, И, Н, А.
-# Каждую букву нужно использовать ровно 1 раз, при этом нельзя ставить подряд две гласные или две согласные.
-# Сколько различных кодов может составить Полина?
+# Тип 2 №56502
+# Логическая функция F задаётся выражением:
+# ((x→y)∨(z→w))∧((z≡y)→(w≡x)).
 '''
-from itertools import *
-cnt = 0
-for p in permutations('ПОЛИНА'):
-    slovo = ''.join(p)
-    slovo = slovo.replace('Л', 'П').replace('Н', 'П')
-    slovo = slovo.replace('О', 'А').replace('И', 'А')
-    if 'ПП' not in slovo and 'АА' not in slovo:
-        cnt += 1
-print(cnt)
-
-
-s = 'ПОЛИНА'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        if len(set(slovo)) == len(slovo):
-                            slovo = slovo.replace('Л', 'П').replace('Н', 'П')
-                            slovo = slovo.replace('О', 'А').replace('И', 'А')
-                            if 'ПП' not in slovo and 'АА' not in slovo:
-                                cnt += 1
-print(cnt)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x <= y) or (z <= w)) and ((z == y) <= (w == x))
+                if F == 0:
+                    print(x, y, z, w)
 '''
-
-'''
-slovo1 = 'АБВГД'
-print(set(slovo1))  # {'Д', 'А', 'Б', 'Г', 'В'}
-print(len(slovo1) == len(set(slovo1)))  # True
-
-slovo2 = 'АБВГДД'
-print(set(slovo2))  # {'Д', 'Б', 'А', 'В', 'Г'}
-print(len(slovo2) == len(set(slovo2)))  # False
-'''
-
-
-# Тип 8 №59832
-# Игорь составляет пятизначные числа, используя цифры девятеричной системы счисления.
-# Сколько различных чисел может составить Игорь, в которых ровно две цифры 3 и нечётные цифры не стоят рядом с цифрой 2?
-'''
-s = '012345678'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count('3') == 2:
-                            if all(pair not in num for pair in '12 21 23 32 25 52 27 72'.split()):
-                                cnt += 1
-
-print(cnt)
-print('12 21 23 32 25 52 27 72'.split())
-
-
-from itertools import *
-cnt = 0
-for p in product('012345678', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('3') == 2:
-            if all(pair not in num for pair in '12 21 23 32 25 52 27 72'.split()):
-                cnt += 1
-print(cnt)
-'''
-
 # endregion Урок: *************************************************************
 # #
 # #
@@ -164,6 +92,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 12, 14]
+# ФИПИ = [2, 5, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
