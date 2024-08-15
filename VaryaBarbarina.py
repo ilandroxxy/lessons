@@ -6,24 +6,12 @@
 # #
 # region Урок: ********************************************************************
 
-def F(x, b):
-    r = ''
-    while x > 0:
-        r += str(x % b)
-        x //= b
-    return r[::-1]
-
-
-M = [int(x) for x in open('17.txt')]
-d = []
-k = [i for i in M if len(str(abs(i))) == 4 and abs(i) % 2 == 0]
-l = max([i for i in M if F(abs(i), 9)[-1] == '3'])
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i + 1], M[i + 2]
-    if (x in k) + (y in k) + (z in k) <= 1:
-        if (x + y + z) <= l:
-            d.append(x + y + z)
-print(len(d), max(d))
+from fnmatch import *
+c = 0
+for x in range(8, 680_000, 8):
+    if fnmatch('1*2*', str(x)):
+        c += 1
+print(c)
 
 # endregion Урок: ******************************************************************
 # #
