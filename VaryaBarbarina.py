@@ -6,12 +6,40 @@
 # #
 # region Урок: ********************************************************************
 
+
+# todo: Разобрать задачи с прошлого урока
+
+# Было
 from fnmatch import *
 c = 0
 for x in range(8, 680_000, 8):
     if fnmatch('1*2*', str(x)):
         c += 1
 print(c)
+
+# Стало - неправильный порядок аргументов в функции fnmatch
+from fnmatch import *
+c = 0
+for x in range(8, 680_000, 8):
+    if fnmatch(str(x), '1*2*'):
+        c += 1
+print(c)
+
+# Ну тут я посмотрел их решение - бред сумасшедшего, у нас правильный ответ.
+'''
+s = open('24.txt').readline()
+c = 2
+maxi = 0
+for i in range(len(s)-2):
+    x, y, z = s[i], s[i+1], s[i+2]
+    if s[i:i+3] in ('NPO', 'PON', 'ONP', 'PNO', 'NOP', 'OPN'):
+        c += 1
+        maxi = max(c, maxi)
+    else:
+        c = 2
+print(maxi)
+'''
+
 
 # endregion Урок: ******************************************************************
 # #
