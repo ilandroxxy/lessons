@@ -6,109 +6,81 @@
 # #
 # region Урок: ************************************************************
 
-# Тип 5 Номер 17668
+# Тип номер 16 из варианта: https://kompege.ru/variant?kim=25057665
 '''
-R = []
-for n in range(27+1, 1000):
-    s = f'{n:b}'
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    R.append(r)
-print(min(R))
-'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n - 1) * F(n - 1)
 
 
-# КЕГЭ № 17609 Резервный день 19.06.2024 (Сибирь)
-'''
-def F(x, A):
-    return (x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(0, 10000)):
-        R.append(A)
-print(max(R))
+print((F(2024) // 7 - F(2023)) / F(2022))
 '''
 
-# Тип 6 Номер 17669
+
+# Тип номер 14 из варианта: https://kompege.ru/variant?kim=25057665
 '''
-import turtle as t
-t.screensize(-100000, 100000)
-t.tracer(0)
-t.left(90)
-l = 20
-
-# Тут пишем псевдокод
-for i in range(4):
-    t.forward(19*l)
-    t.right(90)
-    t.forward(30*l)
-    t.right(90)
-
-t.up()
-
-t.fd(2*l)
-t.rt(90)
-t.fd(8*l)
-t.lt(90)
-
-t.down()
-
-for i in range(4):
-    t.forward(93*l)
-    t.right(90)
-    t.forward(97*l)
-    t.right(90)
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x*l, y*l)
-        t.dot(2, 'red')
-
-t.done()
+for x in range(2030+1):
+    n = 6 ** 260 + 6 ** 160 + 6 ** 60 - x
+    M = []
+    while n > 0:
+        M.append(n % 6)
+        n //= 6
+    M.reverse()
+    if M.count(0) == 202:
+        print(x)
+'''
+'''
+for x in range(2030+1):
+    n = 7 ** 91 + 7 ** 160 - x
+    M = []
+    while n > 0:
+        M.append(n % 7)
+        n //= 7
+    M.reverse()
+    if M.count(0) == 70:
+        print(x)
 '''
 
-# Тип 7 Номер 17670
 '''
-pixels = 1024 * 960
-# V = pixels * i
-# colors = 2 ** i
+from ipaddress import *
+net = ip_network('115.192.0.0/255.192.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 3 != 0:
+        cnt += 1
+print(cnt)
+'''
 
-V = 140 * 1_474_560  # вес 32 фотографий
-V1 = V / 32
-i = V1 / pixels
-print(i)  # 6.5625 -> 6
-print(2 ** 6)  # colors
-'''
-# Ответ: 64
 
 '''
-s = sorted('ЛАЙМ')
-num = 0
+s = sorted("ЛАЙМ")
+k = 0
 for a in s:
     for b in s:
         for c in s:
             for d in s:
                 for e in s:
                     slovo = a + b + c + d + e
-                    num += 1
-                    if 'М' not in slovo and 'Л' not in slovo and 'ЙЙ' not in slovo:
-                        print(num)
+                    k += 1
+                    if "М" not in slovo and "Л" not in slovo and "ЙЙ" not in slovo:
+                        print(k)
 '''
 
 
-def F(x, y, A):
-    return (x + y <= 24) or (y <= x - 2) or (y >= A)
-
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(0, 100) for y in range(0, 100)):
-        print(A)
+M = [int(x) for x in open('17.txt')]
+D = [x for x in M if x > 0 and x % 41 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x != y and abs(x - y) % min(D) == 0:
+        R.append(x + y)
+print(len(R), max(R))
 
 # endregion Урок: ************************************************************
 # #
