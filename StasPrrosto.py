@@ -1,228 +1,151 @@
 # region Домашка: ******************************************************************
-'''
-def divisors(x):
-    diviz = []
-    for j in range(2, int(x**0.5) + 1):
-        if x % j == 0:
-            diviz += [j, x // j]
-    return sorted(set(diviz))
 
-cnt = 0
-for x in range(10**9+1, 10**11):
-    if str(x) == str(x)[::-1]:
-        div = divisors(x)
-        if max(div) % 7 == 0:
-            print(x, max(div))
-            cnt += 1
-            if cnt == 5:
-                break
-
-
-def divisors(x):
-    diviz = []
-    for j in range(2, int(x**0.5) + 1):
-        if x % j == 0:
-            diviz += [j, x // j]
-    return sorted(set(diviz))
-
-cnt = 0
-for x in range(10**9, 10**11):
-    div = [i for i in divisors(x)]
-    if x == int(str(x)[::-1]):
-        if max(div) % 7 == 0:
-            print(x, max(div))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-'''
-print(x, y, z, ...)
-range(start, stop, step)
-max(x, y, z, ...)
-len(x: list)
-'''
 
-
-a, b, c = 1, 2, 3
-M = [1, 2, 3]
-
-'''
-print(max(M), max(a, b, c))  # 3 3
-print(sum(M), sum(a, b, c))  # 6 ошибка
-'''
-
-'''
-def my_sum(*args):
-    print(type(args), args)
-    return sum(args)
-
-
-print(my_sum(a, b, c))
-'''
-
-
-# Базовые самописные функции для ЕГЭ
-'''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-div = divisors(24)
-print(div)   # [1, 2, 3, 4, 6, 8, 12, 24]
-
-def prime(x):
-    if x == 1:
-        return False
-    for j in range(2, int(x ** 0.5)+1):
-        if x % j == 0:
-            return False
-    return True
-
-
-print([x for x in range(1, 100) if prime(x)])
-# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    res = ''
-    while num > 0:
-        res = alphabet[num % base] + res
-        num //= base
-    return res
-
-print(convert(8, 2))  # 1000
-'''
-
-
-# Тип 16 №4978
-'''
-def F(n):
-    if n == 1:
-        return 1
-    if n == 2:
-        return 1
-    if n > 2:
-        return F(n - 2) * (n - 1)
-
-
-print(F(8))  # 105
-'''
-
-# Тип 16 №59841
-# Задан алгоритм вычисления функции F(n), где n — натуральное число:
+# Тип 23 №17340
+# У исполнителя есть три команды, которым присвоены номера.
+# 1. Прибавить 1.
+# 2. Умножить на 2.
+# 3. Прибавить 5.
 #
-# F(n)=7, при n<7;
-# F(n)=2n+F(n−1), если n≥7.
-#
-# Чему равно значение функции F(2024)−F(2022)
+# Сколько существует программ, которые преобразуют исходное число 1 в число 16,
+# и при этом траектория вычислений содержит число 8 и не содержит числа 10?
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 7:
-        return 7
-    if n >= 7:
-        return 2*n + F(n-1)
-
-print(F(2024) - F(2022))
-# [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
-
-# F(2024) = 4048 + F(2023)
-# F(2023) = 4046 + F(2022) - F(2022)
-'''
-# Ответ: 8094
-
-
-# Тип 16 №36871
-'''
-def F(n):
-    if n == 0:
+def F(start, stop):
+    if start > stop or start == 10:
         return 0
-    if n > 0 and n % 2 == 0:
-        return F(n / 2)
-    if n > 0 and n % 2 != 0:
-        return 1 + F(n - 1)
+    elif start == stop:
+        return 1
+    else:
+        return F(start+1, stop) + F(start*2, stop) + F(start+5, stop)
 
 
-cnt = 0
-for n in range(1, 1000+1):
-    try:
-        if F(n) == 3:
-            cnt += 1
-    except Exception as e:
-        continue
-print(cnt)
+print(F(1, 8) * F(8, 16))
+
+
+def F(a, b):
+    if a > b or a == 10:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a*2, b) + F(a+5, b)
+
+
+print(F(1, 8) * F(8, 16))
+
+
+def F(a, b):
+    if a >= b or a == 10:
+        return a == b
+    return F(a+1, b) + F(a*2, b) + F(a+5, b)
+
+
+print(F(1, 8) * F(8, 16))
 '''
 
+# print(False + True + True)  # 2
+
+
+# Тип 23 №13418
+# У исполнителя НечетМ две команды, которым присвоены номера.
+#
+# 1. Прибавь 1.
+# 2. Сделай нечётное.
 '''
-a = int(input())
-b = int(input())
-try:
-    print(a / b)
-except Exception as e:
-    print(e)
-# except ZeroDivisionError:
-#     print('Деление на нуль запрещено.')
-'''
+def F(a, b):
+    if a >= b or a == 26:
+        return a == b
+    return F(a+1, b) + F(a*2 + 1, b)
 
 
-# № 10718 (Уровень: Средний)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return 2 * F(n-2) - F(n-1) + 2
-    if n > 2 and n % 2 != 0:
-        return 2 * F(n-1) + F(n-2) - 2
-
-print(F(170))  # 3596910688800
+print(F(1, 27))
 '''
 
 
-# todo Разобраться задачу https://stepik.org/lesson/1228671/step/9?unit=1242204
+# Тип 23 №69901
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+# A. Вычти 1
+# B. Вычти 2
+# C. Найди целую часть от деления на 3
+'''
+def F(a, b):
+    if a <= b:
+        return a == b
+    return F(a-1, b) + F(a-2, b) + F(a//3, b)
 
-# F(n) = n, если n > 1000000;
-#  F(n) = n + F(2n), если n ≤ 1000000;
-#  G(n) = F(n) / n.
-# Сколько существует таких натуральных чисел n (включая число 1000), для которых G(n)=G(2000)?
 
-from sys import *
-from functools import *
-setrecursionlimit(100000000)
-@lru_cache(None)
-def F(n):
-    if n > 1000000:
-        return n
-    if n <= 1000000:
-        return n + F(2*n)
+print(F(16, 11) * F(11, 6))
+'''
 
-@lru_cache(None)
-def G(n):
-    return F(n)/n
 
-cnt = 0
-x = G(2000)
-for n in range(10**8):
-    if G(n) == x:
-        cnt += 1
-        print(cnt)
+# Тип 23 №7998
+# У исполнителя три команды, каждой команде присвоен номер:
+#
+# 1) Прибавь 1
+# 2) Прибавь 2
+# 3) Прибавь следующее
+'''
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+a+1, b)
 
+
+print(F(2, 10))
+'''
+
+
+# print(int('1', 2))
+# print(int('101000101', 2))
+
+
+# № 13302 Открытый курс "Слово пацана" (Уровень: Сложный)
+'''
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(int(f'{a:b}' + f'{a % 5:b}', 2), b)
+
+
+print(F(int('1', 2), int('101000101', 2)))
+'''
+
+
+# № 11240 (Уровень: Средний)
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+# A. Прибавить 2
+# B. Возвести в квадрат
+# C. Умножить на 3
+#
+# Сколько существует программ, для которых при исходном числе 2 результатом является число 64,
+# если после выполнения команды  B можно выполнить только команду A или C?
+
+# Вариант 1
+def F(a, b, c: str):
+    if a >= b:
+        return a == b
+    elif c == 'B':
+        return F(a+2, b, 'A') + F(a*3, b, 'C')
+    return F(a+2, b, 'A') + F(a**2, b, 'B') + F(a*3, b, 'C')
+
+
+print(F(2, 64, ''))
+
+
+# Вариант 2
+def F(a, b, c: str):
+    if a >= b:
+        print(c)
+        return a == b and 'BB' not in c
+    return F(a+2, b, c+'A') + F(a**2, b, c+'B') + F(a*3, b, c+'C')
+
+
+print(F(2, 64, ''))
 
 # endregion Урок: *************************************************************
 # #
@@ -233,6 +156,6 @@ for n in range(10**8):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
