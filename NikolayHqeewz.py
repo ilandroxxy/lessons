@@ -1,16 +1,35 @@
 # region Домашка: ******************************************************************
 
 '''
-from itertools import *
+import turtle as t
+t.screensize(-10000, 10000)
+t.tracer(0)
+t.left(90)
+l = 20
+for i in range(2):
+    t.fd(8 * l)
+    t.rt(90)
+    t.fd(18 * l)
+    t.rt(90)
+t.up()
+t.fd(4 * l)
+t.rt(90)
+t.fd(10 * l)
+t.lt(90)
+t.down()
+for i in range(2):
+    t.fd(17 * l)
+    t.rt(90)
+    t.fd(7 * l)
+    t.rt(90)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(2, "red")
 
-R = []
-num = 0
-for p in product(sorted("ФЕВРАЛЬ"), repeat=6):
-    slovo = "".join(p)
-    num += 1
-    if "А" not in slovo and "Е" not in slovo:
-        R.append(num)
-print(min(R))
+t.update()
+t.done()
 '''
 
 # endregion Домашка: ******************************************************************
@@ -18,85 +37,113 @@ print(min(R))
 # #
 # region Урок: ********************************************************************
 
-
-# Тип 14 №26959
-# Значение арифметического выражения 16**18 * 4**10 - 4**6 - 16 записали в системе счисления с основанием 4.
-# Сколько цифр 3 содержится в этой записи?
 '''
-n = 16**18 * 4**10 - 4**6 - 16
-b = 4
-M = []
-while n > 0:
-    M.append(n % b)
-    n //= b
-M = M[::-1]  # M.reverse()
-print(M.count(3))
+for n in range(2, 10000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    s = s[:-1] + s[1] * 2
+    r = int(s, 2)
+    if r > 76:
+        print(n)
+        break
 
-
-n = 16**18 * 4**10 - 4**6 - 16
-M = []
-while n > 0:
-    M = [n % 4] + M
-    n //= 4
-print(M.count(3))
+R = []
+for n in range(2, 10000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    s = s[:-1] + s[1] * 2
+    r = int(s, 2)
+    if r > 76:
+        R.append(n)
+print(min(R))
 '''
 
-# № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
+# n = 19
+# s = f'{n:b}'  # s = bin(n)[2:]
+# s = s[:-1] + s[1] * 2
+# r = int(s, 2)
+# print(r)
+
+
+# Сделать разбор на канал Тип 5 №51974
 '''
-n = 4*3125 ** 2019 + 3*625**2020 -2 * 125**2021  +25**2022 -4*5**2023 - 2024
-M = []
-while n > 0:
-    M.append(n % 25)
-    n //= 25
-M.reverse()
-print(len([x for x in M if x > 10]))
+R = []
+for n in range(1, 10000):
+    s = f'{n:b}'
+    for _ in range(3):
+        summa = sum([int(x) for x in str(int(s, 2))])
+        if summa % 2 != 0:
+            s += '1'
+        else:
+            s += '0'
+    r = int(s, 2)
+    if r > 1028:
+        R.append(r)
+print(min(R))
 '''
 
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-for x in range(2030+1):
-    n = 7**91 + 7**160 - x
-    M = []
+R = []
+for n in range(1, 10000):
+    s = f'{n:b}'
+    for _ in range(3):
+        s += str(sum([int(x) for x in str(int(s, 2))]) % 2)
+    r = int(s, 2)
+    if r > 1028:
+        R.append(r)
+print(min(R))
+'''
+
+# n = 17
+# s = f'{n:b}'
+# for _ in range(3):
+#     summa = sum([int(x) for x in str(int(s, 2))])
+#     if summa % 2 != 0:
+#         s += '1'
+#     else:
+#         s += '0'
+# r = int(s, 2)
+# print(r)
+
+'''
+def convert(n, b):
+    r = ''
     while n > 0:
-        M.append(n % 7)
-        n //= 7
-    M.reverse()
-    if M.count(0) == 70:
-        print(x)
-'''
-
-'''
-print(int('324', 37))
-# ValueError: int() base must be >= 2 and <= 36, or 0
-'''
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
 
-# Тип 14 №48385
-'''
-from string import *
-alphbaet = digits + ascii_uppercase
-print(alphbaet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:13]:
-    for y in alphabet[:13]:
-        A = int(f'8{x}78{y}', 13)
-        B = int(f'79{x}{y}7', 18)
-        if (A + B) % 9 == 0:
-            print((A + B) // 9)
-            exit()
+R = []
+for n in range(1, 10000):
+    s = convert(n, 3)
+    s = s + str(n % 3)
+    r = int(s, 3)
+    if 1000 <= r <= 9999:
+        R.append(r)
+print(min(R))
 '''
 
-'''
-from string import *
-alphbaet = digits + ascii_uppercase
 
-for p in range(7, 36+1):
-    for x in alphbaet[:p]:
-        for y in alphbaet[:p]:
-            for z in alphbaet[:p]:
-                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
-                    print(int(x + y + z, p))
+# Тип 5 №16809
+'''
+for n in range(0, 255+1):
+    s = f'{n:b}'.zfill(8)
+    s = s.replace('1', '*')
+    s = s.replace('0', '1')
+    s = s.replace('*', '0')
+    r = int(s, 2) - n
+    if r == 133:
+        print(n)
+'''
+
+
+# Тип 5 №18487
+'''
+for n in range(1, 100):
+    s = f'{n:b}'
+    s = s[::-1]
+    r = int(s, 2)
+    if r == 13:
+        print(n)
 '''
 
 
@@ -108,6 +155,6 @@ for p in range(7, 36+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
