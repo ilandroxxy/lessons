@@ -1,140 +1,56 @@
 # region Домашка: ******************************************************************
 
-# КЕГЭ № 8602 (Уровень: Базовый)
 '''
-s = sorted('АЕКНС')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for g in s:
-                        slovo = a + b + c + d + e + g
-                        num += 1
-                        if slovo == 'СЕНЕКА':
-                            print(num)
-
-
-from itertools import product
-num = 0
-for p in product(sorted('АЕКНС'), repeat=6):
-    slovo = ''.join(p)
-    num += 1
-    if slovo == 'СЕНЕКА':
-        print(num)
-
-
-from itertools import product
-for num, p in enumerate(product(sorted('АЕКНС'), repeat=6), 1):
-    slovo = ''.join(p)
-    if slovo == 'СЕНЕКА':
-        print(num)
-'''
-
-'''
-M = [x for x in range(10)]
-print(M)
-
-M = [x ** 2 for x in range(10)]
-print(M)
-
-M = [x for x in range(10) if x % 2 == 0]
-print(M)
-'''
-
-# print('РСЛВ' == 'СРЛВ')   # False
-
-
-# КЕГЭ № 8417 (Уровень: Базовый)
-'''
-s = 'ЯРОСЛАВ'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if len(slovo) == len(set(slovo)):  # буквы в коде не должны повторяться
-                        sogl = [x for x in slovo if x in 'РСЛВ']
-                        glas = [x for x in slovo if x in 'ЯОА']
-                        if len(sogl) > len(glas):
-                            slovo = slovo.replace('Я', 'А').replace('О', 'А')
-                            if 'АА' not in slovo:
-                                cnt += 1
-print(cnt)
-
-from itertools import permutations
-cnt = 0
-for p in permutations('ЯРОСЛАВ', 5):
-    slovo = ''.join(p)
-    sogl = [x for x in slovo if x in 'РСЛВ']
-    glas = [x for x in slovo if x in 'ЯОА']
-    if len(sogl) > len(glas):
-        slovo = slovo.replace('Я', 'А').replace('О', 'А')
-        if 'АА' not in slovo:
-            cnt += 1
-print(cnt)
-'''
-
-
-# КЕГЭ № 17627 Основная волна 19.06.24 (Уровень: Базовый)
-#
-# Определите количество 15-ричных пятизначных чисел, в записи которых ровно одна цифра 8
-# и не менее двух цифр с числовым значением, превышающим 9.
-'''
-s = '0123456789ABCDE'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    n = a + b + c + d + e
-                    if n[0] != '0':  # if a != '0':
-                        if n.count('8') == 1:
-                            if len([x for x in n if x > '9']) >= 2:
-                                cnt += 1
-print(cnt)
-
-
 from itertools import *
 cnt = 0
-for p in product('0123456789ABCDE', repeat=5):
-    n = ''.join(p)
-    if n[0] != '0':
-        if n.count('8') == 1:
-            if len([x for x in n if x > '9']) >= 2:
-                cnt += 1
+for p in product(sorted('СОТОЧКА'), repeat = 7):
+    slovo = ''.join(p)
+    slovo = slovo.replace('А', 'О')
+    if 'ОО' in slovo:
+        cnt += 1
 print(cnt)
 '''
+
+'''
+from itertools import *
+cnt = set()
+for p in permutations('СОТОЧКА'):
+    slovo = ''.join(p)
+    if 'ОО' in slovo or 'АО' in slovo or 'ОА' in slovo:
+        cnt.add(slovo)
+print(len(cnt))
+'''
+# 'СОТОЧКА' 'СОТОЧКА'
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 6 №47210
-# В начальный момент Черепаха находится в начале координат,
-# её голова направлена вдоль положительного направления
-# оси ординат, хвост опущен.
-
-# Черепахе был дан для исполнения следующий алгоритм:
-# Повтори 7 [Вперёд 10 Направо 120].
-#
-# Определите, сколько точек с целочисленными координатами
-# будут находиться внутри области, ограниченной линией,
-# заданной данным алгоритмом.
-# Точки на линии учитывать не следует.
 '''
 import turtle as t
-t.tracer(0)  # Отключает анимацию - мгновенная отрисовка картинки
+t.screensize(-10000, 10000)
+t.tracer(0)
 t.left(90)
-l = 40
+l = 30
 
-for i in range(7):
-    t.forward(10 * l)
-    t.right(120)
+# Тут будет псевдокод
+for i in range(9):
+    t.forward(22 * l)
+    t.right(90)
+    t.forward(6 * l)
+    t.right(90)
+t.up()
+t.fd(1 * l)
+t.rt(90)
+t.fd(5 * l)
+t.lt(90)
+t.down()
+for i in range(9):
+    t.fd(53 * l)
+    t.rt(90)
+    t.fd(75 * l)
+    t.rt(90)
 
 t.up()
 for x in range(-50, 50):
@@ -142,9 +58,110 @@ for x in range(-50, 50):
         t.goto(x*l, y*l)
         t.dot(3, 'red')
 
-t.update()
 t.done()
 '''
+
+
+# 12?34?5 -> 1233475
+# 12*34 -> 1234 -> 12999934 -> 12000034
+'''
+from fnmatch import *
+for x in range(1991, 10**10, 1991):
+    if fnmatch(str(x), '1*4182?7'):
+        print(x)
+
+'''
+
+# Функция поиска делителей
+'''
+import time
+start = time.time()
+
+# def divisors(x):
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 4, 8, 16]
+print(divisors(100_000_000))
+
+print(time.time() - start)
+# 2.884568929672241 -> 0.0005
+'''
+
+
+# № 6061 (Уровень: Средний)
+'''
+from fnmatch import *
+
+
+def prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+for x in range(10**7):
+    if fnmatch(str(x), '34?8*9'):
+        d = [i for i in divisors(x) if prime(i)]
+        if len(d) > 4:
+            print(x, max(d))
+'''
+
+
+# № 17879 Демоверсия 2025 (Уровень: Базовый)
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(800_000+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+
+# 800004 400004
+# 800009 114294
+# 800013 266674
+# 800024 400014
+# 800033 61554
+
 
 # endregion Урок: *************************************************************
 # #
