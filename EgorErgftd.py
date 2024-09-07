@@ -5,90 +5,66 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 8 №15822
+# Тип 2 Номер 17856
 '''
-# Вариант 1
-s = sorted('РЕКА')
+b = 0, 1
+print(b)  # (0, 1)
+print(type(b))  # <class 'tuple'>
+
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((w <= y) <= x) or (not z)
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+
+# Тип 2 Номер 18483
+'''
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 0:
+                    print(x, y, z, w, int(F))
+
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 1:
+                    print(x, y, z, w, int(F))
+'''
+
+# Тип 5 Номер 17859
+
+'''
+# i  0  1  2  3
+M = [4, 5, 6, 7][2:]
+'''
+
+'''
 R = []
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                slovo = a + b + c + d
-                num += 1
-                if 'А' not in slovo:
-                    print(num, slovo)
-                    R.append(num)
-print(min(R))
+for n in range(1, 12+1):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    if n % 2 == 0:
+        s = '10' + s
+    else:
+        s = '1' + s + '01'
+    r = int(s, 2)  # Из двоичной в десятичную
+    R.append(r)
 
-# Вариант 2
-from itertools import *
-num = 0
-R = []
-for p in product(sorted('РЕКА'), repeat=4):
-    slovo = ''.join(p)
-    num += 1
-    if 'А' not in slovo:
-        R.append(num)
-print(min(R))
-
-# Вариант 3
-from itertools import *
-R = []
-for num, p in enumerate(product(sorted('РЕКА'), repeat=4), 1):
-    slovo = ''.join(p)
-    if 'А' not in slovo:
-        R.append(num)
-print(min(R))
+print(max(R))
 '''
 
-
-# Тип 8 №59713
 '''
-# Вариант 1
-s = 'ПЯТНИЦА'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if a != 'Н' and slovo.count('Я') == 1:
-                        cnt += 1
-print(cnt)
-
-# Вариант 2
-from itertools import product
-
-count = 0
-for p in product("ПЯТНИЦА", repeat=5):
-    if p.count("Я") == 1 and p[0] != "Н":
-        count += 1
-print(count)
-'''
-
-
-# Тип 8 №51977
-'''
-from itertools import *
-cnt = 0
-for p in product('ВЕРОНИКА', repeat=6):
-    slovo = ''.join(p)
-    glas = [x for x in slovo if x in 'ЕОИА']
-    sogl = [x for x in slovo if x in 'ВРНК']
-    if len(glas) > len(sogl):
-        cnt += 1
-print(cnt)
-'''
-
-
-# Тип 8 №59741
-# Сколько существует чисел, восьмеричная запись которых содержит 5 цифр, причем в записи нет цифры 1.
-# Также все цифры записи различны и никакие две чётные и две нечётные цифры не стоят рядом.
-'''
-s = '01234567'
+s = '0123456789AB'
 cnt = 0
 for a in s:
     for b in s:
@@ -96,24 +72,100 @@ for a in s:
             for d in s:
                 for e in s:
                     num = a + b + c + d + e
-                    if num[0] != '0' and '1' not in num:
-                        if len(num) == len(set(num)):
-                            num = num.replace('0', '2').replace('4', '2').replace('6', '2')
-                            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
-                            if '11' not in num and '22' not in num:
+                    if num[0] != '0':
+                        if num.count('7') == 1:
+                            if num.count('9') + num.count('A') + num.count('B') <= 3:
                                 cnt += 1
-print(cnt)
+print(cnt)  # 67476
+'''
+'''
+s = '0123456789AB'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0':
+                        if num.count('7') == 1:
+                            if len([x for x in num if x > '8']) <= 3:
+                                cnt += 1
+print(cnt)  # 67476
+
 
 from itertools import *
 cnt = 0
-for p in permutations('01234567', 5):
-    num = ''.join(p)
-    if num[0] != '0' and '1' not in num:
-        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
-        num = num.replace('3', '1').replace('5', '1').replace('7', '1')
-        if '11' not in num and '22' not in num:
-            cnt += 1
+for per in product('0123456789AB', repeat=5):
+    num = ''.join(per)
+    if num[0] != '0':
+        if num.count('7') == 1:
+            if len([x for x in num if x > '8']) <= 3:
+                cnt += 1
 print(cnt)
+'''
+'''
+s = '1' * 81
+while '11111' in s or '888' in s:
+    if '11111' in s:
+        s = s.replace('11111', '88', 1)
+    else:
+        s = s.replace('888', '8', 1)
+print(s)
+'''
+
+'''
+R = []
+for n in range(4, 10000):
+    s = '8' + '4' * n
+    while '11' in s or '444' in s or '8888' in s:
+        if '11' in s:
+            s = s.replace('11', '4', 1)
+        if '444' in s:
+            s = s.replace('444', '88', 1)
+        if '8888' in s:
+            s = s.replace('8888', '1', 1)
+    # summa = sum(map(int, s))
+    summa = sum([int(x) for x in s])
+    R.append(summa)
+    print(max(R))
+'''
+
+
+# Тип 14 Номер 17868
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:19]:
+    A = int(f'98897{x}21', 19)
+    B = int(f'2{x}923', 19)
+    if (A + B) % 18 == 0:
+        print((A + B) // 18)
+'''
+
+# Тип 14 Номер 17869
+'''
+n = 3*3125**8 +2*625**7 -4*625**6 +3*125**5-2*25**4 - 2025
+b = 25
+M = []
+while n > 0:
+    M.append(n % b)
+    n //= b
+M.reverse()
+print(M.count(0))
+'''
+
+# Тип 14 Номер 17870
+'''
+for x in range(0, 2030+1):
+    n = 7**170 + 7**100 - x
+    b = 7
+    M = []
+    while n > 0:
+        M.append(n % b)
+        n //= b
+    M.reverse()
+    if M.count(0) == 71:
+        print(x)
 '''
 
 # endregion Урок: *************************************************************

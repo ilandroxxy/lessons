@@ -1,149 +1,100 @@
 # region Домашка: ******************************************************************
 
-'''
-import turtle as t
-t.screensize(-10000, 10000)
-t.tracer(0)
-t.left(90)
-l = 20
-for i in range(2):
-    t.fd(8 * l)
-    t.rt(90)
-    t.fd(18 * l)
-    t.rt(90)
-t.up()
-t.fd(4 * l)
-t.rt(90)
-t.fd(10 * l)
-t.lt(90)
-t.down()
-for i in range(2):
-    t.fd(17 * l)
-    t.rt(90)
-    t.fd(7 * l)
-    t.rt(90)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * l, y * l)
-        t.dot(2, "red")
-
-t.update()
-t.done()
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-'''
-for n in range(2, 10000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    s = s[:-1] + s[1] * 2
-    r = int(s, 2)
-    if r > 76:
-        print(n)
-        break
+# Тип 13 №4595
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 224.9.195.133
+# Маска: 255.255.192.0
 
-R = []
-for n in range(2, 10000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    s = s[:-1] + s[1] * 2
-    r = int(s, 2)
-    if r > 76:
-        R.append(n)
-print(min(R))
-'''
+# Адрес сети = IP-адрес узла & Маска сети
+# print(bin(5))
 
-# n = 19
-# s = f'{n:b}'  # s = bin(n)[2:]
-# s = s[:-1] + s[1] * 2
-# r = int(s, 2)
-# print(r)
+# ip адрес это четыре числа на каждое из которых выделено по 1 байту (по 8 битов)
 
+# 11111111_2 -> 255_10
 
-# Сделать разбор на канал Тип 5 №51974
-'''
-R = []
-for n in range(1, 10000):
-    s = f'{n:b}'
-    for _ in range(3):
-        summa = sum([int(x) for x in str(int(s, 2))])
-        if summa % 2 != 0:
-            s += '1'
-        else:
-            s += '0'
-    r = int(s, 2)
-    if r > 1028:
-        R.append(r)
-print(min(R))
-'''
+# Маска сети имеет вид: 111111...0000 (32 бита)
 
 '''
-R = []
-for n in range(1, 10000):
-    s = f'{n:b}'
-    for _ in range(3):
-        s += str(sum([int(x) for x in str(int(s, 2))]) % 2)
-    r = int(s, 2)
-    if r > 1028:
-        R.append(r)
-print(min(R))
-'''
-
-# n = 17
-# s = f'{n:b}'
-# for _ in range(3):
-#     summa = sum([int(x) for x in str(int(s, 2))])
-#     if summa % 2 != 0:
-#         s += '1'
-#     else:
-#         s += '0'
-# r = int(s, 2)
-# print(r)
-
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-R = []
-for n in range(1, 10000):
-    s = convert(n, 3)
-    s = s + str(n % 3)
-    r = int(s, 3)
-    if 1000 <= r <= 9999:
-        R.append(r)
-print(min(R))
+from ipaddress import *
+net = ip_network('224.9.195.133/255.255.192.0', 0)
+print(net)  # 224.9.192.0/18 - 18 кол-во единиц в маске сети
+print('1' * 18 + '0' * 14)  # 11111111111111111100000000000000
+print([f'{int(x):b}'.zfill(8) for x in str(net.netmask).split('.')])  # 255.255.192.0
 '''
 
 
-# Тип 5 №16809
+# Тип 13 №16441
+# Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64.
+# Чему равно наибольшее возможное значение последнего (самого правого) байта маски?
 '''
-for n in range(0, 255+1):
-    s = f'{n:b}'.zfill(8)
-    s = s.replace('1', '*')
-    s = s.replace('0', '1')
-    s = s.replace('*', '0')
-    r = int(s, 2) - n
-    if r == 133:
-        print(n)
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'98.162.71.94/{mask}', 0)
+    print(net, net.netmask)
+    # 98.162.71.64/26 255.255.255.192
+    # 98.162.71.64/27 255.255.255.224
+'''
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'98.162.71.94/{mask}', 0)
+    if str(net) == f'98.162.71.64/{mask}':
+        print(str(net.netmask).split('.')[3])
+'''
+# Ответ: 224
+
+
+# Тип 13 №64943
+# Узлы с IP-адресами 202.3.20.24 и 202.3.27.11 находятся в одной сети.
+# Укажите наименьшее возможное количество
+# принадлежащих этой сети IP-адресов, в двоичной записи которых чётное число единиц.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'202.3.20.24/{mask}', 0)
+    net2 = ip_network(f'202.3.27.11/{mask}', 0)
+    if net1 == net2:
+        print(net1)
 '''
 
 
-# Тип 5 №18487
+# Тип 13 №27011
+# Узлы с IP-адресами 84.77.95.123 и 84.77.96.123 находятся в одной сети.
+# Укажите наибольшее возможное значение третьего слева байта маски этой сети.
+# Ответ запишите в виде десятичного числа.
 '''
-for n in range(1, 100):
-    s = f'{n:b}'
-    s = s[::-1]
-    r = int(s, 2)
-    if r == 13:
-        print(n)
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'84.77.95.123/{mask}', 0)
+    net2 = ip_network(f'84.77.96.123/{mask}', 0)
+    if net1 == net2:
+        print(net1.netmask)
+        # 255.254.0.0
+        # 255.255.0.0
+        # 255.255.128.0
+        # 255.255.192.0
+'''
+# Ответ: 192
+
+
+# Тип 13 №60255
+# Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240.
+# Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна?
+'''
+from ipaddress import *
+net = ip_network('192.168.32.160/255.255.255.240', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 2 == 0:
+        cnt += 1
+print(cnt)
 '''
 
 
