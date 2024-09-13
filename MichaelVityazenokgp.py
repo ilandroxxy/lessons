@@ -1,171 +1,160 @@
 # region Домашка: ******************************************************************
 
+# № 16372 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+import turtle as t
+t.tracer(0)  # Отключает анимацию отрисовки
+t.lt(90)
+t.down()
+l = 15
+
+# Тут пишем псевдокод
+for _ in range(2):
+    t.fd(23*l)
+    t.lt(90)
+    t.bk(27*l)
+    t.lt(90)
+
+t.up()
+t.bk(5*l)
+t.rt(90)
+t.fd(11*l)
+t.lt(90)
+t.down()
+
+for _ in range(2):
+    t.fd(26*l)
+    t.rt(90)
+    t.fd(32*l)
+    t.rt(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x*l, y*l)
+        t.dot(3, 'red')
+t.update()
+t.done()
+'''
+
+# print(17*2 + 11*24 + 33*27)
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 2 Номер 17856
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 199.145.130.81
+# Маска: 255.255.128.0
+
+# Адрес сети = IP-адрес узла & Маска сети
+
+# IP адрес состоит из 4 числе, на каждое из которых выделяется по 1 байту (8 бит)
+# Эти числа могут принимать значения от 0 до 255, 11111111_2 = 255_10
 '''
-b = 0, 1
-print(b)  # (0, 1)
-print(type(b))  # <class 'tuple'>
-
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= y) <= x) or (not z)
-                if F == 0:
-                    print(x, y, z, w)
-'''
-
-
-# Тип 2 Номер 18483
-'''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((y <= w) == (x <= (not z))) and (x or w)
-                if F == 0:
-                    print(x, y, z, w, int(F))
-
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((y <= w) == (x <= (not z))) and (x or w)
-                if F == 1:
-                    print(x, y, z, w, int(F))
+# Длина маски сети 32 бита, а так же она принимает вид: 1111111...0000
+a = f'{255:b}'.zfill(8)
+b = f'{255:b}'.zfill(8)
+c = f'{128:b}'.zfill(8)
+d = f'{0:b}'.zfill(8)
+print(f'{a}.{b}.{c}.{d}')
+# 11111111.11111111.10000000.00000000
 '''
 
-# Тип 5 Номер 17859
+# Тип 13 №9164
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 199.145.130.81
+# Маска: 255.255.128.0
+'''
+from ipaddress import *
+net = ip_network('199.145.130.81/255.255.128.0', 0)
+print(net)  # 199.145.128.0/17 - 17 это кол-во единиц в маске сети
+# 11111111.11111111.10000000.00000000
+'''
+
+
+# Тип 13 №9304
+# Для узла с IP-адресом 227.138.127.144 адрес сети равен 227.138.64.0.
+# Чему равен третий слева байт маски? Ответ запишите в виде десятичного числа.
 
 '''
-# i  0  1  2  3
-M = [4, 5, 6, 7][2:]
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'227.138.127.144/{mask}', 0)
+    print(net, net.netmask)
+    # 227.138.64.0/18 255.255.192.0
 '''
 
 '''
-R = []
-for n in range(1, 12+1):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 2 == 0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)  # Из двоичной в десятичную
-    R.append(r)
-
-print(max(R))
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'227.138.127.144/{mask}', 0)
+    if str(net) == f'227.138.64.0/{mask}':
+        print(net, net.netmask)
 '''
+# 192
 
+
+# Тип 13 №60255
+# Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240.
+# Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна?
 '''
-s = '0123456789AB'
+from ipaddress import *
+net = ip_network('192.168.32.160/255.255.255.240', 0)
 cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count('7') == 1:
-                            if num.count('9') + num.count('A') + num.count('B') <= 3:
-                                cnt += 1
-print(cnt)  # 67476
-'''
-'''
-s = '0123456789AB'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count('7') == 1:
-                            if len([x for x in num if x > '8']) <= 3:
-                                cnt += 1
-print(cnt)  # 67476
-
-
-from itertools import *
-cnt = 0
-for per in product('0123456789AB', repeat=5):
-    num = ''.join(per)
-    if num[0] != '0':
-        if num.count('7') == 1:
-            if len([x for x in num if x > '8']) <= 3:
-                cnt += 1
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 2 == 0:
+        cnt += 1
 print(cnt)
 '''
-'''
-s = '1' * 81
-while '11111' in s or '888' in s:
-    if '11111' in s:
-        s = s.replace('11111', '88', 1)
-    else:
-        s = s.replace('888', '8', 1)
-print(s)
-'''
 
+
+# Тип 13 №18624
+# Узлы с IP-адресами 98.162.78.139 и 98.162.78.154 находятся в одной сети.
+# Чему равно наибольшее количество возможных единиц в маске этой сети?
 '''
-R = []
-for n in range(4, 10000):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
-    # summa = sum(map(int, s))
-    summa = sum([int(x) for x in s])
-    R.append(summa)
-    print(max(R))
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'98.162.78.139/{mask}', 0)
+    net2 = ip_network(f'98.162.78.154/{mask}', 0)
+    if net1 == net2:
+        print(net2.netmask, mask, 32-mask)
 '''
 
 
-# Тип 14 Номер 17868
+#  № 11662 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print((A + B) // 18)
-'''
-
-# Тип 14 Номер 17869
-'''
-n = 3*3125**8 +2*625**7 -4*625**6 +3*125**5-2*25**4 - 2025
-b = 25
-M = []
-while n > 0:
-    M.append(n % b)
-    n //= b
-M.reverse()
-print(M.count(0))
+from ipaddress import *
+net = ip_network('123.222.111.192/255.255.255.248', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s[24:].count('1') % 3 != 0:
+        cnt += 1
+print(cnt)
 '''
 
-# Тип 14 Номер 17870
 '''
-for x in range(0, 2030+1):
-    n = 7**170 + 7**100 - x
-    b = 7
-    M = []
-    while n > 0:
-        M.append(n % b)
-        n //= b
-    M.reverse()
-    if M.count(0) == 71:
-        print(x)
+from ipaddress import *
+net = ip_network('151.192.0.0/255.224.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') == s.count('1'):
+        cnt += 1
+print(cnt)
+
+
+from ipaddress import *
+net = ip_network('214.96.0.0/255.240.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') % 3 == 0:
+        cnt += 1
+print(cnt)
 '''
 
 # endregion Урок: *************************************************************
@@ -176,6 +165,6 @@ for x in range(0, 2030+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:

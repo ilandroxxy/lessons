@@ -1,102 +1,188 @@
 # region Домашка: ******************************************************************
 
+# КЕГЭ № 10778 (Уровень: Базовый)
+'''
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'163.232.136.60/{mask}', 0)
+    print(net, mask)
+'''
+
+
+# КЕГЭ № 12922 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('136.36.240.16/255.255.255.248', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if '101' not in s:
+        cnt += 1
+print(cnt)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 13 №4595
-# По заданным IP-адресу узла и маске определите адрес сети.
-# IP-адрес узла: 224.9.195.133
-# Маска: 255.255.192.0
 
-# Адрес сети = IP-адрес узла & Маска сети
-# print(bin(5))
-
-# ip адрес это четыре числа на каждое из которых выделено по 1 байту (по 8 битов)
-
-# 11111111_2 -> 255_10
-
-# Маска сети имеет вид: 111111...0000 (32 бита)
-
+# Тип 25 №56525
+# Маска числа — это последовательность цифр, в которой могут встречаться специальные символы «?» и «*».
+# Символ «?» означает ровно одну произвольную цифру,
+# символ «*» означает произвольную (в том числе пустую) последовательность цифр.
+#
+# Найдите все натуральные числа, не превышающие 10**10, которые соответствуют маске 1?7246*1
+# и при этом без остатка делятся на 4173.
+# В ответе запишите все найденные числа в порядке возрастания.
 '''
-from ipaddress import *
-net = ip_network('224.9.195.133/255.255.192.0', 0)
-print(net)  # 224.9.192.0/18 - 18 кол-во единиц в маске сети
-print('1' * 18 + '0' * 14)  # 11111111111111111100000000000000
-print([f'{int(x):b}'.zfill(8) for x in str(net.netmask).split('.')])  # 255.255.192.0
+from fnmatch import *
+for x in range(4173, 10**10, 4173):
+    if fnmatch(str(x), '1?7246*1'):
+        print(x)
 '''
 
-
-# Тип 13 №16441
-# Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64.
-# Чему равно наибольшее возможное значение последнего (самого правого) байта маски?
+# № 12741 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'98.162.71.94/{mask}', 0)
-    print(net, net.netmask)
-    # 98.162.71.64/26 255.255.255.192
-    # 98.162.71.64/27 255.255.255.224
-'''
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'98.162.71.94/{mask}', 0)
-    if str(net) == f'98.162.71.64/{mask}':
-        print(str(net.netmask).split('.')[3])
-'''
-# Ответ: 224
-
-
-# Тип 13 №64943
-# Узлы с IP-адресами 202.3.20.24 и 202.3.27.11 находятся в одной сети.
-# Укажите наименьшее возможное количество
-# принадлежащих этой сети IP-адресов, в двоичной записи которых чётное число единиц.
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'202.3.20.24/{mask}', 0)
-    net2 = ip_network(f'202.3.27.11/{mask}', 0)
-    if net1 == net2:
-        print(net1)
+R = []
+from fnmatch import *
+for x in range(1234, 10**10, 1234):
+    if fnmatch(str(x), '4*5*6') and fnmatch(str(x), '?74*68?'):
+        R.append(f'{x} {x // 1234}')
+        
+R.reverse()
+for x in R:
+    print(x)
 '''
 
-
-# Тип 13 №27011
-# Узлы с IP-адресами 84.77.95.123 и 84.77.96.123 находятся в одной сети.
-# Укажите наибольшее возможное значение третьего слева байта маски этой сети.
-# Ответ запишите в виде десятичного числа.
+# № 12477 PRO100 ЕГЭ 29.12.23 (Уровень: Средний)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'84.77.95.123/{mask}', 0)
-    net2 = ip_network(f'84.77.96.123/{mask}', 0)
-    if net1 == net2:
-        print(net1.netmask)
-        # 255.254.0.0
-        # 255.255.0.0
-        # 255.255.128.0
-        # 255.255.192.0
-'''
-# Ответ: 192
+def prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, x):
+        if x % j == 0:
+            return False
+    return True
 
 
-# Тип 13 №60255
-# Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240.
-# Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна?
+from fnmatch import *
+for x in range(10**7):
+    if fnmatch(str(x), '3?1111*'):
+        if prime(x):
+            print(x)
 '''
-from ipaddress import *
-net = ip_network('192.168.32.160/255.255.255.240', 0)
+'''
+from fnmatch import fnmatch
+for x in range(10**10):
+    if fnmatch(str(x), '12*34?5'):
+        pass
+'''
+
+# Идеальная функция для поиска делителей числа
+'''
+import time
+start = time.time()
+
+# def divisors(x):  # 24
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 3.1233971118927  -> 0.00033
+'''
+
+
+# Тип 25 №37160
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 2 == 0:
+for x in range(500_001, 10**10):
+    div = [j for j in divisors(x) if j != 8 and j % 10 == 8]
+    if len(div) > 0:
+        print(x, min(div))
         cnt += 1
-print(cnt)
+        if cnt == 5:
+            break
 '''
 
+
+# Тип 25 №39254
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(500_000_000+1, 10**10):
+    div = divisors(x)
+    if len(div) >= 5:
+        M = div[0] * div[1] * div[2] * div[3] * div[4]
+        if 0 < M < x:
+            print(M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+# Тип 25 №27854
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(110203, 110245+1):
+    div = [i for i in divisors(x) if i % 2 == 0]
+    if len(div) == 4:
+        print(*div)
+'''
+
+
+# Тип 25 №33104
+
+def divisors(x):
+    div = []
+    if x ** 0.5 == int(x ** 0.5):  # Число имеет целый квадратный корень
+        for j in range(2, int(x**0.5)+1):
+            if x % j == 0:
+                div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(289123456, 389123456+1):
+    div = divisors(x)
+    if len(div) == 3:
+        print(x, max(div))
 
 # endregion Урок: *************************************************************
 # #
@@ -106,6 +192,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:
