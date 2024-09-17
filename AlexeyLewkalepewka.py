@@ -6,86 +6,124 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 15 №33485
-# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуральное число m».
-# Для какого наибольшего натурального числа А формула
-# ДЕЛ(120, A) ∧ (¬ДЕЛ(x, А) → (ДЕЛ(x, 18) → ¬ДЕЛ(x, 24)))
-# тождественно истинна (то есть принимает значение 1 при любом натуральном значении переменной x)?
 '''
-# Вариант 1
-def F(x, A):
-    return (120 % A == 0) and ((x % A != 0) <= ((x % 18 == 0) <= (x % 24 != 0)))
+file = open(file='9.txt', mode='r')
+print(file)  # <_io.TextIOWrapper name='9.txt' mode='r' encoding='UTF-8'>
+file.close()
 
 
-R = []
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 10000):
-        if not F(x, A):
-            flag = False
-            break
-    if flag:
-        R.append(A)
-
-print(max(R))
+with open(file='9.txt', mode='r') as file:
+    print(file)
+    # Когда мы выходим из with, то файл считается закрытым
 
 
-# Вариант 2
-def F(x, A):
-    return (120 % A == 0) and ((x % A != 0) <= ((x % 18 == 0) <= (x % 24 != 0)))
+# print(file.read()) - Все содержимое файла сразу
 
+# print(file.readline()) - Возвращает только лишь первую строку файла
 
-R = []
-for A in range(1, 10000):
-    k = 0
-    for x in range(1, 10000):
-        if F(x, A):
-            k += 1
-    if k == 9999:
-        R.append(A)
+# print(file.readlines()) - Возвращает сразу все строки файла в виде списка
 
-print(max(R))
-'''
+file = open('9.txt')
 
-# Вариант 3
-'''
-def F(x, A):
-    return (120 % A == 0) and ((x % A != 0) <= ((x % 18 == 0) <= (x % 24 != 0)))
+print(file)  # <_io.TextIOWrapper name='9.txt' mode='r' encoding='UTF-8'>
 
-R = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-
-
-# Вариант 4
-
-print(max([A for A in range(1, 10000) if all(((120 % A == 0) and ((x % A != 0) <= ((x % 18 == 0) <= (x % 24 != 0)))) for x in range(1, 10000))]))
+# for s in open('9.txt'):
+#     print(s)
 '''
 
 
-# Тип 15 №14277
-# На числовой прямой даны два отрезка: P=[17, 40] и Q=[20, 57].
-# Отрезок A таков, что приведённая ниже формула истинна при любом значении переменной х:
-# ¬(x ∈ A) →(((x ∈ P) ⋀ (x ∈ Q)) → (x ∈ A))
-# Какова наименьшая возможная длина отрезка A?
-
-def F(a1, a2, x):
-    P = 17 <= x <= 40
-    Q = 20 <= x <= 57
-    A = a1 <= x <= a2
-    return (not A) <= ((P and Q) <= A)
+'''
+with open(file='9.txt', mode='r') as file:
+    for s in file:
+        M = [int(x) for x in s.split()]
+        print(M)
+'''
 
 
-R = []
-M = [x / 4 for x in range(10 * 4, 60 * 4)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(a1, a2, x) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 20.0 -> 20
+# № 17863 Демоверсия 2025 (Уровень: Средний)
+# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
+# – в строке только одно число повторяется трижды, остальные числа различны;
+# – квадрат суммы всех повторяющихся чисел строки больше квадрата суммы всех её неповторяющихся чисел.
+'''
+for s in open('9.csv'):
+    M = [int(x) for x in s.split(';')]
+'''
+'''
+cnt = 0
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(not_copied) == 3:
+        if sum(copied) ** 2 > sum(not_copied) ** 2:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 17770 (Уровень: Средний)
+'''
+cnt = 0
+for s in open('9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if (M[-1] + M[-2]) * 2 > (sum(M[:-2]) * 3):
+        N = [x for x in M if abs(x) % 10 == 5]
+        if len(N) >= 2:
+            cnt += 1
+print(cnt)
+'''
+
+# № 17522 Основная волна 07.06.24 (Уровень: Базовый)
+'''
+cnt = 0
+for s in open('9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if max(M) < sum(M[:-1]):
+        if len(set(M)) == 3:
+            cnt += 1
+print(cnt)
+'''
+
+'''
+from itertools import *
+M = [1, 2, 3, 4]
+for p in permutations(M):
+    print(p)
+'''
+
+
+# № 16320 Открытый вариант 2024 (Уровень: Базовый)
+
+'''
+from itertools import *
+cnt = 0
+for s in open('9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if max(M) < sum(M) - max(M):
+        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+            cnt += 1
+print(cnt)
+'''
+'''
+from itertools import *
+cnt = 0
+num = 0
+for s in open('9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if max(M) < sum(M) - max(M):
+        num += 1
+        if all(p[0] + p[1] != p[2] + p[3] for p in permutations(M)):
+            cnt += 1
+print(num - cnt)
+'''
+
+'''
+s = input('Введите строку: ')
+if len(set(s)) == len(s):
+    print('Нет копий')
+else:
+    print('Копии есть')
+'''
 
 
 # endregion Урок: *************************************************************
@@ -94,10 +132,23 @@ print(min(R))  # 20.0 -> 20
 # region Разобрать: *************************************************************
 
 
+# todo: № 12797 Открытый курс "Слово пацана" (Уровень: Средний)
+
+cnt = 0
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    copied = [x for x in M if M.count(x) == 2]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 2 and len(not_copied) == 2:
+        if all(str(x) in '02468' for x in copied):
+            if all(str(x) in '13579' for x in not_copied):
+                cnt += 1
+print(cnt)
+
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
