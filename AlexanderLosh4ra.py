@@ -1,145 +1,219 @@
 # region Домашка: ******************************************************************
 
+'''
+import itertools
+M = ['1' * 20, '2' * 15, '3' * 40]
+for var in itertools.permutations(M):
+    s = '>' + ''.join(var) + '<'
+    old_s = s
+
+    while '><' not in s:
+        s = s.replace('>1', '3>', 1)
+        s = s.replace('>2', '2>', 1)
+        s = s.replace('>3', '1>', 1)
+        s = s.replace('3<', '<1', 1)
+        s = s.replace('2<', '<3', 1)
+        s = s.replace('1<', '<2', 1)
+    summ = sum([int(x) for x in s if x.isdigit()])
+    print(summ, old_s)
+'''
+
+'''
+M = ['1' * 20 + '2' * 15 + '3' * 40,
+     '1' * 20 + '3' * 40 + '2' * 15,
+     '3' * 40 + '1' * 20 + '2' * 15]
+for elem in M:
+    s = '>' + elem + '<'
+    while '><' not in s:
+        s = s.replace('>1', '3>', 1)
+        s = s.replace('>2', '2>', 1)
+        s = s.replace('>3', '1>', 1)
+        s = s.replace('3<', '<1', 1)
+        s = s.replace('2<', '<3', 1)
+        s = s.replace('1<', '<2', 1)
+    summa = sum([int(x) for x in s if x.isdigit()])
+    print(summa)
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Какая строка получится в результате применения приведённой ниже программы к строке, состоящей из 85 единиц?
-#
-# ПОКА нашлось (11111)
-#   заменить (111, 2)
-#   заменить (222, 1)
+
+# Тип 8 №3233
 '''
-s = '1' * 85
-while '11111' in s:
-    s = s.replace('111', '2', 1)
-    s = s.replace('222', '1', 1)
-print(s)
-'''
+s = sorted('АКРУ')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    num += 1
+                    if num == 250:
+                        print(slovo)
 
-# № 17675 Пересдача 04.07.24 (Уровень: Базовый)
-# Какая строка получится в результате применения приведённой ниже программы к строке,
-# состоящей из 134 идущих подряд цифр 9? В ответе запишите полученную строку.
-#
-#   ПОКА нашлось (22222) ИЛИ нашлось (9999)
-#     ЕСЛИ нашлось (22222)
-#       ТО заменить (22222, 99)
-#     ИНАЧЕ заменить (9999, 2)
-'''
-s = '9' * 134
-while '22222' in s or '9999' in s:
-    if '22222' in s:
-        s = s.replace('22222', '99', 1)
-    else:
-        s = s.replace('9999', '2', 1)
-print(s)
-'''
+from itertools import *
+num = 0
+for per in product(sorted('АКРУ'), repeat=5):
+    slovo = ''.join(per)
+    num += 1
+    if num == 250:
+        print(slovo)
 
-
-# Несколько способов как найти значение суммы числовых значений цифр в строке #tpy
-'''
-s = '3721893721'
-
-# Вариант 1:
-summa1 = 0
-for x in s:
-    summa1 += int(x)
-print(summa1)
-
-n = 23542
-summa1 = 0
-for x in str(n):
-    summa1 += int(x)
-print(summa1)
-
-
-# Вариант 2:
-summa2 = 0
-for i in range(0, 10):
-    summa2 += s.count(str(i)) * i
-print(summa2)
-
-#  235424 = 2 * 2 + 1 * 3 + 1 * 5 + 2 * 4
-
-# или: summa2 = s.count('1') + s.count('2') * 2 + ...
-
-# Вариант 3:
-print(map(int, s))  # <map object at 0x1005effd0>
-print(list(map(int, s)))  # [3, 7, 2, 1, 8, 9, 3, 7, 2, 1]
-summa3 = sum(map(int, s))
-print(summa3)
-
-
-# Вариант 4:
-s = '372189372 .a1'
-# ValueError: invalid literal for int() with base 10: '.'
-summa4 = sum([int(x) for x in s if x.isdigit()])
-print(summa4)
-'''
-# или: summa4 = sum([int(x) for x in s if x.isdigit()])
-
-
-# № 16378 ЕГКР 27.04.24 (Уровень: Базовый)
-# На вход приведённой выше программе поступает строка, начинающаяся с цифры «8»,
-# а затем содержащая и n цифр «4» (3 < n < 10 000).
-#
-# Определите наибольшее возможное значение суммы числовых значений цифр в строке,
-# которая может быть результатом выполнения программы.
-'''
-R = []
-for n in range(4, 10000):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
-    summa = sum([int(x) for x in s])
-    R.append(summa)
-    print(max(R))
+from itertools import *
+for num, per in enumerate(product(sorted('АКРУ'), repeat=5), 1):
+    slovo = ''.join(per)
+    if num == 250:
+        print(slovo)
 '''
 
 '''
-for x in range(0, 50):
-    for y in range(0, 50):
-        for z in range(0, 50):
-            s = '0' + '1' * x + '2' * y + '3' * z + '0'
-            while '00' not in s:
-                s = s.replace('01', '220', 1)
-                s = s.replace('02', '1013', 1)
-                s = s.replace('03', '120', 1)
-            if s.count('1') == 13 and s.count('2') == 18:
-                print(x+y+z+2)
+# i       0    1    2    3
+array = ['a', 'b', 'c', 'd']
+
+for i, elem in enumerate(array):
+    print(i, elem)
+    # 0 a
+    # 1 b
+    # 2 c
+    # 3 d
+
+for i, elem in enumerate(array, 1):
+    print(i, elem)
+    # 1 a
+    # 2 b
+    # 3 c
+    # 4 d
 '''
 
+
+# Тип 8 №18079
+# Вася составляет 6-буквенные слова из букв К, О, Т.
+# Причем буква К используется в каждом слове ровно 1 раз.
+# Остальные буквы могут быть использованы любое количество раз,
+# в том числе совсем отсутствовать. Сколько слов может составить Вася?\
 '''
-def prime(x):  # 24
-    if x <= 1:
-        return False  # 1 не является простым числом
-    for j in range(2, x):
-        if x % j == 0:
-            return False  # составное
-    return True  # простое
+s = 'КОТ'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        slovo = a + b + c + d + e + f
+                        if slovo.count('К') == 1:
+                            cnt += 1
+print(cnt)
 
 
-for n in range(1, 1000):
-    s = '>' + '1' * 16 + '2' * n + '3' * 16
-    while '>1' in s or '>3' in s or '>2' in s:
-        if '>1' in s:
-            s = s.replace('>1', '1>', 1)
-        if '>3' in s:
-            s = s.replace('>3', '>2', 1)
-        if '>2' in s:
-            s = s.replace('>2', '>1', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if prime(summa):
-        print(n)
-        exit()
+from itertools import *
+cnt = 0
+for per in product('КОТ', repeat=6):
+
+    slovo = ''.join(per)  # ('Т', 'Т', 'Т', 'Т', 'К', 'О') -> 'ТТТТКО'
+    if slovo.count('К') == 1:
+        cnt += 1
+print(cnt)
 '''
+
+
+# Тип 8 №7667
+# Сколько слов длины 5, начинающихся с гласной буквы, можно
+# составить из букв Е, Г, Э? Каждая буква может входить в слово несколько раз.
+# Слова не обязательно должны быть осмысленными словами русского языка.
+'''
+from itertools import *
+cnt = 0
+for per in product('ЕГЭ', repeat=5):
+    slovo = ''.join(per)
+    if slovo[0] in 'ЕЭ':
+        cnt += 1
+print(cnt)
+
+
+from itertools import product
+print([slovo[0] in 'ЕЭ' for slovo in product('ЕГЭ', repeat=5)].count(True))
+'''
+
+
+# Тип 8 №27539
+# Борис составляет 6-буквенные коды из букв Б, О, Р, И, С.
+# Буквы Б и Р нужно обязательно использовать ровно по одному разу,
+# букву С можно использовать один раз или не использовать совсем,
+# буквы О и И можно использовать произвольное количество раз или не использовать совсем.
+# Сколько различных кодов может составить Борис?
+'''
+from itertools import *
+cnt = 0
+for per in product('БОРИС', repeat=6):
+    slovo = ''.join(per)
+    if slovo.count('Б') == 1 and slovo.count('Р') == 1 and slovo.count('С') <= 1:
+        cnt += 1
+print(cnt)
+'''
+
+
+# Тип 8 №59746
+# Сколько существует десятичных чисел, которые делятся на 5,
+# при условии что все цифры числа различные?
+
+'''
+from itertools import permutations
+word = '0123456789'
+c = 0
+for j in range(1, 11):
+    for i in permutations(word, j):
+        x = ''.join(i)
+        if x[0] != '0' and (x[-1] == '5' or x[-1] == '0'):
+            c += 1
+print(c + 1)  # +1 случай когда число равно 0
+
+from itertools import *
+cnt = 0
+for m in range(1, 11):
+    for per in permutations('0123456789', m):
+        if per[0] != '0' and per[-1] in '05':
+            cnt += 1
+print(cnt + 1)  # +1 случай когда число равно 0
+'''
+
+# Тип 8 №58237
+# Сколько существует различных четырёхзначных чисел,
+# записанных в семеричной системе счисления,
+# в записи которых цифры следуют слева направо в строго убывающем порядке?
+'''
+from itertools import *
+cnt = 0
+for per in product('0123456', repeat=4):
+    num = ''.join(per)
+    if num[0] != '0':
+        if num[0] > num[1] > num[2] > num[3]:
+            cnt += 1
+print(cnt)
+'''
+
+# Тип 8 №59742
+# Определите количество четырехзначных чисел, записанных в десятичной системе счисления,
+# в записи которых все цифры различны и никакие две чётные и две нечётные цифры не стоят рядом.
+'''
+from itertools import *
+cnt = 0
+for per in permutations('0123456789', 4):
+    num = ''.join(per)
+    if num[0] != '0':
+        #  никакие две чётные и две нечётные цифры не стоят рядом.
+        num = num.replace('0', '2').replace('4', '2').replace('6', '2').replace('8', '2')
+        num = num.replace('3', '1').replace('5', '1').replace('7', '1').replace('9', '1')
+        if '11' not in num and '22' not in num:
+            cnt += 1
+print(cnt)
+'''
+
 
 # endregion Урок: *************************************************************
 # #
@@ -149,6 +223,6 @@ for n in range(1, 1000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
