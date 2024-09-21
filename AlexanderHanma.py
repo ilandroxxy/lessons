@@ -1,40 +1,34 @@
 # region Домашка: ******************************************************************
 
+# № 13094 (Уровень: Средний)
+# Сколько существует 9-значных девятеричных чисел, в записи которых не
+# встречается цифра 0, любые две соседние цифры имеют разную чётность, и никакая цифра не повторяется больше 3 раз?
 '''
-import itertools
-M = ['1' * 20, '2' * 15, '3' * 40]
-for var in itertools.permutations(M):
-    s = '>' + ''.join(var) + '<'
-    old_s = s
-
-    while '><' not in s:
-        s = s.replace('>1', '3>', 1)
-        s = s.replace('>2', '2>', 1)
-        s = s.replace('>3', '1>', 1)
-        s = s.replace('3<', '<1', 1)
-        s = s.replace('2<', '<3', 1)
-        s = s.replace('1<', '<2', 1)
-    summ = sum([int(x) for x in s if x.isdigit()])
-    print(summ, old_s)
+from itertools import product
+a2 = '2468'
+a1 = '1357'
+cnt = 0
+for p in product(a1, a2, a1, a2, a1, a2, a1, a2, a1):
+    num = ''.join(p)
+    if all(num.count(x) <= 3 for x in num):
+        cnt += 1
+print(cnt * 2)
 '''
 
 '''
-M = ['1' * 20 + '2' * 15 + '3' * 40,
-     '1' * 20 + '3' * 40 + '2' * 15,
-     '3' * 40 + '1' * 20 + '2' * 15]
-for elem in M:
-    s = '>' + elem + '<'
-    while '><' not in s:
-        s = s.replace('>1', '3>', 1)
-        s = s.replace('>2', '2>', 1)
-        s = s.replace('>3', '1>', 1)
-        s = s.replace('3<', '<1', 1)
-        s = s.replace('2<', '<3', 1)
-        s = s.replace('1<', '<2', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    print(summa)
+num = 0
+from itertools import *
+for per in product('012345678', repeat=9):
+    s = ''.join(per)
+    if '0' not in s:
+        if s.count('1') <= 3 and s.count('2') <= 3 and s.count('3') <= 3 and s.count('4') <= 3 and s.count('5') <= 3 and s.count('6') <= 3 and s.count('7') <= 3 and s.count('8') <= 3:
+        #all(s.count(x) <= 3 for x in s)
+            s = s.replace('3', '1').replace('5', '1').replace('7','1')
+            s = s.replace('4', '2').replace('6', '2').replace('8', '2')
+            if '11' not in s and '22' not in s:
+                num += 1
+print(num)
 '''
-
 
 # endregion Домашка: ******************************************************************
 # #
@@ -42,179 +36,99 @@ for elem in M:
 # region Урок: ********************************************************************
 
 
-# Тип 8 №3233
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 234.95.131.37
+# Маска: 255.255.192.0
 '''
-s = sorted('АКРУ')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    num += 1
-                    if num == 250:
-                        print(slovo)
+# Адрес сети = IP-адрес узла & Маска сети
 
-from itertools import *
-num = 0
-for per in product(sorted('АКРУ'), repeat=5):
-    slovo = ''.join(per)
-    num += 1
-    if num == 250:
-        print(slovo)
+# & - побитовая конъюнкция (логическое умножение) (1 and 1 = 1)
 
-from itertools import *
-for num, per in enumerate(product(sorted('АКРУ'), repeat=5), 1):
-    slovo = ''.join(per)
-    if num == 250:
-        print(slovo)
-'''
+print(12 & 6)  # 4
+print(bin(12)[2:])
+print(bin(6)[2:])
 
-'''
-# i       0    1    2    3
-array = ['a', 'b', 'c', 'd']
+# IP - это четыре числа на каждое из которых выделено по 1 байту (бит)
+# Из этого следует, что сила лежат в диапазоне от 0 до 255 (так как они восьмибитные)
+print(bin(255)[2:])  # 11111111
 
-for i, elem in enumerate(array):
-    print(i, elem)
-    # 0 a
-    # 1 b
-    # 2 c
-    # 3 d
 
-for i, elem in enumerate(array, 1):
-    print(i, elem)
-    # 1 a
-    # 2 b
-    # 3 c
-    # 4 d
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '234.95.131.37'.split('.')]))
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.192.0'.split('.')]))
+# Маска сети имеет длину 32 символа: 11111111.11111111.11000000.00000000
+# И вид сначала 1, а затем нули: 111111.....0000
 '''
 
 
-# Тип 8 №18079
-# Вася составляет 6-буквенные слова из букв К, О, Т.
-# Причем буква К используется в каждом слове ровно 1 раз.
-# Остальные буквы могут быть использованы любое количество раз,
-# в том числе совсем отсутствовать. Сколько слов может составить Вася?\
+# Тип 13 №5062
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 234.95.131.37
+# Маска: 255.255.192.0
 '''
-s = 'КОТ'
+from ipaddress import *
+net = ip_network('234.95.131.37/255.255.192.0', 0)
+print(net)  # 234.95.128.0/18, где 18 это кол-во единиц в маске
+'''
+
+
+# Тип 13 №13542
+# Для узла с IP-адресом 136.128.196.48 адрес сети равен 136.128.192.0.
+# Чему равно наибольшее возможное значение третьего слева байта маски?
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'136.128.196.48/{mask}', 0)
+    print(net, net.netmask)
+    # 136.128.192.0/18 255.255.192.0
+    # 136.128.192.0/19 255.255.224.0
+    # 136.128.192.0/20 255.255.240.0
+    # 136.128.192.0/21 255.255.248.0
+'''
+'''
+from ipaddress import *
+maxi = 0
+for mask in range(32+1):
+    net = ip_network(f'136.128.196.48/{mask}', 0)
+    if str(net) == f'136.128.192.0/{mask}':
+        print(net, net.netmask)
+        maxi = max(maxi, int(str(net.netmask).split('.')[2]))
+print(maxi)
+'''
+
+
+# Тип 13 №27238
+# Узлы с IP-адресами 84.77.47.132 и 84.77.48.132 находятся в одной сети.
+# Укажите наибольшее возможное значение
+# третьего слева байта маски этой сети.
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+R = []
+for mask in range(32+1):
+    net1 = ip_network(f'84.77.47.132/{mask}', 0)
+    net2 = ip_network(f'84.77.48.132/{mask}', 0)
+    if net1 == net2:
+        R.append(str(net1.netmask).split('.')[2])
+
+print(max(R))
+'''
+
+
+# № 17867 Демоверсия 2025 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.16.168.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, для которых количество единиц
+# в двоичной записи IP-адреса не кратно 5?
+'''
+from ipaddress import *
+net = ip_network('172.16.168.0/255.255.248.0', 0)
 cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        if slovo.count('К') == 1:
-                            cnt += 1
-print(cnt)
-
-
-from itertools import *
-cnt = 0
-for per in product('КОТ', repeat=6):
-
-    slovo = ''.join(per)  # ('Т', 'Т', 'Т', 'Т', 'К', 'О') -> 'ТТТТКО'
-    if slovo.count('К') == 1:
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 5 != 0:
         cnt += 1
 print(cnt)
 '''
-
-
-# Тип 8 №7667
-# Сколько слов длины 5, начинающихся с гласной буквы, можно
-# составить из букв Е, Г, Э? Каждая буква может входить в слово несколько раз.
-# Слова не обязательно должны быть осмысленными словами русского языка.
-'''
-from itertools import *
-cnt = 0
-for per in product('ЕГЭ', repeat=5):
-    slovo = ''.join(per)
-    if slovo[0] in 'ЕЭ':
-        cnt += 1
-print(cnt)
-
-
-from itertools import product
-print([slovo[0] in 'ЕЭ' for slovo in product('ЕГЭ', repeat=5)].count(True))
-'''
-
-
-# Тип 8 №27539
-# Борис составляет 6-буквенные коды из букв Б, О, Р, И, С.
-# Буквы Б и Р нужно обязательно использовать ровно по одному разу,
-# букву С можно использовать один раз или не использовать совсем,
-# буквы О и И можно использовать произвольное количество раз или не использовать совсем.
-# Сколько различных кодов может составить Борис?
-'''
-from itertools import *
-cnt = 0
-for per in product('БОРИС', repeat=6):
-    slovo = ''.join(per)
-    if slovo.count('Б') == 1 and slovo.count('Р') == 1 and slovo.count('С') <= 1:
-        cnt += 1
-print(cnt)
-'''
-
-
-# Тип 8 №59746
-# Сколько существует десятичных чисел, которые делятся на 5,
-# при условии что все цифры числа различные?
-
-'''
-from itertools import permutations
-word = '0123456789'
-c = 0
-for j in range(1, 11):
-    for i in permutations(word, j):
-        x = ''.join(i)
-        if x[0] != '0' and (x[-1] == '5' or x[-1] == '0'):
-            c += 1
-print(c + 1)  # +1 случай когда число равно 0
-
-from itertools import *
-cnt = 0
-for m in range(1, 11):
-    for per in permutations('0123456789', m):
-        if per[0] != '0' and per[-1] in '05':
-            cnt += 1
-print(cnt + 1)  # +1 случай когда число равно 0
-'''
-
-# Тип 8 №58237
-# Сколько существует различных четырёхзначных чисел,
-# записанных в семеричной системе счисления,
-# в записи которых цифры следуют слева направо в строго убывающем порядке?
-'''
-from itertools import *
-cnt = 0
-for per in product('0123456', repeat=4):
-    num = ''.join(per)
-    if num[0] != '0':
-        if num[0] > num[1] > num[2] > num[3]:
-            cnt += 1
-print(cnt)
-'''
-
-# Тип 8 №59742
-# Определите количество четырехзначных чисел, записанных в десятичной системе счисления,
-# в записи которых все цифры различны и никакие две чётные и две нечётные цифры не стоят рядом.
-'''
-from itertools import *
-cnt = 0
-for per in permutations('0123456789', 4):
-    num = ''.join(per)
-    if num[0] != '0':
-        #  никакие две чётные и две нечётные цифры не стоят рядом.
-        num = num.replace('0', '2').replace('4', '2').replace('6', '2').replace('8', '2')
-        num = num.replace('3', '1').replace('5', '1').replace('7', '1').replace('9', '1')
-        if '11' not in num and '22' not in num:
-            cnt += 1
-print(cnt)
-'''
-
-
 # endregion Урок: *************************************************************
 # #
 # #
@@ -223,6 +137,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:
