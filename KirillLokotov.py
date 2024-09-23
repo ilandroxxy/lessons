@@ -1,109 +1,69 @@
 # region Домашка: ************************************************************
 
 
-# Произведение делителей
-'''
-m = int(input())
-my_prod = 1
-for j in range(1, m+1):
-    if m % j == 0:
-        my_prod *= j
-print(my_prod)
-'''
-
-'''
-from math import prod
-m = int(input())
-div = []
-for j in range(1, m+1):
-    if m % j == 0:
-        div.append(j)
-# print(div)
-print(prod(div))
-'''
-
-# Max и Min
-'''
-n = int(input())
-M = [int(x) for x in str(n) if x in '02468']
-print(max(M))
-print(min(M))
-
-
-n = int(input())
-M = str(n)
-print(max(M))
-print(min(M))
-'''
-
-# Анализ числа
-'''
-n = int(input())  # 1234
-summa = 0
-count = 0
-my_prod = 1
-while n > 0:
-    ostat = n % 10
-    summa += ostat
-    count += 1
-    my_prod *= ostat
-    n //= 10
-print(summa)
-print(count)
-print(my_prod)
-'''
-
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        print(x, y)
-'''
 
-
-# Тип 2 №16431
-# ((y → x) ≡ (x → w)) ∧ (z ∨ x)
+# Четыре вариант подключения библиотеки:
 '''
-print('x y z w')
-for x in [0, 1]:
-    for y in range(2):
-        for z in 0, 1:
-            for w in (0, 1):
-                F = ((y <= x) == (x <= w)) and (z or x)
-                if F == 1:
-                    print(x, y, z, w)
+M = [1, 2, 3, 4, 5]
+
+import math
+print(math.sqrt(16))
+
+import math as m
+print(m.sqrt(16))
+
+from math import sqrt, prod, pow
+print(sqrt(16))
+
+from math import *
+print(sqrt(16))
+print(prod(M))
 '''
 
 
-# Тип 2 №33747
-# (¬(z ≡ w) → (w ∧ ¬x)) ∨ (x ∧ ¬y)
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((not(z == w)) <= (w and (not x))) or (x and (not y))
-                if F == 0:
-                    print(x, y, z, w)
+import turtle as t
+t.left(90)  # t.lt(90)
+t.forward(100)  # t.fd(100)
+t.done()
 '''
 
-# Тип 2 №68264
-# ((y ∨ z) → (z ∧ w)) ≡ ¬ ((x ∧ z) → (w ∨ y))
+# Тип 6 №47315
+# В начальный момент Черепаха находится в начале координат,
+# её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+# Черепахе был дан для исполнения следующий алгоритм:
+# Повтори 6 [Вперёд 7 Направо 90 Вперёд 7 Направо 90].
+#
+# Определите количество точек с целочисленными координатами, лежащих внутри
+# или на границе области, которую ограничивает заданная алгоритмом линия.
 
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((y or z) <= (z and w)) == (not((x and z) <= (w or y)))
-                if F == 1:
-                    print(x, y, z, w)
+'''
+import turtle as t  # Подключаем библиотеку с именем t
+t.screensize(-5000, 5000)
+t.tracer(0)  # Отключаем анимацию отрисовки (мгновенная отрисовка)
+t.left(90)  # Удовлетворяем условию, чтобы повернуть голову строго вверх
+l = 40  # Переменная l отвечает за масштаб отрисовки: forward, backward, goto
 
+# Тут будем писать псевдокод
+for i in range(6):
+    t.forward(7 * l)
+    t.right(90)
+    t.forward(7 * l)
+    t.right(90)
+
+t.up()  # Поднимаем перо, чтобы не было лишний линий на рисунке
+for x in range(-50, 50):  # Перебираем координаты точек (x, y)
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)  # Прыгаем в выбранную координату учитывая масштаб l
+        t.dot(3, 'red')  # Ставим точку толщины 3 и красного цвета
+
+t.update()  # Обновляем экран для корректной работы t.tracer(0)
+t.done()  # Фиксирует окно отрисовки
+'''
 
 # endregion Урок: ************************************************************
 # #
@@ -114,6 +74,6 @@ for x in 0, 1:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2]
+# ФИПИ = [2, 6]
 # КЕГЭ = []
 # на следующем уроке:
