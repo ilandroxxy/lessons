@@ -1,272 +1,205 @@
 # region Домашка: ******************************************************************
 
-# Произведение и сумма цифр пятизначного числа
 '''
-n = 123
-print(n // 100)  # 1
-print((n // 10) % 10)  # 2
-print(n % 10)  # 3
-
-p = int(input())
-a = p // 10000
-b = (p // 1000) % 10
-c = (p // 100) % 10
-d = (p // 10) % 10
-e = p % 10
-
-print(a * b * c * d * e)
-print(a + b + c + d + e)
+a = int(input())
+b = int(input())
+c = int(input())
+summa = 0
+if a % 7 == 0 and a % 49 != 0 or a % 40 == 0:
+    summa += a
+if b % 7 == 0 and b % 49 != 0 or b % 40 == 0:
+    summa += b
+if c % 7 == 0 and c % 49 != 0 or c % 40 == 0:
+    summa += c  # summa = summa + c
+print(summa)
 '''
 
 '''
-# i  01234
-s = '34256'
-print(int(s[0]))  # 3
-
-A = input()  # 34256
-
-a = int(A[0])
-b = int(A[1])
-c = int(A[2])
-d = int(A[3])
-e = int(A[4])
-print(a * b * c * d * e)
-print(a + b + c + d + e)
+x = 15
+x -= 5
+print(x)  # 10
+x **= 2
+print(x)  # 100
+x //= 2
+print(x)  # 50
 '''
 
 '''
-import string
-print(string.digits)  # 0123456789
-print(string.ascii_uppercase)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-print(string.punctuation)  # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-
-
-from string import digits, ascii_uppercase
-alphabet = digits + ascii_uppercase  
-# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-alphabet = sorted('01234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-
-M = []
-for x in input():
-    if x.isdigit() and x in '02468':
-        M.append(int(x))
-print(M)
-
-M = [int(x) for x in input() if x.isdigit() and x in '02468']
-print(M)
-
-from math import *
-M = [int(x) for x in input()]
-print(prod(M))
-print(sum(M))
+a = int(input())
+b = int(input())
+c = int(input())
+if a == b == c:
+    print('Равносторонний')
+elif a != b != c != a:
+    print('Разносторонний')
+else:
+    print('Равнобедренный')
 '''
 
-# PEP8 - общепринятые нормы по оформлению кода на Пайтон
+'''
+print(max([1, 2, 3, 4, 5]))
+print(max(1, 2, 3, 4, 5))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# Способы взаимодействия с библиотеками
+# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до В"
 '''
-M = [1, 2, 3, 4, 5]
-
-import math
-print(math.prod(M))  # 120
-
-
-import math as m  # Подключили библиотеку math и переименовали ее в m
-print(m.prod(M))  # 120
+# Работа цикла for с функцией range()
+# range(STOP-1)
+# range(START, STOP-1)
+# range(START, STOP-1, STEP)
 
 
-# ctrl + B - поиск по библиотекам/функциям python
-from math import prod, sqrt  # Импортировали только определенные функции/константы
-print(prod(M))  # 120
-
-
-from math import *  # Импортировали сразу все содержимое библиотеки
-print(prod(M))  # 120
-print(sqrt(16))  # 4.0
-'''
-
-
-# 📌 Список полезных библиотек для успешной сдачи ЕГЭ по информатике! #tpy #useful
-
-# 1⃣ Библиотека черепашки для решения 6 номера кодом:
-'''
-import turtle as t
-
-t.tracer(0)
-
-t.fd(10)  # t.bk(10)
-t.rt(90)  # t.lt(90)
-
-t.up()
-t.down()
-
-x, y = 0, 0
-t.goto(x, y)
-t.dot(2, 'red')
-
-t.done()
-'''
-
-
-# 2⃣ Библиотека itertools для решения 1, 8, 9, 12, 24 номеров кодом:
-'''
-from itertools import product, permutations
-
-combinations = list(product("abc", repeat=3))
-for combination in combinations:
-    print(''.join(combination))
-    # aaa
-    # aab
-    # aac
-    # aba
-    # abb
-    # abc
-    # aca
-    # acb
-    # acc
-    # baa
-    # bab
-    # bac
-    # bba
-    # bbb
-    # bbc
-    # bca
-    # bcb
-    # bcc
-    # caa
-    # cab
-    # cac
-    # cba
-    # cbb
-    # cbc
-    # cca
-    # ccb
-    # ccc
-
-
-perms = list(permutations("abc"))
-for perm in perms:
-    print(''.join(perm))
-    # abc
-    # acb
-    # bac
-    # bca
-    # cab
-    # cba
-'''
-
-
-# 3⃣ Библиотека ipaddress для решения нового 13 номера:
-'''
-from ipaddress import *
-net = ip_network('адрес узла/маска', 0)
-print(net, net.netmask, net.num_addresses)
-'''
-
-
-# 4⃣ Две библиотеки для решения 16 номера:
-'''
-# Одна увеличивает глубину рекурсии:
-import sys
-sys.setrecursionlimit(10000)
-
-
-# Вторая ускоряет вычисления через использование кэширования:
-from functools import *
-@lru_cache(None)
-def F(n):
-    pass
-'''
-
-
-# 5⃣ Библиотека fnmatch для решения 25 номера с масками:
-'''
-from fnmatch import fnmatch
-if fnmatch('123', '*?3'):
-    pass
-'''
-
-
-# 6⃣ Библиотека string хранит в себе много полезных элементов:
-'''
-import string
-alphabet = string.ascii_uppercase
-print(alphabet)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-print(string.punctuation)
-# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-'''
-
-
-# 7⃣ Библиотека math хранит в себе много полезных математических функций:
-'''
-import math as m
-print(m.sqrt(16))
-print(m.ceil(7/2))
-'''
-
-
-# Условные операторы (ветвление): if, elif, else
-
-# if - если
-# elif - иначе если
-# else - иначе
-
-# x = int(input('x: '))
-# y = int(input('y: '))
-'''
-x, y = -5, 6
-
-if x > 0 and y > 0:
-    print(1)
-elif x < 0 and y > 0:
-    print(2)
-elif x < 0 and y < 0:
-    print(3)
-elif x > 0 and y < 0:
-    print(4)
-else:
-    print('Лежит на осях')
-
-print('Продолжение программы')
-'''
-
-# Логические связки: and, or, in, not, ^, !=, ==
-'''
-flag = True
-print(not flag)  # False
-print(not (not flag))  # True
-
-s = '2132134231'
-for x in s:
-    if x in '02468':
-        print(x, end=' ')  # 2 2 4 2
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
 print()
 
-a, b, c = 5, -6, 7
-if a > 0 and b > 0:
-    print(1)  # and - гарантирует, что все условия выполняются
-if a > 0 or b > 0:
-    print(2)  # or - говорит о том, что хотя бы одно верно
-if (a > 0) ^ (b > 0):
-    print(3)  # ^, != - гарантируют, что только одно выполняется
-if (a > 0) != (b > 0):
-    print(3)
-    
-print(True + True + False)  # 2
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-a, b, c = 5, -6, 7
-#    True  +  False  +  True
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два условия выполняются')
-if (a > 0) + (b > 0) + (c > 0) <= 2:
-    print('Не более двух выполняются')
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
+
+n = 10
+for i in range(2, n+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
+    print(i, end=' ')  #
+print()
+
+for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+print(len(M))  # 5 - возвращает длину последовательности (кол-во элементов в ней)
+
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
+
+# Работа с последовательностями напрямую через цикл for
+'''
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
+
+A = ['a', 'h', 'a', 'b', 'b', 'h', 'b', 'b', 'e', ]
+for x in A:
+    if x in 'aeo':
+        print(x, end=' ')  # a a e
+print()
+'''
+
+# Цикл while отвечает на запросы: "пока условие верно, выполняем действие", "бесконечные циклы"
+
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
+'''
+
+# Перевод из 10-й в n-ую систему счисления
+'''
+n = int(input('n: '))
+b = int(input('b: '))
+R = []
+while n > 0:
+    R.append(n % b)
+    n //= b
+R.reverse()
+print(R)
+
+
+print(int('1000'))    # 1000
+print(int('1000', 2))    # 8 - перевод из 2-й в 10-ю
+print(int('1000', 16))    # 4096 - перевод из 16-й в 10-ю
+'''
+
+
+# Перевод из 10-й в n-ую систему счисления (через строку)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+n = int(input('n: '))
+b = int(input('b: '))
+r = ''
+while n > 0:
+    r += alphabet[n % b]
+    n //= b
+r = r[::-1]  # Развернули строку в обратном порядке
+print(r)  # 7511213115 -> 75BCD15
+# n: 123456789
+# b: 16
+# 75BCD15
+'''
+
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+# print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    r = r[::-1]
+    return r
+
+
+n = 123456789
+b = 16
+r = convert(n, b)
+print(r)  # 75BCD15
+print(int(r, 16))  # 123456789
+'''
+
+
+# Бесконечные циклы и операторы break, continue, exit
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 == 0:
+        continue  # Прерывает итерацию (шаг) цикла
+    if k == 2_000_001:
+        break  # Прерывает исполнение цикла в котором он лежит
+    if k == 1_000_000:
+        exit()  # Просто прерывает выполнение программы
+    print(k)
+
+print('Продолжение программы')
 '''
 
 # endregion Урок: *************************************************************
@@ -280,4 +213,5 @@ if (a > 0) + (b > 0) + (c > 0) <= 2:
 # #
 # ФИПИ = []
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: Напишем программу проверки паролей,
+# и консольную программу калькулятор перевода в системы счисления

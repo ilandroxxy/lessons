@@ -1,54 +1,34 @@
 # region Домашка: ******************************************************************
 
-
-# Монетный размен: количество и остаток
 '''
-rub = int(input())
-nominal = int(input())
-print(rub // nominal)
-print(rub % nominal)
+a = int(input())
+b = int(input())
+if a > b:
+    if a % b == 0:
+        print("Делится")
+    else:
+        print("Не делится")
+elif a < b:
+    if b % a == 0:
+        print("Делится")
+    else:
+        print("Не делится")
+else:
+    print("На ноль делить нельзя!")
 '''
 
 
-# n = 123
-# print(n // 100)  # 1
-# print((n // 10) % 10)  # 2
-# print(n % 10)  # 3
-
-
-# Произведение и сумма цифр пятизначного числа
+# Разработка программы для определения вида треугольника
 '''
-n = int(input())  # 54378
-a = n // 10000
-b = (n // 1000) % 10
-c = (n // 100) % 10
-d = (n // 10) % 10
-e = n % 10
-print(a * b * c * d * e)
-print(a + b + c + d + e)
-
-
-# Вариант 2
-a = int(input())  # 54378
-a1 = a // 10000
-a2 = (a - (a1 * 10000)) // 1000
-a3 = (a - (a1 * 10000 + a2 * 1000)) // 100
-a4 = (a - (a1 * 10000 + a2 * 1000 + a3 * 100)) // 10
-a5 = (a - (a1 * 10000 + a2 * 1000 + a3 * 100 + a4 * 10))
-print(a1 * a2 * a3 * a4 * a5)
-print(a1 + a2 + a3 + a4 + a5)
-
-# Вариант 3
-A = input()  # str
-# i   01234
-# A = 54378
-a = int(A[0])
-b = int(A[1])
-c = int(A[2])
-d = int(A[3])
-e = int(A[4])
-print(a * b * c * d * e)
-print(a + b + c + d + e)
+a = int(input())
+b = int(input())
+c = int(input())
+if a == b == c:
+    print("Равносторонний")
+elif a != b != c != a:
+    print("Разносторонний")
+else:
+    print("Равнобедренный")
 '''
 
 # endregion Домашка: ******************************************************************
@@ -56,121 +36,137 @@ print(a + b + c + d + e)
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы (ветвление): if, elif, else
-
-# if - если
-# elif - иначе если
-# else - иначе
-
-# x = int(input('x: '))
-# y = int(input('y: '))
+# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до В"
 '''
-x, y = -5, 5
+# range(STOP-1)
+# range(START, STOP-1)
+# range(START, STOP-1, STEP)
 
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит на осях')
-
-print('Продолжаем программу')
-'''
+for i in range(10):  # range(start=0, STOP=10-1, step=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
 
-'''
-k = 1
-k = k + 1
-print(k)  # 2
-
-k += 1
-print(k)  # 3
-
-k //= 3
-print(k)  # 1
-'''
+for i in range(2, 10):  # range(START=2, STOP=10-1, step=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
 
-# Каскадные условные операторы
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:  # x <= 0
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Третья четверть')
-'''
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
 
 
-# Логические связки: and, or, not, in, ^, !=, ==
-'''
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
-
-s = '2134235'
-for x in s:  # Пробегаем все элементы строки s
-    if x in '02468':  # Если элемент строки X лежит в наборе целых цифр
-        print(x)
-
-a, b = 5, 4
-print(a == b)  # False
-print(a != b)  # True
-
-a, b, c = 5, -6, 7
-if a > 0 and b > 0:
-    print('and - гарантирует, что все условия выполняются')
-if a > 0 or b > 0:
-    print('or - говорит о том, что хотя бы одно выполняется')
-if (a > 0) ^ (b > 0):
-    print('^, != - гарантируют, что только одно условие выполняется')
-if (a > 0) != (b > 0):
-    print('!=, ^ - гарантируют, что только одно условие выполняется')
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
 
-print(True + False + True)  # 2
+for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
+    print(i, end=' ')  #
+print()
 
 
-a, b, c = 5, -6, 7
-#   True   +  False  +  True
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два условия выполняются')
-if (a > 0) + (b > 0) + (c > 0) <= 2:
-    print('Не более двух выполняются')
+for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  # 5 - возвращает длину списка М (кол-во его элементов)
+
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
+
+
+s = '2345362745236427'
+for x in s:
+    if x in '02468':
+        print(x, end=' ')  # 2 4 6 2 4 2 6 4 2 
+print()
 '''
 
 
-# Подключение библиотек в Python
+# Цикл while отвечает на запросы: "пока условие верно, то выполняй", "бесконечный цикл"
 '''
-M = [1, 2, 3, 4, 5]
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-# ctrl + B
-import math
-print(math.prod(M))  # 120
-
-import math as m  # Переименовали библиотеку в короткое имя
-print(m.prod(M))  # 120
-
-from math import prod, sqrt  # Подключили только конкретные функции из библиотеки math
-print(prod(M))  # 120
-
-from math import *  # Подключили сразу все функции
-print(prod(M))  # 120
-print(sqrt(16))  # 4.0
-print(16 ** (1/2))
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+    i += 2
+print()
 '''
 
+'''
+n = int(input('Введите число в 10-й системе для перевода: '))
+b = int(input('Введите систему счисления в которую будем переводить: '))
+R = []
+while n > 0:
+    R.append(n % b)
+    n //= b  # b = b // b
+R.reverse()
+print(R)
+
+print(int('1000'))  # 1000
+print(int('1000', 2))  # 8 - Перевод из 2-й системы счисления в 10-ю
+'''
+
+
+'''
+n = int(input('Введите число в 10-й системе для перевода: '))
+b = int(input('Введите систему счисления в которую будем переводить: '))
+r = ''
+while n > 0:
+    r += str(n % b)
+    n //= b  # b = b // b
+r = r[::-1]  # срез в обратном порядке - разворачивает строку наоборот
+print(r)
+
+print(int(r, 2))  # 8 - Перевод из 2-й системы счисления в 10-ю
+'''
+
+
+# Бесконечные циклы и операторы break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # - прерывает итерацию (шаг) цикла
+    if k == 2_000_000:
+        break  # - прерывает выполнение цикла в котором находится
+    if k == 1_000_000:
+        exit()  # - полностью прерывает выполнение программы
+    print(k)
+
+
+print('Продолжение программы')
+'''
 
 # endregion Урок: *************************************************************
 # #
