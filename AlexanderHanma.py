@@ -1,142 +1,215 @@
 # region Домашка: ******************************************************************
-
-# № 13094 (Уровень: Средний)
-# Сколько существует 9-значных девятеричных чисел, в записи которых не
-# встречается цифра 0, любые две соседние цифры имеют разную чётность, и никакая цифра не повторяется больше 3 раз?
 '''
-from itertools import product
-a2 = '2468'
-a1 = '1357'
-cnt = 0
-for p in product(a1, a2, a1, a2, a1, a2, a1, a2, a1):
-    num = ''.join(p)
-    if all(num.count(x) <= 3 for x in num):
-        cnt += 1
-print(cnt * 2)
-'''
-
-'''
+s = sorted('ФОКУС')
+R = []
 num = 0
-from itertools import *
-for per in product('012345678', repeat=9):
-    s = ''.join(per)
-    if '0' not in s:
-        if s.count('1') <= 3 and s.count('2') <= 3 and s.count('3') <= 3 and s.count('4') <= 3 and s.count('5') <= 3 and s.count('6') <= 3 and s.count('7') <= 3 and s.count('8') <= 3:
-        #all(s.count(x) <= 3 for x in s)
-            s = s.replace('3', '1').replace('5', '1').replace('7','1')
-            s = s.replace('4', '2').replace('6', '2').replace('8', '2')
-            if '11' not in s and '22' not in s:
-                num += 1
-print(num)
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    num += 1
+                    if 'Ф' not in slovo and slovo.count('У') == 2:
+                        R.append(num)
+print(max(R))
 '''
 
+'''
+from itertools import *
+
+num = 0
+R = []
+for x in product(sorted('МАРКСЛ'), repeat=6):
+    sl = ''.join(x)
+    num += 1
+    if len(set(sl)) == 4 and any(sl.count(s) == 3 for s in sl):
+        if 'КС' not in sl and 'СК' not in sl:
+            R.append(num)
+
+print(max(R))
+'''
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# По заданным IP-адресу узла и маске определите адрес сети.
-# IP-адрес узла: 234.95.131.37
-# Маска: 255.255.192.0
 '''
-# Адрес сети = IP-адрес узла & Маска сети
+from fnmatch import *
+for x in range(4173, 10**10, 4173):
+    if fnmatch(str(x), '1?2655*8'):
+        print(x)
 
-# & - побитовая конъюнкция (логическое умножение) (1 and 1 = 1)
-
-print(12 & 6)  # 4
-print(bin(12)[2:])
-print(bin(6)[2:])
-
-# IP - это четыре числа на каждое из которых выделено по 1 байту (бит)
-# Из этого следует, что сила лежат в диапазоне от 0 до 255 (так как они восьмибитные)
-print(bin(255)[2:])  # 11111111
-
-
-print('.'.join([bin(int(x))[2:].zfill(8) for x in '234.95.131.37'.split('.')]))
-print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.192.0'.split('.')]))
-# Маска сети имеет длину 32 символа: 11111111.11111111.11000000.00000000
-# И вид сначала 1, а затем нули: 111111.....0000
+        # 1026558
+        # 1226553198
+        # 1526550168
 '''
 
 
-# Тип 13 №5062
-# По заданным IP-адресу узла и маске определите адрес сети.
-# IP-адрес узла: 234.95.131.37
-# Маска: 255.255.192.0
+# № 13868 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('234.95.131.37/255.255.192.0', 0)
-print(net)  # 234.95.128.0/18, где 18 это кол-во единиц в маске
-'''
-
-
-# Тип 13 №13542
-# Для узла с IP-адресом 136.128.196.48 адрес сети равен 136.128.192.0.
-# Чему равно наибольшее возможное значение третьего слева байта маски?
-# Ответ запишите в виде десятичного числа.
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'136.128.196.48/{mask}', 0)
-    print(net, net.netmask)
-    # 136.128.192.0/18 255.255.192.0
-    # 136.128.192.0/19 255.255.224.0
-    # 136.128.192.0/20 255.255.240.0
-    # 136.128.192.0/21 255.255.248.0
-'''
-'''
-from ipaddress import *
-maxi = 0
-for mask in range(32+1):
-    net = ip_network(f'136.128.196.48/{mask}', 0)
-    if str(net) == f'136.128.192.0/{mask}':
-        print(net, net.netmask)
-        maxi = max(maxi, int(str(net.netmask).split('.')[2]))
-print(maxi)
+from fnmatch import *
+for x in range(2024, 10**10, 2024):
+    if fnmatch(str(x), '112?57*4'):
+        summa = sum([int(i) for i in str(x)])
+        if summa % 2 != 0:
+            print(x, x // 2024)
 '''
 
 
-# Тип 13 №27238
-# Узлы с IP-адресами 84.77.47.132 и 84.77.48.132 находятся в одной сети.
-# Укажите наибольшее возможное значение
-# третьего слева байта маски этой сети.
-# Ответ запишите в виде десятичного числа.
+# № 12741 (Уровень: Базовый)
 '''
-from ipaddress import *
-R = []
-for mask in range(32+1):
-    net1 = ip_network(f'84.77.47.132/{mask}', 0)
-    net2 = ip_network(f'84.77.48.132/{mask}', 0)
-    if net1 == net2:
-        R.append(str(net1.netmask).split('.')[2])
-
-print(max(R))
+from fnmatch import *
+for x in range(1234, 10**10, 1234):
+    if fnmatch(str(x), '4*5*6') and fnmatch(str(x), '?74*68?'):
+        print(x, x // 1234)
 '''
 
 
-# № 17867 Демоверсия 2025 (Уровень: Базовый)
-# Сеть задана IP-адресом 172.16.168.0 и маской сети 255.255.248.0.
-# Сколько в этой сети IP-адресов, для которых количество единиц
-# в двоичной записи IP-адреса не кратно 5?
 '''
-from ipaddress import *
-net = ip_network('172.16.168.0/255.255.248.0', 0)
+import time
+start = time.time()
+
+# def divisors(x):
+#     div = []
+#     for j in range(1, x + 1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+            # div.append(j)
+            # div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 4, 8, 16]
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 3.05926704 -> 0.00036311
+
+print(3.05926704 / 0.00036311)  # 8425.179
+'''
+
+# № 17879 Демоверсия 2025 (Уровень: Базовый)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
 cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 5 != 0:
-        cnt += 1
-print(cnt)
+for x in range(800_000+1, 10**10):
+    div = divisors(x)
+    if len(div) >= 2:
+        M = div[0] + div[-1]
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
+
+
+# № 17686 Пересдача 04.07.24 (Уровень: Базовый)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(700_000+2, 20**20):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+# Тип 25 №27422
+# Напишите программу, которая ищет среди целых чисел,
+# принадлежащих числовому отрезку [174457;174505], числа, имеющие ровно
+# два различных натуральных делителя,
+# не считая единицы и самого числа.
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(174457, 174505+1):
+    d = divisors(x)
+    if len(d) == 2:
+        print(*d)
+'''
+
+
+# Тип 25 №27855
+# Напишите программу, которая ищет среди целых чисел, принадлежащих числовому
+# отрезку [95632; 95700], числа, имеющие ровно шесть различных чётных
+# натуральных делителей
+# (при этом количество нечётных делителей может быть любым).
+
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(95632, 95700+1):
+    d = [j for j in divisors(x) if j % 2 == 0]
+    if len(d) == 6:
+        print(*d)
+'''
+
+# Тип 25 №29673
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(123456789, 223456789+1):
+    # Проверка есть ли у числа x целый квадратный корень
+    if x ** 0.5 == int(x ** 0.5):  
+        d = divisors(x)
+        if len(d) == 3:
+            print(x, max(d))
+'''
+
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
+
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:

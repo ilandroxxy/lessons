@@ -7,190 +7,185 @@
 # region Урок: ********************************************************************
 
 
-# № 17859 Демоверсия 2025 (Уровень: Базовый)
+# Тип 5 Номер 17668
+'''
+mx = 10000000000000
+for n in range(28, 10000):
+    n = f'{n:b}'
+    if n.count('1') % 2 == 0:
+        n += '0'
+        res = []
+        for i in n:
+            res.append(i)
+        res[0] = '1'
+        res[1] = '0'
+
+        r = ''.join(res)
+    else:
+        n += '1'
+        res = []
+        for i in n:
+            res.append(i)
+        res[0] = '1'
+        res[1] = '1'
+        r = ''.join(res)
+
+    r = int(r, 2)
+    mx = min(mx, r)
+print(mx)
+'''
+
 '''
 R = []
-for n in range(1, 13):
-    b = f'{n:b}'  # b = bin(n)[2:]
-    if n % 2 == 0:
-        b = '10' + b
+for n in range(28, 10000):
+    b = f'{n:b}'
+    if b.count('1') % 2 == 0:
+        b = '10' + b[2:] + '0'
     else:
-        b = '1' + b + '01'
+        b = '10' + b[2:] + '1'
     r = int(b, 2)
-    # ValueError: int() base must be >= 2 and <= 36, or 0
     R.append(r)
-print(max(R))
 
-
-maxi = 0
-for n in range(1, 13):
-    b = f'{n:b}'  # b = bin(n)[2:]
-    if n % 2 == 0:
-        b = '10' + b
-    else:
-        b = '1' + b + '01'
-    r = int(b, 2)
-    # ValueError: int() base must be >= 2 and <= 36, or 0
-    maxi = max(maxi, r)
-
-print(maxi)
+print(min(R))
 '''
 
 
-# № 17860 Демоверсия 2025 (Уровень: Базовый)
-# В начальный момент Черепаха находится в начале координат, её голова
-# направлена вдоль положительного направления оси ординат, хвост опущен.
-
-# Черепахе был дан для исполнения следующий алгоритм:
-# Повтори 9 [Вперёд 22 Направо 90 Вперед 6 Направо 90]
-# Поднять хвост
-# Вперед 1 Направо 90 Вперёд 5 Налево 90
-# Опустить хвост
-# Повтори 9 [Вперёд 53 Направо 90 Вперёд 75 Направо 90]
-#
-# Определите периметр области пересечения фигур, ограниченных заданными алгоритмом линиями.
+# Тип 8 Номер 17671
 '''
-import turtle as t
-t.screensize(-5000, 5000)
-t.tracer(0)  # Отключает анимацию отрисовки
-t.left(90)
-l = 20
-
-# Переписываем псевдокод:
-for i in range(9):
-    t.forward(22 * l)  # fd(22 * l)
-    t.right(90)  # rt(90)
-    t.forward(6 * l)
-    t.right(90)
-t.up()
-t.forward(1 * l)
-t.right(90)
-t.forward(5 * l)
-t.left(90)
-t.down()
-for i in range(9):
-    t.forward(53 * l)
-    t.right(90)
-    t.forward(75 * l)
-    t.right(90)
-
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * l, y * l)
-        t.dot(3, 'red')
-
-t.update()  # Чтобы корректно работал t.tracer(0)
-t.done()
+from itertools import *
+for num, i in enumerate(product(sorted('ЛАЙМ'), repeat=5), 1):
+    s = ''.join(i)
+    print(num, s)
+    if s.count('М') == 0 and s.count('Л') == 0 and 'ЙЙ' not in s:
+        last = num
+print(last)
 '''
 
 
-# № 17862 Демоверсия 2025 (Уровень: Базовый)
+# Тип 9 Номер 17672
 '''
-s = '0123456789AB'
 cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if a != '0' and num.count('7') == 1:
-                        if len([x for x in num if x > '8']) <= 3:
-                            cnt += 1
-print(cnt)
-
-
-# Вариант 2
-from itertools import product
-cnt = 0
-for p in product('0123456789AB', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0' and num.count('7') == 1:
-        if len([x for x in num if x > '8']) <= 3:
-            cnt += 1
-print(cnt)
-'''
-
-
-'''
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    print(M)
-
 for s in open('9.csv'):
-    M = [int(x) for x in s.split(';')]
-    print(M)
-'''
-
-
-# № 17863 Демоверсия 2025 (Уровень: Средний)
-'''
-cnt = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    copied = [x for x in M if M.count(x) == 3]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(not_copied) == 3:
-        if sum(copied) ** 2 > sum(not_copied) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
-
-# № 17867 Демоверсия 2025 (Уровень: Базовый)
-'''
-from ipaddress import *
-net = ip_network('172.16.168.0/255.255.248.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    print(ip, b)
-    if b.count('1') % 5 != 0:
+    M = sorted([int(x) for x in s.split(';')])
+    # if max(M) + min(M) < sum(M) - max(M) - min(M):
+    if M[0] + M[3] < M[1] + M[2]:
         cnt += 1
 print(cnt)
 '''
 
 
-# № 17869 Демоверсия 2025 (Уровень: Базовый)
+# Тип 17 Номер 17680
 '''
-n = 3*3125**8 + 2*625**7 - 4*625**6 + 3*125**5 - 2 * 25**4 - 2025
-b = 25
-M = []
-while n > 0:
-    M.append(n % b)
-    n //= b
-M.reverse()
-print(M)
-print(M.count(0))
+a = [int(x) for x in open('17.txt')]
+cnt = 0
+mx = 0
+mm = 1000000000
+for i in range(len(a)):
+    if a[i] > 0 and a[i] % 41 == 0:
+        mm = min(mm, a[i])
+for i in range(len(a) - 1):
+    val = abs(a[i] - a[i+1])
+    if a[i] != a[i+1] and val % mm == 0:
+        cnt += 1
+        mx = max(mx, a[i] + a[i+1])
+print(cnt, mx)
+
+
+a = [int(x) for x in open('17.txt')]
+m = min([x for x in a if abs(x) % 41 == 0 and x > 0])
+R = []
+for i in range(len(a) - 1):
+    x, y = a[i], a[i+1]
+    if x != y and abs(x - y) % m == 0:
+        R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# № 17870 Демоверсия 2025 (Уровень: Базовый)
+# Тип 23 Номер 17680
 '''
-for x in range(2030+1):
-    n = 7**170 + 7**100 - x
-    b = 7
-    M = []
-    while n > 0:
-        M.append(n % b)
-        n //= b
-    M.reverse()
-    if M.count(0) == 71:
-        print(x)
+def f(st, end):
+    if st < end:
+        return 0
+    elif st == end:
+        return 1
+    else:
+        return f(st - 2, end) + f(st // 2, end)
+
+
+print(f(38, 10) * f(10, 2))
+
+
+def f(st, end):
+    if st <= end:
+        return st == end
+    return f(st - 2, end) + f(st // 2, end)
+
+
+print(f(38, 10) * f(10, 2))
 '''
 
 
-# № 17870 Демоверсия 2025 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print((A + B) // 18)
+import time
+start = time.time()
+
+# def divisors(n):
+#     div = []
+#     for j in range(1, n+1):
+#         if n % j == 0:
+#             div.append(j)
+#     return div
+
+
+def divisors(n):
+    div = []
+    for j in range(1, int(n**0.5)+1):
+        if n % j == 0:
+            div += [j, n // j]
+            # div.append(j)
+            # div.append(n // j)
+    return sorted(set(div))
+
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(100_000_000))
+
+
+print(time.time() - start)  # 3.2987 -> 0.000351905
+print(3.2987 / 0.000351905)  # 9373.836
 '''
+
+
+'''
+def f(n):
+    for i in range(2, n):
+        if n % i == 0 and i % 10 == 7 and i != 7:
+            return i
+
+for i in range(700_001, 800_000):
+    if f(i):
+        print(i, f(i))
+'''
+
+
+def divisors(n):
+    div = []
+    for j in range(2, int(n**0.5)+1):
+        if n % j == 0:
+            div += [j, n // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for n in range(700_001, 800_000):
+    d = [j for j in divisors(n) if j % 10 == 7 and j != 7]
+    if len(d) > 0:
+        print(n, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
 
 
 # endregion Урок: *************************************************************
