@@ -1,109 +1,138 @@
 # region Домашка: ******************************************************************
 
+'''
+cnt = 0
+for x in range(320400+1, 10**9):
+    if all(x % p == 0 for p in [10, 12, 14, 16, 18]):
+        print(x, x // 18)
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+'''
+from fnmatch import *
+R = []
+for x in range(0, 10**10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[0] in '13579' and str(x)[-2] in '02468':
+            R.append([x, x//11071])
+
+print(*R[-5])
+print(*R[-4])
+print(*R[-3])
+print(*R[-2])
+print(*R[-1])
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Тип 16 №5362
 '''
-from fnmatch import fnmatch
-# 0 + 237 + 237 + 237 + 237
-for x in range(0, 10**8, 237):
-    if fnmatch(str(x), '81?2*80'):
-        if not fnmatch(str(x), '*9*'):
-            print(x, x//237)
-'''
+def F(n):
+    if n <= 2:
+        return n + 1
+    if n > 2:
+        return 2 * F(n - 1) + F(n - 2)
 
-
-# № 7897 (Уровень: Базовый) 🌶
-'''
-from fnmatch import *
-R = []
-for x in range(0, 10**10, 11071):
-    if fnmatch(str(x), '?136*1'):
-        if str(x)[0] in '13579':
-            if str(x)[-2] in '02468':
-                R.append(x)
-
-print(R[-5], R[-5] // 11071)
-print(R[-4], R[-4] // 11071)
-print(R[-3], R[-3] // 11071)
-print(R[-2], R[-2] // 11071)
-print(R[-1], R[-1] // 11071)
+print(F(4))
 '''
 
 
-# № 3901 (Уровень: Базовый) 🌶
+# Тип 16 №59841
 '''
-from fnmatch import *
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 7:
+        return 7
+    if n >= 7:
+        return 2*n + F(n - 1)
+
+print(F(2024) - F(2022))  # 8094
+'''
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
+
+
+# Тип 16 №38591
+'''
+def F(n):
+    if n == 1:
+        return 1
+    if n % 2 == 0:
+        return n + F(n - 1)
+    if n > 1 and n % 2 != 0:
+        return 2 * F(n - 2)
+
+print(F(26))
+'''
+
+
+# Тип 16 №39245
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n > 0 and n % 2 == 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
+
+
 cnt = 0
-# 700011 % 13 == 0
-for x in range(700011, 10**8, 13):
-    if (not fnmatch(str(x), '*0??3*')) and (not fnmatch(str(x), '*4??2')) and (not fnmatch(str(x), '*1*')):
-        print(x, sum([int(i) for i in str(x) if i.isdigit()]))
+for n in range(1, 900+1):
+    if F(n) == 9:
         cnt += 1
-        if cnt == 5:
-            break
+print(cnt)
 '''
 
 
-# Тип 25 №27854
+# КЕГЭ № 8474 (Уровень: Базовый)
+#
+# (В. Рыбальченко) Алгоритм вычисления функции F(n), где n – целое число, задан следующими соотношениями:
+#
+# F(n) = n + 1, при n > 3456;
+# F(n) = F(n + 1) + F(n + 2), при n ≤ 3456 и кратном трем;
+# F(n) = F(n + n mod 3) + 2, при n ≤ 3456 и не кратном трем;
+#
+# Определите значение выражения F(12) – F(17).
 '''
-def Divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+import sys
+sys.setrecursionlimit(10000)
 
+def F(n):
+    if n > 3456:
+        return n + 1
+    if n <= 3456 and n % 3 == 0:
+        return F(n + 1) + F(n + 2)
+    if n <= 3456 and n % 3 != 0:
+        return F(n + n % 3) + 2
 
-for x in range(110203, 110245+1):
-    chet = [j for j in Divisors(x) if j % 2 == 0]
-    if len(chet) == 4:
-        print(*chet)
-'''
-
-
-# Тип 25 №35483
-'''
-def Divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            if j % 2 != 0:
-                div += [j]
-            if (x // j) % 2 != 0:
-                div += [x // j]
-        if len(div) > 5:
-            return div
-    return sorted(set(div))
-
-
-for x in range(35000000, 40000000+1):
-    if len(Divisors(x)) == 5:
-        print(x)
+print(F(12) - F(17))
 '''
 
+
+# № 7655 Вариант от ChatGPT (Уровень: Средний)
 '''
-def Divisors(x):
-    div = []
-    for j in range(2, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+from functools import *
 
+@lru_cache(None)
+def F(n):
+    if n < 2025:
+        return n**2
+    if 2025 <= n < 2050:
+        return 2 * F(n - 1) - F(n - 2) + n
+    if 2050 <= n <= 2100:
+        return F(n - 1) + 2 * F(n - 2) + 3 * F(n - 3)
+    if n > 2100:
+        return 2 * F(n - 1) + F(n - 2) + n
 
-cnt = 0
-for x in range(800000+1, 10**10):
-    d = Divisors(x)
-    if len(d) >= 2:
-        M = d[0] + d[-1]
-        if M % 10 == 4:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
+print(str(F(2020) + F(2200))[-7:])
 '''
 
 # endregion Урок: *************************************************************
@@ -114,6 +143,6 @@ for x in range(800000+1, 10**10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
 # КЕГЭ  = []
 # на следующем уроке:

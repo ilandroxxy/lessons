@@ -1,44 +1,66 @@
 # region Домашка: ******************************************************************
 
 '''
-a = int(input())
-b = int(input())
-c = int(input())
-summa = 0
-if a % 7 == 0 and a % 49 != 0 or a % 40 == 0:
-    summa += a
-if b % 7 == 0 and b % 49 != 0 or b % 40 == 0:
-    summa += b
-if c % 7 == 0 and c % 49 != 0 or c % 40 == 0:
-    summa += c  # summa = summa + c
-print(summa)
+m = int(input())
+product = 1
+for i in range(1, m + 1):
+    if m % i == 0:
+        # product = product * i
+        product *= i
+print(product)
+
+
+from math import prod
+m = int(input())
+R = []
+for i in range(1, m + 1):
+    if m % i == 0:
+        # product = product * i
+        R.append(i)
+print(prod(R))
 '''
 
 '''
-x = 15
-x -= 5
+x = 5
+x += 5
 print(x)  # 10
-x **= 2
-print(x)  # 100
+
+x *= 2
+print(x)  # 20
+
 x //= 2
-print(x)  # 50
+print(x)  # 10
+'''
+
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alphabet)
+
+n = 1234
+print(n % 10)  # 4
+n //= 10  # 123
+print(n % 10)  # 3
+n //= 10  # 12
+print(n % 10)  # 2
+n //= 10  # 1
+print(n % 10)  # 1
 '''
 
 '''
-a = int(input())
-b = int(input())
-c = int(input())
-if a == b == c:
-    print('Равносторонний')
-elif a != b != c != a:
-    print('Разносторонний')
-else:
-    print('Равнобедренный')
-'''
-
-'''
-print(max([1, 2, 3, 4, 5]))
-print(max(1, 2, 3, 4, 5))
+n = int(input())
+count = 0
+summa = 0
+product = 1
+while n > 0:
+    x = n % 10
+    count += 1
+    summa += x
+    product *= x
+    n //= 10
+print(summa)
+print(count)
+print(product)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -46,160 +68,121 @@ print(max(1, 2, 3, 4, 5))
 # #
 # region Урок: ********************************************************************
 
-# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до В"
 '''
-# Работа цикла for с функцией range()
-# range(STOP-1)
-# range(START, STOP-1)
-# range(START, STOP-1, STEP)
+from random import randint, choice
+from time import sleep
+
+messages_error = [
+    "Неправильный пароль, попробуйте снова: ",
+    "Пароль введен неверно, повторите попытку: ",
+    "Ошибка пароля, введите заново: ",
+    "Пароль не подходит, попробуйте ещё раз: ",
+    "Некорректный пароль, повторите ввод: ",
+    "Пароль неверен, введите снова: ",
+    "Пароль ошибочный, повторите попытку: ",
+    "Введен неверный пароль, попробуйте ещё раз: ",
+    "Пароль не распознан, введите заново: ",
+    "Неправильный пароль, введите ещё раз: "
+]
+
+user = 'Женя'
+password = 'qwerty'
 
 
-for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
+pas = input('Введите пароль: ')
+cnt = 0
+while True:
+    if pas == password:
+        print('Пароль верный!', end=' ')
+        break
+    else:
+        cnt += 1
+        if cnt == 3:
+            print('Пройдите проверку на робота решив пример.')
+            a = randint(0, 100)
+            b = randint(0, 100)
+            x = int(input(f'{a} + {b} = '))
+            if x == a + b:
+                print('Проверка пройдена успешно.')
+                cnt = 0
+            else:
+                print('Проверка не пройдена \n'
+                      'Повторите попытку через 5 минут.')
+                sleep(5 * 60)
 
-for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
+        pas = input(choice(messages_error))
 
-for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8
-print()
-
-n = 10
-for i in range(2, n+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
-    print(i, end=' ')  #
-print()
-
-for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-print(len(M))  # 5 - возвращает длину последовательности (кол-во элементов в ней)
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-'''
-
-# Работа с последовательностями напрямую через цикл for
-'''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e
-print()
-
-A = ['a', 'h', 'a', 'b', 'b', 'h', 'b', 'b', 'e', ]
-for x in A:
-    if x in 'aeo':
-        print(x, end=' ')  # a a e
-print()
-'''
-
-# Цикл while отвечает на запросы: "пока условие верно, выполняем действие", "бесконечные циклы"
-
-'''
-for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 2 4 6 8 10
-    i += 2
-print()
-'''
-
-# Перевод из 10-й в n-ую систему счисления
-'''
-n = int(input('n: '))
-b = int(input('b: '))
-R = []
-while n > 0:
-    R.append(n % b)
-    n //= b
-R.reverse()
-print(R)
-
-
-print(int('1000'))    # 1000
-print(int('1000', 2))    # 8 - перевод из 2-й в 10-ю
-print(int('1000', 16))    # 4096 - перевод из 16-й в 10-ю
+print(f'Добро пожаловать, {user}.')
+# Пароль верный! Добро пожаловать, Женя.
 '''
 
 
-# Перевод из 10-й в n-ую систему счисления (через строку)
+# Функция перевода в различные системы счисления
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-n = int(input('n: '))
-b = int(input('b: '))
-r = ''
-while n > 0:
-    r += alphabet[n % b]
-    n //= b
-r = r[::-1]  # Развернули строку в обратном порядке
-print(r)  # 7511213115 -> 75BCD15
-# n: 123456789
-# b: 16
-# 75BCD15
-'''
-
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-# print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 def convert(n, b):
     r = ''
     while n > 0:
         r += alphabet[n % b]
         n //= b
-    r = r[::-1]
-    return r
+    return r[::-1]
 
 
-n = 123456789
-b = 16
-r = convert(n, b)
-print(r)  # 75BCD15
-print(int(r, 16))  # 123456789
+x = convert(123456789, 16)
+print(x)  # 75BCD15
+print(int(x, 16))  # 123456789
 '''
 
-
-# Бесконечные циклы и операторы break, continue, exit
 '''
-k = 0
+from string import digits, ascii_uppercase
+
+
+alphabet = digits + ascii_uppercase
+# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
 while True:
-    k += 1
-    if k % 2 == 0:
-        continue  # Прерывает итерацию (шаг) цикла
-    if k == 2_000_001:
-        break  # Прерывает исполнение цикла в котором он лежит
-    if k == 1_000_000:
-        exit()  # Просто прерывает выполнение программы
-    print(k)
+    case = int(input(f'\n'
+                     f'case 1: Перевод из 10-й в b-ю систему \n'
+                     f'case 2: Перевод из b-й в 10-ю систему \n'
+                     f'case 3: Перевод из b-й в k-ю систему \n'
+                     f'case 0: Выход из программы.\n'
+                     f'case: '))
 
-print('Продолжение программы')
+    if case == 1:
+        n = int(input('Введите число в 10-й системе: '))
+        b = int(input('Введите систему счисления для перевода: '))
+        r = convert(n, b)
+        print(f'Результат перевода числа {n} из 10-й в {b}-ю систему: {r}')
+
+    elif case == 2:
+        b = int(input('Введите систему счисления: '))
+        r = input(f'Введите число в {b}-й системе: ')
+        n = int(r, b)
+        print(f'Перевод числа {r} из {b}-й системы в 10-ю: {n}')
+
+    elif case == 3:
+        b = int(input('Введите систему счисления b: '))
+        r = input(f'Введите число в {b}-й системе: ')
+        k = int(input('Введите систему счисления k: '))
+        n = int(r, b)  # Перевод числа r (в строчном виде) из b-й в 10-ю систему
+        new_r = convert(n, k)
+        print(f'Результат перевода числа {r} из {b}-й системы счисления в {k}-ю систему: {new_r}')
+
+    elif case == 0:
+        print('Спасибо, что пользовались нашим калькулятором!')
+        break
+
+    else:
+        print('Эта команда мне не ясна, воспользуйтесь командами: 1, 2, 3, 0')
 '''
 
 # endregion Урок: *************************************************************
@@ -213,5 +196,4 @@ print('Продолжение программы')
 # #
 # ФИПИ = []
 # КЕГЭ  = []
-# на следующем уроке: Напишем программу проверки паролей,
-# и консольную программу калькулятор перевода в системы счисления
+# на следующем уроке:
