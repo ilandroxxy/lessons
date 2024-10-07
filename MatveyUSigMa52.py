@@ -77,9 +77,11 @@ for i in range(2):
     t.rt(90)
 t.up()  # Поднять хвост
 t.fd(9 * l)
+
 t.rt(90)
 t.fd(10 * l)
 t.lt(90)
+
 t.down()  # Опустить хвост
 for i in range(2):
     t.fd(86 * l)

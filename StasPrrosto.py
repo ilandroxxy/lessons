@@ -77,6 +77,7 @@ for i in range(len(M)-4):
             if len(num_3) > len(num_7):
                 if max(D) < (x + y + z + w) < max(D) * 2:
                     R.append(x + y + z + w)
+
 print(len(R), max(R))
 
 # endregion Урок: *************************************************************
