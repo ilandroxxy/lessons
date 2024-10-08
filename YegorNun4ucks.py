@@ -7,185 +7,102 @@
 # region Урок: ********************************************************************
 
 
-# Тип 5 Номер 17668
+# № 12932 (Уровень: Базовый)
 '''
-mx = 10000000000000
-for n in range(28, 10000):
-    n = f'{n:b}'
-    if n.count('1') % 2 == 0:
-        n += '0'
-        res = []
-        for i in n:
-            res.append(i)
-        res[0] = '1'
-        res[1] = '0'
+# import fnmatch as f
+#
+# for i in range(10 ** 10 + 1):
+#     if i % 2024 == 0 and (i ** 0.5).is_integer() and f.fnmatch(str(i), '1?2*4'):
+#         print(i, i // 2024)
 
-        r = ''.join(res)
-    else:
-        n += '1'
-        res = []
-        for i in n:
-            res.append(i)
-        res[0] = '1'
-        res[1] = '1'
-        r = ''.join(res)
-
-    r = int(r, 2)
-    mx = min(mx, r)
-print(mx)
-'''
-
-'''
-R = []
-for n in range(28, 10000):
-    b = f'{n:b}'
-    if b.count('1') % 2 == 0:
-        b = '10' + b[2:] + '0'
-    else:
-        b = '10' + b[2:] + '1'
-    r = int(b, 2)
-    R.append(r)
-
-print(min(R))
-'''
-
-
-# Тип 8 Номер 17671
-'''
-from itertools import *
-for num, i in enumerate(product(sorted('ЛАЙМ'), repeat=5), 1):
-    s = ''.join(i)
-    print(num, s)
-    if s.count('М') == 0 and s.count('Л') == 0 and 'ЙЙ' not in s:
-        last = num
-print(last)
-'''
-
-
-# Тип 9 Номер 17672
-'''
-cnt = 0
-for s in open('9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    # if max(M) + min(M) < sum(M) - max(M) - min(M):
-    if M[0] + M[3] < M[1] + M[2]:
-        cnt += 1
-print(cnt)
-'''
-
-
-# Тип 17 Номер 17680
-'''
-a = [int(x) for x in open('17.txt')]
-cnt = 0
-mx = 0
-mm = 1000000000
-for i in range(len(a)):
-    if a[i] > 0 and a[i] % 41 == 0:
-        mm = min(mm, a[i])
-for i in range(len(a) - 1):
-    val = abs(a[i] - a[i+1])
-    if a[i] != a[i+1] and val % mm == 0:
-        cnt += 1
-        mx = max(mx, a[i] + a[i+1])
-print(cnt, mx)
-
-
-a = [int(x) for x in open('17.txt')]
-m = min([x for x in a if abs(x) % 41 == 0 and x > 0])
-R = []
-for i in range(len(a) - 1):
-    x, y = a[i], a[i+1]
-    if x != y and abs(x - y) % m == 0:
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# Тип 23 Номер 17680
-'''
-def f(st, end):
-    if st < end:
-        return 0
-    elif st == end:
-        return 1
-    else:
-        return f(st - 2, end) + f(st // 2, end)
-
-
-print(f(38, 10) * f(10, 2))
-
-
-def f(st, end):
-    if st <= end:
-        return st == end
-    return f(st - 2, end) + f(st // 2, end)
-
-
-print(f(38, 10) * f(10, 2))
-'''
-
-
-'''
 import time
 start = time.time()
 
-# def divisors(n):
-#     div = []
-#     for j in range(1, n+1):
-#         if n % j == 0:
-#             div.append(j)
-#     return div
+from fnmatch import *
+for i in range(0, 10**10, 2024):
+    if (i ** 0.5).is_integer():
+        if fnmatch(str(i), '1?2*4'):
+            print(i, i // 2024)
 
 
-def divisors(n):
-    div = []
-    for j in range(1, int(n**0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
-            # div.append(j)
-            # div.append(n // j)
-    return sorted(set(div))
-
-
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16]
-print(divisors(100_000_000))
-
-
-print(time.time() - start)  # 3.2987 -> 0.000351905
-print(3.2987 / 0.000351905)  # 9373.836
+print(time.time() - start)
 '''
 
 
+# Тип 25 № 37160
+# Найдите 5 чисел больших 500000, таких, что среди их делителей есть число, оканчивающееся на 8,
+# при этом этот делитель не равен 8 и самому числу. В качестве ответа
+# приведите 5 наименьших чисел, соответствующих условию.
+#
+# Формат вывода: для каждого из 5 таких найденных чисел в отдельной строке сначала выводится само число,
+# затем минимальный делитель, оканчивающийся на 8, не равный 8 и самому числу.
 '''
-def f(n):
-    for i in range(2, n):
-        if n % i == 0 and i % 10 == 7 and i != 7:
-            return i
-
-for i in range(700_001, 800_000):
-    if f(i):
-        print(i, f(i))
-'''
-
-
-def divisors(n):
-    div = []
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
-    return sorted(set(div))
+def divs(n):
+    res = []
+    for i in range(1, int((n**0.5)) + 1):
+        if n % i == 0:
+            res += [i, n // i]
+            # res.append(i)
+            # res.append(n // i)
+    return sorted(set(res))
 
 
 cnt = 0
-for n in range(700_001, 800_000):
-    d = [j for j in divisors(n) if j % 10 == 7 and j != 7]
+for i in range(500_000+1, 600_000):
+    d = [k for k in divs(i) if k != 8 and k != i and k % 10 == 8]
     if len(d) > 0:
-        print(n, min(d))
+        print(i, min(d))
         cnt += 1
         if cnt == 5:
             break
+'''
+
+
+# Тип 25 № 36880
+'''
+res = []
+for m in range(0, 40, 2):
+    for n in range(1, 40, 2):
+        n = 2**m * 3**n
+        if 400_000_000 < n < 600_000_000:
+            res.append(n)
+
+for x in sorted(res):
+    print(x)
+'''
+
+
+# № 13088 (Уровень: Средний)
+# Файл содержит последовательность натуральных чисел, не превышающих 100 000.
+# Назовём тройкой три идущих подряд элемента последовательности.
+# Определите количество троек, для которых выполняются следующие условия:
+#
+# – ровно два числа в тройке четырёхзначные;
+# – хотя бы одно число в тройке делится на 5;
+# – сумма элементов тройки больше максимального последовательности, запись которого заканчивается на 17
+#
+# В ответе запишите два числа: сначала количество найденных троек,
+# затем максимальную величину суммы элементов этих троек.
+'''
+# i  0   1  2   3    4   5   6   7    8
+M = [1, 23, 21, 123, 21, 3, 123, 12, 321]
+
+# i = 0: M[i:i+3] == [1, 23, 21]
+# i = 1: M[i:i+3] == [23, 21, 123]
+# i = 2: M[i:i+3] == [21, 123, 21]
+# i = 3: M[i:i+3] == [123, 21, 3]
+
+M = [int(x) for x in open('17.txt')]
+D = [x for x in M if x % 100 == 17]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i:i+3]
+    if len([p for p in (x, y, z) if len(str(abs(p))) == 4]) == 2:
+        if any(p % 5 == 0 for p in (x, y, z)):
+            if (x + y + z) > max(D):
+                R.append(x + y + z)
+print(len(R), max(R))
+'''
 
 
 # endregion Урок: *************************************************************
