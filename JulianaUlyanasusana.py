@@ -1,172 +1,126 @@
 # region Домашка: ******************************************************************
 
+
+# ctrl + alt + L
 '''
 a = int(input())
 b = int(input())
-if a > b:
-    if a % b == 0:
-        print("Делится")
-    else:
-        print("Не делится")
-elif a < b:
-    if b % a == 0:
-        print("Делится")
-    else:
-        print("Не делится")
-else:
-    print("На ноль делить нельзя!")
+for i in range(a, b + 1):
+    if i % 20 == 0 and i % 10 == 9 and i % 14 == 0:
+        print(i)
 '''
 
-
-# Разработка программы для определения вида треугольника
 '''
-a = int(input())
-b = int(input())
-c = int(input())
-if a == b == c:
-    print("Равносторонний")
-elif a != b != c != a:
-    print("Разносторонний")
-else:
-    print("Равнобедренный")
+n = int(input())
+maxi = -100000000
+mini = 100000000
+while n > 0:
+    x = n % 10
+    if maxi < x:
+        maxi = x
+    mini = min(mini, x)
+    n //= 10
+print(maxi)
+print(mini)
+'''
+
+'''
+n = int(input())
+summa = 0
+count = 0
+total = 1
+while n > 0:
+    x = n % 10
+    summa += x
+    count += 1
+    total *= x
+    n //= 10
+print(summa)
+print(count)
+print(total)
 '''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-
-# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до В"
 '''
-# range(STOP-1)
-# range(START, STOP-1)
-# range(START, STOP-1, STEP)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x == (w or y)) or ((w <= z) and (y <= w))
+                if F == 0:
+                    print(x, y, z, w)
 
-for i in range(10):  # range(start=0, STOP=10-1, step=1)
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
-
-
-for i in range(2, 10):  # range(START=2, STOP=10-1, step=1)
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-
-for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8
-print()
-
-
-for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-
-for i in range(10, 0):  # range(START=10, STOP=0-1, STEP=1)
-    print(i, end=' ')  #
-print()
-
-
-for i in range(10, 0, -1):  # range(START=10, STOP=0-1, STEP=-1)
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-print(len(M))  # 5 - возвращает длину списка М (кол-во его элементов)
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e
-print()
-
-
-s = '2345362745236427'
-for x in s:
-    if x in '02468':
-        print(x, end=' ')  # 2 4 6 2 4 2 6 4 2 
-print()
 '''
 
-
-# Цикл while отвечает на запросы: "пока условие верно, то выполняй", "бесконечный цикл"
+# Тип 2 №27228
+# Логическая функция F задаётся выражением (¬x ∨ y ∨ z) ≡ (¬y ∧ z ∧ w)
 '''
-for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-    i += 2
-print()
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((not x) or y or z) == ((not y) and z and w)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 '''
-n = int(input('Введите число в 10-й системе для перевода: '))
-b = int(input('Введите систему счисления в которую будем переводить: '))
-R = []
-while n > 0:
-    R.append(n % b)
-    n //= b  # b = b // b
-R.reverse()
-print(R)
-
-print(int('1000'))  # 1000
-print(int('1000', 2))  # 8 - Перевод из 2-й системы счисления в 10-ю
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                # (x ∨ ¬z) ∧ (x ≡ ¬w) ∧ (x → y)
+                F = (x or (not z)) and (x == (not w)) and (x <= y)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
+# Тип 2 №52173
+# Логическая функция F задаётся
+# выражением: (z≡¬x)→((w→¬y)∧(y→x))
 '''
-n = int(input('Введите число в 10-й системе для перевода: '))
-b = int(input('Введите систему счисления в которую будем переводить: '))
-r = ''
-while n > 0:
-    r += str(n % b)
-    n //= b  # b = b // b
-r = r[::-1]  # срез в обратном порядке - разворачивает строку наоборот
-print(r)
-
-print(int(r, 2))  # 8 - Перевод из 2-й системы счисления в 10-ю
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (z == (not x)) <= ((w <= (not y)) and (y <= x))
+                print(x, y, z, w, int(F))
 '''
 
 
-# Бесконечные циклы и операторы break, continue, exit()
+# Тип 2 №28538
+# Логическая функция F задаётся выражением ((x ∧ y) → (¬z ∨ w)) ∧ ((¬w → x) ∨ ¬y)
 '''
-k = 0
-while True:
-    k += 1
-    if k % 2 != 0:
-        continue  # - прерывает итерацию (шаг) цикла
-    if k == 2_000_000:
-        break  # - прерывает выполнение цикла в котором находится
-    if k == 1_000_000:
-        exit()  # - полностью прерывает выполнение программы
-    print(k)
-
-
-print('Продолжение программы')
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x and y) <= ((not z) or w)) and (((not w) <= x) or (not y))
+                if F == 0:
+                    print(x, y, z, w)
 '''
+
+# ¬(x→z)∨(y≡w)∨y
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not (x <= z)) or (y == w) or y
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
 
 # endregion Урок: *************************************************************
 # #
@@ -177,6 +131,6 @@ print('Продолжение программы')
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = []
+# ФИПИ = [2]
 # КЕГЭ  = []
 # на следующем уроке:
