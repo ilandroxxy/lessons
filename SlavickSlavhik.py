@@ -6,23 +6,14 @@
 # #
 # region Урок: ********************************************************************
 
-from itertools import permutations
-
-table = '14 15 17 24 26 35 36 37 41 42 51 53 56 62 63 65 71 73'
-graph = 'AB BA AC CA EC CE CG GC EF FE FG GF FD DF DG GD DB BD'
-
-for per in permutations('ABCDEFG'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print('1 2 3 4 5 6 7')
-        print(*per)
-
-# 1 2 3 4 5 6 7
-# C B F A G D E
-
-# Ответ: 30 + 8 = 38
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for p in range(8, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            A = int(f'23{y}1{x}7', p)
+            B = int(f'{y}26{x}2', p)
+            if (A + B) % (alphabet.index(x) + alphabet.index(y)) == 0:
+                print((A + B) // (alphabet.index(x) + alphabet.index(y)))
 
 
 # endregion Урок: *************************************************************
@@ -34,5 +25,5 @@ for per in permutations('ABCDEFG'):
 # #
 # #
 # ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
-# КЕГЭ  = []
+# КЕГЭ  = [25]
 # на следующем уроке:

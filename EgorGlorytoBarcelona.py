@@ -1,27 +1,38 @@
 # region Домашка: ******************************************************************
 
+# Числа с условиями
 '''
 a = int(input())
 b = int(input())
-c = int(input())
+
+for i in range(a, b+1):
+    if (i % 20 == 0) or (i % 7 == 0 and i % 14 == 0) or (i % 10 == 9):
+        print(i)
+'''
+
+'''
+n = int(input())
+maxi = 0
+mini = 10**9
+while n > 0:
+    mini = min(mini, n % 10)
+    maxi = max(maxi, n % 10)
+    n //= 10
+print(maxi)
+print(mini)
+
+n = int(input())
 summa = 0
-if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
-    summa += a
-if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
-    summa += b
-if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
-    summa += c
+count = 0
+total = 1
+while n > 0:
+    summa += n % 10
+    count += 1  # count = count + 1
+    total *= n % 10
+    n = n // 10
 print(summa)
-'''
-
-
-'''
-a = int(input())
-b = int(input())
-if a % b == 0 or b % a == 0:
-    print('Делится')
-else:
-    print('Не делится')
+print(count)
+print(total)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -29,182 +40,68 @@ else:
 # #
 # region Урок: ********************************************************************
 
-# Цикл for отвечает на запросы: "Повтори N раз", "Пробеги от A до В"
+# Тип 2 №15970
+# Логическая функция F задаётся выражением (x ∧ ¬y) ∨ (y ≡ z ) ∨ w.
 '''
-# Работа с циклом for через функцию range:
-
-# range(STOP-1)
-# range(START, STOP-1)
-# range(START, STOP-1, STEP)
-
-for i in range(10):  # range(start=0, STOP=10-1, step=1)
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
-
-
-for i in range(2, 10):  # range(start=2, STOP=10-1, step=1)
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-
-for i in range(2, 10, 2):  # range(start=2, STOP=10-1, step=2)
-    print(i, end=' ')  # 2 4 6 8
-print()
-
-
-for i in range(2, 10+1, 2):  # range(start=2, STOP=10-1, step=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-
-for i in range(10, 0):  # range(start=10, STOP=0-1, step=1)
-    print(i, end=' ')  #
-print()
-
-
-for i in range(10, 0, -1):  # range(start=10, STOP=0-1, step=1)
-    print(i, end=' ')  #
-print()
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-print(len(M))  # 5 - Возвращает длину списка (кол-во элементов в нем)
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e 
-print()
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x and (not y)) or (y == z) or w
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
-# Цикл while отвечает на запросы: "ПОКА условие верно, делаем", ""
+# Тип 2 №16805
+# Логическая функция F задаётся выражением
+# (¬x ≡ z) → (y ≡ (w ∨ x))
 '''
-for i in range(2, 10+1, 2):  # range(start=2, STOP=10-1, step=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 2 4 6 8 10 
-    i += 2
-print()
-'''
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-n = int(input('Введите число в 10-й системе: '))
-b = int(input('Введите b-ю систему для перевода: '))
-r = ''
-while n > 0:
-    r += alphabet[n % b]
-    n //= b
-r = r[::-1]  # Разворачиваем содержимое строки в обратном порядке
-print(f'Результат перевода: {r}')
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-n = int(input('Введите число в 10-й системе: '))
-b = int(input('Введите b-ю систему для перевода: '))
-print(f'Результат перевода: {convert(n, b)}')
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((not x) == z) <= (y == (w or x))
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
 
-# Бесконечные циклы и операторы break, continue, exit()
+# Тип 2 №33472
+# Логическая функция F задаётся выражением
+# (w → x) ∧ ((y → z) ≡ (x → y))
+
+# (w → x) ∧ ((y → z) ≡ (x → y))
 '''
-k = 0
-while True:
-    k += 1
-    if k % 2 != 0:
-        continue  # Прерывает итерацию (шаг) цикла
-    if k == 1_000_000:
-        break  # Прерывает выполнение циклы в котором лежит
-    if k == 2_000_000:
-        exit()  # Прерывает выполнение всей программы
-    print(k)
-
-print('Продолжение программы')
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (w <= x) and ((y <= z) == (x <= y))
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
-
-from string import digits, ascii_uppercase
-
-alphabet = digits + ascii_uppercase
-# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-while True:
-    case = int(input('\n'
-                     'case 1: Перевод из 10-й в b-ю систему счисления \n'
-                     'case 2: Перевод из b-й в 10-ю систему счисления \n'
-                     'case 3: Перевод из b-й в k-ю систему счисления\n'
-                     'case 0: Выход из программы\n'
-                     'case: '))
-
-    if case == 1:
-        n = int(input('Введите число в 10-й системе: '))
-        b = int(input('Введите b-ю систему для перевода: '))
-        r = convert(n, b)
-        print(f'Результат перевода числа {n} из 10-й в {b}-ю систему: {r}')
-
-    elif case == 2:
-        b = int(input('Введите b-ю систему: '))
-        r = input(f'Введите число в {b}-й системе: ')
-        n = int(r, b)
-        print(f'Результат перевода числа {r} из {b}-й в 10-ю систему: {n}')
-
-    elif case == 3:
-        b = int(input('Введите b-ю систему: '))
-        r = input(f'Введите число в {b}-й системе: ')
-        k = int(input('Введите k-ю систему для перевода: '))
-        n = int(r, b)
-        new_r = convert(n, k)
-        print(f'Результат перевода числа {r} из {b}-й в {k}-ю систему: {new_r}')
-
-    elif case == 0:
-        print('Спасибо, что пользовались нашим калькулятором!')
-        break
-
-    else:
-        print('Я не понимаю такой команды, воспользуйтесь: 1, 2, 3, 0')
-
+# Тип 2 №18483
+# Логическая функция F задаётся выражением
+# ((y → w) ≡ (x → ¬z)) ∧ (x ∨ w).
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 0:
+                    print(x, y, z, w, int(F))
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 1:
+                    print(x, y, z, w, int(F))
 
 # endregion Урок: *************************************************************
 # #
