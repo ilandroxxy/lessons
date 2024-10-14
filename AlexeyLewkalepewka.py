@@ -6,68 +6,19 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 24 №27697
-# Определите длину самой длинной последовательности, состоящей из символов D.
-# Хотя бы один символ D находится в последовательности.
+from itertools import permutations
+table = '16 19 23 25 27 32 34 39 43 46 47 52 58 61 64 68 69 72 74 78 85 86 87 91 93 96'
+graph = 'АБ БА БВ ВБ АВ ВА АГ ГА АИ ИА ЕИ ИЕ ЕГ ГЕ ГД ДГ ДЖ ЖД ЕЖ ЖЕ ЖК КЖ ИК КИ ВК КВ'
 
-# Вариант 3
-'''
-s = open('24.txt').readline()
-print(s)
-print(len('DDDDDDDDDDD'))
-'''
-
-# Вариант 1
-'''
-s = open('24.txt').readline()
-count = 1
-count_max = 0
-for i in range(len(s)-1):
-    if s[i:i+2] == 'DD':
-        count += 1
-        count_max = max(count_max, count)
-    else:
-        count = 1
-print(count_max)
-'''
-
-# Вариант 2
-'''
-s = open('24.txt').readline()
-s = s.replace('L', ' ').replace('R', ' ')
-print(max([len(x) for x in s.split()]))
-'''
+for p in permutations('АБВГДЕЖИК'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print('1 2 3 4 5 6 7 8 9')
+        print(*p)
 
 
-# Тип 24 №59817
-# Текстовый файл состоит из символов, обозначающих прописные буквы латинского алфавита.
-# Определите максимальное количество идущих подряд символов, среди которых никакие две
-# буквы из набора букв A, B и C (с учетом повторений) не записаны подряд.
-'''
-s = open('24.txt').readline()
-s = s.replace('B', 'A').replace('C', 'A')
-while 'AA' in s:
-    s = s.replace('AA', 'A A')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27689
-# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
-# Определите максимальную длину цепочки вида XYZXYZXYZ...
-# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
-'''
-s = open('24.txt').readline()
-count = 2
-count_max = 0
-for i in range(len(s)-2):
-    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
-        count += 1
-        count_max = max(count_max, count)
-    else:
-        count = 2
-print(count_max)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -77,7 +28,7 @@ print(count_max)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

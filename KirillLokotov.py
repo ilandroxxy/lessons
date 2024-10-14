@@ -1,4 +1,66 @@
 # region Домашка: ************************************************************
+'''
+import math
+kot = [int(x) for x in input()]
+ne_chet = [i for i in kot if i % 2 != 0]
+blo7 = [i for i in kot if i > 7]
+pro7 = [i for i in kot if i > 7]
+print(kot.count(2), kot.count(kot[-1]), len(ne_chet), sum(blo7), sep="\n")
+print(11 if len(pro7) == 0 else math.prod(pro7))
+print(kot.count(4)+kot.count(0))
+'''
+
+
+'''
+Kot = [int(input()) for i in range(int(input()))]
+T = [print(i) for i in Kot if Kot.count(i) == 1]
+if not T: print("Уникальных элементов нет")
+
+
+n = int(input())
+kot = [int(input()) for i in range(n)]
+new_kot = []
+for x in kot:
+    if kot.count(x) == 1:
+        new_kot.append(x)
+if len(new_kot) == 0:
+    print("Уникальных элементов нет")
+else:
+    for x in new_kot:
+        print(x)
+'''
+
+'''
+print('\n'.join([i for i in input()][::2]))
+
+s = input()[::2]
+for x in s:
+    print(x)
+'''
+
+'''
+t = input()
+print(f"Символ + встречается {t.count('+')} раз")
+print(f"Символ * встречается {t.count('*')} раз")
+'''
+
+# Поиск длинного слова
+'''
+print(max([len(w) for w in input().split()]))
+'''
+'''
+M = [(len(w), w) for w in input().split()]
+for x in M:
+    print(x)
+'''
+
+'''
+t, n = int(input()), ''
+while t > 0:
+    n = str(t % 3) + n
+    t //= 3
+print(n)
+'''
 
 
 # endregion Домашка: ************************************************************
@@ -6,15 +68,47 @@
 # #
 # region Урок: ************************************************************
 
-M = []
-n = int(input())
+# Тип 12 №14700
+# Какая строка получится в результате применения приведённой
+# ниже программы к строке вида 1…12…2 (7 единиц, затем 7 двоек)?
+# В ответе запишите полученную строку.
 
-for i in range(n):
-    x = int(input())
-    M.append(x)
+# ПОКА нашлось (111) ИЛИ нашлось (222)
+#   ЕСЛИ нашлось (111)
+#       ТО заменить (111, 2)
+#   ЕСЛИ нашлось (222)
+#       ТО заменить (222, 1)
 
-chet = [i for i in M if i % 2 == 0]
-print(chet)
+'''
+s = '1' * 7 + '2' * 7
+while '111' in s or '222' in s:  # ПОКА нашлось (111) ИЛИ нашлось (222)
+    if '111' in s:  # ЕСЛИ нашлось (111)
+        s = s.replace('111', '2', 1)
+    if '222' in s:
+        s = s.replace('222', '1', 1)
+print(s)
+'''
+
+
+# Тип 12 №15630
+# Какая строка получится в результате применения приведённой
+# ниже программы к строке, состоящей из одной единицы и 75
+# стоящих справа от нее нулей? В ответе запишите сколько
+# нулей будет в конечной строке.
+#
+# ПОКА нашлось (10) ИЛИ нашлось (1)
+#   ЕСЛИ нашлось (10)
+#       ТО заменить (10, 001)
+#   ИНАЧЕ заменить (1, 00)
+
+s = '1' + '0' * 75
+while '10' in s or '1' in s:
+    if '10' in s:
+        s = s.replace('10', '001', 1)
+    else:
+        s = s.replace('1', '00', 1)
+print(s.count('0'))
+
 
 # endregion Урок: ************************************************************
 # #

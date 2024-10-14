@@ -1,11 +1,46 @@
 # region Домашка: ******************************************************************
+
+# Определение четности числа
+
+# ctrl + alt + L
+'''
+a = int(input())
+if a % 2 == 0:
+    print("Чётное")
+else:
+    print("Нечётное")
+'''
+
+
+# Проверка соотношения для пятизначного числа
+'''
+n = int(input())  # 90435
+a = n // 10000  # 9
+b = (n // 1000) % 10  # 0
+c = (n // 100) % 10  # 4
+d = (n // 10) % 10  # 3
+e = n % 10  # 5
+
+if a * c == b + d + e:
+    print("Да")
+else:
+    print("Нет")
+'''
+
+
+# Вычисление суммы чисел по определенным условиям
 '''
 a = int(input())
 b = int(input())
 c = int(input())
-print(a - b)
-print(a + c)
-print(a % b)
+summa = 0
+if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
+    summa += a
+if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
+    summa += b
+if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
+    summa += c
+print(summa)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -13,84 +48,133 @@ print(a % b)
 # #
 # region Урок: ********************************************************************
 
-# Условные операторы (ветвление): if, elif, else
-
+# Цикл for отвечает на запросы: "Повтори N раз", "Повтори от A до B"
 '''
-n = int(input('n: '))
-if n % 2 == 0:  # if - если
-    print('Четное число')
-else:  # else - иначе
-    print('Не четное число')
+# range(STOP-1)
+# range(START, STOP-1)
+# range(START, STOP-1, STEP)
+
+for i in range(10):  # range(start=0, STOP=10-1, step=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10):  # range(START=2, STOP=10-1, step=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0):
+    print(i, end=' ')  #
+print()
+
+for i in range(10, 0, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  # 5 - Функция, которая возвращает длину списка (кол-во элементов в нем)
+
+for i in range(5):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e 
+print()
 '''
 
 
+# Цикл while отвечает на запросы: "Пока условие верно, повторяй действие", "Бесконечные циклы"
 '''
-# x = int(input('x: '))
-# y = int(input('y: '))
-x, y = 5, 6
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x < 0 and y > 0:  # elif - иначе если
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else - иначе
-    print('Лежит на осях')
-'''
-
-# Каскадные условные операторы
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-if x > 0:
-    if y > 0:  # x > 0, y > 0
-        print('Первая четверть')
-    else:  # x > 0, y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0, y > 0
-        print('Вторая четверть')
-    else:  # x <= 0, y <= 0
-        print('Четвертая четверть')
+i = 2
+while i <= 10:
+    print(i, end=' ')   # 2 4 6 8 10
+    i += 2
 '''
 
 
-# Логические связки: and, or, not, in, ^, !=, ==
+# Перевод в различные системы счисления
 '''
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
+n = int(input('Введите десятичное число: '))
+b = int(input('Введите систему счисления: '))
+r = ''
+while n > 0:
+    r += str(n % b)
+    n //= b
+r = r[::-1]
+print(r)
+'''
 
 
-n = 5
-if n % 2 == 0:  # == - равняется
-    print('Четное')
-elif n % 2 != 0:  # != - не равняется
-    print('Нечетное')
+# Бесконечные циклы и операторы break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 == 0:
+        continue  # Прерывает итерацию (шаг) цикла 
+    if k == 2_000_000:
+        exit()  # Прервали выполнение всей программы
+    if k == 1_000_000:
+        break  # Прерывает выполнение цикла в котором он находится
+    print(k)
 
 
-n = '8'
-if n in '02468':  # in - проверяет лежит ли элемент в наборе элементов 
-    print('Четное')
-elif n in '13579':
-    print('Нечетное')
+print('Тут продолжение программы')
+'''
 
 
-a, b, c = 4, -5, 6
+# Проверка паролей пользователя
+'''
+from random import choice, randint
+messages_errors = ['Пароль неверный, повторите попытку: ',
+                   'Повторите попытку, пароль неверный: ',
+                   'Повторите попытку снова: ']
 
-if a > 0 and b > 0:
-    print('and')  # and - Гарантирует, что все условия выполняются
-if a > 0 or b > 0:
-    print('or')  # or - Говорит о том, что хотя бы одно выполняется
-if (a > 0) ^ (b > 0):
-    print('^')  # ^ - Гарантирует, что только одно выполняется
-if (a > 0) != (b > 0):
-    print('!=')  # != - Гарантирует, что только одно выполянется
-
-print(a > 0)  # True
+password = 'qwerty'
+pas = input('Введите пароль: ')
+count = 0
+while True:
+    if pas == password:
+        print('Пароль верный, добро пожаловать!')
+        break
+    count += 1
+    if count == 3:
+        print('Пройдите проверку на робота')
+        a = randint(0, 100)
+        b = randint(0, 100)
+        x = int(input(f'Решите пример: {a} + {b} = \n'))
+        if x == a + b:
+            print('Проверка пройденна успешно')
+            count = 0
+        else:
+            print('Проверка не пройдена, подождите 5 минут')
+    pas = input(choice(messages_errors))
 '''
 
 # endregion Урок: *************************************************************
