@@ -1,41 +1,42 @@
 # region Домашка: ******************************************************************
 
+# № 18045 (Уровень: Базовый)
+# (Л. Шастин) В файле содержится последовательность натуральных чисел.
+# Элементы последовательности могут принимать целые значения от 1 до 100 000
+# включительно. Определите количество пар последовательности, в которых
+# сумма последних цифр элементов равна количеству двузначных чисел в
+# последовательности. В ответе запишите количество найденных пар, затем
+# минимальную из сумм элементов таких пар. В данной задаче под парой
+# подразумевается два идущих подряд элемента последовательности.
 '''
-c = 0
-M = [int(s) for s in open("files/17.txt")]
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 2]
 R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 10) + (y % 10) == len(D):
+        R.append(x + y)
+print(len(R), min(R))
+'''
+
+
+# № 17968 (Уровень: Средний)
+# (Л. Шастин) Откройте файл электронной таблицы, содержащей в
+# каждой строке четыре натуральных числа. Определите количество строк таблицы,
+# содержащих числа, для которых выполнены оба условия:
+# – наибольшее из четырёх чисел меньше суммы трёх других;
+# – сумма чётных чисел равна сумме нечётных.
+# В ответе запишите только число.
+'''
 cnt = 0
-l = []
-a = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    if (str(x)[-1] == '1') != (str(y)[-1] == '1'):
-        l.append((x + y) / 2)
-        a.append(min(x, y))
-
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    if (str(x)[-1] == '1') != (str(y)[-1] == '1'):
-        if x < max(l) and y < max(l):
+for s in open('files/9.txt'):
+    M = [int(x) for x in s.split()]
+    if max(M) < sum(M) - max(M):
+        chet = [x for x in M if x % 2 == 0]
+        nechet = [x for x in M if x % 2 != 0]
+        if sum(chet) == sum(nechet):
             cnt += 1
-            if x == min(a) or y == min(a):
-                c = max(c, max(x, y))
-print(cnt, c)
-'''
-
-'''
-M = [int(s) for s in open("files/17.txt")]
-L = [(M[i], M[i+1]) for i in range(len(M) - 1) if (str(M[i])[-1] == '1') != (str(M[i+1])[-1] == '1')]
-cnt, c = 0, 0
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    if (str(x)[-1] == '1') != (str(y)[-1] == '1'):
-        if max(x, y) < max([sum(pair) / 2 for pair in L]):
-            cnt += 1
-            D = min([min(pair) for pair in L])
-            if (x == D) or (y == D):
-                c = max(c, max(x, y))
-print(cnt, c)
+print(cnt)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -43,97 +44,95 @@ print(cnt, c)
 # #
 # region Урок: ********************************************************************
 
+# Тип 24 №27696
+# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
+# Определите длину самой длинной последовательности, состоящей из символов L.
+# Хотя бы один символ L находится в последовательности.
+
+# Вариант 1
 '''
-for s in open('files/9.txt'):
-    M = [int(x) for x in s.split()]
-    print(M)
+s = open('files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    # if s[i] == 'L' and s[i+1] == 'L':
+    if s[i:i+2] == 'LL':
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
 '''
 
-# Тип 9 №61355
-# В каждой строке электронной таблицы записаны шесть натуральных чисел.
-# Определите количество строк таблицы, содержащих числа, для которых
-# одновременно выполнены все следующие условия:
-# — все числа в строке различны;
-# — среднее арифметическое наибольшего и наименьшего чисел в
-# строке больше среднего арифметического всех остальных чисел.
-#
-# В ответе запишите число — количество строк, удовлетворяющих заданным условиям.
+# Вариант 1
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if len(M) == len(set(M)):
-        if (M[0] + M[-1]) / 2 > sum(M[1:-1]) / 4:
-            cnt += 1
-print(cnt)
-
-
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) == len(set(M)):
-        if (min(M) + max(M)) / 2 > (sum(M) - (min(M) + max(M))) / 4:
-            cnt += 1
-print(cnt)
+s = open('files/24.txt').readline()
+s = s.replace('R', ' ').replace('D', ' ')
+print(max([len(x) for x in s.split()]))
+# ['LLL', 'LLLLL', 'LLLLL', 'LLLLLLL', 'LLLLLLLLLL', 'LLLL', 'LLLLLLL', 'LLLL']
+# [3, 5, 5, 7, 10, 4, 7, 4]
 '''
 
 
-# Тип 9 №58517
+# Тип 24 №27695
+# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
+# Определите максимальное количество идущих подряд символов, среди которых каждые два соседних различны.
 '''
-cnt = 0
-for s in open('files/9.txt'):
-    M = [int(x) for x in s.split()]
-    if M.count(min(M)) == 1:  # — минимальное число встречается в строке ровно один раз;
-        if any(M.count(x) > 1 for x in M):  # — хотя бы одно число в строке повторяется более одного раза;
-            if max(M) > ((sum(M) - max(M)) / 5) * 3:  # — максимальное число в строке превышает среднее арифметическое остальных пяти чисел этой строки более чем в три раза.
-                cnt += 1
-print(cnt)
-'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s) - 1):
+    if s[i] != s[i+1]:
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
 
 
-# Тип 9 №59780
-'''
-cnt = 0
-for s in open('files/9.txt'):
-    M = [int(x) for x in s.split()]
-    copied_4 = [x for x in M if M.count(x) == 4]
-    copied = [x for x in M if M.count(x) > 1]
-    if len(copied_4) == 4:
-        if sum(copied) / len(copied) < sum(M) / 7:
-            cnt += 1
-print(cnt)
-'''
-
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 2]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 2 and len(not_copied) == 4:
-        if sum(copied) / 2 < sum(not_copied) / 4:
-            cnt += 1
-print(cnt)
+s = open('files/24.txt').readline()
+s = s.replace('LL', 'L L').replace('DD', 'D D').replace('RR', 'R R')
+print(max([len(x) for x in s.split()]))
 '''
 
 
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) == len(set(M)):
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(nechet) > len(chet):
-            if sum(nechet) < sum(chet):
-                cnt += 1
-print(cnt)
+# Тип 24 №27689
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите максимальную длину цепочки вида XYZXYZXYZ...
+# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+'''
+s = open('files/24.txt').readline()
+count = 2
+maxi = 0
+for i in range(len(s) - 2):
+    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 2
+print(maxi)
+'''
 
 
+# Тип 24 №47228
+# Текстовый файл состоит из символов A, C, D, F и O.
+# Определите максимальное количество идущих подряд пар символов вида:
+# согласная  + гласная.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('O', 'A')
+s = s.replace('C', 'D').replace('F', 'D')
+while 'DD' in s or 'AA' in s:
+    s = s.replace('AA', 'A A').replace('DD', 'D D')
+R = []
+for x in s.split():
+    if x[0] == 'A':
+        R.append(x[1:])
+    else:
+        R.append(x)
 
-
-
-
-
+print(max([len(x) / 2 for x in R]))
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -143,6 +142,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:

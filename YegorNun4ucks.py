@@ -1,109 +1,77 @@
 # region Домашка: ******************************************************************
+'''
+from itertools import *
 
+R = []
+for n, i in enumerate(product(sorted('ПАРУС'), repeat=5), 1):
+    s = ''.join(i)
+    if s.count('У') <= 1 and 'АА' not in s:
+        R.append(n)
+print(max(R))
+'''
+
+'''
+cnt = 0
+for s in open('2.csv'):
+    M = [int(x) for x in s.split(',')]
+    four_copied = [x for x in M if M.count(x) == 4]
+    two_copied = [x for x in M if M.count(x) == 2]
+    ncopied = [x for x in M if M.count(x) == 1]
+    copied = four_copied + two_copied
+
+    if len(four_copied) == 4 and len(two_copied) == 2 and len(ncopied) == 3:
+        m = max(copied)
+        if sum(ncopied) / len(ncopied) >= m:
+            cnt += 1
+print(cnt)
+'''
+
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if (len(copied) == 3 and len(not_copied) == 4) + (M == sorted(M)) <= 1:
+        cnt += 1
+print(cnt)
+
+cnt = 0
+for s in open('files/9.csv'):
+    flag = True
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    ncopied = [x for x in M if M.count(x) == 1]
+
+    for i in range(len(M)-1):
+        if M[i] > M[i+1]:
+            flag = False
+
+    if (len(copied) == 3 and len(ncopied) == 4) and flag == 1:
+        continue
+    cnt += 1
+print(cnt)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 12932 (Уровень: Базовый)
-'''
-# import fnmatch as f
-#
-# for i in range(10 ** 10 + 1):
-#     if i % 2024 == 0 and (i ** 0.5).is_integer() and f.fnmatch(str(i), '1?2*4'):
-#         print(i, i // 2024)
-
-import time
-start = time.time()
-
-from fnmatch import *
-for i in range(0, 10**10, 2024):
-    if (i ** 0.5).is_integer():
-        if fnmatch(str(i), '1?2*4'):
-            print(i, i // 2024)
-
-
-print(time.time() - start)
-'''
-
-
-# Тип 25 № 37160
-# Найдите 5 чисел больших 500000, таких, что среди их делителей есть число, оканчивающееся на 8,
-# при этом этот делитель не равен 8 и самому числу. В качестве ответа
-# приведите 5 наименьших чисел, соответствующих условию.
-#
-# Формат вывода: для каждого из 5 таких найденных чисел в отдельной строке сначала выводится само число,
-# затем минимальный делитель, оканчивающийся на 8, не равный 8 и самому числу.
-'''
-def divs(n):
-    res = []
-    for i in range(1, int((n**0.5)) + 1):
-        if n % i == 0:
-            res += [i, n // i]
-            # res.append(i)
-            # res.append(n // i)
-    return sorted(set(res))
-
-
-cnt = 0
-for i in range(500_000+1, 600_000):
-    d = [k for k in divs(i) if k != 8 and k != i and k % 10 == 8]
-    if len(d) > 0:
-        print(i, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
-'''
-
-
-# Тип 25 № 36880
-'''
-res = []
-for m in range(0, 40, 2):
-    for n in range(1, 40, 2):
-        n = 2**m * 3**n
-        if 400_000_000 < n < 600_000_000:
-            res.append(n)
-
-for x in sorted(res):
-    print(x)
-'''
-
-
-# № 13088 (Уровень: Средний)
-# Файл содержит последовательность натуральных чисел, не превышающих 100 000.
-# Назовём тройкой три идущих подряд элемента последовательности.
-# Определите количество троек, для которых выполняются следующие условия:
-#
-# – ровно два числа в тройке четырёхзначные;
-# – хотя бы одно число в тройке делится на 5;
-# – сумма элементов тройки больше максимального последовательности, запись которого заканчивается на 17
-#
-# В ответе запишите два числа: сначала количество найденных троек,
-# затем максимальную величину суммы элементов этих троек.
-'''
-# i  0   1  2   3    4   5   6   7    8
-M = [1, 23, 21, 123, 21, 3, 123, 12, 321]
-
-# i = 0: M[i:i+3] == [1, 23, 21]
-# i = 1: M[i:i+3] == [23, 21, 123]
-# i = 2: M[i:i+3] == [21, 123, 21]
-# i = 3: M[i:i+3] == [123, 21, 3]
-
-M = [int(x) for x in open('17.txt')]
-D = [x for x in M if x % 100 == 17]
+# № 18040 (Уровень: Базовый)
 R = []
-for i in range(len(M) - 2):
-    x, y, z = M[i:i+3]
-    if len([p for p in (x, y, z) if len(str(abs(p))) == 4]) == 2:
-        if any(p % 5 == 0 for p in (x, y, z)):
-            if (x + y + z) > max(D):
-                R.append(x + y + z)
-print(len(R), max(R))
-'''
+for n in range(1, 1000):
+    s = f'{n:b}'
+    if n % 5 == 0:
+        s = s[:3] + s
+    else:
+        x = (n % 5) * 5
+        s += f'{x:b}'
+    r = int(s, 2)
+    if r < 313 and n % 2 != 0:
+        R.append(n)
 
+print(max(R))
 
 # endregion Урок: *************************************************************
 # #
@@ -113,6 +81,6 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = []
+# ФИПИ = [8, 9, 17, 25]
 # КЕГЭ  = []
 # на следующем уроке:

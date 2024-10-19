@@ -1,48 +1,47 @@
 # region Домашка: ************************************************************
 
-
-# № 8602 (Уровень: Базовый)
+# № 6901 (Уровень: Средний)
 '''
-s = sorted('АЕКНС')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        n += 1
-                        if slovo == 'СЕНЕКА':
-                            print(n)
-
-'''
-
-
-# set() - создает множество и убирает копии элементов
-# № 8417 (Уровень: Базовый)
-'''
-s = sorted('ЯРОСЛАВ')
-cnt = 0
+R = []
+s = sorted('БАРШ')
+num = 0
 for a in s:
     for b in s:
         for c in s:
             for d in s:
                 for e in s:
                     slovo = a + b + c + d + e
-                    if len(slovo) == len(set(slovo)):  # буквы в коде не должны повторяться
-                        sogl = [x for x in slovo if x in 'РСЛВ']
-                        glas = [x for x in slovo if x in 'ЯОА']
-                        if len(sogl) > len(glas):  # согласных в коде должно быть больше, чем гласных
-                            slovo = slovo.replace('О', 'А').replace('Я', 'А')
-                            if 'АА' not in slovo:
-                                cnt += 1
-print(cnt)
+                    num += 1
+                    if len(set(slovo)) == 4:
+                        sogl = [x for x in slovo if x in 'БРШ']
+                        if len(sogl) <= 3:
+                            R.append(num)
+
+print(max(R))
 '''
 
+
+# № 17549 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-s = sorted('МАРКСЛ')
+s = sorted('ФОКУС')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    n += 1
+                    if slovo.count('Ф') == 0:
+                        if slovo.count('У') == 2:
+                            print(n)
+'''
+
+
+# № 2701 (Уровень: Базовый)
+'''
 R = []
+s = sorted('ФЕВРАЛЬ')
 n = 0
 for a in s:
     for b in s:
@@ -52,38 +51,119 @@ for a in s:
                     for f in s:
                         slovo = a + b + c + d + e + f
                         n += 1
-                        if 'КС' not in slovo and 'СК' not in slovo:
-                            copied = [x for x in slovo if slovo.count(x) == 3]
-                            not_copied = [x for x in slovo if slovo.count(x) == 1]
-                            if len(copied) == 3 and len(not_copied) == 3:
-                                R.append(n)
-print(max(R))
+                        if "Е" not in slovo and "А" not in slovo:
+                            R.append(n)
+print(min(R))
 '''
 
-'''
-s = sorted('СОТОЧКА')
-n = set()
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        for g in s:
-                            slovo = a + b + c + d + e + f + g
-                            if len(set(slovo)) == 6:
-                                if slovo.count('О') == 2:
-                                    if 'ОО' in slovo or 'АО' in slovo or 'ОА' in slovo:
 
-                                        n.add(slovo)
-print(len(n))
+# № 1933 (Уровень: Базовый)
 '''
-
+from itertools import *
+R = []
+for p in permutations(sorted('КЛАБХАУС')):
+    slovo = ''.join(p)
+    if 'АА' not in slovo:
+        R.append(slovo)
+print(len(set(R)))
+'''
 
 # endregion Домашка: *********************************************************
 #
 # #
 # region Урок: ************************************************************
+
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 224.37.249.32
+# Маска: 255.255.224.0
+# Маска: 11111111.11111111.11100000.00000000
+
+# ip - это число состоящее из четырех чисел в диапазоне от 0 до 255
+# На каждое такое число выделяется по 1 байту (8 бит), 255_10 -> 11111111_2
+
+# Адрес сети = IP-адрес узла & Маска сети, где & - побитовая конъюнкция
+# Маска сети имеет вид: 1111...000 (длина маски 32 бита)
+# print(bin(12)[2:])
+# print(bin(6)[2:])
+
+
+# Тип 13 №4983
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP-адрес узла: 224.37.249.32
+# Маска: 255.255.224.0
+'''
+from ipaddress import *
+net = ip_network('224.37.249.32/255.255.224.0', 0)
+print(net)  # 224.37.224.0/19 - 19 это кол-во единиц в маске
+'''
+
+
+# Тип 13 №23910
+# Для узла с IP-адресом 117.191.176.37 адрес сети равен 117.191.160.0.
+# Чему равен третий слева байт маски?
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'117.191.176.37/{mask}', 0)
+    print(net, net.netmask)
+    # 117.191.160.0/19 255.255.224.0
+'''
+
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'93.138.161.94/{mask}', 0)
+    print(net, 32-mask)
+    # 93.138.160.0/19 13
+    # 93.138.160.0/20 12
+    # 93.138.160.0/21 11
+    # 93.138.160.0/22 10
+    # 93.138.160.0/23 9
+'''
+
+
+# Тип 13 №70540
+# Сеть задана IP-адресом 172.16.168.0 и маской сети 255.255.248.0.
+#
+# Сколько в этой сети IP-адресов, для которых количество единиц
+# в двоичной записи IP-адреса не кратно 5?
+'''
+from ipaddress import *
+cnt = 0
+net = ip_network('172.16.168.0/255.255.248.0', 0)
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 5 != 0:
+        cnt += 1
+print(cnt)
+'''
+
+
+# Тип 13 №63062
+# IP-адресами 120.91.85.213 и 120.91.89.205 находятся в разных сетях.
+# Укажите наименьшее возможное значение третьего слева байта маски этой сети.
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'120.91.85.213/{mask}', 0)
+    net2 = ip_network(f'120.91.89.205/{mask}', 0)
+    if net1 != net2:
+        print(net1.netmask)
+        # 255.255.248.0
+        # 255.255.252.0
+        # 255.255.254.0
+        # 255.255.255.0
+        # 255.255.255.128
+        # 255.255.255.192
+        # 255.255.255.224
+        # 255.255.255.240
+        # 255.255.255.248
+        # 255.255.255.252
+        # 255.255.255.254
+        # 255.255.255.255
+'''
 
 
 # endregion Урок: ************************************************************
