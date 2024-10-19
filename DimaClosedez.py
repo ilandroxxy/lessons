@@ -6,151 +6,186 @@
 # #
 # region Урок: ********************************************************************
 
+# Тип 16 №45250
 '''
-def divisors(x):  # 24
-    div = []
-    for j in range(1, x+1):
-        if x % j == 0:
-            div.append(j)
-    return div
+def F(n):
+    if n < 3:
+        return 2
+    if n > 2 and n % 2 == 0:
+        return F(n - 2) + F(n - 1) - n
+    if n > 2 and n % 2 != 0:
+        return F(n - 1) - F(n - 2) + 2 * n
 
-
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-'''
-
-
-'''
-def nod(a, b):  # Функция поиска НОД
-    div = []
-    for j in range(1, min(a, b)+1):
-        if a % j == 0 and b % j == 0:
-            div.append(j)
-    return max(div)
-
-
-print(nod(12, 24))
+print(F(32))
 '''
 
 
-# Тип 15 №33517
-# Обозначим через ДЕЛ(n, m) утверждение «натуральное число
-# n делится без остатка на натуральное число m».
+# Тип 16 №33486
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n > 0 and n % 3 == 0:
+        return n + F(n - 3)
+    if n % 3 > 0:
+        return n + F(n - (n % 3))
+
+
+print(F(26))
+'''
+
+
+# Тип 16 №59721
+# Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:
+# F(n)=n, если n=1;
+# F(n)=n−1+F(n−1), если n>1.
 #
-# Для какого наибольшего натурального числа А формула
-# ДЕЛ(70, A) ∧ (ДЕЛ(x, 28) → (¬ДЕЛ(x, А) → ¬ДЕЛ(x, 21)))
+# Чему равно значение выражения F(2024)−F(2022)?
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return n
+    if n > 1:
+        return n - 1 + F(n - 1)
+
+
+print(F(2024) - F(2022))  # 4045
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
+
+# F(2024) = 2023 + F(2023)
+# F(2023) = 2022 + F(2022) - F(2022)
+print(2023 + 2022)  # 4045
+'''
+
+
+# Тип 16 №4657
+# https://inf-ege.sdamgia.ru/problem?id=4657
+'''
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * G(n-1) + 5*n
+
+def G(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n-1) + 2*n
+
+
+print(F(4) + G(4))
+'''
+
+
+# Тип 16 №36871
+'''
+def F(n):
+    if n== 0:
+        return 0
+    if n > 0 and n % 2 == 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
+
+cnt = 0
+for n in range(1, 1000+1):
+    if F(n) == 3:
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n - 1) * F(n - 1)
+
+
+print((F(2024) // 7 - F(2023)) / F(2022))
+
+# print((F(2024) / 7 - F(2023)) / F(2022))
+#        ~~~~~~~~^~~
+# OverflowError: integer division result too large for a float
+'''
+
+
+# № 13297 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+def F(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 5 * F(n - 1) + 6*G(n - 1) - 3*n + 8
+
+def G(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 6 * F(n - 1) + 5 * G(n - 1) + 3
+
+print(F(9) + G(9))
+'''
+
+
+# № 10718 (Уровень: Средний)
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return 2
+    if n > 2 and n % 2 == 0:
+        return 2 * F(n - 2) - F(n - 1) + 2
+    if n > 2 and n % 2 != 0:
+        return 2 * F(n - 1) + F(n - 2) - 2
+
+print(F(170))
+'''
+
+
+# Тип 23 №18598
+# У исполнителя есть три команды, которым присвоены номера.
+# 1. Прибавить 1.
+# 2. Умножить на 2.
+# 3. Умножить на 3.
 #
-# тождественно истинна (то есть принимает значение 1 при любом
-# натуральном значении переменной x)?
-
-# Вариант 1
+# Сколько существует программ, которые преобразуют исходное число 1 в число 40
+# и при этом траектория вычислений содержит число 12 и не содержит числа 14?
 '''
-def F(x, A):
-    return (70 % A == 0) and ((x % 28 == 0) <= ((x % A != 0) <= (x % 21 != 0)))
+def F(a, b):
+    if a >= b or a == 14:
+        return a == b
+    return F(a+1, b) + F(a*2, b) + F(a*3, b)
 
 
-R = []
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 10000):
-        if F(x, A) == False:
-            flag = False
-            break
-    if flag == True:
-        R.append(A)
-print(max(R))
+print(F(1, 12) * F(12, 40))
 '''
 
-# Вариант 2
 '''
-def F(x, A):
-    return (70 % A == 0) and ((x % 28 == 0) <= ((x % A != 0) <= (x % 21 != 0)))
+def F(a, b):
+    if a > b or a == 14:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a*2, b) + F(a*3, b)
 
-
-R = []
-for A in range(1, 1000):
-    k = 0
-    for x in range(1, 1000):
-        if F(x, A):
-            k += 1
-    if k == 999:
-        R.append(A)
-print(max(R))
-'''
-
-# Вариант 3
-'''
-def F(x, A):
-    return (70 % A == 0) and ((x % 28 == 0) <= ((x % A != 0) <= (x % 21 != 0)))
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-
-
-# Вариант 4
-
-print(max([A for A in range(1, 1000) if all(((70 % A == 0) and ((x % 28 == 0) <= ((x % A != 0) <= (x % 21 != 0)))) for x in range(1, 10000))]))
+print(F(1, 12) * F(12, 40))
 '''
 
 
-# Тип 15 №18594
-# Для какого наименьшего целого неотрицательного числа A выражение
-# (2m + 3n > 43) ∨ (m < A) ∨ (n ≤ A)
-# тождественно истинно при любых целых неотрицательных m и n?
-'''
-def F(m, n, A):
-    return (2*m + 3*n > 43) or (m < A) or (n <= A)
-
-
-for A in range(0, 1000):
-    if all(F(m, n, A) for m in range(100) for n in range(100)):
-        print(A)
-        break
-'''
-
-# Тип 15 №39244
-# Обозначим через m&n поразрядную конъюнкцию неотрицательных целых чисел m и n.
-# Для какого наименьшего неотрицательного целого числа А формула
-# (x & 105 = 0) → ((x & 58 ≠ 0) → (x & А ≠ 0))
-#
-# тождественно истинна (т.е. принимает значение 1 при любом неотрицательном целом значении переменной x)?
-
-'''
-def F(x, A):
-    return (x & 105 == 0) <= ((x & 58 != 0) <= (x & A != 0))
-
-for A in range(0, 1000):
-    if all(F(x, A) for x in range(0, 1000)):
-        print(A)
-        break
-'''
-
-
-# Тип 15 №7763
-# На числовой прямой даны два отрезка: P=[5, 30] и Q=[14, 23].
-# Укажите наибольшую возможную длину промежутка A, для которого формула
-# ((x ∈ P) ≡ (x ∈ Q)) → ¬(x ∈ A)
-# тождественно истинна, то есть принимает значение 1 при любом значении переменной х.
-'''
-def F(a1, a2, x):
-    P = 5 <= x <= 30
-    Q = 14 <= x <= 23
-    A = a1 <= x <= a2
-    return (P == Q) <= (not A)
-
-
-R = []
-M = [x / 10 for x in range(2 * 10, 40 * 10)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(a1, a2, x) for x in M):
-            R.append(a2 - a1)
-print(max(R))  # 8.75 -> 8.8 -> 8.9 -> 9
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -161,6 +196,6 @@ print(max(R))  # 8.75 -> 8.8 -> 8.9 -> 9
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
