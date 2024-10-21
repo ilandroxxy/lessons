@@ -1,46 +1,53 @@
 # region Домашка: ******************************************************************
-
-# Определение четности числа
-
-# ctrl + alt + L
-'''
-a = int(input())
-if a % 2 == 0:
-    print("Чётное")
-else:
-    print("Нечётное")
-'''
-
-
-# Проверка соотношения для пятизначного числа
-'''
-n = int(input())  # 90435
-a = n // 10000  # 9
-b = (n // 1000) % 10  # 0
-c = (n // 100) % 10  # 4
-d = (n // 10) % 10  # 3
-e = n % 10  # 5
-
-if a * c == b + d + e:
-    print("Да")
-else:
-    print("Нет")
-'''
-
-
-# Вычисление суммы чисел по определенным условиям
 '''
 a = int(input())
 b = int(input())
-c = int(input())
-summa = 0
-if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
-    summa += a
-if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
-    summa += b
-if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
-    summa += c
-print(summa)
+for x in range(a, b + 1):
+    if (x % 20 == 0) or (x % 7 == 0 and x % 14 == 0) or (x % 10 == 9):
+        print(x)
+'''
+
+'''
+m = int(input())  # 1...24
+total = 1
+for j in range(1, m+1):
+    if m % j == 0:
+        total = total * j
+print(total)
+'''
+
+'''
+n = int(input())
+cnt_1 = 0
+cnt_2 = 0
+for i in range(n):
+    x = int(input())
+    if x % 2 == 0:
+        cnt_2 += 1
+    if x % 2 != 0:
+        cnt_1 += 1
+print(cnt_2)
+print(cnt_1)
+'''
+
+# print(123 % 10)  # 3
+# print(123 // 10)  # 12
+
+'''
+n = int(input())  # 21222344456
+maxi = -10**9
+mini = 10**9
+while n > 0:
+    x = n % 10
+
+    if maxi < x:
+        maxi = x
+
+    mini = min(mini, x)
+
+    n //= 10
+print(maxi)
+print(mini)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -48,135 +55,45 @@ print(summa)
 # #
 # region Урок: ********************************************************************
 
-# Цикл for отвечает на запросы: "Повтори N раз", "Повтори от A до B"
+# Тип 2 №27228
+# Логическая функция F задаётся выражением
+# (¬x ∨ y ∨ z) ≡ (¬y ∧ z ∧ w)
 '''
-# range(STOP-1)
-# range(START, STOP-1)
-# range(START, STOP-1, STEP)
-
-for i in range(10):  # range(start=0, STOP=10-1, step=1)
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
-
-for i in range(2, 10):  # range(START=2, STOP=10-1, step=1)
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-for i in range(10, 0):
-    print(i, end=' ')  #
-print()
-
-for i in range(10, 0, -1):
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-print(len(M))  # 5 - Функция, которая возвращает длину списка (кол-во элементов в нем)
-
-for i in range(5):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e 
-print()
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((not x) or y or z) == ((not y) and z and w)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-# Цикл while отвечает на запросы: "Пока условие верно, повторяй действие", "Бесконечные циклы"
+# Тип 2 №16377
+# Логическая функция F задаётся выражением
+# ((x → y) ≡ (y → z)) ∧ (y ∨ w).
 '''
-for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-i = 2
-while i <= 10:
-    print(i, end=' ')   # 2 4 6 8 10
-    i += 2
-'''
-
-
-# Перевод в различные системы счисления
-'''
-n = int(input('Введите десятичное число: '))
-b = int(input('Введите систему счисления: '))
-r = ''
-while n > 0:
-    r += str(n % b)
-    n //= b
-r = r[::-1]
-print(r)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x <= y) == (y <= z)) and (y or w)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-# Бесконечные циклы и операторы break, continue, exit()
-'''
-k = 0
-while True:
-    k += 1
-    if k % 2 == 0:
-        continue  # Прерывает итерацию (шаг) цикла 
-    if k == 2_000_000:
-        exit()  # Прервали выполнение всей программы
-    if k == 1_000_000:
-        break  # Прерывает выполнение цикла в котором он находится
-    print(k)
-
-
-print('Тут продолжение программы')
-'''
-
-
-# Проверка паролей пользователя
-'''
-from random import choice, randint
-messages_errors = ['Пароль неверный, повторите попытку: ',
-                   'Повторите попытку, пароль неверный: ',
-                   'Повторите попытку снова: ']
-
-password = 'qwerty'
-pas = input('Введите пароль: ')
-count = 0
-while True:
-    if pas == password:
-        print('Пароль верный, добро пожаловать!')
-        break
-    count += 1
-    if count == 3:
-        print('Пройдите проверку на робота')
-        a = randint(0, 100)
-        b = randint(0, 100)
-        x = int(input(f'Решите пример: {a} + {b} = \n'))
-        if x == a + b:
-            print('Проверка пройденна успешно')
-            count = 0
-        else:
-            print('Проверка не пройдена, подождите 5 минут')
-    pas = input(choice(messages_errors))
-'''
-
+# ¬(y → x) ∨ (z → w) ∨¬z
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not(y <= x)) or (z <= w) or (not z)
+                if F == 0:
+                    print(x, y, z, w)
 # endregion Урок: *************************************************************
 # #
 # #

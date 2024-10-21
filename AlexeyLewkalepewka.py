@@ -6,17 +6,85 @@
 # #
 # region Урок: ********************************************************************
 
-from itertools import permutations
-table = '16 19 23 25 27 32 34 39 43 46 47 52 58 61 64 68 69 72 74 78 85 86 87 91 93 96'
-graph = 'АБ БА БВ ВБ АВ ВА АГ ГА АИ ИА ЕИ ИЕ ЕГ ГЕ ГД ДГ ДЖ ЖД ЕЖ ЖЕ ЖК КЖ ИК КИ ВК КВ'
+# 1
 
-for p in permutations('АБВГДЕЖИК'):
-    new_table = table
-    for i in range(1, 9+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print('1 2 3 4 5 6 7 8 9')
-        print(*p)
+def f(s, n):
+    if s >= 25: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(s+2, n-1), f(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(1, 25) if f(s, 2)] )
+print( [s for s in range(1, 25) if not f(s, 1) and f(s, 3)] )
+print( [s for s in range(1, 25) if not f(s, 2) and f(s, 4)] )
+
+
+# 2
+
+def f(s, n):
+    if s >= 33: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(s+3, n-1), f(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(1, 33) if f(s, 2)] )
+print( [s for s in range(1, 33) if not f(s, 1) and f(s, 3)] )
+print( [s for s in range(1, 33) if not f(s, 2) and f(s, 4)] )
+
+
+
+# 3
+
+def f(s, n):
+    if s >= 1000: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(s+100, n-1), f(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( len([s for s in range(1, 1000) if f(s, 2)]) )
+print( len([s for s in range(1, 1000) if not f(s, 1) and f(s, 3)]) )
+print( [s for s in range(1, 1000) if not f(s, 2) and f(s, 4)] )
+
+
+# 5
+
+def f(s, n):
+    if s >= 34: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(s+1, n-1), f(s+2, n-1), f(s+3, n-1), f(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(1, 34) if f(s, 2)] )
+print( [s for s in range(1, 34) if not f(s, 1) and f(s, 3)] )
+print( [s for s in range(1, 34) if not f(s, 2) and f(s, 4)] )
+
+
+
+# 10
+
+def f(a, s, n):
+    if s+a >= 69: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(a+2, s, n-1), f(a, s+2, n-1), f(a*2, s, n-1), f(a, s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(1, 60) if f(9, s, 2)] )
+print( [s for s in range(1, 60) if not f(9, s, 1) and f(9, s, 3)] )
+print( [s for s in range(1, 60) if not f(9, s, 2) and f(9, s, 4)] )
+
+
+# 11
+
+def f(a, s, n):
+    if s+a <= 20: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(a-1, s, n-1), f(a, s-1, n-1), f((a+1)//2, s, n-1), f(a, (s+1)//2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(11, 60) if f(10, s, 2)] )
+print( [s for s in range(11, 60) if not f(10, s, 1) and f(10, s, 3)] )
+print( [s for s in range(11, 60) if not f(10, s, 2) and f(10, s, 4)] )
+
 
 
 # endregion Урок: *************************************************************
@@ -28,7 +96,7 @@ for p in permutations('АБВГДЕЖИК'):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 23, 24, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
