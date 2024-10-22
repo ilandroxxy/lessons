@@ -133,6 +133,179 @@ for x in s.split():
 
 print(max([len(x) / 2 for x in R]))
 '''
+
+
+# Тип 24 №37131
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите наибольшую длину цепочки символов, среди которых нет символов K и L, стоящих рядом.
+
+# s = 'FEWUYHFEIUWDFKEK LOEWKRL KEWRJEWIOJR'
+# print(max([len(x) for x in s.split()]))
+'''
+s = open('files/24.txt').readline()
+s = s.replace('KL', 'K L').replace('LK', 'L K')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №59817
+# Текстовый файл состоит из символов, обозначающих прописные буквы латинского
+# алфавита. Определите максимальное количество идущих подряд символов, среди
+# которых никакие две буквы из набора букв A, B и C
+# (с учетом повторений) не записаны подряд.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('B', 'A').replace('C', 'A')
+while 'AA' in s:
+    s = s.replace('AA', 'A A')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №59849
+# Текстовый файл состоит не более чем из 10**6 символов латинского алфавита.
+# Необходимо найти самую длинную подстроку, содержащую символы из
+# алфавита 26-ричной системы счисления. В ответ записать длину
+# последовательности символов, которая может являться числом в 26-ричной
+# системе счисления.
+
+# Всегда можно посмотреть содержимое библиотеки через ctrl + B
+'''
+from string import *  # Из библиотеки string импортируем сразу все содержимое
+alphabet = digits + ascii_uppercase  # Используем цифры и большие буквы
+# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+
+s = open('files/24.txt').readline()
+# s = '1100190001101109'
+cnt = ''
+r = ''
+maxi = 0
+for i in range(len(s)):
+    if s[i] in alphabet[:26]:
+        cnt += s[i]
+    else:
+        if len(cnt) > 0:
+            while cnt[0] == '0':
+                cnt = cnt[1:]
+        if maxi < len(cnt):
+            maxi = len(cnt)
+        cnt = ''
+print(maxi)
+'''
+
+# Вариант 2
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+s = open('files/24.txt').readline()
+
+for x in alphabet[26:]:
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №46982
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите количество групп из идущих подряд не менее 12 символов, которые
+# начинаются и заканчиваются буквой E и не содержат других букв E
+# (кроме первой и последней) и букв F.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('E', 'E E')
+print(len([x for x in s.split() if 'F' not in x and len(x) >= 12]))
+'''
+
+
+# Тип 24 №45258
+# Текстовый файл состоит из символов A, B и C.
+# Определите максимальное количество идущих подряд пар символов AB или CB
+# в прилагаемом файле.
+# Искомая подпоследовательность должна состоять только из пар AB, или только
+# из пар CB, или только из пар AB и CB
+# в произвольном порядке следования этих пар.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('AB', '*').replace('CB', '+')
+
+for x in 'ABC':
+    s = s.replace(x, ' ')
+
+print(max([len(x) for x in s.split()]))
+print(len(max(s.split(), key=len)))
+
+M = ['df', 'ert', 'errt', 'e', 'erw']
+print(len(max(M, key=len)))  # 4 - 'errt'
+'''
+
+
+# Тип 24 №68257
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите максимальную длину непрерывного фрагмента, который начинается и
+# заканчивается одной и той же буквой из первой половины алфавита (от A до M)
+# и не содержит эту букву внутри.
+'''
+# ABCDEFGHIJKLM
+s = open('files/24.txt').readline()
+maxi = 0
+for x in 'ABCDEFGHIJKLM':
+    s = s.replace(x, f'{x} {x}')
+    lenght = max([len(x) for x in s.split()])
+    if maxi < lenght:
+        maxi = lenght
+    s = s.replace(f'{x} {x}', x)
+print(maxi)
+'''
+
+
+# Тип 24 №27699
+# Текстовый файл состоит не более чем из 106 символов L, D и R.
+# Определите максимальную длину цепочки вида LDRLDRLDR...
+# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
+'''
+s = open('files/24.txt').readline()
+cnt = 2
+maxi = 0
+for i in range(0, len(s)-2, 1):
+    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 2
+print(maxi)
+'''
+# Тип 24 №38958
+
+
+# Тип 24 №38958
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите максимальное количество идущих подряд символов, среди которых
+# не более одной буквы A.
+'''
+s = open('files/24.txt').readline().split('A')
+maxi = 0
+for i in range(len(s)-1):
+    r = s[i] + 'A' + s[i+1]
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# № 863 (Уровень: Базовый)
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] != s[i+1]:
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
+'''
+
 # endregion Урок: *************************************************************
 # #
 # #

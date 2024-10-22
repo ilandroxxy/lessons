@@ -1,87 +1,73 @@
 # region Домашка: ******************************************************************
 
-# № 7718 (Уровень: Средний)
-'''
-M = [int(x) for x in open('files/17.txt')]
-R = []
-for i in range(len(M)):
-    for j in range(i + 1, len(M)):
-        x, y = M[i], M[j]
-        if ((x * y) % 18 == 0) != ((x + y) % 18 == 0):
-            R.append(x + y)
-print(len(R), max(R))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 24 №27697
-# Текстовый файл состоит не более чем из 10*6 символов L, D и R.
-# Определите длину самой длинной последовательности, состоящей из символов D.
-# Хотя бы один символ D находится в последовательности.
 
-# Вариант 1
+# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+# Текстовый файл состоит из десятичных цифр, знаков «+» и «*» (сложения и умножения).
+# Определите максимальное количество символов в непрерывной последовательности,
+# являющейся корректным арифметическим выражением с целыми неотрицательными числами (без знака),
+# значение которого равно нулю.
+#
+# В этом выражении никакие два знака арифметических операций не стоят рядом, порядок
+# действий определяется по правилам математики. В записи чисел отсутствуют незначащие
+# (ведущие) нули
+
 '''
 s = open('files/24.txt').readline()
-cnt = 1  # Хранить длину промежуточной
-maxi = 0  # Хранить длину максимальной подпоследовательности
-for i in range(len(s)-1):
-    # if s[i] == 'D' and s[i+1] == 'D':
-    if s[i:i+2] == 'DD':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
 
-# Вариант 2
-'''
-s = open('files/24.txt').readline()
-s = s.replace('L', ' ').replace('R', ' ')
-print(max([len(x) for x in s.split()]))
-'''
+# while any(p in s for p in ('++', '**', '*+', '+*')):
+#     for p in ('++', '**', '*+', '+*'):
+#         s = s.replace(p, f'{p[0]} {p[1]}')
+#
 
-
-# Тип 24 №59817
-# Текстовый файл состоит из символов, обозначающих прописные
-# буквы латинского алфавита. Определите максимальное количество
-# идущих подряд символов, среди которых никакие две буквы из набора
-# букв A, B и C (с учетом повторений) не записаны подряд.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('B', 'A').replace('C', 'A')
-while 'AA' in s:
-    s = s.replace('AA', 'A A')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27694
-# Текстовый файл состоит не более чем из 10**6 символов A, B и C.
-# Определите максимальную длину цепочки вида ABABABA...
-# (составленной из фрагментов AB, последний фрагмент может быть неполным).
-'''
-s = open('files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    # if (s[i] == 'A' and s[i+1] == 'B') or (s[i] == 'B' and s[i+1] == 'A')
-    if s[i:i + 2] in ('AB', 'BA'):
-        if cnt == 1 and s[i] == 'B':
-            continue
-        cnt += 1
-        maxi = max(cnt, maxi)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-
-s = open('files/24.txt').readline()
+s = s .replace('++', ' ').replace('**', ' ').replace('+*', ' ').replace('*+', ' ')
 print(s)
+M = []
+for elem in s.split():
+    if len(elem) > 1:
+        if elem[0] in '*+':
+            elem = elem[1:]
+        if elem[-1] in '*+':
+            elem = elem[:-1]
+        M.append(elem)
+print(M)
+
+maxi = 0
+for x in M:
+    if eval(x) == 0:
+        if maxi < len(x):
+            maxi = len(x)
+
+
+print(maxi)
+
+'''
+
+# № 858 (Уровень: Базовый)
+
+cnt = 0
+s = open('files/24.txt').readlines()
+for stroka in s:
+    if any(f'F{a}O' in stroka for a in 'ABCDEGHIJFOKLMNQPRSTUVWXYZ'):
+        cnt += 1
+print(cnt)
+
+
+cnt = 0
+s = open('files/24.txt').readlines()
+for stroka in s:
+    stroka = stroka.replace('F', '+').replace('O', '-')
+    for a in 'ABCDEGHIJKLMNQPRSTUVWXYZ':
+        stroka = stroka.replace(a, '*')
+    if '+*-' in stroka or '++-' in stroka or '+--' in stroka:
+        cnt += 1
+print(cnt)
+
 # endregion Урок: *************************************************************
 # #
 # #
