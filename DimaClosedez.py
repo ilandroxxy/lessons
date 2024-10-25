@@ -6,186 +6,138 @@
 # #
 # region Урок: ********************************************************************
 
-# Тип 16 №45250
+# Открытие файла в Python
+"""
+file = open('files/17.txt')
+file = open('files/17.txt', mode='r')
+print(file)  # <_io.TextIOWrapper name='files/17.txt' mode='r' encoding='UTF-8'>
+
+# Достется содержимое:
 '''
-def F(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return F(n - 2) + F(n - 1) - n
-    if n > 2 and n % 2 != 0:
-        return F(n - 1) - F(n - 2) + 2 * n
-
-print(F(32))
+print(file.read())  # Сразу все содержимое
+print(file.readline())  # Только первая строка (забрать заголовки)
+print(file.readlines())  # Все строки в виде списка (кладем все оставшиеся после заголовков)
 '''
 
+file.close()  # Закрытие файла
+"""
 
-# Тип 16 №33486
+# Идеальный вариант открытия файла:
 '''
-def F(n):
-    if n == 0:
-        return 0
-    if n > 0 and n % 3 == 0:
-        return n + F(n - 3)
-    if n % 3 > 0:
-        return n + F(n - (n % 3))
-
-
-print(F(26))
+with open('files/17.txt', mode='r') as file:
+    print(file.read())
+# Файл считается закрытым 
 '''
 
 
-# Тип 16 №59721
-# Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:
-# F(n)=n, если n=1;
-# F(n)=n−1+F(n−1), если n>1.
-#
-# Чему равно значение выражения F(2024)−F(2022)?
+# Лучший способ открытия файла для 9 номера
 '''
-import sys
-sys.setrecursionlimit(10000)
+for s in open('files/9.txt'):
+    M = [int(x) for x in s.split()]
+'''
 
-def F(n):
-    if n == 1:
-        return n
-    if n > 1:
-        return n - 1 + F(n - 1)
+'''
+M = []
+for s in open('files/17.txt'):
+    M.append(int(s))
+print(M)
+'''
 
-
-print(F(2024) - F(2022))  # 4045
-# [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
-
-# F(2024) = 2023 + F(2023)
-# F(2023) = 2022 + F(2022) - F(2022)
-print(2023 + 2022)  # 4045
+# Лучший способ открытия файла для 17 номера
+'''
+M = [int(s) for s in open('files/17.txt')]
+R = []
 '''
 
 
-# Тип 16 №4657
-# https://inf-ege.sdamgia.ru/problem?id=4657
+# Разберем три прототипа задач 17 номера:
 '''
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * G(n-1) + 5*n
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
+# IndexError: list index out of range
 
-def G(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return F(n-1) + 2*n
+# 1. Назовём парой два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
 
-print(F(4) + G(4))
+# 2. Назовём тройкой три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
 
 
-# Тип 16 №36871
+# Тип 17 №37370
+# В файле содержится последовательность из 10000 целых положительных чисел.
+# Каждое число не превышает 10000. Определите и запишите в
+# ответе сначала количество пар элементов последовательности, у которых
+# разность элементов кратна 60 и хотя бы один из элементов кратен 15,
+# затем максимальную из разностей элементов таких пар.
+# В данной задаче под парой подразумевается два различных элемента
+# последовательности. Порядок элементов в паре не важен.
 '''
-def F(n):
-    if n== 0:
-        return 0
-    if n > 0 and n % 2 == 0:
-        return F(n / 2)
-    if n % 2 != 0:
-        return 1 + F(n - 1)
-
+M = [int(s) for s in open('files/17.txt')]
 cnt = 0
-for n in range(1, 1000+1):
-    if F(n) == 3:
-        cnt += 1
-print(cnt)
+maxi = 0
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if abs(x - y) % 60 == 0:
+            if abs(x) % 15 == 0 or abs(y) % 15 == 0:
+                cnt += 1
+                maxi = max(maxi, x - y)
+print(cnt, maxi)
+'''
+'''
+M = [int(s) for s in open('files/17.txt')]
+R = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if abs(x - y) % 60 == 0:
+            if abs(x) % 15 == 0 or abs(y) % 15 == 0:
+                R.append(x - y)
+print(len(R), max(R))
 '''
 
 
-# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
+# Тип 17 №59810
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n - 1) * F(n - 1)
-
-
-print((F(2024) // 7 - F(2023)) / F(2022))
-
-# print((F(2024) / 7 - F(2023)) / F(2022))
-#        ~~~~~~~~^~~
-# OverflowError: integer division result too large for a float
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if str(x)[-2:] == '24']
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    # if (100 <= abs(x) <= 999) + (len(str(abs(y))) == 3) + (len(str(abs(z))) == 3) == 1:
+    if len([p for p in (x, y, z) if len(str(abs(p))) == 3]) == 1:
+        if (x + y + z) > max(D):  
+            R.append(x + y + z)
+print(len(R), min(R))
 '''
 
 
-# № 13297 Открытый курс "Слово пацана" (Уровень: Базовый)
+# Тип 17 №68518
 '''
-def F(n):
-    if n == 3:
-        return 1
-    if n > 3:
-        return 5 * F(n - 1) + 6*G(n - 1) - 3*n + 8
-
-def G(n):
-    if n == 3:
-        return 1
-    if n > 3:
-        return 6 * F(n - 1) + 5 * G(n - 1) + 3
-
-print(F(9) + G(9))
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if abs(x) % 19 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if abs(x) % min(D) == 0 or abs(y) % min(D) == 0:
+        R.append(x + y)
+print(len(R), max(R))
 '''
-
-
-# № 10718 (Уровень: Средний)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return 2 * F(n - 2) - F(n - 1) + 2
-    if n > 2 and n % 2 != 0:
-        return 2 * F(n - 1) + F(n - 2) - 2
-
-print(F(170))
-'''
-
-
-# Тип 23 №18598
-# У исполнителя есть три команды, которым присвоены номера.
-# 1. Прибавить 1.
-# 2. Умножить на 2.
-# 3. Умножить на 3.
-#
-# Сколько существует программ, которые преобразуют исходное число 1 в число 40
-# и при этом траектория вычислений содержит число 12 и не содержит числа 14?
-'''
-def F(a, b):
-    if a >= b or a == 14:
-        return a == b
-    return F(a+1, b) + F(a*2, b) + F(a*3, b)
-
-
-print(F(1, 12) * F(12, 40))
-'''
-
-'''
-def F(a, b):
-    if a > b or a == 14:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a*2, b) + F(a*3, b)
-
-print(F(1, 12) * F(12, 40))
-'''
-
-
 
 # endregion Урок: *************************************************************
 # #
@@ -196,6 +148,6 @@ print(F(1, 12) * F(12, 40))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
