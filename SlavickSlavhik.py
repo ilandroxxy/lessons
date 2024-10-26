@@ -6,16 +6,18 @@
 # #
 # region Урок: ********************************************************************
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(8, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            A = int(f'23{y}1{x}7', p)
-            B = int(f'{y}26{x}2', p)
-            if (A + B) % (alphabet.index(x) + alphabet.index(y)) == 0:
-                print((A + B) // (alphabet.index(x) + alphabet.index(y)))
 
+from itertools import *
 
+cnt = 0
+for n, p in enumerate(product("ЕЛОПРСТ", repeat=5), 1):
+    a = ''.join(p)
+    sogl = [x for x in a if x in "ЛПРСТ"]
+    if (n % 2 != 0) and (a[-1] in "ЕО"):
+        if len(sogl) <= 3:
+            cnt += 1
+
+print(cnt)
 # endregion Урок: *************************************************************
 # #
 # #

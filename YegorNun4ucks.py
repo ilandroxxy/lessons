@@ -1,77 +1,121 @@
 # region Домашка: ******************************************************************
-'''
-from itertools import *
-
-R = []
-for n, i in enumerate(product(sorted('ПАРУС'), repeat=5), 1):
-    s = ''.join(i)
-    if s.count('У') <= 1 and 'АА' not in s:
-        R.append(n)
-print(max(R))
-'''
 
 '''
-cnt = 0
-for s in open('2.csv'):
-    M = [int(x) for x in s.split(',')]
-    four_copied = [x for x in M if M.count(x) == 4]
-    two_copied = [x for x in M if M.count(x) == 2]
-    ncopied = [x for x in M if M.count(x) == 1]
-    copied = four_copied + two_copied
+def convert(n, b):
+    res = ''
+    while n != 0:
+        res += str(n % b)
+        n //= b
+    return res[::-1]
 
-    if len(four_copied) == 4 and len(two_copied) == 2 and len(ncopied) == 3:
-        m = max(copied)
-        if sum(ncopied) / len(ncopied) >= m:
-            cnt += 1
-print(cnt)
+
+# n = 3 * 3125**9 + 2 * 625**8 - 4 * 625**7 + 3 * 125**6 - 2 * 25**5 - 2024
+n = 10**9
+# '000010'.count('0') == 5
+print(convert(n, 25).count('0'))
+
+
+
+from string import *
+alphabet = digits + ascii_uppercase
+print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    res = ''
+    while n != 0:
+        res += alphabet[n % b]
+        n //= b
+    return res[::-1]
+
+
+n = 10**9
+# '0000A'.count('0') == 4
+print(convert(n, 25).count('0'))
+
+
+def for15_convert(n, b):
+    res = []
+    while n != 0:
+        res.append(n % b)
+        n //= b
+    return res[::-1]
+
+
+n = 10**9
+# [0, 0, 0, 0, 10].count(0) == 4
+print(for15_convert(n, 25).count(0))
 '''
 
+
+# № 12468 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if (len(copied) == 3 and len(not_copied) == 4) + (M == sorted(M)) <= 1:
-        cnt += 1
-print(cnt)
+s1 = '78x79643'
+s2 = '25x43'
+s3 = '63x5'
 
-cnt = 0
-for s in open('files/9.csv'):
-    flag = True
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    ncopied = [x for x in M if M.count(x) == 1]
+for x in '0123456789ABCDEFGHI':
 
-    for i in range(len(M)-1):
-        if M[i] > M[i+1]:
-            flag = False
+    res = int(s1.replace('x', x), 19) + int(s2.replace('x', x), 19) + int(s3.replace('x', x), 19)
 
-    if (len(copied) == 3 and len(ncopied) == 4) and flag == 1:
-        continue
-    cnt += 1
-print(cnt)
+    if res % 18 == 0:
+        print(res // 18)
+        break
+
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:19]:
+    A = int(f'78{x}79643', 19)
+    B = int(f'25{x}43', 19)
+    C = int(f'63{x}5', 19)
+    if (A + B + C) % 18 == 0:
+        print((A + B + C) // 18)
+        break
 '''
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 18040 (Уровень: Базовый)
-R = []
-for n in range(1, 1000):
-    s = f'{n:b}'
-    if n % 5 == 0:
-        s = s[:3] + s
-    else:
-        x = (n % 5) * 5
-        s += f'{x:b}'
-    r = int(s, 2)
-    if r < 313 and n % 2 != 0:
-        R.append(n)
+# № 18166 (Уровень: Средний)
 
-print(max(R))
+# (К. Багдасарян) Значение арифметического выражения 5**2025 + 5**200 - x
+# где х – натуральное число в диапазоне от 2 до 2025, записали в системе счисления с основанием 5.
+# Определите максимальное значение x, при котором данная запись содержит наибольшее количество цифр «4».
+'''
+def convert(n, b):
+    r = ''
+    while n != 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+maxi = 0
+last = 0
+for x in range(2, 2025+1):
+    n = 5**2025 + 5**200 - x
+    b = convert(n, 5)
+    if maxi <= b.count('4'):
+        maxi = b.count('4')
+        last = x
+print(last)
+'''
+
+
+# № 7346 (Уровень: Средний)
+#
+# (Д. Статный) Дано арифметическое выражение:
+# В записи чисел переменной x обозначена неизвестная цифра из допустимого алфавита для указанных систем счисления.
+# Определите наибольшее значение x, при котором значение данного арифметического выражения кратно 35.
+# Для найденного значения x вычислите частное от деления значения арифметического выражения на 35
+# и укажите его в ответе в десятичной системе счисления.
+'''
+def my_int(r: list, b):
+    return sum(x*b**i for i, x in enumerate(r[::-1], 0))
+
+print(my_int([1, 0, 0, 0], 2))  # 8
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -81,6 +125,6 @@ print(max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [8, 9, 17, 25]
+# ФИПИ = [5, 8, 9, 14, 17, 25]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: 16, 23
