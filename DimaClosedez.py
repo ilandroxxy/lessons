@@ -5,139 +5,28 @@
 # #
 # #
 # region Урок: ********************************************************************
-
-# Открытие файла в Python
-"""
-file = open('files/17.txt')
-file = open('files/17.txt', mode='r')
-print(file)  # <_io.TextIOWrapper name='files/17.txt' mode='r' encoding='UTF-8'>
-
-# Достется содержимое:
 '''
-print(file.read())  # Сразу все содержимое
-print(file.readline())  # Только первая строка (забрать заголовки)
-print(file.readlines())  # Все строки в виде списка (кладем все оставшиеся после заголовков)
-'''
-
-file.close()  # Закрытие файла
-"""
-
-# Идеальный вариант открытия файла:
-'''
-with open('files/17.txt', mode='r') as file:
-    print(file.read())
-# Файл считается закрытым 
-'''
-
-
-# Лучший способ открытия файла для 9 номера
-'''
-for s in open('files/9.txt'):
-    M = [int(x) for x in s.split()]
-'''
-
-'''
-M = []
-for s in open('files/17.txt'):
-    M.append(int(s))
-print(M)
-'''
-
-# Лучший способ открытия файла для 17 номера
-'''
-M = [int(s) for s in open('files/17.txt')]
-R = []
-'''
-
-
-# Разберем три прототипа задач 17 номера:
-'''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-# IndexError: list index out of range
-
-# 1. Назовём парой два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-
-# 2. Назовём тройкой три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-'''
-
-
-# Тип 17 №37370
-# В файле содержится последовательность из 10000 целых положительных чисел.
-# Каждое число не превышает 10000. Определите и запишите в
-# ответе сначала количество пар элементов последовательности, у которых
-# разность элементов кратна 60 и хотя бы один из элементов кратен 15,
-# затем максимальную из разностей элементов таких пар.
-# В данной задаче под парой подразумевается два различных элемента
-# последовательности. Порядок элементов в паре не важен.
-'''
-M = [int(s) for s in open('files/17.txt')]
 cnt = 0
-maxi = 0
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        if abs(x - y) % 60 == 0:
-            if abs(x) % 15 == 0 or abs(y) % 15 == 0:
-                cnt += 1
-                maxi = max(maxi, x - y)
-print(cnt, maxi)
-'''
-'''
-M = [int(s) for s in open('files/17.txt')]
-R = []
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        if abs(x - y) % 60 == 0:
-            if abs(x) % 15 == 0 or abs(y) % 15 == 0:
-                R.append(x - y)
-print(len(R), max(R))
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(set(M)) == 5:  # set(4 5 6 6) => {4 5 6}
+        plus = [x for x in M if x > 0]
+        minus = [abs(x) for x in M if x < 0]
+        if sum(minus) > sum(plus):
+            cnt += 1
+print(cnt)
 '''
 
+k = 0
+count = 0
+for s in open('files/9.csv'):
+    m = [int(x) for x in s.split(',')]
+    count += 1
+    ss = [x for x in m if m.count(x) >= 2]
+    if (sorted(m) == m) or (len(ss) >= 2):
+        k += count
+print(k)
 
-# Тип 17 №59810
-'''
-M = [int(s) for s in open('files/17.txt')]
-D = [x for x in M if str(x)[-2:] == '24']
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    # if (100 <= abs(x) <= 999) + (len(str(abs(y))) == 3) + (len(str(abs(z))) == 3) == 1:
-    if len([p for p in (x, y, z) if len(str(abs(p))) == 3]) == 1:
-        if (x + y + z) > max(D):  
-            R.append(x + y + z)
-print(len(R), min(R))
-'''
-
-
-# Тип 17 №68518
-'''
-M = [int(s) for s in open('files/17.txt')]
-D = [x for x in M if abs(x) % 19 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if abs(x) % min(D) == 0 or abs(y) % min(D) == 0:
-        R.append(x + y)
-print(len(R), max(R))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -148,6 +37,6 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
