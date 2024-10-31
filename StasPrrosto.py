@@ -6,67 +6,21 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
-# Текстовый файл состоит из десятичных цифр, знаков «+» и «*» (сложения и умножения).
-# Определите максимальное количество символов в непрерывной последовательности,
-# являющейся корректным арифметическим выражением с целыми неотрицательными числами (без знака),
-# значение которого равно нулю.
-#
-# В этом выражении никакие два знака арифметических операций не стоят рядом, порядок
-# действий определяется по правилам математики. В записи чисел отсутствуют незначащие
-# (ведущие) нули
-
+# № 18115 (Уровень: Базовый)
 '''
-s = open('files/24.txt').readline()
+from itertools import *
+table = '14 15 17 24 26 35 36 37 41 42 51 53 56 62 63 65 71 73'
+graph = 'EF FE EC CE CG GC GF FG FD DF GD DG DB BD BA AB AC CA'
 
-# while any(p in s for p in ('++', '**', '*+', '+*')):
-#     for p in ('++', '**', '*+', '+*'):
-#         s = s.replace(p, f'{p[0]} {p[1]}')
-#
-
-s = s .replace('++', ' ').replace('**', ' ').replace('+*', ' ').replace('*+', ' ')
-print(s)
-M = []
-for elem in s.split():
-    if len(elem) > 1:
-        if elem[0] in '*+':
-            elem = elem[1:]
-        if elem[-1] in '*+':
-            elem = elem[:-1]
-        M.append(elem)
-print(M)
-
-maxi = 0
-for x in M:
-    if eval(x) == 0:
-        if maxi < len(x):
-            maxi = len(x)
-
-
-print(maxi)
-
+print('1 2 3 4 5 6 7')
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
-# № 858 (Уровень: Базовый)
-
-cnt = 0
-s = open('files/24.txt').readlines()
-for stroka in s:
-    if any(f'F{a}O' in stroka for a in 'ABCDEGHIJFOKLMNQPRSTUVWXYZ'):
-        cnt += 1
-print(cnt)
-
-
-cnt = 0
-s = open('files/24.txt').readlines()
-for stroka in s:
-    stroka = stroka.replace('F', '+').replace('O', '-')
-    for a in 'ABCDEGHIJKLMNQPRSTUVWXYZ':
-        stroka = stroka.replace(a, '*')
-    if '+*-' in stroka or '++-' in stroka or '+--' in stroka:
-        cnt += 1
-print(cnt)
 
 # endregion Урок: *************************************************************
 # #
@@ -77,6 +31,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 9, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 5, 6, 9, 8, 12, 13, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
