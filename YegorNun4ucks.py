@@ -1,121 +1,148 @@
 # region Домашка: ******************************************************************
 
+
+# № 6845 (Уровень: Средний)
 '''
-def convert(n, b):
-    res = ''
-    while n != 0:
-        res += str(n % b)
-        n //= b
-    return res[::-1]
+def my_int(r: list, b):
+    return sum(x * b ** i for i, x in enumerate(r[::-1], 0))
 
 
-# n = 3 * 3125**9 + 2 * 625**8 - 4 * 625**7 + 3 * 125**6 - 2 * 25**5 - 2024
-n = 10**9
-# '000010'.count('0') == 5
-print(convert(n, 25).count('0'))
+s = 100
+
+for p in range(8, s):
+    for x in range(p):
+        for y in range(p):
+            A = my_int([1, x, 7, 7], p)
+            B = my_int([x, x, 7, 7], p)
+            C = my_int([y, 0, y, y], p)
+
+            if A + B == C:
+                print(my_int([y, x, y, x], 24))
+
+import string
+alphabet = string.digits + string.ascii_uppercase
 
 
-
-from string import *
-alphabet = digits + ascii_uppercase
-print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    res = ''
-    while n != 0:
-        res += alphabet[n % b]
-        n //= b
-    return res[::-1]
-
-
-n = 10**9
-# '0000A'.count('0') == 4
-print(convert(n, 25).count('0'))
-
-
-def for15_convert(n, b):
-    res = []
-    while n != 0:
-        res.append(n % b)
-        n //= b
-    return res[::-1]
-
-
-n = 10**9
-# [0, 0, 0, 0, 10].count(0) == 4
-print(for15_convert(n, 25).count(0))
+for p in range(8, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            if int(f'1{x}77', p) + int(f'{x}{x}77', p) == int(f'{y}0{y}{y}', p):
+                print(int(y + x + y + x, p))
 '''
 
 
-# № 12468 (Уровень: Базовый)
+# № 6847 (Уровень: Средний)
 '''
-s1 = '78x79643'
-s2 = '25x43'
-s3 = '63x5'
+def my_int(r: list, b):
+    return sum(x*b**i for i, x in enumerate(r[::-1], 0))
 
-for x in '0123456789ABCDEFGHI':
+for x in range(1, 112):
+    A = my_int([x, 3, 2, 1], 111)
+    B = my_int([1, 7, x, 4], 211)
 
-    res = int(s1.replace('x', x), 19) + int(s2.replace('x', x), 19) + int(s3.replace('x', x), 19)
-
-    if res % 18 == 0:
-        print(res // 18)
-        break
-
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'78{x}79643', 19)
-    B = int(f'25{x}43', 19)
-    C = int(f'63{x}5', 19)
-    if (A + B + C) % 18 == 0:
-        print((A + B + C) // 18)
-        break
+    if (A + B) % 111 == 0:
+        print((A + B) // 111)
 '''
+
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 18166 (Уровень: Средний)
-
-# (К. Багдасарян) Значение арифметического выражения 5**2025 + 5**200 - x
-# где х – натуральное число в диапазоне от 2 до 2025, записали в системе счисления с основанием 5.
-# Определите максимальное значение x, при котором данная запись содержит наибольшее количество цифр «4».
+# № 18123 (Уровень: Базовый)
 '''
-def convert(n, b):
-    r = ''
-    while n != 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+def F(n):
+    if n >= 2010:
+        return n
+    if n < 2010:
+        return F(n + 3) + F(n + 2) + F(n + 1)
 
-maxi = 0
-last = 0
-for x in range(2, 2025+1):
-    n = 5**2025 + 5**200 - x
-    b = convert(n, 5)
-    if maxi <= b.count('4'):
-        maxi = b.count('4')
-        last = x
-print(last)
+print((F(2000) - 2 * (F(2002) + F(2003))) / F(2004))
 '''
 
 
-# № 7346 (Уровень: Средний)
-#
-# (Д. Статный) Дано арифметическое выражение:
-# В записи чисел переменной x обозначена неизвестная цифра из допустимого алфавита для указанных систем счисления.
-# Определите наибольшее значение x, при котором значение данного арифметического выражения кратно 35.
-# Для найденного значения x вычислите частное от деления значения арифметического выражения на 35
-# и укажите его в ответе в десятичной системе счисления.
+# № 17872 Демоверсия 2025 (Уровень: Базовый)
 '''
-def my_int(r: list, b):
-    return sum(x*b**i for i, x in enumerate(r[::-1], 0))
+import sys
+sys.setrecursionlimit(2025)
 
-print(my_int([1, 0, 0, 0], 2))  # 8
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n - 1) * F(n - 1)
+
+
+print((F(2024) + 2 * F(2023)) / F(2022))
+
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
+
+# F(2024) = (2023) * F(2023)
+# F(2023) = 2022 * F(2022)
+# (2023 * 2022 * F(2022) + 2 * 2022 * F(2022)) / F(2022)
+# (2023 * 2022  + 2 * 2022 )
+print(2023 * 2022 + 2 * 2022)
 '''
+
+
+# № 18146 (Уровень: Базовый)
+# У исполнителя есть две команды, которые обозначены латинскими буквами:
+# A. Вычти 3
+# B. Найди целую часть от деления на 3
+# С. Найди целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 46 результатом является число 3
+# и при этом траектория вычислений содержит число 20 и не содержит числа 28?
+'''
+def F(a, b):
+    if a < b or a == 28:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-3, b) + F(a//3, b) + F(a//2, b)
+
+
+print(F(46, 20) * F(20, 3))
+
+
+def F(a, b):
+    if a <= b or a == 28:
+        return a == b
+    return F(a-3, b) + F(a//3, b) + F(a//2, b)
+
+
+print(F(46, 20) * F(20, 3))
+'''
+
+
+# № 10027 (Уровень: Базовый)
+# (Л. Шастин) Исполнитель преобразует число на экране.
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 2
+# B. Прибавить 3
+# C. Умножить на 2
+# Сколько существует программ, для которых
+# при исходном числе 5 результатом является число 30,
+# а первая в них команда - A или B?
+'''
+def F(a, b, c):
+    if a >= b:
+        return a == b and c[0] in 'AB'
+    return F(a+2, b, c+'A') + F(a+3, b, c+'B') + F(a*2, b, c+'C')
+
+
+print(F(5, 30, ''))
+'''
+
+def F(a, b, c):
+    if a >= b:
+        return a == b and 'CAC' in c
+    return F(a+1, b, c+'A') + F(a*3, b, c+'B') + F(a+5, b, c+'C')
+
+
+print(F(3, 69, ''))
 
 # endregion Урок: *************************************************************
 # #
@@ -125,6 +152,6 @@ print(my_int([1, 0, 0, 0], 2))  # 8
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 9, 14, 17, 25]
+# ФИПИ = [5, 8, 9, 14, 16, 17, 23, 25]
 # КЕГЭ  = []
-# на следующем уроке: 16, 23
+# на следующем уроке:

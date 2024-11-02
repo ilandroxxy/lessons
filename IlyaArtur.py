@@ -1,165 +1,90 @@
 # region Домашка: ******************************************************************
 
-# Проверка соотношения для пятизначного числа
-
-# Сочетание клавиш: ctrl + alt + L
 '''
-z = int(input())
-a = z // 10000
-b = (z // 1000) % 10
-c = (z // 100) % 10
-d = (z // 10) % 10
-e = z % 10
-if a * c == b + d + e:
-    print("Да")
-else:
-    print("Нет")
+n = int(input())
+max1 = -10**7
+min1 = 10**7
+while n > 0:
+    x = n % 10
+    max1 = max(max1, x)
+    min1 = min(min1, x)
+    n //= 10
+print(max1)
+print(min1)
 '''
 
 
-# Разработка программы для определения вида треугольника
+# Подсчет четных и нечетных чисел
 '''
-a = int(input())
-b = int(input())
-c = int(input())
+n = int(input())
+chet = 0
+nechet = 0
+for i in range(n):
+    x = int(input())
+    if x % 2 == 0:
+        chet += 1
+    else:
+        nechet += 1
+print(chet)
+print(nechet)
+'''
 
-if a == b == c:
-    print("Равносторонний")
-elif a != b != c != a:
-    print('Разносторонний')
-else:
-    print("Равнобедренный")
+# Вывод таблицы умножения
+'''
+n = int(input())
+for i in range(1, 10+1):
+    print(f'{n} * {i} = {n * i}')
 '''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-
-# Циклы while и for
-
-# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до В"
-
-
-# Работа с циклом for через range()
 '''
-# range(0, STOP-1, 1)
-# range(START, STOP-1, 1)
-# range(START, STOP-1, STEP)
-
-for i in range(10):
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
-
-for i in range(2, 10):
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-for i in range(2, 10, 2):
-    print(i, end=' ')  # 2 4 6 8
-print()
-
-n = 10
-for i in range(2, n+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-for i in range(10, 0):
-    print(i, end=' ')  #
-print()
-
-for i in range(10, 0, -1):
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
-'''
-# Функция range() работает только с целыми числами
-# for i in range(0, 10, 0.5):
-#     print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-# print()
-# TypeError: 'float' object cannot be interpreted as an integer
-
-
-# Работа с циклом for напрямую с последовательностью
-'''
-# 4. Через индексы элементов можно не только брать их значение, но и изменять его
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-print(len(M))  # 5 - Функция len() возвращает длину списка, то есть кол-во элементов в нем
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-# 0 1 2 3 4
-# a b c d e
-for i in range(len(M)):
-    print(i, M[i])
-    # 0 * a = ''
-    # 1 * b = 'b'
-    # 2 * c = 'cc'
-    # 3 * d = 'ddd'
-    # 4 * e = 'eeee'
-    M[i] = M[i] * i
-
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-print('hello ' * 4)  # hello hello hello hello
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e - Забрали все гласные элементы
-print()
+d1 = True
+d0 = False  # bool (Boolean) 
 '''
 
-# Цикл while отвечает на запросы: "пока условие верно мы делаем действие", "бесконечные циклы"
 
+# Тип 2 №16878
+# Логическая функция F задаётся выражением (x≡¬y)→(z≡(y∨w)).
 '''
-for i in range(2, 10+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 2 4 6 8 10
-    i += 2
-print()
-'''
-
-# Перевод из 10-й в b-ю систему счисления
-'''
-n = int(input('Введите число для перевода: '))
-b = int(input('Введите b-ю систему счисления: '))
-r = ''
-while n > 0:
-    r = str(n % b) + r
-    n //= b
-print(r)  # 1000
+print('x y z w F')
+for x in range(2):
+    for y in [0, 1]:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x == (not y)) <= (z == (y or w))
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
-# Бесконечные циклы и операторы break, continue, exit()
-'''
-k = 0
-while True:
-    k += 1
-    if k % 2 != 0:
-        continue  # Прерываем итерацию (шаг) цикла
-    if k == 1_000_000:
-        break  # Прерывает цикл в котором сейчас находится
-    if k == 2_000_000:
-        exit()  # Прерывает выполнение программы (всей)
-    print(k)
 
-print('Продолжение программы')
+# Тип 2 №59707
+# Миша заполнял таблицу истинности логической функции F:
+# (x ∨ ¬y) ∧ ¬(y ≡ z) ∧ ¬w
 '''
+print('x y z w F')
+for x in range(2):
+    for y in [0, 1]:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x or (not y)) and (not(y == z)) and (not w)
+                if F == 1:
+                    print(x, y, z, w)
+'''
+
+
+# Тип 2 №52173
+# Логическая функция F задаётся выражением: (z≡¬x)→((w→¬y)∧(y→x))
+
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (z == (not x)) <= ((w <= (not y)) and (y <= x))
+                print(x, y, z, w, int(F))
 
 # endregion Урок: *************************************************************
 # #

@@ -155,3 +155,16 @@ print(f'{n:x}')  # 34 - буквы малые
 print(f'{n:X}')  # 34 - буквы большие
 print(int('110100', 2))  # 52
 '''
+
+'''
+d1 = True
+d0 = False  # bool (Boolean)
+
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x and (not y)) or (y == z) or (not w)
+                print(x, y, z, w, int(not y), int(not w), int(x and (not y)), int(F))
+'''
