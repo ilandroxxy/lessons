@@ -6,117 +6,59 @@
 # #
 # region Урок: ********************************************************************
 
-# a=int(input())
-# b=0
-# for i in range(1, a+1):
-#     if a%i==0:
-#         b+=i
-# print(b)
-
 '''
-a = int(input())
-b = int(input())
-for x in range(a, b+1):  # x = 8
-    flag = True
-    for j in range(2, x):
-        if x % j == 0:
-            flag = False
-    if flag == True:
-        print(x)
-'''
-
-# Правильная функция поиска простого числа
-'''
-def is_prime(x):  # def - создать функции с именем is_prime и аргументов x
-    if x <= 1:
-        return False
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
-
-
-a = int(input())
-b = int(input())
-for x in range(a, b+1):
-    if is_prime(x):
-        print(x)
-'''
-
-'''
-n = int(input())  # 20
-summa = 0
-for i in range(1, n+1):
-    summa += i
-    if summa > n:
-        print(i)
-        break
+s = input()
+cnt = 0
+for i in set(s):
+    if i in 'qwertyuiopasdfghjklzxcvbnm':
+        cnt += 1
+print(cnt)
 '''
 
 
-# Тип 2 №48450
-# Логическая функция F задаётся выражением:
-# (w → (y ≡ z)) ∧ (y ≡ (z → x))
+# Тип 2 №16431
+# Логическая функция F задаётся выражением ((y → x) ≡ (x → w)) ∧ (z ∨ x).
 '''
-print('x y z w F')
+print('x y z w')
 for x in 0, 1:
     for y in 0, 1:
         for z in 0, 1:
             for w in 0, 1:
-                F = (w <= (y == z)) and (y == ( z <= x))
-                print(x, y, z, w, int(F))
+                F = ((y <= x) == (x <= w)) and (z or x)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
-# (x → y) ∨ ¬(w → z)
-#
-# ((x ∧ ¬y) ∨ (w → z)) ≡ (z ≡ x)
-#
-# ((y ∨ z) → (z ∧ w)) ≡ ¬ ((x ∧ z) → (w ∨ y))
-
+# Тип 2 №27260
+# Логическая функция F задаётся выражением ((x ∨ ¬y) ∧ (¬z ≡ w))→(y∧z)
 '''
-(x <= y) or (not(w <= z))
-
-((x and (not y)) or (w <= z)) == (z == x)
-
-((y or z) <= (z and w)) == (not((x and z) <= (w or y)))
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x or (not y)) and ((not z) == w)) <= (y and z)
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
 
-# Тип 6 №59711
-# Черепахе был дан для исполнения следующий алгоритм:
-#
-# Повтори 4 [Вперёд 10 Направо 270]
-# Поднять хвост
-# Вперёд 3 Направо 270 Вперёд 5 Направо 90
-# Опустить хвост
-# Повтори 2 [Вперёд 10 Направо 270 Вперёд 12 Направо 270].
-#
-# Определите, сколько точек с целочисленными координатами
-# будут находиться внутри объединения фигур, ограниченных
-# заданными алгоритмом линиями, включая точки на линиях.
+# Тип 6 №63055
 '''
 import turtle as t
 t.screensize(-2000, 2000)
 t.tracer(0)
-size = 40
+t.left(90)
+size = 30
 
-# Пишем псевдокод:
-for i in range(4):  # Повтори 4 [Вперёд 10 Направо 270]
-    t.forward(10 * size)
-    t.right(270)
-t.up()  # Поднять хвост
-t.forward(3 * size)
-t.right(270)
-t.forward(5 * size)
-t.right(90)
-t.down()  # Опустить хвост
-for i in range(2):  # Повтори 2 [Вперёд 10 Направо 270 Вперёд 12 Направо 270].
-    t.forward(10 * size)
-    t.right(270)
+for i in range(4):
     t.forward(12 * size)
-    t.right(270)
+    t.right(90)
 
-# Тут рисует точки
+for i in range(5):
+    t.forward(4 * size)
+    t.right(45)
+
 t.up()
 for x in range(-50, 50):
     for y in range(-50, 50):
@@ -126,6 +68,37 @@ for x in range(-50, 50):
 t.update()
 t.done()
 '''
+
+
+# Тип 6 №56506
+
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+size = 30
+
+for i in range(3):
+    t.forward(7 * size)
+    t.right(90)
+    
+t.forward(10 * size)
+
+for i in range(3):
+    t.left(90)
+    t.forward(6 * size)
+
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
+
+
 
 # endregion Урок: *************************************************************
 # #

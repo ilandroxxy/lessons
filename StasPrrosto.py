@@ -1,25 +1,33 @@
 # region Домашка: ******************************************************************
 
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                f = ((x == z) or (not (x == w))) and ((y <= x) or (not z))
+                if f == 0:
+                    print(x, y, z, w)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 18115 (Уровень: Базовый)
-'''
-from itertools import *
-table = '14 15 17 24 26 35 36 37 41 42 51 53 56 62 63 65 71 73'
-graph = 'EF FE EC CE CG GC GF FG FD DF GD DG DB BD BA AB AC CA'
+# https://education.yandex.ru/ege/task/5b359b5d-e6d1-4701-9d12-c1b1db50e775
 
-print('1 2 3 4 5 6 7')
-for p in permutations('ABCDEFG'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-'''
+symbols = 116
+alphabet = 16 + 2035
+print(alphabet)   # 2 ** i >= alphabet
+print(2**12)
+i = 12  # бит на один символ
+bit = symbols * i
+print(bit / 8)  # 174
+byte = 174
+
+print((65536 * byte) / 2**20)
 
 
 # endregion Урок: *************************************************************
