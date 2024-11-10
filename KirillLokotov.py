@@ -6,85 +6,63 @@
 # #
 # region Урок: ************************************************************
 
-# Тип 5 №14767
+# Тип 14 №45248
 '''
-for n in range(1000, 9999+1):
-    a, b, c, d = [int(i) for i in str(n)]
-    M = sorted([a + b, b + c, c + d])
-    if str(M[1]) + str(M[2]) == '613':
-        print(n)
+n = 7*512**1912 + 6*64**1954 - 5*8**1991 - 4*8**1980 - 2022
+print(oct(n)[2:].count('7'))
+'''
+
+
+# Тип 14 №23914
+'''
+n = 9**11 * 3**20 - 3**9 - 27
+b = 3
+R = []
+while n > 0:
+    R.append(n % b)
+    n //= b
+R = R[::-1]
+print(R.count(2))
+'''
+
+
+# № 17633 Основная волна 19.06.24 (Уровень: Базовый)
+'''
+for x in range(2030+1):
+    n = 6 ** 260 + 6 ** 160 + 6**60 - x
+    b = 6
+    R = []
+    while n > 0:
+        R.append(n % b)
+        n //= b
+    R = R[::-1]
+    if R.count(0) == 202:
+        print(x)
         break
 '''
 
-
-# Тип 5 №16381
-
-# n = 13
-# s = f'{n:b}'  # s = bin(n)[2:]
-# s = s[:-1]
-# if n % 2 != 0:
-#     s = s + '10'
-# else:
-#     s += '01'
-# r = int(s, 2)
-# print(r)
+#
+# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-R = []
-for n in range(2, 10000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    s = s[:-1]
-    if n % 2 != 0:
-        s = s + '10'
-    else:
-        s += '01'
-    r = int(s, 2)
-    if r == 2018:
-        R.append(n)
-
-print(max(R))
+for x in range(2031):
+    n = 7**91 + 7**160 - x
+    osn = 7
+    spis = []
+    while n > 0:
+        spis.append(n % osn)
+        n = n // osn
+    spis.reverse()
+    if spis.count(0) == 70:
+        print(x)
 '''
 
-
-# Тип 5 №27291
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:b}'
-    for i in range(2):
-        s = s + str(s.count('1') % 2)
-    r = int(s, 2)
-    if r < 90:
-        R.append(r)
-
-print(max(R))
-'''
-
-
-# Тип 5 №17370
-'''
-R = []
-for n in range(100, 3000+1):
-    s = bin(n)[2:]
-    s = s[1:]
-    r = int(s, 2)
-    res = n - r
-    R.append(res)
-
-print(len(set(R)))
-'''
-
-
-# Тип 5 №16809
-'''
-for n in range(0, 255+1):
-    s = f'{n:b}'.zfill(8)
-    s = s.replace('0', '*').replace('1', '0').replace('*', '1')
-    r = int(s, 2)
-    res = r - n
-    if res == 133:
-        print(n)
-'''
-
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:13]:
+    for y in alphabet[:13]:
+        A = int(f'8{x}78{y}', 13)
+        B = int(f'79{x}{y}7', 18)
+        if (A + B) % 9 == 0:
+            print((A + B) // 9)
 
 
 # endregion Урок: ************************************************************
@@ -96,6 +74,6 @@ for n in range(0, 255+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ = []
 # на следующем уроке:

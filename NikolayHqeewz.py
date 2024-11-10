@@ -1,18 +1,38 @@
 # region Домашка: ******************************************************************
 
-print("x y z w F")
-for x in range (2):
-    for y in range (2):
-        for z in range (2):
-            for w in range (2):
-                F = ((x == z) or (not(x == w))) and ((y <= x) or (not z))
-                if F == 0:
-                    print(x, y, z, w, int(F))
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
+
+
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(M) != len(set(M)):
+        if M.count(max(M)) == 1:
+            copied = [x for x in M if M.count(x) > 1]
+            if sum(copied) > max(M):
+                cnt += 1
+
+print(cnt)
+'''
+
+
+# Тип 9 №59833
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(set(M)) == len(M) - 1:
+        copied = [x for x in M if M.count(x) > 1]
+        not_copied = [x for x in M if M.count(x) == 1]
+        if sum(copied) / len(copied) < sum(not_copied) / len(not_copied):
+            cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -22,6 +42,6 @@ for x in range (2):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
