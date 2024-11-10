@@ -6,117 +6,90 @@
 # #
 # region Урок: ********************************************************************
 
-# КЕГЭ № 5491 (Уровень: Средний)
-'''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if abs(x) % 10 == 3]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    # а сумма квадратов элементов пары меньше, чем квадрат наименьшего из элементов последовательности
-    if x < y and abs(x) % 10 == 3 and (x ** 2 + y ** 2) < min(D) ** 2:
-        R.append(x ** 2 + y ** 2)
-    if y < x and abs(y) % 10 == 3 and (x ** 2 + y ** 2) < min(D) ** 2:
-        R.append(x ** 2 + y ** 2)
-print(len(R), max(R))
-
-
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if abs(x) % 10 == 3]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    if abs(min(x, y)) % 10 == 3 and (x ** 2 + y ** 2) < min(D) ** 2:
-        R.append(x ** 2 + y ** 2)
-print(len(R), max(R))
-'''
-
-
-# Открываем 9 номер .txt файл:
+# Задание 9 https://education.yandex.ru/ege/task/2f370a43-39d3-4557-97a3-920195435a5d
 '''
 cnt = 0
 for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-'''
+    # print(s)  # 91;91;48;38;13
+    M = sorted([int(x) for x in s.split(';')])
+    if len(M) == len(set(M)):  # в строке все числа различны;
+        if 3 * (M[0] + M[4]) >= 2 * (M[1] + M[2] + M[3]):
+            cnt += 1
 
-
-# Тип 9 №52180
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) == len(set(M)):  # — все числа в строке различны;
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(chet) > len(nechet):
-            if sum(chet) < sum(nechet):
-                cnt += 1
 print(cnt)
 '''
 
 
-# Тип 9 №63025
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) != len(set(M)):
-        if M.count(max(M)) == 1:  # — максимальное число в строке не повторяется;
-            copied = [x for x in M if M.count(x) > 1]
-            if sum(copied) > max(M):
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 8946 (Уровень: Базовый)
+# Задание 9  https://education.yandex.ru/ege/task/59213ca9-5841-4d0e-90f4-d69569902d37
 '''
 cnt = 0
 for s in open('files/9.csv'):
     M = sorted([int(x) for x in s.split(';')])
-    if M[4] ** 2 > M[0] * M[1] * M[2] * M[3]:
-        if (M[4] + M[3]) > (2 * (M[0] + M[1] + M[3])):
-            cnt += 1
+    A = [x for x in M if x > 0]
+    B = [x for x in M if x < 0]
+    if len(B) > len(A):
+        if len(A) != 0 and len(B) > 0:
+            if abs(min(B)) > max(A):
+                cnt += 1
 print(cnt)
 '''
 
 
-# Тип 9 №69914
+# Задание 9 https://education.yandex.ru/ege/task/9222d062-000f-4b29-80d0-86b20f9119d2
 '''
-cnt = 0
+num = 0
 for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
+    M = sorted([int(x) for x in s.split(';')])
+    num += 1
+    copied = [x for x in M if M.count(x) == 2]
     not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(not_copied) == 3:
-        if copied[0] >= sum(not_copied) / 3:
+    # if len(set(M)) == len(M) - 2:
+    if len(copied) == 2:
+        if copied[0] >= sum(not_copied) / len(not_copied):
+            print(num)
+            break
+'''
+
+
+# Задание 9 https://education.yandex.ru/ege/task/0afd47a3-ee9a-44f7-bbd3-22ff7b69d98d
+'''
+cnt = 0
+for s in open('files/9.txt'):
+    M = sorted([int(x) for x in s.split()])
+    copied = [x for x in M if M.count(x) == 2]
+    if len(copied) == 6:
+        if (max(copied) + min(copied)) / 2 < sum(M) - sum(copied):
             cnt += 1
 print(cnt)
 '''
 
-# Тип 9 №39238
-# Определите, сколько среди заданных троек чисел таких,
-# которые могут быть сторонами прямоугольного треугольника.
+
+# Задание 9 https://education.yandex.ru/ege/task/2c9beda9-8bb0-497c-b6d3-d4fd322f0df0
+'''
+n = 0
+summa = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    n += 1
+    if len(M) == len(set(M)):
+        if (M[0] + M[-1]) ** 2 > (M[1] * M[2] * M[3]):
+            summa += n
+print(summa)
+'''
+
+
+# Задание 9 https://education.yandex.ru/ege/task/d62dc568-941a-44da-870b-b8cc21faee9f
 '''
 cnt = 0
 for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if M[0] ** 2 + M[1] ** 2 == M[2] ** 2:
+    M = sorted([int(x) for x in s.split(',')])
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if (sum(nechet) > sum(chet)) != (len(M) - 1 == len(set(M))):
         cnt += 1
 print(cnt)
 '''
-
-
-# № 17522 Основная волна 07.06.24 (Уровень: Базовый)
-
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if M[3] < M[0] + M[1] + M[2]:
-        if len(set(M)) == 3:
-            cnt += 1
-print(cnt)
-
+# True != False
 # endregion Урок: *************************************************************
 # #
 # #

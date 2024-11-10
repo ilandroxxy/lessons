@@ -6,40 +6,54 @@
 # #
 # region Урок: ********************************************************************
 
-# переменная - это удобный способ взаимодействия с данными
-
-# ctrl + / - однострочный комментарий (на несколько строк)
+# Логические связки: and, or, not, in, ==, !=, ^
 '''
-- Это многострочный комментарий
+flag = True
+print(not flag)
+print(not(not flag))
+
+s = '2wre34we234tr'
+for x in s:
+    # if x.isdigit():
+    if x in '0123456789':
+        print(x, end=' ')  # 2 3 4 2 3 4
+print()
+
+a = '126732109'
+for x in a:
+    if x in '02468':
+        print(x, end=' ')  # 2 6 2 0
+print()
+
+A = [int(x) for x in '126732109']
+A = [1, 2, 6, 7, 3, 2, 1, 0, 9]
+for x in A:
+    # if str(x) in '02468':
+    if x % 2 == 0:
+        print(x, end=' ')  # 2 6 2 0
+print()
+
+
+a, b, c = 4, -5, 6
+if a > 0 and b > 0:
+    print('and')  # Гарантирует, что оба (все) условия будут выполняться
+if a > 0 or b > 0:
+    print('or')  # Говорит о том, что хотя бы одно условие выполняется
+if (a > 0) ^ (b > 0):
+    print('^')  # Говорит о том, что только одно условие выполняется (либо 1, либо 2)
+if (a > 0) != (b > 0):
+    print('!=')  # Говорит о том, что только одно условие выполняется (либо 1, либо 2)
+
+
+print(True + False + True)  # 2
+
+#   True      False     True
+if (a > 0) + (b > 0) + (c > 0) == 2:
+    print('Только два условия истинны')
+if (a > 0) + (b > 0) + (c > 0) >= 2:
+    print('Хотя бы два условия истинны')
 '''
 
-# Типы данных переменных
-'''
-a = 5  # int (integer)
-
-b = 5.0  # float (число с плавающей точкой)
-print(4 / 2, type(4 / 2))  # 2.0 <class 'float'>
-
-c = '5'
-print(a * 4, c * 4)  # 20 5555
-# При умножении строки на целое число n - строка дублируется n раз
-message = 'Hello, ' + 'world!'
-print(message)  # Конкатенация строк (склеивание)
-
-message = 'Hello, ' + str(45)
-print(message)  # Hello, 45
-# TypeError: can only concatenate str (not "int") to str
-
-d1 = True
-d0 = False  # bool (Boolean - основы Булевой алгебры) математическая логика
-print(4 < 10)  # True
-
-# a, b = 4, 5
-# print(a > 0 and b > 0)  # True
-'''
-
-
-# Типы данных коллекций
 '''
 # i   0    1    2    3    4
 A = ['a', 'b', 'c', 'd', 'e']   # list (список)
@@ -52,161 +66,377 @@ print(A[1:-1])  # ['b', 'c', 'd'] - Все элементы, кроме перв
 A[0], A[-1] = 'A', 'E'
 print(A)  # ['A', 'b', 'c', 'd', 'E']
 
-s = 'abcde'
-# s[0] = 'A'
-# TypeError: 'str' object does not support item assignment
-
-s = 'A' + s[1:-1] + 'E'
-print(s)  # AbcdE
-
 # 1. Могут хранить в себе неограниченное кол-во элементов, различных значений (в отличие от массивов и строк)
 # 2. Каждый элемент списка имеет свой порядковый номер, индекс
 # 3. Индексы можно считать слева-направо начиная с 0 или справа-налево начиная с -1
 # 4. Через индексы мы можем не только брать элементы списка, но и ИЗМЕНЯТЬ их значения (в отличие от кортежей и строк)
+'''
 
-B = (1, 2, 3)
-# 1. Полностью идентичен спискам, но нельзя изменять элементы кортежа!
-B = ()
-B = tuple()
-print(type(B))  # <class 'tuple'>
+# Срезы списков и строк
+'''
+# i   0    1    2    3    4
+A = ['a', 'b', 'c', 'd', 'e']
 
-C = {1, 2, 3, 2, 3}  # set (множества)
-# 1. В множестве нельзя хранить копии элементов, все копии удаляются
-print(C)  # {1, 2, 3}
-C = set()
-print(type(C))  # <class 'set'>
+# i  01234
+s = 'abcde'
 
-D = {'один': 'one', 'два': 'two'}  # dict (словарь)
-print(type(D))  # <class 'dict'>
-print(D['один'])  # one
-# 1. Конструкция элементы которой делятся на две части: ключ и значение
-# 2. Доступ к значению элемента словаря осуществляется через его ключ
-# 3. В словаре не может быть одинаковых ключей, в таком случае они перезаписываются
+# СРЕЗ [START : STOP - 1 : STEP]
 
-D['один'] = 1
-print(D)  # {'один': 1, 'два': 'two'}
+print(A[2:4])  # ['c', 'd']
+print(A[:4])  # Все элементы до 4 по индексу (не включительно)
+print(A[2:])  # ['c', 'd', 'e'] - Все элементы от 2 по индексу (включительно)
+print(A[:])
+print(A[::])  # ['a', 'b', 'c', 'd', 'e'] - Все элементы
+print(A[0::2])  # ['a', 'c', 'e'] - Все элементы по четным индексам
+print(A[1::2])  # ['b', 'd'] - Все элементы на нечетных индексах
 
+print(s[0::2])  # ace - Все элементы по четным индексам
+print(s[1::2])  # bd - Все элементы на нечетных индексах
 
-D = {'один': 'one', 'два': 'two'}  # dict (словарь)
+# Особенно полезные срезы:
 
-print(D.items())  # dict_items([('один', 'one'), ('два', 'two')])
-print(D.keys())  # dict_keys(['один', 'два'])
-print(D.values())  # dict_values(['one', 'two'])
+n = 8
+print(bin(n))  # 0b1000
+print(bin(n)[2:])  # 1000 - Все элементы, кроме первых двух
 
-for key, value in D.items():
-    print(key, value)
-    # один one
-    # два two
+print(A[1:-1])  # ['b', 'c', 'd'] - Все элементы кроме первого и последнего
+
+print(A[::-1])  # ['e', 'd', 'c', 'b', 'a'] - Все элемнты в обратном порядке
 '''
 
 
-# Конвертация типов данных
+# Работа цикла for с списками
 '''
-a = 5
-print(a, type(a))  # 5 <class 'int'>
-
-a = str(a)
-print(a, type(a))  # 5 <class 'str'>
-# ValueError: invalid literal for int() with base 10: '5.0'
-
-a = float(a)
-print(a, type(a))  # 5.0 <class 'float'>
-
-a = int(a)
-print(a, type(a))  # 5 <class 'int'>
-
-A = [1, 2, 3, 2, 3]
-print(A, type(A))  # [1, 2, 3, 2, 3] <class 'list'>
-
-A = tuple(A)
-print(A, type(A))  # (1, 2, 3, 2, 3) <class 'tuple'>
-
-A = set(A)
-print(A, type(A))  # {1, 2, 3} <class 'set'>
-
-A = list(A)
-print(A, type(A))  # [1, 2, 3] <class 'list'>
-'''
-
-# Ввод данных с клавиатуры:
-'''
-s = input('Введите строку: ')
-print(s, type(s))  # 54 <class 'str'>
-
-n = int(input('Введите число: '))
-print(n, type(n))  # 54 <class 'int'>
-'''
+# i   0    1    2    3    4
+A = ['a', 'b', 'c', 'd', 'e']
 
 
-# Работа с f-строкой
-'''
-weather = 'облачно'
-temperature = int(input('Введите температуру: '))
+print(len(A))  # Выводит длину списка (кол-во символов)
 
-print('Сегодня облачно, а температура: 24 градуса!')
-print('Сегодня ', weather, ', а температура: ', temperature, ' градуса!')
-print('Сегодня ' + weather + ', а температура: ' + str(temperature) + ' градуса!')
-print('Сегодня {}, а температура: {} градуса!'.format(weather, temperature))
-print(f'Сегодня {weather}, а температура: {temperature} градуса!')
-'''
-
-# Базовая арифметика
-'''
-# P = {2, 3, 5, 7, 11, 13, 17, 19, 23, ... +inf}
-# N = {1, 2, 3, ..., + inf} - Множество натуральных чисел P ∈ N
-# Z = {-inf, ..., -2, -1, 0, 1, 2, ..., + inf} - Множество целых чисел P ∈ N ∈ Z
-# Q = {-inf, ..., -3/2, -2/1, -1/1, 0, 1/1, 1/2, 2/1, ..., + inf} - Множество рациональных чисел P ∈ N ∈ Z ∈ Q
-# I = {-inf, ..., -pi, 0, 1.32132132 , pi, ..., + inf} - Множество иррациональных чисел P ∈ N ∈ Z ∈ Q ∈ I
-# R = P + N + Z + Q + I - Множества вещественных (действительных) чисел 
-# C = a + ib, где a - вещественное число, а b - мнимое 
-'''
-
-'''
-a, b = 7, 2
-print(f'{a} / {b} = {a / b} \n'  # 3.5 - вещественное деление, результат всегда float
-      f'{a} // {b} = {a // b} \n'  # 3 - взятие только целой части
-      f'{a} % {b} = {a % b} \n')  # 1 - взятие остатка от деления
-
-num = 123
-print(num // 10)  # 12
-print(num % 10)  # 3
-
-num = -123
-print(num // 10)  # -13
-print(num % 10)  # 7
-
-num = abs(-123)
-print(num // 10)  # 12
-print(num % 10)  # 3
-
+for i in range(len(A)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(A[i], end=' ')  # a b c d e
 print()
 
-print(f'Возведем число {a} в степень {b}: {a ** b}')  # 49
+for i in range(len(A)):
+    A[i] = A[i] * i
+print(A)  # ['', 'b', 'cc', 'ddd', 'eeee']
 
+
+A = ['a', 'b', 'c', 'd', 'e']
+
+for x in A:
+    print(x, end=' ')  # a b c d e
 print()
 
-import math
-print(f'Возьмем квадратный корень от числа 16: {math.sqrt(16)}')  # 4.0
-print(f'Возьмем квадратный корень от числа 16: {16 ** (1/2)}')  # 4.0
-print(f'Возьмем кубический корень от числа 27: {27 ** (1/3)}')  # 3.0
+for x in A:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
 '''
 
-# Условные операторы
-'''
-# x = int(input('x: '))
-# y = int(input('y: '))
-x, y = 0, 0
 
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит осях')
+# Работа цикла while с списками
+'''
+n = 8
+b = 2
+R = []
+while n > 0:
+    R.append(n % b)
+    n //= b
+R.reverse()  # R = R[::-1]
+print(R)  # [1, 0, 0, 0]
+
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+print(r)  # 1000
+'''
+
+# Функции списков
+'''
+M = [1, 2, 3, 2, 3, 4]
+print(len(M))
+print(sum(M))
+print(min(M), max(M))
+print(sorted(M))  # [1, 2, 2, 3, 3, 4] - Сортировка по возрастанию
+print(sorted(M, reverse=True))  # [4, 3, 3, 2, 2, 1] - Сортировка по убыванию
+print(set(M))  # {1, 2, 3, 4} - Удаляет копии элементов
+'''
+
+# Функции строк
+'''
+s = '123234'
+print(len(s))
+# print(sum(s))  # не работает
+print(min(s), max(s))
+print(sorted(s))  # ['1', '2', '2', '3', '3', '4'] - Сортировка по возрастанию
+print(sorted(s, reverse=True))  # ['4', '3', '3', '2', '2', '1'] - Сортировка по убыванию
+print(set(s))  # {'4', '3', '1', '2'} - Удаляет копии элементов
+'''
+
+
+# Методы - это функции направленные только на один тип данных
+
+# Все методы списков в Python, которые понадобятся на ЕГЭ
+
+# Метод .append() используется для добавления элемента в конец списка.
+'''
+my_list = [1, 2, 3]
+my_list.append(4)
+my_list.append(5)
+print(my_list)  # Вывод: [1, 2, 3, 4, 5]
+
+# Можно реализовать через конкатенацию (склеивание) списков:
+my_list = [1, 2, 3]
+# my_list += [4, 5]
+my_list = [0] + my_list + [4, 5]
+print(my_list)  # Вывод: [0, 1, 2, 3, 4, 5]
+'''
+
+
+# Метод .reverse() изменяет порядок элементов в списке на обратный.
+'''
+my_list = [1, 2, 3, 4]
+my_list.reverse()
+print(my_list)  # Вывод: [4, 3, 2, 1]
+
+my_list = [1, 2, 3, 4]
+my_list = list(reversed(my_list))  # <list_reverseiterator object at 0x10236ff40>
+print(my_list)  # Вывод: [4, 3, 2, 1]
+
+# Можно записать по другому через срез:
+my_list = [1, 2, 3, 4]
+my_list = my_list[::-1]
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+
+# Метод .count() возвращает количество вхождений заданного элемента в список.
+'''
+my_list = [1, 2, 2, 3, 4, 2]
+count_of_twos = my_list.count(2)
+print(count_of_twos)  # Вывод: 3
+
+
+s = 'uh5ui43h5ui3h45'
+cnt = 0
+for x in s:
+    if x.isdigit():
+        cnt += 1
+print(f'Кол-во цифр в строке: {cnt}')
+
+print(len([x for x in s if x.isdigit()]))  # 7
+
+print([x*2 for x in s if x.isdigit()])  # ['55', '44', '33', '55', '33', '44', '55']
+'''
+
+# Метод .remove() удаляет первое вхождение указанного элемента из списка.
+'''
+my_list = [1, 2, 3, 2, 4]
+my_list.remove(2)  # первая найденная двойка
+print(my_list)  # Вывод: [1, 3, 2, 4]
+
+# Можно удалить элемент через его индекс используя del:
+my_list = [1, 2, 3, 2, 4]
+del my_list[1]  # индекс удаляемого элемента
+print(my_list)  # Вывод: [1, 3, 2, 4]
+
+my_list = [1, 2, 3, 2, 4]
+while 2 in my_list:
+    my_list.remove(2)
+print(my_list)  # [1, 3, 4]
+
+
+my_list = [1, 2, 3, 2, 4]
+for _ in range(my_list.count(2)):
+    my_list.remove(2)
+print(my_list)  # [1, 3, 4]
+'''
+
+
+# Метод .index() возвращает индекс первого вхождения заданного элемента в списке.
+'''
+my_list = [1, 2, 3, 2, 4]
+index_of_two = my_list.index(2)
+print(index_of_two)  # Вывод: 1
+'''
+
+# Метод .sort() сортирует элементы списка по возрастанию (по умолчанию) или в обратном порядке,
+# если передан аргумент reverse=True.
+'''
+my_list = [4, 1, 3, 2]
+my_list.sort()
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list.sort(reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+
+# Скажу честно я не любитель этого метода, считаю, что удобнее будет использовать функцию sorted():
+my_list = [4, 1, 3, 2]
+my_list = sorted(my_list)
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list = sorted(my_list, reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+
+# Все методы строк в Python, которые понадобятся на ЕГЭ
+
+# 1⃣ .strip()
+# Метод strip() удаляет пробелы (или другие символы) из начала и конца строки.
+# Это полезно для очистки пользовательского ввода.
+'''
+text = " Привет, мир!  "
+cleaned_text = text.strip()
+print(cleaned_text)  # "Привет, мир!"
+'''
+
+# 2⃣ .lower() и .upper()
+# Эти методы позволяют изменять регистр строки. lower() преобразует
+# строку в нижний регистр, а upper() – в верхний.
+'''
+text = "ПрIvEt"
+print(text.lower())  # "прivet"
+print(text.upper())  # "ПРIVET"
+'''
+
+# 3⃣ .replace()
+'''
+# Метод replace(old, new, count) заменяет подстроку old на new в строке count раз.
+text = "Я люблю Python!"
+new_text = text.replace("Python", "программирование")
+print(new_text)  # "Я люблю программирование!"
+
+text = '21321321321312'
+text = text.replace('2', '*')  # Заменили сразу все '2'
+print(text)  # *13*13*13*131*
+
+text = text.replace('*', '2', 3)  # Заменили первые 3 звездочки на '2'
+print(text)  # 213213213*131*
+'''
+
+
+# 4⃣  .split()
+# Метод split(separator) разделяет строку на части по указанному разделителю.
+# Если разделитель не указан, используется пробел.
+'''
+text = "яблоко груша банан"
+fruits = text.split()  # по умолчанию разделяет по пробелам
+print(fruits)  # ['яблоко', 'груша', 'банан']
+
+for s in open('files/9.csv'):
+    print(s)  # '43,90,148,130,1'
+    M = [int(x) for x in s.split(',')]
+    print(M)  # [43, 90, 148, 130, 1]
+'''
+
+# 5⃣ .join()
+# Метод join(iterable) соединяет элементы списка (или другого итерируемого объекта)
+# в строку с указанным разделителем.
+'''
+fruits = ['яблоко', 'груша', 'банан']
+result = ', '.join(fruits)
+print(result)  # "яблоко, груша, банан"
+
+result = '***'.join(fruits)
+print(result)  # "яблоко***груша***банан"
+'''
+
+
+# 6⃣ .find()
+# Метод find(substring) ищет подстроку в строке и возвращает индекс, с которого начинается первая встреча.
+# Если подстрока не найдена, возвращает -1.
+'''
+text = "212222212"
+
+index = text.find("1")
+print(index)  # 1
+
+index = text.index("1")
+print(index)  # 1
+
+index = text.rfind("1")
+print(index)  # 7
+
+index = text.rindex("1")
+print(index)  # 7
+
+index = text.find("3")
+print(index)  # -1 - Если элемента не найдется, то вернет -1
+
+index = text.index("3")
+print(index)  # ValueError: substring not found
+'''
+
+# 7⃣ .count()
+# Метод count(substring) возвращает количество вхождений подстроки в строку.
+'''
+text = "яблоко, груша, яблоко"
+count = text.count("яблоко")
+print(count)  # 2
+'''
+
+# 8⃣ .startswith() и .endswith()
+# Эти методы проверяют, начинается ли строка с указанной подстроки или заканчивается ли ею.
+'''
+text = "Привет, мир!"
+print(text.startswith("Привет"))  # True
+print(text.endswith("мир!"))  # True
+'''
+
+# Генераторы списков:
+'''
+M = [int(x) for x in open('files/17.txt')]
+# -2536
+
+# Найдите все элементы, которые оканчиваются на 36
+
+D = [x for x in M if abs(x) % 100 == 36]
+print(D)  # [-2536, -8336, 1536, 1436, -9736, 236
+
+D = [x for x in M if str(x)[-2:] == '36']
+print(D)  # [-2536, -8336, 1536, 1436, -9736, 236
+
+D = [x for x in M if str(x).endswith('36')]
+print(D)  # [-2536, -8336, 1536, 1436, -9736, 236
+
+
+M = [x for x in range(10)]
+print(M)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+M = [x for x in range(10) if x % 2 == 0]
+print(M)  # [0, 2, 4, 6, 8]
+
+M = [x**2 for x in range(10) if x % 2 == 0]
+print(M)  # [0, 4, 16, 36, 64]
+
+from random import randint
+M = [randint(0, 100) for _ in range(10)]
+print(M)  # [53, 60, 95, 50, 2, 62, 50, 93, 43, 19]
+
+chet = [x for x in M if x % 2 == 0]
+print(chet)  # [60, 50, 2, 62, 50]
+
+nechet = [x for x in M if x % 2 != 0]
+print(nechet)  # [53, 95, 93, 43, 19]
+
+copied = [x for x in M if M.count(x) > 1]
+print(copied)  # [50, 50]
+
+not_copied = [x for x in M if M.count(x) == 1]
+print(not_copied)  # [53, 60, 95, 2, 62, 93, 43, 19]
+
+
+# Определите длину самой длинной последовательности, состоящей из символов Y.
+s = open('files/24.txt').readline()
+s = s.replace('X', ' ').replace('Z', ' ')
+print(len(sorted(s.split())[-1]))  # 10
+print(max([len(x) for x in s.split()]))  # 10
 '''
 
 # endregion Урок: *************************************************************

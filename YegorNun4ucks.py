@@ -1,148 +1,69 @@
 # region Домашка: ******************************************************************
 
 
-# № 6845 (Уровень: Средний)
-'''
-def my_int(r: list, b):
-    return sum(x * b ** i for i, x in enumerate(r[::-1], 0))
-
-
-s = 100
-
-for p in range(8, s):
-    for x in range(p):
-        for y in range(p):
-            A = my_int([1, x, 7, 7], p)
-            B = my_int([x, x, 7, 7], p)
-            C = my_int([y, 0, y, y], p)
-
-            if A + B == C:
-                print(my_int([y, x, y, x], 24))
-
-import string
-alphabet = string.digits + string.ascii_uppercase
-
-
-for p in range(8, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            if int(f'1{x}77', p) + int(f'{x}{x}77', p) == int(f'{y}0{y}{y}', p):
-                print(int(y + x + y + x, p))
-'''
-
-
-# № 6847 (Уровень: Средний)
-'''
-def my_int(r: list, b):
-    return sum(x*b**i for i, x in enumerate(r[::-1], 0))
-
-for x in range(1, 112):
-    A = my_int([x, 3, 2, 1], 111)
-    B = my_int([1, 7, x, 4], 211)
-
-    if (A + B) % 111 == 0:
-        print((A + B) // 111)
-'''
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 18123 (Уровень: Базовый)
+# Задание 13 https://education.yandex.ru/ege/task/d3bde6f0-4eae-4994-bb5d-f757607b9d5f
+# Адрес сети = Узел сети & Маска сети
 '''
-def F(n):
-    if n >= 2010:
-        return n
-    if n < 2010:
-        return F(n + 3) + F(n + 2) + F(n + 1)
-
-print((F(2000) - 2 * (F(2002) + F(2003))) / F(2004))
+from ipaddress import *
+net = ip_network('87.226.26.72/255.255.255.252', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('0') % 2 == 0:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 17872 Демоверсия 2025 (Уровень: Базовый)
+# Задание 13 https://education.yandex.ru/ege/task/11ed12f4-9275-4ed0-814c-77afcfe165c4
+'''
+from ipaddress import *
+net = ip_network('123.206.97.128/255.255.255.224', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b[-3:] in ('101', '010'):
+        cnt += 1
+print(cnt)
+'''
+
+# 248.112.56.35
+#  1   1  1  1  байт
+#  8   8  8  8  бит
+
+
+# Задание 13 https://education.yandex.ru/ege/task/7a7901a6-c4ac-4554-aaaa-29270d559b19
+'''
+from ipaddress import *
+for A in range(256):
+    net = ip_network(f'248.112.{A}.35/255.255.255.240', 0)
+    if all(f'{ip:b}'[:16].count('0') <= f'{ip:b}'[16:].count('0') for ip in net):
+        print(A)
+'''
+
+
 '''
 import sys
-sys.setrecursionlimit(2025)
+sys.setrecursionlimit(10000)
 
+from functools import *
+
+@lru_cache(None)
 def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n - 1) * F(n - 1)
+    if n <= 10:
+        return n * 2
+    if n % 2 == 0 and n > 10:
+        return F(n - 3) - F(n - 9) * 2
+    if n % 2 != 0 and n > 10:
+        return F(n - 2) * 2 - F(n - 7)
 
-
-print((F(2024) + 2 * F(2023)) / F(2022))
-
-# [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
-
-# F(2024) = (2023) * F(2023)
-# F(2023) = 2022 * F(2022)
-# (2023 * 2022 * F(2022) + 2 * 2022 * F(2022)) / F(2022)
-# (2023 * 2022  + 2 * 2022 )
-print(2023 * 2022 + 2 * 2022)
+print(sum([int(x) for x in str(F(3063))]))
 '''
-
-
-# № 18146 (Уровень: Базовый)
-# У исполнителя есть две команды, которые обозначены латинскими буквами:
-# A. Вычти 3
-# B. Найди целую часть от деления на 3
-# С. Найди целую часть от деления на 2
-# Сколько существует программ, для которых при исходном числе 46 результатом является число 3
-# и при этом траектория вычислений содержит число 20 и не содержит числа 28?
-'''
-def F(a, b):
-    if a < b or a == 28:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-3, b) + F(a//3, b) + F(a//2, b)
-
-
-print(F(46, 20) * F(20, 3))
-
-
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    return F(a-3, b) + F(a//3, b) + F(a//2, b)
-
-
-print(F(46, 20) * F(20, 3))
-'''
-
-
-# № 10027 (Уровень: Базовый)
-# (Л. Шастин) Исполнитель преобразует число на экране.
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 2
-# B. Прибавить 3
-# C. Умножить на 2
-# Сколько существует программ, для которых
-# при исходном числе 5 результатом является число 30,
-# а первая в них команда - A или B?
-'''
-def F(a, b, c):
-    if a >= b:
-        return a == b and c[0] in 'AB'
-    return F(a+2, b, c+'A') + F(a+3, b, c+'B') + F(a*2, b, c+'C')
-
-
-print(F(5, 30, ''))
-'''
-
-def F(a, b, c):
-    if a >= b:
-        return a == b and 'CAC' in c
-    return F(a+1, b, c+'A') + F(a*3, b, c+'B') + F(a+5, b, c+'C')
-
-
-print(F(3, 69, ''))
 
 # endregion Урок: *************************************************************
 # #
@@ -152,6 +73,6 @@ print(F(3, 69, ''))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 9, 14, 16, 17, 23, 25]
+# ФИПИ = [5, 8, 9, 13, 14, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
