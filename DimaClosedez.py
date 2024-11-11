@@ -74,6 +74,28 @@ print(maxi)
 # region Разобрать: *************************************************************
 
 
+s = open('files/24.txt').readline()
+print(s.count('XXXX'))
+s = s.replace('XXXX', '*')
+print(s.count('*'))
+for x in 'XYZ':
+    s = s.replace(x, ' ')
+print(s.count('*'))
+
+s = open('files/24.txt').readline()
+cnt = 0
+for i in range(len(s)-3):
+    if s[i:i+4] == "XXXX":
+        cnt += 1
+print(cnt)
+
+cnt = 0
+s = open('files/24.txt').readline()
+for i in range(len(s) - 3):
+    if s[i] + s[i + 1] + s[i+2] + s[i + 3] == 'XXXX':
+        cnt += 1
+print(cnt)
+
 # endregion Разобрать: *************************************************************
 # #
 # #

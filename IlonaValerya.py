@@ -1,5 +1,14 @@
 # region Домашка: ******************************************************************
 
+'''
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (z == (not x)) <= ((w <= (not y)) and (y <= x))
+                print(x, y, z, w, int(F))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,65 +16,106 @@
 # region Урок: ********************************************************************
 
 
-# Задание 2 https://education.yandex.ru/ege/task/7f4398af-5c71-4cea-b491-3435c3279639
+# Шпаргалка для решения 6 номера
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x and (not y)) or (y == z) or (not w)
-                if F == 0:
-                    print(x, y, z, w)
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+size = 20
+
+# Тут пишем псевдокод:
+
+
+# Тут рисуем точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 '''
 
 
-# Задание 2 https://education.yandex.ru/ege/task/fc4a8bdc-fdfe-4945-b982-30f68abee2d7
+# Задание 6 https://education.yandex.ru/ege/task/010affd8-27b2-4067-87d8-4496e10c2627
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= y) <= x) or (not z)
-                if F == 0:
-                    print(x, y, z, w)
+import turtle as t  # Импортировали библиотеку с коротким именем t
+t.screensize(-2000, 2000)  # Добавляем ползунки регулировки масштаба окна
+t.tracer(0)  # Отключает анимацию отрисовки
+t.left(90)  # Поворачиваем на 90 градусов налево, по условию
+size = 20  # Переменная отвечающая за масштаб отрисовки
+
+
+# Тут пишем псевдокод:
+for i in range(2):
+    t.forward(12 * size)
+    t.right(90)
+    t.forward(19 * size)
+    t.right(90)
+t.up()
+t.forward(4 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+t.down()
+for i in range(2):
+    t.forward(12 * size)
+    t.right(90)
+    t.forward(6 * size)
+    t.right(90)
+
+# Тут рисуем точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):  # Перебираем координаты точек
+        t.goto(x * size, y * size)  # Прыгаем в определенную точку
+        t.dot(3, 'red')  # Рисуем точку толщины 3 красного цвета
+
+t.update()  # Для корректной работы t.tracer(0)
+t.done()  # Зафиксировать окно отрисовки
 '''
 
-# Задание 2 https://education.yandex.ru/ege/task/c84e2709-a311-49ae-9a1d-7279bb7cf568
+
+# Задание 6 https://education.yandex.ru/ege/task/a5a6fe7c-3e0b-4e9c-9dbf-10560a973262
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = w and (y == (z <= (x or y)))
-                if F == 1:
-                    print(x, y, z, w)
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+size = 20
+
+# Тут пишем псевдокод:
+for i in range(2):
+    t.forward(5 * size)
+    t.right(90)
+    t.forward(11 * size)
+    t.right(90)
+t.up()
+t.backward(4 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+t.down()
+for i in range(2):
+    t.forward(42 * size)
+    t.right(90)
+    t.forward(63 * size)
+    t.right(90)
+
+# Тут рисуем точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 '''
 
-# Задание 2 https://education.yandex.ru/ege/task/18e677f8-5a13-4fdd-94d0-2b9de1950e2e
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (z == (not y)) and ((not x) or y) and w
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (w == y) or (((not x) <= z) and ((not z) <= y))
-                if F == 0:
-                    print(x, y, z, w)
-'''
+print(5 * 2 + 11 * 2 + 42 * 2 + 63 * 2 - 20)
 
 # endregion Урок: *************************************************************
 # #

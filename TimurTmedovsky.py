@@ -1,136 +1,89 @@
 # region Домашка: ******************************************************************
 
-'''
-for n in range(1, 1000):
-    s = f'{n:b}'
-    s = s.replace('1', '*').replace('0', '1').replace('*', '0')
-    s = '1' + s
-    if s.count('1') % 2 != 0:
-        s += '1'
-    else:
-        s += '0'
-    r = int(s, 2)
-    if r > 180:
-        print(n)
-        break
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Задание 12 https://education.yandex.ru/ege/task/99da765f-ae28-4087-9286-3b636b34b035
 
-# Тип 14 №15856
-'''
-n = 4**12 + 2**32 - 17
-print(bin(n)[2:].count('1'))
-'''
+# На вход приведённой выше программе поступает строка,
+# начинающаяся с цифры «2», а затем содержащая n цифр «5» (n > 3).
+#
+# Определите наименьшее значение n, при котором в строке, получившейся
+# в результате выполнения программы, количество цифр «3» равно 2.
 
+# ПОКА нашлось (25) ИЛИ нашлось (355) ИЛИ нашлось (555)
+#     ЕСЛИ нашлось (25)
+#         ТО заменить (25, 5)
+#     ЕСЛИ нашлось (355)
+#         ТО заменить (355, 52)
+#     ЕСЛИ нашлось (555)
+#         ТО заменить (555, 3)
+'''
+for n in range(4, 100):
+    s = '2' + '5' * n  # исходно строка
 
-# Тип 14 №27015
-'''
-n = 49**7 + 7**20 - 28
-b = 7
-R = []
-while n > 0:
-    R.append(n % b)
-    n //= b
-R.reverse()
-print(R.count(0))
-'''
-
-
-# № 17768 (Уровень: Базовый)
-'''
-n = 4**644 + 4**322 + 16**35 - 64**3
-b = 4
-R = []
-while n > 0:
-    R.append(n % b)
-    n //= b
-R.reverse()
-print(R.count(3))
-'''
-
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-M = []
-for x in range(2030+1):
-    n = 7**91 + 7 ** 160 - x
-    b = 7
-    R = []
-    while n > 0:
-        R.append(n % b)
-        n //= b
-    R.reverse()
-    if R.count(0) == 70:
-        M.append(x)
-print(max(M))
-'''
-
-# № 18169 (Уровень: Сложный)
-'''
-for x in range(50000, 100000):
-    n = 3**2000 + 3**10 - x
-    b = 3
-    R = []
-    while n > 0:
-        R.append(n % b)
-        n //= b
-    if R.count(2) == 2000:
-        print(x)
+    while '25' in s or '355' in s or '555' in s:
+        if '25' in s:
+            s = s.replace('25', '5', 1)
+        if '355' in s:
+            s = s.replace('355', '52', 1)
+        if '555' in s:
+            s = s.replace('555', '3', 1)
+    if s.count('3') == 2:
+        print(n, s)  # получившаяся строка
         break
 '''
 
 
-# № 17868 Демоверсия 2025 (Уровень: Базовый)
+# Задание 12 https://education.yandex.ru/ege/task/284b3237-5a54-46f9-87d9-cc13ced58bec
 '''
-alphbaet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphbaet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print((A + B) // 18)
-'''
-# 469034148
-
-# Тип 14 №48389
-'''
-alphbaet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphbaet[:7]:
-    for y in alphbaet[:7]:
-        A = int(f'{y}{x}320', 7)
-        B = int(f'1{x}3{y}3', 9)
-        if (A + B) % 181 == 0:
-            print((A + B) // 181)
+s = '1' * 81
+while '11111' in s or '888' in s:
+    if '11111' in s:
+        s = s.replace('11111', '88', 1)
+    else:
+        s = s.replace('888', '8', 1)
+print(s)
 '''
 
 
-# № 8418 (Уровень: Средний)
+# Задание 12 https://education.yandex.ru/ege/task/7317cf27-c322-4f0e-96e2-feb9deb1bb12
 '''
-alphbaet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for n in range(4, 10000):
+    s = '8' + '5' * n
 
-for p in range(7, 36+1):
-    for x in alphbaet[:p]:
-        for y in alphbaet[:p]:
-            for z in alphbaet[:p]:
-                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
-                    print(int(f'{x}{y}{z}', p))
+    while '8858' in s or '555' in s:
+        if '8858' in s:
+            s = s.replace('8858', '4', 1)
+        else:
+            s = s.replace('555', '58', 1)
+        if '5858' in s:
+            s = s.replace('5858', '85', 1)
+
+    summa = sum([int(x) for x in s])
+    if summa == 66:
+        print(n)
 '''
 
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-for p in range(10, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            for z in alphabet[:p]:
-                if int(f'5{x}83', p) + int(f'{x}9{x}9', p) == int(f'{y}20{y}', p):
-                    print(int(f'{x}{y}{y}{x}', p))
+# Задание 12 https://education.yandex.ru/ege/task/cb3913cb-3918-414d-9797-ad7cd3242e6e
 '''
+for x in range(100):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z + '0'
+            while '00' not in s:
+                s = s.replace('01', '220', 1)
+                s = s.replace('02', '1013', 1)
+                s = s.replace('03', '120', 1)
+            if s.count('1') == 13 and s.count('2') == 18:
+                print(2 + x + y + z)
+'''
+
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -140,6 +93,6 @@ for p in range(10, 36+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 14]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
