@@ -6,20 +6,34 @@
 # #
 # region Урок: ************************************************************
 
+'''
+M = []
+for n in range(1, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    s += str(s.count('1') % 2)
+    s += str(s.count('1') % 2)
+    r = int(s, 2)
+    if r > 198:
+        M.append(r)
+print(min(M))
+'''
 
-M = [2 ** x for x in range(30)]
-for n in range(1, 10000):
-    s = ">" + "0" * 17 + "3" * n + "2" * 17
-    while ">3" in s or ">2" in s or ">0" in s:
-        if ">3" in s:
-            s = s.replace(">3", "22>", 1)
-        if ">2" in s:
-            s = s.replace(">2", "2>", 1)
-        if ">0" in s:
-            s = s.replace(">0", "3>", 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if summa in M:
-        print(n)
+# Задание 8 https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
+
+
+from itertools import *
+k = 0
+for p in permutations('АРТЕМ', r=5):
+    word = ''.join(p)
+    if (word[0] in 'РТМ') or (word[-1] in 'РТМ'):
+        print(word)
+        k += 1
+print(k)
+
+
+
+
+
 
 # endregion Урок: ************************************************************
 # #

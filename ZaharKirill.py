@@ -1,64 +1,16 @@
 # region Домашка: ******************************************************************
-'''
-summ = 0
-for i in range(12):
-    if i % 2 == 0:
-        print(i, end=' ')  # 0 2 4 6 8 10
-        summ += i
-print(summ)
-'''
 
+# № 9149 (Уровень: Базовый)
+# Логическая функция F задаётся выражением:
+# F = ((x → y) ∨ (z ≡ x)) ∧ (w → z)
 '''
-tоtаl = 1
-fоr i in range(2, 6):  # 2 3 4 5  # 5! = 1 * 2 * 3 * 4 * 5
-    total *= i
-рrint(total)
-'''
-
-# Max и Min
-'''
-n = int(input())
-maxi = -10**9
-mini = 10**9
-while n > 0:
-    if mini > n % 10:
-        mini = n % 10
-    maxi = max(maxi, n % 10)
-    n //= 10
-print(maxi)
-print(mini)
-'''
-
-# Анализ числа
-'''
-n = int(input())  # 23
-summa = 0
-count = 0
-total = 1
-while n > 0:
-    x = n % 10
-    summa += x
-    count += 1
-    total *= x
-    n //= 10
-print(summa)
-print(count)
-print(total)
-'''
-
-# Подсчет четных и нечетных чисел
-'''
-chet = 0
-nechet = 0
-n = int(input())
-for i in range(n):
-    x = int(input())
-    if x % 2 == 0:
-        chet += 1
-    else:
-        nechet += 1
-print(chet)
-print(nechet)
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x <= y) or (z == x)) and (w <= z)
+                print(x, y, z, w, int(F))
 '''
 
 # endregion Домашка: ******************************************************************
@@ -66,61 +18,95 @@ print(nechet)
 # #
 # region Урок: ********************************************************************
 
-# Тип 2 №59707
-# Миша заполнял таблицу истинности логической функции F:
-# (x∨¬y)∧¬(y≡z)∧¬w
 '''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x or (not y)) and (not(y == z)) and (not w)
-                if F == 1:
-                    print(x, y, z, w, int(F))
-'''
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+size = 70
+
+# Тут пишем псевдокод:
 
 
-# Тип 2 №19051
-# Миша заполнял таблицу истинности функции
-# (x ∧ ¬y) ∨ (x ≡ z) ∨ ¬w
-'''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x and (not y)) or (x == z) or (not w)
-                if F == 0:
-                    print(x, y, z, w, int(F))
-'''
+# Тут перебираем точки:
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
 
-# Тип 2 №40977
-# Логическая функция F задаётся выражением
-# ((y → x) ∧ (z ∨ w)) → ((x ∧ ¬w) ∨ (y ≡ z))
-'''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((y <= x) and (z or w)) <= ((x and (not w)) or (y == z))
-                if F == 0:
-                    print(x, y, z, w, int(F))
+
+t.update()
+t.done()
 '''
 
 
-# Тип 2 №51971
-# Логическая функция F задаётся выражением:
-# (x≡¬y)→((z→¬w)∧(w→y))
+# Задание 6 https://education.yandex.ru/ege/task/f66464da-e0e7-410b-80b2-e82b651747e1
+'''
+import turtle as t  # Импортируем библиотеку с коротким именем t
+t.screensize(-2000, 2000)  # Позволяет добавить ползунки масштаба
+t.tracer(0)  # Отключает анимацию отрисовки
+t.left(90)  # Поворачиваем налево, по условию задачи
+size = 70  # Задаем масштаб отрисовки
 
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x == (not y)) <= ((z <= (not w)) and (w <= y))
-                print(x, y, z, w, int(F))
+# Тут пишем псевдокод:
+t.forward(9 * size)  # Вперед 3 * size пикселей
+t.right(90)  # Поворот на 90 градусов
+for i in range(2):
+    t.forward(3 * size)
+    t.right(90)
+    t.forward(3 * size)
+    t.right(270)
+for i in range(2):
+    t.forward(3 * size)
+    t.right(90)
+t.forward(9 * size)
+
+# Тут перебираем точки:
+t.up()  # Поднять перо
+for x in range(-50, 50):  # Перебираем координаты точек
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)  # Прыгнуть в координату x, y
+        t.dot(3, 'red')  # Рисуем точку толщины 3 и красного цвета
+
+
+t.update()  # Для корректной работы t.tracer(0)
+t.done()  # Фиксирует окно отрисовки
+'''
+
+
+# Задание 6 https://education.yandex.ru/ege/task/0c1968f6-ce78-40ac-991c-a4f080b9e66e
+'''
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+size = 70
+
+# Тут пишем псевдокод:
+for i in range(6):
+    t.forward(7 * size)
+    t.right(120)
+t.up()
+t.forward(3 * size)
+t.right(90)
+t.down()
+for i in range(8):
+    t.forward(5 * size)
+    t.right(90)
+
+# Тут перебираем точки:
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+
+t.update()
+t.done()
+'''
+
 
 # endregion Урок: *************************************************************
 # #
@@ -131,6 +117,6 @@ for x in 0, 1:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2]
+# ФИПИ = [2, 6]
 # КЕГЭ  = []
 # на следующем уроке:
