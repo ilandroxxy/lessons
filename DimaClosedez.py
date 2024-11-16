@@ -6,99 +6,30 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Тип 24 №27692
-# Определите максимальное количество идущих подряд символов B.
+# Задание 1 https://education.yandex.ru/ege/task/f0d37846-6c0e-4eb6-9780-20af718e47b6
 '''
-# Вариант 1 - через ctrl + F поиск по строке 'BBBBB...'
-s = open('files/24.txt').readline()
-print(s)
-
-# Вариант 2 - ака как в 17 номере
-#    11
-s = 'BBBBBBBBXBBBB'
-
-s = open('files/24.txt').readline()
-count = 1  # Длина промежуточной последовательности
-maxi = 0  # Длина максимальной длиный последовательности
-for i in range(len(s)-1):
-    # if s[i] == 'B' and s[i+1] == 'B':
-    if s[i:i+2] == 'BB':
-        count += 1
-        # if maxi < count:
-        #     maxi = count
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-
-
-# Вариант 3
-s = open('files/24.txt').readline()
-s = s.replace('A', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
+from itertools import permutations
+print('1 2 3 4 5 6 7 8')
+table = '12 13 16 21 23 26 31 32 34 35 36 37 38 43 45 53 54 57 61 62 63 73 75 78 83 87'
+graph = 'ЖЗ ЗЖ ЖБ БЖ БЗ ЗБ БВ ВБ ЖВ ВЖ ВА АВ БА АБ БЕ ЕБ БГ ГБ ДГ ГД ДЕ ЕД ЕГ ГЕ ДБ БД'
+for p in permutations('АБВГДЖЗЕ'):
+    # ('Е', 'З', 'Д', 'Ж', 'Б', 'Г', 'В', 'А')
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
-s = 'ikjijiEijijE Eokokok'
-
-
-# Тип 24 №46982
-# Определите количество групп из идущих подряд не менее 12 символов,
-# которые начинаются и заканчиваются буквой E и
-# не содержат других букв E (кроме первой и последней) и букв F.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('E', 'E E')
-print(len([len(x) for x in s.split() if len(x) >= 12 and 'F' not in x]))
-'''
-
-
-# Тип 24 №58327
-# Определите максимальное количество идущих подряд цифр,
-# расположенных в невозрастающем порядке.
-'''
-s = open('files/24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] >= s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
 
-s = open('files/24.txt').readline()
-print(s.count('XXXX'))
-s = s.replace('XXXX', '*')
-print(s.count('*'))
-for x in 'XYZ':
-    s = s.replace(x, ' ')
-print(s.count('*'))
-
-s = open('files/24.txt').readline()
-cnt = 0
-for i in range(len(s)-3):
-    if s[i:i+4] == "XXXX":
-        cnt += 1
-print(cnt)
-
-cnt = 0
-s = open('files/24.txt').readline()
-for i in range(len(s) - 3):
-    if s[i] + s[i + 1] + s[i+2] + s[i + 3] == 'XXXX':
-        cnt += 1
-print(cnt)
-
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
+# ФИПИ = [1, 2, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:

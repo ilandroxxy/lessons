@@ -1,16 +1,12 @@
 # region Домашка: ******************************************************************
 
-# № 9149 (Уровень: Базовый)
-# Логическая функция F задаётся выражением:
-# F = ((x → y) ∨ (z ≡ x)) ∧ (w → z)
 '''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((x <= y) or (z == x)) and (w <= z)
-                print(x, y, z, w, int(F))
+n = int(input())  # кол-во элементов в списке
+R = []
+for i in range(n):
+    x = int(input())
+    R.append(x)
+print(R)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -18,94 +14,56 @@ for x in 0, 1:
 # #
 # region Урок: ********************************************************************
 
+# Задание 5 https://education.yandex.ru/ege/task/0aee931e-3422-4216-ba75-793cf3df8188
 '''
-import turtle as t
-t.screensize(-2000, 2000)
-t.tracer(0)
-t.left(90)
-size = 70
-
-# Тут пишем псевдокод:
-
-
-# Тут перебираем точки:
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-
-t.update()
-t.done()
+M = []
+for n in range(26, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    if n % 2 != 0:
+        s = s[:-2] + '10'
+    else:
+        s = '10' + s[2:] + '1'
+    r = int(s, 2)  # Перевод из 2-й в 10-ю
+    M.append(r)
+print(min(M))
 '''
 
-
-# Задание 6 https://education.yandex.ru/ege/task/f66464da-e0e7-410b-80b2-e82b651747e1
+# Задание 5 https://education.yandex.ru/ege/task/0aee931e-3422-4216-ba75-793cf3df8188
 '''
-import turtle as t  # Импортируем библиотеку с коротким именем t
-t.screensize(-2000, 2000)  # Позволяет добавить ползунки масштаба
-t.tracer(0)  # Отключает анимацию отрисовки
-t.left(90)  # Поворачиваем налево, по условию задачи
-size = 70  # Задаем масштаб отрисовки
-
-# Тут пишем псевдокод:
-t.forward(9 * size)  # Вперед 3 * size пикселей
-t.right(90)  # Поворот на 90 градусов
-for i in range(2):
-    t.forward(3 * size)
-    t.right(90)
-    t.forward(3 * size)
-    t.right(270)
-for i in range(2):
-    t.forward(3 * size)
-    t.right(90)
-t.forward(9 * size)
-
-# Тут перебираем точки:
-t.up()  # Поднять перо
-for x in range(-50, 50):  # Перебираем координаты точек
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)  # Прыгнуть в координату x, y
-        t.dot(3, 'red')  # Рисуем точку толщины 3 и красного цвета
-
-
-t.update()  # Для корректной работы t.tracer(0)
-t.done()  # Фиксирует окно отрисовки
+M = []
+for n in range(26, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+    if n % 2 != 0:
+        s = s[:-2] + '10'
+    else:
+        s = '10' + s[2:] + '1'
+    r = int(s, 2)  # Перевод из 2-й в 10-ю
+    M.append(r)
+print(min(M))
 '''
 
-
-# Задание 6 https://education.yandex.ru/ege/task/0c1968f6-ce78-40ac-991c-a4f080b9e66e
+# Задание 5 https://education.yandex.ru/ege/task/70da2546-57ff-4c1f-a941-5e7c3809d06a
 '''
-import turtle as t
-t.screensize(-2000, 2000)
-t.tracer(0)
-t.left(90)
-size = 70
-
-# Тут пишем псевдокод:
-for i in range(6):
-    t.forward(7 * size)
-    t.right(120)
-t.up()
-t.forward(3 * size)
-t.right(90)
-t.down()
-for i in range(8):
-    t.forward(5 * size)
-    t.right(90)
-
-# Тут перебираем точки:
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-
-t.update()
-t.done()
+n = 232
+s = hex(n)[2:]
+for x in '0123456789':
+    s = s.replace(x, '')
+if len(s) > 0:
+    r = int(s, 16)
+    print(r)
 '''
+
+# Задание 5 https://education.yandex.ru/ege/task/b6dd36d9-014f-45db-a9d2-9eb8eb02cb23
+'''
+for n in range(130+1, 255+1):
+    s = f'{n:b}'.zfill(8)
+    s = s[:2] + s[-2:]
+    r = int(s, 2)
+    if r == 10:
+        print(n)
+        break
+'''
+
 
 
 # endregion Урок: *************************************************************

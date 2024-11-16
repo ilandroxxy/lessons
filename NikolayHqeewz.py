@@ -6,34 +6,57 @@
 # #
 # region Урок: ********************************************************************
 
-
+# Тип 24 №27687
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) != len(set(M)):
-        if M.count(max(M)) == 1:
-            copied = [x for x in M if M.count(x) > 1]
-            if sum(copied) > max(M):
-                cnt += 1
+# Вариант 1
+s = open('files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    # if s[i] == 'Y' and s[i+1] == 'Y':
+    if s[i:i+2] == 'YY':
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
 
-print(cnt)
-'''
 
-
-# Тип 9 №59833
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(set(M)) == len(M) - 1:
-        copied = [x for x in M if M.count(x) > 1]
-        not_copied = [x for x in M if M.count(x) == 1]
-        if sum(copied) / len(copied) < sum(not_copied) / len(not_copied):
-            cnt += 1
-print(cnt)
+# Вариант 2
+s = open('files/24.txt').readline()
+s = s.replace('X', ' ').replace('Z', ' ')
+print(max([len(x) for x in s.split()]))
 '''
 
+
+# Тип 24 №27689
+
+# XYZXYZXYZ
+'''
+s = open('files/24.txt').readline()
+count = 2
+maxi = 0
+for i in range(len(s)-2):
+    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 2
+print(maxi)
+'''
+
+# Тип 24 №59817
+
+# ertAAijklAAlkoko
+# ertA AijklA Alkoko
+# ert  ijkl  lkoko
+'''
+s = open('files/24.txt').readline()
+s = s.replace('B', 'A').replace('C', 'A')
+while 'AA' in s:
+    s = s.replace('AA', 'A A')
+print(max([len(x) for x in s.split()]))
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -42,6 +65,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:

@@ -6,139 +6,100 @@
 # #
 # region Урок: ********************************************************************
 
-# Встроенные функции перевода:
+# Задание 14 https://education.yandex.ru/ege/task/83d644e9-902c-44d8-a9e5-d7f946811a29
 '''
-n = 125
-print(bin(n))  # 0b1111101
-print(f'{n:b}')  # 1111101
-print(bin(n)[2:])  # 1111101
-print(int('1111101', 2))  # 125
-
-print(oct(n))  # 0o175
-print(f'{n:o}')  # 175
-print(oct(n)[2:])  # 175
-print(int('175', 8))  # 125
-
-print(hex(n))  # 0x7d
-print(f'{n:x}')  # 7d
-print(f'{n:X}')  # 7D
-print(hex(n)[2:])  # 7d
-print(int('7d', 16))  # 125
-'''
-
-# Задание 5 https://education.yandex.ru/ege/task/ab4983f7-5f98-4cf2-9d3a-eee472c7d5ee
-'''
-result = []
-for n in range(1, 10000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 2 == 0:
-        s = '1' + s + '0'
-    else:
-        s = '11' + s + '11'
-    r = int(s, 2)  # Перевод из 2-ой в 10-ую
-    # r = int(s, 16)  # Перевод из 16-ой в 10-ую
-    if r > 225:
-        result.append(r)
-print(min(result))
-'''
-
-# Задание 5  https://education.yandex.ru/ege/task/de9a2152-8133-4115-9a90-d0d5eace5dcc
-'''
-result = []
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    for i in range(2):
-        s += str(s.count('1') % 2)
-    r = int(s, 2)
-    if r < 86:
-        result.append(n)
-
-print(max(result))
+n = 7**21 + 49**13 - 7**10
+b = 7
+M = []
+while n > 0:
+    M.append(n % b)
+    n //= b
+M.reverse()
+print(sum(M))
 '''
 
 
-# Задание 5 https://education.yandex.ru/ege/task/96524f2d-3f1b-458d-9ee1-9b6d45c39389
+# Задание 14 https://education.yandex.ru/ege/task/5e073e81-80b9-451e-96c3-7949af5d9b22
 '''
-result = []
-for n in range(1, 1000):
-    s = f'{n:b}'
-    if len(s) % 2 == 0:
-        s = s[:len(s) // 2] + '000' + s[len(s) // 2:]
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)
-    if r > 100:
-        result.append(n)
-print(min(result))
-'''
-
-# Задание 5 https://education.yandex.ru/ege/task/b737ae42-5491-4d18-9318-0f179d8e670a
-'''
-n = 116
-s = f'{n:b}'
-A = [x for x in s]
-l = len(A) // 2
-if len(s) % 2 != 0:
-    del A[l]
-    s = ''.join(A)
-else:
-    del A[l-1]
-    del A[l-1]
-    s = ''.join(A)
-r = int(s, 2)
-print(r)
-'''
-
-# Задание 5 https://education.yandex.ru/ege/task/a579a1b6-fe4b-45e9-afc3-57649ff2fa75
-'''
-def convert(n, b):
+cnt = 0
+for x in range(1, 100):
+    n = 5**3 + 4**2 + 3 ** 1 - x
+    b = 5
     r = ''
     while n > 0:
         r += str(n % b)
         n //= b
-    return r[::-1]
+    r = r[::-1]
+    if int(r, 5) % 2 == 0:
+        cnt += 1
+print(cnt)
+'''
 
 
-result = []
-for n in range(1, 10000):
-    s = convert(n, 7)
-    if s.count('2') % 2 == 0:
-        s += '555'
+# Задание 14 https://education.yandex.ru/ege/task/5b214f5e-974b-46db-bf04-5aa73d9d99d3
+'''
+n = 3 * 15**1140 + 2*15**1025 +15**923 - 3*15**85 + 2 * 15 ** 74 + 3
+b = 15
+M = []
+while n > 0:
+    M.append(n % b)
+    n //= b
+M.reverse()
+
+count = 1
+maxi = 0
+for i in range(len(M)-1):
+    if M[i] == M[i+1]:
+        count += 1
+        maxi = max(maxi, count)
     else:
-        s = '1' + s
-    r = int(s, 7)
-    if r < 3799:
-        result.append(n)
-
-print(max(result))
+        count = 1
+print(maxi)
 '''
 
-# Задание 5 https://education.yandex.ru/ege/task/066b8088-3cdb-4504-8403-9d62e96d195e
+
+# Задание 14 https://education.yandex.ru/ege/task/945d02c3-876e-4bd3-8a57-0e076865e42a
 '''
-def convert(n, b):
-    r = ''
+for x in range(2030+1):
+    n = 6**260 + 6 ** 160 + 6 ** 60 - x
+    b = 6
+    M = []
     while n > 0:
-        r += str(n % b)
+        M.append(n % b)
         n //= b
-    return r[::-1]
-
-
-for n in range(1, 10000):
-    s = convert(n, 5)
-
-    summa = sum([int(x) for x in s])
-    if summa % 2 != 0:
-        s = s[-1] + s[:-1]
-    else:
-        s += convert((n % 10) * 3, 5)
-
-    r = int(s, 5)
-    if convert(r, 5).count('0') >= 2:
-        print(r)
-        print(n)
+    M.reverse()
+    if M.count(0) == 202:
+        print(x)
         break
 '''
 
+
+# Задание 14 https://education.yandex.ru/ege/task/e07ffce3-c3fb-4aad-933f-4291ee998760
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+R = []
+for x in alphabet[:14]:
+    for y in alphabet[:14]:
+        A = int(f'14{y}5{x}2', 14)
+        B = int(f'31{x}2{y}3', 14)
+        if (A + B) % 9 == 0:
+            R.append((A + B) // 9)
+print(max(R))
+'''
+
+
+# Тип 14 №48387
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+R = []
+for x in alphabet[:11]:
+    for y in alphabet[:11]:
+        A = int(f'{x}341{y}', 11)
+        B = int(f'56{x}1{y}', 19)
+        if (A + B) % 305 == 0:
+            R.append((A + B) // 305)
+print(min(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -149,6 +110,6 @@ for n in range(1, 10000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

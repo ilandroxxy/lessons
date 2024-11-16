@@ -1,196 +1,172 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038667/step/10?unit=1062772
+'''
+from itertools import *
+
+r = []
+num = 0
+for i in product(sorted('ФОКУС'), repeat=5):
+    w = ''.join(i)
+    num = num + 1
+    if 'Ф' not in w and w.count('У') == 2:
+        r.append(num)
+
+print(max(r))
+'''
+
+# 1. Есть условие про алфавитный порядок, то бишь: sorted('ФОКУС')
+# 2. Если буквы повторяются в "слове", то используем: product(s, repeat=5)
+
+
+# https://stepik.org/lesson/1038667/step/13?unit=1062772
+'''
+from itertools import *
+
+k = []
+for i in permutations('КЛАБХАУС'):
+    w = ''.join(i)
+    if 'АА' not in w:
+        k.append(w)
+print(len(set(k)))
+'''
+
+'''
+from itertools import *
+
+k = 0
+for i in product('01234567', repeat=5):
+    num = ''.join(i)
+    if num[0] not in '013579' and num[-1] not in '26' and num.count('7') <= 2:
+        k = k + 1
+print(k)
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
+# https://education.yandex.ru/ege/task/0a888798-5892-4b73-9822-6067357d93e3
 '''
-from itertools import *
-
-for p in product('ab', repeat=3):
-    print(p)
-    # ('a', 'a', 'a')
-    # ('a', 'a', 'b')
-    # ('a', 'b', 'a')
-    # ('a', 'b', 'b')
-    # ('b', 'a', 'a')
-    # ('b', 'a', 'b')
-    # ('b', 'b', 'a')
-    # ('b', 'b', 'b')
-
-for p in permutations('abc', r=3):
-    print(p)
-    # ('a', 'b', 'c')
-    # ('a', 'c', 'b')
-    # ('b', 'a', 'c')
-    # ('b', 'c', 'a')
-    # ('c', 'a', 'b')
-    # ('c', 'b', 'a')
-'''
-import subprocess
-
-# Тип 8 №3207
-# Все 5-буквенные слова, составленные из букв К, О, Р, записаны
-# в алфавитном порядке и пронумерованы. Вот начало списка:
-# 1. ККККК
-# 2. ККККО
-# 3. ККККР
-# 4. КККОК
-#
-# Запишите слово, которое стоит под номером 238.
-
-# Вариант 1
-'''
-n = 0
-s = sorted('КОР')
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    w = a + b + c + d + e
-                    n += 1
-                    if n == 238:
-                        print(w)
-
-# Вариант 2
-
-from itertools import *
-n = 0
-for p in product(sorted('КОР'), repeat=5):
-    w = ''.join(p)  # метод .join() склеивает кортеж/список строк в строку
-    n += 1
-    if n == 238:
-        print(w)
+M = []
+for n in range(1, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:] - перевод в 2-ю систему из 10-й
+    if n % 2 == 0:
+        s += '01'
+    else:
+        s = '1' + s + '1'
+    r = int(s, 2)  # Перевод из 2-й в 10-ю
+    if r > 156:
+        M.append(n)
+print(min(M))
 '''
 
 
-# Тип 8 №15132
-# Все четырёхбуквенные слова, составленные из букв П, А, Р, У, С,
-# записаны в алфавитном порядке и пронумерованы, начиная с 1.
-# Начало списка выглядит так:
-# 1.АААА
-# 2.АААП
-# 3.АААР
-# 4.АААС
-# 5.АААУ
-# 6.ААПА
-#
-# Под каким номером в списке идёт первое слово, которое начинается с буквы У?
+# https://education.yandex.ru/ege/task/fef8d85c-6b9d-43d3-954c-6acb16a1f5a9
 '''
-from itertools import *
-n = 0
-for p in product('АПРСУ', repeat=4):
-    w = ''.join(p)
-    n += 1
-    if w[0] == 'У':
-        print(n, w)
+for n in range(11, 1000):
+    s = f'{n:b}'
+    if n % 5 == 0:
+        s += s[-3:]   # Последние три
+    else:
+        x = (n % 5) * 5
+        s = f'{x:b}' + s
+    r = int(s, 2)
+    if r > 512:
+        print(n)
         break
 '''
 
 
-# Тип 8 №16037
-# Вася составляет 5-буквенные слова, в которых есть только буквы З, И, М, А,
-# причём в каждом слове есть ровно одна гласная буква и она встречается ровно 1 раз.
-# Сколько существует таких слов, которые может написать Вася?
+# https://education.yandex.ru/ege/task/66fb491b-168a-42e5-a671-b20d4487cf41
 '''
-from itertools import *
-cnt = 0
-for p in product('ЗИМА', repeat=5):
-    w = ''.join(p)
-    if w.count('И') + w.count('А') == 1:
-        cnt += 1
-print(cnt)
-'''
-
-
-# Тип 8 №46966
-# Светлана составляет коды из букв слова РОСОМАХА. Код должен состоять из 8 букв,
-# и каждая буква в нём должна встречаться столько же раз, сколько в заданном слове.
-# Кроме того, в коде не должны стоять рядом две гласные и две согласные буквы.
-# Сколько кодов может составить Светлана?
-'''
-from itertools import *
-R = []
-for p in permutations('РОСОМАХА', 8):
-    w = ''.join(p)
-    s = w
-    s = s.replace('О', 'А')
-    s = s.replace('Р', 'С').replace('М', 'С').replace('Х', 'С')
-    if 'АА' not in s and 'СС' not in s:
-        R.append(w)
-print(len(set(R)))
+M = []
+for n in range(1, 1000):
+    s = f'{n:b}'
+    if n % 2 == 0:
+        s = '1' + s + '0'
+    else:
+        s = '11' + s + '11'
+    r = int(s, 2)
+    if r > 48:
+        M.append(r)
+print(min(M))
 '''
 
 
-# Тип 8 №48429
-# Определите количество семизначных чисел, записанных
-# в девятеричной системе счисления, в записи которых ровно одна цифра 6 и ровно две нечётные цифры.
+# https://education.yandex.ru/ege/task/638ac2c9-defe-4ca9-971a-ee65a1774d31
 '''
-from itertools import *
-cnt = 0
-for p in product('012345678', repeat=7):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('6') == 1:
-            nechet = [x for x in num if x in '1357']
-            if len(nechet) == 2:
-                cnt += 1
-print(cnt)
-'''  # 368640
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
 
 
-# Тип 8 №59741
-# Сколько существует чисел, восьмеричная запись которых содержит 5 цифр,
-# причем в записи нет цифры 1. Также все цифры записи различны и
-# никакие две чётные и две нечётные цифры не стоят рядом.
-'''
-from itertools import *
-cnt = 0
-for p in permutations('01234567', 5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if '1' not in num:
-            num = num.replace('0', '2').replace('4', '2').replace('6', '2')
-            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
-            if '11' not in num and '22' not in num:
-                cnt += 1
-print(cnt)
-'''
-
-# Тип 8 №40983
-# Георгий составляет коды из букв своего имени. Код должен состоять из 7 букв,
-# и каждая буква в нём должна встречаться столько же раз, сколько в имени Георгий.
-# Кроме того, одинаковые буквы в коде не должны стоять рядом.
-# Сколько кодов может составить Георгий?
-'''
-from itertools import *
-R = []
-for p in permutations('ГЕОРГИЙ'):
-    w = ''.join(p)
-    if 'ГГ' not in w:
-        R.append(w)
-print(len(R))
-print(len(set(R)))
+for n in range(1, 10000):
+    s = convert(n, 3)
+    summa = sum(map(int, s))
+    if summa % 2 == 0:
+        s = '2' + s[2:] + '0'
+    else:
+        s = '20' + s[2:] + '1'
+    r = int(s, 3)
+    if r > 75:
+        print(n)
+        break
 '''
 
 
-# Тип 8 №58241
-# Сколько существует различных трёхзначных чисел, записанных в шестиричной системе счисления,
-# в записи которых цифры следуют слева направо в невозрастающем порядке?
+# https://education.yandex.ru/ege/task/9fb60578-88e4-465d-b603-dbf30d312808
 '''
-from itertools import *
-cnt = 0
-for p in product('012345', repeat=3):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num[0] >= num[1] >= num[2]:
-            cnt += 1
-print(cnt)
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
+
+
+for n in range(11, 1000):
+    s = convert(n, 5)
+    if n % 5 == 0:
+        s += s[-3:]
+    else:
+        x = (n % 5) * 5
+        s = convert(x, 5) + s
+    r = int(s, 5)
+    if r > 375:
+        print(n)
+        break
 '''
+
+
+# https://education.yandex.ru/ege/task/f1fac643-8eea-4ba9-8bb9-85670cd87bdd
+
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+for n in range(1, 1000):
+    s = convert(n, 2)
+    if n % 2 == 0:
+        s = '1' + s + '1'
+    else:
+        s += '10'
+    r = int(s, 2)
+    if r > 179:
+        print(n)
+        break
+
 # endregion Урок: ********************************************************************
 # #
 # #
@@ -199,6 +175,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 8, 12]
+# ФИПИ = [2, 5, 6, 8, 12]
 # КЕГЭ  = []
 # на следующем уроке:
