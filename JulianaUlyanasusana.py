@@ -1,76 +1,141 @@
 # region Домашка: ******************************************************************
 
-# Сколько раз?
+# № 2573 (Уровень: Средний)
+# https://stepik.org/lesson/1038682/step/4?unit=1062773
 '''
-s = input()
-print('Символ + встречается', s.count('+'), 'раз')
-print(f'Символ * встречается {s.count("*")} раз')
-'''
+maxi = 0
+M = []
+for i in range(301, 350):
+    s = i * '5'
 
-'''
-s = 'это неизбежная часть процесса обучения и роста'
-words = [x for x in s.split()]
-# ['это', 'неизбежная', 'часть', 'процесса', 'обучения', 'и', 'роста']
-
-words = [len(x) for x in s.split()]
-# [3, 10, 5, 8, 8, 1, 5]
-print(max(words))
-'''
-'''
-s = input()
-words = [len(x) for x in s.split()]
-print(max(words))
+    while '55555' in s:
+        s = s.replace('55555', '88', 1)
+        s = s.replace('888', '55', 1)
+    if s.count('5') > maxi:
+        maxi = s.count('5')
+        M.append(i)
+print(max(M))
 '''
 
 
-# «two»
+# № 12921 (Уровень: Базовый)
+# https://stepik.org/lesson/1038682/step/5?unit=1062773
 '''
-s = input()  # 1221221
-s = s.replace('22', 'two')
-print(s)  # 1two1two1
+for n in range(4, 10000):
+    s = '5' + '2' * n
+    while '52' in s or '2222' in s or '1122' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
+    summa = sum([int(x) for x in s])
+    if summa % 10 == 7:
+        print(n)
+        break
 '''
 
-
-# Перевод в троичную
-'''
-n = int(input())
-b = 3
-r = ''
-while n > 0:
-    r += str(n % b)
-    n //= b  # n = n // b
-r = r[::-1]
-print(r)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 12 https://education.yandex.ru/ege/task/50343d35-5e5e-4947-8e25-107f7693eecd
+# Задание 5 https://education.yandex.ru/ege/task/bcf2f1cf-26f3-4678-bf57-1b1eb99555ad
 '''
-s = '5' + '4' * 57
-while '5454' in s or '554' in s or '444' in s:
-    if '5454' in s:
-        s = s.replace('5454', '2', 1)
-    else:
-        s = s.replace('554', '45', 1)
-    s = s.replace('444', '54', 1)
-print(s)
+M = []
+for n in range(2, 1000):
+    s = f'{n:b}'  # s = bin(n)[2:]
+
+    for i in range(2):
+        if s[-2] == s[-1]:
+            s = s + '0'
+        else:
+            s = s + '1'
+
+    r = int(s, 2)
+
+    if r > 93:
+        M.append(n)
+        
+print(min(M))
 '''
 
-R = []
-for n in range(4, 1000):
-    s = '3' + '5' * n
-    while '333' in s or '555' in s:
-        if '555' in s:
-            s = s.replace('555', '3', 1)
-        else:
-            s = s.replace('333', '5', 1)
-    summa = sum(map(int, s))
-    R.append(summa)  # Добавляем новый элемент в список
-print(max(R))
+
+# # Задание 5  https://education.yandex.ru/ege/task/f1fac643-8eea-4ba9-8bb9-85670cd87bdd
+'''
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    if n % 2 == 0:
+        s = '1' + s + '1'
+    else:
+        s = s + '10'
+    r = int(s, 2)
+    if r > 179:
+        print(n)
+        break
+'''
+
+
+# Задание 5 https://education.yandex.ru/ege/task/fef8d85c-6b9d-43d3-954c-6acb16a1f5a9
+'''
+for n in range(11, 1000):
+    s = bin(n)[2:]
+    if n % 5 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 5) * 5
+        s = s + bin(x)[2:]
+    r = int(s, 2)
+    if r > 512:
+        print(n)
+        break
+'''
+'''
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
+
+
+for n in range(11, 1000):
+    s = convert(n, 2)
+    if n % 5 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 5) * 5
+        s = s + convert(x, 2)
+    r = int(s, 2)
+    if r > 512:
+        print(n)
+        break
+'''
+
+# Задание 5 https://education.yandex.ru/ege/task/da798c09-d5d5-46c3-bbfb-16f606da3ef5
+'''
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
+
+
+for n in range(5, 1000):
+    s = convert(n, 4)
+    summa = sum([int(x) for x in s])
+    if summa % 2 == 0:
+        s = s + s[:2]
+    else:
+        s = '10' + s[2:] + '2'  # два левых разряда заменяются на «10».
+    r = int(s, 4)
+
+    if r < 250:
+        print(n)
+'''
 
 
 # endregion Урок: *************************************************************
