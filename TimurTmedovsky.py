@@ -6,84 +6,100 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 12 https://education.yandex.ru/ege/task/99da765f-ae28-4087-9286-3b636b34b035
-
-# На вход приведённой выше программе поступает строка,
-# начинающаяся с цифры «2», а затем содержащая n цифр «5» (n > 3).
-#
-# Определите наименьшее значение n, при котором в строке, получившейся
-# в результате выполнения программы, количество цифр «3» равно 2.
-
-# ПОКА нашлось (25) ИЛИ нашлось (355) ИЛИ нашлось (555)
-#     ЕСЛИ нашлось (25)
-#         ТО заменить (25, 5)
-#     ЕСЛИ нашлось (355)
-#         ТО заменить (355, 52)
-#     ЕСЛИ нашлось (555)
-#         ТО заменить (555, 3)
+# Задание 8 https://education.yandex.ru/ege/task/27d33ca7-25ea-4a12-984d-a4b80d21455d
 '''
-for n in range(4, 100):
-    s = '2' + '5' * n  # исходно строка
+# Вариант 1
+s = sorted('АВЛОС')
+n = 0
+R = []
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                if a == 'Л':
+                    R.append(n)
 
-    while '25' in s or '355' in s or '555' in s:
-        if '25' in s:
-            s = s.replace('25', '5', 1)
-        if '355' in s:
-            s = s.replace('355', '52', 1)
-        if '555' in s:
-            s = s.replace('555', '3', 1)
-    if s.count('3') == 2:
-        print(n, s)  # получившаяся строка
+print(min(R))
+
+# Вариант 2
+from itertools import *
+n = 0
+for p in product(sorted('АВЛОС'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if word[0] == 'Л':
+        print(n)
+        break
+
+# Вариант 3
+from itertools import *
+
+for n, p in enumerate(product(sorted('АВЛОС'), repeat=4), 1):
+    word = ''.join(p)
+    if word[0] == 'Л':
+        print(n)
         break
 '''
 
 
-# Задание 12 https://education.yandex.ru/ege/task/284b3237-5a54-46f9-87d9-cc13ced58bec
+# Задание 8 https://education.yandex.ru/ege/task/ec40e795-ecb6-454f-9e64-291da6044f52
+# Джобс Е.
 '''
-s = '1' * 81
-while '11111' in s or '888' in s:
-    if '11111' in s:
-        s = s.replace('11111', '88', 1)
-    else:
-        s = s.replace('888', '8', 1)
-print(s)
-'''
+from itertools import *
+n = 0
+cnt = 0
+for p in product(sorted('АПРЕЛЬ', reverse=True), repeat=5):
+    word = ''.join(p)
+    n += 1
 
+    if word[-1] == 'Ь':
+        cnt += 1
+        print(word)
 
-# Задание 12 https://education.yandex.ru/ege/task/7317cf27-c322-4f0e-96e2-feb9deb1bb12
-'''
-for n in range(4, 10000):
-    s = '8' + '5' * n
+    if n >= 387:
+        break
 
-    while '8858' in s or '555' in s:
-        if '8858' in s:
-            s = s.replace('8858', '4', 1)
-        else:
-            s = s.replace('555', '58', 1)
-        if '5858' in s:
-            s = s.replace('5858', '85', 1)
-
-    summa = sum([int(x) for x in s])
-    if summa == 66:
-        print(n)
+print(cnt)
 '''
 
 
-# Задание 12 https://education.yandex.ru/ege/task/cb3913cb-3918-414d-9797-ad7cd3242e6e
+# Задание 8 https://education.yandex.ru/ege/task/65351d01-6be4-467f-8c36-6d951bf990bb
 '''
-for x in range(100):
-    for y in range(50):
-        for z in range(50):
-            s = '0' + '1' * x + '2' * y + '3' * z + '0'
-            while '00' not in s:
-                s = s.replace('01', '220', 1)
-                s = s.replace('02', '1013', 1)
-                s = s.replace('03', '120', 1)
-            if s.count('1') == 13 and s.count('2') == 18:
-                print(2 + x + y + z)
+from itertools import *
+cnt = 0
+for p in product('ДРАКОН', repeat=8):
+    word = ''.join(p)
+    if word.count('А') == 1 and word.count('О') == 1:
+        cnt += 1
+print(cnt)
+'''
+
+# Задание 8 https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
+'''
+from itertools import *
+cnt = 0
+for p in permutations('Артём'.upper(), r=5):
+    word = ''.join(p)
+    if not(word[0] in 'АЁ' and word[-1] in 'АЁ'):
+        cnt += 1
+print(cnt)
 '''
 
 
+# Задание 8 https://education.yandex.ru/ege/task/b19825e6-aafc-48ed-9bd7-99033090c53c
+'''
+from itertools import *
+cnt = 0
+for p in product('012345', repeat=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('2') == 1:
+            if all(x not in num for x in '21 12 23 32 52 25'.split()):
+                cnt += 1
+print(cnt)
+'''
 # endregion Урок: *************************************************************
 # #
 # #

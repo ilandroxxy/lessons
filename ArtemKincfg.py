@@ -1,63 +1,58 @@
 # region Домашка: ******************************************************************
-import readline
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 5 https://education.yandex.ru/ege/task/5b677bd9-1e15-4e6d-a760-b33b081773a3
+# Задание 12 https://education.yandex.ru/ege/task/2ada5a06-1d3c-4302-b356-8796eb5fc06f
 '''
-M = []
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
+s = '4' * 50
+while '444' in s or '333' in s:
+    if '444' in s:
+        s = s.replace('444', '3', 1)
     else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)  # Перевод из 2-й в 10-ю
-    if r > 40:
-        M.append(n)
-print(min(M))
+        s = s.replace('333', '3344', 1)
+    if '3443' in s:
+        s = s.replace('3443', '0', 1)
+print(sum(int(x) for x in s))
 '''
 
 
-# Задание 5 https://education.yandex.ru/ege/task/326fe818-6354-4d1c-b1ff-3d8d646f1705
+# Задание 12 https://education.yandex.ru/ege/task/fa6a6353-cd0b-47f3-a927-9dc7c339b34e
 '''
-M = []
-for n in range(1, 1000):
-    s = f'{n:b}'
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)  # Строку s переводим из 2-ой в 10-ю
-    # ValueError: int() base must be >= 2 and <= 36, or 0
-    if r > 151:
-        M.append(r)
-print(min(M))
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z + '0'
+
+            while '00' not in s:
+                s = s.replace('01', '103', 1)
+                s = s.replace('02', '2011', 1)
+                s = s.replace('03', '130', 1)
+            if s.count('1') == 92 and s.count('2') == 16 and s.count('3') == 52:
+                print(z)
 '''
 
 
-# Задание 5 https://education.yandex.ru/ege/task/57ff1917-d44e-4cf3-89a6-097323fd9717
+# Задание 12 https://education.yandex.ru/ege/task/0dae60c5-8bfc-40e6-9913-2395abbd6a99
+'''
+for n in range(4, 10000):
+    s = '5' + '2' * n
 
-# i                0123456789
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    while '52' in s or '2222' in s or '1122' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
 
-for n in range(100, 1000):
-    S = list(f'{n:X}')  # s = list(hex(n)[2:].upper())
-    for i in range(len(S)):
-        if S[i] != 'F':
-            S[i] = alphabet[alphabet.index(S[i]) + 1]
-    s = ''.join(S)[::-1]
-    r = int(s, 16)
-    summa = sum([int(x) for x in str(r)])
-    if summa == 12:
+    summa = sum([int(x) for x in s])
+    if summa == 64:
         print(n)
-        break
-
-
+'''
 
 
 # endregion Урок: *************************************************************
@@ -69,6 +64,6 @@ for n in range(100, 1000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6]
+# ФИПИ = [2, 5, 6, 12]
 # КЕГЭ  = []
-# на следующем уроке: Закрываем вопросы по str, смотрим еще раз 5 и возможно 12 номера
+# на следующем уроке:
