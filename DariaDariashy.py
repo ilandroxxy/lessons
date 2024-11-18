@@ -1,95 +1,133 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038670/step/14?unit=1062777
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+
+    nechet = [x for x in M if x % 2 != 0]
+
+    k = (len(M) != len(set(M))) + (len(nechet) == 3)
+    if k == 1:
+        cnt += 1
+print(cnt)
+'''
+
+
+# https://stepik.org/lesson/1038670/step/15?unit=1062777
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    # if (sum(M) // 7) in M:
+    if any(x == (sum(M) // 7) for x in M):
+        cnt += 1
+print(cnt)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 9 https://education.yandex.ru/ege/task/2f370a43-39d3-4557-97a3-920195435a5d
+# https://inf-ege.sdamgia.ru/problem?id=27688
+# Определите длину самой длинной последовательности, состоящей из символов Z.
+# Хотя бы один символ Z находится в последовательности.
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    # print(s)  # 91;91;48;38;13
-    M = sorted([int(x) for x in s.split(';')])
-    if len(M) == len(set(M)):  # в строке все числа различны;
-        if 3 * (M[0] + M[4]) >= 2 * (M[1] + M[2] + M[3]):
-            cnt += 1
+# Вариант 1
+s = open('files/24.txt').readline()
+count = 1  # Будем считать промежуточные последовательности
+maxi = 0  # Будем хранить длину самой большой последовательности
+for i in range(len(s)-1):
+    # x, y = s[i], s[i+1]
+    # if x+y == 'ZZ':
 
-print(cnt)
-'''
+    # if s[i] == 'Z' and s[i+1] == 'Z':
 
-
-# Задание 9  https://education.yandex.ru/ege/task/59213ca9-5841-4d0e-90f4-d69569902d37
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    A = [x for x in M if x > 0]
-    B = [x for x in M if x < 0]
-    if len(B) > len(A):
-        if len(A) != 0 and len(B) > 0:
-            if abs(min(B)) > max(A):
-                cnt += 1
-print(cnt)
+    if s[i:i+2] == 'ZZ':
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
 '''
 
-
-# Задание 9 https://education.yandex.ru/ege/task/9222d062-000f-4b29-80d0-86b20f9119d2
+# Вариант 2
 '''
-num = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    num += 1
-    copied = [x for x in M if M.count(x) == 2]
-    not_copied = [x for x in M if M.count(x) == 1]
-    # if len(set(M)) == len(M) - 2:
-    if len(copied) == 2:
-        if copied[0] >= sum(not_copied) / len(not_copied):
-            print(num)
-            break
+s = open('files/24.txt').readline()
+s = s.replace('X', ' ').replace('Y', ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+# Вариант 3 использовать просто ctrl + F в консоли
+'''
+s = open('files/24.txt').readline()
+print(s)
 '''
 
 
-# Задание 9 https://education.yandex.ru/ege/task/0afd47a3-ee9a-44f7-bbd3-22ff7b69d98d
+# https://inf-ege.sdamgia.ru/problem?id=47228
 '''
-cnt = 0
-for s in open('files/9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    copied = [x for x in M if M.count(x) == 2]
-    if len(copied) == 6:
-        if (max(copied) + min(copied)) / 2 < sum(M) - sum(copied):
-            cnt += 1
-print(cnt)
+s = open('files/24.txt').readline()
+s = s.replace('O', 'A')
+s = s.replace('C', 'D').replace('F', 'D')
+s = s.replace('DA', '*')
+s = s.replace('D', 'A')
+print(max([len(x) for x in s.split('A')]))
 '''
 
 
-# Задание 9 https://education.yandex.ru/ege/task/2c9beda9-8bb0-497c-b6d3-d4fd322f0df0
+# rrrrrXZZYrrr
+# rrrrr rrr  # 5
+# rrrrrXZZ ZZYrrr  # 8
+
+
+# https://inf-ege.sdamgia.ru/problem?id=36037
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет подстроки XZZY.
 '''
-n = 0
-summa = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    n += 1
-    if len(M) == len(set(M)):
-        if (M[0] + M[-1]) ** 2 > (M[1] * M[2] * M[3]):
-            summa += n
-print(summa)
+s = open('files/24.txt').readline()
+s = s.replace('XZZY', 'XZZ ZZY')
+print(max([len(x) for x in s.split()]))
 '''
 
 
-# Задание 9 https://education.yandex.ru/ege/task/d62dc568-941a-44da-870b-b8cc21faee9f
+# https://inf-ege.sdamgia.ru/problem?id=38602
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if (sum(nechet) > sum(chet)) != (len(M) - 1 == len(set(M))):
-        cnt += 1
-print(cnt)
+s = open('files/24.txt').readline()
+s = s.replace('PP', 'P P')
+print(max([len(x) for x in s.split()]))
 '''
-# True != False
+
+# https://inf-ege.sdamgia.ru/problem?id=27690
+'''
+s = open('files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] != s[i+1]:
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
+'''
+
+# https://inf-ege.sdamgia.ru/problem?id=58326
+'''
+s = open('files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] > s[i+1]:
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
+'''
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -99,6 +137,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24.1, 25]
 # КЕГЭ  = []
 # на следующем уроке:

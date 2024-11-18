@@ -7,17 +7,10 @@
 # region Урок: ********************************************************************
 
 
-from itertools import *
+byte = (25 * 2**20) / 178_080
+bit = byte * 8
+print(bit / 197)  # 5.9778
 
-cnt = 0
-for n, p in enumerate(product("ЕЛОПРСТ", repeat=5), 1):
-    a = ''.join(p)
-    sogl = [x for x in a if x in "ЛПРСТ"]
-    if (n % 2 != 0) and (a[-1] in "ЕО"):
-        if len(sogl) <= 3:
-            cnt += 1
-
-print(cnt)
 # endregion Урок: *************************************************************
 # #
 # #
