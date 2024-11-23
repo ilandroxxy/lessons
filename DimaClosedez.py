@@ -6,20 +6,25 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 1 https://education.yandex.ru/ege/task/f0d37846-6c0e-4eb6-9780-20af718e47b6
+# Задание 13 https://education.yandex.ru/ege/task/311278cb-12ec-4f14-bde6-571d7045cc02
 '''
-from itertools import permutations
-print('1 2 3 4 5 6 7 8')
-table = '12 13 16 21 23 26 31 32 34 35 36 37 38 43 45 53 54 57 61 62 63 73 75 78 83 87'
-graph = 'ЖЗ ЗЖ ЖБ БЖ БЗ ЗБ БВ ВБ ЖВ ВЖ ВА АВ БА АБ БЕ ЕБ БГ ГБ ДГ ГД ДЕ ЕД ЕГ ГЕ ДБ БД'
-for p in permutations('АБВГДЖЗЕ'):
-    # ('Е', 'З', 'Д', 'Ж', 'Б', 'Г', 'В', 'А')
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
+from ipaddress import *
+for mask in range(32):
+    net = ip_network(f'111.81.208.27/{mask}', 0)
+    print(net, mask, net.netmask)
+    # 111.81.192.0/18 18 255.255.192.0
+    # 111.81.192.0/19 19 255.255.224.0
 '''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
+
+from ipaddress import *
+for mask in range(32):
+    net1 = ip_network(f'151.172.115.121/{mask}', 0)
+    net2 = ip_network(f'151.172.115.156/{mask}', 0)
+    if net1 != net2:
+        print(mask)
 
 # endregion Урок: *************************************************************
 # #

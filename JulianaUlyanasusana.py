@@ -1,143 +1,181 @@
 # region Домашка: ******************************************************************
 
-# № 2573 (Уровень: Средний)
-# https://stepik.org/lesson/1038682/step/4?unit=1062773
+# https://stepik.org/lesson/1038432/step/2?unit=1060804
 '''
-maxi = 0
 M = []
-for i in range(301, 350):
-    s = i * '5'
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    if s.count('1') % 2 == 0:
+        s = '11' + s[2:] + '00'
+    else:
+        s = '10' + s[2:] + '11'
 
-    while '55555' in s:
-        s = s.replace('55555', '88', 1)
-        s = s.replace('888', '55', 1)
-    if s.count('5') > maxi:
-        maxi = s.count('5')
-        M.append(i)
+    if s.count('1') % 2 == 0:
+        s = '11' + s[2:] + '00'
+    else:
+        s = '10' + s[2:] + '11'
+    r = int(s, 2)
+    if n < 100:
+        M.append(r)
+
 print(max(M))
 '''
 
 
-# № 12921 (Уровень: Базовый)
-# https://stepik.org/lesson/1038682/step/5?unit=1062773
+# https://stepik.org/lesson/1038432/step/5?unit=1060804
 '''
-for n in range(4, 10000):
-    s = '5' + '2' * n
-    while '52' in s or '2222' in s or '1122' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-    summa = sum([int(x) for x in s])
-    if summa % 10 == 7:
+M = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    s = s + str(s.count('1') % 2)
+    s = s + str(s.count('1') % 2)
+    r = int(s, 2)
+    if r > 75:
+        print(r)
+        M.append(r)
+print(min(M))
+'''
+
+
+'''
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    s = s.replace('0', '*')
+    s = s.replace('1', '0')
+    s = s.replace('*', '1')
+    s = '1' + s
+    if s.count('1') % 2 != 0:
+        s = s + '1'
+    else:
+        s = s + '0'
+    r = int(s, 2)
+    if r > 180:
         print(n)
         break
 '''
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 5 https://education.yandex.ru/ege/task/bcf2f1cf-26f3-4678-bf57-1b1eb99555ad
-'''
-M = []
-for n in range(2, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
 
-    for i in range(2):
-        if s[-2] == s[-1]:
-            s = s + '0'
-        else:
-            s = s + '1'
-
-    r = int(s, 2)
-
-    if r > 93:
-        M.append(n)
-        
-print(min(M))
+# Тип 14 №16043
+# Значение арифметического выражения 9**7 + 3**21 - 9
+# записали в системе счисления с основанием 3.
+# Сколько цифр 2 содержится в этой записи?
 '''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-
-# # Задание 5  https://education.yandex.ru/ege/task/f1fac643-8eea-4ba9-8bb9-85670cd87bdd
-'''
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    if n % 2 == 0:
-        s = '1' + s + '1'
-    else:
-        s = s + '10'
-    r = int(s, 2)
-    if r > 179:
-        print(n)
-        break
-'''
-
-
-# Задание 5 https://education.yandex.ru/ege/task/fef8d85c-6b9d-43d3-954c-6acb16a1f5a9
-'''
-for n in range(11, 1000):
-    s = bin(n)[2:]
-    if n % 5 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 5) * 5
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if r > 512:
-        print(n)
-        break
-'''
-'''
 def convert(n, b):
     s = ''
     while n > 0:
-        s += str(n % b)
+        s += alphabet[n % b]
         n //= b
     return s[::-1]
 
 
-for n in range(11, 1000):
-    s = convert(n, 2)
-    if n % 5 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 5) * 5
-        s = s + convert(x, 2)
-    r = int(s, 2)
-    if r > 512:
-        print(n)
-        break
+n = 9**7 + 3**21 - 9
+print(convert(n, 3).count('2'))
 '''
 
-# Задание 5 https://education.yandex.ru/ege/task/da798c09-d5d5-46c3-bbfb-16f606da3ef5
+
+# Тип 14 №60292
 '''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
 def convert(n, b):
     s = ''
     while n > 0:
-        s += str(n % b)
+        s += alphabet[n % b]
         n //= b
     return s[::-1]
 
 
-for n in range(5, 1000):
-    s = convert(n, 4)
-    summa = sum([int(x) for x in s])
-    if summa % 2 == 0:
-        s = s + s[:2]
-    else:
-        s = '10' + s[2:] + '2'  # два левых разряда заменяются на «10».
-    r = int(s, 4)
-
-    if r < 250:
-        print(n)
+n = 3 * 3125**8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
+print(convert(n, 25).count('0'))
 '''
 
 
+# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+for x in range(2030+1):
+    n = 7**91 + 7**160 - x
+    s = convert(n, 7)
+    if s.count('0') == 70:
+        print(x)
+'''
+
+
+
+'''
+# i                0123456789
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+for x in range(2030+1):
+    n = 6**260 + 6**160 + 6**60 - x
+    s = convert(n, 6)
+    if s.count('0') == 202:
+        print(x)
+        break
+'''
+
+
+# № 17870 Демоверсия 2025 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+for x in range(2030+1):
+    n = 7**170 + 7**100 - x
+    s = convert(n, 7)
+    if s.count('0') == 71:
+        print(x)
+'''
+
+
+# № 12246 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+n = 2*729**333 + 2*243**334 - 81**335 + 2 * 27 ** 336 - 2*9**337 - 338
+s = convert(n, 9)
+print(len(s) - s.count('0'))
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -147,6 +185,6 @@ for n in range(5, 1000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 12]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

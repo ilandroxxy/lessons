@@ -1,103 +1,116 @@
 # region Домашка: ************************************************************
 
-# № 227 (Уровень: Базовый)
-# https://stepik.org/lesson/1038703/step/12?unit=1062210
-'''
-print(bin(4 ** 2015 + 2 ** 2015 - 15)[2:].count('1'))
-
-# i  012345
-s = '345678'
-
-# СРЕЗ [ START : STOP-1 :  STEP ]
-print(s[:2])  # 34
-print(s[2:])  # 5678
-'''
-
-
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
-# https://stepik.org/lesson/1038703/step/10?unit=1062210
-'''
-z = []
-for x in range(2030+1):
-    n = 7 ** 91 + 7 ** 160 - x
-    b = 7
-    R = []
-    while n > 0:
-        R.append(n % b)
-        n //= b
-    R = R[::-1]
-    if R.count(0) == 70:
-        z.append(x)
-print(max(z))
-'''
-
-
-# № 6575 (Уровень: Базовый)
-# https://stepik.org/lesson/1038703/step/7?unit=1062210
-'''
-R = []
-n = 766**66 + 15 ** 13 - 22
-b = 13
-while n > 0:
-    R.append(n % b)
-    n //= b
-R = R[::-1]
-print(R.count(12))
-'''
-
-# 9 - 9
-# 10 - A
-# 11 - B
-# 12 - C
 
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
 
-
-# Задание 14 https://education.yandex.ru/ege/task/08f6e0f1-0ce1-42d4-a73e-2e9d1e334a55
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:17]:  # 0 1 2 3 4 5 6 7 8 9 A B C D E F G
-    A = int(f'5432{x}67', 17)
-    B = int(f'302{x}', 17)
-    if (A + B) % 19 == 0:
-        print(A + B)
-'''
+# Адрес сети = IP-адрес узла & Маской сети
+# IP-адресов лежат в Адресе сети
 
+knot = '.'.join([bin(int(x))[2:].zfill(8) for x in '195.102.65.64'.split('.')])
+mask = '.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.255.192'.split('.')])
+print(knot)
+print(mask)
 
-# Задание 14 https://education.yandex.ru/ege/task/376fdf5f-fe0f-49fe-873c-698126bf1ccd
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:24]:
-    A = int(f'4M{x}F', 24)
-    B = int(f'265AFDN{x}', 24)
-    C = int(f'N4{x}931B3L', 24)
-    D = int(f'NG{x}4F', 24)
-    E = int(f'FKJB5{x}IK', 24)
-    if (A + B + C + D + E) % 23 == 0:
-        print((A + B + C + D + E) // 23)
+# 11000011.01100110.01000001.01000000
+# 11111111.11111111.11111111.11000000
+# 11000011.01100110.01000001.01000000
+
+print(bin(12)[2:])
+print(bin(6)[2:])
+
+# 255.255.255.192 -> 11111111.11111111.11111111.11000000
+# Маска сети имеет вид: 111111...00000 длины 32
 '''
 
-
-# Задание 14 https://education.yandex.ru/ege/task/ae1e6ebd-512c-4ea3-9bb6-6862096652d8
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from ipaddress import *
+net = ip_network('195.102.65.64/255.255.255.192', 0)
+print(net)  # 195.102.65.64/26 - где 26 это кол-во единиц в маске сети
+print(f'{net.netmask:b}')  # 11111111111111111111111111000000
+print(f'{net.netmask:b}'.count('1'))  # 26
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/946e0f2d-56db-4fe1-aa6a-94cd603ea823
+'''
+from ipaddress import *
+cnt = 0
+net = ip_network('195.102.65.64/255.255.255.192', 0)
+for ip in net:
+    s = f'{ip:b}'  # Двоичная запись нашего ip
+    if s[24:].count('1') == s[24:].count('0'):
+        cnt += 1
+print(cnt)
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/0831d7d1-7e14-43ff-bf81-229062898a01
+'''
+from ipaddress import *
+cnt = 0
+net = ip_network('192.168.32.48/255.255.255.240', 0)
+for ip in net:
+    s = f'{ip:b}'  # Двоичная запись нашего ip
+    if s.count('1') % 2 != 0:
+        cnt += 1
+print(cnt)
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/08aade2d-7fa5-40ae-ab7e-c85bd6f7e570
+'''
+from ipaddress import *
+net1 = ip_network('192.168.56.192/255.255.255.192', 0)
+net2 = ip_network('192.168.56.208/255.255.255.240', 0)
+cnt = 0
 R = []
-for z in alphabet[:35]:
-    for y in alphabet[:19]:
-        A = int(f'3B{z}4C', 35)
-        B = int(f'A12F{y}', 19)
-        if (A + B) % 7 == 0:
-            R.append(alphabet.index(z) + alphabet.index(y))
-print(max(R))
+for ip in net1:
+    R.append(ip)
+for ip in net2:
+    R.append(ip)
 
-
-print(int('23423', 40))
-# ValueError: int() base must be >= 2 and <= 36, or 0
+for ip in R:
+    if (ip in net1) != (ip in net2):
+        cnt += 1
+print(cnt)
 '''
 
+
+# Задание 13 https://education.yandex.ru/ege/task/ebfa2513-eaf3-49f7-9bb1-828c96fba52c
+'''
+from ipaddress import *
+for A in range(0, 255+1):
+    net = ip_network(f'183.192.{A}.0/255.255.252.0', 0)
+    if all(f'{ip:b}'[16:].count('1') > 3 for ip in net):
+        print(A)
+        break
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/e0a69d93-9830-45fb-981a-804016be561a
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'134.181.67.112/{mask}', 0)
+    net2 = ip_network(f'134.181.94.117/{mask}', 0)
+    if net1 == net2:
+        print(net1.netmask)
+'''
+
+'''
+from ipaddress import *
+count = 0
+net = ip_network('112.208.0.0/255.255.128.0', 0)
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 11 == 0:
+        count += 1
+print(count)
+'''
 
 
 # endregion Урок: ************************************************************
