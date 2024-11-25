@@ -1,177 +1,102 @@
 # region Домашка: ************************************************************
 
-# https://stepik.org/lesson/1038803/step/4?unit=1062776
-'''
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a-2, b) + F(a // 2, b)
-
-print(F(32, 14) * F(14, 1))
-'''
 
 # endregion Домашка: *********************************************************
 # #
 # #
 # region Урок: ************************************************************
 
-# https://education.yandex.ru/ege/task/8f13d075-e784-4654-ae10-7d109cee90e9
+# Задание 17 https://education.yandex.ru/ege/task/75f1504f-3de9-4807-94ca-b08cea796a26
+
+
+# Способ открытия файла
 '''
-# Вариант 1
-def F(x, y, A):
-    return (3*x + y > A) and (y < x) and (x < 30)
-
-for A in range(1000):
-    flag = True
-    for x in range(100):
-        for y in range(100):
-            if F(x, y, A) == True:
-                flag = False
-                break
-    if flag == True:
-        print(A)
-        break
-
-# Вариант 2
-def F(x, y, A):
-    return (3*x + y > A) and (y < x) and (x < 30)
-
-for A in range(1000):
-    k = 0
-    for x in range(100):
-        for y in range(100):
-            if F(x, y, A) == False:
-                k += 1
-    if k == 10000:
-        print(A)
-        break
-
-# Вариант 3
-def F(x, y, A):
-    return (3*x + y > A) and (y < x) and (x < 30)
-
-for A in range(1000):
-    if all(F(x, y, A) == False for x in range(100) for y in range(100)):
-        print(A)
-        break
+M = [int(x) for x in open('files/17.txt')]
+'''
 
 
-# Вариант 4.1
-def F(x, y, A):
-    return (3*x + y > A) and (y < x) and (x < 30)
+# Рассмотрим три прототипа задач:
+'''
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
+# 1. В данной задаче под парой подразумевается два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    # x, y = M[i], M[i+1]
+    #                  ~^^^^^
+    # IndexError: list index out of range
+
+
+# 2. В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        print(f'{x}{y}', end=' ')
+    print()
+'''
+
+
+# Задание 17 https://education.yandex.ru/ege/task/75f1504f-3de9-4807-94ca-b08cea796a26
+'''
+M = [int(x) for x in open('files/17.txt')]
 R = []
-for A in range(1000):
-    if all(F(x, y, A) == False for x in range(100) for y in range(100)):
-        R.append(A)
-print(min(R))
-
-# Вариант 4.2
-print(min([A for A in range(1000) if all(((3*x + y > A) and (y < x) and (x < 30)) == False for x in range(100) for y in range(100))]))
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x % 3 == 0 or y % 3 == 0:
+        R.append(x+y)
+print(len(R), max(R))
 '''
 
 
-# https://education.yandex.ru/ege/task/cf61f112-a1cf-40f3-9fef-d1a97ba29075
+# Задание 17 https://education.yandex.ru/ege/task/ac407c00-8ed4-46fb-b78c-45b5ebcd9b6d
 '''
-def F(A, x):
-    return (((x % A == 0) and (x % 375 == 0)) <= (x % 100 == 0)) and (A > 10)
-
-for A in range(1, 1000):
-    if all(F(A, x) for x in range(10000)):
-        print(A)
-        break
-'''
-
-# https://education.yandex.ru/ege/task/e4ee1ff0-c06e-478d-b397-be872b454f46
-'''
-def F(x, A):
-    return (x & 91 == 0) or ((x & 77 == 0) <= (x & A != 0))
-
-for A in range(0, 1000):
-    if all(F(x, A) for x in range(10000)):
-        print(A)
-        break
-'''
-
-'''
-def F(A, x):
-    return ((x % 10 == 0) and (x % 26 == 0) and (x >= 300)) <= (A <= x)
-
-
-for A in range(0, 1000000):
-    if all(F(A, x) for x in range(10000)):
-        print(A)
-'''
-
-
-# https://education.yandex.ru/ege/task/691e4108-0628-4175-90d1-827c5a8b5a94
-'''
-def F(A, x):
-    B = 70 <= x <= 80
-    return (x % 12 == 0) and B and (x % A != 0)
-
-
-cnt = 0
-for A in range(1, 1000):
-    if all(F(A, x) == False for x in range(1, 10000)):
-        cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/1452a6ee-c08b-4f20-8169-6fe1a281193d
-'''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
-
-
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 3]
+print(D)
 R = []
-M = [x / 4 for x in range(10 * 4, 70 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 19.0
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    summa_x = sum([int(i) for i in str(x) if i.isdigit()])
+    summa_y = sum([int(i) for i in str(y) if i.isdigit()])
+    if (summa_x % 5 == 0) != (summa_y % 5 == 0):
+        if abs(x**2 - y**2) >= max(D)**3:
+            R.append(x+y)
+print(len(R), max(R))
 '''
 
-# https://education.yandex.ru/ege/task/21fef5ec-ac54-4333-b360-20a22600f6c8
+
 '''
-def F(x, a1, a2):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a1 <= x <= a2
-    return (not(not P) <= Q) <= (A <= ((not Q) <= P))
-
-
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 4]
+A = [x for x in M if abs(x) % 100 == 25]
 R = []
-M = [x / 4 for x in range(10 * 4, 30 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(max(R))  # 10.0
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) + (y in D) + (z in D) <= 2:
+        if (x + y + z) <= max(A):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
 
-# https://education.yandex.ru/ege/task/219c0d8e-bf34-4ec2-8f11-cf4d06a6fae7
-
-def F(x, a1, a2):
-    B = 15 <= x <= 40
-    C = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return (not B) <= ((C and (not A)) <= B)
-
-
+M = [int(x) for x in open('files/17.txt')]
 R = []
-M = [x / 4 for x in range(10 * 4, 70 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 22.75 -> 23
-
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x > 0 and y > 0) or (x < 0 and y < 0):
+        R.append(x+y)
+print(len(R), max(R))
+sum([int(i) for i in str(x) + str(y)])
 
 # endregion Урок: ************************************************************
 # #
@@ -181,6 +106,6 @@ print(min(R))  # 22.75 -> 23
 
 # endregion Разобрать: *************************************************************
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:

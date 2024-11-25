@@ -6,10 +6,15 @@
 # #
 # region Урок: ********************************************************************
 
-
-byte = (25 * 2**20) / 178_080
-bit = byte * 8
-print(bit / 197)  # 5.9778
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if x % 2042 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    # if sum([int(i) for i in str(abs(x)) + str(abs(y))]) > len(D):
+    if (x + y) > len(D):
+        R.append(x+y)
+print(len(R), max(R))
 
 # endregion Урок: *************************************************************
 # #

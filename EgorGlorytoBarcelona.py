@@ -1,83 +1,74 @@
 # region Домашка: ******************************************************************
 
-'''
-L=[]
-for n in range(4, 10000):
-    s= '5' + '2' * n
-    while '52' in s or '2222' in s or '1122' in s:
-        if '52' in s:
-            s=s.replace('52', '11', 1)
-        if '2222' in s:
-            s=s.replace('2222', '5', 1)
-        if '1122' in s:
-            s=s.replace('1122', '25', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if summa % 10 == 7:
-        print(n)
-        break
-'''
-
-
-# Задание 5 https://education.yandex.ru/ege/task/da1c175a-d87f-46d0-9211-35a2d2a5b554
-'''
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 5 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 5) * 5
-        s = s + f'{x:b}'
-    r = int(s, 2)
-
-    if r > 256:
-        print(n)
-        break
-'''
-
-
-# Задание 5 https://education.yandex.ru/ege/task/5f631ae3-da90-45d6-84fa-5c18717831b8
-'''
-cnt = 0
-for n in range(1, 10000):
-    s = f'{n:o}'  # s = oct(n)[2:]
-    if n % 2 == 0:
-        s = s + '00'
-    else:
-        s += '10'
-    r = int(s, 8)
-
-    if 100 <= r <= 999:
-        cnt += 1
-print(cnt)
-'''
-
-# Задание 5 https://education.yandex.ru/ege/task/3ef214b5-fef2-4500-9f74-5be832f60ef6
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-M = []
-for n in range(1, 1000):
-    s = convert(n, 5)
-    if len(s) % 2 == 0:
-        s = s[:len(s) // 2] + '0' + s[len(s) // 2:]
-
-    r = int(s, 5)
-    if r <= 250:
-        M.append(n)
-print(max(M))
-'''
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
+
+# https://education.yandex.ru/ege/task/c5e4d9a3-018f-4705-b0dc-68403da4763f
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+n = 3*7**82 - 4*49**21 + 5*343**25
+s = convert(n, 7)
+print(sum([int(x) for x in s]))
+'''
+
+
+# https://education.yandex.ru/ege/task/038952ca-0ea6-4083-8831-34ab2aac8eba
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+n = 36**65 + 6**112 - 136
+s = convert(n, 6)
+print(s[-3:])
+'''
+
+
+# https://education.yandex.ru/ege/task/35d1a21d-f415-4666-830a-8028485771a4
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+for x in range(2042):
+    n = 25**61 + 5**178 - x
+    s = convert(n, 5)
+    if s.count('0') == 60:
+        print(x)
+'''
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+# 0123456789ABC
+for x in alphabet[:15]:
+    A = int(f'9897{x}21', 15)
+    B = int(f'12{x}023', 15)
+    if (A + B) % 14 == 0:
+        print((A + B) // 14)
 
 
 # endregion Урок: *************************************************************
@@ -89,6 +80,6 @@ print(max(M))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 6, 12]
+# ФИПИ = [2, 4, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
