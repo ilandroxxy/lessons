@@ -5,87 +5,106 @@
 # #
 # #
 # region Урок: ********************************************************************
+
+
+# № 18119 (Уровень: Базовый)
 '''
-# 1
-
-def f(s, n):
-    if s >= 25: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(s+2, n-1), f(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(1, 25) if f(s, 2)] )
-print( [s for s in range(1, 25) if not f(s, 1) and f(s, 3)] )
-print( [s for s in range(1, 25) if not f(s, 2) and f(s, 4)] )
+def convert(n, base):
+    r = ''
+    while n > 0:
+        r = str(n % base) + r
+        n //= base
+    return r
 
 
-# 2
-
-def f(s, n):
-    if s >= 33: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(s+3, n-1), f(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(1, 33) if f(s, 2)] )
-print( [s for s in range(1, 33) if not f(s, 1) and f(s, 3)] )
-print( [s for s in range(1, 33) if not f(s, 2) and f(s, 4)] )
-
-
-
-# 3
-
-def f(s, n):
-    if s >= 1000: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(s+100, n-1), f(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( len([s for s in range(1, 1000) if f(s, 2)]) )
-print( len([s for s in range(1, 1000) if not f(s, 1) and f(s, 3)]) )
-print( [s for s in range(1, 1000) if not f(s, 2) and f(s, 4)] )
-
-
-# 5
-
-def f(s, n):
-    if s >= 34: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(s+1, n-1), f(s+2, n-1), f(s+3, n-1), f(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(1, 34) if f(s, 2)] )
-print( [s for s in range(1, 34) if not f(s, 1) and f(s, 3)] )
-print( [s for s in range(1, 34) if not f(s, 2) and f(s, 4)] )
-
-
-
-# 10
-
-def f(a, s, n):
-    if s+a >= 69: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(a+2, s, n-1), f(a, s+2, n-1), f(a*2, s, n-1), f(a, s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(1, 60) if f(9, s, 2)] )
-print( [s for s in range(1, 60) if not f(9, s, 1) and f(9, s, 3)] )
-print( [s for s in range(1, 60) if not f(9, s, 2) and f(9, s, 4)] )
-
-
-# 11
-
-def f(a, s, n):
-    if s+a <= 20: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(a-1, s, n-1), f(a, s-1, n-1), f((a+1)//2, s, n-1), f(a, (s+1)//2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(11, 60) if f(10, s, 2)] )
-print( [s for s in range(11, 60) if not f(10, s, 1) and f(10, s, 3)] )
-print( [s for s in range(11, 60) if not f(10, s, 2) and f(10, s, 4)] )
+R = []
+for N in range(1, 1000):
+    s = convert(N, 3)
+    if sum([int(x) for x in s]) % 2 == 0:
+        s = '1' + s + '2'
+    else:
+        s = '2' + s + '0'
+    r = int(s, 3)
+    if r > 100:
+        R.append(r)
+print(min(R))
 '''
 
+
+# https://education.yandex.ru/ege/task/08a16fb2-3773-4f00-8961-cfa21b2e65a9
+'''
+from itertools import *
+cnt = 0
+for p in product('ГИПЕРБОЛА', repeat=6):
+    word = ''.join(p)
+    if word[0] not in 'ИЕОА' and word[-1] not in 'ИЕОА':
+        for sogl in 'ГПРБЛ':
+            word = word.replace(sogl, '*')
+        for glas in 'ИЕОА':
+            word = word.replace(glas, '+')
+        if '*+*' not in word:
+            cnt += 1
+print(cnt)
+
+
+from itertools import product
+
+cnt = 0
+for p in product('ГИПЕРБОЛА', repeat=6):
+    word = ''.join(p)
+    for i in 'ИЕО':
+        word = word.replace(i, 'А')
+    for i in 'ГПРЛ':
+        word = word.replace(i, 'Б')
+    if word[0] != 'А' and word[-1] != 'А':
+        if 'БАБ' not in word:
+            cnt += 1
+print(cnt)
+'''
+
+'''
+from itertools import permutations
+
+cnt = 0
+for p in permutations('АРТЁМ'):
+    word = ''.join(p)
+    print(word)
+    if ((word[0] in 'АЁ') + (word[-1] in 'АЁ')) < 2:
+        cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/310d22e7-bde6-4f5c-99ff-3d2861ebf37a
+'''
+from itertools import product
+cnt = 0
+s1 = '13579B'
+s2 = '02468AC'
+for p in product(s1, s2, s1, s2, s1, s2, s1):
+    num = ''.join(p)
+    if num.count('5') >= 2:
+        cnt += 1
+for p in product(s2, s1, s2, s1, s2, s1, s2):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('5') >= 2:
+            cnt += 1
+print(cnt)
+'''
+
+# Задание 8 https://education.yandex.ru/ege/task/be9de2da-7a85-4442-8890-8e6e45842260
+'''
+from itertools import product
+
+cnt = 0
+for p in product(sorted('ОМГД'), repeat=4):
+    word = ''.join(p)
+    cnt += 1
+    print(cnt, word)
+    if cnt == 10:
+        break
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -97,6 +116,6 @@ print( [s for s in range(11, 60) if not f(10, s, 2) and f(10, s, 4)] )
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = []
+# КЕГЭ  = [8]
 # на следующем уроке:
 
