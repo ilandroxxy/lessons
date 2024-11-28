@@ -1,105 +1,102 @@
 # region Домашка: ******************************************************************
 
 
+# № 6985 (Уровень: Средний)
+# https://stepik.org/lesson/1038667/step/4?unit=1062772
+'''
+from itertools import *
+last = 0
+n = 0
+for p in product(sorted('МАРКСЛ'), repeat=6):
+    w = ''.join(p)
+    n += 1
+    if 'СК' not in w and 'КС' not in w:
+        copied3 = [x for x in w if w.count(x) == 3]
+        not_copied = [x for x in w if w.count(x) == 1]
+
+        if len(copied3) == 3 and len(not_copied) == 3:
+            last = n
+print(last)
+'''
+
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 8 https://education.yandex.ru/ege/task/27d33ca7-25ea-4a12-984d-a4b80d21455d
 '''
-# Вариант 1
-s = sorted('АВЛОС')
-n = 0
-R = []
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                word = a + b + c + d
-                n += 1
-                if a == 'Л':
-                    R.append(n)
+# IP-адрес узла: 224.37.249.37
+# Маска: 255.255.240.0
 
-print(min(R))
+# Адрес сети = IP-адрес узла & Маска сети
+# где & - это операция побитовой конъюнкции
 
-# Вариант 2
-from itertools import *
-n = 0
-for p in product(sorted('АВЛОС'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if word[0] == 'Л':
-        print(n)
-        break
+knot = '.'.join([bin(int(x))[2:].zfill(8) for x in '224.37.249.37'.split('.')])
+mask = '.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.240.0'.split('.')])
+print(knot)  # 11100000.00100101.11111001.00100101
+print(mask)  # 11111111.11111111.11110000.00000000
+# net    =     11100000.00100101.11110000.00000000
 
-# Вариант 3
-from itertools import *
+print(224 & 255, 37 & 255, 249 & 240, 37 & 0)  # 224 37 240 0
+'''
 
-for n, p in enumerate(product(sorted('АВЛОС'), repeat=4), 1):
-    word = ''.join(p)
-    if word[0] == 'Л':
-        print(n)
-        break
+# Тип 13 №6816
+# IP-адрес узла: 224.37.249.37
+# Маска: 255.255.240.0
+'''
+from ipaddress import *
+net = ip_network('224.37.249.37/255.255.240.0', 0)
+print(net)  # 224.37.240.0/20 -> 11111111.11111111.11110000.00000000.count('1') == 20
 '''
 
 
-# Задание 8 https://education.yandex.ru/ege/task/ec40e795-ecb6-454f-9e64-291da6044f52
-# Джобс Е.
+# Тип 13 №10475
+# Для узла с IP-адресом 119.167.50.77 адрес сети равен 119.167.48.0.
+# Чему равно наименьшее возможное значение
+# третьего слева байта маски? Ответ запишите в виде десятичного числа.
 '''
-from itertools import *
-n = 0
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'119.167.50.77/{mask}', 0)
+    print(net, net.netmask)
+    # 119.167.48.0/20 255.255.240.0
+    # 119.167.48.0/21 255.255.248.0
+    # 119.167.48.0/22 255.255.252.0
+'''
+# Ответ: 240
+
+
+# Тип 13 №18081
+# Узлы с IP-адресами 140.37.235.224 и 140.37.235.192 находятся в одной сети.
+# Определите последний байт маски сети.
+# Количество возможных единиц в маске этой сети должно быть наибольшим.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'140.37.235.224/{mask}', 0)
+    net2 = ip_network(f'140.37.235.192/{mask}', 0)
+    if net1 == net2:
+        print(mask, net1.netmask)
+'''
+# Ответ: 192
+
+
+# № 17867 Демоверсия 2025 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.16.168.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, для которых количество единиц
+# в двоичной записи IP-адреса не кратно 5?
+'''
+from ipaddress import *
+net = ip_network('172.16.168.0/255.255.248.0', 0)
 cnt = 0
-for p in product(sorted('АПРЕЛЬ', reverse=True), repeat=5):
-    word = ''.join(p)
-    n += 1
-
-    if word[-1] == 'Ь':
-        cnt += 1
-        print(word)
-
-    if n >= 387:
-        break
-
-print(cnt)
-'''
-
-
-# Задание 8 https://education.yandex.ru/ege/task/65351d01-6be4-467f-8c36-6d951bf990bb
-'''
-from itertools import *
-cnt = 0
-for p in product('ДРАКОН', repeat=8):
-    word = ''.join(p)
-    if word.count('А') == 1 and word.count('О') == 1:
-        cnt += 1
-print(cnt)
-'''
-
-# Задание 8 https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
-'''
-from itertools import *
-cnt = 0
-for p in permutations('Артём'.upper(), r=5):
-    word = ''.join(p)
-    if not(word[0] in 'АЁ' and word[-1] in 'АЁ'):
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 5 != 0:
         cnt += 1
 print(cnt)
 '''
 
-
-# Задание 8 https://education.yandex.ru/ege/task/b19825e6-aafc-48ed-9bd7-99033090c53c
-'''
-from itertools import *
-cnt = 0
-for p in product('012345', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('2') == 1:
-            if all(x not in num for x in '21 12 23 32 52 25'.split()):
-                cnt += 1
-print(cnt)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -109,6 +106,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:
