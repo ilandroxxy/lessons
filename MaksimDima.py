@@ -6,71 +6,126 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 12 https://education.yandex.ru/ege/task/50a1b75e-3829-4e52-96bc-44d8e024790e
+# https://inf-ege.sdamgia.ru/problem?id=7761
 '''
-s = '3' * 70
-
-while '333' in s or '77777' in s:
-    if '333' in s:
-        s = s.replace('333', '77', 1)
-    else:
-        s = s.replace('77777', '7', 1)
-print(s)
-print(s.count('7'))
-print(sum(map(int, s)))
-print(sum([int(x) for x in s]))
+print(bin(4**2020 + 2**2017 - 15)[2:].count('1'))
 '''
 
 
-# Задание 12 https://education.yandex.ru/ege/task/0dae60c5-8bfc-40e6-9913-2395abbd6a99
+# https://inf-ege.sdamgia.ru/problem?id=27411
 '''
-for n in range(4, 10000):
-    s = '5' + '2' * n
-
-    while '52' in s or '2222' in s or '1122' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-
-    summa = sum([int(x) for x in s])
-    if summa == 64:
-        print(n)
-'''
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
 
 
-# Задание 12 https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
-'''
-for x in range(50):
-    for y in range(50):
-        for z in range(50):
-            s = '0' + '1' * x + '2' * y + '3' * z
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s = str(n % b) + s
+        n //= b
+    return s
 
-            while '01' in s or '02' in s or '03' in s:
-                s = s.replace('01', '30', 1)
-                s = s.replace('02', '3103', 1)
-                s = s.replace('03', '1201', 1)
-            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
-                print(z)
+
+n = 49**7 + 7**21 - 7
+print(convert(n, 7).count('6'))
 '''
 
-# Функция проверки на простое число
+
+# № 15327 Досрочная волна 2024 (Уровень: Базовый)
 '''
-def is_prime(x):  # 8
-    if x <= 1:
-        return False
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
+12
 
 
-print(is_prime(4))  # False
-print(is_prime(7))  # True
-print([x for x in range(100) if is_prime(x)])
+n = 3*2187**2020 + 3*729**2021 - 2*81**2022 + 27**2023 - 4*3**2024 - 2029
+print(len([x for x in convert(n, 27) if x > '9']))
 '''
+
+
+# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s = alphabet[n % b] + s
+        n //= b
+    return s
+
+
+for x in range(2030+1):
+    n = 7**91 + 7**160 - x
+    s = convert(n, 7)
+    if s.count('0') == 70:
+        print(x)
+'''
+
+
+# № 15328 Досрочная волна 2024 (Уровень: Базовый)
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+
+for x in alphabet[:27]:
+    A = int(f'123{x}24', 27)
+    B = int(f'135{x}78', 27)
+    if (A + B) % 26 == 0:
+        print((A + B) // 26)
+'''
+
+
+# https://inf-ege.sdamgia.ru/problem?id=48387
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+
+for x in alphabet[:11]:
+    for y in alphabet[:11]:
+        A = int(f'{x}341{y}', 11)
+        B = int(f'56{x}1{y}', 19)
+        if (A + B) % 305 == 0:
+            print((A + B) // 305)
+'''
+
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+
+for p in range(10, 36+1):
+    for x in alphabet[:p]:
+        for y in alphabet[:p]:
+            if int(f'24{x}9', p) + int(f'{y}{x}{y}3', p) == int(f'{x}4{y}0', p):
+                print(int(x+y+y, p))
+'''
+
+
+# № 13910 (Уровень: Базовый)
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+
+for i, x in enumerate(alphabet, 0):
+    print(i, x)
+    # 17 H
+    # 21 L
+    # 26 Q
+    # 29 T
+    # 30 U
+
+print(alphabet.find('U'))  # 30
+
+# for p in range(30+1, 36+1):
+for p in range(alphabet.find('U')+1, 36+1):
+    if int('TH', p) + int('NQ', p) + int('U', p) == int('1L7', p):
+        print(p)
+'''
+# Ответ: 33
 
 # endregion Урок: *************************************************************
 # #
@@ -81,6 +136,6 @@ print([x for x in range(100) if is_prime(x)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [8, 12]
+# ФИПИ = [5, 8, 12, 14]
 # КЕГЭ  = []
-# на следующем уроке: 5, 14
+# на следующем уроке:

@@ -1,80 +1,68 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038703/step/2?unit=1062210
+
+# from string import *
+# alphabet = digits + ascii_uppercase
+
 '''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+
+n = 11*15**65 + 18*15**38 - 14*15**17 + 19*15 ** 11 + 18338
+s = convert(n, 15)
+# print(s)
+# print(set(s))
+print(len(set(s)))
+'''
+
+
+# https://stepik.org/lesson/1038703/step/4?unit=1062210
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 m = []
-for n in range(1, 100):
-    s = bin(n)[2:]
-
-    for i in range(2):
-        if s.count('1') % 2 == 0:
-            s = '11' + s[2:] + '00'
-        else:
-            s = '10' + s[2:] + '11'
-
-    r = int(s, 2)
-    m.append(r)
-print(max(m))
+for x in alphabet[:7]:
+    for y in alphabet[:7]:
+        a = int(f'{y}{x}320', 7)
+        b = int(f'1{x}3{y}3', 9)
+        if (a + b) % 181 == 0:
+            m.append((a + b) // 181)
+print(min(m))
 '''
 
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+m = []
+
+for x in alphabet[:8]:
+    for y in alphabet[:8]:
+        a = int(f'{y}04{x}5', 11)
+        b = int(f'253{x}{y}', 8)
+        if (a + b) % 117 == 0:
+            m.append((a + b) // 117)
+print(min(m))
+'''
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 14 https://education.yandex.ru/ege/task/18a7009f-9d5c-467d-88c4-102e7ed5aca4
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
+from fnmatch import *
+for x in range(1917, 10**10, 1917):
+    if fnmatch(str(x), '3?12?14*5'):
+        print(x, x // 1917)
 
 
-n = 2 * 729**75 + 2 * 243 ** 78 + 81 ** 81 + 2*27**84 + 2*9**87 + 58
-s = convert(n, 27)
-print(s.count('0'))
-'''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/5b214f5e-974b-46db-bf04-5aa73d9d99d3
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-n = 3 * 15**1140 + 2 * 15**1025 + 15**923 - 3 * 15**85 + 2 * 15**74 + 3
-s = convert(n, 15)
-
-maxi = 0
-count = 1
-for i in range(len(s)-1):
-    if s[i] == s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-'''
-
-
-# Задание 14 https://education.yandex.ru/ege/task/eca565e6-aa59-4e06-8e2c-fccdac9e9fd7
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print((A + B) // 18)
-'''
 
 # endregion Урок: ********************************************************************
 # #
@@ -84,6 +72,6 @@ for x in alphabet[:19]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 25.1]
 # КЕГЭ  = []
 # на следующем уроке:

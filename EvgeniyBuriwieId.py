@@ -6,33 +6,35 @@
 # #
 # region Урок: ************************************************************
 
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+
+#                             0  1  2  3
+# sorted([2, 6, 3, 7, 8]) -> [2, 3, 6, 7, 8]
+# sorted([2, 6, 3, 7, 8], reverse=True) -> [8, 7, 6, 3, 2]
+
 '''
-M = []
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    s += str(s.count('1') % 2)
-    s += str(s.count('1') % 2)
-    r = int(s, 2)
-    if r > 198:
-        M.append(r)
-print(min(M))
+count = 0
+for s in open("files/9.csv"):
+    M = sorted([int(x) for x in s.split(",")])
+    if len(set(M)) == 5:
+        # if (max(M) + min(M)) * 3 <= (sum(M) - (max(M) + min(M))) * 2:
+        if (M[0] + M[-1]) * 3 <= (M[1] + M[2] + M[3]) * 2:
+            count += 1
+print(count)
 '''
 
-# Задание 8 https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
 
-
-from itertools import *
-k = 0
-for p in permutations('АРТЕМ', r=5):
-    word = ''.join(p)
-    if (word[0] in 'РТМ') or (word[-1] in 'РТМ'):
-        print(word)
-        k += 1
-print(k)
-
-
-
-
+count = 0
+for s in open("files/9.csv"):
+    M = sorted([int(x)for x in s.split(",")])
+    D = [x for x in M if x % 3 == 0]
+    if len(D) == 3:
+        if (max(M) - min(M)) <= sum(D):
+            count += 1
+print(count)
 
 
 # endregion Урок: ************************************************************
