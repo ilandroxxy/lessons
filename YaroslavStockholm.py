@@ -1,115 +1,160 @@
 # region Домашка: ******************************************************************
 
 
-'''
-M = []
-for n in range(9, 1000+1):
-    s = bin(n)[2:]
-
-    if n % 2 == 0:
-        s = '1' + s + '00'
-    else:
-        s = s + bin(s.count('1'))[2:]
-    r = int(s, 2)
-    if r > 88:
-        M.append([r, n])
-
-print(min(M)[1])
-'''
-import sys
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# i  01234
+s = 'abcde'
 
-from string import *
-alphabet = digits + ascii_uppercase
-# alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(f'Первый элемент строки s: {s[0]}')
+print(f'Последний элемент строки s: {s[-1]}')
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-# Задание 14 https://education.yandex.ru/ege/task/18a7009f-9d5c-467d-88c4-102e7ed5aca4
+# Срезы строк
 '''
-n = 2*729**75 + 2*243**78 + 81**81 + 2 *27**84 + 2*9**87 + 58
-s = convert(n, 27)
-print(s.count('0'))
-'''
-
-# Задание 14 https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
-'''
-for x in range(2030+1):
-    n = 3**100 - x
-    s = convert(n, 3)
-    if s.count('0') == 5:
-        print(x)
-'''
-
-# Задание 14 https://education.yandex.ru/ege/task/f1486087-bcff-4963-a860-bf501c4686db
-'''
-n = 7*49**120 - 6*343**65 - 5*7**40
-print(convert(n, 7).count('6'))
-'''
-
-# Задание 14 https://education.yandex.ru/ege/task/a8903831-c37e-4e0a-8633-b69e0bd7a182
-'''
-n = 5*7776**7 + 4*1296**6 + 3*216 - 7776
-s = convert(n, 36)
-print(s.count('I') + s.count('U') + s.count('Z'))
-print(len([x for x in s if x in 'IUZ']))
+print(s[2:4])  # cd
+print(s[:4])  # abcd
+print(s[2:])  # cde
+print(s[0::2])  # ace
+print(s[1::2])  # bd
+print(s[::-1])  # edcba
+print(s[1:-1])  # bcd - все элементы кроме первого и последнего 
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/a8c96097-e410-484b-8fe6-9d1034a9e228
+# Функции строк:
 '''
-for x in range(2030+1):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 71:
-        print(x)
-'''
-
-
-# Задание 14 https://education.yandex.ru/ege/task/660f09fb-51cc-496a-a57e-6aa856698de9
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-summa = 0
-for x in alphabet[:15]:
-    A = int(f'97968{x}13', 15)
-    B = int(f'7{x}213', 15)
-    if (A + B) % 11 == 0:
-        summa += alphabet.index(x)
-
-print(summa)
+s = '122233345'
+print(len(s))   # 9 - Возвращает длину строки
+print(min(s), max(s))  # 1 5
+print(max('aAbB'))  # a
+print(sorted(s))  # ['1', '2', '3', '4', '5']
+print(sorted(s, reverse=True))  # ['1', '2', '3', '4', '5']
+print(set(s))  # {'3', '4', '2', '5', '1'}
+print(eval('((2+2) * 5) / 2'))  # 10.0 - решает арифметические примеры
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/258db83f-773f-43a0-88da-89f8e3c2ab70
+# Методы строк
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:18]:
-    A = int(f'77968{x}11', 18)
-    B = int(f'4{x}213', 18)
-    if (A + B) % 7 == 0:
-        print((A + B) // 7)
+s = 'jiUHkjikIHiu'
+print(s.lower())  # jiuhkjikihiu
+print(s.upper())  # JIUHKJIKIHIU
+
+s = '1231253213213'
+s = s.replace('2', '*')  # Заменить все '2' на '*' разом
+print(s)  # 1*31*53*13*13
+
+s = s.replace('*', '+', 3)  # Заменить только первые три '*' на '+'
+print(s)  # 1+31+53+13*13
 '''
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for y in alphabet[:17]:
-    for x in alphabet[:15]:
-        A = int(f'123{x}5', 15)
-        B = int(f'67{y}9', 17)
-        if (A + B) % 131 == 0:
-            print((A + B) // 131)
-            exit()
+'''
+id = '45.87.234.255'
+print(id.split('.'))  # ['45', '87', '234', '255'] - Разбить строку на список по символу '.'
+print(id.split('4'))  # ['', '5.87.23', '.255']
+
+s = '34 57  897  34    123'
+print(s.split(' '))  # ['34', '57', '', '897', '', '34', '', '', '', '123']
+print(s.split())  # ['34', '57', '897', '34', '123']
+
+M = ['34', '57', '897', '34', '123']
+new_s = ''.join(M)
+print(new_s)  # 345789734123
+
+new_s = ','.join(M)
+print(new_s)  # 34,57,897,34,123
+
+new_s = '***'.join(M)
+print(new_s)  # 34***57***897***34***123
+'''
 
 
+# Работа с циклами
+'''
+for i in range(len(s)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(s[i], end=' ')  # a b c d e
+print()
+
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
+'''
+
+
+# Задание 12 https://education.yandex.ru/ege/task/0a80339b-a1c9-4b63-8e60-313bc5ef8710
+# ПОКА нашлось(0) ИЛИ нашлось(01)
+#    ЕСЛИ нашлось(01)
+#       ТО заменить(01, 10)
+#    ИНАЧЕ заменить(0, 111)
+'''
+s = '0' + '1' * 45
+while '0' in s or '01' in s:
+    if '01' in s:
+        s = s.replace('01', '10', 1)
+    else:
+        s = s.replace('0', '111', 1)
+print(s)  # 111111111111111111111111111111111111111111111111
+print(s.count('1'))  # 48
+'''
+
+
+'''
+for n in range(1, 1000):
+    s = '3' * 15 + '2' * 18 + '1' * n
+
+    while '31' in s or '33' in s or '21' in s:
+        if '31' in s:
+            s = s.replace('31', '123', 1)
+        if '33' in s:
+            s = s.replace('33', '211', 1)
+        if '21' in s:
+            s = s.replace('21', '1', 1)
+    summa = sum([int(x) for x in s])
+    if summa > 24:
+        print(n)
+        break
+'''
+
+# https://education.yandex.ru/ege/task/56888dcf-39cf-4282-8bf7-5fec144e945c
+'''
+maxi = 0
+for n in range(4, 10000):
+    s = '3' + '5' * n
+
+    while '333' in s or '555' in s:
+        if '555' in s:
+            s = s.replace('555', '3', 1)
+        else:
+            s = s.replace('333', '5', 1)
+
+    summa = sum([int(x) for x in s])
+    if maxi < summa:
+        maxi = summa
+        print(maxi)
+'''
+
+
+# https://education.yandex.ru/ege/task/b3c1add0-9671-42f4-b405-20b7927c3234
+'''
+for n in range(10, 1000):
+    s = '3' + '5' * n
+
+    while '25' in s or '355' in s or '555' in s:
+        if '25' in s:
+            s = s.replace('25', '32', 1)
+        if '355' in s:
+            s = s.replace('355', '25', 1)
+        if '555'in s:
+            s = s.replace('555', '3', 1)
+    summa = sum([int(x) for x in s])
+    if summa % 25 == 0:
+        print(n)
+        break
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -120,6 +165,6 @@ for y in alphabet[:17]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
