@@ -6,97 +6,76 @@
 # #
 # region Урок: ************************************************************
 
-# Задание 17 https://education.yandex.ru/ege/task/75f1504f-3de9-4807-94ca-b08cea796a26
-
-
-# Способ открытия файла
 '''
-M = [int(x) for x in open('files/17.txt')]
-'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
 
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
 
-# Рассмотрим три прототипа задач:
-'''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. В данной задаче под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    # x, y = M[i], M[i+1]
-    #                  ~^^^^^
-    # IndexError: list index out of range
-
-
-# 2. В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        print(f'{x}{y}', end=' ')
-    print()
+cnt = 0
+for s in open('files/9.txt'):
+    M = [int(x) for x in s.split()]
 '''
 
 
-# Задание 17 https://education.yandex.ru/ege/task/75f1504f-3de9-4807-94ca-b08cea796a26
+# Задание 9 https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
 '''
-M = [int(x) for x in open('files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if x % 3 == 0 or y % 3 == 0:
-        R.append(x+y)
-print(len(R), max(R))
-'''
-
-
-# Задание 17 https://education.yandex.ru/ege/task/ac407c00-8ed4-46fb-b78c-45b5ebcd9b6d
-'''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 3]
-print(D)
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    summa_x = sum([int(i) for i in str(x) if i.isdigit()])
-    summa_y = sum([int(i) for i in str(y) if i.isdigit()])
-    if (summa_x % 5 == 0) != (summa_y % 5 == 0):
-        if abs(x**2 - y**2) >= max(D)**3:
-            R.append(x+y)
-print(len(R), max(R))
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    # if (len(M) == len(set(M))) != (max(M) > sum(M) - max(M)):
+    if (len(M) == len(set(M))) != (M[-1] > sum(M[:-1])):
+        cnt += 1
+print(cnt)
 '''
 
 
+# Задание 9 https://education.yandex.ru/ege/task/36638a59-7977-4a77-9f1a-361aca12356d
 '''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 4]
-A = [x for x in M if abs(x) % 100 == 25]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in D) + (y in D) + (z in D) <= 2:
-        if (x + y + z) <= max(A):
-            R.append(x + y + z)
-print(len(R), max(R))
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 6 and len(not_copied) == 2:
+        if M.count(min(M)) == 1:
+            print(sum(M))
+            break
 '''
 
-M = [int(x) for x in open('files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x > 0 and y > 0) or (x < 0 and y < 0):
-        R.append(x+y)
-print(len(R), max(R))
-sum([int(i) for i in str(x) + str(y)])
+
+# Задание 9 https://education.yandex.ru/ege/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    N = [x for x in M if abs(x) % 10 == 3]
+    if len(N) == 3:
+        A = [x for x in M if x > 0]
+        B = [x for x in M if x < 0]
+        if sum(A) ** 2 < sum(B) ** 2:
+            cnt += 1
+print(cnt)
+'''
+
+
+# Задание 9 https://education.yandex.ru/ege/task/c255edb8-3ff7-4c2a-bf66-03487b499649
+
+cnt = 0
+for s in open('files/9.csv'):
+    print(s)
+    M = sorted([int(x) for x in s.split(';')])
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3:
+        if len(not_copied) == 4:
+            print(not_copied)
+            if sum(M) < 502:
+                cnt += 1
+print(cnt)
 
 # endregion Урок: ************************************************************
 # #
@@ -106,6 +85,6 @@ sum([int(i) for i in str(x) + str(y)])
 
 # endregion Разобрать: *************************************************************
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:

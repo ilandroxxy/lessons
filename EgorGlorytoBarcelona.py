@@ -6,69 +6,80 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/c5e4d9a3-018f-4705-b0dc-68403da4763f
+
+# Задание 8 https://education.yandex.ru/ege/task/e73090d1-5401-4307-8b8c-bd1af02cefc0
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# Вариант 1
+s = sorted('МАРИЯ')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                if word == 'АРИЯ':
+                    print(n)
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
+# Вариант 2
+from itertools import *
+n = 0
+for p in product(sorted('МАРИЯ'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if word == 'АРИЯ':
+        print(n)
 
+# Вариант 3
 
-n = 3*7**82 - 4*49**21 + 5*343**25
-s = convert(n, 7)
-print(sum([int(x) for x in s]))
-'''
+from itertools import *
 
-
-# https://education.yandex.ru/ege/task/038952ca-0ea6-4083-8831-34ab2aac8eba
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-n = 36**65 + 6**112 - 136
-s = convert(n, 6)
-print(s[-3:])
-'''
-
-
-# https://education.yandex.ru/ege/task/35d1a21d-f415-4666-830a-8028485771a4
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-for x in range(2042):
-    n = 25**61 + 5**178 - x
-    s = convert(n, 5)
-    if s.count('0') == 60:
-        print(x)
+for n, p in enumerate(product(sorted('МАРИЯ'), repeat=4), 1):
+    word = ''.join(p)
+    if word == 'АРИЯ':
+        print(n)
 '''
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-# 0123456789ABC
-for x in alphabet[:15]:
-    A = int(f'9897{x}21', 15)
-    B = int(f'12{x}023', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
+# Задание 8
+'''
+cnt = 0
+from itertools import *
+for p in permutations('КАБИНЕТ'):
+    word = ''.join(p)
+    if word[-1] not in 'АИЕ':
+        cnt += 1
+print(cnt)
+'''
+
+
+# Задание 8 https://education.yandex.ru/ege/task/bf49516c-39dc-461d-9b19-3462210daa1b
+'''
+cnt = 0
+from itertools import *
+for p in product('ЛЕГКО', repeat=6):
+    word = ''.join(p)
+    if word.count('О') <= 1:
+        if word[0] != 'Г' and word[-1] not in 'ЕО':
+            cnt += 1
+print(cnt)
+'''
+
+
+# Задание 8 https://education.yandex.ru/ege/task/b19825e6-aafc-48ed-9bd7-99033090c53c
+'''
+cnt = 0
+from itertools import *
+for p in product('012345', repeat=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('2') == 1:
+            num = num.replace('3', '1').replace('5', '1')
+            if '12' not in num and '21' not in num:
+                cnt += 1
+print(cnt)
+'''
+
 
 
 # endregion Урок: *************************************************************
@@ -80,6 +91,6 @@ for x in alphabet[:15]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5, 6, 12, 14]
+# ФИПИ = [2, 4, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

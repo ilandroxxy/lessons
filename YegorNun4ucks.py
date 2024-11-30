@@ -7,90 +7,77 @@
 # region Урок: ********************************************************************
 
 
-# Тип 24 №27696
-# Определите длину самой длинной последовательности, состоящей из символов L.
-# Хотя бы один символ L находится в последовательности.
+# https://stepik.org/lesson/1038834/step/8?unit=1062779
+# Определите максимальную длину подстроки, которая ограничена с одной стороны
+# буквой A, а с другой - D и не содержит других букв A и D внутри.
 '''
-# Вариант 1
 s = open('files/24.txt').readline()
-count = 1
+s = s.replace('A', 'A A').replace('D', 'D D')
+print(max([len(x) for x in s.split() if x.count('A') == 1 and x.count('D') == 1]))
+'''
+
+
+# https://inf-ege.sdamgia.ru/problem?id=38958
+# Определите максимальное количество идущих подряд символов, среди которых
+# не более одной буквы A.
+'''
+s = open('files/24.txt').readline()
+s = s.split('A')
 maxi = 0
 for i in range(len(s)-1):
-    # if s[i] == 'L' and s[i+1] == 'L':
-    if s[i:i+2] == 'LL':
-        count += 1
+    r = s[i] + 'A' + s[i+1]
+    maxi = max(maxi, len(r))
+print(maxi)
+
+s = open('files/24.txt').readline()
+maxi = 0
+s = s.replace('A', 'A ').split()
+for i in range(len(s)-1):
+    r = ''.join(s[i:i+2])[:-1]
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждая из букв A и B встречается не более двух раз.
+'''
+s = open('files/24.txt').readline()
+maxi = 0
+s = s.replace('A', 'A ').replace('B', 'B ').split()
+for i in range(len(s)-4):
+    r = ''.join(s[i:i+5])[:-1]
+    if r.count('A') == 2 and r.count('B') == 2:
+        maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+'''
+s = open('files/24.txt').readline().split('D')
+print(s)
+count = 1
+maxi = 0
+for i in range(len(s)):
+    if s[i].count('O') <= 2:
+        count += len(s[i]) + 1
         maxi = max(maxi, count)
     else:
         count = 1
 print(maxi)
+'''
 
-# Ответ: 7
-
-
-# Вариант 2
 
 s = open('files/24.txt').readline()
-s = s.replace('D', ' ').replace('R', ' ')
-print(max([len(x) for x in s.split()]))
-
-# Вариант 3 - ctrl + F
-
-s = open('files/24.txt').readline()
-print(s)
-'''
-
-
-# Тип 24 №38602
-# Определите максимальное количество идущих подряд символов в прилагаемом файле,
-# среди которых нет идущих подряд символов P.
-'''
-s = open('files/24.txt').readline()
-while 'PP' in s:
-    s = s.replace('PP', 'P P')
-print(max([len(x) for x in s.split()]))
-'''
-
-# Тип 24 №48472
-# Текстовый файл содержит только буквы A, C, D, F, O.
-# Определите максимальное количество идущих подряд групп символов вида:
-'''
-s = open('files/24.txt').readline()
-s = s.replace('D', 'C').replace('F', 'C')
-s = s.replace('O', 'A')
-s = s.replace('AAC', '*')
-s = s.replace('A', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №68257
-# Определите максимальную длину непрерывного фрагмента,
-# который начинается и заканчивается одной и той же буквой из
-# первой половины алфавита (от A до M) и не содержит эту букву внутри.
-'''
-from string import *
-alphabet = ascii_uppercase
-# ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-s = open('files/24.txt').readline()
+count = 2
 maxi = 0
-for x in alphabet[:13]:
-    s = s.replace(f'{x}', '* *')
-    maxi = max([len(x) for x in s.split()])
-    s = s.replace('* *', f'{x}')
+for i in range(len(s)-2):
+    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 2
 print(maxi)
-'''
 
-
-s = open('files/24.txt').readline()
-cnt = 0
-s = s.replace('A', '* *')
-
-for x in s.split():
-    if 'A' not in x and 'B' not in x and len(x) >= 10:
-        cnt += 1
-
-print(cnt)
 
 # endregion Урок: *************************************************************
 # #
