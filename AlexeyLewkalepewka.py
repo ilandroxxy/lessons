@@ -1,110 +1,95 @@
 # region Домашка: ******************************************************************
 
 
+# https://education.yandex.ru/ege/task/cf899119-5ce5-4245-b13a-33214cacb8e9
+'''
+from itertools import *
+cnt = 0
+for p in product('0123456789ABCDE', repeat=5):
+    word = ''.join(p)
+    if word[0] != '0':
+        a, b, c, d, e = [int(x, 15) for x in word]
+        N1 = [a % 2 == 0, b % 3 == 0, c % 2 == 0, d % 3 == 0, e % 2 == 0]
+        N2 = [a % 3 == 0, b % 2 == 0, c % 3 == 0, d % 2 == 0, e % 3 == 0]
+        if sum(N1) == 5 or sum(N2) == 5:
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/ddce5ec5-c1e4-4e47-94a2-f5e19c7519dd
+'''
+from itertools import *
+
+s = '0123456789'
+cnt = 0
+for p in product(s1, s2, s1, s2, s, s, s, s, s):
+    print(p)
+    word = ''.join(p)
+    if word[0] != '0':
+        not_copied = [x for x in word if word.count(x) == 1]
+        if len(not_copied) >= 3:
+            cnt += 1
+print(cnt)'''
+
+
+'''
+import time
+start = time.time()
+
+cnt = 0
+for x in range(100000000, 1000000000):
+    if len(set(str(x))) >= 3:
+        cnt += 1
+print(cnt)
+
+print(time.time() - start)
+
+
+from itertools import permutations
+
+R = []
+for p in permutations('ХАЧАНАБАДЖАТ'):
+    word = ''.join(p)
+    if word.count('ААААА') == 0:
+        R.append(word)
+print(len(set(R)))
+'''
+
+
+from itertools import *
+n = 0
+for p in permutations('01234567', 5):
+    num = ''.join(p)
+    if num[0] != '0' and num.count('1') == 0:
+        num = num.replace('3', '*').replace('5', '*').replace('7', '*')
+        num = num.replace('2', '+').replace('4', '+').replace('6', '+').replace('0', '+')
+        if '++' not in num and '**' not in num:
+            n += 1
+print(n)
+
+from itertools import product
+
+cnt = 0
+for p in product('01234567', repeat=5):
+    word = ''.join(p)
+    if word[0] != '0' and word.count('1') == 0:
+        if len(word) == len(set(word)):
+            for i in '0246':
+                word = word.replace(i, '0')
+            for i in '1357':
+                word = word.replace(i, '1')
+            if '00' not in word and '11' not in word:
+                cnt += 1
+print(cnt)
+
+
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 18119 (Уровень: Базовый)
-'''
-def convert(n, base):
-    r = ''
-    while n > 0:
-        r = str(n % base) + r
-        n //= base
-    return r
-
-
-R = []
-for N in range(1, 1000):
-    s = convert(N, 3)
-    if sum([int(x) for x in s]) % 2 == 0:
-        s = '1' + s + '2'
-    else:
-        s = '2' + s + '0'
-    r = int(s, 3)
-    if r > 100:
-        R.append(r)
-print(min(R))
-'''
-
-
-# https://education.yandex.ru/ege/task/08a16fb2-3773-4f00-8961-cfa21b2e65a9
-'''
-from itertools import *
-cnt = 0
-for p in product('ГИПЕРБОЛА', repeat=6):
-    word = ''.join(p)
-    if word[0] not in 'ИЕОА' and word[-1] not in 'ИЕОА':
-        for sogl in 'ГПРБЛ':
-            word = word.replace(sogl, '*')
-        for glas in 'ИЕОА':
-            word = word.replace(glas, '+')
-        if '*+*' not in word:
-            cnt += 1
-print(cnt)
-
-
-from itertools import product
-
-cnt = 0
-for p in product('ГИПЕРБОЛА', repeat=6):
-    word = ''.join(p)
-    for i in 'ИЕО':
-        word = word.replace(i, 'А')
-    for i in 'ГПРЛ':
-        word = word.replace(i, 'Б')
-    if word[0] != 'А' and word[-1] != 'А':
-        if 'БАБ' not in word:
-            cnt += 1
-print(cnt)
-'''
-
-'''
-from itertools import permutations
-
-cnt = 0
-for p in permutations('АРТЁМ'):
-    word = ''.join(p)
-    print(word)
-    if ((word[0] in 'АЁ') + (word[-1] in 'АЁ')) < 2:
-        cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/310d22e7-bde6-4f5c-99ff-3d2861ebf37a
-'''
-from itertools import product
-cnt = 0
-s1 = '13579B'
-s2 = '02468AC'
-for p in product(s1, s2, s1, s2, s1, s2, s1):
-    num = ''.join(p)
-    if num.count('5') >= 2:
-        cnt += 1
-for p in product(s2, s1, s2, s1, s2, s1, s2):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('5') >= 2:
-            cnt += 1
-print(cnt)
-'''
-
-# Задание 8 https://education.yandex.ru/ege/task/be9de2da-7a85-4442-8890-8e6e45842260
-'''
-from itertools import product
-
-cnt = 0
-for p in product(sorted('ОМГД'), repeat=4):
-    word = ''.join(p)
-    cnt += 1
-    print(cnt, word)
-    if cnt == 10:
-        break
-'''
 
 # endregion Урок: *************************************************************
 # #

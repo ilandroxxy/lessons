@@ -1,15 +1,36 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038703/step/14?unit=1062210
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-for x in alphabet[:8]:
-    for y in alphabet[:8]:
-        A = int(f'{y}04{x}5', 11)
-        B = int(f'253{x}{y}', 8)
-        if (A + B) % 117 == 0:
-            print((A + B) // 117)
+# https://stepik.org/lesson/1038667/step/8?unit=1062772
+'''
+M = []
+from itertools import *
+
+for p in permutations('СОТОЧКА'):
+    num = ''.join(p)
+    if ('ОО' in num) or ('ОА' in num) or ('АО' in num):
+        M.append(num)
+print(len(set(M)))
+'''
+
+
+# https://stepik.org/lesson/1038667/step/15?unit=1062772
+'''
+from itertools import *
+s1 = '1357'
+s2 = '2468'
+cnt = 0
+for p in product(s1, s2, s1, s2, s1, s2, s1, s2, s1):
+    num = ''.join(p)
+    if all(num.count(x) <= 3 for x in num):
+        cnt += 1
+
+for p in product(s2, s1, s2, s1, s2, s1, s2, s1, s2):
+    num = ''.join(p)
+    if num[0] != '0':
+        if all(num.count(x) <= 3 for x in num):
+            cnt += 1
+print(cnt)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -17,145 +38,78 @@ for x in alphabet[:8]:
 # #
 # region Урок: ********************************************************************
 
-# Задание 8 https://education.yandex.ru/ege/task/4c1caa2c-ea34-496e-a870-8cc9f92b2583
 '''
-# Вариант 1
+# Адрес сети = Узел сети & Маска сети
+# & - это побитовая конъюнкция
 
-s = sorted('ГОНДУБШ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        word = a + b + c + d + e + f
-                        n += 1
-                        if n % 2 != 0:
-                            if word[0] != 'Б':
-                                if word.count('Н') >= 2:
-                                    if 'У' not in word:
-                                        print(n, word)
+# Любой айпишник это 4 числа на каждое из которых выделяется по 1 байту = 8 бит
 
+print(192 & 255, 168 & 255, 0 & 192, 0 & 0)
+# Адрес сети: 192 168 0 0
 
-# Вариант 2
+# 255_10 -> 11111111_2
 
-from itertools import *
-n = 0
-for p in product(sorted('ГОНДУБШ'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0:
-        if word[0] != 'Б':
-            if word.count('Н') >= 2:
-                if 'У' not in word:
-                    print(n, word)
+# Маска сети: 255.255.192.0 всегда имеет длину 32 бита
+# И вид 111111...00000
 
-# Вариант 3
-
-from itertools import *
-
-for n, p in enumerate(product(sorted('ГОНДУБШ'), repeat=6), 1):
-    word = ''.join(p)
-    if n % 2 != 0:
-        if word[0] != 'Б':
-            if word.count('Н') >= 2:
-                if 'У' not in word:
-                    print(n, word)
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.192.0'.split('.')]))
+# 11111111.11111111.11000000.00000000
 '''
 
 
-# Задание 8 https://education.yandex.ru/ege/task/60c1a00c-2fd4-472e-b4aa-50791d6bddb8
+# Задание 13 https://education.yandex.ru/ege/task/2f051464-92d4-4df3-a837-b8939edd9174
+
+# Сеть задана IP-адресом 192.168.0.0 и маской сети 255.255.192.0.
+# Сколько в этой сети IP-адресов, в двоичной записи которых единиц больше, чем нулей?
 '''
-from itertools import *
+from ipaddress import *
+net = ip_network('192.168.0.0/255.255.192.0', 0)
+print(net)  # 192.168.0.0/18, где 18 - это кол-во единиц в маске сети
+
 cnt = 0
-for p in permutations('КАБИНЕТ'):
-    word = ''.join(p)
-    if word[-1] not in 'АИЕ':
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') > s.count('0'):
         cnt += 1
 print(cnt)
 '''
 
-# https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
+# Задание 13 https://education.yandex.ru/ege/task/94693776-a73a-4e59-bebb-b7e6107fe688
 '''
-from itertools import *
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'111.81.93.127/{mask}', 0)
+    print(net, net.netmask)
+    # 111.81.80.0/20 255.255.4.0
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/6e7e8afe-2b32-46d8-9bf1-bf68113fff24
+'''
+from ipaddress import *
+net = ip_network('192.168.32.160/255.255.255.240', 0)
+
 cnt = 0
-for p in permutations('АРТЕМ'):
-    word = ''.join(p)
-    if not(word[-1] in 'АЕ' and word[0] in 'АЕ'):
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') > 21:
         cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/d73b5f1e-ee81-4928-94f5-ea2abff0a9a0
+# Задание 13 https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
+# Два узла, находящиеся в разных подсетях, имеют IP-адреса 151.172.115.121 и 151.172.115.156.
+# В масках обеих подсетей одинаковое количество единиц.
+# Укажите наименьшее возможное количество единиц в масках этих подсетей.
 '''
-from itertools import *
-cnt = 0
-for p in permutations('01234567', 4):
-    num = ''.join(p)
-    if num[0] != '0' and num[0] == '3' and num[-1] == '0':
-        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
-        if '22' not in num:
-            cnt += 1
-print(cnt)
-'''
-
-# https://education.yandex.ru/ege/task/78b6e053-eaf4-40bc-a7d1-53fad9f7eee4
-'''
-from itertools import *
-
-for n, p in enumerate(product(sorted('БАТЫР'), repeat=5), 1):
-    word = ''.join(p)
-    if 'Ы' not in word:
-        if 'АА' not in word:
-            print(n)
-            exit()
-'''
-'''
-from itertools import *
-
-cnt = 0
-for p in product('012345', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0' and num.count('2') == 1:
-        num = num.replace('1', '*').replace('3', '*').replace('5', '*')
-        if '2*' not in num and '*2' not in num:
-            cnt += 1
-print(cnt)
-'''
-
-from itertools import permutations
-
-table = '15 16 23 27 28 32 36 46 48 51 57 61 63 64 72 75 78 82 84 87'
-graph = 'AC CA AB BA CB BC BE EB ED DE DF FD FC CF DH HD HG GH GA AG'
-
-print('1 2 3 4 5 6 7 9')
-for per in permutations('ABCDEFGH'):
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split()) == set(graph.split()):
-
-        print(*per)
-
-# 1 2 3 4 5 6 7 9
-# H B E F G D A C
-# H C F E G D A B
-
-# Ответ: 18 + 43 = 61
-
-
-# https://education.yandex.ru/ege/task/65351d01-6be4-467f-8c36-6d951bf990bb
-'''
-from itertools import *
-
-cnt = 0
-for p in product('ДРАКОН',repeat=8):
-    num = ''.join(p)
-    if num.count('А') == 1 and num.count('О') == 1:
-        cnt += 1
-print(cnt)
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'151.172.115.121/{mask}', 0)
+    net2 = ip_network(f'151.172.115.156/{mask}', 0)
+    if net1 != net2:
+        print(mask)
+        break
 '''
 # endregion Урок: *************************************************************
 # #
@@ -166,6 +120,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:
