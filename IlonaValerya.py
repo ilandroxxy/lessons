@@ -1,89 +1,101 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038703/step/3?unit=1062210
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+R = []
+for x in alphabet[:15]:
+    A = int(f'1{x}51', 15)
+    B = int(f'3{x}2', 15)
+    if (A - B) % 4 == 0:
+        R.append((A - B) // 4)
+print(max(R))
+'''
+
+
+# https://stepik.org/lesson/1038703/step/2?unit=1062210
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s = s + alphabet[n % b]
+        n = n // b
+    return s[::-1]
+
+
+n = 11 * 15 ** 65 + 18 * 15 ** 38 - 14 * 15 ** 17 + 19 * 15 ** 11 + 18338
+f = convert(n, 15)
+print(len(set(f)))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# Задание 14 https://education.yandex.ru/ege/task/39bb599c-c811-49fe-84b7-be8dd035d167
+# Задание 12 https://education.yandex.ru/ege/task/6f2a579b-2ab5-401c-a218-11748d1fba61
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = s + alphabet[n % b]
-        n = n // b
-    return s[::-1]
-
-
-n = 5**23 + 25**12
-print(convert(n, 5).count('0'))
-'''
-# Ответ: 23
-
-
-# Задание 14 https://education.yandex.ru/ege/task/18a7009f-9d5c-467d-88c4-102e7ed5aca4
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = s + alphabet[n % b]
-        n = n // b
-    return s[::-1]
-
-
-n = 2*729**75 + 2*243**78 + 81**81 + 2*27**84 + 2*9**87 + 58
-s = convert(n, 27)
-print(s.count('0'))
+s = '5' * 30
+cnt = 0
+while '5' in s:
+    cnt += 1
+    if '555' in s:
+        s = s.replace('555', '22', 1)
+    else:
+        s = s.replace('2222', '5', 1)
+print(cnt)
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/35d1a21d-f415-4666-830a-8028485771a4
+# Задание 12  https://education.yandex.ru/ege/task/50a1b75e-3829-4e52-96bc-44d8e024790e
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = s + alphabet[n % b]
-        n = n // b
-    return s[::-1]
-
-
-for x in range(2042+1):
-    n = 25**61 + 5**178 - x
-    s = convert(n, 5)
-    if s.count('0') == 60:
-        print(x)
+s = '3' * 70
+while '333' in s or '77777' in s:
+    if '333' in s:
+        s = s.replace('333', '77', 1)
+    else:
+        s = s.replace('77777', '7', 1)
+print(s)
+print(s.count('7'))
+print(sum(map(int, s)))
 '''
 
+# Задание 12 https://education.yandex.ru/ege/task/484d68ed-2e90-4596-a371-e6e4b49c443c
+'''
+for n in range(4, 10000):
+    s = '9' + '6' * n
 
-# Задание 14 https://education.yandex.ru/ege/task/258db83f-773f-43a0-88da-89f8e3c2ab70
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-for x in alphabet[:18]:
-    A = int(f'77968{x}11', 18)
-    B = int(f'4{x}213', 18)
-    if (A + B) % 7 == 0:
-        print((A + B) // 7)
+    while '666' in s or '9909' in s or '66' in s:
+        s = s.replace('666', '999', 1)
+        s = s.replace('9909', '6', 1)
+        s = s.replace('66', '0', 1)
+    if len(s) == 10:
+        print(n)
+'''
 
 
-# https://inf-ege.sdamgia.ru/problem?id=48386
+# Задание 12 https://education.yandex.ru/ege/task/b9cf27b5-87ab-4fc0-84df-719c5cd24629
+'''
+for n in range(4, 10000):
+    s = '5' + '2' * n
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    while '72' in s or '522' in s or '2222' in s:
+        if '72' in s:
+            s = s.replace('72', '2', 1)
+        if '522' in s:
+            s = s.replace('522', '27', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+    summa = sum(map(int, s))
+    if summa == 22:
+        print(n)
+        break
+'''
 
-for x in alphabet[:15]:
-    for y in alphabet[:15]:
-        A = int(f'90{x}4{y}', 15)
-        B = int(f'91{x}{y}2', 16)
-        if (A + B) % 56 == 0:
-            print((A + B) // 56)
+
+
 
 # endregion Урок: *************************************************************
 # #
@@ -94,6 +106,6 @@ for x in alphabet[:15]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 14]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

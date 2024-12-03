@@ -6,126 +6,141 @@
 # #
 # region Урок: ********************************************************************
 
-# https://inf-ege.sdamgia.ru/problem?id=7761
 '''
-print(bin(4**2020 + 2**2017 - 15)[2:].count('1'))
-'''
+# Адрес сети = Узел сети & Маска сети
+# & - операции побитовой конъюнкции
+print(12 & 6)
+print(192 & 255, 168 & 255, 32 & 255, 160 & 240)
+# 192.168.32.160 -> 11111111_2 = 255_10
 
+# Маска сети имеет длину 32 бита
+# И вид: 111111...00000
+# 11111111.11111111.11111111.11110000
 
-# https://inf-ege.sdamgia.ru/problem?id=27411
-'''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += str(n % b)
-        n //= b
-    return s[::-1]
+print('255.255.255.240'.split('.'))  # ['255', '255', '255', '240']
+print([int(x) for x in '255.255.255.240'.split('.')])  # [255, 255, 255, 240]
+print([bin(int(x))[2:] for x in '255.255.255.240'.split('.')])  # ['11111111', '11111111', '11111111', '11110000']
+print([bin(int(x))[2:].zfill(8) for x in '255.255.255.240'.split('.')])  # ['11111111', '11111111', '11111111', '11110000']
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.255.240'.split('.')]))  # 11111111.11111111.11111111.11110000
 
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = str(n % b) + s
-        n //= b
-    return s
-
-
-n = 49**7 + 7**21 - 7
-print(convert(n, 7).count('6'))
+# 00000000, 10000000, 11000000, 11100000, 11110000, 11111000
 '''
 
 
-# № 15327 Досрочная волна 2024 (Уровень: Базовый)
+# Задание 13 https://education.yandex.ru/ege/task/6e7e8afe-2b32-46d8-9bf1-bf68113fff24
 '''
-12
+from ipaddress import *
+net = ip_network('192.168.32.160/255.255.255.240', 0)
+# net = ip_network(f'192.168.32.160/{28}', 0)
+# print(net)  # 192.168.32.160/28, где 28 - кол-во единиц в маске сети
+cnt = 0
+for ip in net:
+    print(bin(ip))
+    s = f'{ip:b}'
 
-
-n = 3*2187**2020 + 3*729**2021 - 2*81**2022 + 27**2023 - 4*3**2024 - 2029
-print(len([x for x in convert(n, 27) if x > '9']))
-'''
-
-
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = alphabet[n % b] + s
-        n //= b
-    return s
-
-
-for x in range(2030+1):
-    n = 7**91 + 7**160 - x
-    s = convert(n, 7)
-    if s.count('0') == 70:
-        print(x)
+    if s.count('0') > 21:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 15328 Досрочная волна 2024 (Уровень: Базовый)
+# Задание 13 https://education.yandex.ru/ege/task/ce5ea1f6-1968-47a7-b60c-f0136a22c612
+# Сеть задана IP-адресом 171.128.0.0 и маской сети 255.128.0.0.
+# Сколько в этой сети IP-адресов, для которых в двоичной записи IP-адреса
+# суммарное количество единиц в левых двух байтах
+# меньше суммарного количества единиц в правых двух байтах?
 '''
-from string import *
-alphabet = digits + ascii_uppercase
-
-for x in alphabet[:27]:
-    A = int(f'123{x}24', 27)
-    B = int(f'135{x}78', 27)
-    if (A + B) % 26 == 0:
-        print((A + B) // 26)
-'''
-
-
-# https://inf-ege.sdamgia.ru/problem?id=48387
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-
-for x in alphabet[:11]:
-    for y in alphabet[:11]:
-        A = int(f'{x}341{y}', 11)
-        B = int(f'56{x}1{y}', 19)
-        if (A + B) % 305 == 0:
-            print((A + B) // 305)
-'''
-
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-
-for p in range(10, 36+1):
-    for x in alphabet[:p]:
-        for y in alphabet[:p]:
-            if int(f'24{x}9', p) + int(f'{y}{x}{y}3', p) == int(f'{x}4{y}0', p):
-                print(int(x+y+y, p))
+from ipaddress import *
+net = ip_network(f'171.128.0.0/255.128.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s[:16].count('1') < s[16:].count('1'):
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 13910 (Уровень: Базовый)
+# Задание 13 https://education.yandex.ru/ege/task/3f319a67-ed81-47b3-acb0-6d3f7cacce6a
+
+# Для узла с IP-адресом 117.73.208.27 адрес сети равен 117.73.192.0.
+# Каково наименьшее возможное количество нулей в разрядах маски?
 '''
-from string import *
-alphabet = digits + ascii_uppercase
-
-for i, x in enumerate(alphabet, 0):
-    print(i, x)
-    # 17 H
-    # 21 L
-    # 26 Q
-    # 29 T
-    # 30 U
-
-print(alphabet.find('U'))  # 30
-
-# for p in range(30+1, 36+1):
-for p in range(alphabet.find('U')+1, 36+1):
-    if int('TH', p) + int('NQ', p) + int('U', p) == int('1L7', p):
-        print(p)
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'117.73.208.27/{mask}', 0)
+    print(net, 32 - mask)
+    # 117.73.192.0/18 14
+    # 117.73.192.0/19 13
 '''
-# Ответ: 33
+'''
+from ipaddress import *
+M = []
+for mask in range(32+1):
+    net = ip_network(f'117.73.208.27/{mask}', 0)
+    if '117.73.192.0' in str(net):
+        # print(net, mask, 32 - mask)
+        M.append(32 - mask)
+print(min(M))
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/b6ff76ad-5608-4e7d-833d-dced5a6e2479
+'''
+from ipaddress import *
+for mask in range(1, 32+1):
+    net = ip_network(f'111.81.27.208/{mask}', 0)
+    if '111.81.27.192' in str(net):
+        print(net, net.netmask)
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/b041f771-33cf-443f-8146-9da77eb22abd
+
+# Известны два IP-адреса компьютеров, которые находятся в разных сетях:
+# 10.227.3.113, 10.235.127.7.
+# В масках обеих подсетей одинаковое количество единиц.
+# Укажите наименьшее возможное количество единиц в маске любой из этих подсетей.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'10.227.3.113/{mask}', 0)
+    net2 = ip_network(f'10.235.127.7/{mask}', 0)
+    if net2 != net1:
+        print(mask)
+        break
+'''
+
+
+# Задание 13 https://education.yandex.ru/ege/task/ebfa2513-eaf3-49f7-9bb1-828c96fba52c
+
+# Адрес сети равен 183.192.A.0, где А —
+# некоторое допустимое для записи адреса сети число, а маска сети 255.255.252.0.
+'''
+from ipaddress import *
+for A in range(255+1):
+    net = ip_network(f'183.192.{A}.0/255.255.252.0', 0)
+    if all(f'{ip:b}'[16:].count('1') > 3 for ip in net):
+        print(A)
+        break
+'''
+
+# Сеть, в которой содержится узел с IP-адресом 246.51.128.202, задана маской сети 255.255.A.0,
+# где A - некоторое допустимое для записи маски число. Определите минимальное значение
+# A, для которого для всех IP-адресов этой сети в двоичной записи IP-адреса
+# суммарное количество нулей
+# в левых двух байтах не более суммарного количества нулей в правых двух байтах.
+
+'''
+from ipaddress import *
+for A in [0, 128, 192, 224, 240, 248, 252, 254, 255]:
+    net = ip_network(f'246.51.128.202/255.255.{A}.0', 0)
+    if all(f'{ip:b}'[:16].count('0') <= f'{ip:b}'[16:].count('0') for ip in net):
+        print(A)
+        break
+'''
+# print([int(x, 2) for x in ['00000000', '10000000', '11000000', '11100000', '11110000', '11111000', '11111100', '11111110', '11111111']])
+# [0, 128, 192, 224, 240, 248, 252, 254, 255]
 
 # endregion Урок: *************************************************************
 # #
@@ -136,6 +151,6 @@ for p in range(alphabet.find('U')+1, 36+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 12, 14]
+# ФИПИ = [5, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:

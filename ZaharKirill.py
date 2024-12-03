@@ -1,48 +1,59 @@
 # region Домашка: ******************************************************************
 
-
-# n = int(input())
-# numbers = [int(input()) for _ in range(n)]
-# print(numbers)
-
-# Вычисли всё! https://stepik.org/lesson/1309452/step/12?unit=1324568
+# № 5667 (Уровень: Базовый)
 '''
-from math import prod
-n = int(input())  # 125 -> [1, 2, 5]
-numbers = [int(x) for x in str(n)]
-print(numbers.count(2))
-print(numbers.count(numbers[-1]))
-nechet = [x for x in numbers if x % 2 != 0]
-print(len(nechet))
-numbers7 = [x for x in numbers if x > 7]
-print(sum(numbers7))
-if len(numbers7) == 0:
-    print(11)
-elif len(numbers7) == 1:
-    print(numbers[0])
-else:
-    # total = 1
-    # for x in numbers7:
-    #     total *= x
-    # print(total)
-    print(prod(numbers7))
-print(numbers.count(0) + numbers.count(4))
+for n in range(1, 100):
+    s = '3' * 15 + '2' * 18 + '1' * n
+
+    while '31' in s or '33' in s or '21' in s:
+        if '31' in s:
+            s = s.replace('31', '123', 1)
+        if '33' in s:
+            s = s.replace('33', '211', 1)
+        if '21' in s:
+            s = s.replace('21', '1', 1)
+
+    summa = sum(map(int, s))
+
+    summa = 0
+    for x in s:   # s = '1321'
+        summa += int(x)
+
+    summa = sum([int(x) for x in s])
+
+
+    if summa > 24:
+        print(n)
+        break
 '''
 
 
-# Уникальные элементы списка
-# https://stepik.org/lesson/1309452/step/13?unit=1324568
+# № 6786 (Уровень: Средний)
 '''
-n = int(input())
-numbers = [int(input()) for _ in range(n)]
+def is_prime(n):  # n - 12
+    if n <= 1:
+        return False
+    for j in range(2, n):
+        if n % j == 0:
+            return False
+    return True
 
-cnt = 0
-for elem in numbers:
-    if numbers.count(elem) == 1:
-        print(elem)
-        cnt += 1
-if cnt == 0:
-    print("Уникальных элементов нет")
+
+for n in range(1, 100):
+    s = '>' + '0' * 39 + '1' * n + '2' * 39
+
+    while '>1' in s or '>2' in s or '>0' in s:
+        if '>1' in s:
+            s = s.replace('>1', '22>', 1)
+        if '>2' in s:
+            s = s.replace('>2', '2>', 1)
+        if '>0' in s:
+            s = s.replace('>0', '1>', 1)
+    # summa = sum(map(int, s))
+    summa = sum([int(x) for x in s if x.isdigit()])
+    if is_prime(summa):
+        print(n)
+        break
 '''
 
 # endregion Домашка: ******************************************************************
@@ -50,77 +61,75 @@ if cnt == 0:
 # #
 # region Урок: ********************************************************************
 
+# Задание 5 https://education.yandex.ru/ege/task/46daeb92-f360-4dd2-aaaf-173ef18d4da0
 '''
-s = '312534214312321312'
-s = s.replace('2', '*')  # Сразу все '2' заменяем на '*'
-# 31*534*1431*3*131*
-s = s.replace('*', '2', 3)  # Заменили только первые три '*' на '2'
-# 3125342143123*131*
-'''
-
-# Задание 12 https://education.yandex.ru/ege/task/50a1b75e-3829-4e52-96bc-44d8e024790e
-'''
-s = '3' * 70
-while '333' in s or '77777' in s:  # ПОКА нашлось(333) или нашлось(77777)
-    if '333' in s:  # ЕСЛИ нашлось(333)
-        s = s.replace('333', '77', 1)  # ТО заменить(333,77)
+M = []
+for n in range(1, 10000):
+    s = bin(n)[2:]  # s = f'{n:b}'
+    if s.count('1') % 2 == 0:
+        s = '11' + s
     else:
-        s = s.replace('77777', '7', 1)  # ИНАЧЕ заменить(77777,7)
-print(s)
-print(sum([int(x) for x in s]))
+        s = s + '00'
+    r = int(s, 2)
+    if r > 116:
+        M.append(n)
+print(min(M))
 '''
 
 
-# Задание 12 https://education.yandex.ru/ege/task/a59f3bdb-ccef-4a7f-b2d8-1bf3b3982a40
+# Задание 5 https://education.yandex.ru/ege/task/aee298d7-cf16-40a1-8b47-b0d531e27555
 '''
-s = '>' + '1' * 26 + '3' * 14 + '2' * 10
-while '>1' in s or '>2' in s or '>3' in s:
-    if '>1' in s:
-        s = s.replace('>1', '22>', 1)
-    if '>2' in s:
-        s = s.replace('>2', '2>', 1)
-    if '>3' in s:
-        s = s.replace('>3', '1>', 1)
-print(s)
-print(sum([int(x) for x in s if x.isdigit()]))
-# ValueError: invalid literal for int() with base 10: '>'
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
+
+
+
+M = []
+for n in range(1, 1000):
+    s = convert(n, 2)  # s = bin(n)[2:]
+    s = s.replace('0', '*')
+    s = s.replace('1', '0')
+    s = s.replace('*', '1')
+    s = s + str(s.count('1') % 2)
+    r = int(s, 2)
+    if r < 170:
+        M.append(r)
+print(max(M))
 '''
 
-# Задание 12 https://education.yandex.ru/ege/task/507ce5ed-774b-4364-bc31-ce0381aab30c
+
+# Задание 5 https://education.yandex.ru/ege/task/0f0be116-5c24-4561-8675-493fe3c6ba53
 '''
-for n in range(4, 100):
-    s = '2' + '5' * n
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-    while '25' in s or '355' in s or '555' in s:
-        if '25' in s:
-            s = s.replace('25', '32', 1)
-        if '355' in s:
-            s = s.replace('355', '25', 1)
-        if '555' in s:
-            s = s.replace('555', '3', 1)
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
 
-    summa = sum([int(x) for x in s])
-    # if summa**0.5 == int(summa**0.5):
-    if (summa**0.5).is_integer():
+
+
+M = []
+for n in range(1, 1000):
+    s = convert(n, 5)  # s = bin(n)[2:]
+    if n % 25 == 0:
+        s = s[-3:] + s
+    else:
+        x = (n % 25)
+        s = s + convert(x, 5)
+    r = int(s, 5)
+    if r > 10000:
         print(n)
         break
 '''
 
 
-# Задание 12 https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
-'''
-for x in range(50):
-    for y in range(50):
-        for z in range(50):
-            s = '0' + '1' * x + '2' * y + '3' * z
-
-            while '01' in s or '02' in s or '03' in s:
-                s = s.replace('01', '30', 1)
-                s = s.replace('02', '3103', 1)
-                s = s.replace('03', '1201', 1)
-            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
-                print(z)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -130,6 +139,6 @@ for x in range(50):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 12]
+# ФИПИ = [2, 6, 5, 12]
 # КЕГЭ  = []
 # на следующем уроке:
