@@ -1,101 +1,77 @@
 # region Домашка: ******************************************************************
 
 
-# № 6985 (Уровень: Средний)
-# https://stepik.org/lesson/1038667/step/4?unit=1062772
-'''
-from itertools import *
-last = 0
-n = 0
-for p in product(sorted('МАРКСЛ'), repeat=6):
-    w = ''.join(p)
-    n += 1
-    if 'СК' not in w and 'КС' not in w:
-        copied3 = [x for x in w if w.count(x) == 3]
-        not_copied = [x for x in w if w.count(x) == 1]
-
-        if len(copied3) == 3 and len(not_copied) == 3:
-            last = n
-print(last)
-'''
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Задание 25 https://education.yandex.ru/ege/task/4c423ac1-ef41-4eba-b73c-f8f714df7cd5
 '''
-# IP-адрес узла: 224.37.249.37
-# Маска: 255.255.240.0
-
-# Адрес сети = IP-адрес узла & Маска сети
-# где & - это операция побитовой конъюнкции
-
-knot = '.'.join([bin(int(x))[2:].zfill(8) for x in '224.37.249.37'.split('.')])
-mask = '.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.240.0'.split('.')])
-print(knot)  # 11100000.00100101.11111001.00100101
-print(mask)  # 11111111.11111111.11110000.00000000
-# net    =     11100000.00100101.11110000.00000000
-
-print(224 & 255, 37 & 255, 249 & 240, 37 & 0)  # 224 37 240 0
-'''
-
-# Тип 13 №6816
-# IP-адрес узла: 224.37.249.37
-# Маска: 255.255.240.0
-'''
-from ipaddress import *
-net = ip_network('224.37.249.37/255.255.240.0', 0)
-print(net)  # 224.37.240.0/20 -> 11111111.11111111.11110000.00000000.count('1') == 20
+from fnmatch import *
+for x in range(96437, 10**10, 96437):
+    if fnmatch(str(x), '7?2*4??9?'):
+        print(x, x // 96437)
 '''
 
 
-# Тип 13 №10475
-# Для узла с IP-адресом 119.167.50.77 адрес сети равен 119.167.48.0.
-# Чему равно наименьшее возможное значение
-# третьего слева байта маски? Ответ запишите в виде десятичного числа.
+import time
+start = time.time()
+
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'119.167.50.77/{mask}', 0)
-    print(net, net.netmask)
-    # 119.167.48.0/20 255.255.240.0
-    # 119.167.48.0/21 255.255.248.0
-    # 119.167.48.0/22 255.255.252.0
+def divisors(x):  
+    div = []
+    for j in range(1, x+1):
+        if x % j == 0:
+            div.append(j)
+    return div
 '''
-# Ответ: 240
+
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
 
-# Тип 13 №18081
-# Узлы с IP-адресами 140.37.235.224 и 140.37.235.192 находятся в одной сети.
-# Определите последний байт маски сети.
-# Количество возможных единиц в маске этой сети должно быть наибольшим.
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 2.9304 -> 0.00036
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'140.37.235.224/{mask}', 0)
-    net2 = ip_network(f'140.37.235.192/{mask}', 0)
-    if net1 == net2:
-        print(mask, net1.netmask)
+
+# https://education.yandex.ru/ege/task/26295a68-9546-4dd9-87ca-c8f32bd7a755
 '''
-# Ответ: 192
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
 
-# № 17867 Демоверсия 2025 (Уровень: Базовый)
-# Сеть задана IP-адресом 172.16.168.0 и маской сети 255.255.248.0.
-# Сколько в этой сети IP-адресов, для которых количество единиц
-# в двоичной записи IP-адреса не кратно 5?
+for x in range(114578, 114616+1):
+    d = [j for j in divisors(x) if j % 10 == 8]
+    R = sum(d)
+    if R % 10 == 6:
+        print(x, R)
 '''
-from ipaddress import *
-net = ip_network('172.16.168.0/255.255.248.0', 0)
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 5 != 0:
-        cnt += 1
-print(cnt)
-'''
+
+
+# https://education.yandex.ru/ege/task/e63ff042-e377-4101-96a1-4cc4d5ba7be0
+
+
+from fnmatch import  *
+for x in range(53191, 10**10, 53191):
+    if fnmatch(str(x), '?136*'):
+        if str(x)[0] in '02468':
+            if str(x)[-1] in '13579':
+                print(x, x // 53191)
 
 # endregion Урок: *************************************************************
 # #
@@ -106,6 +82,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:
