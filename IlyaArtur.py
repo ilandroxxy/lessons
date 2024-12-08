@@ -1,224 +1,120 @@
 # region Домашка: ******************************************************************
 
-# № 6903 (Уровень: Базовый)
-'''
-M = []
-for i in range(1, 100):
-    s = bin(i)[2:]
-
-    for _ in range(2):
-        if s.count('1') % 2 == 0:
-            s = "11" + s[2:] + '00'
-        else:
-            s = '10' + s[2:] + '11'
-
-    r = int(s, 2)
-    M.append(r)
-print(max(M))
-'''
-
-
-#  6779 (Уровень: Базовый)
-# https://stepik.org/lesson/1038432/step/3?unit=1060804
-'''
-M = []
-for i in range(1, 1000):
-    t = bin(i)[2:]
-    if t.count('1') % 2 == 0:
-        t = '101' + t[3:] + '0'
-    else:
-        t = '10' + t[2:] + '11'
-    r = int(t, 2)
-    if r > 68:
-        M.append(i)
-print(min(M))
-'''
-
-
-# № 6588 Пробник ИМЦ СПб (Уровень: Средний)
-'''
-M = []
-for i in range(1, 100):
-    s = bin(i)[2:]
-    s = s.replace('1', '`')
-    s = s.replace('0', '1')
-    s = s.replace('`', '0')
-    s = '1' + s
-    if s.count('1') % 2 == 0:
-        s += '0'
-    else:
-        s += '1'
-    r = int(s, 2)
-    if r > 180:
-        M.append(i)
-print(min(M))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# Задание 14 https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
+# № 18137 (Уровень: Средний)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-n = 625**90 + 125 ** 120 - 5*25
-s = convert(n, 25)
-summa = 0
-for x in s:
-    if alphabet.index(x) % 2 == 0:
-        summa += alphabet.index(x)
-print(summa)
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-n = 125**10
-s = convert(n, 5)
-print(s.count('0'))
+s = '1' * 81
+while '111' in s or '88' in s:  # ПОКА нашлось (111) ИЛИ нашлось (88)
+    if '88' in s:  # ЕСЛИ нашлось (88)
+        s = s.replace('88', '1111', 1)  # ТО заменить (88, 1111)
+    else:  # ИНАЧЕ
+        s = s.replace('111', '8', 1)  # заменить (111, 8)
+print(s)  # 811
+print(s.count('1'))  # 2
+print(len(set(s)))  # 2
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/a8903831-c37e-4e0a-8633-b69e0bd7a182
+# Задание 12 https://education.yandex.ru/ege/task/ca477eb1-a007-4507-af8f-2b8563ac91c6
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for m in range(1, 1000):
+    s = '4' + '6' * m
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-n = 5*7776**7 + 4*1296**6 + 3*216 - 7776
-s = convert(n, 36)
-print(s.count('I') + s.count('U') + s.count('Z'))
-print(len([x for x in s if x in 'IUZ']))
+    while '46' in s or '666' in s:
+        if '46' in s:
+            s = s.replace('46', '5', 1)
+        if '666' in s:
+            s = s.replace('666', '4', 1)
+    summa = sum([int(x) for x in s if x.isdigit()])
+    if summa > 1000:
+        print(m)
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/730369b5-bb1f-4ec1-a50e-7a44f0b0ae09
+# https://education.yandex.ru/ege/task/e693216f-9b91-4bec-9ae0-b023f62d2eda
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+s = '2' * 400
+while '8888' in s or '222' in s:
+    if '222' in s:
+        s = s.replace('222', '88', 1)
+    else:
+        s = s.replace('8888', '22', 1)
+print(s)
+'''
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
 
+# https://education.yandex.ru/ege/task/507ce5ed-774b-4364-bc31-ce0381aab30c
+'''
+for n in range(4, 1000):
+    s = '2' + '5' * n
 
-for x in range(1, 1000):
-    n = 27**7 - 3**11 + 36 - x
-    s = convert(n, 3)
-    # summa = s.count('1') + s.count('2') * 2
-    # summa = sum([int(x) for x in s])
-    summa = sum(map(int, s))
-    if summa == 22:
-        print(x)
+    while '25' in s or '355' in s or '555' in s:
+        if '25' in s:
+            s = s.replace('25', '32', 1)
+        if '355' in s:
+            s = s.replace('355', '25', 1)
+        if '555' in s:
+            s = s.replace('555', '3', 1)
+    summa = sum([int(x) for x in s])
+    # if summa ** 0.5 == int(summa ** 0.5):
+    if (summa ** 0.5).is_integer():  # Проверка на полные квадраты
+        print(n)
         break
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/35d1a21d-f415-4666-830a-8028485771a4
+# https://education.yandex.ru/ege/task/cb3913cb-3918-414d-9797-ad7cd3242e6e
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z + '0'
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-for x in range(2042+1):
-    n = 25**61 + 5**178 - x
-    s = convert(n, 5)
-    if s.count('0') == 60:
-        print(x)
+            while '00' not in s:
+                s = s.replace('01', '220', 1)
+                s = s.replace('02', '1013', 1)
+                s = s.replace('03', '120', 1)
+            if s.count('1') == 13 and s.count('2') == 18:
+                print(2 + x + y + z)
 '''
 
-
-# https://education.yandex.ru/ege/task/2269ff29-1320-4c26-b127-c149167e1c9a
+# https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:15]:
-    A = int(f'9897{x}21', 15)
-    B = int(f'12{x}023', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z
+
+            while '01' in s or '02' in s or '03' in s:
+                s = s.replace('01', '30', 1)
+                s = s.replace('02', '3103', 1)
+                s = s.replace('03', '1201', 1)
+            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
+                print(z)
+'''
+
+
+for n in range(4, 1000):
+    s = '2' + '5' * n
+
+    while '25' in s or '355' in s or '555' in s:
+        if '25' in s:
+            s = s.replace('25', '32', 1)
+        if '355' in s:
+            s = s.replace('355', '25', 1)
+        if '555' in s:
+            s = s.replace('555', '3', 1)
+    summa = sum([int(x) for x in s])
+    # if summa ** 0.5 == int(summa ** 0.5):
+    if (summa ** 0.5).is_integer():  # Проверка на полные квадраты
+        print(n)
         break
-'''
 
-
-# https://inf-ege.sdamgia.ru/problem?id=48388
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:12]:
-    for y in alphabet[:12]:
-        A = int(f'{x}231{y}', 12)
-        B = int(f'78{x}98{y}', 14)
-        if (A + B) % 99 == 0:
-            print((A + B) // 99)
-            break
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-for x in range(2030+1):
-    n = 7**91 + 7**160 - x
-    s = convert(n, 7)
-    if s.count('0') == 70:
-        print(x)
-
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
-
-
-for x in range(2031):
-    n = 3**100 - x
-    s = convert(n, 3)
-    if s.count('0') == 5:
-        print(x)
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -228,6 +124,6 @@ for x in range(2031):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6]
+# ФИПИ = [2, 5, 6, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
