@@ -1,36 +1,29 @@
 # region Домашка: ******************************************************************
 
-
-# https://stepik.org/lesson/1038667/step/8?unit=1062772
+# https://stepik.org/lesson/1038700/step/10?unit=1062785
 '''
-M = []
-from itertools import *
+from ipaddress import *
 
-for p in permutations('СОТОЧКА'):
-    num = ''.join(p)
-    if ('ОО' in num) or ('ОА' in num) or ('АО' in num):
-        M.append(num)
-print(len(set(M)))
+a = []
+for mask in range(32 + 1):
+    net1 = ip_network(f'10.96.180.231/{mask}', 0)
+    net2 = ip_network(f'10.96.140.118/{mask}', 0)
+    if net1 != net2:
+        # print(net1, mask, 32 - mask, net1.netmask)
+        a.append(32 - mask)
+print(max(a))
 '''
 
 
-# https://stepik.org/lesson/1038667/step/15?unit=1062772
+# № 11780 (Уровень: Базовый)
+# https://stepik.org/lesson/1038700/step/15?unit=1062785
 '''
-from itertools import *
-s1 = '1357'
-s2 = '2468'
-cnt = 0
-for p in product(s1, s2, s1, s2, s1, s2, s1, s2, s1):
-    num = ''.join(p)
-    if all(num.count(x) <= 3 for x in num):
-        cnt += 1
-
-for p in product(s2, s1, s2, s1, s2, s1, s2, s1, s2):
-    num = ''.join(p)
-    if num[0] != '0':
-        if all(num.count(x) <= 3 for x in num):
-            cnt += 1
-print(cnt)
+from ipaddress import *
+maxi = 0
+net = ip_network('185.8.0.0/255.255.128.0', 0)
+for ip in net:
+    maxi = max(maxi, f'{ip:b}'.count('1'))
+print(maxi)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -39,78 +32,150 @@ print(cnt)
 # region Урок: ********************************************************************
 
 '''
-# Адрес сети = Узел сети & Маска сети
-# & - это побитовая конъюнкция
+import time
+start = time.time()
 
-# Любой айпишник это 4 числа на каждое из которых выделяется по 1 байту = 8 бит
+# def divisors(x):
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
 
-print(192 & 255, 168 & 255, 0 & 192, 0 & 0)
-# Адрес сети: 192 168 0 0
 
-# 255_10 -> 11111111_2
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+            # div.append(j)
+            # div.append(x // j)
+    return sorted(set(div))
 
-# Маска сети: 255.255.192.0 всегда имеет длину 32 бита
-# И вид 111111...00000
 
-print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.192.0'.split('.')]))
-# 11111111.11111111.11000000.00000000
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16] [1, 2, 4, 4, 8, 16]
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 2.9475 -> 0.00036
 '''
 
 
-# Задание 13 https://education.yandex.ru/ege/task/2f051464-92d4-4df3-a837-b8939edd9174
-
-# Сеть задана IP-адресом 192.168.0.0 и маской сети 255.255.192.0.
-# Сколько в этой сети IP-адресов, в двоичной записи которых единиц больше, чем нулей?
+# Задание 25 https://education.yandex.ru/ege/task/fd10b825-4786-452a-92b6-6c74774db1e0
 '''
-from ipaddress import *
-net = ip_network('192.168.0.0/255.255.192.0', 0)
-print(net)  # 192.168.0.0/18, где 18 - это кол-во единиц в маске сети
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+# for x in range(321_654, 654_321+1):
+#     d = divisors(x)
+#     d1 = [j for j in d if j % 2 == 1]
+#     if len(d) == len(d1):
+#         if len(d1) > 70:
+#             print(x, max(d1))
+
+for x in range(321_654, 654_321+1):
+    d = divisors(x)
+    if all(j % 2 == 1 for j in d):
+        if len(d) > 70:
+            print(x, max(d))
+'''
+
+
+# https://education.yandex.ru/ege/task/d02f4351-acc7-4b66-9ca1-83d0d1887db7
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+k = 0
+for x in range(700_000+1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
+    if len(d) > 0:
+        print(x, min(d))
+        k += 1
+        if k == 5:
+            break
+'''
+
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(177_000, 177_300+1):
+    if len(divisors(x)) == 0:
+        summa = sum([int(y) for y in str(x)])
+        if len(divisors(summa)) == 0:
+            print(x, summa)
+'''
+
+
+
+# https://education.yandex.ru/ege/task/18b1a9da-4ed4-4f31-a23b-e64b03d0760e
+'''
+from fnmatch import *
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(10**6):
+    d = [j for j in divisors(x) if fnmatch(str(j), '4*')]
+    if len(d) == 24:
+        print(x, max(d))
+'''
+
+
+# https://education.yandex.ru/ege/task/ab0df558-0d92-4a8c-99a2-eee07c7f83a5
+'''
+from fnmatch import *
+
+for x in range(1917, 10**10, 1917):
+    if fnmatch(str(x), '3?12?14*5'):
+        print(x, x // 1917)
+'''
+
+
+# https://education.yandex.ru/ege/task/85d22d9c-f966-494b-ae80-46b127f51ca3
+'''
+from fnmatch import *
+
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
 
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') > s.count('0'):
+for i in range(500_000+1, 10 ** 10):
+    k = sum(divisors(i))
+    if fnmatch(str(k), '*7?'):
+        print(i, k)
         cnt += 1
-print(cnt)
+        if cnt == 5:
+            break
 '''
 
-# Задание 13 https://education.yandex.ru/ege/task/94693776-a73a-4e59-bebb-b7e6107fe688
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'111.81.93.127/{mask}', 0)
-    print(net, net.netmask)
-    # 111.81.80.0/20 255.255.4.0
-'''
-
-
-# Задание 13 https://education.yandex.ru/ege/task/6e7e8afe-2b32-46d8-9bf1-bf68113fff24
-'''
-from ipaddress import *
-net = ip_network('192.168.32.160/255.255.255.240', 0)
-
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('0') > 21:
-        cnt += 1
-print(cnt)
-'''
-
-
-# Задание 13 https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
-# Два узла, находящиеся в разных подсетях, имеют IP-адреса 151.172.115.121 и 151.172.115.156.
-# В масках обеих подсетей одинаковое количество единиц.
-# Укажите наименьшее возможное количество единиц в масках этих подсетей.
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'151.172.115.121/{mask}', 0)
-    net2 = ip_network(f'151.172.115.156/{mask}', 0)
-    if net1 != net2:
-        print(mask)
-        break
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -120,6 +185,6 @@ for mask in range(32+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:
