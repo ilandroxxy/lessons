@@ -1,108 +1,49 @@
 # region Домашка: ******************************************************************
 
-# № 5667 (Уровень: Базовый)
+# № 5111 (Уровень: Базовый)
+# https://stepik.org/lesson/1038432/step/7?unit=1060804
 '''
-for n in range(1, 100):
-    s = '3' * 15 + '2' * 18 + '1' * n
+M = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    # if s.count('1') % 2 == 0:
+    if sum(map(int, s)) % 2 == 0:
+        s = '10' + s[2:] + '1'
+    else:
+        s = '1' + s[2:] + '11'
+    r = int(s, 2)
+    if r >= 100:
+        M.append(n)
 
-    while '31' in s or '33' in s or '21' in s:
-        if '31' in s:
-            s = s.replace('31', '123', 1)
-        if '33' in s:
-            s = s.replace('33', '211', 1)
-        if '21' in s:
-            s = s.replace('21', '1', 1)
+print(min(M))
+'''
+import multiprocessing
 
-    summa = sum(map(int, s))
+# № 7026 (Уровень: Базовый)
+# https://stepik.org/lesson/1038432/step/8?unit=1060804
+'''
+M = []
+for n in range(9, 1000):
+    s = bin(n)[2:]
+    if n % 2 == 0:
+        s = '1' + s + '00'
+    else:
+        s = s + bin(s.count('1'))[2:]
+    r = int(s, 2)
+    if r > 88:
+        M.append([r, n])
 
-    summa = 0
-    for x in s:   # s = '1321'
-        summa += int(x)
-
-    summa = sum([int(x) for x in s])
-
-
-    if summa > 24:
-        print(n)
-        break
+print(min(M)[1])  # [103, 25]
 '''
 
 
-# № 6786 (Уровень: Средний)
-'''
-def is_prime(n):  # n - 12
-    if n <= 1:
-        return False
-    for j in range(2, n):
-        if n % j == 0:
-            return False
-    return True
-
-
-for n in range(1, 100):
-    s = '>' + '0' * 39 + '1' * n + '2' * 39
-
-    while '>1' in s or '>2' in s or '>0' in s:
-        if '>1' in s:
-            s = s.replace('>1', '22>', 1)
-        if '>2' in s:
-            s = s.replace('>2', '2>', 1)
-        if '>0' in s:
-            s = s.replace('>0', '1>', 1)
-    # summa = sum(map(int, s))
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if is_prime(summa):
-        print(n)
-        break
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 5 https://education.yandex.ru/ege/task/46daeb92-f360-4dd2-aaaf-173ef18d4da0
-'''
-M = []
-for n in range(1, 10000):
-    s = bin(n)[2:]  # s = f'{n:b}'
-    if s.count('1') % 2 == 0:
-        s = '11' + s
-    else:
-        s = s + '00'
-    r = int(s, 2)
-    if r > 116:
-        M.append(n)
-print(min(M))
-'''
-
-
-# Задание 5 https://education.yandex.ru/ege/task/aee298d7-cf16-40a1-8b47-b0d531e27555
-'''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += str(n % b)
-        n //= b
-    return s[::-1]
-
-
-
-M = []
-for n in range(1, 1000):
-    s = convert(n, 2)  # s = bin(n)[2:]
-    s = s.replace('0', '*')
-    s = s.replace('1', '0')
-    s = s.replace('*', '1')
-    s = s + str(s.count('1') % 2)
-    r = int(s, 2)
-    if r < 170:
-        M.append(r)
-print(max(M))
-'''
-
-
-# Задание 5 https://education.yandex.ru/ege/task/0f0be116-5c24-4561-8675-493fe3c6ba53
+# Задание 14 https://education.yandex.ru/ege/task/12b3aabc-7777-4808-b29a-29993b289cca
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
@@ -114,21 +55,121 @@ def convert(n, b):
     return s[::-1]
 
 
-
-M = []
-for n in range(1, 1000):
-    s = convert(n, 5)  # s = bin(n)[2:]
-    if n % 25 == 0:
-        s = s[-3:] + s
-    else:
-        x = (n % 25)
-        s = s + convert(x, 5)
-    r = int(s, 5)
-    if r > 10000:
-        print(n)
-        break
+n = 3 * 3125 ** 8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
+print(convert(n, 25).count('0'))
 '''
 
+'''
+n = 3 * 3125 ** 8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
+M = []
+while n > 0:
+    M.append(n % 25)
+    n //= 25
+M = M[::-1]
+print(M.count(0))
+print(len(set(M)))
+print(set(M))
+'''
+
+# Задание 14 https://education.yandex.ru/ege/task/c5e4d9a3-018f-4705-b0dc-68403da4763f
+'''
+n = 3*7**82 - 4*49**21 + 5*343**25
+M = []
+while n > 0:
+    M.append(n % 7)
+    n //= 7
+M = M[::-1]
+print(sum(M))
+'''
+
+
+# Задание 14 https://education.yandex.ru/ege/task/a8c96097-e410-484b-8fe6-9d1034a9e228
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alphabet[n % b]
+        n //= b
+    return s[::-1]
+
+
+for x in range(2030):
+    n = 7**170 + 7**100 - x
+    s = convert(n, 7)
+    if s.count('0') == 71:
+        print(x)
+'''
+'''
+for x in range(2030):
+    n = 7 ** 170 + 7 ** 100 - x
+    M = []
+    while n > 0:
+        M.append(n % 7)
+        n //= 7
+    M = M[::-1]
+    if M.count(0) == 71:
+        print(x)
+'''
+
+# Задание 14 https://education.yandex.ru/ege/task/eca565e6-aa59-4e06-8e2c-fccdac9e9fd7
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+M = []
+for x in alphabet[:19]:
+    A = int(f'98897{x}21', 19)
+    B = int(f'2{x}923', 19)
+    if (A + B) % 18 == 0:
+        M.append((A + B) // 18)
+print(max(M))
+'''
+
+
+# Тип 14 №48387
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:11]:
+    for y in alphabet[:11]:
+        A = int(f'{x}341{y}', 11)
+        B = int(f'56{x}1{y}', 19)
+        if (A + B) % 305 == 0:
+            print((A + B) // 305)
+'''
+
+
+# Задание 14 https://education.yandex.ru/ege/task/749a92f0-0083-4931-90cf-8c987a48ed9c
+'''
+M = []
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:16]:
+    for y in alphabet[:16]:
+        A = int(f'27A{x}23', 16)
+        B = int(f'8{y}E5D2', 16)
+        if (A + B) % 5 == 0:
+            print(x + y, alphabet.index(x) + alphabet.index(y))
+            M.append(alphabet.index(x) + alphabet.index(y))
+print(max(M))
+'''
+
+
+# Задание 14 https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
+'''
+for x in range(2030):
+    n = 3 ** 100 - x
+    M = []
+    while n > 0:
+        M.append(n % 3)
+        n //= 3
+    M.reverse()
+    if M.count(0) == 5:
+        print(x)
+'''
 
 # endregion Урок: *************************************************************
 # #
