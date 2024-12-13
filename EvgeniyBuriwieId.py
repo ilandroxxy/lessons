@@ -64,9 +64,61 @@ for i in range(len(M)-1):
 print(len(R), max(R))
 '''
 
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if abs(x) < 100]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x + y) / 2 > len(D):
+        R.append(x + y)  # добавляет элемент в конец списка
+print(len(R), max(R))
+'''
+
+# https://education.yandex.ru/ege/task/1add80bc-628c-4b17-888f-7b04f3b4b4e0
+# 234789012 % 10 == 2
+# 234789012 % 100 == 12
+# str(234789012)[-2:] == '12'
+# 1234789012 % 100 == 88
+#
+# len(str(abs(-200))) == 3
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if abs(x) % 100 == 13]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x + y + z) <= max(D):
+        if len([p for p in (x, y, z) if len(str(abs(p))) == 3]) == 2:
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
 
+# https://education.yandex.ru/ege/task/8ed78924-577d-436c-97f2-32c324afa788
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 100 == 42]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) + (y in D) + (z in D) >= 2:
+        if (x + y + z) > max(D):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
+# https://education.yandex.ru/ege/task/f3c2ea76-84dc-43cd-a8b8-3855a737e358
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = sorted([x for x in M if len(str(abs(x))) == 3])
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x + y) < D[1] ** 2:
+        R.append(x + y)
+print(len(R), max(R))
+'''
 # endregion Урок: ************************************************************
 # #
 # #

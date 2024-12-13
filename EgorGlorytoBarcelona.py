@@ -6,80 +6,131 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Задание 8 https://education.yandex.ru/ege/task/e73090d1-5401-4307-8b8c-bd1af02cefc0
 '''
-# Вариант 1
-s = sorted('МАРИЯ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                word = a + b + c + d
-                n += 1
-                if word == 'АРИЯ':
-                    print(n)
+# Узел сети (knot): 172.16.168.0 и Маска (mask) сети: 255.255.248.0
+# Адрес сети (net) = Узел сети & Маска сети
+# где & - это операция побитовой конъюнкции
 
-# Вариант 2
-from itertools import *
-n = 0
-for p in product(sorted('МАРИЯ'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if word == 'АРИЯ':
-        print(n)
+# Адрес сети - мы можем найти IP адреса (ip) этой сети
 
-# Вариант 3
+print(12 & 6)  # 4
+# 12 -> 1100_2
+# 6  -> 0110_2
+#       0100_2 -> 4
 
-from itertools import *
+net = (172 & 255, 16 & 255, 168 & 248, 0 & 0)
+print(net)  # (172, 16, 168, 0)
 
-for n, p in enumerate(product(sorted('МАРИЯ'), repeat=4), 1):
-    word = ''.join(p)
-    if word == 'АРИЯ':
-        print(n)
-'''
+# В каждом айпишнике есть 4 числа на которые выделяется по 1 байту
+# Так как 1 байт = 8 бит, то мы можем сказать, что наши числа восьмибитные
+# То есть лежат в диапазоне от 0 до 255, так как 255 = 11111111_2
 
+# Маска сети имеет длину 32 бита и вид 111111..000000 (сначала единцы затем нули)
+# 255.255.248.0 -> 11111111.11111111.11111000.00000000
+print(bin(248)[2:])  # 11111000
+# Отсюда мы делаем вывод, что максимальное кол-во масок: 32
 
-# Задание 8
-'''
+# Примерное логика решения таких номеров :
+
+from ipaddress import *
+net = ip_network('knot/mask', 0)
 cnt = 0
-from itertools import *
-for p in permutations('КАБИНЕТ'):
-    word = ''.join(p)
-    if word[-1] not in 'АИЕ':
+for ip in net:
+    b = f'{ip:b}'
+    if .....:
+        cnt += 1
+print(cnt)
+'''
+
+'''
+from ipaddress import *
+net = ip_network('172.16.168.0/255.255.248.0', 0)
+print(net)  # 172.16.168.0/21 - где 21 - это
+# 255.255.248.0 -> 11111111.11111111.11111000.00000000, то есть 21 единица
+print(32 - 21)  # кол-во нулей в маске
+print(net.network_address)  # 172.16.168.0
+print(net.netmask)  # 255.255.248.0
+'''
+
+# Задание 13 https://education.yandex.ru/ege/task/600fe533-49f2-4cb5-a1c9-461910039669
+'''
+from ipaddress import *
+net = ip_network('172.16.168.0/255.255.248.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 5 != 0:
         cnt += 1
 print(cnt)
 '''
 
 
-# Задание 8 https://education.yandex.ru/ege/task/bf49516c-39dc-461d-9b19-3462210daa1b
+# Задание 13  https://education.yandex.ru/ege/task/c76b728d-6c5e-40c8-a212-acafbcdcbd0c
 '''
+from ipaddress import *
+net = ip_network('192.168.160.0/255.255.224.0', 0)
+# print(f'{mask:b}')  # 11111111111111111110000000000000
+mask = f'{net.netmask:b}'.count('1')
 cnt = 0
-from itertools import *
-for p in product('ЛЕГКО', repeat=6):
-    word = ''.join(p)
-    if word.count('О') <= 1:
-        if word[0] != 'Г' and word[-1] not in 'ЕО':
-            cnt += 1
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') == mask:
+        cnt += 1
 print(cnt)
 '''
 
-
-# Задание 8 https://education.yandex.ru/ege/task/b19825e6-aafc-48ed-9bd7-99033090c53c
+# Задание 13  https://education.yandex.ru/ege/task/8cabd46a-2193-441f-b07b-64a2bdf117a5
 '''
+from ipaddress import *
+net = ip_network('95.112.224.0/255.255.255.128', 0)
 cnt = 0
-from itertools import *
-for p in product('012345', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('2') == 1:
-            num = num.replace('3', '1').replace('5', '1')
-            if '12' not in num and '21' not in num:
-                cnt += 1
+for ip in net:
+    b = f'{ip:b}'[24:]  # правый байт - последние 8 бит
+    if b == b[::-1]:
+        cnt += 1
 print(cnt)
 '''
 
+# mask:
+
+# 255.255.248.0
+#  1   1   1  1   байт
+
+# '11111111.11111111.11111000.00000000'
+#     8        8        8        8       бит
+
+# Первый байт: mask[:8]
+# Второй байт: mask[8:16]
+# Третий байт: mask[16:24]
+# Четвертый байт: mask[24:]
+# Первые два байта: mask[:16]
+# Правые два байта: mask[16:]
+
+
+# Задание 13 https://education.yandex.ru/ege/task/94693776-a73a-4e59-bebb-b7e6107fe688
+# Для узла с IP-адресом 111.81.93.127 адрес сети
+# равен 111.81.80.0. Чему равен третий слева байт маски?
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32):
+    net = ip_network(f'111.81.93.127/{mask}', 0)
+    if '111.81.80.0' in str(net):
+        print(net, net.netmask)
+        # 111.81.80.0/20 255.255.240.0
+'''
+
+
+# Задание 13  https://education.yandex.ru/ege/task/b041f771-33cf-443f-8146-9da77eb22abd
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'10.227.3.113/{mask}', 0)
+    net2 = ip_network(f'10.235.127.7/{mask}', 0)
+    if net1 != net2:
+        print(mask)
+        break
+'''
 
 
 # endregion Урок: *************************************************************
@@ -91,6 +142,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 4, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:

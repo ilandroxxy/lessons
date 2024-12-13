@@ -1,60 +1,33 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038843/step/10?unit=1062794
 '''
-import turtle as t
-t.left(90)
-t.tracer(0)
-size = 15
-for i in range(3):
-    t.forward(7*size)
-    t.right(90)
-    t.forward(12*size)
-    t.right(90)
-t.up()
-t.forward(4*size)
-t.right(90)
-t.forward(6*size)
-t.left(90)
-t.down()
-for i in range(4):
-    t.forward(83*size)
-    t.right(90)
-    t.forward(77*size)
-    t.right(90)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
+s = input()
+print(f"Символ + встречается {s.count('+')} раз")
+print('Символ * встречается', s.count('*'), 'раз')
 '''
 
-# print(13*8 + 84*78 - 28)
 
-
-# https://stepik.org/lesson/1038843/step/12?unit=1062794
+# Поиск длинного слова
+# https://stepik.org/lesson/1309454/step/9?unit=1324570
 '''
-import turtle as t
-t.left(90)
-t.tracer(0)
-size = 30
-t.right(315)
-for i in range(7):
-    t.forward(12 * size)
-    t.right(45)
-    t.forward(6 * size)
-    t.right(135)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
+a = input()
+words = a.split()
+maxi = len(words[0])
+for w in words:
+    # if len(w) > maxi:
+    #     maxi = len(w)
+    maxi = max(maxi, len(w))
+print(maxi)
+'''
 
-t.update()
-t.done()
+
+'''
+n = int(input())
+num = ''
+while n > 0:
+    num = str(n % 3) + num
+    n //= 3
+print(num)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -62,181 +35,73 @@ t.done()
 # #
 # region Урок: ********************************************************************
 
+# Задание 12 https://education.yandex.ru/ege/task/6cb04d25-0f77-4e49-9517-6908c16815de
 
-# Теория строк
+# Дана программа для Редактора:
+
+# ПОКА нашлось(444) ИЛИ нашлось(222)
+#    заменить(444, 2)
+#    заменить(222, 4)
+
+# Исходная состоит из 31 цифры 4.
+# Какая строка получится в результате выполнения алгоритма?
 '''
-# i  01234
-s = '12321'
-
-print(s[0])  # Первый элемент строки s
-print(s[-1])  # Последний элемент строки s
-
-# То есть строковый тип данных хранит в себе только слова, буквы, символы и тж тп
-# Строчки чем-то похожи на списки, но все элементы строки имеют один тип данных str() и нелья просто так изменить строку
-# Если нам понадобится изменить элемент '3' на '*', то нам придется использовать срезы
-
-s = s[:2] + '*' + s[3:]
-print(s)  # 12*21
-'''
-
-# Срезы строк
-'''
-# i  01234
-s = 'abcde'
-
-# СРЕЗ [ START | STOP-1 | STEP]
-print(s[2:4])  # 'de'
-print(s[2:])  # cde - Все элемент справа от 2 индекса (включительно)
-print(s[:4])  # abcd - Все элементы слева до 4 индекса (не включительно)
-print(s[0::2])  # ace - Все элементы с четными индексами
-print(s[1::2])  # bd - Все элементы с не четными индексами
-
-# Самые полезные срезы
-
-n = 8  # перевод в двоичную систему счисления
-print(bin(n))  # 0b1000
-print(bin(n)[2:])  # 1000
-
-
-x = '234234112'
-# Проверка, что число оканчивается на 12
-print(x[-2:] == '12')  # True
-
-# Все элементы строки в обратном порядке 
-print(s[::-1])  # edcba
-
-print(s[1:-1])  # bcd - все элементы кроме первого и последнего 
+s = '4' * 31
+while '444' in s or '222' in s:
+    s = s.replace('444', '2', 1)
+    s = s.replace('222', '4', 1)
+print(s)
 '''
 
 
-# Функции строк
+# Задание 12 https://education.yandex.ru/ege/task/ebd5c150-9b1a-44f5-99f9-b0c6adfa95d9
+# Определите, сколько различных строк может получиться в результате её работы.
 '''
-#    01234567
-s = '12324124'
+my_set = set()
+for n in range(4, 1000):
+    s = '4' + '9' * n
 
-print(len(s))  # Возвращает длину строки (кол-во элементов в ней)
-print(min(s), max(s))  # 1 4
-print(sorted(s))  # ['1', '1', '2', '2', '2', '3', '4', '4']
-print(sorted(s, reverse=True))  # ['4', '4', '3', '2', '2', '2', '1', '1']
-print(sorted(s)[::-1])  # ['4', '4', '3', '2', '2', '2', '1', '1']
-print(set(s))  # {'1', '4', '3', '2'}  Возвращает только набор элементов без копий
-
-print(eval('(4 + 2) * 5'))  # - Позволяет вычислять арифметические выражения
-
-
-for i in range(len(s)):
-    # print(i, end=' ')  # 0 1 2 3 4 5 6 7
-    print(s[i], end=' ')  # 0 1 2 3 4 5 6 7
-print()
+    while '44' in s or '9299' in s or '49' in s:
+        s = s.replace('49', '944', 1)
+        s = s.replace('44', '2', 1)
+        s = s.replace('9299', '4', 1)
+    my_set.add(s)
+print(len(my_set))
 '''
 
 
-# Все методы строк в Python, которые понадобятся на ЕГЭ
-
-# 1⃣ .strip()
-# Метод strip() удаляет пробелы (или другие символы) из
-# начала и конца строки. Это полезно для очистки пользовательского ввода.
+# https://education.yandex.ru/ege/task/99da765f-ae28-4087-9286-3b636b34b035
 '''
-text = "  Привет, мир!  "
-cleaned_text = text.strip()
-print(cleaned_text)  # "Привет, мир!"
-'''
+for n in range(4, 1000):
+    s = '2' + '5' * n
 
-
-# 2⃣ .lower() и .upper()
-# Эти методы позволяют изменять регистр строки.
-# lower() преобразует строку в нижний регистр, а upper() – в верхний.
-'''
-text = "ПрIvEt"
-print(text.lower())  # "прivet"
-print(text.upper())  # "ПРIVET"
+    while '25' in s or '355' in s or '555' in s:
+        if '25' in s:
+            s = s.replace('25', '5', 1)
+        if '355' in s:
+            s = s.replace('355', '52', 1)
+        if '555' in s:
+            s = s.replace('555', '3', 1)
+    if s.count('3') == 2:
+        print(n)
+        break
 '''
 
 
-# 3⃣ .replace()
-# Метод replace(old, new, count) заменяет подстроку old на new в строке count раз.
+# https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
 '''
-text = "Я люблю Python!"
-new_text = text.replace("Python", "программирование")
-print(new_text)  # "Я люблю программирование!"
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z
 
-
-text = "Я люблю Python! Python Python Python"
-new_text = text.replace("Python", "программирование")
-print(new_text)  # Я люблю программирование! программирование программирование программирование
-
-text = "Я люблю Python! Python Python Python"
-new_text = text.replace("Python", "программирование", 2)
-print(new_text)  # Я люблю программирование! программирование Python Python
+            while '01' in s or '02' in s or '03' in s:
+                s = s.replace('01', '30', 1)
+                s = s.replace('02', '3103', 1)
+                s = s.replace('03', '1201', 1)
+            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
+                print(z)
 '''
-
-
-# 4⃣  .split()
-# Метод split(separator) разделяет строку на части по указанному
-# разделителю. Если разделитель не указан, используется пробел.
-'''
-text = "яблоко груша банан"
-fruits = text.split()  # по умолчанию разделяет по пробелам
-print(fruits)  # ['яблоко', 'груша', 'банан']
-
-
-text = "яблоко;груша;банан"
-fruits = text.split(';')  # по умолчанию разделяет по пробелам
-print(fruits)  # ['яблоко', 'груша', 'банан']
-'''
-
-# 5⃣ .join()
-# Метод join(iterable) соединяет элементы списка (или другого
-# итерируемого объекта) в строку с указанным разделителем.
-'''
-fruits = ['яблоко', 'груша', 'банан']
-result = ', '.join(fruits)
-print(result)  # "яблоко, груша, банан"
-
-
-fruits = ['яблоко', 'груша', 'банан']
-result = '*&*'.join(fruits)
-print(result)  # "яблоко*&*груша*&*банан"
-'''
-
-# 6⃣ .find()
-# Метод find(substring) ищет подстроку в строке и возвращает
-# индекс, с которого начинается первая встреча.
-# Если подстрока не найдена, возвращает -1.
-'''
-text = "Привет, мир!"
-index = text.find("мир")
-print(index)  # 8
-
-
-s = '01234567'
-print(s.find('3'))  # 3
-print(s.index('3'))  # 3
-
-print(s.find('9'))  # -1
-print(s.index('9'))  # ValueError: substring not found
-'''
-
-
-# 7⃣ .count()
-# Метод count(substring) возвращает количество вхождений
-# подстроки в строку.
-'''
-text = "яблоко, груша, яблоко"
-count = text.count("яблоко")
-print(count)  # 2
-'''
-
-
-# 8⃣ .startswith() и .endswith()
-# Эти методы проверяют, начинается ли строка с указанной подстроки или заканчивается ли ею.
-'''
-text = "Привет, мир!"
-print(text.startswith("Привет"))  # True
-print(text.endswith("мир!"))  # True
-print(text.endswith("Привет"))  # False
-'''
-
 # endregion Урок: *************************************************************
 # #
 # #
