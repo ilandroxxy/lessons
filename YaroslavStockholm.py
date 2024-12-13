@@ -1,127 +1,185 @@
 # region Домашка: ******************************************************************
 
-'''
-from itertools import *
-
-for p in product('abc', repeat=5):
-    print(p)  # ('c', 'c', 'c', 'c', 'c')
-    print(''.join(p))  # 'ccccc'
-
-
-for p in permutations('abc', r=3):
-    print(p)  # ('c', 'b', 'a')
-    print(''.join(p))  # 'cba'
-'''
-
-
-# № 776 Джобс (Уровень: Сложный)
-'''
-from itertools import *
-R = []
-for p in permutations(['1' * 20, '3' * 40, '2' * 15], r=3):
-    s = '>' + ''.join(p) + '<'
-
-    while '><' not in s:
-        s = s.replace('>1', '3>', 1)
-        s = s.replace('>2', '2>', 1)
-        s = s.replace('>3', '1>', 1)
-        s = s.replace('3<', '<1', 1)
-        s = s.replace('2<', '<3', 1)
-        s = s.replace('1<', '<2', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    R.append(summa)
-print(max(R))
-'''
-
-'''
-def is_prime(x):  # x = 12 -> [1 - 12]
-    if x <= 1:
-        return False
-    for j in range(2, x):  # [2,  11]
-        if x % j == 0:
-            return False
-    return True
-
-
-print(is_prime(7))  # True
-print(is_prime(1))  # False
-print(is_prime(8))  # False
-print([x for x in range(100) if is_prime(x)])
-# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-'''
-
-
-'''
-from itertools import  *
-def is_primary(x):
-    if x <= 1:
-        return False
-    for z in range(2, x):
-        if x % z == 0:
-            return False
-    return True
-
-
-R = []
-
-for n in range(0, 10 ** 10):
-    for p in permutations(['2' * 39, '0' * 39, '1' * n ]):
-        s = '>' + ''.join(p)
-        while '>1' in s or '>2' in s or '>0' in s:
-            if '>1' in s:
-                s = s.replace('>1', '22>', 1)
-            if '>2' in s:
-                s = s.replace('>2', '2>', 1)
-            if '>0' in s:
-                s = s.replace('>0', '1>', 1)
-        summa = sum([int(x) for x in s if x.isdigit()])
-        if is_primary(summa) == True:
-            print(n)
-            exit()
-'''
-
-
-'''
-def is_prime(x):
-    if x <= 1:
-        return False
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
-
-
-for n in range(1, 1000):
-    s = '>' + '0' * 39 + '1' * n + '2' * 39
-    while '>1' in s or '>2' in s or '>0' in s:
-        if '>1' in s:
-            s = s.replace('>1', '22>', 1)
-        if '>2' in s:
-            s = s.replace('>2', '2>', 1)
-        if '>0' in s:
-            s = s.replace('>0', '1>', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if is_prime(summa) == True:
-        print(n)
-        break
-'''
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+'''
+s = '289734'
+summa = sum(map(int, s))
+print(map(int, s))  # <map object at 0x104e26b60>
+print(list(map(int, s)))  # [2, 8, 9, 7, 3, 4]
+print(summa)  # 33
+
+
+print(map(str, [1, 2, 3, 4, 5]))
+print(list(map(str, [1, 2, 3, 4, 5])))
+# ['1', '2', '3', '4', '5']
+
+print([int(x) for x in s])  # [2, 8, 9, 7, 3, 4]
+summa = sum([int(x) for x in s])
+print(summa)  # 33
+
+
+s = '432897ewklo'
+summa = sum([int(x) for x in s if x.isdigit()])
+print(summa)  # 33
+'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
+# № 18120 (Уровень: Базовый)
+'''
+# Вариант 1
 
+s = sorted('ПРЕСТОЛ')
+n = 0
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 != 0 and word[-1] in 'ЕО':
+                        sogl = [x for x in word if x in 'ПРСТЛ']
+                        if len(sogl) <= 3:
+                            cnt += 1
+
+print(cnt)
+
+# Вариант 2
+
+from itertools import *
+n = 0
+cnt = 0
+for p in product(sorted('ПРЕСТОЛ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0 and word[-1] in 'ЕО':
+        sogl = [x for x in word if x in 'ПРСТЛ']
+        if len(sogl) <= 3:
+            cnt += 1
+print(cnt)
+
+# Вариант 3
+
+from itertools import *
+cnt = 0
+for n, p in enumerate(product(sorted('ПРЕСТОЛ'), repeat=5), 1):
+    word = ''.join(p)
+    if n % 2 != 0 and word[-1] in 'ЕО':
+        sogl = [x for x in word if x in 'ПРСТЛ']
+        if len(sogl) <= 3:
+            cnt += 1
+print(cnt)
+
+
+for i, x in enumerate(['a', 'b', 'c', 'd', 'e'], 1):
+    print(i, x)
+'''
+
+
+# № 18133 (Уровень: Базовый)
+'''
+from itertools import *
+n = 0
+R = []
+for p in product(sorted('КОДИМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if word.count('М') == 2 and 'ММ' not in word:
+        print(n, word)
+        R.append(n)
+print(max(R))
+'''
+
+'''
+from itertools import *
+n = 0
+for p in product(sorted('ЩЭДСР'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if word == 'ЩДЩД':
+        print(n)
+    if n == 391:
+        print(word)
+'''
+
+
+# № 12917 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+'''
+from itertools import *
+R = []
+for p in permutations('ПРОСТО'):
+    word = ''.join(p)
+    if 'ОО' not in word:
+        print(word)
+        R.append(word)
+print(len(set(R)))
+'''
+
+
+# № 13251 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+from itertools import *
+cnt = 0
+for p in permutations('КАЙФ'):
+    word = ''.join(p)
+    if word[-1] != 'Й' and 'КФ' not in word:
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 13252 Открытый курс "Слово пацана" (Уровень: Средний)
+'''
+from itertools import *
+R = []
+for p in permutations('КИДАЛА', r=5):
+    word = ''.join(p)
+    if 'АА' not in word:
+        R.append(word)
+print(len(set(R)))
+'''
+
+
+# № 13870 (Уровень: Средний)
+'''
+from itertools import *
+cnt = 0
+for p in product('01234567', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if any(group in num for group in '000 111 222 333 444 555 666 777'.split()):
+            if any(num.count(x) == 3 for x in num):
+                if len(set(num)) == 3:
+                    cnt += 1
+                    print(num)
+print(cnt)
+'''
+
+
+# № 15012 (Уровень: Базовый)
+'''
+from itertools import *
+cnt = 0
+for p in product('0123456789ABCD', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if len(set(num)) == 2:
+            if num[-1] in '03':
+                cnt += 1
+print(cnt)
+'''
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

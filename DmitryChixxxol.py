@@ -7,91 +7,85 @@
 # region Урок: ********************************************************************
 
 '''
-# Адрес сети = Узел сети & Маска сети
+import time
+start = time.time()
 
-print(235 & 255, 86 & 255, 56 & 248, 0 & 0)
-# 235 86 56 0
+# def divisors(x):  # 24 [1, ..., 24]
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
 
-knot = '.'.join([bin(int(x))[2:].zfill(8) for x in '235.86.56.0'.split('.')])
-mask = '.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.248.0'.split('.')])
-print(knot)
-print(mask)
-# 11101011.01010110.00111000.00000000
-# 11111111.11111111.11111000.00000000
-# 11101011.01010110.00111000.00000000
 
-# Маска имеет длину 32 бита
-# Маска имеет вид: 111111...0000
+def divisors(x):  # 24 [1, ..., 24]
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+            # div.append(j)
+            # div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(24))
+print(divisors(16))
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 2.767  -> 0.00039
 '''
 
 
-# https://education.yandex.ru/ege/task/bb30cfa6-5991-411e-b2df-dc6d007aec69
+# № 17564 Основная волна 08.06.24 (Уровень: Средний)
 '''
-from ipaddress import *
-net = ip_network('235.86.56.0/255.255.248.0', 0)
-# print(net)  # 235.86.56.0/21 - где 21 это кол-во единиц в маске сети
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s[-2:] == '11':
-        cnt += 1
-print(cnt)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
+
+
+k = 0
+for x in range(700_000 + 1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
+            k += 1
+            if k == 5:
+                break
 '''
 
-# https://education.yandex.ru/ege/task/b6ff76ad-5608-4e7d-833d-dced5a6e2479
-# Для узла с IP-адресом 111.81.27.208 адрес сети
-# равен 111.81.27.192. Чему равно наименьшее возможное
-# значение последнего (самого правого) байта маски?
+# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'111.81.27.208/{mask}', 0)
-    # print(net, net.netmask, mask, 32-mask)
-    print(net, net.netmask)
-    # 111.81.27.192/26 255.255.255.192
-    # 111.81.27.192/27 255.255.255.224
-'''
-'''
-from ipaddress import *
-M = []
-for mask in range(32+1):
-    net = ip_network(f'111.81.27.208/{mask}', 0)
-    if '111.81.27.192' in str(net):
-        M.append(int(str(net.netmask).split('.')[-1]))
-print(min(M))
-'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
 
-# https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'151.172.115.121/{mask}', 0)
-    net2 = ip_network(f'151.172.115.156/{mask}', 0)
-    if net1 != net2:
-        print(mask, 32-mask)
-'''
 
-# https://education.yandex.ru/ege/task/ebfa2513-eaf3-49f7-9bb1-828c96fba52c
-
-from ipaddress import *
-for A in range(255+1):
-    net = ip_network(f'183.192.{A}.0/255.255.252.0', 0)
-    flag = True
-    for ip in net:
-        if f'{ip:b}'[16:].count('1') <= 3:
-            flag = False
+k = 0
+for x in range(800_000 + 1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]
+    if len(d) > 0:
+        print(x, min(d))
+        k += 1
+        if k == 5:
             break
-    if flag == True:
-        print(A)
-        break
+'''
 
-from ipaddress import *
-for A in range(255+1):
-    net = ip_network(f'183.192.{A}.0/255.255.252.0', 0)
-    if all(f'{ip:b}'[16:].count('1') > 3 for ip in net):
-        print(A)
-        break
 
+# № 16389 ЕГКР 27.04.24 (Уровень: Базовый)
+
+
+
+for s in open('files/9.txt'):
+    M = list(map(int, s.split()))
+    print(M)
 # endregion Урок: *************************************************************
 # #
 # #
@@ -101,6 +95,6 @@ for A in range(255+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:

@@ -1,113 +1,137 @@
 # region Домашка: ************************************************************
 
-# № 10776 (Уровень: Базовый)
+# № 7818 (Уровень: Базовый)
+
+# ¬x -->  (not x)
+# ¬(x→z) (not(x <= z))
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'111.91.200.28/{mask}', 0)
-    print(net, net.netmask, mask, 32-mask)
-    # 111.91.192.0/18 255.255.192.0 18 14
-    # 111.91.192.0/19 255.255.224.0 19 13
-    # 111.91.192.0/20 255.255.240.0 20 12
-
-
-from ipaddress import *
-R = []
-for mask in range(32+1):
-    net = ip_network(f'111.91.200.28/{mask}', 0)
-    # if str(net) == f'111.91.192.0/{mask}':
-    if '111.91.192.0' in str(net):
-        R.append(32 - mask)
-
-print(min(R))
+print('x y z w')
+for x in range(2):
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (y <= (not(x <= z))) or w
+                if F == 0:
+                    print(x, y, z, w)
 '''
-
 
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
 
+
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
 '''
-import time
-start = time.time()
-
-# def divisors(n):
-#     div = []  # будем складывать делители числа
-#     for j in range(1, n+1):
-#         if n % j == 0:
-#             div.append(j)
-#     return div
+def F(a, b):  # a - start, b - stop
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
 
-def divisors(n):
-    div = []
-    for j in range(1, int(n**0.5)+1):
-        if n % j == 0:
-            # div.append(j)
-            # div.append(n // j)
-            div += [j, n // j]
-    return sorted(set(div))
-
-
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16]
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 2.9666 -> 0.00033
+print(F(5, 7) * F(7, 11))
 '''
 
+#
+# № 17684 Пересдача 04.07.24 (Уровень: Базовый)
+# A. Вычти 2
+# B. Найти целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 38 результатом является число 2
+# и при этом траектория вычислений содержит число 10?
 '''
-def divisors(n):
-    div = []
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
-    return sorted(set(div))
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-2, b) + F(a // 2, b)
+
+print(F(38, 10) * F(10, 2))
 
 
-for n in range(135_790, 163_228+1):
-    d = divisors(n)
-    if sum(d) > 460_000:
-        print(len(d), sum(d))
-'''
+def F(a, b):
+    if a <= b:
+        return a == b
+    return F(a-2, b) + F(a // 2, b)
 
-
-# https://education.yandex.ru/ege/task/d02f4351-acc7-4b66-9ca1-83d0d1887db7
-'''
-def divisors(n):
-    div = []
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for n in range(700_000+1, 10**10):
-    d = [j for j in divisors(n) if j != 7 and j % 10 == 7]
-    if len(d) > 0:
-        print(n, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+print(F(38, 10) * F(10, 2))
 '''
 
+# Как работает return
+# return возвращает результат выполнения функции и прерывает ее
 
-# https://education.yandex.ru/ege/task/41a06b51-e4e0-4204-b3ac-432f00e2ac2c
 '''
-def divisors(n):
-    div = []
-    for j in range(1, int(n**0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
-    return sorted(set(div))
+def is_prime(x):
+    """
+    Проверка числа х на простоту
+    :param x: Проверяемое число
+    :return: True - число простое, False - число составное
+    """
+    if x <= 1:
+        return False
+    for j in range(2, x):
+        if x % j == 0:
+            return False
+    return True
 
 
-for n in range(977004+1, 977022):
-    d = [j for j in divisors(n) if j % 2 == 0]
-    if len(d) >= 6:
-        print(n, d[-2])
+print(is_prime(7))  # True
+print(is_prime(8))  # False
+
+x = is_prime(7)
+print(x)  # True
+
+M = [1, 2, 3, 4, 5]
+summa = sum(M)
+print(summa)  # 15
+'''
+
+
+'''
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-2, b) + F(a // 2, b)
+
+print(F(38, 10) * F(10, 2))
+'''
+
+'''
+def F(a, b):
+    if a > b or a == 16:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+
+print(F(2, 9) * F(9, 18))
+
+
+def F(a, b):
+    if a > b or a == 16:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+
+print(F(2, 9) * F(9, 18))
 '''
 
 # endregion Урок: ************************************************************
@@ -119,6 +143,6 @@ for n in range(977004+1, 977022):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
