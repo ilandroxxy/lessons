@@ -1,131 +1,39 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038670/step/14?unit=1062777
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-
-    nechet = [x for x in M if x % 2 != 0]
-
-    k = (len(M) != len(set(M))) + (len(nechet) == 3)
-    if k == 1:
-        cnt += 1
-print(cnt)
-'''
-
-
-# https://stepik.org/lesson/1038670/step/15?unit=1062777
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    # if (sum(M) // 7) in M:
-    if any(x == (sum(M) // 7) for x in M):
-        cnt += 1
-print(cnt)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# https://inf-ege.sdamgia.ru/problem?id=27688
-# Определите длину самой длинной последовательности, состоящей из символов Z.
-# Хотя бы один символ Z находится в последовательности.
+# № 8546 (Уровень: Базовый)
 '''
-# Вариант 1
-s = open('files/24.txt').readline()
-count = 1  # Будем считать промежуточные последовательности
-maxi = 0  # Будем хранить длину самой большой последовательности
-for i in range(len(s)-1):
-    # x, y = s[i], s[i+1]
-    # if x+y == 'ZZ':
-
-    # if s[i] == 'Z' and s[i+1] == 'Z':
-
-    if s[i:i+2] == 'ZZ':
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
+from itertools import *
+print('1 2 3 4 5 6 7 8 9')
+table = '13 18 19 23 24 25 26 31 32 37 38 42 47 52 56 62 65 68 73 74 79 81 83 86 91 97'
+graph = 'АБ БА АГ ГА АИ ИА ГЗ ЗГ ГД ДГ ДЗ ЗД ЗИ ИЗ ЗЖ ЖЗ ЖЕ ЕЖ ЕВ ВЕ ЕИ ИЕ ИБ БИ БВ ВБ'
+for p in permutations('АБВДГИЖЗЕ'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
-
-# Вариант 2
-'''
-s = open('files/24.txt').readline()
-s = s.replace('X', ' ').replace('Y', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-# Вариант 3 использовать просто ctrl + F в консоли
-'''
-s = open('files/24.txt').readline()
-print(s)
-'''
+# 1 2 3 4 5 6 7 8 9
+# Б З И Ж Д Г Е А В
 
 
-# https://inf-ege.sdamgia.ru/problem?id=47228
 '''
-s = open('files/24.txt').readline()
-s = s.replace('O', 'A')
-s = s.replace('C', 'D').replace('F', 'D')
-s = s.replace('DA', '*')
-s = s.replace('D', 'A')
-print(max([len(x) for x in s.split('A')]))
-'''
-
-
-# rrrrrXZZYrrr
-# rrrrr rrr  # 5
-# rrrrrXZZ ZZYrrr  # 8
-
-
-# https://inf-ege.sdamgia.ru/problem?id=36037
-# Определите максимальное количество идущих подряд символов,
-# среди которых нет подстроки XZZY.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# https://inf-ege.sdamgia.ru/problem?id=38602
-'''
-s = open('files/24.txt').readline()
-s = s.replace('PP', 'P P')
-print(max([len(x) for x in s.split()]))
-'''
-
-# https://inf-ege.sdamgia.ru/problem?id=27690
-'''
-s = open('files/24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-'''
-
-# https://inf-ege.sdamgia.ru/problem?id=58326
-'''
-s = open('files/24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] > s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
+from itertools import *
+print('1 2 3 4 5 6 7')
+table = '12 14 21 24 26 35 36 41 42 46 47 53 56 62 63 64 65 67 74 76'
+graph = 'АБ БА АВ ВА БВ ВБ ВД ДВ ВГ ГВ ВЕ ЕВ ЕД ДЕ ЕГ ГЕ ЕК КЕ ГК КГ'
+for p in permutations('АБВДГКЕ'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
 # endregion Урок: *************************************************************
@@ -137,6 +45,6 @@ print(maxi)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24.1, 25]
+# ФИПИ = [1, 2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
 # КЕГЭ  = []
 # на следующем уроке:
