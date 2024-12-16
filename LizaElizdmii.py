@@ -1,30 +1,34 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038700/step/10?unit=1062785
+# https://stepik.org/lesson/1038816/step/12?unit=1062780
 '''
-from ipaddress import *
+from fnmatch import *
 
 a = []
-for mask in range(32 + 1):
-    net1 = ip_network(f'10.96.180.231/{mask}', 0)
-    net2 = ip_network(f'10.96.140.118/{mask}', 0)
-    if net1 != net2:
-        # print(net1, mask, 32 - mask, net1.netmask)
-        a.append(32 - mask)
-print(max(a))
+for x in range(11071, 10 ** 10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[0] in '13579' and str(x)[-2] in '02468':
+            a.append([x, x // 11071])
+
+print(*a[-5])
+print(*a[-4])
+print(*a[-3])
+print(*a[-2])
+print(*a[-1])
 '''
 
 
-# № 11780 (Уровень: Базовый)
-# https://stepik.org/lesson/1038700/step/15?unit=1062785
 '''
-from ipaddress import *
-maxi = 0
-net = ip_network('185.8.0.0/255.255.128.0', 0)
-for ip in net:
-    maxi = max(maxi, f'{ip:b}'.count('1'))
-print(maxi)
+from fnmatch import *
+
+for x in range(21, 10 ** 8, 21):
+    if fnmatch(str(x), '1*5*9'):
+        s = str(x)
+        if list(s) == sorted(s):
+            if len(s) == len(set(s)):
+                print(x, x // 21)
 '''
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -32,148 +36,119 @@ print(maxi)
 # region Урок: ********************************************************************
 
 '''
-import time
-start = time.time()
+import sys
+sys.setrecursionlimit(1050)
 
-# def divisors(x):
-#     div = []
-#     for j in range(1, x+1):
-#         if x % j == 0:
-#             div.append(j)
-#     return div
-
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-            # div.append(j)
-            # div.append(x // j)
-    return sorted(set(div))
+def F(n):
+    if n <= 3:
+        return 1
+    if n > 3:
+        return (n + 3) * F(n - 2)
 
 
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16] [1, 2, 4, 4, 8, 16]
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 2.9475 -> 0.00036
+print(F(2028) / F(2024))
 '''
 
 
-# Задание 25 https://education.yandex.ru/ege/task/fd10b825-4786-452a-92b6-6c74774db1e0
+# № 12470 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+from functools import *
 
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return n
+    if n > 2 and n % 2 != 0:
+        return F(n - 1) + F(n - 2) + 1
+    if n > 2 and n % 2 == 0:
+        return sum([F(i) for i in range(1, n)])
 
-# for x in range(321_654, 654_321+1):
-#     d = divisors(x)
-#     d1 = [j for j in d if j % 2 == 1]
-#     if len(d) == len(d1):
-#         if len(d1) > 70:
-#             print(x, max(d1))
-
-for x in range(321_654, 654_321+1):
-    d = divisors(x)
-    if all(j % 2 == 1 for j in d):
-        if len(d) > 70:
-            print(x, max(d))
+print(F(38))
 '''
 
 
-# https://education.yandex.ru/ege/task/d02f4351-acc7-4b66-9ca1-83d0d1887db7
+# № 11948 (Уровень: Средний)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+def F(n):
+    return G(n - 1)
 
 
-k = 0
-for x in range(700_000+1, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
-    if len(d) > 0:
-        print(x, min(d))
-        k += 1
-        if k == 5:
-            break
-'''
-
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-for x in range(177_000, 177_300+1):
-    if len(divisors(x)) == 0:
-        summa = sum([int(y) for y in str(x)])
-        if len(divisors(summa)) == 0:
-            print(x, summa)
-'''
-
-
-
-# https://education.yandex.ru/ege/task/18b1a9da-4ed4-4f31-a23b-e64b03d0760e
-'''
-from fnmatch import *
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-for x in range(10**6):
-    d = [j for j in divisors(x) if fnmatch(str(j), '4*')]
-    if len(d) == 24:
-        print(x, max(d))
-'''
-
-
-# https://education.yandex.ru/ege/task/ab0df558-0d92-4a8c-99a2-eee07c7f83a5
-'''
-from fnmatch import *
-
-for x in range(1917, 10**10, 1917):
-    if fnmatch(str(x), '3?12?14*5'):
-        print(x, x // 1917)
-'''
-
-
-# https://education.yandex.ru/ege/task/85d22d9c-f966-494b-ae80-46b127f51ca3
-'''
-from fnmatch import *
-
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+def G(n):
+    if n < 10:
+        return n
+    if n >= 10:
+        return G(n - 2) + 1
 
 
 cnt = 0
-for i in range(500_000+1, 10 ** 10):
-    k = sum(divisors(i))
-    if fnmatch(str(k), '*7?'):
-        print(i, k)
-        cnt += 1
-        if cnt == 5:
-            break
+for n in range(1, 100+1):
+    r = F(n)
+    if r > 0:
+        if (r ** 0.5).is_integer():
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
+'''
+def F(a, b):
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+
+print(F(5, 7) * F(7, 11))
+
+
+# Вариант 2
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+
+print(F(5, 7) * F(7, 11))
+'''
+
+# A. Вычти 1
+# B. Найти целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 30 результатом является число 1
+# и при этом тракетория вычислений содержит число 8?
+
+
+# A. Вычти 3
+# B. Найди целую часть от деления на 3
+# С. Найди целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 46
+# результатом является число 3 и при этом траектория вычислений
+# содержит число 20 и не содержит числа 28?
+
+
+# № 18267 (Уровень: Средний)
+# А. Прибавить 2
+# В. Прибавить 5
+# С. Возвести в квадрат
+# Сколько существует программ, для которых при
+# исходном числе 4 результатом является число 36,
+# при этом последняя в них команда — не C?
+'''
+def F(a, b, c):
+    if a >= b:
+
+        return a == b and c[-1] != 'C'
+    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a ** 2, b, c+'C')
+
+
+print(F(4, 36, ''))
 '''
 
 # endregion Урок: *************************************************************
@@ -185,6 +160,6 @@ for i in range(500_000+1, 10 ** 10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
 # КЕГЭ  = []
 # на следующем уроке:

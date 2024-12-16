@@ -6,73 +6,131 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Задание 8 https://education.yandex.ru/ege/task/b3ba0f73-8f32-4ae0-be90-8b727190e93f
-
-# Вариант 1
 '''
-s = sorted('ЦАПЛЯ')
-M = []
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if word.count('А') <= 1 and word.count('Ц') == 2 and 'Л' not in word:
-                        M.append(n)
+# 172.140.68.0
+# Айпи адрес это конструкция из четырех чисел,
+# на каждое из которых выделяется по 1 байту, то есть по 8 бит
+# Из этого следует, что числа лежат в диапазоне от 0 до 255
 
-print(min(M))
+# Адрес сети = Узел сети & Маска сети
+# где & - это операция побитовой конъюнкции
+print(12 & 6)  # 4
 
+# Сеть задана IP-адресом 172.140.68.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов
+print(172 & 255, 140 & 255, 68 & 248, 0 & 0)
 
-# Вариант 2
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '172.140.68.0'.split('.')]))
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.248.0'.split('.')]))
 
-from itertools import *
-n = 0
-for p in product(sorted('ЦАПЛЯ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('А') <= 1 and word.count('Ц') == 2 and 'Л' not in word:
-        print(n)
-        break
+# 10101100.10001100.01000100.00000000
+# 11111111.11111111.11111000.00000000
+# 10101100.10001100.01000000.00000000  - адрес сети
 
-# Вариант 2
+# Маска сети имеет длину 32 бита и вид: 11111111...00000
+# 1000000
+# 110000
+# 1110000
+# 11110000
 
-from itertools import *
-
-for n, p in enumerate(product(sorted('ЦАПЛЯ'), repeat=5), 1):
-    word = ''.join(p)
-    if word.count('А') <= 1 and word.count('Ц') == 2 and 'Л' not in word:
-        print(n)
-        break
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
+print(net)
+for ip in net:
+    # перебираем ip адреса
+    pass
 '''
 
 
-# Задание 8 https://education.yandex.ru/ege/task/787e3e6e-9284-4a9d-953a-8c3d24123b2a
+# № 18862 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.140.68.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, в которых количество нулей
+# в двоичной записи IP-адреса больше 15?
 '''
-from itertools import *
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
 cnt = 0
-for p in permutations(sorted('АРТЕМ'), 5):
-    word = ''.join(p)
-    if not(word[0] in 'АЕ' and word[-1] in 'АЕ'):
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') > 15:
         cnt += 1
 print(cnt)
 '''
 
 
-# Задание 8 https://education.yandex.ru/ege/task/bf49516c-39dc-461d-9b19-3462210daa1b
-
-from itertools import *
+# № 12947 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('203.111.195.0/255.255.240.0', 0)
 cnt = 0
-for p in product('ЛЕГКО', repeat=6):
-    word = ''.join(p)
-    if word.count('О') <= 1:
-        if word[0] != 'Г' and word[-1] not in 'ЕО':
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') % 3 == 0:
+        if '111' in s and '000' in s:
             cnt += 1
 print(cnt)
+'''
 
+
+# № 10778 (Уровень: Базовый)
+# Для узла с IP-адресом 163.232.136.60 адрес сети равен 163.232.136.0.
+# Найдите наибольшее возможное количество единиц в двоичной записи маски подсети.
+'''
+from ipaddress import *
+R = []
+for mask in range(33):
+    net = ip_network(f'163.232.136.60/{mask}', 0)
+    if '163.232.136.0' in str(net):
+        print(net, mask, net.netmask)  # 163.232.136.32/27
+        R.append(mask)
+print(max(R))
+'''
+
+
+# № 11766 (Уровень: Базовый)
+# Для узла с IP-адресом 132.243.87.85 адрес сети равен 132.243.64.0.
+# Каково наибольшее возможное количество нулей в двоичной записи маски?
+'''
+from ipaddress import *
+R = []
+for mask in range(33):
+    net = ip_network(f'132.243.87.85/{mask}', 0)
+    if '132.243.64.0' in str(net):
+        R.append(32 - mask)
+print(max(R))
+'''
+
+
+# Два узла, находящиеся в разных подсетях, имеют
+# IP-адреса 10.96.180.231 и 10.96.140.118. В масках обеих
+# подсетей одинаковое количество единиц.
+# Найдите наибольшее возможное количество нулей в двоичной записи маски подсети.
+
+'''
+from ipaddress import *
+R = []
+for mask in range(33):
+    net1 = ip_network(f'10.96.180.231/{mask}', 0)
+    net2 = ip_network(f'10.96.140.118/{mask}', 0)
+    if net1 != net2:
+        R.append(32 - mask)
+print(max(R))
+'''
+
+# № 14356 (Уровень: Средний)
+'''
+from ipaddress import *
+for A in range(0, 255+1):
+    net = ip_network(f'217.109.{A}.94/255.255.254.0', 0)
+    if all(f'{ip:b}'[:16].count('0') <= f'{ip:b}'[16:].count('0') for ip in net):
+        print(A)
+'''
+
+ip = ''
+print(ip[:8])  # первый байт (8 бит)
+print(ip[8:16])  # второй байт
+print(ip[16:24])  # третий байт
+print(ip[24:])  # четвертый байт
 
 
 
@@ -85,6 +143,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:

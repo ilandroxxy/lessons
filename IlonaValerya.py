@@ -1,166 +1,210 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038667/step/8?unit=1062772
+'''
+from itertools import *
+R = []
+for p in permutations('СОТОЧКА'):
+    word = ''.join(p)
+    if 'ОО' in word or 'АО' in word or 'ОА' in word:
+        R.append(word)
+print(len(set(R)))
+'''
+
+
+# https://stepik.org/lesson/1038667/step/12?unit=1062772
+'''
+from itertools import *
+n = 0
+for p in product(sorted('ФЕВРАЛЬ'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    word = word.replace('Е', 'А')
+    if 'А' not in word:
+        print(n)
+        break
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+
 '''
-from itertools import *
+# Апи адрес: 32.78.250.9
+# На каждое число выделяется по 1 байту, то есть по 8 бит
+# Таким образом можно констатировать, что числа лежат в диапазоне от 0 до 255
+# Потому что число 255 в двоичной записи = 11111111_2 то есть 8 бит старшшое число
 
-# Элементы перестановки могут дублироваться:
-for p in product('01', repeat=2):
-    num = ''.join(p)  # это метод строк объединяющий список/кортеж строк в одну строку
-    print(p, num)
-    # ('0', '0') 00
-    # ('0', '1') 01
-    # ('1', '0') 10
-    # ('1', '1') 11
+# Адрес сети = Узел сети & Маска сети
+# Где & - это побитовая конъюнкция
+print(12 & 6)  # 4
 
-# Элементы перестановки встречаются ровно 1 раз:
-for p in permutations('01'):
-    num = ''.join(p)
-    print(p, num)
-    # ('0', '1') 01
-    # ('1', '0') 10
-'''
+# Сеть задана IP-адресом узла 172.140.68.0 и маской сети 255.255.248.0.
+
+net = (172 & 255, 140 & 255, 68 & 248, 0 & 0)
+
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.248.0'.split('.')]))
+# Двоичная запись маски сети: 11111111.11111111.11111000.00000000
 
 
-# Задание 8 https://education.yandex.ru/ege/task/4c623ce7-3e25-4a25-9660-2d139d520811
-'''
-# Вариант 1
-s = sorted('ЛАЙМ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if word.count('М') <= 1 and 'ЛЛ' not in word:
-                        print(n)
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '172.140.68.0'.split('.')]))
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.248.0'.split('.')]))
+# 10101100.10001100.01000100.00000000
+# 11111111.11111111.11111000.00000000
+# 10101100.10001100.01000000.00000000 - адрес сети
 
-# Вариант 2
-from itertools import *
-n = 0
-for p in product(sorted('ЛАЙМ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('М') <= 1 and 'ЛЛ' not in word:
-        print(n)
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
+print(net)  # 172.140.64.0/21, где 21 это кол-во единиц в маске сети
+
+# '11111111.11111111.11111000.00000000'.count('1') == 21
+# Длина маски сети равноа 32 бита
+# И маска принимает вид: 1111111....0000000
 '''
 
 
-# https://education.yandex.ru/ege/task/d1c2a7c4-3fc6-46c8-859a-1ef68e6c778d
+# № 18862 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.140.68.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, в которых количество нулей
+# в двоичной записи IP-адреса больше 15?
 '''
-from itertools import *
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
 cnt = 0
-for p in product('ВИШНЯ', repeat=6):
-    word = ''.join(p)
-    if word.count('В') <= 1:  # буква В используется не более одного раза
-        if word[0] != 'Ш':  # слово не должно начинаться с буквы Ш
-            if word[-1] not in 'ИЯ':  # слово не должно оканчиваться гласными буквами
-                cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/dba8a4f0-4e87-4fa6-a1a3-8706e04146bb
-'''
-from itertools import *
-cnt = 0
-for p in product('ВЗГЛЯД', repeat=4):
-    word = ''.join(p)
-    if 1 <= word.count('З') <= 2:
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') > 15:
         cnt += 1
 print(cnt)
 '''
 
-# https://education.yandex.ru/ege/task/310d22e7-bde6-4f5c-99ff-3d2861ebf37a
+
+# № 12947 (Уровень: Базовый)
+# Сеть, в которой содержится узел с IP-адресом 203.111.195.0,
+# задана маской сети 255.255.240.0. Сколько в этой сети IP-адресов,
+# в двоичной записи которых количество нулей кратно трём,
+# а также содержатся три подряд
+# идущие единицы и три подряд идущих нуля одновременно?
 '''
-from itertools import *
+from ipaddress import *
+net = ip_network('203.111.195.0/255.255.240.0', 0)
 cnt = 0
-for p in product('0123456789ABC', repeat=7):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('5') >= 2:
-            for x in '0468AC':
-                num = num.replace(x, '2')
-            for x in '3579B':
-                num = num.replace(x, '1')
-            if '11' not in num and '22' not in num:
-                cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/b19825e6-aafc-48ed-9bd7-99033090c53c
-'''
-from itertools import *
-cnt = 0
-for p in product('012345', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('2') == 1:
-            num = num.replace('3', '1').replace('5', '1')
-            if '12' not in num and '21' not in num:
-                cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/ae97ab85-969c-401a-b0aa-38efd2a6ac5f
-'''
-from itertools import *
-cnt = 0
-for p in permutations('012346789', 5):
-    num = ''.join(p)
-    if num[0] != '0':
-        for x in '0468':
-            num = num.replace(x, '2')
-        for x in '3579':
-            num = num.replace(x, '1')
-        if '11' not in num and '22' not in num:
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') % 3 == 0:
+        if '000' in s and '111' in s:
             cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/08a16fb2-3773-4f00-8961-cfa21b2e65a9
+# Сеть задана IP-адресом 136.36.240.16 и маской сети 255.255.255.248.
+#
+# Сколько в этой сети IP-адресов,
+# в которых в двоичной записи IP-адреса не встречается 101?
 '''
-from itertools import *
+from ipaddress import *
+net = ip_network('36.36.240.16/255.255.255.248.', 0)
 cnt = 0
-for p in product('ГИПЕРБОЛА', repeat=6):
-    word = ''.join(p)
-    if word[0] not in 'ИЕОА' and word[-1] not in 'ЕИОА':
-        for x in 'ИЕО':
-            word = word.replace(x, 'А')
-        for x in 'ГПРЛ':
-            word = word.replace(x, 'Б')
-        if 'БАБ' not in word:
-            cnt += 1
-            print(word)
+for ip in net:
+    s = f'{ip:b}'
+    if '101' not in s:
+        cnt += 1
 print(cnt)
 '''
 
-# https://education.yandex.ru/ege/task/6f7a985f-c404-4ebe-a856-f7ed7e6d5b46
+# № 14360 (Уровень: Сложный)
+# Для узла с IP-адресом 153.202.16.37 адрес сети равен 153.202.16.32.
+# Определите наибольшее возможное значение суммы последних двух байтов маски.
 '''
-from itertools import *
-cnt = 0
-for p in permutations('01234567', 6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if int(num, 8) % 5 == 0:  # десятичная запись которых делится на 5
-            for x in '046':
-                num = num.replace(x, '2')
-            for x in '357':
-                num = num.replace(x, '1')
-            if '11' not in num and '22' not in num:
-                cnt += 1
-print(cnt)
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'153.202.16.37/{mask}', 0)
+    if '153.202.16.32' in str(net):
+        print(net.netmask)
+        # 255.255.255.224
+        # 255.255.255.240
+        # 255.255.255.248
+
+
+print(255 + 248)  # 503
 '''
+
+
+# № 11769 (Уровень: Базовый)
+# Для узла с IP-адресом 157.17.164.129 адрес сети равен 157.17.128.0.
+# Чему равно наименьшее возможное значение третьего слева байта маски?
+'''
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'157.17.164.129/{mask}', 0)
+    if '157.17.128.0' in str(net):
+        print(net.netmask)
+        # 255.255.128.0
+        # 255.255.192.0
+'''
+
+
+# № 10787 (Уровень: Базовый)
+# Для узла с IP-адресом 111.24.160.159 адрес сети равен 111.24.160.128.
+# Какое максимальное количество единиц может быть в маске сети?
+'''
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'111.24.160.159/{mask}', 0)
+    if '111.24.160.128' in str(net):
+        print(net.netmask, mask)
+        # 255.255.255.128 25
+        # 255.255.255.192 26
+        # 255.255.255.224 27
+'''
+
+
+# № 10578 (Уровень: Базовый)
+# Два узла, находящиеся в разных подсетях,
+# имеют IP-адреса 10.96.180.231 и 10.96.140.118.
+# В масках обеих подсетей одинаковое количество единиц.
+# Найдите наибольшее возможное количество нулей
+# в двоичной записи маски подсети.
+'''
+from ipaddress import *
+for mask in range(33):
+    net1 = ip_network(f'10.96.180.231/{mask}', 0)
+    net2 = ip_network(f'10.96.140.118/{mask}', 0)
+    if net1 != net2:
+        print(32 - mask)  # 13
+'''
+
+# Два узла, находящиеся в разных подсетях, имеют
+# IP-адреса 193.175.175.231 и 193.175.176.118.
+# В масках обеих подсетей одинаковое количество единиц.
+# Укажите наименьшее возможное значение третьего слева байта этой маски.
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(33):
+    net1 = ip_network(f'193.175.175.231/{mask}', 0)
+    net2 = ip_network(f'193.175.176.118/{mask}', 0)
+    if net1 != net2:
+        print(net1.netmask)
+        # 255.255.240.0
+        # 255.255.248.0
+        # 255.255.252.0
+        # 255.255.254.0
+        # 255.255.255.0
+        # 255.255.255.128
+        # 255.255.255.192
+        # 255.255.255.224
+        # 255.255.255.240
+        # 255.255.255.248
+        # 255.255.255.252
+        # 255.255.255.254
+        # 255.255.255.255
+'''
+# Ответ: 240
+
 
 # endregion Урок: *************************************************************
 # #
@@ -171,6 +215,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:
