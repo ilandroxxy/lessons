@@ -1,175 +1,163 @@
 # region Домашка: ******************************************************************
 
-# № 5111 (Уровень: Базовый)
-# https://stepik.org/lesson/1038432/step/7?unit=1060804
+# № 48393 (Уровень: Базовый)
 '''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 M = []
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    # if s.count('1') % 2 == 0:
-    if sum(map(int, s)) % 2 == 0:
-        s = '10' + s[2:] + '1'
-    else:
-        s = '1' + s[2:] + '11'
-    r = int(s, 2)
-    if r >= 100:
-        M.append(n)
-
+for x in alphabet[:8]:
+    for y in alphabet[:8]:
+        A = int(f'{y}04{x}5', 11)
+        B = int(f'253{x}{y}', 8)
+        if (A + B) % 117 == 0:
+            M.append((A + B) // 117)
 print(min(M))
 '''
-import multiprocessing
-
-# № 7026 (Уровень: Базовый)
-# https://stepik.org/lesson/1038432/step/8?unit=1060804
-'''
-M = []
-for n in range(9, 1000):
-    s = bin(n)[2:]
-    if n % 2 == 0:
-        s = '1' + s + '00'
-    else:
-        s = s + bin(s.count('1'))[2:]
-    r = int(s, 2)
-    if r > 88:
-        M.append([r, n])
-
-print(min(M)[1])  # [103, 25]
-'''
-
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Задание 14 https://education.yandex.ru/ege/task/12b3aabc-7777-4808-b29a-29993b289cca
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from itertools import product, permutations
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
+for p in product('01', repeat=2):
+    word = ''.join(p)
+    print(p, word)
+    # ('0', '0') 00
+    # ('0', '1') 01
+    # ('1', '0') 10
+    # ('1', '1') 11
 
+print('................')
 
-n = 3 * 3125 ** 8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
-print(convert(n, 25).count('0'))
-'''
-
-'''
-n = 3 * 3125 ** 8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
-M = []
-while n > 0:
-    M.append(n % 25)
-    n //= 25
-M = M[::-1]
-print(M.count(0))
-print(len(set(M)))
-print(set(M))
+for p in permutations('01', r=2):
+    word = ''.join(p)
+    print(p, word)
+    # ('0', '1') 01
+    # ('1', '0') 10
 '''
 
-# Задание 14 https://education.yandex.ru/ege/task/c5e4d9a3-018f-4705-b0dc-68403da4763f
+# 8 https://education.yandex.ru/ege/task/6420d873-dfac-4b7d-a0ff-4f1762b24476
 '''
-n = 3*7**82 - 4*49**21 + 5*343**25
-M = []
-while n > 0:
-    M.append(n % 7)
-    n //= 7
-M = M[::-1]
-print(sum(M))
-'''
+# Вариант 1
+s = sorted('МАРИЯ')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                if n == 211:
+                    print(word)
 
+# Вариант 2
 
-# Задание 14 https://education.yandex.ru/ege/task/a8c96097-e410-484b-8fe6-9d1034a9e228
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from itertools import *
+n = 0
+for p in product(sorted('МАРИЯ'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if n == 211:
+        print(word)
 
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += alphabet[n % b]
-        n //= b
-    return s[::-1]
+# Вариант 3
 
-
-for x in range(2030):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 71:
-        print(x)
-'''
-'''
-for x in range(2030):
-    n = 7 ** 170 + 7 ** 100 - x
-    M = []
-    while n > 0:
-        M.append(n % 7)
-        n //= 7
-    M = M[::-1]
-    if M.count(0) == 71:
-        print(x)
-'''
-
-# Задание 14 https://education.yandex.ru/ege/task/eca565e6-aa59-4e06-8e2c-fccdac9e9fd7
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-M = []
-for x in alphabet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        M.append((A + B) // 18)
-print(max(M))
+from itertools import *
+for n, p in enumerate(product(sorted('МАРИЯ'), repeat=4), 1):
+    word = ''.join(p)
+    if n == 211:
+        print(word)
 '''
 
 
-# Тип 14 №48387
+# 8 https://education.yandex.ru/ege/task/78b6e053-eaf4-40bc-a7d1-53fad9f7eee4
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:11]:
-    for y in alphabet[:11]:
-        A = int(f'{x}341{y}', 11)
-        B = int(f'56{x}1{y}', 19)
-        if (A + B) % 305 == 0:
-            print((A + B) // 305)
-'''
-
-
-# Задание 14 https://education.yandex.ru/ege/task/749a92f0-0083-4931-90cf-8c987a48ed9c
-'''
-M = []
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:16]:
-    for y in alphabet[:16]:
-        A = int(f'27A{x}23', 16)
-        B = int(f'8{y}E5D2', 16)
-        if (A + B) % 5 == 0:
-            print(x + y, alphabet.index(x) + alphabet.index(y))
-            M.append(alphabet.index(x) + alphabet.index(y))
-print(max(M))
+from itertools import *
+n = 0
+R = []
+for p in product(sorted('БАТЫР'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if 'Ы' not in word and 'АА' not in word:
+        R.append(n)
+print(max(R))
 '''
 
 
-# Задание 14 https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
+# 8 https://education.yandex.ru/ege/task/60c1a00c-2fd4-472e-b4aa-50791d6bddb8
 '''
-for x in range(2030):
-    n = 3 ** 100 - x
-    M = []
-    while n > 0:
-        M.append(n % 3)
-        n //= 3
-    M.reverse()
-    if M.count(0) == 5:
-        print(x)
+from itertools import *
+cnt = 0
+for p in permutations('КАБИНЕТ'):
+    word = ''.join(p)
+    if word[0] not in 'АИЕ':
+        cnt += 1
+print(cnt)
 '''
+
+
+# 8 https://education.yandex.ru/ege/task/7ddd002e-129b-40c6-8fcf-431d15434fa8
+'''
+from itertools import *
+cnt = 0
+for p in product('БАНДЕРОЛЬ', repeat=7):
+    word = ''.join(p)
+    if word.count('Ь') <= 1:
+        for x in 'БРНДЛ':
+            word = word.replace(x, '*')
+        if '*Е' not in word and 'Е*' not in word:
+            cnt += 1
+print(cnt)
+'''
+
+
+# todo разобрать 8 https://education.yandex.ru/ege/task/e680d278-78ba-4399-b8e4-d90c7e4b2d4e
+'''
+from itertools import *
+cnt = 0
+for p in permutations('01234567', r=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
+        num = num.replace('3', '1').replace('5', '1').replace('7', '1')
+        if '111' not in num and '222' not in num:
+            print(num)
+            num = num[1:-1]
+            print(num)
+            cnt += 1
+print(cnt)
+'''
+
+
+# 8 https://education.yandex.ru/ege/task/e327b270-8faa-450f-a350-e313a28bbee9
+'''
+from itertools import *
+cnt = 0
+for p in product('0123', repeat=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        if any(num.count(x) >= 2 for x in num):
+            cnt += 1
+print(cnt)
+'''
+
+
+# todo 8 https://education.yandex.ru/ege/task/08a16fb2-3773-4f00-8961-cfa21b2e65a9
+
+from itertools import *
+cnt = 0
+for p in product('ГИПЕРБОЛА', repeat=6):
+    word = ''.join(p)
+    if word[0] not in 'ИЕОА' and word[-1] not in 'ИЕОА':
+        for x in 'ИЕОА':
+            word = word.replace(x, 'A')
+        for x in 'ГПРБЛ':
+            word = word.replace(x, 'Б')
+        if 'БАБ' not in word:
+            cnt += 1
+print(cnt)
 
 # endregion Урок: *************************************************************
 # #
@@ -180,6 +168,6 @@ for x in range(2030):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 5, 12]
+# ФИПИ = [2, 6, 5, 8, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:

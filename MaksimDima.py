@@ -6,253 +6,246 @@
 # #
 # region Урок: ********************************************************************
 
-"""
-import time
-start = time.time()
 
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
 '''
-def divisors(x):
-    div = []
-    for j in range(1, x+1):
-        if x % j == 0:
-            div.append(j)
-    return div
-'''
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-            # div.append(j)
-            # div.append(x // j)
-    return sorted(set(div))
+def F(a, b):  # a - start, b - stop
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
 
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16]
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 3.48028 -> 0.00048
-"""
+print(F(5, 7) * F(7, 11))
 
 
-# Задание 25 https://education.yandex.ru/ege/task/d8b3bd78-66b1-48d6-9cd3-f34b0182e601
-'''
-def divisors(x):
-    div = []
-    # В качестве делителей не рассматривать числа 1 и исследуемое число.
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+# Вариант 2
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
 
-for x in range(135_790, 163_228+1):
-    d = divisors(x)
-    if sum(d) > 460_000:
-        print(len(d), sum(d))
+print(F(5, 7) * F(7, 11))
 '''
 
 
-# Задание 25 https://education.yandex.ru/ege/task/2f0244ec-e26c-4ebe-a8dd-7b32e94d30e4
-# Поиск чисел с полными квадратами
+# № 18047 (Уровень: Базовый)
+# А. Вычесть 2
+# В. Вычесть 3
+# С. Найти целую часть от деления на 4
+# Сколько существует программ, для которых при исходном
+# числе 36 результатом является число 13,
+# при этом траектория вычислений не содержит числа 24?
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+def F(a, b):
+    if a <= b or a == 24:
+        return a == b
+    return F(a-2, b) + F(a-3, b) + F(a//4, b)
+
+
+print(F(36, 13))
+'''
+
+#
+# № 18267 (Уровень: Средний)
+# А. Прибавить 2
+# В. Прибавить 5
+# С. Возвести в квадрат
+# Сколько существует программ, для которых при исходном числе 4
+# результатом является число 36, при этом последняя в них команда — не C?
+'''
+def F(a, b, c):
+    if a >= b:
+        # return a == b and c != 'C'
+        return a == b and c in 'AB'
+    return F(a+2, b, 'A') + F(a+5, b, 'B') + F(a**2, b, 'C')
+
+
+print(F(4, 36, ''))
+
+# Вариант 2
+def F(a, b, c):
+    if a >= b:
+        return a == b and c[-1] != 'C'
+    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
+
+
+print(F(4, 36, ''))
+'''
+
+# Задача статград 12.03.2024
+'''
+def F(a, b, c):
+    if a >= b:
+        M = [x for x in c if x in '02468']
+        return a == b and len(M) <= 4
+    return F(a+1, b, c+str(a)) + F(a*2, b, c+str(a))
+
+
+print(F(1, 17, ''))  # 8
+
+
+def F(a, b, c):
+    if a >= b:
+        M = [int(x) for x in c.split() if int(x) % 2 == 0]
+        return a == b and len(M) <= 4
+    return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
+
+
+print(F(1, 17, ''))  # 8
+'''
+
+
+# № 610 (Уровень: Базовый)
+'''
+def F(n):
+    if n < 5:
+        return 1 + 2*n
+    if n >= 5 and n % 3 == 0:
+        return 2 * (n+1) * F(n-2)
+    if n >= 5 and n % 3 != 0:
+        return 2*n + 1 + F(n-1) + 2*F(n-2)
+
+
+print(F(15))
+'''
+
+
+# № 1021
+'''
+def F(n):
+    if n <= 2:
+        return n
+    if n > 2:
+        return G(n) + F(n - 2)
+
+
+def G(n):
+    if n <= 2:
+        return n
+    if n > 2:
+        return F(n - 1) - G(n - 2)
+
+
+print(G(15))
+'''
+
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n > 0 and n % 2 == 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
 
 
 cnt = 0
-for x in range(10**7+1, 10**10):
-    # d = [j for j in divisors(x) if (j**0.5) == int(j**0.5)]
-    d = [j for j in divisors(x) if (j**0.5).is_integer()]
-    if len(d) == 3:
-        print(x, max(d))
+for n in range(1, 1000+1):
+    if F(n) == 3:
         cnt += 1
-        if cnt == 5:
-            break
+print(cnt)
 '''
 
 
-# Задание 25 https://education.yandex.ru/ege/task/2d62d9fd-a99a-4bef-a747-57a6ad2539d7
+# № 4704 Демоверсия 2023 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
 
 
-for x in range(177000, 177300+1):
-    if len(divisors(x)) == 0:
-        summa = sum([int(i) for i in str(x)])
-        if len(divisors(summa)) == 0:
-            print(x, summa)
-'''
+print(F(2023) / F(2020))
+# RecursionError: maximum recursion depth exceeded
 
-
-# Задание 25 https://education.yandex.ru/ege/task/f057cfef-606b-4010-8258-037b3517a524
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(424_242+1, 10**10):  # большие 424 242
-    d = divisors(x)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 2024 == 42:
-            print(x, M)
-            cnt += 1
-            if cnt == 8:
-                break
+# F(2023) = 2023 * F(2022)
+# F(2022) = 2022 * F(2021)
+# F(2021) = 2021 * F(2020) / F(2020)
+print(2023 * 2022 * 2021)
 '''
 
 
-# Задание 25 https://education.yandex.ru/ege/task/d02f4351-acc7-4b66-9ca1-83d0d1887db7
+# № 4739 (Уровень: Средний)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+from functools import *
+import sys
+sys.setrecursionlimit(1000000)
+
+@lru_cache(None)
+def F(n):
+    if n > 10_000:
+        return n - 10_000
+    if 1 <= n <= 10_000:
+        return F(n + 1) + F(n + 2)
 
 
-cnt = 0
-for x in range(700_000+1, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
-    if len(d) > 0:
-        print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+print(F(12345 * ((F(10) - F(12)) / F(11))) + F(10101))
+print(F(12345) + F(10101))
 '''
 
 
-# Тип 25 №29673
-# Найдите все натуральные числа, принадлежащие отрезку [123_456_789; 223_456_789]
-# и имеющие ровно три нетривиальных делителя. Для каждого найденного
-# числа запишите в ответе его наибольший нетривиальный делитель.
-# Ответы расположите в порядке возрастания.
+# № 12470 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+from functools import *
 
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return n
+    if n > 2 and n % 2 != 0:
+        return F(n - 1) + F(n - 2) + 1
+    if n > 2 and n % 2 == 0:
+        return sum(F(i) for i in range(1, n))
 
-for x in range(123_456_789, 223_456_789+1):
-    if (x**0.5).is_integer():
-        d = divisors(x)
-        if len(d) == 3:
-            print(x, max(d))
+print(F(38))  # 9182657279
 '''
 
 
-# Задание 25 https://education.yandex.ru/ege/task/2135bad3-5844-4cbd-8a72-93751f24130f
+# № 17529 Основная волна 07.06.24 (Уровень: Базовый)
 '''
-from fnmatch import *
-d = [14, 24, 34, 44, 54, 64, 74, 84, 94]
-for x in range(124, 10**10, 124):
-    if fnmatch(str(x), '1*28?64'):
-        D = [j for j in d if x % j == 0]
-        if len(D) == 5:
-            print(x, x // 124)
-'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
 
 
-# https://education.yandex.ru/ege/task/08b93dc7-c401-48a3-9078-75af3fa2e240
-'''
-from fnmatch import *
-for x in range(0, 10**8, 13):
-    if fnmatch(str(x), '123*678'):
-        print(x, x // 13)
+print((2 * F(2024) + F(2023)) / F(2022))
 '''
 
 
-# № 12477 PRO100 ЕГЭ 29.12.23 (Уровень: Средний)
+# № 17557 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-import time
-start = time.time()
+import sys
+sys.setrecursionlimit(10000)
 
-from fnmatch import *
-
-
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n - 1)
 
 
-for x in range(10**7):
-    if fnmatch(str(x), '3?1111*'):
-        if len(divisors(x)) == 0:
-                print(x)
-
-
-print(time.time() - start)  # 3.99135804
-'''
-
-
-# № 10725 (Уровень: Средний)
-'''
-from fnmatch import *
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(65_000+1, 10**10):
-    if fnmatch(str(x), '6*97*5?'):
-        d = [j for j in divisors(x) if j % 2 == 0]
-        if len(d) >= 4:
-            print(x, sum(d))
-            cnt += 1
-            if cnt == 7:
-                break
-'''
-
-
-# № 7724 (Уровень: Базовый)
-'''
-from fnmatch import *
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(1018, 10**9, 1018):
-    if x % 18 == 0:
-        if fnmatch(str(x), '*18??18'):
-            print(x, len(divisors(x)))
-            cnt += 1
-            if cnt == 5:
-                break
+print((F(2024) // 16 - F(2023)) / F(2022))
+# print((F(2024) / 16 - F(2023)) / F(2022))
+#        ~~~~~~~~^~~~
+# OverflowError: integer division result too large for a float
 '''
 
 # endregion Урок: *************************************************************
@@ -264,6 +257,6 @@ for x in range(1018, 10**9, 1018):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 12, 13, 14, 25]
+# ФИПИ = [5, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
