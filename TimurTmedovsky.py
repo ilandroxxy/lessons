@@ -1,148 +1,170 @@
 # region Домашка: ******************************************************************
 
+'''
+import sys
+sys.setrecursionlimit(100000)
+from functools import *
+@lru_cache(None)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n + 1) * F(n - 1)
+
+print((F(2024) - 3 * F(2023)) // F(2022))
+'''
+
+
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(a, b, c):
+    if a >= b:
+        return a == b
+    else:  # 17 - 7
+        return F(a - int(str(a)[1]), b, c+'1') + F(a+12, b, c+'2')
+
+
+# 15 + 12 + 12+  12 + 12 = 65 - 5 = 60
+
+print(F(15, 60, ''))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# 16 https://education.yandex.ru/ege/task/c29d8526-670e-420f-b570-bf389148e7e4
+# 15 https://education.yandex.ru/ege/task/ef01bd15-9cad-4c7d-b3ef-42633c6fc757
 '''
-def F(n):
-    if n >= 2025:
-        return n
-    if n < 2025:
-        return n + 3 + F(n + 3)
+# Вариант 1
+def F(x, A):
+    B = 70 <= x <= 80  # (x ∈ B)
+    return (x % A == 0) or (B <= (x % 18 != 0))
 
 
-print(F(23) - F(21))
-'''
-
-
-# 16 https://education.yandex.ru/ege/task/e6698118-3eea-44a7-9649-652cc0eb183a
-'''
-# RecursionError: maximum recursion depth exceeded
-import sys
-sys.setrecursionlimit(1000)
-
-def F(n):
-    if n <= 1:
-        return 0
-    if n > 1 and n % 6 == 0:
-        return n + F(n/6 - 2)
-    if n > 1 and n % 6 != 0:
-        return n + F(n + 6)
-
-
-for n in range(1000, 10000):
-    try:
-        if F(n) > 4242:
-            print(n)
+R = []
+for A in range(1, 1000):
+    flag = True
+    for x in range(1, 10000):
+        if F(x, A) == False:
+            flag = False
             break
-    except RecursionError:
-        continue
-'''
+    if flag == True:
+        R.append(A)
 
-
-# 16 https://education.yandex.ru/ege/task/f1c6d72d-9c1f-4bc9-bece-8ff2447f219d
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n >= 10000:
-        return 1
-    if n < 10000 and n % 2 == 0:
-        return F(n + 3) + 7
-    if n < 10000 and n % 2 != 0:
-        return F(n + 1) - 3
-
-
-print(F(50) - F(57))
-# RecursionError: maximum recursion depth exceeded
-'''
-
-
-# № 18931 Новогодний вариант 2025
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-
-print(F(4952) + 2 * F(4958) + F(4964))
-'''
-
-
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
-'''
-def F(a, b):  # a - start, b - stop
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a + 1, b) + F(a + 2, b) + F(a + 3, b)
-
-
-print(F(5, 7) * F(7, 11))
+print(max(R))
 
 
 # Вариант 2
-def F(a, b):  # a - start, b - stop
-    if a >= b:
-        return a == b
-    return F(a + 1, b) + F(a + 2, b) + F(a + 3, b)
+def F(x, A):
+    B = 70 <= x <= 80  # (x ∈ B)
+    return (x % A == 0) or (B <= (x % 18 != 0))
 
 
-print(F(5, 7) * F(7, 11))
+R = []
+for A in range(1, 1000):
+    k = 0
+    for x in range(1, 10000):
+        if F(x, A) == True:
+            k += 1
+    if k == 9999:
+        R.append(A)
+
+print(max(R))
+
+
+# Вариант 3
+
+def F(x, A):
+    B = 70 <= x <= 80  # (x ∈ B)
+    return (x % A == 0) or (B <= (x % 18 != 0))
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
+
+
+# Вариант 4
+
+def F(x, A):
+    B = 70 <= x <= 80  # (x ∈ B)
+    return (x % A == 0) or (B <= (x % 18 != 0))
+
+
+print(max([A for A in range(1, 1000) if all(F(x, A) for x in range(1, 10000))]))
+'''
+
+'''
+def F(x, A):
+    return (x % 72 != 0) or (x % 495 == 0) or (x % A != 0)
+
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 '''
 
 
+# https://education.yandex.ru/ege/task/ae636d2a-4f9d-4ac3-88b4-f8cfa0888f36
+'''
+def F(x, y, A):
+    return ((y + x)**2 > 1048) or ((x + 20 < A) and (40 - y < A))
 
-#
-# № 18047 (Уровень: Базовый)
-# А. Вычесть 2
-# В. Вычесть 3
-# С. Найти целую часть от деления на 4
-# Сколько существует программ, для которых при исходном числе 36
-# результатом является число 13, при этом траектория
-# вычислений не содержит числа 24?
+
+for A in range(0, 1000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        print(A)
+        break
+'''
+
+
+# https://education.yandex.ru/ege/task/e833a9a3-2790-4be4-bec3-c662b6c81fee
+'''
+def F(x, y, A):
+    return (x + 2*y != 58) or ((A - x > 0) == (A + y > 0))
+
+
+for A in range(1, 1000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        print(A)
+        break
+'''
+
+
+# https://education.yandex.ru/ege/task/0891d1fa-be38-4015-8920-47868754e234
+'''
+def F(x, A):
+    return (((x & 28 != 0) or (x & A == 0)) <= (x & 28 != 0)) or (x & A != 0) or (x & 39 == 0)
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
+'''
 
 '''
-def F(a, b):
-    if a < b or a == 24:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-2, b) + F(a-3, b) + F(a//4, b)
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
 
 
-print(F(36, 13))
-
-# Вариант 2
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a-2, b) + F(a-3, b) + F(a//4, b)
-
-
-print(F(36, 13))
+R = []
+M = [x / 4 for x in range(10 * 4, 70 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 19.0
 '''
 
 
@@ -155,6 +177,6 @@ print(F(36, 13))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
