@@ -177,6 +177,45 @@ for p in product('0123456789ABCD', repeat=5):
                 cnt += 1
 print(cnt)
 '''
+
+import string
+punctuations = string.punctuation
+punctuations = '!"#$%&()*+,./:;<=>?@[\]^_`{|}~'
+print(punctuations)
+file = open('files/10.txt')
+
+
+file = file.read()
+# print(file)
+for x in punctuations:
+    file = file.replace(x, ' ')
+
+words = file.split()
+start1 = words.index('V')
+end1 = words.index('VI')
+print(start1, end1)
+
+start2 = words.index('XX')
+end2 = words.index('XXI')
+print(start2, end2)
+
+new_words = words[start1:end1+1] + words[start2:end2+1]
+print(len(new_words))
+count = 0
+cnt = 0
+for word in new_words:
+    word = word.lower()
+    if 'то' in word and 'то' != word:
+        print(word)
+        count += word.count('то')
+        cnt += 1
+print(cnt)
+print(count)
+
+
+
+
+
 # endregion Разобрать: *************************************************************
 # #
 # #

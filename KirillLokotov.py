@@ -1,19 +1,5 @@
 # region Домашка: ************************************************************
 
-# № 7818 (Уровень: Базовый)
-
-# ¬x -->  (not x)
-# ¬(x→z) (not(x <= z))
-'''
-print('x y z w')
-for x in range(2):
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (y <= (not(x <= z))) or w
-                if F == 0:
-                    print(x, y, z, w)
-'''
 
 # endregion Домашка: ************************************************************
 # #
@@ -22,14 +8,13 @@ for x in range(2):
 
 
 # № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
 # A. Прибавить 1
 # B. Прибавить 2
 # C. Прибавить 3
 # Сколько существует программ, которые преобразуют число 5 в число 11,
 # и при этом траектория вычислений содержит число 7?
 '''
-def F(a, b):  # a - start, b - stop
+def F(a, b):
     if a > b:
         return 0
     elif a == b:
@@ -38,100 +23,149 @@ def F(a, b):  # a - start, b - stop
         return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
 
-print(F(5, 7) * F(7, 11))
-'''
+print(F(5, 7) * F(7, 11))  # 14
 
-#
-# № 17684 Пересдача 04.07.24 (Уровень: Базовый)
-# A. Вычти 2
-# B. Найти целую часть от деления на 2
-# Сколько существует программ, для которых при исходном числе 38 результатом является число 2
-# и при этом траектория вычислений содержит число 10?
-'''
+# Вариант 2
 def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-2, b) + F(a // 2, b)
-
-print(F(38, 10) * F(10, 2))
-
-
-def F(a, b):
-    if a <= b:
+    if a >= b:
         return a == b
-    return F(a-2, b) + F(a // 2, b)
-
-print(F(38, 10) * F(10, 2))
-'''
-
-# Как работает return
-# return возвращает результат выполнения функции и прерывает ее
-
-'''
-def is_prime(x):
-    """
-    Проверка числа х на простоту
-    :param x: Проверяемое число
-    :return: True - число простое, False - число составное
-    """
-    if x <= 1:
-        return False
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
 
-print(is_prime(7))  # True
-print(is_prime(8))  # False
-
-x = is_prime(7)
-print(x)  # True
-
-M = [1, 2, 3, 4, 5]
-summa = sum(M)
-print(summa)  # 15
+print(F(5, 7) * F(7, 11))  # 14
 '''
 
 
+# № 18146 (Уровень: Базовый)
 '''
+# A. Вычти 3
+# B. Найди целую часть от деления на 3
+# С. Найди целую часть от деления на 2
+# Сколько существует программ, для которых при исходном
+# числе 46 результатом является число 3 и при этом траектория
+# вычислений содержит число 20 и не содержит числа 28?
+
 def F(a, b):
+    if a < b or a == 28:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-3, b) + F(a // 3, b) + F(a // 2, b)
+
+
+print(F(46, 20) * F(20, 3))
+
+
+def F(a, b, c):
     if a < b:
         return 0
     elif a == b:
-        return 1
+        return 1 and '28' not in c
     else:
-        return F(a-2, b) + F(a // 2, b)
+        return F(a-3, b, c + ' ' + str(a)) + F(a // 3, b, c + ' ' + str(a)) + F(a // 2, b, c + ' ' + str(a))
 
-print(F(38, 10) * F(10, 2))
+
+print(F(46, 20, '') * F(20, 3, ''))
 '''
 
+
+# № 18267 (Уровень: Средний)
+# А. Прибавить 2
+# В. Прибавить 5
+# С. Возвести в квадрат
+# Сколько существует программ, для которых при исходном
+# числе 4 результатом является число 36,
+# при этом последняя в них команда — не C?
 '''
-def F(a, b):
-    if a > b or a == 16:
+def F(a, b, c):
+    if a > b:
         return 0
     elif a == b:
-        return 1
+        print(c)
+        # return 1 and c[-1] != 'C'
+        return 1 and c[-1] in 'AB'
     else:
-        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+        return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
 
 
-print(F(2, 9) * F(9, 18))
+print(F(4, 36, ''))
 
 
-def F(a, b):
-    if a > b or a == 16:
-        return 0
-    elif a == b:
-        return 1
+# Вариант 2
+def F(a, b, c):
+    if a >= b:
+        return a == b and c[-1] != 'C'
     else:
-        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+        return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
 
 
-print(F(2, 9) * F(9, 18))
+print(F(4, 36, ''))
+'''
+
+
+# № 9747 Основная волна 19.06.23 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+from sys import *
+setrecursionlimit(10000)
+
+def F(n):
+    if n < 11:
+        return n
+    if n >= 11:
+        return n + F(n - 1)
+
+
+print(F(2024) - F(2021))  # 6069
+# RecursionError: maximum recursion depth exceeded
+
+# Перебор руками: 
+# F(2024) = 2024 + F(2023)
+# F(2023) = 2023 + F(2022)
+# F(2022) = 2022 + F(2021) - F(2021)
+print(2024 + 2023 + 2022)  # 6069
+'''
+
+# № 18931
+'''
+import sys
+from functools import *
+sys.setrecursionlimit(10000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n-2)+ n/2 - F(n-4)
+    if n > 3 and n % 2 != 0:
+        return F(n-1) * n + F(n-2)
+
+
+print(F(4952) + 2 * F(4958) + F(4964))
+'''
+
+
+# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n - 1) * F(n - 1)
+
+
+print((F(2024) // 7 - F(2023)) // F(2022))
+
+# print((F(2024) / 7 - F(2023)) / F(2022))
+#        ~~~~~~~~^~~
+# OverflowError: integer division result too large for a float
 '''
 
 # endregion Урок: ************************************************************
@@ -143,6 +177,6 @@ print(F(2, 9) * F(9, 18))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
