@@ -6,6 +6,25 @@
 # #
 # region Урок: ********************************************************************
 
+# https://education.yandex.ru/ege/task/bdfb8f12-2b10-4f4b-99b0-6d2e045552e2
+s = open('files/24.txt').readline()
+
+for x in 'AEIOUY':
+    s = s.replace(x, '*')
+s = s.split('*')
+
+
+maxi = 0
+for i in range(len(s)-1):
+    r = 'a' + s[i] + s[i+1]
+    cnt = 1
+    for k in range(len(r)-1):
+        if r[k] <= r[k+1]:
+            cnt += 1
+            maxi = max(maxi, cnt)
+        else:
+            cnt = 1
+print(maxi)
 
 
 # endregion Урок: *************************************************************
