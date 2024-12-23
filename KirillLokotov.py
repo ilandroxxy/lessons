@@ -1,172 +1,184 @@
 # region Домашка: ************************************************************
 
 
+'''
+def G(n):
+    return F(n) / n
+
+
+def F(n):
+    if n > 1_000_000:
+        return n
+    if n <= 1_000_000:
+        return n + F(2 * n)
+
+
+cnt = 0
+r = G(2000)
+for n in range(1, 10**6+1):
+    if G(n) == r:
+        cnt += 1
+print(cnt)
+'''
+
+
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
 
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+# № 18175 (Уровень: Базовый)
+
+# Вариант 1
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
 
 
-print(F(5, 7) * F(7, 11))  # 14
+R = []
+for A in range(1, 10000):
+    flag = True
+    for x in range(1, 10000):
+        if F(x, A) == False:
+            flag = False
+            break
+    if flag == True:
+        R.append(A)
+print(max(R))
+'''
 
 # Вариант 2
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
 
 
-print(F(5, 7) * F(7, 11))  # 14
+R = []
+for A in range(1, 1000):
+    cnt = 0
+    for x in range(1, 10000):
+        if F(x, A) == True:
+            cnt += 1
+    if cnt == 9999:
+        R.append(A)
+print(max(R))
+'''
+
+# Вариант 3
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
+
+
+# Вариант 4
+print(max([A for A in range(1, 1000) if all( (((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)) for x in range(1, 10000))]))
 '''
 
 
-# № 18146 (Уровень: Базовый)
+# № 17678 Пересдача 04.07.24 (Уровень: Базовый)
 '''
-# A. Вычти 3
-# B. Найди целую часть от деления на 3
-# С. Найди целую часть от деления на 2
-# Сколько существует программ, для которых при исходном
-# числе 46 результатом является число 3 и при этом траектория
-# вычислений содержит число 20 и не содержит числа 28?
-
-def F(a, b):
-    if a < b or a == 28:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-3, b) + F(a // 3, b) + F(a // 2, b)
+def F(x, y, A):
+    return (x + y <= 24) or (y <= x - 2) or (y >= A)
 
 
-print(F(46, 20) * F(20, 3))
+R = []
+for A in range(0, 1000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        R.append(A)
 
-
-def F(a, b, c):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1 and '28' not in c
-    else:
-        return F(a-3, b, c + ' ' + str(a)) + F(a // 3, b, c + ' ' + str(a)) + F(a // 2, b, c + ' ' + str(a))
-
-
-print(F(46, 20, '') * F(20, 3, ''))
+print(max(R))
 '''
 
 
-# № 18267 (Уровень: Средний)
-# А. Прибавить 2
-# В. Прибавить 5
-# С. Возвести в квадрат
-# Сколько существует программ, для которых при исходном
-# числе 4 результатом является число 36,
-# при этом последняя в них команда — не C?
+# № 17556 Основная волна 08.06.24 (Уровень: Базовый)
+
 '''
-def F(a, b, c):
-    if a > b:
-        return 0
-    elif a == b:
-        print(c)
-        # return 1 and c[-1] != 'C'
-        return 1 and c[-1] in 'AB'
-    else:
-        return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
+def F(x, A):
+    B = 70 <= x <= 90
+    return (x % A == 0) or (B <= (x % 22 != 0))
 
-
-print(F(4, 36, ''))
-
-
-# Вариант 2
-def F(a, b, c):
-    if a >= b:
-        return a == b and c[-1] != 'C'
-    else:
-        return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
-
-
-print(F(4, 36, ''))
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(10000)):
+        R.append(A)
+print(max(R))
 '''
 
-
-# № 9747 Основная волна 19.06.23 (Уровень: Базовый)
+# № 14348 (Уровень: Базовый)
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-from sys import *
-setrecursionlimit(10000)
-
-def F(n):
-    if n < 11:
-        return n
-    if n >= 11:
-        return n + F(n - 1)
+def F(x, A):
+    return (x & 47 == 0) or ((x & 13 == 0) <= (x & A != 0))
 
 
-print(F(2024) - F(2021))  # 6069
-# RecursionError: maximum recursion depth exceeded
-
-# Перебор руками: 
-# F(2024) = 2024 + F(2023)
-# F(2023) = 2023 + F(2022)
-# F(2022) = 2022 + F(2021) - F(2021)
-print(2024 + 2023 + 2022)  # 6069
+for A in range(0, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 '''
 
-# № 18931
 '''
-import sys
-from functools import *
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n-2)+ n/2 - F(n-4)
-    if n > 3 and n % 2 != 0:
-        return F(n-1) * n + F(n-2)
+def F(x, a1, a2):
+    B = 34 <= x <= 72
+    C = 32 <= x <= 61
+    A = a1 <= x <= a2
+    return (B <= A) and ((not C) or A)
 
 
-print(F(4952) + 2 * F(4958) + F(4964))
+R = []
+M = [x / 5 for x in range(30 * 5, 80 * 5)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 40.0 -> 40, 40.7 -> 41, 40.2 -> 40
 '''
 
 
-# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n - 1) * F(n - 1)
+def F(x, a1, a2):
+    B = 54 <= x <= 120
+    C = 78 <= x <= 151
+    A = a1 <= x <= a2
+    return C <= ((B and (not A)) <= (not C))
 
 
-print((F(2024) // 7 - F(2023)) // F(2022))
-
-# print((F(2024) / 7 - F(2023)) / F(2022))
-#        ~~~~~~~~^~~
-# OverflowError: integer division result too large for a float
+R = []
+M = [x / 5 for x in range(50 * 5, 160 * 5)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
 '''
+
+
+# № 15330 Досрочная волна 2024 (Уровень: Базовый)
+
+def F(x, a1, a2):
+    B = 24 <= x <= 90
+    C = 47 <= x <= 115
+    A = a1 <= x <= a2
+    return C <= (((not A) and B) <= (not C))
+
+
+R = []
+M = [x / 5 for x in range(20 * 5, 120 * 5)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
+
+
+
 
 # endregion Урок: ************************************************************
 # #
@@ -177,6 +189,6 @@ print((F(2024) // 7 - F(2023)) // F(2022))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:

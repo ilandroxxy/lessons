@@ -1,150 +1,131 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038700/step/4?unit=1062785
-'''
-from ipaddress import *
-net = ip_network('136.36.240.16/255.255.255.248', 0)
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if '101' not in s:
-        cnt += 1
-print(cnt)
-'''
-
-
-# https://stepik.org/lesson/1038700/step/5?unit=1062785
-'''
-from ipaddress import *
-R = []
-for mask in range(33):
-    net1 = ip_network(f'165.112.200.70/{mask}', 0)
-    net2 = ip_network(f'165.112.175.80/{mask}', 0)
-    if net1 == net2:
-        R.append(mask)
-print(max(R))
-'''
-
-# https://stepik.org/lesson/1038700/step/14?unit=1062785
-'''
-from ipaddress import *
-net = ip_network('192.168.32.160/255.255.255.240', 0)
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('0') > 21:
-        cnt += 1
-print(cnt)
-'''
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 11259 (Уровень: Базовый)
+# Задача 2
 '''
-from fnmatch import *
-for x in range(3226, 10**8, 3226):
-    if fnmatch(str(x), '3?99?7*8'):
-        print(x, x // 3226)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = w and (y == (z <= (x or y)))
+                if F == 1:
+                    print(x, y, z, w)
 '''
-
-# № 11254 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(5716, 10**10, 5716):
-    if fnmatch(str(x), '56*139?4'):
-        print(x, x // 5716)
-'''
-
-# № 9710 Danov2307 (Уровень: Средний)
-'''
-from fnmatch import *
-R = []
-for x in range(2023, 10**10, 2023):
-    summa = sum(map(int, str(x)))
-    if len(str(x)) == 10:
-        if fnmatch(str(x), '1*1'):
-            R.append([summa, x // 2023])
-            print(summa, x // 2023)
-
-for elem in sorted(R):
-    print(elem)
-'''
-
-'''
-import time
-start = time.time()
-
-# def divisors(x):
-#     div = []
-#     for j in range(1, x+1):
-#         if x % j == 0:
-#             div.append(j)
-#     return div
+# Ответ: wxyz
 
 
+# Задача 5
+'''
+M = []
+for n in range(26, 1000):
+    s = bin(n)[2:]  # s = f'{n:b}'
+    print(s)
+    if n % 2 != 0:
+        s = s[:-2] + '10'
+    else:
+        s = '10' + s[2:] + '1'
+    r = int(s, 2)
+    M.append(r)
+print(min(M))
+'''
+# Ответ: 26
+
+
+# Задача 8
+'''
+s = sorted('ПРОБНИК')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if word.count('О') == 3:  # с тремя буквами О
+                            if len(set(word)) == 4:  # остальные буквы при этом не повторяются
+                                print(n)
+'''
+
+# Задача 12
+'''
+for n in range(4, 10000):
+    s = '0' + '2' * n
+
+    while '002' in s or '22' in s:
+        if '002' in s:
+            s = s.replace('002', '44', 1)
+        else:
+            s = s.replace('22', '0', 1)
+        if '222' in s:
+            s = s.replace('222', '2', 1)
+    summa = sum(map(int, s))
+    if summa == 42:
+        print(n)
+# Ответ: 56
+'''
+
+
+# Задача 13
+'''
+from ipaddress import *
+net = ip_network('10.112.0.0/255.248.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 3 == 0:
+        cnt += 1
+print(cnt)
+'''
+
+
+# Задача 14
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+for x in range(2042):
+    n = 25**61 + 5**178 - x
+    s = convert(n, 5)
+    if s.count('0') == 60:
+        print(x)
+'''
+
+# Задача 25
+# https://education.yandex.ru/ege/task/d02f4351-acc7-4b66-9ca1-83d0d1887db7
+'''
 def divisors(x):
     div = []
-    for j in range(1, int(x**0.5)+1):
+    for j in range(2, int(x**0.5)+1):
         if x % j == 0:
             div.append(j)
             div.append(x // j)
     return sorted(set(div))
 
 
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16]
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 2.81252 -> 0.00033
+k = 0
+for x in range(700_000+1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
+    if len(d) > 0:
+        print(x, min(d))
+        k += 1
+        if k == 5:
+            break
 '''
 
-
-# № 13488 Открытый курс "Слово пацана" (Уровень: Базовый)
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(18782, 18822+1):
-    d = [j for j in divisors(x) if j % 2 != 0]
-    if len(d) == 3:
-        print(*d)
-'''
-
-# № 6061 (Уровень: Средний)
-'''
-def is_prime(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-from fnmatch import *
-for x in range(10**7):
-    if fnmatch(str(x), '34?8*9'):
-        d = [j for j in divisors(x) if len(is_prime(j)) == 0]
-        if len(d) > 4:
-            print(x, max(d))
-'''
 
 # endregion Урок: *************************************************************
 # #

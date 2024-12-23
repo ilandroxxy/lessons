@@ -1,33 +1,54 @@
 # region Домашка: ******************************************************************
 
-'''
-def f(s, n):
-    if s <= 0:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [f(s-5, n-1), f(s//3, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 1001) if f(s, 2)])  # [6, 7, 8, 9, 10]
-print([s for s in range(1, 1001) if not f(s, 1) and f(s, 3)])  # 20
-print([s for s in range(1, 1001) if not f(s, 2) and f(s, 4)])  # 21 хммм
-'''
-
-
-# 18616
-
-print(f'{15:X}')
-print(f'{31:X}')
-print(f'{47:X}')
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# todo Разобраться через ods
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    print(s)
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 2]
+    if len(copied) == 4:
+        print(M, sum(set(M)))
+        cnt += 1
+print(cnt)
+'''
+
+'''
+pixels = 2560 * 1440
+V_200 = 1 * 2 ** 33
+V_1 = V_200 / 200
+i = V_1 / pixels
+print(i)  # 11.650844 -> i = 11
+print(2**11)
+'''
+
+'''
+s = open('files/24.txt').readline()
+print(len(s))
+print(s.count('FSRQ'))
+
+from ipaddress import *
+net = ip_network('218.194.82.148/255.255.255.192', 0)
+for ip in net:
+    print(ip)
+'''
+
+# 19254
+'''
+s = open('files/24.txt').readline()
+s = s.split('FSRQ')
+maxi = 0
+for i in range(len(s)-80):
+    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -41,4 +62,7 @@ print(f'{47:X}')
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = [8, 14, 15]
 # на следующем уроке:
+
+# Первый пробник 21.12.24:
+# 24/25 -> 88 вторичных баллов +[1, 3-25] -[2]
 

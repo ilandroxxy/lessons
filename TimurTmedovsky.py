@@ -1,171 +1,194 @@
 # region Домашка: ******************************************************************
 
-'''
-import sys
-sys.setrecursionlimit(100000)
-from functools import *
-@lru_cache(None)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n + 1) * F(n - 1)
-
-print((F(2024) - 3 * F(2023)) // F(2022))
-'''
-
-
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(a, b, c):
-    if a >= b:
-        return a == b
-    else:  # 17 - 7
-        return F(a - int(str(a)[1]), b, c+'1') + F(a+12, b, c+'2')
-
-
-# 15 + 12 + 12+  12 + 12 = 65 - 5 = 60
-
-print(F(15, 60, ''))
-'''
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# 15 https://education.yandex.ru/ege/task/ef01bd15-9cad-4c7d-b3ef-42633c6fc757
+# Задание 2
 '''
-# Вариант 1
-def F(x, A):
-    B = 70 <= x <= 80  # (x ∈ B)
-    return (x % A == 0) or (B <= (x % 18 != 0))
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x <= (z == w)) or (not(y <= w))
+                if F == 0:
+                    print(x, y, z, w)
+
+# Ответ: zwyx
+'''
+
+# Задание 5
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
 
+number = 0
 R = []
-for A in range(1, 1000):
-    flag = True
-    for x in range(1, 10000):
-        if F(x, A) == False:
-            flag = False
-            break
-    if flag == True:
-        R.append(A)
+for n in range(1, 100):
+    s = convert(n, 3)
+
+    if n % 3 == 0:
+        s = '1' + s + '02'
+    else:
+        number = (n % 3) * 4
+        s += convert(number, 3)
+
+    r = int(s, 3)
+    if r < 199:
+        R.append(n)
 
 print(max(R))
 
-
-# Вариант 2
-def F(x, A):
-    B = 70 <= x <= 80  # (x ∈ B)
-    return (x % A == 0) or (B <= (x % 18 != 0))
-
-
-R = []
-for A in range(1, 1000):
-    k = 0
-    for x in range(1, 10000):
-        if F(x, A) == True:
-            k += 1
-    if k == 9999:
-        R.append(A)
-
-print(max(R))
-
-
-# Вариант 3
-
-def F(x, A):
-    B = 70 <= x <= 80  # (x ∈ B)
-    return (x % A == 0) or (B <= (x % 18 != 0))
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-
-
-# Вариант 4
-
-def F(x, A):
-    B = 70 <= x <= 80  # (x ∈ B)
-    return (x % A == 0) or (B <= (x % 18 != 0))
-
-
-print(max([A for A in range(1, 1000) if all(F(x, A) for x in range(1, 10000))]))
+# Ответ: 20
 '''
 
+
+# Задание 6
 '''
-def F(x, A):
-    return (x % 72 != 0) or (x % 495 == 0) or (x % A != 0)
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+l = 25
+t.down()
+
+# Тут пишем псевдокод
+t.right(90)
+for i in range(3):
+    t.right(45)
+    t.forward(10 * l)
+    t.right(45)
+t.right(315)
+t.forward(10 * l)
+for i in range(2):
+    t.right(90)
+    t.forward(10 * l)
+
+# Тут перебираем точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(4, 'red')
+
+t.update()
+t.done()
+'''
+# Ответ: 203
 
 
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
+# Задание 12
+'''
+for n in range(3, 10000):
+    s = '1' * 1 + '8' * n
+    while '18' in s or '388' in s or '888' in s:
+        if '18' in s:
+            s = s.replace('18', '8', 1)
+        if '388' in s:
+            s = s.replace('388', '81', 1)
+        if '888' in s:
+            s = s.replace('888', '3', 1)
+
+    if s.count('1') == 3:
+        print(n)
         break
 '''
 
 
-# https://education.yandex.ru/ege/task/ae636d2a-4f9d-4ac3-88b4-f8cfa0888f36
+# Задание 13
 '''
-def F(x, y, A):
-    return ((y + x)**2 > 1048) or ((x + 20 < A) and (40 - y < A))
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'213.168.83.190/{mask}', 0)
+    if '213.168.64.0' in str(net):
+        print(32 - mask)
+'''
+# Ответ: 14
 
-
-for A in range(0, 1000):
-    if all(F(x, y, A) for x in range(100) for y in range(100)):
-        print(A)
+# Задание 14
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+for x in alphabet[:23]:
+    A = int(f'7{x}38596', 23)
+    B = int(f'14{x}36', 23)
+    C = int(f'61{x}7', 23)
+    if (A + B + C) % 22 == 0:
+        print((A + B + C) // 22)
         break
+        
+# Ответ: 47163321
+'''
+
+''' # Задание 16
+import sys
+sys.setrecursionlimit(123123)
+def f(n):
+    if n < 3:
+        return 3
+    return 2 * n + 5 + f(n - 2)
+
+print(f(3027) - f(3023))
+'''
+
+# Задание 23
+'''
+def F(a, b):
+    if a < b or a == 7:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a - 1, b) + F(a - 3, b) + F(a // 2, b)
+
+
+print(F(19, 10) * F(10, 3))
+'''
+
+''' # Задание 25
+
+from fnmatch import  *
+for x in range(2025, 10**8, 2025):
+    if fnmatch(str(x), '12*34?5'):
+        print(x, x // 2025)
 '''
 
 
-# https://education.yandex.ru/ege/task/e833a9a3-2790-4be4-bec3-c662b6c81fee
+# Задание 7
 '''
-def F(x, y, A):
-    return (x + 2*y != 58) or ((A - x > 0) == (A + y > 0))
+# V = a * b * c * t
 
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
+a = 2
+b = 48000
+c = 24
+# t = ?
+V = 288 * 2**23  # 2**10 * 2**10 * 2**3
+t = V / (a * b * c)  # сек
+print(t / 60)  # мин
 '''
+# Ответ: 17.47626
 
-
-# https://education.yandex.ru/ege/task/0891d1fa-be38-4015-8920-47868754e234
+# Задание 11
 '''
-def F(x, A):
-    return (((x & 28 != 0) or (x & A == 0)) <= (x & 28 != 0)) or (x & A != 0) or (x & 39 == 0)
+symbols = 10
+alphabet = 52  # alphabet = 2 ** i
+i = 6  # 2 ** i >= alphabet, где i это количество бит на один символ
 
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
+bit = symbols * i  # бит
+print(bit / 8)  # 7.5 -> 8
+byte = 8  # байт
+
+print(byte * 65_536)  # байт
+print((byte * 65_536) / 2**10)  # Кбайт
 '''
-
-'''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
-
-
-R = []
-M = [x / 4 for x in range(10 * 4, 70 * 4)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 19.0
-'''
+# Ответ: 512
 
 
 # endregion Урок: *************************************************************
@@ -180,3 +203,7 @@ print(min(R))  # 19.0
 # ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
+# Тимур 6/14 -> 40 вторичных баллов +[12, 14, 16, 19, 23, 25] -[4, 5, 6, 7, 8, 10, 11, 13]

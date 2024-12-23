@@ -1,155 +1,66 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038816/step/12?unit=1062780
+# Задача 6
 '''
-from fnmatch import *
+import turtle as t
+t.tracer(0)
+t.screensize(-2000,2000)
+l=40
+t.left(90)
 
-a = []
-for x in range(11071, 10 ** 10, 11071):
-    if fnmatch(str(x), '?136*1'):
-        if str(x)[0] in '13579' and str(x)[-2] in '02468':
-            a.append([x, x // 11071])
 
-print(*a[-5])
-print(*a[-4])
-print(*a[-3])
-print(*a[-2])
-print(*a[-1])
+t.right(90)
+for i in range(3):
+    t.right(45)
+    t.forward(10*l)
+    t.right(45)
+t.right(315)
+t.forward(10 * l)
+for i in range(2):
+    t.right(90)
+    t.forward(10*l)
+
+
+t.up()
+for x in range(-50,50):
+    for y in range(-50, 50):
+        t.goto(x*l,y*l)
+        t.dot(4,'red')
+t.update()
+t.done()
 '''
 
 
+# Задача 8
 '''
-from fnmatch import *
+from itertools import *
 
-for x in range(21, 10 ** 8, 21):
-    if fnmatch(str(x), '1*5*9'):
-        s = str(x)
-        if list(s) == sorted(s):
-            if len(s) == len(set(s)):
-                print(x, x // 21)
+cnt = 0
+chet = '02468ACE'
+nechet = '13579BDF'
+for x in permutations('0123456789ABCDEF', 3):
+    a = ''.join(x)
+    if a[0] != '0':
+        # if a[0] in chet and a[1] in nechet and a[2] in chet:
+        #     cnt += 1
+        # if a[0] in nechet and a[1] in chet and a[2] in nechet:
+        #     cnt += 1
+        for z in chet:
+            a = a.replace(z, '2')
+        for z in nechet:
+            a = a.replace(z, '1')
+            
+        if '22' not in a and '11' not in a:
+            cnt += 1
+
+print(cnt)
 '''
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-'''
-import sys
-sys.setrecursionlimit(1050)
-
-def F(n):
-    if n <= 3:
-        return 1
-    if n > 3:
-        return (n + 3) * F(n - 2)
-
-
-print(F(2028) / F(2024))
-'''
-
-
-# № 12470 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return n
-    if n > 2 and n % 2 != 0:
-        return F(n - 1) + F(n - 2) + 1
-    if n > 2 and n % 2 == 0:
-        return sum([F(i) for i in range(1, n)])
-
-print(F(38))
-'''
-
-
-# № 11948 (Уровень: Средний)
-'''
-def F(n):
-    return G(n - 1)
-
-
-def G(n):
-    if n < 10:
-        return n
-    if n >= 10:
-        return G(n - 2) + 1
-
-
-cnt = 0
-for n in range(1, 100+1):
-    r = F(n)
-    if r > 0:
-        if (r ** 0.5).is_integer():
-            cnt += 1
-print(cnt)
-'''
-
-
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-
-print(F(5, 7) * F(7, 11))
-
-
-# Вариант 2
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-
-print(F(5, 7) * F(7, 11))
-'''
-
-# A. Вычти 1
-# B. Найти целую часть от деления на 2
-# Сколько существует программ, для которых при исходном числе 30 результатом является число 1
-# и при этом тракетория вычислений содержит число 8?
-
-
-# A. Вычти 3
-# B. Найди целую часть от деления на 3
-# С. Найди целую часть от деления на 2
-# Сколько существует программ, для которых при исходном числе 46
-# результатом является число 3 и при этом траектория вычислений
-# содержит число 20 и не содержит числа 28?
-
-
-# № 18267 (Уровень: Средний)
-# А. Прибавить 2
-# В. Прибавить 5
-# С. Возвести в квадрат
-# Сколько существует программ, для которых при
-# исходном числе 4 результатом является число 36,
-# при этом последняя в них команда — не C?
-'''
-def F(a, b, c):
-    if a >= b:
-
-        return a == b and c[-1] != 'C'
-    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a ** 2, b, c+'C')
-
-
-print(F(4, 36, ''))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -160,6 +71,11 @@ print(F(4, 36, ''))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
+# ФИПИ = [2, 3, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
+# Лиза 11/14 -> 54 вторичных баллов +[1-2, 4, 5, 10, 12-14, 16, 23, 25] -[3, 6, 8]
+
