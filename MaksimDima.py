@@ -7,245 +7,312 @@
 # region Урок: ********************************************************************
 
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+# Задача 5
 '''
-def F(a, b):  # a - start, b - stop
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+
+
+M = []
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
     else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+        x = (n % 3) * 4
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r < 199:
+        M.append(n)
 
-
-print(F(5, 7) * F(7, 11))
-
-
-# Вариант 2
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-
-print(F(5, 7) * F(7, 11))
+print(max(M))
 '''
 
 
-# № 18047 (Уровень: Базовый)
-# А. Вычесть 2
-# В. Вычесть 3
-# С. Найти целую часть от деления на 4
-# Сколько существует программ, для которых при исходном
-# числе 36 результатом является число 13,
-# при этом траектория вычислений не содержит числа 24?
+# Задача 7
 '''
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a-2, b) + F(a-3, b) + F(a//4, b)
+# 1 бит - минимальная единица измерения информации 
+# 1 байт - 8 бит - 2**3 бит 
+# 1 Кбайт - 1024 байт - 2**10 байт - 2**13 бит 
+# 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит 
+# 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит 
 
+# bit (бит) = a (каналов) * b (гц) * c (бит) * t (сек)
 
-print(F(36, 13))
-'''
+a = 2
+b = 48000
+c = 24
+# t - ? сек
+bit = 288 * 2**23  # 2**10 кбайт * 2**10 байт * 2**3 бит
 
-#
-# № 18267 (Уровень: Средний)
-# А. Прибавить 2
-# В. Прибавить 5
-# С. Возвести в квадрат
-# Сколько существует программ, для которых при исходном числе 4
-# результатом является число 36, при этом последняя в них команда — не C?
-'''
-def F(a, b, c):
-    if a >= b:
-        # return a == b and c != 'C'
-        return a == b and c in 'AB'
-    return F(a+2, b, 'A') + F(a+5, b, 'B') + F(a**2, b, 'C')
-
-
-print(F(4, 36, ''))
-
-# Вариант 2
-def F(a, b, c):
-    if a >= b:
-        return a == b and c[-1] != 'C'
-    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
-
-
-print(F(4, 36, ''))
+t = bit / (a * b * c)
+print(t / 60)  # 1048.576 сек  ->  17.4762 мин
 '''
 
-# Задача статград 12.03.2024
+# Задача 8
 '''
-def F(a, b, c):
-    if a >= b:
-        M = [x for x in c if x in '02468']
-        return a == b and len(M) <= 4
-    return F(a+1, b, c+str(a)) + F(a*2, b, c+str(a))
-
-
-print(F(1, 17, ''))  # 8
-
-
-def F(a, b, c):
-    if a >= b:
-        M = [int(x) for x in c.split() if int(x) % 2 == 0]
-        return a == b and len(M) <= 4
-    return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
-
-
-print(F(1, 17, ''))  # 8
-'''
-
-
-# № 610 (Уровень: Базовый)
-'''
-def F(n):
-    if n < 5:
-        return 1 + 2*n
-    if n >= 5 and n % 3 == 0:
-        return 2 * (n+1) * F(n-2)
-    if n >= 5 and n % 3 != 0:
-        return 2*n + 1 + F(n-1) + 2*F(n-2)
-
-
-print(F(15))
-'''
-
-
-# № 1021
-'''
-def F(n):
-    if n <= 2:
-        return n
-    if n > 2:
-        return G(n) + F(n - 2)
-
-
-def G(n):
-    if n <= 2:
-        return n
-    if n > 2:
-        return F(n - 1) - G(n - 2)
-
-
-print(G(15))
-'''
-
-'''
-def F(n):
-    if n == 0:
-        return 0
-    if n > 0 and n % 2 == 0:
-        return F(n / 2)
-    if n % 2 != 0:
-        return 1 + F(n - 1)
-
-
+from itertools import *
 cnt = 0
-for n in range(1, 1000+1):
-    if F(n) == 3:
-        cnt += 1
+for p in permutations('0123456789ABCDEF', r=3):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468ACE':
+            num = num.replace(x, '2')
+        for x in '13579BDF':
+            num = num.replace(x, '1')
+        if '11' not in num and '22' not in num:
+            cnt += 1
+print(cnt)
+
+
+from itertools import *
+cnt = 0
+s2 = '02468ACE'
+s1 = '13579BDF'
+for p in permutations('0123456789ABCDEF', r=3):
+    n = ''.join(p)
+    if n[0] != '0':
+        if n[0] in s2 and n[1] in s1 and n[2] in s2:
+            cnt += 1
+        if n[0] in s1 and n[1] in s2 and n[2] in s1:
+            cnt += 1
 print(cnt)
 '''
 
-
-# № 4704 Демоверсия 2023 (Уровень: Базовый)
+# Задача 11
 '''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
+symbols = 10
+alphabet = 52  # alphabet = 2 ** i, где i это кол-во бит на один символ
+i = 6  # alphabet <= 2 ** 6
+bit = symbols * i
+print(bit / 8)  # 7.5 -> 8
 
+byte = 8  # на один пароль
 
-print(F(2023) / F(2020))
-# RecursionError: maximum recursion depth exceeded
-
-# F(2023) = 2023 * F(2022)
-# F(2022) = 2022 * F(2021)
-# F(2021) = 2021 * F(2020) / F(2020)
-print(2023 * 2022 * 2021)
+byte_all = 65536 * byte
+print(byte_all / 2**10)
 '''
+# Ответ: 512
 
 
-# № 4739 (Уровень: Средний)
+# Задача 12
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(1000000)
-
-@lru_cache(None)
-def F(n):
-    if n > 10_000:
-        return n - 10_000
-    if 1 <= n <= 10_000:
-        return F(n + 1) + F(n + 2)
-
-
-print(F(12345 * ((F(10) - F(12)) / F(11))) + F(10101))
-print(F(12345) + F(10101))
+for n in range(4, 10000):
+    s = '1' + '8'*n
+    while '18' in s or '388' in s or '888' in s:
+        if '18' in s:
+            s = s.replace('18', '8', 1)
+        if '388' in s:
+            s = s.replace('388', '81', 1)
+        if '888' in s:
+            s = s.replace('888', '3', 1)
+    if s.count('1') == 3:
+        print(n)
+        exit()
 '''
 
-
-# № 12470 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
+# Задача 13
 '''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return n
-    if n > 2 and n % 2 != 0:
-        return F(n - 1) + F(n - 2) + 1
-    if n > 2 and n % 2 == 0:
-        return sum(F(i) for i in range(1, n))
-
-print(F(38))  # 9182657279
+from ipaddress import *
+for m in range(33):  # m - кол-во единица
+    # длина маски 32 бита
+    # кол-во нулей это 32 - m
+    net = ip_network(f'213.168.83.190/{m}', 0)
+    if '213.168.64.0' in str(net):
+        print(m, 32 - m)
 '''
 
 
-# № 17529 Основная волна 07.06.24 (Уровень: Базовый)
+# Задача 23
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
+def F(a, b):
+    if a <= b or a == 7:
+        return a == b
+    return F(a-1, b) + F(a-3, b) + F(a//2, b)
 
 
-print((2 * F(2024) + F(2023)) / F(2022))
+print(F(19, 10) * F(10, 3))
 '''
 
-
-# № 17557 Основная волна 08.06.24 (Уровень: Базовый)
+# Задача 25
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
+from fnmatch import *
+for i in range(2025, 10**8+1, 2025):
+    if fnmatch(str(i), '12*34?5'):
+        print(i, i // 2025)
+'''
 
 
-print((F(2024) // 16 - F(2023)) / F(2022))
-# print((F(2024) / 16 - F(2023)) / F(2022))
-#        ~~~~~~~~^~~~
-# OverflowError: integer division result too large for a float
+# Задача 1
+'''
+from itertools import *
+print('1 2 3 4 5 6 7')
+table = '13 14 16 24 25 31 36 41 42 45 52 54 57 61 63 67 75 76'
+graph = 'GD DG GE EG DE ED DF FD FA AF AC CA AB BA BC CB CE EC'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    #   1    2    3    4    5    6    7
+    # ('G', 'F', 'E', 'D', 'A', 'C', 'B')
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
+# 1 2 3 4 5 6 7
+# C G B E D A F
+# E B G C A D F
+
+
+# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+# Вариант 1
+
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
+
+for A in range(0, 1000):
+    flag = True
+    for x in range(1, 100):
+        for y in range(1, 100):
+            if F(x, y, A) == False:
+                flag = False
+                break
+        if flag == False:
+            break
+    if flag == True:
+        print(A)
+        break
+
+# Вариант 2
+
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
+
+for A in range(0, 1000):
+    k = 0
+    for x in range(1, 100):
+        for y in range(1, 100):
+            if F(x, y, A) == True:
+                k += 1
+    if k == 9801:
+        print(A)
+        break
+
+
+# Вариант 3
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
+
+
+R = []
+for A in range(0, 1000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(min(R))
+
+# Вариант 4
+
+print(min([A for A in range(0, 1000) if all( ((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
+'''
+
+
+# № 18175 (Уровень: Базовый)
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
+'''
+
+
+# № 14655 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & A != 0) <= ((x & 168 == 0) <= (x & 69 != 0))
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# № 14352 (Уровень: Базовый)
+'''
+def F(x, A):
+    B = 120 <= x <= 180
+    return (x % A == 0) or (B <= ((x % 16 != 0) or (x + A <= 204)))
+
+
+for A in range(1, 10000):  # 999
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# № 14349 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    B = 54 <= x <= 120
+    C = 78 <= x <= 151
+    A = a1 <= x <= a2
+    return C <= ((B and (not A)) <= (not C))
+
+
+R = []
+M = [x / 4 for x in range(50 * 4, 160 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+
+print(min(R))  # 42.0, 42.25 -> 42, 42.5/42.75 -> 43
+'''
+
+
+# № 13895 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    B = 34 <= x <= 72
+    C = 32 <= x <= 61
+    A = a1 <= x <= a2
+    return (B <= A) and ((not C) or A)
+
+
+R = []
+M = [x / 4 for x in range(30 * 4, 80 * 4)]
+
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+
+print(min(R))
+'''
+
+
+# № 18489 (Уровень: Базовый)
+'''
+def cif(x, y):
+    return str(x)[-1] == str(y)[-1]
+
+
+def F(x, A):
+    return ((not cif(x, 5)) and cif(x, 4)) <= (x > A - 11)
+
+
+for A in range(1, 1000):
+    if all(F(x, A)  for x in range(1, 10000)):
+        print(A)
 '''
 
 # endregion Урок: *************************************************************
@@ -257,6 +324,11 @@ print((F(2024) // 16 - F(2023)) / F(2022))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 12, 13, 14, 16, 23, 25]
+# ФИПИ = [5, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
+# Дима 4/9 -> 27 вторичных баллов +[1, 12, 14, 16] -[5, 8, 13, 23, 25]
+# Максим 11/14 -> 54 вторичных баллов +[1, 2, 3, 4, 5, 8, 13, 14, 16, 23, 25] -[7, 11, 12]

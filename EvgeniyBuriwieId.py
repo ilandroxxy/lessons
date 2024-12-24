@@ -1,58 +1,85 @@
 # region Домашка: ************************************************************
 
-# https://stepik.org/lesson/1038775/step/2?unit=1062778
-'''
-M = [int(x)for x in open("files/17.txt")]
-R = []
-for i in range(len(M)):
-    for j in range(i + 1, len(M)):
-        x, y = M[i], M[j]
-        if ((x + y) % 18 == 0) != ((x * y) % 18 == 0):
-            R.append(x+y)
-print(len(R), max(R))
-'''
-
-
-# https://stepik.org/lesson/1038775/step/5?unit=1062778
-'''
-M = [int(x)for x in open("files/17.txt")]
-D = [x for x in M if hex(x)[-2:] == '0f']
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 7 == 0) != (y % 7 == 0):
-        if (x + y) % max(D) == 0:
-            R.append(x+y)
-print(len(R), max(R))
-'''
-
-
-# https://stepik.org/lesson/1038775/step/8?unit=1062778
-'''
-M = [int(x) for x in open("17.txt")]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x+y) % 120 == 0:
-        R.append(x+y)
-print(len(R), max(R))
-'''
-
-M = [int(x)for x in open("files/17.txt")]
-R = []
-avg = sum(M) / len(M)
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x > avg) + (y > avg) + (z > avg) >= 2:
-        R.append(x + y + z)
-print(len(R), max(R))
-
-
-
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
+
+
+print("x y z w")
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x <= (z == w)) or (not (y <= w))
+                if F == 0:
+                    print(x, y, z, w)
+
+
+'''
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n < 3:
+        return 3
+    if n >= 3:
+        return 2 * n + 5 + F(n-2)
+print(F(3027) - F(3023))
+'''
+# Ответ: 12114 +
+
+
+'''
+def F(a,b):
+    if a < b or a == 7:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a - 1, b)+F(a-3,b)+F(a//2,b)
+
+print(F(19,10) * F(10,3))
+'''
+# Ответ: 133
+
+'''
+def F(x,y,A):
+    return (x + 2*y > A) or (y < x) or (x < 30)
+
+R = []
+for A in range(1, 1000):
+    if all(F(x,y,A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(max(R))
+'''
+# 89
+
+'''
+for n in range(4, 10000):
+    s = "1" + "8" * n
+    while "18" in s or "388" in s or "888" in s:
+        if "18" in s:
+            s = s.replace("18", "8", 1)
+        if "388" in s:
+            s = s.replace("388", "81", 1)
+        if "888" in s:
+            s = s.replace("888", "3", 1)
+    if s.count('1') == 3:
+        print(n)
+        break
+'''
+
+# Задание 1 +
+# Ответ: 14
+#
+# Задание 2 -
+# Ответ: ywzx
+#
+# Задание 10 +
+# Ответ: 47
+#
+# Задание 4 -
+# Ответ: 7
 
 
 # endregion Урок: ************************************************************
@@ -67,3 +94,9 @@ print(len(R), max(R))
 # ФИПИ = [1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 17-, 18, 19-21, 22, 23, 25.1]
 # КЕГЭ = [12, 17]
 # на следующем уроке: 7, 9, 10,
+
+
+# Первый пробник 21.12.24:
+# 4/8 -> 27 вторичных баллов +[1, 10, 16, 23] -[2, 4, 12, 15]
+
+

@@ -1,16 +1,45 @@
 # region Домашка: ******************************************************************
 
-# № 48393 (Уровень: Базовый)
+# № 5553 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-M = []
-for x in alphabet[:8]:
-    for y in alphabet[:8]:
-        A = int(f'{y}04{x}5', 11)
-        B = int(f'253{x}{y}', 8)
-        if (A + B) % 117 == 0:
-            M.append((A + B) // 117)
-print(min(M))
+from itertools import *
+R = []
+for p in permutations('СОТОЧКА'):
+    word = ''.join(p)
+    if 'ОО' in word or 'ОА' in word or 'АО' in word:
+        R.append(word)
+print(len(set(R)))
+'''
+
+
+# № 6901 (Уровень: Средний)
+'''
+from itertools import *
+n = 0
+last = 0
+for p in product(sorted('БАРШ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    sogl = [x for x in word if x in 'БРШ']
+    if len(sogl) <= 3:
+        copied = [x for x in word if word.count(x) == 2]
+        not_copied = [x for x in word if word.count(x) == 1]
+        if len(not_copied) == 3 and len(copied) == 2:
+            last = n
+print(last)
+
+
+from itertools import *
+n = 0
+last = 0
+for p in product(sorted('БАРШ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    sogl = [x for x in word if x in 'БРШ']
+    if len(sogl) <= 3:
+        if len(set(word)) == 4:
+            last = n
+print(last)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -19,145 +48,114 @@ print(min(M))
 # region Урок: ********************************************************************
 
 '''
-from itertools import product, permutations
+# IP-адреса это четыре числа разделенные точкой
+# 222.190.122.24 -> на каждое число выделяется по 1 байту = 8 бит
+# Тогда длина IP-адреса в двоичном виде будет 32 бита = 4 * 8
 
-for p in product('01', repeat=2):
-    word = ''.join(p)
-    print(p, word)
-    # ('0', '0') 00
-    # ('0', '1') 01
-    # ('1', '0') 10
-    # ('1', '1') 11
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '222.190.122.24'.split('.')]))
+# '222.190.122.24'
+# ['222', '190', '122', '24']
+# [222, 190, 122, 24]
+# ['11011110', '10111110', '1111010', '11000']
+# ['11011110', '10111110', '01111010', '00011000']
+# 11011110.10111110.01111010.00011000
 
-print('................')
+# ip-адреса сети они лежат в Адресе сети
+# Адрес сети = Узел сети & Маска сети, где & это побитовая конъюнкция
+print(12 & 6)  # 4
 
-for p in permutations('01', r=2):
-    word = ''.join(p)
-    print(p, word)
-    # ('0', '1') 01
-    # ('1', '0') 10
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '123.222.111.192'.split('.')]))
+print('.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.255.248'.split('.')]))
+# 01111011.11011110.01101111.11000000 - узел сети 
+# 11111111.11111111.11111111.11111000 - маска сети 
+# 01111011.11011110.01101111.11000000 - адрес сети 
+
+# for mask in range(32+1):
 '''
 
-# 8 https://education.yandex.ru/ege/task/6420d873-dfac-4b7d-a0ff-4f1762b24476
+# Сеть задана узлом IP-адреса 123.222.111.192 и маской сети 255.255.255.248.
+# Сколько в этой сети IP-адресов, для которых количество нулей в двоичной
+# записи четвертого байта IP-адреса не делится без остатка на 3?
+# В ответе укажите только число.
+
 '''
-# Вариант 1
-s = sorted('МАРИЯ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                word = a + b + c + d
-                n += 1
-                if n == 211:
-                    print(word)
-
-# Вариант 2
-
-from itertools import *
-n = 0
-for p in product(sorted('МАРИЯ'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if n == 211:
-        print(word)
-
-# Вариант 3
-
-from itertools import *
-for n, p in enumerate(product(sorted('МАРИЯ'), repeat=4), 1):
-    word = ''.join(p)
-    if n == 211:
-        print(word)
-'''
-
-
-# 8 https://education.yandex.ru/ege/task/78b6e053-eaf4-40bc-a7d1-53fad9f7eee4
-'''
-from itertools import *
-n = 0
-R = []
-for p in product(sorted('БАТЫР'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if 'Ы' not in word and 'АА' not in word:
-        R.append(n)
-print(max(R))
-'''
-
-
-# 8 https://education.yandex.ru/ege/task/60c1a00c-2fd4-472e-b4aa-50791d6bddb8
-'''
-from itertools import *
+from ipaddress import *
+net = ip_network('123.222.111.192/255.255.255.248', 0)
 cnt = 0
-for p in permutations('КАБИНЕТ'):
-    word = ''.join(p)
-    if word[0] not in 'АИЕ':
+for ip in net:
+    s = f'{ip:b}'
+    if s[24:].count('0') % 3 != 0:
         cnt += 1
 print(cnt)
 '''
 
 
-# 8 https://education.yandex.ru/ege/task/7ddd002e-129b-40c6-8fcf-431d15434fa8
 '''
-from itertools import *
+#  байт 1   2   3   4     1         2       3         4
+# ip = 123.222.111.199 01111011 11011110 01101111 11000111
+ip = '01111011110111100110111111000111'
+print(ip[:8])  # первый байт
+print(ip[8:16])  # второй байт
+print(ip[16:24])  # третий байт
+print(ip[24:])  # четвертый байт
+
+from ipaddress import *
+net = ip_network('123.222.111.192/255.255.255.248', 0)
+print(net)  # 123.222.111.192/29 - где 29 это количество 1 в маске сети
+print(net.network_address)  # 123.222.111.192
+print(net.netmask)  # 255.255.255.248
+# Какое кол-во нулей в маске? 32 - 29 = 3
+'''
+
+# № 18862 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
 cnt = 0
-for p in product('БАНДЕРОЛЬ', repeat=7):
-    word = ''.join(p)
-    if word.count('Ь') <= 1:
-        for x in 'БРНДЛ':
-            word = word.replace(x, '*')
-        if '*Е' not in word and 'Е*' not in word:
-            cnt += 1
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') > 15:
+        cnt += 1
 print(cnt)
 '''
 
 
-# todo разобрать 8 https://education.yandex.ru/ege/task/e680d278-78ba-4399-b8e4-d90c7e4b2d4e
+# № 18159 (Уровень: Базовый)
+# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
+# Чему равно наибольшее возможное значение третьего слева байта маски?
+# Ответ запишите в виде десятичного числа.
 '''
-from itertools import *
-cnt = 0
-for p in permutations('01234567', r=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        num = num.replace('0', '2').replace('4', '2').replace('6', '2')
-        num = num.replace('3', '1').replace('5', '1').replace('7', '1')
-        if '111' not in num and '222' not in num:
-            print(num)
-            num = num[1:-1]
-            print(num)
-            cnt += 1
-print(cnt)
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'205.154.212.20/{mask}', 0)
+
+    if '205.154.192.0' in str(net):
+        print(net.netmask)
+        # 255.255.192.0
+        # 255.255.224.0
 '''
+# Ответ: 224
 
 
-# 8 https://education.yandex.ru/ege/task/e327b270-8faa-450f-a350-e313a28bbee9
+# № 16260 Джобс 03.05.24 (Уровень: Средний)
+# Известно два узла с IP-адресами 123.20.103.136 и 123.20.103.151
+# принадлежат разным сетям с одинаковой маской.
+#
+# Определите значение 4 байта маски в этих сетях.
+# Найденное значение представьте в десятичной системе счисления.
 '''
-from itertools import *
-cnt = 0
-for p in product('0123', repeat=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        if any(num.count(x) >= 2 for x in num):
-            cnt += 1
-print(cnt)
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'123.20.103.136/{mask}', 0)
+    net2 = ip_network(f'123.20.103.151/{mask}', 0)
+    if net1 != net2:
+        print(net1.netmask)
+        # 255.255.255.240
+        # 255.255.255.248
+        # 255.255.255.252
+        # 255.255.255.254
+        # 255.255.255.255
 '''
-
-
-# todo 8 https://education.yandex.ru/ege/task/08a16fb2-3773-4f00-8961-cfa21b2e65a9
-
-from itertools import *
-cnt = 0
-for p in product('ГИПЕРБОЛА', repeat=6):
-    word = ''.join(p)
-    if word[0] not in 'ИЕОА' and word[-1] not in 'ИЕОА':
-        for x in 'ИЕОА':
-            word = word.replace(x, 'A')
-        for x in 'ГПРБЛ':
-            word = word.replace(x, 'Б')
-        if 'БАБ' not in word:
-            cnt += 1
-print(cnt)
 
 # endregion Урок: *************************************************************
 # #
@@ -168,6 +166,9 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 5, 8, 12, 14]
+# ФИПИ = [2, 6, 5, 8, 12, 13, 14]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
