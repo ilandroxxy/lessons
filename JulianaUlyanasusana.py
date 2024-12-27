@@ -6,141 +6,158 @@
 # #
 # region Урок: ********************************************************************
 
+# № 17799 (Уровень: Средний)
 '''
-# Сеть задана IP-адресом 192.168.32.128 и сетевой маской 255.255.255.192.
-
-# Адрес сети = IP-адрес узла & Маска сети
-# где & - это побитовая конъюнкция
-
-print(12 & 6)  # 4
-
-print(192 & 255, 168 & 255, 32 & 255, 128 & 192)  # Адрес сети = 211 46 0 0
-
-# IP адрес это четыре числа разделенные точкой: 211.46.35.250
-# На каждое число выделяется по 1 байту, что эквивалентно 8 битам
-# Таким образом числа могут лежать в диапазоне от 0 до 255
-# Потому что bin(255)[2:] == '11111111'
+s = sorted('АРГУМЕНТ')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                if len(word) == len(set(word)):
+                    if list(word) == sorted(word):
+                        print(n, word)
 
 
-# Маска сети имеет длину 32 бита (4 числа по 8 бит)
-# И маска сети имеет вид: 111111...000000
-# 255.255.255.192 == 11111111.11111111.11111111.11000000
-# (всего бит 32, единиц 26, нулей 32- 26 = 6)
-
-
-# Сеть задана IP-адресом 192.168.32.128 и сетевой маской 255.255.255.192.
-# Найдите адрес этой сети по заданому узлу и маске
-
-from ipaddress import *
-net = ip_network('192.168.32.128/255.255.255.192', 0)
-print(net)  # 192.168.32.128/26 где 26 - это кол-во единиц в маске
-print(net.network_address)  # 192.168.32.128
-print(net.netmask)  # 255.255.255.192
+from itertools import *
+n = 0
+for p in product(sorted('АРГУМЕНТ'), repeat = 4):
+    word = ''.join(p)
+    n += 1
+    if len(word) == len(set(word)):
+        if list(word) == sorted(word):
+            print(n, word)
 '''
 
 
-# № 15326 Досрочная волна 2024 (Уровень: Базовый)
-# Сеть задана IP-адресом 105.224.200.224 и сетевой маской 255.255.255.224.
-# Сколько в этой сети IP-адресов, для которых количество единиц в двоичной
-# записи IP-адреса кратно 4? В ответе укажите только число.
+# № 17798 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('105.224.200.224/255.255.255.224', 0)
+s = sorted('МИНУС')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                sogl = [x for x in word if x in 'МНС']
+                glas = [x for x in word if x in 'ИУ']
+                if len(sogl) >= len(glas):
+                    print(n)
+'''
+
+
+# № 15320 Досрочная волна 2024 (Уровень: Базовый)
+'''
+s = sorted('ПАРУС')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if word.count('У') <= 1:
+                        if 'АА' not in word:
+                            print(n, word)
+                            exit()
+'''
+
+
+# 18042 (Уровень: Базовый)
+'''
+s = 'ЛЮСТРА'
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 4 == 0:
-        cnt += 1
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if word.count('Ю') <= 2:
+                        if e not in 'ЛСТР':
+                            cnt += 1
 print(cnt)
 '''
 
 
-# № 17709 (Уровень: Базовый)
-# Сеть задана IP-адресом 235.53.0.0 и сетевой маской 255.255.224.0.
-# Сколько в этой сети IP-адресов, для которых количество единиц в
-# двоичной записи IP-адреса кратно 5, а сами адреса в двоичном виде
-# заканчиваются на 110? В ответе укажите только число.
+# № 18923 Новогодний вариант 2025 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('235.53.0.0/255.255.224.0', 0)
+s = 'ВЬЮГА'
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 5 == 0:
-        if s[-3:] == '110':
-            cnt += 1
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        if 'ЮГ' in word:
+                            cnt += 1
+
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/107063cb-939e-4120-bcda-122ea21c55cb
-# Сеть задана IP-адресом 101.157.240.0 и маской сети 255.255.252.0.
-# Сколько в этой сети IP-адресов, для которых в двоичной записи IP-адреса
-# суммарное количество единиц в левых двух байтах больше суммарного количества
-# единиц в правых двух байтах.
+# № 14412 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('101.157.240.0/255.255.252.0', 0)
+s = 'АЛГОРИТМ'
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'  #
-    if s[:16].count('1') > s[16:].count('1'):
-        cnt += 1
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        if word.count('Л') <= 1:
+                            if a not in 'Р' and f not in 'ЛГРТМ':
+                                cnt += 1
 print(cnt)
-
-# ip = 234.54.243.45
-# 1   1   1  1   байт
-# 8   8   8  8   бит
-# ip[:8], ip[8:16], ip[16:24], ip[24:]
 '''
 
-# № 18615 (Уровень: Средний)
+# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(11, 32+1):
-    net = ip_network(f'143.131.211.37/{mask}', 0)
-    k = 0
-    for ip in net:
-        s = f'{ip:b}'
-        if s.count('1') == 10:
-            k += 1
-    if k == 15:
-        print(mask)
-'''
-
-
-# № 18159 (Уровень: Базовый)
-# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
-# Чему равно наибольшее возможное значение третьего слева байта маски?
-# Ответ запишите в виде десятичного числа.
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'205.154.212.20/{mask}', 0)
-    if '205.154.192.0' in str(net):
-        print(net, net.netmask)
-        # 205.154.192.0/18 255.255.192.0
-        # 205.154.192.0/19 255.255.224.0
+s = '01234567'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        # if a in '0246':
+                        if a not in '1357':
+                            if e not in '26':
+                                if num.count('7') <= 2:
+                                    cnt += 1
+print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/1ccbbaa1-306e-40fd-938a-5a219f70f4b2
-
-# Два узла, находящиеся в разных подсетях, имеют
-# IP-адреса 118.187.59.255 и 118.187.65.115.
-# В масках обеих подсетей одинаковое количество единиц.
-# Укажите наибольшее возможное количество единиц в масках этих подсетей.
+# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'118.187.59.255/{mask}', 0)
-    net2 = ip_network(f'118.187.65.115/{mask}', 0)
-    if net1 != net2:
-        print(mask)
+s = '0123456'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            num = a + b + c + d + e + f + g
+                            if a != '0':
+                                if num.count('0') + num.count('2') + num.count('4') + num.count('6') == 2:
+                                # chet = [x for x in num if x in '0246']
+                                # if len(chet) == 2:
+                                    cnt += 1
+print(cnt)
 '''
-
-
-
 
 # endregion Урок: *************************************************************
 # #
