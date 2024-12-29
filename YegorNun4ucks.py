@@ -6,25 +6,43 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/bdfb8f12-2b10-4f4b-99b0-6d2e045552e2
-s = open('files/24.txt').readline()
 
-for x in 'AEIOUY':
-    s = s.replace(x, '*')
-s = s.split('*')
+'''
+from itertools import *
 
+cnt = 0
 
-maxi = 0
-for i in range(len(s)-1):
-    r = 'a' + s[i] + s[i+1]
-    cnt = 1
-    for k in range(len(r)-1):
-        if r[k] <= r[k+1]:
+for i in product('0123456789ABCDEF', repeat=3):
+    s = ''.join(i)
+    if s[0] != '0':
+        if s[0] != s[1] != s[2] != s[0]:
+            for k in '0468ACE':
+                s = s.replace(k, '2')
+            for j in '3579BDF':
+                s = s.replace(j, '1')
+
+            if '11' not in s and '22' not in s:
+                cnt += 1
+print(cnt)
+'''
+
+'''
+from itertools import *
+
+cnt = 0
+
+for i in permutations('0123456789ABCDEF', r=3):
+    s = ''.join(i)
+    if s[0] != '0':
+        for k in '0468ACE':
+            s = s.replace(k, '2')
+        for j in '3579BDF':
+            s = s.replace(j, '1')
+
+        if '11' not in s and '22' not in s:
             cnt += 1
-            maxi = max(maxi, cnt)
-        else:
-            cnt = 1
-print(maxi)
+print(cnt)
+'''
 
 
 # endregion Урок: *************************************************************
@@ -38,3 +56,7 @@ print(maxi)
 # ФИПИ = [5, 8, 9, 13, 14, 15, 16, 17, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
+# Yegor 21/27 -> 80 вторичных баллов +[1-5, 7, 9-12, 14-16, 18-24, 27] -[6, 8, 13, 17, 25, 26]
