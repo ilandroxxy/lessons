@@ -5,220 +5,102 @@
 # #
 # region Урок: ********************************************************************
 
+
 '''
-s = '289734'
-summa = sum(map(int, s))
-print(map(int, s))  # <map object at 0x104e26b60>
-print(list(map(int, s)))  # [2, 8, 9, 7, 3, 4]
-print(summa)  # 33
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
 
 
-print(map(str, [1, 2, 3, 4, 5]))
-print(list(map(str, [1, 2, 3, 4, 5])))
-# ['1', '2', '3', '4', '5']
+for n in range(1, 5000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
+    else:
+        x = (n % 3) * 4
+        s += convert(x, 3)
+    r = int(s, 3)
 
-print([int(x) for x in s])  # [2, 8, 9, 7, 3, 4]
-summa = sum([int(x) for x in s])
-print(summa)  # 33
-
-
-s = '432897ewklo'
-summa = sum([int(x) for x in s if x.isdigit()])
-print(summa)  # 33
+    if r < 199:
+        print(n)
 '''
+
+
+'''
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.left(90)
+t.down()
+l = 40
+t.right(90)
+for i in range(3):
+    t.right(45)
+    t.forward(10*l)
+    t.right(45)
+t.right(315)
+t.forward(10*l)
+for i in range(2):
+    t.right(90)
+    t.forward(10*l)
+t.up()
+for x in range(-50,50):
+    for y in range(-50,50):
+        t.goto(x*l,y*l)
+        t.dot(5,'red')
+t.update()
+t.done()
+'''
+
+'''
+from itertools import permutations
+
+alphabet = sorted('0123456789ABCDEF')
+cnt = 0
+for i in permutations(alphabet, r=3):
+    a = ''.join(i)
+    if a[0] != '0':
+        # if a[0] in b and a[1] in c and a[2] in b:
+        #     cnt += 1
+        # if a[0] in c and a[1] in b and a[2] in c:
+        #     cnt += 1
+        for x in '02468ACE':
+            a = a.replace(x, '2')
+        for x in '13579BDF':
+            a = a.replace(x, '1')
+        if '11' not in a and '22' not in a:
+            cnt += 1
+print(cnt)
+'''
+
+
+M = []
+alphabet = sorted('0123456789ABCDEFGHIJKLM')
+for x in alphabet:
+    A = int(f'7{x}38596', 23)
+    B = int(f'14{x}36', 23)
+    C = int(f'61{x}7', 23)
+    if (A + B + C) % 22 == 0:
+        M.append((A + B + C) // 22)
+print(min(M))
 
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
-# № 18120 (Уровень: Базовый)
-'''
-# Вариант 1
-
-s = sorted('ПРЕСТОЛ')
-n = 0
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if n % 2 != 0 and word[-1] in 'ЕО':
-                        sogl = [x for x in word if x in 'ПРСТЛ']
-                        if len(sogl) <= 3:
-                            cnt += 1
-
-print(cnt)
-
-# Вариант 2
-
-from itertools import *
-n = 0
-cnt = 0
-for p in product(sorted('ПРЕСТОЛ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0 and word[-1] in 'ЕО':
-        sogl = [x for x in word if x in 'ПРСТЛ']
-        if len(sogl) <= 3:
-            cnt += 1
-print(cnt)
-
-# Вариант 3
-
-from itertools import *
-cnt = 0
-for n, p in enumerate(product(sorted('ПРЕСТОЛ'), repeat=5), 1):
-    word = ''.join(p)
-    if n % 2 != 0 and word[-1] in 'ЕО':
-        sogl = [x for x in word if x in 'ПРСТЛ']
-        if len(sogl) <= 3:
-            cnt += 1
-print(cnt)
-
-
-for i, x in enumerate(['a', 'b', 'c', 'd', 'e'], 1):
-    print(i, x)
-'''
-
-
-# № 18133 (Уровень: Базовый)
-'''
-from itertools import *
-n = 0
-R = []
-for p in product(sorted('КОДИМ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('М') == 2 and 'ММ' not in word:
-        print(n, word)
-        R.append(n)
-print(max(R))
-'''
-
-'''
-from itertools import *
-n = 0
-for p in product(sorted('ЩЭДСР'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if word == 'ЩДЩД':
-        print(n)
-    if n == 391:
-        print(word)
-'''
-
-
-# № 12917 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
-'''
-from itertools import *
-R = []
-for p in permutations('ПРОСТО'):
-    word = ''.join(p)
-    if 'ОО' not in word:
-        print(word)
-        R.append(word)
-print(len(set(R)))
-'''
-
-
-# № 13251 Открытый курс "Слово пацана" (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in permutations('КАЙФ'):
-    word = ''.join(p)
-    if word[-1] != 'Й' and 'КФ' not in word:
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 13252 Открытый курс "Слово пацана" (Уровень: Средний)
-'''
-from itertools import *
-R = []
-for p in permutations('КИДАЛА', r=5):
-    word = ''.join(p)
-    if 'АА' not in word:
-        R.append(word)
-print(len(set(R)))
-'''
-
-
-# № 13870 (Уровень: Средний)
-'''
-from itertools import *
-cnt = 0
-for p in product('01234567', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if any(group in num for group in '000 111 222 333 444 555 666 777'.split()):
-            if any(num.count(x) == 3 for x in num):
-                if len(set(num)) == 3:
-                    cnt += 1
-                    print(num)
-print(cnt)
-'''
-
-
-# № 15012 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in product('0123456789ABCD', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if len(set(num)) == 2:
-            if num[-1] in '03':
-                cnt += 1
-print(cnt)
-'''
-
-import string
-punctuations = string.punctuation
-punctuations = '!"#$%&()*+,./:;<=>?@[\]^_`{|}~'
-print(punctuations)
-file = open('files/10.txt')
-
-
-file = file.read()
-# print(file)
-for x in punctuations:
-    file = file.replace(x, ' ')
-
-words = file.split()
-start1 = words.index('V')
-end1 = words.index('VI')
-print(start1, end1)
-
-start2 = words.index('XX')
-end2 = words.index('XXI')
-print(start2, end2)
-
-new_words = words[start1:end1+1] + words[start2:end2+1]
-print(len(new_words))
-count = 0
-cnt = 0
-for word in new_words:
-    word = word.lower()
-    if 'то' in word and 'то' != word:
-        print(word)
-        count += word.count('то')
-        cnt += 1
-print(cnt)
-print(count)
-
-
-
-
 
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 10, 12, 14]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Первый пробник 21.12.24:
+# Женя 5/7 -> 34 вторичных баллов +[2, 5, 8, 12, 14] -[6, 10]
+# Ярослав 2/7 -> 14 вторичных баллов +[2, 12] -[5, 6, 8, 10, 14]

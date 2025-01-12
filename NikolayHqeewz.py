@@ -6,36 +6,32 @@
 # #
 # region Урок: ********************************************************************
 
-
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
+import turtle as t
+t.screensize(-10000, 10000)
+t.tracer(0)
+t.left(90)
+l = 20
 
+t.rt(90)
+for i in range(3):
+    t.rt(45)
+    t.fd(10 * l)
+    t.rt(45)
+t.rt(315)
+t.fd(10 * l)
+for i in range(2):
+    t.rt(90)
+    t.fd(10 * l)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(2, "red")
 
-R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s = s + convert(x, 3)
-    r = int(s, 3)
-
-    if r < 199:
-        R.append(n)
-
-print(max(R))
+t.update()
+t.done()
 '''
-
-
-# 9, 17, 24 -> 6, 12, 25
-
 
 
 # endregion Урок: *************************************************************
@@ -52,4 +48,4 @@ print(max(R))
 
 
 # Первый пробник 21.12.24:
-# Николай 8/19 -> 46 вторичных баллов +[1, 2, 4, 7, 13, 14, 16, 23] -[5, 6, 8, 9, 12, 15, 17, 24, 25]
+# Николай 9/19 -> 48 вторичных баллов +[1, 2, 4, 7, 13, 14, 16, 23, 25] -[5, 6, 8, 9, 12, 15, 17, 24]
