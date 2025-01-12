@@ -6,169 +6,129 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Задача 5
 '''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += str(n % b)
-        n //= b
-    return s[::-1]
-
-
-for n in range(10000, 0, -1):
-
-    s = convert(n, 3)
-
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        a = (n % 3) * 4
-        s = s + convert(a, 3)
-
-    r = int(s, 3)
-
-    if r < 199:
+from itertools import *
+n = 0
+for p in product(sorted('ОМЮТ'), repeat=5):
+    slovo = ''.join(p)
+    n += 1
+    if slovo[0] == 'О':
         print(n)
-        break
-'''
+'''  # 512
 
 
-# Задача 6
-'''
-import turtle as t
-t.screensize(-2000, 2000)
-t.tracer(0)
-t.left(90)
-size = 40
-
-t.right(90)
-for i in range(3):
-    t.right(45)
-    t.forward(10 * size)
-    t.right(45)
-t.right(315)
-t.forward(10 * size)
-for i in range(2):
-    t.right(90)
-    t.forward(10 * size)
-
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(2, 'red')
-
-t.update()
-t.done()
-'''
-
-# Задача 8
 '''
 from itertools import *
 cnt = 0
-for p in permutations('0123456789ABCDEF', r=3):
+for p in product('КОМПЕГЭ', repeat=6):
+    slovo = ''.join(p)
+    if slovo[0] in 'ОЕЭ' and slovo[-1] in 'ОЕЭ':
+        glas = [x for x in slovo if x in 'ОЕЭ']
+        if len(glas) == 2:
+            print(slovo)
+            cnt += 1
+print(cnt)  # 2304
+'''
+
+'''
+from itertools import *
+cnt = 0
+for p in product('01234567', repeat=5):
     num = ''.join(p)
     if num[0] != '0':
-        for x in '02468ACE':
-            num = num.replace(x, '2')
-        for x in '13579BDF':
-            num = num.replace(x, '1')
-        if '22' not in num and '11' not in num:
-            cnt += 1
-
-print(cnt)
+        if num.count('6') == 1:
+            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
+            if '16' not in num and '61' not in num:
+                cnt += 1
+print(cnt)  # 2961
 '''
 
-# № 231 (Уровень: Базовый)
 '''
-n = 8**820 - 2**760 + 14
-print(bin(n))
-print(bin(n)[2:].count('0'))
-print(f'{n:b}'.count('0'))
-'''
-
-
-# № 306 Джобс 28.09.2020 (Уровень: Базовый)
-'''
-n = 36**27 + 6**18 - 19
-R = []
+n = 49**13 + 7**33 - 49
+M = []
 while n > 0:
-    R.append(n % 6)
-    n //= 6
-R.reverse()
-print(R.count(0))
+    M.append(n % 7)
+    n //= 7
+M = M[::-1]
+print(M.count(6))
+'''
+# 24
 
 
-# Вариант 2
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:19]:
+    A = int(f'98897{x}21', 19)
+    B = int(f'2{x}923', 19)
+    if (A + B) % 18 == 0:
+        print((A + B) // 18)
+'''
+# 469034148 (наибольшее)
+
+
+'''
+M = []
+for n in range(1, 10000):
+    s = bin(n)[2:]
+
+    s = s + str(s.count('1') % 2)
+    s = s + str(s.count('1') % 2)
+    r = int(s, 2)
+    if r > 108:
+        M.append(r)
+print(min(M))  # 114
+'''
+
+'''
 def convert(n, b):
-    s = ''
+    r = []
     while n > 0:
-        s += str(n % b)
+        r.append(n % b)
         n //= b
-    return s[::-1]
+    return r[::-1]
 
 
-n = 36**27 + 6**18 - 19
-print(convert(n, 6).count('0'))
+R = []
+for x in range(1000, 10000):
+    if x % 3 != 0 and x % 17 != 0 and x % 19 != 0:
+        if len(convert(x, 4)) == 6:
+            R.append(x)
+
+print(min(R), max(R))
 '''
-
-
-# № 17633 Основная волна 19.06.24 (Уровень: Базовый)
-'''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += str(n % b)
-        n //= b
-    return s[::-1]
-
-
-for x in range(2030):
-    n = 6**260 + 6**160 + 6**60 - x
-    s = convert(n, 6)
-    if s.count('0') == 202:
-        print(x)
-        break
-
-# Вариант 2
-
-for x in range(2030):
-    n = 6**260 + 6**160 + 6**60 - x
-    R = []
-    while n > 0:
-        R.append(n % 6)
-        n //= 6
-    R.reverse()
-    if R.count(0) == 202:
-        print(x)
-        break
-'''
-
-
-# № 17973 (Уровень: Базовый)
-'''
-alphabet = sorted('0123456789QWERTYUOIPASDFGHJKLZXCVBNM')
-for x in alphabet[:24]:
-    A = int(f'12{x}734 ', 24)
-    B = int(f'8{x}95{x}3', 24)
-    C = int(f'24{x}796', 24)
-    if (A + B + C) % 23 == 0:
-        print((A + B + C) // 23)
-'''
+# 1024 4094
 
 '''
-alphabet = sorted('0123456789QWERTYUOIPASDFGHJKLZXCVBNM')
-for x in alphabet[:12]:
-    for y in alphabet[:12]:
-        A = int(f'{x}231{y}', 12)
-        B = int(f'78{x}98{y}', 14)
-        if (A + B) % 99 == 0:
-            print((A + B) // 99)
+i = 12
+k = 1024 * 768
+bit = k * i
+pack = bit * 256
+print(pack / 2**23)
 '''
-# 41428
+# 288
+
+'''
+# bit = a * b * c * t
+a = 2
+b = 48000
+c = 24
+# t = ?
+bit = 288 * 2**23
+t = bit / (a * b * c)
+print(t / 60)  # 17.47626
+'''
+
+symbols = 15
+alphabet = 26 + 10  # 36
+# alphabet = 2 ** i
+i = 6  # бит на символ
+bit = symbols * i
+print(bit / 8)  # 11.25
+byte = 12   # вес пароля
+
+V = 255 / 17
+print(V - byte)
+print(3 * 8)
 
 
 # endregion Урок: *************************************************************
@@ -186,4 +146,4 @@ for x in alphabet[:12]:
 
 
 # Первый пробник 21.12.24:
-# Стас 2/5 -> 14 вторичных баллов +[2, 12] -[5, 6, 8]
+# Роман 2/5 -> 14 вторичных баллов +[2, 12] -[5, 6, 8]
