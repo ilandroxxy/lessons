@@ -1,75 +1,68 @@
 # region Домашка: ************************************************************
 
+# https://stepik.org/lesson/1038775/step/5?unit=1062778
+'''
+M = [int(x) for x in open('files/17.txt')]
+# D = [x for x in M if f'{x:X}'[-2:] == '0F']
+# D = [x for x in M if f'{x:x}'[-2:] == '0f']
+D = [x for x in M if hex(x)[-2:] == '0f']
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 7 == 0) != (y % 7 == 0):
+        if (x + y) % max(D) == 0:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+# 2 9487
+
 
 # endregion Домашка: ************************************************************
 # #
 # #
 # region Урок: ************************************************************
 
+# № 19241 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-for x in open('files/17.txt'):
-    print(x)
-
-# Строчка, чтобы прочитать содержимое файла для 17 номера
-M = [int(x) for x in open('files/17.txt')]
-
-# Рассмотрим три типа задач 17 номера:
-
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. Назовём парой два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# 2. Назовём тройкой три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+n = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 6 and len(not_copied) == 1:
+        if sum(copied) / len(copied) < not_copied[0]:
+            print(n)
 '''
 
 
-# № 17873 Демоверсия 2025 (Уровень: Базовый)
+# № 18364 (Уровень: Средний)
 '''
-M = [int(x) for x in open('files/17.txt')]
-R = []  # сюда складываем результаты
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    # остаток от деления хотя бы одного из элементов
-    # на 16 равен минимальному элементу последовательности
-    if x % 16 == min(M) or y % 16 == min(M):
-        R.append(x + y)
-print(len(R), max(R))
+from math import *
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(M) != len(set(M)):
+        copied = [x for x in M if M.count(x) > 1]
+        not_copied = [x for x in M if M.count(x) == 1]
+        if 3 * sum(not_copied) <= prod(copied):
+            cnt += 1
+print(cnt)
 '''
 
-# № 18176 (Уровень: Средний)
 
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if x > 0 and str(x)[-1] == '4']
-print(min(D))  # 54
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    s = ''.join([str(abs(p)) for p in (x, y, z)])
-    summa = sum([int(p) for p in s])  # sum(map(int, s))
-    # (3487, 908, -54) -> ['3487', '908', '54'] -> '348790854'
-    if summa == min(D):
-        R.append(x + y + z)
-print(len(R), max(R))
-
-
-
-
+# № 17968 (Уровень: Средний)
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if max(M) < M[0] + M[1] + M[2]:
+        chet = [x for x in M if x % 2 == 0]
+        nechet = [x for x in M if x % 2 != 0]
+        if sum(chet) == sum(nechet):
+            cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: ************************************************************
 # #
@@ -80,6 +73,6 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
