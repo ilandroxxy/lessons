@@ -5,81 +5,51 @@
 # #
 # region Урок: ************************************************************
 
-
-print("x y z w")
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (x <= (z == w)) or (not (y <= w))
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                # F=¬((¬x∨y)∧¬w)∨¬(z∧¬(y∧ w))
+                F = (not(((not x) or y) and (not w)) or (not(z and (not (y and w)))))
                 if F == 0:
+                    print(x, y, z, w)
+'''
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                # F= ¬(w→(x≡y∨y))∧(z→x)
+                F = (not(w <= (x == (y or y)))) and (z <= x)
+                if F == 1:
+                    print(x, y, z, w)
+'''
+
+
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F =  ((z == x)<=w) and (w<=(y and x))
+                if F == 1:
                     print(x, y, z, w)
 
 
-'''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n < 3:
-        return 3
-    if n >= 3:
-        return 2 * n + 5 + F(n-2)
-print(F(3027) - F(3023))
-'''
-# Ответ: 12114 +
-
-
-'''
-def F(a,b):
-    if a < b or a == 7:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a - 1, b)+F(a-3,b)+F(a//2,b)
-
-print(F(19,10) * F(10,3))
-'''
-# Ответ: 133
-
-'''
-def F(x,y,A):
-    return (x + 2*y > A) or (y < x) or (x < 30)
-
-R = []
-for A in range(1, 1000):
-    if all(F(x,y,A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(max(R))
-'''
-# 89
-
-'''
-for n in range(4, 10000):
-    s = "1" + "8" * n
-    while "18" in s or "388" in s or "888" in s:
-        if "18" in s:
-            s = s.replace("18", "8", 1)
-        if "388" in s:
-            s = s.replace("388", "81", 1)
-        if "888" in s:
-            s = s.replace("888", "3", 1)
-    if s.count('1') == 3:
-        print(n)
-        break
-'''
-
-# Задание 1 +
-# Ответ: 14
-#
-# Задание 2 -
-# Ответ: ywzx
-#
-# Задание 10 +
-# Ответ: 47
-#
-# Задание 4 -
-# Ответ: 7
+from itertools import *
+print('1 2 3 4 5 6 7 8')
+table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
+graph = 'BD DB BE EB BC CB CH HC HE EH FH HF FA AF FG GF AG GA GD DG DE ED'
+for p in permutations('BCHFAGED'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
 
 # endregion Урок: ************************************************************
