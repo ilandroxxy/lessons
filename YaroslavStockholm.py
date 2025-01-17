@@ -5,87 +5,112 @@
 # #
 # region Урок: ********************************************************************
 
-
 '''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s += str(n % b)
-        n //= b
-    return s[::-1]
-
-
-for n in range(1, 5000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s += convert(x, 3)
-    r = int(s, 3)
-
-    if r < 199:
-        print(n)
+knot = [bin(int(x))[2:].zfill(8) for x in '32.64.208.224'.split('.')]
+print(knot)
+mask = [bin(x)[2:].zfill(8) for x in [255, 255, 192, 0]]
+print(mask)
 '''
 
 
-'''
-import turtle as t
-t.screensize(-2000, 2000)
-t.tracer(0)
-t.left(90)
-t.down()
-l = 40
-t.right(90)
-for i in range(3):
-    t.right(45)
-    t.forward(10*l)
-    t.right(45)
-t.right(315)
-t.forward(10*l)
-for i in range(2):
-    t.right(90)
-    t.forward(10*l)
-t.up()
-for x in range(-50,50):
-    for y in range(-50,50):
-        t.goto(x*l,y*l)
-        t.dot(5,'red')
-t.update()
-t.done()
-'''
+# Маска сети имеет длину 32 бита и вид: 1111..000
+# 11111111.11111111.11000000.00000000
 
+# Тип 13 №6343
 '''
-from itertools import permutations
-
-alphabet = sorted('0123456789ABCDEF')
+from ipaddress import *
+net = ip_network('32.64.208.224/255.255.192.0', 0)
+print(net)  # 32.64.192.0/18  - адрес сети / кол-во единиц в маске
+print(net.network_address)  # 32.64.192.0 - только адрес сети
+print(net.netmask)  # 255.255.192.0 - маска сети в десятичной форме
+print(net.num_addresses)  # кол-во айпи адресов в сети net
 cnt = 0
-for i in permutations(alphabet, r=3):
-    a = ''.join(i)
-    if a[0] != '0':
-        # if a[0] in b and a[1] in c and a[2] in b:
-        #     cnt += 1
-        # if a[0] in c and a[1] in b and a[2] in c:
-        #     cnt += 1
-        for x in '02468ACE':
-            a = a.replace(x, '2')
-        for x in '13579BDF':
-            a = a.replace(x, '1')
-        if '11' not in a and '22' not in a:
-            cnt += 1
+for ip in net:
+    cnt += 1
 print(cnt)
 '''
 
 
-M = []
-alphabet = sorted('0123456789ABCDEFGHIJKLM')
-for x in alphabet:
-    A = int(f'7{x}38596', 23)
-    B = int(f'14{x}36', 23)
-    C = int(f'61{x}7', 23)
-    if (A + B + C) % 22 == 0:
-        M.append((A + B + C) // 22)
-print(min(M))
+# № 18928 Новогодний вариант 2025 (Уровень: Базовый)
+# IP-адрес сети: 192.168.248.176
+# Сетевая маска: 255.255.255.240
+#
+# Необходимо узнать, сколько в этой сети IP-адресов,
+# для которых количество единиц и нулей в двоичной записи IP-адреса одинаково.
+'''
+from ipaddress import *
+net = ip_network('192.168.248.176/255.255.255.240', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('0') == b.count('1'):
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 18862 (Уровень: Базовый)
+'''
+from ipaddress import *
+net = ip_network('172.140.68.0/255.255.248.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('0') > 15:
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 18159 (Уровень: Базовый)
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'205.154.212.20/{mask}', 0)
+    if '205.154.192.0' in str(net):
+        print(net.netmask)
+        # 255.255.192.0
+        # 255.255.224.0
+'''
+
+
+# № 16260 Джобс 03.05.24 (Уровень: Средний)
+# Известно два узла с IP-адресами 123.20.103.136
+# и 123.20.103.151 принадлежат разным сетям с одинаковой маской.
+#
+# Определите значение 4 байта маски в этих сетях.
+# Найденное значение представьте в десятичной системе счисления.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'165.112.200.70/{mask}', 0)
+    net2 = ip_network(f'165.112.175.80/{mask}', 0)
+    if net1 == net2:
+        print(mask)
+'''
+
+
+
+# Два узла, находящиеся в разных подсетях, имеют IP-адреса 118.187.59.255 и 118.187.65.115.
+# В масках обеих подсетей одинаковое количество единиц.
+# Укажите наибольшее возможное количество единиц в масках этих подсетей.
+'''
+from ipaddress import *
+for mask1 in range(32+1):
+    for mask2 in range(32+1):
+        net1 = ip_network(f'118.187.59.255/{mask1}', 0)
+        net2 = ip_network(f'118.187.65.115/{mask2}', 0)
+        if mask1 == mask2:
+            if net1 != net2:
+                print(mask1 + mask2)
+'''
+
+
+
+
+
+
+
 
 # endregion Урок: *************************************************************
 # #
