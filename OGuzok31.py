@@ -6,84 +6,142 @@
 # region Урок: ********************************************************************
 
 
-# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
+# Срезы строк/списков
 '''
-import sys
-sys.setrecursionlimit(10000)
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+s = 'abcde'
 
-from sys import *
-setrecursionlimit(10000)
-# RecursionError: maximum recursion depth exceeded
+print(M[2:4])  # ['c', 'd'] - Крайний справа индекс не берется
+print(M[2:])  # ['c', 'd', 'e'] - Все элемента справа от 2 индекса включительно
+print(M[:4])  # ['a', 'b', 'c', 'd'] - Все элементы слева до 4 индекса невключительно
 
-def F(n):
-    if n < 5:
-        return n
-    if n >= 5:
-        return 2*n * F(n-4)
+# Популярные срезы
+print(M[2:])  # ['c', 'd', 'e'] - Все элементы кроме первых двух
+print(M[::2])  # ['a', 'c', 'e'] - Все элементы на четных индексах
+print(M[1::2])  # ['b', 'd'] - Все элементы на нечетных индексах
+print(M[-2:])  # ['d', 'e'] - Оканчиваются, то есть крайние два элемента справа
+print(M[::-1])  # ['e', 'd', 'c', 'b', 'a'] - Все элементы в обратном порядке
 
-
-print((F(13766) - 9 * F(13762)) / F(13758))
-'''
-
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
-'''
-import sys
-from functools import *
-sys.setrecursionlimit(5000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n-1) * n + F(n-2)
-
-
-for i in range(5000):
-    F(i)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+for x in range(5, 100, 5):  # - все числа от 5 до 100 кратные 5
+    print(x, end=' ')
 '''
 
+"""
+from string import *
+alphabet = digits + ascii_uppercase
+#                i 0123456789
+print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-# № 17557 Основная волна 08.06.24 (Уровень: Базовый)
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
 '''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
-
-
-print((F(2024) // 16 - F(2023)) / F(2022))
-#       ~~~~~~~^~~~
-# OverflowError: integer division result too large for a float
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
 '''
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+print(convert(8, 2))
 
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
+
+
+print(int('2342', 37))
+# ValueError: int() base must be >= 2 and <= 36, or 0
+"""
+
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+# № 19551 (Уровень: Базовый)
+'''
+M = []
+for n in range(1, 1000):
+    s = convert(n, 3)
+    s = s.replace('2', '*').replace('0', '2').replace('*', '0')
+    r = int(s, 3)
+    res = abs(n - r)
+    if res == 378:
+        M.append(n)
+print(min(M))
+'''
+
+
+# № 19237 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+M = []
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s += s[-2:]
     else:
-        return F(a+1, b) + F(a+2, b) + F(a // 3, b)
+        # summa = s.count('1') + s.count('2') * 2
+        # summa = sum([int(x) for x in s])
+        summa = sum(map(int, s))
+        s += convert(summa, 3)
+    r = int(s, 3)
+    if r % 2 == 0 and r > 220:
+        M.append(r)
+print(min(M))
+'''
+
+#
+# № 17869 Демоверсия 2025 (Уровень: Базовый)
+'''
+n = 3*3125**8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2025
+b = 25
+s = convert(n, b)
+print(s.count('0'))
+'''
+
+'''
+for x in range(2030+1):
+    n = 7**170 + 7**100 - x
+    s = convert(n, 7)
+    if s.count('0') == 71:
+        print(x)
+'''
+# 2029
+
+'''
+for x in range(2030+1):
+    n = 7**170 + 7**100 - x
+    s = []
+    while n > 0:
+        s.append(n % 7)
+        n //= 7
+    if s.count(0) == 71:
+        print(x)
+'''
 
 
-print(F(5, 7) * F(7, 11))
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:24]:
+    A = int(f'12{x}734', 24)
+    B = int(f'8{x}95{x}3', 24)
+    C = int(f'24{x}796', 24)
+    if (A + B + C) % 23 == 0:
+        print((A + B + C) // 23)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -96,4 +154,4 @@ print(F(5, 7) * F(7, 11))
 # #
 # ФИПИ = [1, 2? сопоставление, 3, 4, 5? переводы, 7, 8-, 9-, 11-, 12-, 13-, 15-, 16-, 19-21-, 22]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке:  5, 8, 14, 15,
