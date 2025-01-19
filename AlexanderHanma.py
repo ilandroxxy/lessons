@@ -1,165 +1,148 @@
 # region Домашка: ******************************************************************
 
+'''
+def con(num: int, cen: int):
+    alp = '01234567890QWERTYUIOPASDFGHJKLZXCVBNM'
+    res = ''
+    while num > 0:
+        res += alp[num % cen]
+        num //= cen
+    return res[::-1]
+
+
+R = []
+for n in range(11, 1000):
+    s = con(n, 3)
+    if s.count('0') + s.count('2') > s.count('1'):
+        s = '22' + s
+    else:
+        s = '11' + s
+
+    r = int(s, 3)
+    if r > 100:
+        R.append(r)
+print(min(R))
+'''
+
+# № 12468 (Уровень: Базовый)
+'''
+R = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:19]:
+    a = int(f'78{x}79643', 19)
+    b = int(f'25{x}43', 19)
+    c = int(f'63{x}5', 19)
+    if (a + b + c) % 18 == 0:
+        R.append((a + b + c) // 18)
+print(min(R))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
 '''
-from functools import *
-from sys import *
-setrecursionlimit(1000000)
-@lru_cache(None)
-def F(n):
-    if n < 5:
-        return n
-    if n >= 5:
-        return 2*n*F(n-4)
+def my_int(R, b):
+    R = R[::-1]
+    summa = 0
+    for i, x in enumerate(R, 0):
+        summa += x*b**i
+    return summa
 
-for i in range(5, 14000):
-    F(i)
+def my_int(R: list, b: int):
+    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
 
-print((F(13766) - 9*F(13762))//F(13758))
+
+print(int('1000', 2))  # 8
+print(my_int([1, 0, 0, 0], 2))  # 8
 '''
 
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 13096 (Уровень: Средний)
 '''
-l = []
-M = [int(s) for s in open('files/17.txt')]
-D = [x for x in M if len(str(abs(x))) >= 5 and abs(x) % 100 == 43]
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i + 1], M[i + 2]
-    if (x in D) or (y in D) or (z in D):
-        if x ** 2 + y ** 2 + z ** 2 <= max(D) ** 2:
-            l.append(x ** 2 + y ** 2 + z ** 2)
-print(len(l), min(l))
-'''
-
-#
-# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-maxi = 0
-s = open('files/24.txt').readline()
-s = s.split('FSRQ')
-for i in range(len(s)-80):
-    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-#
-# № 19237 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-alp = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+def my_int(R, b):
+    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
 
 
-def my_convert(number: int, system: int):
-    res = ''
-    while number > 0:
-        res += alp[number % system]
-        number //= system
-    return res[::-1]
+for x in range(0, 39):
+    for y in range(0, 39):
+        A = my_int([5, 8, x, 7, 2, 3, y, 4, 9], 39)
+        if A % 38 == 0:
+            B = my_int([y, x], 39)
+            if (B**0.5).is_integer() and B != 0:
+                print(B)
+'''
+
+'''
+def my_int(R, b):
+    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
 
 
 R = []
-for n in range(1, 1000):
-    s = my_convert(n, 3)
-    if n % 3 == 0:
-        s += s[-2:]
+for x in range(10, 67):
+    for y in range(0, x):
+        A = my_int([7, 3, x, 1, y], 67)
+        B = my_int([4, 9, y, 6], x)
+        R.append(A + B)
+print(len(set(R)))
+'''
+
+
+# Тип 23 №27551
+# 1.Прибавить 1.
+# 2.Умножить на 2.
+# Сколько существует программ, которые преобразуют исходное число 1 в число 20,
+# и при этом траектория вычислений содержит ровно одно из чисел 9 и 10?
+
+'''
+def F(a, b):
+    if a >= b or a == 9:
+        return a == b
+    return F(a+1, b) + F(a*2, b)
+
+def G(a, b):
+    if a >= b or a == 10:
+        return a == b
+    return G(a+1, b) + G(a*2, b)
+
+
+print(F(1, 10) * F(10, 20))
+print(G(1, 9) * G(9, 20))
+'''
+
+# True  ['1', '2', '4', '8', '18', '19']
+'''
+def F(a, b, c):
+    if a > b:
+        return 0
+    elif a == b:
+        c = c.split()
+        if ('9' in c) != ('10' in c):
+            # print(a == b, c)
+            return 1
+        else:
+            return 0
     else:
-        summa = sum([int(x) for x in s])
-        s += my_convert(summa, 3)
-    r = int(s, 3)
-    if r > 220 and r % 2 == 0:
-        R.append(r)
-print(min(R))
-'''
+        return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
 
-#
-# № 19244 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-R = []
-for n in range(3, 1000):
-    s = '1' + n * '2'
-    while '12' in s or '322' in s or '222' in s:
-        if '12' in s:
-            s = s.replace('12', '2', 1)
-        if '322' in s:
-            s = s.replace('322', '21', 1)
-        if '222' in s:
-            s = s.replace('222', '3', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if summa == 15:
-        R.append(n)
-
-print(min(R))
-'''
-
-'''
-from itertools import *
-n = 0
-for p in product(sorted('ЯНВАРЬ'), repeat=5):
-    s = ''.join(p)
-    n += 1
-    if s[0] != 'Я' and s.count('Ь') <= 1 and 'ЯЯ' not in s:
-        print(n)
-'''
+print(F(1, 20, ''))
 
 
-# № 19233 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-from itertools import *
-print('1 2 3 4 5 6 7 8')
-table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
-graph = 'BD DB BE EB BC CB CH HC HE EH FH HF FA AF FG GF AG GA GD DG DE ED'
-for p in permutations('BCHFAGED'):
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
+def F(a, b, c):
+    if a >= b:
+        c = c.split()
+        return a == b and ('9' in c) != ('10' in c)
+    return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
 
-
-# 1 2 3 4 5 6 7 8
-# E H B D F A C G
-'''
-
-'''
-from itertools import *
-print('1 2 3 4 5 6 7 8')
-table = '12 14 17 21 24 28 35 37 38 41 42 46 53 58 64 67 71 73 76 82 83 85'
-graph = 'BA AB BH HB AH HA HF FH FD DF DC CD CG GC CE EC AE EA GF FG EG GE'
-for p in permutations('BAHFDCGE'):
-    new_table = table
-    for i in range(1, 9):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-'''
-
-
-'''
-from itertools import *
-
-print('1 2 3 4 5 6 7 8')
-tab = '12 14 17 21 24 28 35 37 38 41 42 46 53 58 64 67 71 73 76 82 83 85'
-fda = 'BH HB BA AB HF HA AH FH AE EA GE EG GF FG GC CG DF FD DC CD EC CE'
-for s in permutations('BHAEGFDC'):
-    nwtab = tab
-    for i in range(9):
-        nwtab = nwtab.replace(str(i), s[i - 1])
-    if set(nwtab.split()) == set(fda.split()):
-        print(*s)
+print(F(1, 20, ''))
 '''
 
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = [5, 14]
+# КЕГЭ  = [5, 14, 23]
 # на следующем уроке:
 
 

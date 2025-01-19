@@ -6,135 +6,117 @@
 # #
 # region Урок: ********************************************************************
 
-# № 19552 (Уровень: Базовый)
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
 '''
-M = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 2 == 0:
-        s = s + '100'
+def F(a, b):
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
     else:
-        s = s + '011'
-    r = int(s, 2)
-    if r > 300:
-        M.append(n)
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
-print(min(M))
+
+print(F(5, 7) * F(7, 11))
+
+
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+
+print(F(5, 7) * F(7, 11))
 '''
 
 
-# № 19551 (Уровень: Базовый)
+# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-1, b) + F(a // 2, b)
 
-
-for n in range(1, 10000):
-    s = convert(n, 3)
-    s = s.replace('2', '*').replace('0', '2').replace('*', '0')
-    r = int(s, 3)
-    res = abs(n - r)
-    if res == 378:
-        print(n)
-        break
+print(F(30, 8) * F(8, 1))
 '''
 
 
-# № 19240 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 19253 ЕГКР 21.12.14 (Уровень: Базовый)
+# A. вычти 1
+# B. вычти 6
+# C. найди целую часть от деления на 2
+# Сколько существует таких программ, которые исходное
+# число 34 преобразуют в число 6, и при этом траектория вычислений
+# содержит числа 19 и 29 и не содержит числа 24?
+
 '''
-from itertools import *
-M = []
-n = 0
-for p in product(sorted('ЯНВАРЬ'), repeat=5):
-    slovo = ''.join(p)
-    n += 1
-    if slovo[0] != 'Я' and slovo.count('Ь') <= 1 and 'ЯЯ' not in slovo:
-        M.append(n)
-print(max(M))
+def F(a, b):
+    if a <= b or a == 24:
+        return a == b
+    return F(a - 1, b) + F(a - 6, b) + F(a // 2, b)
+
+
+print(F(34, 29) * F(29, 19) * F(19, 6))
+
+
+def F(a, b, c):
+    if a <= b:
+        c = c.split()
+        return a == b and ('19' in c) and ('29' in c) and ('24' not in c)
+    return F(a - 1, b, c+' '+str(a)) + F(a - 6, b, c+' '+str(a)) + F(a // 2, b, c+' '+str(a))
+
+
+print(F(32, 6, ''))
+'''
+# True ['32', '31', '30', '29', '23', '22', '21', '20', '19', '13', '6']
+'''
+def F(a, b, c):
+    if a < b:
+        return 0
+    if a == b:
+        c = c.split()
+        if ('19' in c) and ('29' in c) and ('24' not in c):
+            # print(a == b, c)
+            return 1
+        else:
+            return 0
+    return F(a - 1, b, c+' '+str(a)) + F(a - 6, b, c+' '+str(a)) + F(a // 2, b, c+' '+str(a))
+
+
+print(F(32, 6, ''))
+'''
+
+# № 4490 (Уровень: Средний)
+'''
+def F(a, b, c):
+    if a >= b:
+        return a == b and c.count('3') <= 2
+    return F(a+1, b, c+'1') + F(a+2, b, c+'2') + F(a*2, b, c+'3')
+
+
+print(F(2, 12, ''))
 '''
 
 
-# № 18484 (Уровень: Средний)
+# № 4489 (Уровень: Средний)
 '''
-from itertools import *
-M = []
-n = 0
-for p in product(sorted('ПАВСКИЙ'), repeat=6):
-    slovo = ''.join(p)
-    if any(p in slovo for p in ('ИИ', 'АА', 'АИ', 'ИА')):
-        n += 1
-        if slovo == 'КАКААА':
-            print(n)
-'''
+def F(a, b, c):
+    if a >= b:
+        # return a == b and all(p not in c for p in '22 23 32 33'.split())
+        return a == b and '22' not in c and '23' not in c and '32' not in c and '33' not in c
+    return F(a+1, b, c+'1') + F(a*2, b, c+'2') + F(a*3, b, c+'3')
 
 
-# № 14412 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in product('АЛГОРИТМ', repeat=6):
-    slovo = ''.join(p)
-    if slovo.count('Л') <= 1:
-        if slovo[0] != 'Р':
-            if slovo[-1] not in 'ЛГРТМ':
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 14413 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = []
-for p in permutations('СОРТИРОВКА'):
-    slovo = ''.join(p)
-    word = slovo
-    for x in 'СРТВК':
-        word = word.replace(x, 'Б')
-    for x in 'ОАИ':
-        word = word.replace(x, 'А')
-    if 'ААА' not in word and 'БББ' not in word:
-        cnt.append(slovo)
-print(len(set(cnt)))
-'''
-
-
-# № 18260 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in product('0123456789AB', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('B') == 1:
-            chet = [x for x in num if x in '02468A']
-            nechet = [x for x in num if x in '13579B']
-            if len(chet) == len(nechet):
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 18973 (Уровень: Средний)
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alphabet)
-cnt = 0
-from itertools import *
-for p in product(alphabet[:25], repeat=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        chet = [x for x in num if x in alphabet[:25:2]]
-        if len(chet) >= 1:
-            D = [x for x in num if x > 'F']
-            if len(D) > 2:
-                cnt += 1
-print(cnt)
+print(F(1, 30, ''))
 '''
 
 # endregion Урок: *************************************************************
@@ -146,7 +128,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14, 16]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 16, 23]
 # КЕГЭ  = []
 # на следующем уроке:
 
