@@ -6,131 +6,83 @@
 # #
 # region Урок: ********************************************************************
 
+
+# 5! = 1 * 2 * 3 * 4 * 5 = 120
 '''
-from itertools import *
-n = 0
-for p in product(sorted('ОМЮТ'), repeat=5):
-    slovo = ''.join(p)
-    n += 1
-    if slovo[0] == 'О':
-        print(n)
-'''  # 512
+import math
+print(math.factorial(5))  # 120
 
 
-'''
-from itertools import *
-cnt = 0
-for p in product('КОМПЕГЭ', repeat=6):
-    slovo = ''.join(p)
-    if slovo[0] in 'ОЕЭ' and slovo[-1] in 'ОЕЭ':
-        glas = [x for x in slovo if x in 'ОЕЭ']
-        if len(glas) == 2:
-            print(slovo)
-            cnt += 1
-print(cnt)  # 2304
+def my_factorial(n):
+    r = 1
+    for i in range(1, n+1):
+        r *= i
+    return r
+
+
+print(my_factorial(5))  # 120
 '''
 
+#
+# № 4107 (Уровень: Базовый)
 '''
-from itertools import *
-cnt = 0
-for p in product('01234567', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('6') == 1:
-            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
-            if '16' not in num and '61' not in num:
-                cnt += 1
-print(cnt)  # 2961
-'''
+def F(n):
+    if n == 1:   # F(n)=1 при n=1;
+        return 1
+    if n > 1 and n % 2 == 0:
+        return n * F(n - 1)
+    if n > 1 and n % 2 != 0:
+        return 1 + F(n - 2)
 
-'''
-n = 49**13 + 7**33 - 49
-M = []
-while n > 0:
-    M.append(n % 7)
-    n //= 7
-M = M[::-1]
-print(M.count(6))
-'''
-# 24
-
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print((A + B) // 18)
-'''
-# 469034148 (наибольшее)
-
-
-'''
-M = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-
-    s = s + str(s.count('1') % 2)
-    s = s + str(s.count('1') % 2)
-    r = int(s, 2)
-    if r > 108:
-        M.append(r)
-print(min(M))  # 114
+print(F(84))
 '''
 
+
+# № 5954 (Уровень: Базовый)
 '''
-def convert(n, b):
-    r = []
-    while n > 0:
-        r.append(n % b)
-        n //= b
-    return r[::-1]
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
 
 
-R = []
-for x in range(1000, 10000):
-    if x % 3 != 0 and x % 17 != 0 and x % 19 != 0:
-        if len(convert(x, 4)) == 6:
-            R.append(x)
-
-print(min(R), max(R))
+print((F(2023) - F(2022)) / F(2020))
 '''
-# 1024 4094
-
-'''
-i = 12
-k = 1024 * 768
-bit = k * i
-pack = bit * 256
-print(pack / 2**23)
-'''
-# 288
-
-'''
-# bit = a * b * c * t
-a = 2
-b = 48000
-c = 24
-# t = ?
-bit = 288 * 2**23
-t = bit / (a * b * c)
-print(t / 60)  # 17.47626
-'''
-
-symbols = 15
-alphabet = 26 + 10  # 36
-# alphabet = 2 ** i
-i = 6  # бит на символ
-bit = symbols * i
-print(bit / 8)  # 11.25
-byte = 12   # вес пароля
-
-V = 255 / 17
-print(V - byte)
-print(3 * 8)
+# RecursionError: maximum recursion depth exceeded
 
 
+#
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+
+
+import time
+start = time.time()
+
+from functools import *
+import sys
+sys.setrecursionlimit(10000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n / 2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
+
+for i in range(5000):
+    F(i)
+
+# 0.002565 0.00412
+
+print(F(4952) + 2 * F(4958) + F(4964))
+
+print(time.time() - start)
 # endregion Урок: *************************************************************
 # #
 # #
@@ -140,9 +92,9 @@ print(3 * 8)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 16]
 # КЕГЭ  = []
-# на следующем уроке: устанавливаем Pycharm
+# на следующем уроке:
 
 
 # Первый пробник 21.12.24:

@@ -5,52 +5,125 @@
 # #
 # region Урок: ************************************************************
 
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F=¬((¬x∨y)∧¬w)∨¬(z∧¬(y∧ w))
-                F = (not(((not x) or y) and (not w)) or (not(z and (not (y and w)))))
-                if F == 0:
-                    print(x, y, z, w)
-'''
+# bit = pixels * i, где i - это кол-во бит на один пиксель
+# colors = 2 ** i
 
+# № 19568 (Уровень: Средний)
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F= ¬(w→(x≡y∨y))∧(z→x)
-                F = (not(w <= (x == (y or y)))) and (z <= x)
-                if F == 1:
-                    print(x, y, z, w)
+pixels = 1280 * 1024
+colors = 256  # 2 ** 8 >= 256
+i = 8
+bit = pixels * i  # вес фотографии в битах
+
+
+flesh = (4 * 2**33)   # бит на флешке (карте)
+photos = flesh // bit  # фотографий на одной карте
+print(photos * 34 + 307)
 '''
 
 
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F =  ((z == x)<=w) and (w<=(y and x))
-                if F == 1:
-                    print(x, y, z, w)
+# № 19557 (Уровень: Базовый)
+'''
+pixels = 1920 * 1080
+colors = 2048  # 2 ** i <= 2048
+i = 11
+bit = pixels * i
+bit_all = bit * 313
+print(bit_all / 2**23)
+'''
+# Ответ: 852
 
 
-from itertools import *
-print('1 2 3 4 5 6 7 8')
-table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
-graph = 'BD DB BE EB BC CB CH HC HE EH FH HF FA AF FG GF AG GA GD DG DE ED'
-for p in permutations('BCHFAGED'):
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
+# № 18613 (Уровень: Средний)
+'''
+pixels = 1536 * 1024
+colors = 4096  # 2 ** 12 >= 4096
+i = 12
+bit = (pixels * i) * 0.2  # 100% -> 20% - значит сжали на 80% 
 
+bit_all = bit * 150
+
+U = 288 * 2**13  # кол-во битов пролетает за 1 сек
+print((bit_all / U) / 60)  # до сжатия один пакет улетал за 20 мин
+'''
+# Ответ: 80
+
+
+# № 19556 (Уровень: Базовый
+'''
+# bit = a  *  b *  c  * t
+# бит = шт * Гц * бит * сек
+
+a = 2
+b = 48000
+c = 18
+# t - ?
+
+bit = 196 * 2**23  # Мбайты перевели в биты
+t = bit / (a * b * c)  # сек
+print(t / 60)   # 15.85809
+'''
+# Ответ: 16
+
+
+# № 11226 (Уровень: Средний)
+
+# bit = a  *  b *  c  * t
+# бит = шт * Гц * бит * сек
+'''
+a = 2  # Шт
+b = 4000  # Гц
+c = 7 * 2**3  # бит
+# t - ?
+
+bit = 86000 * (56*60)  # сек передавалось сообщение
+t = bit / (a * b * c)  # сек
+print(t / 60)  # 10.75
+'''
+# Ответ: 11
+
+
+# № 17934 (Уровень: Средний)
+'''
+symbols = 99
+alphabet = 10 + 510  # alphabet = 2 ** i
+i = 10  # 2 ** 10 >= alphabet, где i - кол-во бит на символ
+bit = symbols * i
+
+print(bit / 8)  # 123.75 -> 124
+byte = 124
+
+user = (543 * 2**10) / 4322  # байт на одного пользователя
+dop = user - byte
+print(dop)  # 4.65155020 -> 5
+'''
+
+
+# № 17931 (Уровень: Средний)
+'''
+# symbols - ?
+alphabet = 10 + 52 + 1988
+i = 12  # 2 ** 12 >= alphabet
+byte = (579 * 2**10) / 1974  # 300.35258 - на одного пользователя
+byte = 300
+bit = byte * 8
+symbols = bit / i
+print(symbols)
+'''
+
+
+# № 17745 (Уровень: Базовый)
+'''
+symbols = 256
+alphabet = 4080 + 10
+i = 12
+
+bit = symbols * i
+print(bit / 8)  # 384.0
+byte = 384
+
+print((byte * 2**16) / 2**20)  # байт -> Кбайт -> Мбайт
+'''
 
 # endregion Урок: ************************************************************
 # #

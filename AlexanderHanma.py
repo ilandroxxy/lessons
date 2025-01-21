@@ -1,149 +1,143 @@
 # region Домашка: ******************************************************************
 
+# № 7011 (Уровень: Средний) 🌶
 '''
-def con(num: int, cen: int):
-    alp = '01234567890QWERTYUIOPASDFGHJKLZXCVBNM'
-    res = ''
-    while num > 0:
-        res += alp[num % cen]
-        num //= cen
-    return res[::-1]
+def f(a, b, c):
+    if a >= b or a == 28:
+        # print(a == b, 'BACA' not in c, c)
+        return a == b and 'BACA' not in c
+    return f(a + 2, b, c+'A') + f(a + 3, b, c+'B') + f(a * 2, b, c+'C')
 
 
-R = []
-for n in range(11, 1000):
-    s = con(n, 3)
-    if s.count('0') + s.count('2') > s.count('1'):
-        s = '22' + s
-    else:
-        s = '11' + s
-
-    r = int(s, 3)
-    if r > 100:
-        R.append(r)
-print(min(R))
+print(f(2, 40, ''))
 '''
 
-# № 12468 (Уровень: Базовый)
+
+# № 13099 (Уровень: Средний) 🌶
 '''
-R = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:19]:
-    a = int(f'78{x}79643', 19)
-    b = int(f'25{x}43', 19)
-    c = int(f'63{x}5', 19)
-    if (a + b + c) % 18 == 0:
-        R.append((a + b + c) // 18)
-print(min(R))
+def f(a, b, c):
+    if a > b+1 or 'AA' in c:
+        return 0  # 15 -> +1 -> 16 -> -1 -> 15
+    elif a == b:
+        return 1
+    return f(a - 1, b, c+'A') + f(a * 2, b, c+'B') + f(a * 3, b, c+'C')
+
+
+print(f(3, 15, ''))
 '''
+
+
+# № 11953 (Уровень: Средний)
+'''
+from functools import lru_cache
+
+@lru_cache(None)
+def F(a, b):
+    if a >= b or a == 100:
+        return a == b
+    summa = 0
+    if a % 10 != 0:
+        summa += F(a + a % 10, b)
+    if a % 68 != 0:
+        summa += F(a + a % 68, b)
+    if a ** 2 != a:
+        summa += F(a ** 2, b)
+    return summa
+
+
+print(F(2, 68) * F(68, 680))
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+
+# № 12779 (Уровень: Средний)
 '''
-def my_int(R, b):
-    R = R[::-1]
-    summa = 0
-    for i, x in enumerate(R, 0):
-        summa += x*b**i
-    return summa
-
-def my_int(R: list, b: int):
-    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
+def F(n, x):
+    if n >= 3000:
+        return n
+    if n < 3000:
+        return n + x + F(n+2, x)
 
 
-print(int('1000', 2))  # 8
-print(my_int([1, 0, 0, 0], 2))  # 8
-'''
-
-
-# № 13096 (Уровень: Средний)
-'''
-def my_int(R, b):
-    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
-
-
-for x in range(0, 39):
-    for y in range(0, 39):
-        A = my_int([5, 8, x, 7, 2, 3, y, 4, 9], 39)
-        if A % 38 == 0:
-            B = my_int([y, x], 39)
-            if (B**0.5).is_integer() and B != 0:
-                print(B)
-'''
-
-'''
-def my_int(R, b):
-    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
-
-
-R = []
-for x in range(10, 67):
-    for y in range(0, x):
-        A = my_int([7, 3, x, 1, y], 67)
-        B = my_int([4, 9, y, 6], x)
-        R.append(A + B)
-print(len(set(R)))
+for x in range(-100, 100):
+    if F(2984, x) - F(2988, x) == 5916:
+        print(x)
 '''
 
 
-# Тип 23 №27551
-# 1.Прибавить 1.
-# 2.Умножить на 2.
-# Сколько существует программ, которые преобразуют исходное число 1 в число 20,
-# и при этом траектория вычислений содержит ровно одно из чисел 9 и 10?
-
+# № 11948 (Уровень: Средний)
 '''
-def F(a, b):
-    if a >= b or a == 9:
-        return a == b
-    return F(a+1, b) + F(a*2, b)
+def F(n):
+    return G(n - 1)
 
-def G(a, b):
-    if a >= b or a == 10:
-        return a == b
-    return G(a+1, b) + G(a*2, b)
+def G(n):
+    if n < 10:
+        return n
+    if n >= 10:
+        return G(n - 2) + 1
 
-
-print(F(1, 10) * F(10, 20))
-print(G(1, 9) * G(9, 20))
+cnt = 0
+for n in range(1, 100+1):
+    r = F(n)
+    if r > 0:
+        if (r ** 0.5).is_integer():
+            cnt += 1
+print(cnt)
 '''
 
-# True  ['1', '2', '4', '8', '18', '19']
+
+# 5! = 5 * 4 * 3 * 2 * 1
 '''
-def F(a, b, c):
-    if a > b:
-        return 0
-    elif a == b:
-        c = c.split()
-        if ('9' in c) != ('10' in c):
-            # print(a == b, c)
-            return 1
-        else:
-            return 0
-    else:
-        return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
+from math import factorial
+import sys
+sys.setrecursionlimit(100000)
 
-print(F(1, 20, ''))
+# def factorial(n):
+#     res = 1
+#     for i in range(1, n+1):
+#         res *= i
+#     return res
 
 
-def F(a, b, c):
-    if a >= b:
-        c = c.split()
-        return a == b and ('9' in c) != ('10' in c)
-    return F(a+1, b, c+' '+str(a)) + F(a*2, b, c+' '+str(a))
 
-print(F(1, 20, ''))
+def F(n):
+    if n >= 5000:
+        return factorial(n)
+    if 1 <= n < 5000:
+        return 2 * F(n + 1) // (n + 1)
+
+
+print(1000 * F(7) // F(4))
+'''
+
+# № 928 Джобс 08.02.2021 (Уровень: Средний)
+'''
+def F(n):
+    if n <= 3:
+        return n + 3
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n
+    if n > 3 and n % 2 != 0:
+        return F(n - 2) + 2 * n
+
+
+summa = 0
+for n in range(40, 50+1):
+    summa += F(n)
+print(summa)
 '''
 
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = [5, 14, 23]
-# на следующем уроке:
+# КЕГЭ  = [5, 14, 16, 23]
+# на следующем уроке: Повторяем/разбираем 22
 
 
 # Первый пробник 21.12.24:

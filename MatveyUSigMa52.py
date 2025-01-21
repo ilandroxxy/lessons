@@ -1,46 +1,93 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038709/step/4?unit=1062775
+'''
+import time
+start = time.time()
+
+import sys
+sys.setrecursionlimit(10000000)
+
+
+def f(n):
+    if n > 1000000:
+        return n
+    if n <= 1000000:
+        return n + f(2 * n)
+
+
+def g(n):
+    return f(n) / n
+
+
+k = 0
+r = g(2000)
+for n in range(1, 10 ** 6):
+    if g(n) == r:
+        k += 1
+print(k)
+
+print(time.time() - start)  # 0.85946 -> 0.2277
+'''
+
+
+# https://stepik.org/lesson/1038709/step/14?unit=1062775
+'''
+def g(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return f(n - 1) - 2 * g(n - 1)
+
+
+def f(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return f(n - 1) + 3 * g(n - 1)
+
+
+r = f(18)
+print(sum([int(x) for x in str(r)]))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
+
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
+
 '''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n < 5:
-        return n
-    if n >= 5:
-        return 2*n * F(n - 4)
+def F(a, b):
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
-print((F(13766) - 9 * F(13762)) / F(13758))
+
+print(F(5, 7) * F(7, 11))
+
+
+# Вариант 2
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+
+print(F(5, 7) * F(7, 11))
 '''
-# RecursionError: maximum recursion depth exceeded
-
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
-
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n-4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for n in range(5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
-
 
 
 # endregion Урок: ********************************************************************
@@ -51,7 +98,7 @@ print(F(4952) + 2 * F(4958) + F(4964))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14, 16, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
