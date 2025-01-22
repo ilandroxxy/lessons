@@ -5,143 +5,113 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Срезы строк/списков
+# № 19240 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-s = 'abcde'
-
-print(M[2:4])  # ['c', 'd'] - Крайний справа индекс не берется
-print(M[2:])  # ['c', 'd', 'e'] - Все элемента справа от 2 индекса включительно
-print(M[:4])  # ['a', 'b', 'c', 'd'] - Все элементы слева до 4 индекса невключительно
-
-# Популярные срезы
-print(M[2:])  # ['c', 'd', 'e'] - Все элементы кроме первых двух
-print(M[::2])  # ['a', 'c', 'e'] - Все элементы на четных индексах
-print(M[1::2])  # ['b', 'd'] - Все элементы на нечетных индексах
-print(M[-2:])  # ['d', 'e'] - Оканчиваются, то есть крайние два элемента справа
-print(M[::-1])  # ['e', 'd', 'c', 'b', 'a'] - Все элементы в обратном порядке
-
-for x in range(5, 100, 5):  # - все числа от 5 до 100 кратные 5
-    print(x, end=' ')
-'''
-
-"""
-from string import *
-alphabet = digits + ascii_uppercase
-#                i 0123456789
-print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# Вариант 1
+R = []
+s = sorted('ЯНВАРЬ')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if a != 'Я':
+                        if word.count('Ь') <= 1:
+                            if 'ЯЯ' not in word:
+                                R.append(n)
+print(max(R))
 
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
+# Вариант 2
+from itertools import *
+R = []
+n = 0
+for p in product(sorted('ЯНВАРЬ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    # a, b, c, d, e = word
+    # if a != 'Я':
+    if word[0] != 'Я':
+        if word.count('Ь') <= 1:
+            if 'ЯЯ' not in word:
+                R.append(n)
+print(max(R))
 
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-'''
-
-print(convert(8, 2))
-
-
-
-print(int('2342', 37))
-# ValueError: int() base must be >= 2 and <= 36, or 0
-"""
-
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-# № 19551 (Уровень: Базовый)
-'''
-M = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    s = s.replace('2', '*').replace('0', '2').replace('*', '0')
-    r = int(s, 3)
-    res = abs(n - r)
-    if res == 378:
-        M.append(n)
-print(min(M))
+# Вариант 3
+from itertools import *
+R = []
+for n, p in enumerate(product(sorted('ЯНВАРЬ'), repeat=5), 1):
+    word = ''.join(p)
+    if word[0] != 'Я':
+        if word.count('Ь') <= 1:
+            if 'ЯЯ' not in word:
+                R.append(n)
+print(max(R))
 '''
 
 
-# № 19237 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 18923 Новогодний вариант 2025 (Уровень: Базовый)
 '''
-M = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s += s[-2:]
-    else:
-        # summa = s.count('1') + s.count('2') * 2
-        # summa = sum([int(x) for x in s])
-        summa = sum(map(int, s))
-        s += convert(summa, 3)
-    r = int(s, 3)
-    if r % 2 == 0 and r > 220:
-        M.append(r)
-print(min(M))
-'''
-
-#
-# № 17869 Демоверсия 2025 (Уровень: Базовый)
-'''
-n = 3*3125**8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2025
-b = 25
-s = convert(n, b)
-print(s.count('0'))
-'''
-
-'''
-for x in range(2030+1):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 71:
-        print(x)
-'''
-# 2029
-
-'''
-for x in range(2030+1):
-    n = 7**170 + 7**100 - x
-    s = []
-    while n > 0:
-        s.append(n % 7)
-        n //= 7
-    if s.count(0) == 71:
-        print(x)
+from itertools import *
+cnt = 0
+for p in product('ВЬЮГА', repeat=6):
+    word = ''.join(p)
+    if 'ЮГ' in word:
+        cnt += 1
+print(cnt)
 '''
 
 
+# № 1941 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:24]:
-    A = int(f'12{x}734', 24)
-    B = int(f'8{x}95{x}3', 24)
-    C = int(f'24{x}796', 24)
-    if (A + B + C) % 23 == 0:
-        print((A + B + C) // 23)
+from itertools import *
+cnt = 0
+for p in permutations('СОТКАПЛЗ', r=5):
+    word = ''.join(p)
+    if word[-1] not in 'ОА':
+        if 'ЗЛО' not in word:
+            cnt += 1
+print(cnt)
 '''
+
+
+# № 12453 (Уровень: Базовый)
+'''
+from itertools import *
+cnt = set()
+for p in permutations('СОВЕСТЬ'):
+    word = ''.join(p)
+    new_word = word
+    for x in 'ОЕЬ':
+        word = word.replace(x, 'A')
+    for x in 'СВТ':
+        word = word.replace(x, 'B')
+    if not('AA' in word and 'BB' in word):
+        cnt.add(new_word)
+print(len(cnt))
+'''
+
+
+# № 12240 ЕГКР 16.12.23 (Уровень: Базовый)
+# Сколько существует девятеричных пятизначных чисел,
+# содержащих в своей записи ровно одну цифру 5,
+# в которых никакие две одинаковые цифры не стоят рядом?
+'''
+from itertools import *
+cnt = 0
+for p in product('012345678', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('5') == 1:
+            if all(pair not in num for pair in '00 11 22 33 44 55 66 77 88'.split()):
+                cnt += 1
+print(cnt)
+'''
+
+
 
 # endregion Урок: *************************************************************
 # #
@@ -152,6 +122,6 @@ for x in alphabet[:24]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2? сопоставление, 3, 4, 5? переводы, 7, 8-, 9-, 11-, 12-, 13-, 15-, 16-, 19-21-, 22]
+# ФИПИ = [1, 2? сопоставление, 3, 4, 5, 7, 8, 9-, 11-, 12-, 13-, 14, 15-, 16-, 19-21-, 22]
 # КЕГЭ  = []
-# на следующем уроке:  5, 8, 14, 15,
+# на следующем уроке: 15
