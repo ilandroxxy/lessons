@@ -1,37 +1,7 @@
 # region Домашка: ******************************************************************
 
-
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
-
-#
-# № 19255 ЕГКР 21.12.24 (Уровень: Базовый)
-# Среди натуральных чисел, не превышающих 10**10,
-# найдите все числа, соответствующие маске 54?1?3*7,
-# делящиеся на 18579 без остатка.
-
+# № 2588 (Уровень: Базовый)
 '''
-from fnmatch import *
-for x in range(18579, 10**10, 18579):
-    if fnmatch(str(x), '54?1?3*7'):
-        print(x, x // 18579)
-'''
-
-
-'''
-import time
-start = time.time()
-
-# def divisors(x):
-#     div = []
-#     for j in range(1, x+1):
-#         if x % j == 0:
-#             div.append(j)
-#     return div
-
-
 def divisors(x):
     div = []
     for j in range(1, int(x**0.5)+1):
@@ -41,58 +11,190 @@ def divisors(x):
     return sorted(set(div))
 
 
-print(divisors(100_000_000))
 
-print(time.time() - start)  # 2.8222 -> 0.00035
+for x in range(190201, 190260):
+    d = [j for j in divisors(x) if j % 2 == 0]
+    if len(d) == 4:
+        print(d[-1], d[-2])
 '''
 
+
+# № 8511 Апробация 17.05 (Уровень: Базовый)
+'''
+from fnmatch import fnmatch
+
+for x in range(253, 10 ** 8, 253):
+    if fnmatch(str(x), '12??15*6'):
+        print(x, x // 253)
+'''
+
+'''
+# Факториал числа:
+# 5! = 1 * 2 * 3 * 4 * 5 = 120
+
+import math  # Самое базовое импортирование библиотеки
+print(math.factorial(5))  # 120
+
+import math as m  # Подключаем с коротким именем
+print(m.factorial(5))  # 120
+
+from math import factorial, sqrt, fabs  # Подключаем конкретные библиотеки
+print(factorial(5))  # 120
+
+from math import *  # Подключаем сразу все содержимое
+print(factorial(5))  # 120
+print(sqrt(16))  # 4
+
+
+def my_factorial(n):
+    r = 1
+    for i in range(1, n+1):
+        r *= i
+    return r
+
+print(my_factorial(5))  # 120
+'''
+
+# endregion Домашка: ******************************************************************
+# #
+# #
+# region Урок: ********************************************************************
+
+
+# № 19709 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1  # F(n)=1 при n=1;
+    if n > 1:
+        return n**3 + F(n - 1)  # F(n)=n**3+F(n−1) при n>1.
+
+
+print(F(2025) - F(2022))
+# RecursionError: maximum recursion depth exceeded
+'''
+
+
+# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 5:
+        return n
+    if n >= 5:
+        return 2*n * F(n-4)
+
+
+print((F(13766) - 9 * F(13762)) / F(13758))
+'''
+
+
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(10000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n-2) + n/2 - F(n-4)
+    if n > 3 and n % 2 != 0:
+        return F(n-1) * n + F(n - 2)
+
+for i in range(5000):
+    F(i)
+
+print(F(4952) + 2*F(4958) + F(4964))
+'''
+
+
+# № 18140 (Уровень: Базовый)
+'''
+def F(x, y, A):
+    return (x - y >= 39) or (y <= x) or (y >= A - 20)
+
+for A in range(1, 1000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        print(A)
+'''
+
+
+# № 18175 (Уровень: Базовый)
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# № 18266(Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
+'''
+
+
+# № 16332 Открытый вариант 2024 (Уровень: Базовый)
+
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Умножить на 2
+
+# Сколько существует программ, которые преобразуют исходное число 4 в число 15,
+# и при этом траектория вычислений программы содержит числа 11 и 13?
+
+def F(a, b):   # F(4, 15)
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*2, b)
+
+
+print(F(4, 11) * F(11, 13) * F(13, 15))
+
+# Ответ: 100
 
 #
-# № 17879 Демоверсия 2025 (Уровень: Базовый)
+# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+def F(a, b):
+    if a < b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a - 1, b) + F(a // 2, b)
 
-
-k = 0
-for x in range(800_000+1, 10**10):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = max(d) + min(d)
-        if M % 10 == 4:  # M оканчивается на
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
+print(F(30, 8) * F(8, 1))
 '''
+# Ответ: 288
 
 
-# № 17686 Пересдача 04.07.24 (Уровень: Базовый)
-# которых есть натуральный делитель, оканчивающийся на цифру 7
-# и не равный ни самому числу, ни числу 7
+# А. Вычесть 2
+# В. Вычесть 5
+# С. Найти целую часть от деления на 3
 
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-k = 0
-for x in range(700_000+1, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 7 and j != 7]
-    if len(d) > 0:
-        print(x, min(d))
-        k += 1
-        if k == 5:
-            break
+# Сколько существует программ, для которых при исходном числе 46 результатом является число 7,
+# при этом траектория вычислений не содержит числа 32 и содержит 19?
 
 # endregion Урок: *************************************************************
 # #

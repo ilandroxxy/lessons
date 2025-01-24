@@ -6,28 +6,32 @@
 # #
 # region Урок: ********************************************************************
 
-# № 15413 (Уровень: Средний)
-# (А. Вдовин) Найдите количество четырехзначных чисел в девятеричной системе счисления,
-# в которых есть ровна одна цифра 8, а сумма цифр слева от нее равна сумме цифр справа от нее.
-# Примечание: если слева или справа от 8 цифр нет, то сумма считается равной нулю
-'''
+from itertools import *
+
+k = 0
+for x in product('01234567', repeat = 7):
+    x = ''.join(x)
+    if x[0] != '0':
+        if x.count('0') + x.count('2') + x.count('4') + x.count('6') == 2:
+            if all(s not in x for s in '17 71 37 73 57 75 77'.split()):
+                k += 1
+print(k)
+
+
 from itertools import *
 cnt = 0
-for p in product('012345678', repeat=4):
+for p in product('01234567', repeat=7):
     num = ''.join(p)
     if num[0] != '0':
-        if num.count('8') == 1:
-            i = num.index('8')
-            summa_left = sum(map(int, num[:i]))
-            summa_right = sum(map(int, num[i+1:]))
-            if summa_left == summa_right:
+        for x in '046':
+            num = num.replace(x, '2')
+        for x in '35':
+            num = num.replace(x, '1')
+        if num.count('2') == 2:
+
+            if '17' not in num and '71' not in num and '77' not in num:
                 cnt += 1
 print(cnt)
-            # print(summa_left, num, summa_right)
-            # i 0123
-            #   2840  i = num.index('8') == 1
-            # num[:i] num[i+1:]
-'''
 
 # endregion Урок: *************************************************************
 # #
