@@ -6,117 +6,183 @@
 # #
 # region Урок: ********************************************************************
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+# Вариант 1
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
 
 
-print(F(5, 7) * F(7, 11))
+for A in range(1, 1000):
+    flag = True
+    for x in range(1, 100):
+        for y in range(1, 100):
+            if not F(x, y, A):  # F(x, y, A) == False
+                flag = False
+                break
+    if flag == True:
+        print(A)
+        break
 
 
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+# Вариант 2
+
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
 
 
-print(F(5, 7) * F(7, 11))
-'''
+for A in range(1, 1000):
+    k = 0
+    for x in range(1, 100):
+        for y in range(1, 100):
+            if F(x, y, A) == True:
+                k += 1
+    if k == 9801:
+        print(A)
+        break
 
 
-# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-1, b) + F(a // 2, b)
+# Вариант 3
 
-print(F(30, 8) * F(8, 1))
-'''
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
 
 
-# № 19253 ЕГКР 21.12.14 (Уровень: Базовый)
-# A. вычти 1
-# B. вычти 6
-# C. найди целую часть от деления на 2
-# Сколько существует таких программ, которые исходное
-# число 34 преобразуют в число 6, и при этом траектория вычислений
-# содержит числа 19 и 29 и не содержит числа 24?
-
-'''
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a - 1, b) + F(a - 6, b) + F(a // 2, b)
+R = []
+for A in range(1, 1000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(min(R))
 
 
-print(F(34, 29) * F(29, 19) * F(19, 6))
+# Вариант 3.2
+
+R = []
+for A in range(1, 1000):
+    if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(min(R))
 
 
-def F(a, b, c):
-    if a <= b:
-        c = c.split()
-        return a == b and ('19' in c) and ('29' in c) and ('24' not in c)
-    return F(a - 1, b, c+' '+str(a)) + F(a - 6, b, c+' '+str(a)) + F(a // 2, b, c+' '+str(a))
+# Вариант 4
 
-
-print(F(32, 6, ''))
-'''
-# True ['32', '31', '30', '29', '23', '22', '21', '20', '19', '13', '6']
-'''
-def F(a, b, c):
-    if a < b:
-        return 0
-    if a == b:
-        c = c.split()
-        if ('19' in c) and ('29' in c) and ('24' not in c):
-            # print(a == b, c)
-            return 1
-        else:
-            return 0
-    return F(a - 1, b, c+' '+str(a)) + F(a - 6, b, c+' '+str(a)) + F(a // 2, b, c+' '+str(a))
-
-
-print(F(32, 6, ''))
-'''
-
-# № 4490 (Уровень: Средний)
-'''
-def F(a, b, c):
-    if a >= b:
-        return a == b and c.count('3') <= 2
-    return F(a+1, b, c+'1') + F(a+2, b, c+'2') + F(a*2, b, c+'3')
-
-
-print(F(2, 12, ''))
+print(min([A for A in range(1, 1000) if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
 '''
 
 
-# № 4489 (Уровень: Средний)
+# Пример с функциями all, any:
 '''
-def F(a, b, c):
-    if a >= b:
-        # return a == b and all(p not in c for p in '22 23 32 33'.split())
-        return a == b and '22' not in c and '23' not in c and '32' not in c and '33' not in c
-    return F(a+1, b, c+'1') + F(a*2, b, c+'2') + F(a*3, b, c+'3')
+N = [2, 4, 5, 8, 10, 12, 16, 20]
+if all(x % 2 == 0 for x in N):
+    print('all N')
+if any(x % 2 != 0 for x in N):
+    print('any N')  # any N
 
 
-print(F(1, 30, ''))
+M = [2, 4, 14, 8, 10, 12, 16, 20]
+if all(x % 2 == 0 for x in M):
+    print('all M')  # Yes M
+if any(x % 2 != 0 for x in M):
+    print('any M')  # all M
+'''
+
+
+# № 18175 (Уровень: Базовый)
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+
+print(max(R))
+'''
+
+
+# № 11234 (Уровень: Базовый)
+'''
+def F(x, A):
+    B = 120 <= x <= 130  # (x ∈ B) B = [120; 130]
+    return (B <= (x % 7 != 0)) or (A > 2*x)
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(min(R))
+'''
+
+
+# № 18266 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(min(R))
+'''
+
+
+# № 18044 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    M = 32 <= x <= 68
+    N = 54 <= x <= 76
+    A = a1 <= x <= a2
+    return (not(M or N)) == (not A)
+
+
+R = []
+M = [x / 4 for x in range(20 * 4, 100 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 44.9 -> 45
+'''
+
+
+# Тип 15 №36028
+# На числовой прямой даны два отрезка:
+# P=[17,54] и Q=[37,83].
+# Какова наименьшая возможная длина интервала A, что формула
+# (x ∈ P) → (((x ∈ Q) ∧ ¬(x ∈ A)) → ¬(x ∈ P))
+'''
+def F(x, a1, a2):
+    P = 17 <= x <= 54
+    Q = 37 <= x <= 83
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
+
+R = []
+M = [x / 4 for x in range(10 * 4, 100 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 17.0
+'''
+
+
+# Тип 15 №61395
+'''
+def F(x, y, A):
+    return (3*x + y > 48) or (x > y) or (4*x + y < A)
+
+
+R = []
+for A in range(1, 1000):
+    if any(F(x, y, A) == False for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(max(R))
 '''
 
 # endregion Урок: *************************************************************
@@ -128,7 +194,7 @@ print(F(1, 30, ''))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14, 16, 23]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 15, 16, 23]
 # КЕГЭ  = []
 # на следующем уроке:
 

@@ -5,97 +5,90 @@
 # #
 # #
 # region Урок: ************************************************************
-
 '''
-from itertools import *
-print('1 2 3 4 5 6 7')
-table = '13 14 16 24 25 31 36 41 42 45 52 54 57 61 63 67 75 76'
-graph = 'AB BA AC CA AF FA BC CB CE EC EG GE ED DE GD DG DF FD'
-for p in permutations('ABCEGDF'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-'''
-# 1 2 3 4 5 6 7
-# C G B E D A F
-# E B G C A D F
-
-
-'''
-def convert(n ,b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s += convert(x, 3)
-
-    r = int(s, 3)
-    if r < 199:
-        R.append(n)
-print(max(R))
-'''
-
-'''
-import turtle as t
-t.tracer(0)
-t.left(90)
-size = 30
-
-t.right(90)
-for i in range(3):
-    t.right(45)
-    t.forward(10*size)
-    t.right(45)
-
-t.right(315)
-t.forward(10*size)
-for i in range(2):
-    t.right(90)
-    t.forward(10*size)
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(2, 'red')
-
-t.update()
-t.done()
-'''
-
-
-'''
-alphabeat = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-s = alphabeat[:16]
-cnt = 0
-s1 = alphabeat[1:16:2]
-s2 = alphabeat[0:16:2]
+s = sorted('ЯНВАРЬ')
+n = 0
 for a in s:
     for b in s:
         for c in s:
-            num = a + b + c
-            if a != '0':
-                if len(set(num)) == len(num):
-                    if a in s1 and b in s2 and c in s1:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if a != 'Я' and word.count('Ь') <= 1 and 'ЯЯ' not in word:
+                        print(n)
+'''
+
+
+'''
+s = sorted('ПРЕСТОЛ')
+n = 0
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 != 0 and e in 'ЕО' and word.count('П') + word.count('Р') + word.count('С') + word.count(
+                            'Т') + word.count('Л') <= 3:
                         cnt += 1
-                    if a in s2 and b in s1 and c in s2:
-                        cnt += 1
-                    
 print(cnt)
 '''
+
+
+# № 18042 (Уровень: Базовый)
+'''
+s = 'ЛЮСТРА'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if word.count('Ю') <= 2:
+                        if e not in 'ЛСТР':
+                            cnt += 1
+print(cnt)
+'''
+
+
+# № 9363 Джобс 10.06.23 (Уровень: Средний)
+'''
+from itertools import *
+cnt = 0
+for p in permutations('ХОЧУНАБЮДЖЕТ'):
+    word = ''.join(p)
+    for x in 'ОУАЮЕ':
+        word = word.replace(x, 'А')
+    if 'ААААА' not in word:
+        cnt += 1
+        print(word, cnt)
+'''
+
+
+#
+# № 8417 (Уровень: Базовый)
+
+print('ЯО ОЯ АО ОА ЯА АЯ'.split())
+
+s = 'ЯРОСЛАВ'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if len(set(word)) == len(word):  # буквы в коде не должны повторяться,
+                        sogl = [x for x in word if x in 'РСЛВ']
+                        glas = [x for x in word if x in 'ЯОА']
+                        if len(sogl) > len(glas):
+                            if all(p not in word for p in 'ЯО ОЯ АО ОА ЯА АЯ'.split()):
+                                cnt += 1
+print(cnt)
 
 
 # endregion Урок: ************************************************************
@@ -107,5 +100,5 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 22, 23, 25]
-# КЕГЭ = []
-# на следующем уроке: 5, 8, 18, 19-21, 26
+# КЕГЭ = [5, 8]
+# на следующем уроке: 18, 19-21, 26

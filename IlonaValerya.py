@@ -1,161 +1,142 @@
 # region Домашка: ******************************************************************
 
+# № 10087 Демоверсия 2024 (Уровень: Базовый)
+'''
+M = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 3) * 3
+        s = s + bin(x)[2:]
+    r = int(s, 2)
+    if r > 151:
+        M.append(r)
+print(min(M))
+'''
+
+
+# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+M = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    if n % 3 == 0:
+        s = s + s[-2:]
+    else:
+        x = (n % 3) * 3
+        s = s + bin(x)[2:]
+    r = int(s, 2)
+    if r >= 195:
+        M.append(r)
+print(min(M))
+'''
+
+'''
+s = '012345678'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0':
+                        if num.count('5') == 1:
+                            if all(p not in num for p in '00 11 22 33 44 55 66 77 88'.split()):
+                                cnt += 1
+print(cnt)
+'''
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-'''
-for n in range(4, 1000):
-    s = '1' + '8' * n
-    while '18' in s or '388' in s or '888' in s:
-        if '18' in s:
-            s = s.replace('18', '8', 1)
-        if '388' in s:
-            s = s.replace('388', '81', 1)
-        if '888' in s:
-            s = s.replace('888', '3', 1)
-    if s.count('1') == 3:
-        print(n)
-'''
 
 '''
-from ipaddress import*
-for mask in range(33):
-    net = ip_network(f'213.168.83.190/{mask}', 0)
-    if '213.168.64.0' in str(net):
-        print(net.netmask, mask, 32-mask)
-        # 255.255.192.0 18
-        # 255.255.224.0 32-19 =
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n == 1:  # при n=1
+        return 1  # F(n)=1
+    if n > 1:
+        return n**3 + F(n - 1)
+
+print(F(2025) - F(2022))
+# RecursionError: maximum recursion depth exceeded
 '''
 
+# № 19707 (Уровень: Средний)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n < 3:
+        return n * 4
+    if n >= 3 and n % 2 != 0:
+        return n * 2
+    if n >= 3 and n % 2 == 0:
+        return 5 * F(n - 2) + n**2
 
-for x in alphabet[:23]:
-    A = int(f'7{x}38596',23)
-    B = int(f'14{x}36',23)
-    C = int(f'61{x}7',23)
-    if (A + B + C)% 22 == 0:
-        print((A+B+C)//22)
-'''
-
-
-# № 10707 (Уровень: Средний)
-'''
-def convert(n, b):
-    s = ''
-    while n > 0:
-        s = s + str(n % b)
-        n = n // b
-    return s[::-1]
-
-
-R = []
-for n in range(6, 1000):
-    r = convert(n, 6)
-    if n % 3 == 0:
-        r += r[0] + r[1]  # r[:2]
-    else:
-        x = (n % 3) * 10
-        r = r + convert(x, 6)
-    res = int(r, 6)
-    if res > 680:
-        R.append(res)
-print(min(R))
-'''
-
-# Прототип 25 номера с масками
-'''
-from fnmatch import *
-for x in range(2025, 10**8, 2025):
-    if fnmatch(str(x), '12*34?5'):
-        print(x, x//2025)
-'''
-
-
-# № 18133 (Уровень: Базовый)
-'''
-s = sorted('КОДИМ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if word.count('М') == 2:
-                        if 'ММ' not in word:
-                            print(n)
-'''
-
-
-#
-# № 18042 (Уровень: Базовый)
-'''
-s = 'ЛЮСТРА'
 cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if word.count('Ю') <= 2:
-                        if word[-1] not in 'ЛСТР':
-                            cnt += 1
-print(cnt)
-'''
-
-
-# № 16255 Джобс 03.05.24 (Уровень: Средний)
-'''
-s = '012345678'
-cnt = 0
-for a in '02468':  # не начинаются с нечетных цифр
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        for g in s:
-                            word = a + b + c + d + e + f + g
-                            if int(word[-1]) % 3 != 0:
-                                if word[0] != '0':
-                                    if '6' in word:
-                                        cnt += 1
-print(cnt)
+for n in range(1, 10000):
+    r = F(n)
+    if r % 2 == 0 and len(str(r)) == 3:
+        cnt += 1
+        print(cnt)
 '''
 
 
 '''
-s = '0123456789ABCD'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if word[0] != '0':
-                        if len(set(word)) == 2:
-                            if word[-1] in '03':
-                                cnt += 1
-print(cnt)
+import sys
+sys.setrecursionlimit(10000)
 
+def F(n):
+    if n < 13:
+        return 13
+    if n >= 13 and n % 5 != 0:
+        return 13 - F(n-1)
+    if n >= 13 and n % 5 == 0:
+        return 13 + F(n - 1)
 
-from itertools import *
-cnt = 0
-for p in product('0123456789ABCD', repeat=5):
-    word = ''.join(p)
-    if word[0] != '0':
-        if len(set(word)) == 2:
-            if word[-1] in '03':
-                cnt += 1
-print(cnt)
+print(F(3013))
 '''
 
+'''
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n < 5:
+        return n
+    if n >= 5:
+        return 2*n * F(n - 4)
+
+print((F(13766)- 9*F(13762)) // F(13758))
+'''
+
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(10000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n // 2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
+
+
+for i in range(5000):
+    F(i)
+
+
+print((F(4952) + 2 * F(4958) + F(4964)))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -166,6 +147,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
 # КЕГЭ  = []
 # на следующем уроке:
