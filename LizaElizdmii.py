@@ -1,176 +1,116 @@
 # region Домашка: ******************************************************************
 
-# Задача 6
-'''
-import turtle as t
-t.tracer(0)
-t.screensize(-2000,2000)
-l=40
-t.left(90)
-
-
-t.right(90)
-for i in range(3):
-    t.right(45)
-    t.forward(10*l)
-    t.right(45)
-t.right(315)
-t.forward(10 * l)
-for i in range(2):
-    t.right(90)
-    t.forward(10*l)
-
-
-t.up()
-for x in range(-50,50):
-    for y in range(-50, 50):
-        t.goto(x*l,y*l)
-        t.dot(4,'red')
-t.update()
-t.done()
-'''
-
-
-# Задача 8
-'''
-from itertools import *
-
-cnt = 0
-chet = '02468ACE'
-nechet = '13579BDF'
-for x in permutations('0123456789ABCDEF', 3):
-    a = ''.join(x)
-    if a[0] != '0':
-        # if a[0] in chet and a[1] in nechet and a[2] in chet:
-        #     cnt += 1
-        # if a[0] in nechet and a[1] in chet and a[2] in nechet:
-        #     cnt += 1
-        for z in chet:
-            a = a.replace(z, '2')
-        for z in nechet:
-            a = a.replace(z, '1')
-            
-        if '22' not in a and '11' not in a:
-            cnt += 1
-
-print(cnt)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
-
-# Вариант 1
+# Пару слов про работу с файлами
 '''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
+file = open('files/17.txt')
+print(file.readline())
+file.close()
 
+with open('files/17.txt', mode='r') as file:
+    print(file.readline())
+# Здесь файл считается закрытым
 
-for A in range(1, 1000):
-    flag = True
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if F(x, y, A) == False:
-                flag = False
-                break
-    if flag == True:
-        print(A)
-        break
-'''
-
-# Вариант 2
-'''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-for A in range(1, 1000):
-    k = 0
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if F(x, y, A) == True:
-                k += 1
-    if k == 9801:
-        print(A)
-        break
-'''
-
-# Вариант 3
-'''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
-'''
-
-# Вариант 4
-'''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(min(R))
-'''
-
-# print(min([A for A in range(1, 1000) if all( ((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
-
-
-# № 18175 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
-
-
-# № 18266 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-'''
-
-# № 18044 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    M = 32 <= x <= 68
-    N = 54 <= x <= 76
-    A = a1 <= x <= a2
-    return (not(M or N)) == (not A)
-
-
-R = []
-M = [x / 4 for x in range(30 * 4, 80 * 4)]
+M = []
+for x in open('files/17.txt'):
+    M.append(int(x))
 print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-
-print(min(R))
 '''
+
+# Идеальное чтение файла для 17 номера:
+'''
+M = [int(x) for x in open('files/17.txt')]
+R = []
+'''
+
+# Разберем три прототипа 17 номера:
+'''
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
+
+# 1. Назовём парой два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+
+
+# 2. Назовём тройкой три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. Назовём парой два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+'''
+
+
+# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if str(x)[-2:] == '43' and len(str(abs(x))) == 5]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    # if x in D or y in D or z in D:
+    # if any(p in D for p in (x, y, z)):
+    if (x in D) + (y in D) + (z in D) >= 1:
+        if (x**2 + y**2 + z**2) <= max(D)**2:
+            R.append(x**2 + y**2 + z**2)
+print(len(R), min(R))
+'''
+
+
+# № 18582 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('files/17.txt')]
+D = [x for x in M if x < 0]  # отрицательные числа
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) + (y in D) + (z in D) >= 2:
+        if str(x + y + z)[-1] == str(min(M))[-1]:
+            R.append(abs(x + y + z))
+print(len(R), max(R))
+'''
+
+
+# № 7718 (Уровень: Средний)
+'''
+M = [int(x) for x in open('files/17.txt')]
+R = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+#
+# № 4416 (Уровень: Базовый)
+
+M = [int(x) for x in open('files/17.txt')]
+R = []
+for i in range(len(M)):
+    for j in range(i + 1, len(M)):
+        x, y = M[i], M[j]
+        if (x + y) % 60 == 0:
+            if (x % 40 == 0) + (y % 40 == 0) >= 1:
+                R.append(x + y)
+print(len(R), max(R))
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -180,7 +120,7 @@ print(min(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 3, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

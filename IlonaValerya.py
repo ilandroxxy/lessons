@@ -1,53 +1,56 @@
 # region Домашка: ******************************************************************
 
-# № 10087 Демоверсия 2024 (Уровень: Базовый)
+# № 594 (Уровень: Средний)
 '''
-M = []
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if r > 151:
-        M.append(r)
-print(min(M))
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n - 1) + 3*G(n - 1)
+
+def G(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n - 1) - 2*G(n - 1)
+
+
+# print(F(18))  # 18298549 = 1 + 8 + 2 + 9 + 8 + 5 + 4 + 9
+
+# for i in str(18298549):
+#     print(i)
+
+summa = 0
+for i in str(F(18)):
+    summa += int(i)
+print(summa)
 '''
 
 
-# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
-M = []
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if r >= 195:
-        M.append(r)
-print(min(M))
-'''
+import sys
+sys.setrecursionlimit(10000)
 
-'''
-s = '012345678'
+def F(n):
+    if n > 1000000:
+        return n
+    if n <= 1000000:
+        return n + F(2 * n)
+
+def G(n):
+    return F(n) / n
+
+
 cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count('5') == 1:
-                            if all(p not in num for p in '00 11 22 33 44 55 66 77 88'.split()):
-                                cnt += 1
+result = G(2000)
+for n in range(1, 10**6+1):
+    if G(n) == result:
+        cnt += 1
 print(cnt)
 '''
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -55,88 +58,48 @@ print(cnt)
 # region Урок: ********************************************************************
 
 
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
 '''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n == 1:  # при n=1
-        return 1  # F(n)=1
-    if n > 1:
-        return n**3 + F(n - 1)
+def F(a, b):
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
-print(F(2025) - F(2022))
-# RecursionError: maximum recursion depth exceeded
-'''
 
-# № 19707 (Уровень: Средний)
-'''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n < 3:
-        return n * 4
-    if n >= 3 and n % 2 != 0:
-        return n * 2
-    if n >= 3 and n % 2 == 0:
-        return 5 * F(n - 2) + n**2
+print(F(5, 7) * F(7, 11))
 
-cnt = 0
-for n in range(1, 10000):
-    r = F(n)
-    if r % 2 == 0 and len(str(r)) == 3:
-        cnt += 1
-        print(cnt)
+
+# Вариант 2
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+
+print(F(5, 7) * F(7, 11))
 '''
 
 
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 13:
-        return 13
-    if n >= 13 and n % 5 != 0:
-        return 13 - F(n-1)
-    if n >= 13 and n % 5 == 0:
-        return 13 + F(n - 1)
-
-print(F(3013))
-'''
-
-'''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n < 5:
-        return n
-    if n >= 5:
-        return 2*n * F(n - 4)
-
-print((F(13766)- 9*F(13762)) // F(13758))
-'''
-
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n // 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
+def f(a, b):
+    if a < b or a == 28:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return f(a - 3, b) + f(a // 3, b) + f(a // 2, b)
 
 
-for i in range(5000):
-    F(i)
+print(f(46, 20) * f(20, 3))
 
-
-print((F(4952) + 2 * F(4958) + F(4964)))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -147,6 +110,6 @@ print((F(4952) + 2 * F(4958) + F(4964)))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
