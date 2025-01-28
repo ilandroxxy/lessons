@@ -6,168 +6,83 @@
 # #
 # region Урок: ********************************************************************
 
+# Тип 9 №51978
 '''
-def F(x):
-    P = 10 <= x <= 35
-    Q = 17 <= x <= 48
-    A = a1 <= x <= a2
-    return (A <= (not P)) <= (A <= Q)
-
-
-M = [i / 4 for i in range(1 * 4, 60 * 4)]
-R = []
-for a1 in M:
-    for a2 in M:
-        if all(F(x) for x in M):
-            R.append(a2 - a1)
-print(max(R))
-
-'''
-
-'''
-def F(x, a, b):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a <= x <= b
-    return (not ((not P) <= Q)) <= (A <= ((not Q) <= P))
-
-
-A = []
-B = [x / 4 for x in range(10 * 4, 30 * 4)]
-for a in B:
-    for b in B:
-        if all(F(x, a, b) for x in B):
-            A.append(b - a)
-print(round(max(A)))
-'''
-
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-R = []
-for x in range(1000, 10000):
-    if x % 3 != 0 and x % 17 != 0 and x % 19 != 0:
-        if len(convert(x, 4)) == 6:
-            R.append(x)
-
-print(min(R), max(R))
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(M) == len(set(M)):
+        chet = [x for x in M if x % 2 == 0]
+        nechet = [x for x in M if x % 2 != 0]
+        if len(nechet) > len(chet):
+            if sum(nechet) < sum(chet):
+                cnt += 1
+print(cnt)
 '''
 
 
-# Чтение файла
+# Тип 9 №61355
 '''
-file = open('files/17.txt', mode='r')
-print(file)  # <_io.TextIOWrapper name='files/17.txt' mode='r' encoding='UTF-8'>
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(M) == len(set(M)):
+        if (max(M) + min(M)) / 2 > (sum(M) - max(M) - min(M)) / 4:
+            cnt += 1
+print(cnt)
 
-for s in file:
-    print(s)
-
-
-print(file.read())
-
-file.close()
-
-
-with open('files/17.txt', mode='r') as file:
-    M = [int(x) for x in file]
-print(M)
-
-# Вот тут считается, что файл закрыт
-
-M = [int(x) for x in open('files/17.txt')]
-'''
-
-'''
-# Рассмотрим три прототипа задач:
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# 2. В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1,  len(M)):
-        x, y = M[i], M[j]
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if len(M) == len(set(M)):
+        if (M[0] + M[-1]) / 2 > sum(M[1:-1]) / 4:
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+# Тип 9 №68510
 '''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if str(x)[-2:] == '43' and len(str(abs(x))) == 5]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if x in D or y in D or z in D:
-        if (x**2 + y**2 + z**2) <= max(D) ** 2:
-            R.append(x**2 + y**2 + z**2)
-
-print(len(R), min(R))
+from itertools import *
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if M[-1] < sum(M[:-1]):
+        if any(m[0] + m[1] == m[2] + m[3] for m in permutations(M)):
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 18932 Новогодний вариант 2025 (Уровень: Базовый)
+# Тип 9 №63058
 '''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if x % 2 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if x > 0 or y > 0:
-        if (x + y) < len(D):
-            R.append(x ** 2 + y ** 2)
-
-print(len(R), max(R))
-'''
-
-
-# № 15333 Досрочная волна 2024 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if x % 19 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if x > max(D) or y > max(D):
-        R.append(x + y)
-print(len(R), max(R))
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if len(M) != len(set(M)):
+        if M.count(max(M)) == 1:
+            copied = [x for x in M if M.count(x) > 1]
+            if sum(copied) < max(M):
+                cnt += 1
+print(cnt)
 '''
 
 
-#
-# № 13088 (Уровень: Средний)
-'''
-M = [int(x) for x in open('files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if str(x)[-2:] == '17']
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x % 5 == 0) or (y % 5 == 0) or (z % 5 == 0):
-        if (x in D) + (y in D) + (z in D) == 2:
-            if (x + y + z) > max(B):
-                print(x, y, z)
-                R.append(x + y + z)
-print(len(R), max(R))
-'''
+# № 18924 Новогодний вариант 2025 (Уровень: Средний)
 
+cnt = 0
+for s in open('files/9.csv'):
+    flag = 0
+    M = sorted([int(x) for x in s.split(';')])
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(not_copied) == 3:
+        flag += 1
+    if sum([x**2 for x in copied]) > sum(not_copied) ** 2:
+        flag += 1
+    if flag != 2:
+        cnt += 1
+print(cnt)
 
 # endregion Урок: *************************************************************
 # #
@@ -178,7 +93,7 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [5, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

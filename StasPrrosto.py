@@ -6,51 +6,92 @@
 # #
 # region Урок: ********************************************************************
 
+# № 18287 (Уровень: Базовый)
 '''
-cnt = 0
+sp = []
+for n in range(3, 10000):
+    bn = bin(n)[2:]
+    if len(bn) % 2 == 0:
+        bn = bn + '1'
+    else:
+        bn = '1' + bn + '0'
+    r = int(bn, 2)
+    if r > 666:
+        print(r)
+        sp.append(r)
+print(min(sp))
+'''
+
+'''
+n = 0
+R = []
 for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    if M == sorted(M):
+        # [311, 325, 348, 1731, 1731]
+        # [29, 578, 973, 1763, 1763]
+        # [1016, 1016, 1177, 2422, 3711]
+        if any(M.count(x) > 1 and sum(map(int, str(x))) % 2 == 0 for x in M):
+            R.append(n)
+print(max(R))
+'''
 
-    m = sorted([int(x) for x in s.split(';')])
-    flag = 0
-    if len(m) != set(m):
-        flag += 1
-
-    if len([i for i in m if i % 2 == 0]) == 1:
-        flag += 1
-
-    if flag == 1:
-        cnt += 1
-print(cnt)
+# № 18258 (Уровень: Сложный)
+'''
+R = []
+for n, s in enumerate(open('files/9.csv'), 1):
+    M = [int(x) for x in s.split(';')]
+    if M == sorted(M):
+        if any(M.count(x) > 1 and sum(map(int, str(x))) % 2 == 0 for x in M):
+            R.append(n)
+print(max(R))
 '''
 
 
-# Определите количество пятизначных чисел в шестнадцатеричной
-# системе счисления, которые не
-# оканчиваются чётными цифрами и не начинаются с цифры 1.
+# № 18257 (Уровень: Средний)
 '''
-from itertools import *
-cnt = 0
-for i in product('0123456789abcdef', repeat=5):
-    s = ''.join(i)
-    # if s[0] != '1' and s[0] != '0':
-    if s[0] not in '01':
-        if s[-1] not in '02468ace':
-            cnt += 1
-print(cnt)
+R = []
+M = [int(x) for x in open('files/17.txt')]
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    i, j = i+1, i+2
+    if (i + j) % 10 == max(M) % 10:
+        # print(f'{i}:{x}, {j}:{y}')
+        R.append(abs((x+y) - (i+j)))
+print(len(R), min(R))
 '''
 
-# Определите количество пятизначных чисел в шестнадцатеричной системе счисления, которые не
-# оканчиваются чётными цифрами и не начинаются с цифры 1.
+
+# № 18265 (Уровень: Средний)
 '''
-from itertools import *
-cnt = 0
-for i in product(sorted('0123456789abcdef'), repeat=5):
-    s = ''.join(i)
-    if s[0] not in '10':
-        if s[4] == '0' or s[4] == '2' or s[4] == '4' or s[4] == '6' or s[4] == '8' or s[4] == 'a' or s[4] == 'c' or s[4] == 'e':
-            cnt += 1
-print(cnt)
+from string import *
+alphabet = digits + ascii_uppercase
+
+for i in range(len(alphabet)):
+    print(i, alphabet[i])
+
+for p in range(30, 37):
+    for s in range(10, 35):
+        A = int(f'R4', p-1)
+        B = int(f'B0', s+2)
+        C = int(f'T3NK4', p)
+        if (A + B + C) == 23593399:
+            print(p * s)
 '''
+
+def my_int(R, b):
+    return sum([x*b**i for i, x in enumerate(R[::-1], 0)])
+
+
+R = []
+for x in range(10, 67):
+    for y in range(0, x):
+        A = my_int([7, 3, x, 1, y], 67)
+        B = my_int([4, 9, y, 6], x)
+        R.append(A + B)
+print(len(set(R)))
+
 
 # endregion Урок: *************************************************************
 # #
