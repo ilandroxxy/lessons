@@ -1633,16 +1633,6 @@ for n, p in enumerate(product(s, repeat=4), 1):
             print(n)
 '''
 
-# todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
-
-M = [int(s) for s in open('files/17.txt')]
-R = []
-for i in range(len(M)-5):
-    x, y, z, w, r, t = M[i:i+6]
-    if (z + w) > (x + y) and (z + w) > (r + t):
-        if z + w > 0 and x + y > 0 and r + t > 0:
-            R.append(z * w)
-print(len(R), min(R))
 
 
 
@@ -1884,4 +1874,48 @@ print(len(R), min(R))
 '''
 
 
+# todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
+'''
+M = [int(s) for s in open('files/17.txt')]
+R = []
+for i in range(len(M)-5):
+    x, y, z, w, r, t = M[i:i+6]
+    if (z + w) > (x + y) and (z + w) > (r + t):
+        if z + w > 0 and x + y > 0 and r + t > 0:
+            R.append(z * w)
+print(len(R), min(R))
+'''
+
+
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(5000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n / 2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
+
+
+for i in range(1, 5000):
+    F(i)
+# F(100) F(100) F(100) F(100) F(100) F(100) F(100) F(100)
+# F(100) = 3  3 3 3 3 3 3 3 3 
+
+print(F(4952) + 2 * F(4958) + F(4964))
+'''
+# RecursionError: maximum recursion depth exceeded
+
+
+'''
+from fnmatch import *
+for x in range(18579, 10**10, 18579):
+    if fnmatch(str(x), '54?1?3*7'):
+        print(x, x // 18579)
+'''
 
