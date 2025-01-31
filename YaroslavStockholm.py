@@ -1,57 +1,33 @@
 # region Домашка: ******************************************************************
 
-# № 10776 (Уровень: Базовый)
+# № 7897 (Уровень: Базовый) 🌶
 '''
-from ipaddress import *
+from fnmatch import *
+
 R = []
-for mask in range(32+1):
-    net = ip_network(f'111.91.200.28/{mask}', 0)
-    # '111.91.192.0' in str(111.91.192.0/19)
-    if '111.91.192.0' in str(net):
-        # print(net, mask, 32-mask)
-        # 111.91.192.0/18 18
-        # 111.91.192.0/19 19
-        # 111.91.192.0/20 20
-        R.append(32 - mask)
-print(min(R))
-'''
+for x in range(11071, 10 ** 10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[0] in '13579' and str(x)[-2] in '02468':
+            R.append([x, x // 11071])
 
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'111.91.200.28/{mask}', 0)
-    #     кол-во ip адресов    адрес сети         адресе сети/кол-во 1   кол-во 1    кол-во 0   маска в 10-й записи
-    print(net.num_addresses, net.network_address,        net,             mask,      32-mask,      net.netmask)
-    #            4              111.91.200.28      111.91.200.28/30       30          2          255.255.255.252
+print(*R[-5])
+print(*R[-4])
+print(*R[-3])
+print(*R[-2])
+print(*R[-1])
 '''
 
 
+# № 3376 (Уровень: Базовый)
 '''
-from ipaddress import *
+from fnmatch import *
 
-
-net = ip_network('192.168.32.48/255.255.255.240', 0)
-cnt = 0
-k = 0
-for ip in net:
-    k += 1
-    a = f'{ip:b}'
-    if a.count('1') % 2 != 0:
-        cnt += 1
-print(cnt)
-print(k)  # 16
-print(net.num_addresses)  # 26
-'''
-
-'''
-from ipaddress import *
-net = ip_network('192.168.32.48/255.255.255.240',0)
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 2 != 0:
-        cnt += 1
-print(cnt)
+for x in range(21, 10 ** 8, 21):
+    if fnmatch(str(x), '1*5*9'):
+        s = str(x)
+        if sorted(s) == list(s):
+            if len(set(s)) == len(s):
+                print(x, x // 21)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -59,38 +35,73 @@ print(cnt)
 # #
 # region Урок: ********************************************************************
 
+'''
+import time
+start = time.time()
 
-# № 12255 ЕГКР 16.12.23 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(98591, 10**12, 98591):
-    if fnmatch(str(x), '12?3*456??9'):
-        print(x, x // 98591)
-        # '12?3  * 456??9'
-        #  1203 13 456439
+# def divisors(x):
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(24))  # [1, 24, 2, 12, 3, 8, 4, 6]
+print(divisors(100_000_000))  # 2.896  -> 0.00036
+
+print(time.time() - start)
 '''
 
 
-# № 14438 (Уровень: Средний)
+# https://education.yandex.ru/ege/task/2d62d9fd-a99a-4bef-a747-57a6ad2539d7
 '''
-from fnmatch import *
-for x in range(86513, 10**12, 86513):
-    if fnmatch(str(x), '17*46??8'):
-        summa = sum(map(int, str(x)))
-        summa = sum([int(i) for i in str(x)])
-        if (summa**0.5).is_integer():
-            print(x, x // 86513)
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+for x in range(177000, 177300+1):
+    d = divisors(x)
+    if len(d) == 2:
+        summa = sum([int(x) for x in str(x)])
+        if len(divisors(summa)) == 2:
+            print(x, summa)
 '''
 
-# № 13868 (Уровень: Базовый)
+
+# https://education.yandex.ru/ege/task/e9239096-46bf-4dab-a19b-ad07eed75bb4
 '''
-from fnmatch import *
-for x in range(2024, 10**10, 2024):
-    if fnmatch(str(x), '112?57*4'):
-        summa = sum(map(int, str(x)))
-        if summa % 2 != 0:
-            print(x, x // 2024)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+for x in range(106732567, 152673836+1):
+    if (x**0.5).is_integer():
+        d = divisors(x)
+        if len(d) == 3:
+            print(x, max(d))
 '''
+
 
 # endregion Урок: *************************************************************
 # #
@@ -101,7 +112,7 @@ for x in range(2024, 10**10, 2024):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 25.1]
+# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

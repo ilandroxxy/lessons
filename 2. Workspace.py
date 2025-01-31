@@ -1887,35 +1887,30 @@ print(len(R), min(R))
 '''
 
 
+# todo сделать разбор 25 https://education.yandex.ru/ege/task/e9239096-46bf-4dab-a19b-ad07eed75bb4
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(5000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
 
-for i in range(1, 5000):
-    F(i)
-# F(100) F(100) F(100) F(100) F(100) F(100) F(100) F(100)
-# F(100) = 3  3 3 3 3 3 3 3 3 
-
-print(F(4952) + 2 * F(4958) + F(4964))
+for x in range(106732567, 152673836+1):
+    if (x**0.5).is_integer():
+        d = divisors(x)
+        if len(d) == 3:
+            print(x, max(d))
 '''
-# RecursionError: maximum recursion depth exceeded
 
 
-'''
-from fnmatch import *
-for x in range(18579, 10**10, 18579):
-    if fnmatch(str(x), '54?1?3*7'):
-        print(x, x // 18579)
-'''
+M = []
+for i in range(0, 8+1):
+    s = '1' * i + '0' * (8-i)
+    M.append(int(s, 2))
+print(M)
+
+# [0, 128, 192, 224, 240, 248, 252, 254, 255]
 

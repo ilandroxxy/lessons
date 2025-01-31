@@ -6,6 +6,38 @@
 # #
 # region Урок: ************************************************************
 
+# Номер 12 (№ 5725) (А. Рогов)
+'''
+for k in range(1, 1000):
+    s = '>' + '1' * 22 + '2' * k + '3' * 23
+
+    while '>1' in s or '>2' in s or '>3' in s:
+        if '>1' in s:
+            s = s.replace('>1', '2>', 1)
+        if '>2' in s:
+            s = s.replace('>2', '21>', 1)
+        if '>3' in s:
+            s = s.replace('>3', '11>', 1)
+    # summa = sum([int(x) for x in s if x.isdigit()])
+    summa = sum([int(x) for x in s[:-1]])
+    if summa > 2023:
+        print(k)
+        break
+'''
+
+
+'''
+s = 'r3d4232er4d23er'
+for x in s:
+    if x.isdigit():
+        print(x, end=' ')
+        # 3 4 2 3 2 4 2 3
+
+for x in s:
+    if x.isalpha():
+        print(x, end=' ')
+        # r d e r d e r
+'''
 
 # endregion Урок: ************************************************************
 # #

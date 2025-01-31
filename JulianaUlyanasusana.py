@@ -1,200 +1,151 @@
 # region Домашка: ******************************************************************
 
-# № 2588 (Уровень: Базовый)
-'''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-
-for x in range(190201, 190260):
-    d = [j for j in divisors(x) if j % 2 == 0]
-    if len(d) == 4:
-        print(d[-1], d[-2])
-'''
-
-
-# № 8511 Апробация 17.05 (Уровень: Базовый)
-'''
-from fnmatch import fnmatch
-
-for x in range(253, 10 ** 8, 253):
-    if fnmatch(str(x), '12??15*6'):
-        print(x, x // 253)
-'''
-
-'''
-# Факториал числа:
-# 5! = 1 * 2 * 3 * 4 * 5 = 120
-
-import math  # Самое базовое импортирование библиотеки
-print(math.factorial(5))  # 120
-
-import math as m  # Подключаем с коротким именем
-print(m.factorial(5))  # 120
-
-from math import factorial, sqrt, fabs  # Подключаем конкретные библиотеки
-print(factorial(5))  # 120
-
-from math import *  # Подключаем сразу все содержимое
-print(factorial(5))  # 120
-print(sqrt(16))  # 4
-
-
-def my_factorial(n):
-    r = 1
-    for i in range(1, n+1):
-        r *= i
-    return r
-
-print(my_factorial(5))  # 120
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 19709 (Уровень: Базовый)
+# https://stepik.org/lesson/1038709/step/14?unit=1062775
 '''
-import sys
-sys.setrecursionlimit(10000)
-
 def F(n):
     if n == 1:
-        return 1  # F(n)=1 при n=1;
+        return 1
     if n > 1:
-        return n**3 + F(n - 1)  # F(n)=n**3+F(n−1) при n>1.
+        return F(n - 1) + 3 * G(n - 1)
+
+def G(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n - 1) - 2 * G(n - 1)
 
 
-print(F(2025) - F(2022))
-# RecursionError: maximum recursion depth exceeded
+x = F(18)
+print(sum(map(int, str(x))))  # 18298549
 '''
 
 
-# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
+# Поиск суммы цифр строки
 '''
-import sys
-sys.setrecursionlimit(10000)
+s = '18298549'
 
-def F(n):
-    if n < 5:
-        return n
-    if n >= 5:
-        return 2*n * F(n-4)
+summa = sum(map(int, s))
 
+summa = sum([int(x) for x in s])
 
-print((F(13766) - 9 * F(13762)) / F(13758))
+summa = 0
+for x in s:
+    summa += int(x)
 '''
 
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n-2) + n/2 - F(n-4)
-    if n > 3 and n % 2 != 0:
-        return F(n-1) * n + F(n - 2)
-
-for i in range(5000):
-    F(i)
-
-print(F(4952) + 2*F(4958) + F(4964))
-'''
-
-
-# № 18140 (Уровень: Базовый)
 '''
 def F(x, y, A):
-    return (x - y >= 39) or (y <= x) or (y >= A - 20)
+    return ((108 % x == 0) <= (x % y != 0)) or (x + y > 80) or (A - y > x)
+
 
 for A in range(1, 1000):
     if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
         print(A)
-'''
-
-
-# № 18175 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-
-# № 18266(Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
         break
 '''
 
-
-# № 16332 Открытый вариант 2024 (Уровень: Базовый)
-
-# У исполнителя есть три команды, которые обозначены латинскими буквами:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Умножить на 2
-
-# Сколько существует программ, которые преобразуют исходное число 4 в число 15,
-# и при этом траектория вычислений программы содержит числа 11 и 13?
-
-def F(a, b):   # F(4, 15)
-    if a > b:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a*2, b)
-
-
-print(F(4, 11) * F(11, 13) * F(13, 15))
-
-# Ответ: 100
-
-#
-# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
+# № 12469 (Уровень: Базовый)
+'''            
+            def F(x, a1, a2):
+                D = 7 <= x <= 68  # x ∈ D
+                C = 29 <= x <= 100
+                A = a1 <= x <= a2
+                return (D) <= (((not C) and (not A)) <= (not D))
+            
+            
+            R = []
+            M = [x / 10 for x in range(5 * 10, 110 * 10)]
+            print(M)
+            for a1 in M:
+                for a2 in M:
+                    if all(F(x, a1, a2) for x in M):
+                        R.append(a2 - a1)
+            
+            print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
 '''
-def F(a, b):
-    if a < b:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a - 1, b) + F(a // 2, b)
 
-print(F(30, 8) * F(8, 1))
 '''
-# Ответ: 288
+print('x y z w F1 F2')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F1 = (w == x) and (y <= z)
+                F2 = (w <= x) <= (y == z)
+                print(x, y, z, w, int(F1), ' ', int(F2))
+'''
 
 
-# А. Вычесть 2
-# В. Вычесть 5
-# С. Найти целую часть от деления на 3
+# номер 8
+# Андрей составляет 7-буквенные коды из букв А, Н, Д, Р, Е, Й.
+# Буквы А и Й должны встречаться в коде ровно по одному разу,
+# при этом буква Й не может стоять на первом месте.
+# Остальные допустимые буквы могут встречаться произвольное
+# количество раз или не встречаться совсем.
+# Сколько различных кодов может составить Андрей?
+'''
+s = 'АНДРЕЙ'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            word = a + b + c + d + e + f + g
+                            if word.count('А') == 1 and word.count('Й') == 1:
+                                if a != 'Й':
+                                    cnt += 1
+print(cnt)  # 36864
+'''
 
-# Сколько существует программ, для которых при исходном числе 46 результатом является число 7,
-# при этом траектория вычислений не содержит числа 32 и содержит 19?
+# номер 14
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:13]:
+    A = int(f'8{x}71', 13)
+    B = int(f'3{x}DF', 17)
+    if (A + B) % 197 == 0:
+        print((A + B) // 197)
+'''
+
+
+'''
+def F(x, a1, a2):
+    A = a1 <= x <= a2
+    return (A <= (x**2 <= 100)) and ((x**2 <= 64) <= A)
+
+
+R = []
+for a1 in range(1, 1000):
+    for a2 in range(1, 1000):
+        if all(F(x, a1, a2) for x in range(1, 1000)):
+            R.append(a2 - a1)
+print(max(R))
+'''
+
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n > 0 and n % 3 == 0:
+        return F(n / 3)
+    if n % 3 > 0:
+        return (n % 3) + F(n - (n % 3))
+
+
+for n in range(1, 1000):
+    if F(n) == 11:
+        print(n)
+        break
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -205,7 +156,7 @@ print(F(30, 8) * F(8, 1))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
