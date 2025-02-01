@@ -1,98 +1,149 @@
 # region Домашка: ******************************************************************
 
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(200000)
-
-@lru_cache(None)
-def f(n):
-    if n > 10000:
-        return n - 10000
-    if 1 <= n <= 10000:
-        return f(n + 1) + f(n + 2)
-
-
-for i in range(12000, 1, -1):
-    f(i)
-
-print(f(12345) * (f(10) - f(12)) // f(11) + f(10101))
-
-
-# (f(10) - f(12)) // f(11)
-# (f(11) + F(12) - f(12)) // f(11)
-# (f(11) + 0) // f(11)
-# f(11) // f(11)
-# 1
-print(f(12345) * 1 + f(10101))
-'''
-
-
-#
-# № 18140 (Уровень: Базовый)
-'''
-def F(x, y, A):
-    return (x - y >= 39) or (y <= x) or (y >= A - 20)
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-'''
-
-
-#
-# № 18266 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-'''
-
-
-#
-# № 18595 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    C = 48 <= x <= 94
-    J = 83 <= x <= 100
-    A = a1 <= x <= a2
-    return (not(C or J)) <= (not A)
-
-
-R = []
-M = [x / 4 for x in range(40 * 4, 120 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(max(R))
-'''
-'''
-def f(x, a1, a2):
-    p = 15 <= x <= 40
-    q = 21 <= x <= 63
-    a = a1 <= x <= a2
-    return p <= ((q and (not a)) <= (not p))
-
-
-R = []
-N = [x / 4 for x in range(10 * 4, 70 * 4)]
-for a1 in N:
-    for a2 in N:
-        if all(f(x, a1, a2) for x in N):
-            R.append(a2 - a1)
-print(min(R))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
+
+
+# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    # if x in D or y in D or z in D:
+    if (x in D) + (y in D) + (z in D) >= 1:
+        if (x**2 + y**2 + z**2) <= max(D)**2:
+            R.append(x**2 + y**2 + z**2)
+print(len(R), min(R))
+'''
+
+
+# № 18617 (Уровень: Средний)
+'''
+M = [int(s) for s in open('files/17.txt')]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 3 == max(M) % 3) or (y % 3 == max(M) % 3):
+        if (x % 7 == min(M) % 7) or (y % 7 == min(M) % 7):
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# № 14952 (Уровень: Средний)
+'''
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 4 and x % 2 == 0]
+B = [x for x in M if abs(x) % 1000 == 121]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) + (y in D) + (z in D) <= 1:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# № 14653 Открытый курс "Слово пацана" (Уровень: Сложный)
+
+# 1. Только два элемента являются трехзначными числами
+# 2. Ровно один элемент делится на 18
+# 3. Сумма элементов делится на сумму двух минимальных
+# положительных элементов последовательности, кратных 17
+# 4. Произведение элементов не превосходит квадрат
+# максимального элемента последовательности, оканчивающегося на 69
+'''
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 3]
+B = sorted([x for x in M if x > 0 and x % 17 == 0])
+C = [x for x in M if abs(x) % 100 == 69]
+R = []
+for i in range(len(M)-3):
+    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
+    if (x in D) + (y in D) + (z in D) + (w in D) == 2:  # 1
+        if (x % 18 == 0) + (y % 18 == 0) + (z % 18 == 0) + (w % 18 == 0) == 1:  # 2
+            if (x + y + z + w) % (B[0] + B[1]) == 0:  # 3
+                if (x * y * z * w) <= max(C) ** 2:  # 4
+                    R.append((x + y + z + w) ** 2)
+print(len(R), min(R))
+'''
+
+
+# № 12926 PRO100 ЕГЭ 26.01.24 (Уровень: Сложный)
+'''
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if 10 <= abs(x) <= 99]
+A = -10**9
+R = []
+for i in range(len(M)-3):
+    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
+    if (abs(x) % 10) == (abs(y) % 10) == (abs(z) % 10) == (abs(w) % 10):
+        print(x, y, z, w)
+        A = max(A, x + y + z + w)
+
+for i in range(len(M)-4):
+    x, y, z, w, t = M[i], M[i+1], M[i+2], M[i+3], M[i+4]
+    if (x < A) + (y < A) + (z < A) + (w < A) + (t < A) == 1:
+        # print(x, y, z, w, t, A)
+        if (x + y + z + w + t) % max(D) == 0:
+            R.append(x + y + z + w + t)
+print(len(R), min(R))
+'''
+
+'''
+import time
+start = time.time()
+
+# def IsPrime(n):
+#     d = 2
+#     while n % d != 0:
+#         d += 1
+#     return d == n
+
+def IsPrime(n):
+    if n <= 1:
+        return False
+    for j in range(2, int(n**0.5)+1):
+        if n % j == 0:
+            return False
+    return True
+
+
+M = [x for x in range(2, 10000) if IsPrime(x)]
+print(M)
+
+
+print(time.time() - start)  # 0.20528 -> 0.0046
+'''
+
+
+# № 9993 (Уровень: Сложный)
+'''
+def IsPrime(n):
+    if n <= 1:
+        return False
+    for j in range(2, int(n**0.5)+1):
+        if n % j == 0:
+            return False
+    return True
+
+
+M = [int(s) for s in open('files/17.txt')]
+D = [x for x in M if abs(x) % 100 == 17]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if IsPrime(abs(x)) + IsPrime(abs(y)) == 1:
+        if (x + y) % max(D) == 0:
+            R.append(x * y)
+print(len(R), max(R))
+'''
 
 # endregion Урок: ********************************************************************
 # #

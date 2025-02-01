@@ -1,189 +1,115 @@
 # region Домашка: ******************************************************************
 
+# № 7846 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 13 <= x <= 19
+    Q = 17 <= x <= 23
+    A = a1 <= x <= a2
+    return (not ((not P) <= Q)) <= (A <= ((not Q) <= P))
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 30 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(int(max(R)))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
+
+# https://education.yandex.ru/ege/task/51f79716-aac8-4ddc-b6b0-3c0c0df2aafe
 '''
-# Вариант 1
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
+from fnmatch import *
+for x in range(183, 10**9, 183):
+    if fnmatch(str(x), '??287*139'):
+        print(x, x // 183)
+'''
+
+# https://education.yandex.ru/ege/task/83afed62-b003-45be-b7f8-a004109ff15a
+'''
+from fnmatch import *
+for x in range(11071, 10**10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[0] in '13579':
+            if str(x)[-2] in '02468':
+                print(x, x // 11071)
+'''
 
 
-for A in range(1, 1000):
-    flag = True
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if not F(x, y, A):  # F(x, y, A) == False
-                flag = False
+'''
+import time
+start = time.time()
+
+# def divisors(x):
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(100_000_000))
+
+print(time.time() - start)  # 2.87503 -> 0.00057
+'''
+
+
+# https://education.yandex.ru/ege/task/f057cfef-606b-4010-8258-037b3517a524
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+k = 0
+for x in range(424_242+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 2024 == 42:  # M при делении на 2024 даёт в остатке 42
+            print(x, M)
+            k += 1
+            if k == 8:
                 break
-    if flag == True:
-        print(A)
-        break
-
-
-# Вариант 2
-
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-for A in range(1, 1000):
-    k = 0
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if F(x, y, A) == True:
-                k += 1
-    if k == 9801:
-        print(A)
-        break
-
-
-# Вариант 3
-
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(min(R))
-
-
-# Вариант 3.2
-
-R = []
-for A in range(1, 1000):
-    if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(min(R))
-
-
-# Вариант 4
-
-print(min([A for A in range(1, 1000) if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
 '''
 
 
-# Пример с функциями all, any:
-'''
-N = [2, 4, 5, 8, 10, 12, 16, 20]
-if all(x % 2 == 0 for x in N):
-    print('all N')
-if any(x % 2 != 0 for x in N):
-    print('any N')  # any N
+# https://education.yandex.ru/ege/task/9c37aa6f-004c-432b-a955-f2a55df1f675
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
 
-M = [2, 4, 14, 8, 10, 12, 16, 20]
-if all(x % 2 == 0 for x in M):
-    print('all M')  # Yes M
-if any(x % 2 != 0 for x in M):
-    print('any M')  # all M
-'''
+for x in range(397438, 443520+1):
+    d = [j for j in divisors(x) if j % 2 == 0]
+    if len(d) >= 142:
+        print(len(d), max(d))
 
-
-# № 18175 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-
-print(max(R))
-'''
-
-
-# № 11234 (Уровень: Базовый)
-'''
-def F(x, A):
-    B = 120 <= x <= 130  # (x ∈ B) B = [120; 130]
-    return (B <= (x % 7 != 0)) or (A > 2*x)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(min(R))
-'''
-
-
-# № 18266 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(min(R))
-'''
-
-
-# № 18044 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    M = 32 <= x <= 68
-    N = 54 <= x <= 76
-    A = a1 <= x <= a2
-    return (not(M or N)) == (not A)
-
-
-R = []
-M = [x / 4 for x in range(20 * 4, 100 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 44.9 -> 45
-'''
-
-
-# Тип 15 №36028
-# На числовой прямой даны два отрезка:
-# P=[17,54] и Q=[37,83].
-# Какова наименьшая возможная длина интервала A, что формула
-# (x ∈ P) → (((x ∈ Q) ∧ ¬(x ∈ A)) → ¬(x ∈ P))
-'''
-def F(x, a1, a2):
-    P = 17 <= x <= 54
-    Q = 37 <= x <= 83
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
-
-R = []
-M = [x / 4 for x in range(10 * 4, 100 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 17.0
-'''
-
-
-# Тип 15 №61395
-'''
-def F(x, y, A):
-    return (3*x + y > 48) or (x > y) or (4*x + y < A)
-
-
-R = []
-for A in range(1, 1000):
-    if any(F(x, y, A) == False for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(max(R))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -194,7 +120,7 @@ print(max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14, 15, 16, 23]
+# ФИПИ = [2, 5, 6, 8, 12, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

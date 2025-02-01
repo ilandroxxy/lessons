@@ -7,6 +7,9 @@ __pycache__/
 *.so
 *.db
 *.csv
+*.txt
+*.xls
+*.xlsx
 lessons/*.txt
 token.txt
 openai.txt
