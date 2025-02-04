@@ -25,7 +25,7 @@ print(maxi)
 # Определите максимальное количество идущих подряд символов,
 # среди которых символ T встречается ровно 100 раз.
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 s = s.split('T')
 maxi = 0
 for i in range(len(s)-100):
@@ -40,7 +40,7 @@ print(maxi)
 # Определите в прилагаемом файле максимальное количество идущих подряд символов,
 # среди которых подстрока FSRQ встречается ровно 80 раз.
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 s = s.split('FSRQ')
 maxi = 0
 for i in range(len(s)-80):
@@ -79,7 +79,7 @@ print(mini)
 # Определите в прилагаемом файле минимальное количество идущих подряд символов,
 # среди которых символ X встречается не менее 500 раз, а символ Y не встречается совсем.
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 s = s.split('X')
 mini = 10**9
 for i in range(len(s)-498):
@@ -94,7 +94,7 @@ print(mini)
 # Определите максимальное количество идущих подряд символов,
 # среди которых символ F встречается не более одного раза.
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 s = s.split('F')
 maxi = 0
 for i in range(len(s)-1):

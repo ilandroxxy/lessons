@@ -25,7 +25,7 @@ print(min(sp))
 '''
 n = 0
 R = []
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = [int(x) for x in s.split(';')]
     n += 1
     if M == sorted(M):
@@ -40,7 +40,7 @@ print(max(R))
 # № 18258 (Уровень: Сложный)
 '''
 R = []
-for n, s in enumerate(open('files/9.csv'), 1):
+for n, s in enumerate(open('0. files/9.csv'), 1):
     M = [int(x) for x in s.split(';')]
     if M == sorted(M):
         if any(M.count(x) > 1 and sum(map(int, str(x))) % 2 == 0 for x in M):
@@ -52,7 +52,7 @@ print(max(R))
 # № 18257 (Уровень: Средний)
 '''
 R = []
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
     i, j = i+1, i+2

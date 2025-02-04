@@ -8,20 +8,20 @@
 
 # Как открывать файлы
 '''
-file = open('files/17.txt')
-print(file)  # <_io.TextIOWrapper name='files/17.txt' mode='r' encoding='UTF-8'>
+file = open('0. files/17.txt')
+print(file)  # <_io.TextIOWrapper name='0. files/17.txt' mode='r' encoding='UTF-8'>
 
 # print(file.read())
 # print(file.readline())
 # print(file.readlines())
 file.close()
 
-with open('files/17.txt', mode='r') as file:
+with open('0. files/17.txt', mode='r') as file:
     print(file.readline())
 # Тут файл считается закрытым
 
 M = []
-with open('files/17.txt', mode='r') as file:
+with open('0. files/17.txt', mode='r') as file:
     for s in file:
         M.append(int(s))
 print(M)
@@ -29,7 +29,7 @@ print(M)
 
 # Как открывать файл для 17 номера
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 R = []
 '''
 
@@ -61,7 +61,7 @@ for i in range(len(M)):
 
 # https://education.yandex.ru/ege/task/d5802159-70ca-4d5d-832c-9856d41c15a6
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 D = [x for x in M if x > 0 and x % 100 == 17 and len(str(x)) == 5]
 B = [x for x in M if abs(x) % 100 == 17]
 R = []
@@ -77,7 +77,7 @@ print(len(R), min(R))
 
 # https://education.yandex.ru/ege/task/8e1b9524-b73c-49fc-9fe4-36e27cc94449
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 D = [x for x in M if x % 2025 == 0]
 R = []
 for i in range(len(M)-2):
@@ -89,7 +89,7 @@ print(len(R), max(R))
 '''
 
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 R = []
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
@@ -101,7 +101,7 @@ print(len(R), max(R))
 
 # https://education.yandex.ru/ege/task/de7994f7-d8fe-4848-a91b-b9e7f7490d67
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 D = [x for x in M if abs(x) % 100 == 42]
 R = []
 for i in range(len(M)-2):

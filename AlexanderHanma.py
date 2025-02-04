@@ -9,7 +9,7 @@
 
 # № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
 R = []
 for i in range(len(M)-2):
@@ -24,7 +24,7 @@ print(len(R), min(R))
 
 # № 18617 (Уровень: Средний)
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 R = []
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
@@ -37,7 +37,7 @@ print(len(R), max(R))
 
 # № 14952 (Уровень: Средний)
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 D = [x for x in M if len(str(abs(x))) == 4 and x % 2 == 0]
 B = [x for x in M if abs(x) % 1000 == 121]
 R = []
@@ -59,7 +59,7 @@ print(len(R), max(R))
 # 4. Произведение элементов не превосходит квадрат
 # максимального элемента последовательности, оканчивающегося на 69
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 D = [x for x in M if len(str(abs(x))) == 3]
 B = sorted([x for x in M if x > 0 and x % 17 == 0])
 C = [x for x in M if abs(x) % 100 == 69]
@@ -77,7 +77,7 @@ print(len(R), min(R))
 
 # № 12926 PRO100 ЕГЭ 26.01.24 (Уровень: Сложный)
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 D = [x for x in M if 10 <= abs(x) <= 99]
 A = -10**9
 R = []
@@ -134,7 +134,7 @@ def IsPrime(n):
     return True
 
 
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 D = [x for x in M if abs(x) % 100 == 17]
 R = []
 for i in range(len(M)-1):

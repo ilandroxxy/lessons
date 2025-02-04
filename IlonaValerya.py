@@ -1,56 +1,5 @@
 # region Домашка: ******************************************************************
 
-# № 594 (Уровень: Средний)
-'''
-import sys
-sys.setrecursionlimit(10000)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return F(n - 1) + 3*G(n - 1)
-
-def G(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return F(n - 1) - 2*G(n - 1)
-
-
-# print(F(18))  # 18298549 = 1 + 8 + 2 + 9 + 8 + 5 + 4 + 9
-
-# for i in str(18298549):
-#     print(i)
-
-summa = 0
-for i in str(F(18)):
-    summa += int(i)
-print(summa)
-'''
-
-
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n > 1000000:
-        return n
-    if n <= 1000000:
-        return n + F(2 * n)
-
-def G(n):
-    return F(n) / n
-
-
-cnt = 0
-result = G(2000)
-for n in range(1, 10**6+1):
-    if G(n) == result:
-        cnt += 1
-print(cnt)
-'''
-
 
 # endregion Домашка: ******************************************************************
 # #
@@ -58,48 +7,123 @@ print(cnt)
 # region Урок: ********************************************************************
 
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
+
+# Вариант 1
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
 
 
-print(F(5, 7) * F(7, 11))
-
+for A in range(1, 10000):
+    flag = True
+    for x in range(1, 100):
+        for y in range(1, 100):
+            if F(x, y, A) == False:
+                flag = False
+                break
+    if flag == True:
+        print(A)
+        break
 
 # Вариант 2
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
+
+def F(x, y, A):
+    return (x - 3*y < A) or (y > 400) or (x > 56)
 
 
-print(F(5, 7) * F(7, 11))
+R = []
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(min(R))
+
+
+# Вариант 2.2
+
+print(min([A for A in range(1, 10000) if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
 '''
 
 
-def f(a, b):
-    if a < b or a == 28:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return f(a - 3, b) + f(a // 3, b) + f(a // 2, b)
+# № 18266 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
+'''
 
 
-print(f(46, 20) * f(20, 3))
+# № 18175 (Уровень: Базовый)
+'''
+def F(x, A):
+    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
 
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# № 17528 Основная волна 07.06.24 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 80 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
+'''
+
+
+# № 12469 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return D <= (((not C) and (not A)) <= (not D))
+
+
+R = []
+M = [x / 10 for x in range(5 * 10, 120 * 10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+
+# № 7846 Danov2304 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 13 <= x <= 19
+    Q = 17 <= x <= 23
+    A = a1 <= x <= a2
+    # return not (not (P) <= (Q)) <= ((A) <= (not (Q) <= (P)))
+    return (not((not P) <= Q)) <= (A <= ((not Q) <= P))
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 30 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -110,6 +134,6 @@ print(f(46, 20) * f(20, 3))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:

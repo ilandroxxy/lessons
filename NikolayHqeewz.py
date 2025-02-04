@@ -8,7 +8,7 @@
 
 from itertools import *
 summa = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(',')])
     copied = [x for x in M if M.count(x) == 3]
     copied2 = [x for x in M if M.count(x) == 2]

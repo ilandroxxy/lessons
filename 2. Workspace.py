@@ -1051,7 +1051,7 @@ for n, p in enumerate(product(sorted('БКФЦ'), repeat=5), 1):
 # числом, а сумма элементов пары кратна максимальному
 # двузначному элементу последовательности.
 '''
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 D = [x for x in M if len(str(abs(x))) == 2]
 R = []
 for i in range(len(M)-1):
@@ -1638,7 +1638,7 @@ for n, p in enumerate(product(s, repeat=4), 1):
 
 # todo сделать разбор 19254
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 s = s.split('FSRQ')
 maxi = 0
 for i in range(len(s)-80):
@@ -1667,7 +1667,7 @@ print(cnt)'''
 
 
 '''
-s = open('files/IlonaValerya.txt').readline()
+s = open('0. files/IlonaValerya.txt').readline()
 maxi = 0
 for x in 'KLMN':
     s = s.replace(x, 'K')
@@ -1687,7 +1687,7 @@ print(maxi)
 '''
 
 '''
-s = open('files/24.txt').readline()
+s = open('0. files/24.txt').readline()
 maxi = 0
 for x in 'KLMN':
     s = s.replace(x, 'K')
@@ -1834,7 +1834,7 @@ print(F(1, 50, ''))
 # todo сделать разбор номера 9 № 18258 (Уровень: Сложный)
 '''
 R = []
-for n, s in enumerate(open('files/9.csv'), 1):
+for n, s in enumerate(open('0. files/9.csv'), 1):
     M = [int(x) for x in s.split(';')]
     if M == sorted(M):
         if any(M.count(x) > 1 and sum(map(int, str(x))) % 2 == 0 for x in M):
@@ -1863,7 +1863,7 @@ for p in range(30, 37):
 # todo сделать разбор номера 17 № 18257 (Уровень: Средний)
 '''
 R = []
-M = [int(x) for x in open('files/17.txt')]
+M = [int(x) for x in open('0. files/17.txt')]
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
     i, j = i+1, i+2
@@ -1876,7 +1876,7 @@ print(len(R), min(R))
 
 # todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
 '''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(s) for s in open('0. files/17.txt')]
 R = []
 for i in range(len(M)-5):
     x, y, z, w, r, t = M[i:i+6]
@@ -1906,11 +1906,67 @@ for x in range(106732567, 152673836+1):
 '''
 
 
-M = []
-for i in range(0, 8+1):
-    s = '1' * i + '0' * (8-i)
-    M.append(int(s, 2))
-print(M)
+# todo сделать разбор https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    if (M[-1] ** 3) >= 2 * (M[0] * M[1] * M[2]):
+        if all(x > 10 for x in M):
+            cnt += 1
+print(cnt)
+'''
 
-# [0, 128, 192, 224, 240, 248, 252, 254, 255]
+
+# todo Разобрать на канал 17 номер № 16264 Джобс 03.05.24 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 2 and x % sum(map(int, str(x))) == 0]
+R = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i + 1]
+    if (x % min(D) == 0) + (y % min(D) == 0) >= 1:
+        R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# todo Сделать разбор 8 номера № 7029 Danov2303 (Уровень: Базовый)
+'''
+from itertools import *
+
+for n, p in enumerate(product(sorted('МАРИН'), repeat=8), 1):
+    word = ''.join(p)
+    if word == 'МАРИАННА':
+        print(n)
+        break
+'''
+
+
+# todo Сделать разбор 9 номер https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied3) == 3 and len(not_copied) == 3:
+        if sum(copied3) ** 2 > sum(not_copied) ** 2:
+            cnt += 1
+print(cnt)
+'''
+
+
+
+# https://education.yandex.ru/ege/task/82c97d22-18da-44ce-aafa-9e25f9e55301
+
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied_2 = [x for x in M if M.count(x) == 2]
+    if len(copied_2) == 6:
+        a, b, c = sorted(set(copied_2))
+        if a**2 + b**2 == c**2:
+            cnt += 1
+print(cnt)
 

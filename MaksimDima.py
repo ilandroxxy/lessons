@@ -9,7 +9,7 @@
 # Тип 9 №51978
 '''
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = [int(x) for x in s.split(';')]
     if len(M) == len(set(M)):
         chet = [x for x in M if x % 2 == 0]
@@ -24,7 +24,7 @@ print(cnt)
 # Тип 9 №61355
 '''
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = [int(x) for x in s.split(';')]
     if len(M) == len(set(M)):
         if (max(M) + min(M)) / 2 > (sum(M) - max(M) - min(M)) / 4:
@@ -32,7 +32,7 @@ for s in open('files/9.csv'):
 print(cnt)
 
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(';')])
     if len(M) == len(set(M)):
         if (M[0] + M[-1]) / 2 > sum(M[1:-1]) / 4:
@@ -45,7 +45,7 @@ print(cnt)
 '''
 from itertools import *
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(';')])
     if M[-1] < sum(M[:-1]):
         if any(m[0] + m[1] == m[2] + m[3] for m in permutations(M)):
@@ -57,7 +57,7 @@ print(cnt)
 # Тип 9 №63058
 '''
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(';')])
     if len(M) != len(set(M)):
         if M.count(max(M)) == 1:
@@ -71,7 +71,7 @@ print(cnt)
 # № 18924 Новогодний вариант 2025 (Уровень: Средний)
 
 cnt = 0
-for s in open('files/9.csv'):
+for s in open('0. files/9.csv'):
     flag = 0
     M = sorted([int(x) for x in s.split(';')])
     copied = [x for x in M if M.count(x) == 3]
