@@ -1,161 +1,115 @@
 # region Домашка: ******************************************************************
 
 
+# № 12249 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+D = [int(x) for x in open('0. files/17.txt')]
+R = []
+L = [x for x in D if abs(x) % 10 == 3]
+T = [x for x in L if len(str(abs(x))) == 5]
+for i in range(len(D) - 2):
+    x, y, z = D[i], D[i + 1], D[i + 2]
+    if ((x in L) + (y in L) + (z in L)) >= 1:
+        if (x + y + z) <= max(T):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# № 12471 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if x % 2 == 0]
+B = [x for x in M if len(str(abs(x))) == 2]
+D = [x for x in M if abs(x) % 100 == 13]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i + 1], M[i + 2]
+    if ((x in A) + (y in A) + (z in A) == 3) or ((x in B) + (y in B) + (z in B) >= 1):
+        if (x + y + z) <= max(D):
+            R.append((x + y + z))
+print(len(R), sum(R) // len(R))
+'''
+
+
+# № 9547 Джобс 14.06.23 (Уровень: Средний)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+D = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 11]
+R = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i + 1]
+    if ((len(str(abs(x))) == 3) + (len(str(abs(y))) == 3)) == 1:
+        if (abs(x - y)) % min(D) == 0:
+            R.append(x + y)
+print(len(R), max(R))  
+'''
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/1db660ae-e018-4537-be70-be01199dfa29
 '''
-M = [int(s) for s in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    # if x in D or y in D or z in D:
-    if (x in D) + (y in D) + (z in D) >= 1:
-        if (x**2 + y**2 + z**2) <= max(D)**2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
+from itertools import *
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    if (max(M) + min(M)) % 3 == 0:
+        if any(p[0] - p[1] == p[2] - p[3] for p in permutations(M)):
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 18617 (Уровень: Средний)
+# https://education.yandex.ru/ege/task/d62dc568-941a-44da-870b-b8cc21faee9f
 '''
-M = [int(s) for s in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 3 == max(M) % 3) or (y % 3 == max(M) % 3):
-        if (x % 7 == min(M) % 7) or (y % 7 == min(M) % 7):
-            R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# № 14952 (Уровень: Средний)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 4 and x % 2 == 0]
-B = [x for x in M if abs(x) % 1000 == 121]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in D) + (y in D) + (z in D) <= 1:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    flag = 0
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if sum(nechet) > sum(chet):
+        flag += 1
+    copied2 = [x for x in M if M.count(x) == 2]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 2 and len(not_copied) == 3:
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 14653 Открытый курс "Слово пацана" (Уровень: Сложный)
-
-# 1. Только два элемента являются трехзначными числами
-# 2. Ровно один элемент делится на 18
-# 3. Сумма элементов делится на сумму двух минимальных
-# положительных элементов последовательности, кратных 17
-# 4. Произведение элементов не превосходит квадрат
-# максимального элемента последовательности, оканчивающегося на 69
+# https://education.yandex.ru/ege/task/d3ce64c1-1875-458b-b8d6-ae96bb169c58
 '''
-M = [int(s) for s in open('0. files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 3]
-B = sorted([x for x in M if x > 0 and x % 17 == 0])
-C = [x for x in M if abs(x) % 100 == 69]
-R = []
-for i in range(len(M)-3):
-    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
-    if (x in D) + (y in D) + (z in D) + (w in D) == 2:  # 1
-        if (x % 18 == 0) + (y % 18 == 0) + (z % 18 == 0) + (w % 18 == 0) == 1:  # 2
-            if (x + y + z + w) % (B[0] + B[1]) == 0:  # 3
-                if (x * y * z * w) <= max(C) ** 2:  # 4
-                    R.append((x + y + z + w) ** 2)
-print(len(R), min(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    coped2 = [x for x in M if M.count(x) == 2]
+    not_coped = [x for x in M if M.count(x) == 1]
+    if len(coped2) >= 2:
+        if len(not_coped) == 0:
+            not_coped = [0]
+        if min(coped2) > max(not_coped):
+            cnt += 1
+print(cnt)
 '''
-
-
-# № 12926 PRO100 ЕГЭ 26.01.24 (Уровень: Сложный)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-D = [x for x in M if 10 <= abs(x) <= 99]
-A = -10**9
-R = []
-for i in range(len(M)-3):
-    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
-    if (abs(x) % 10) == (abs(y) % 10) == (abs(z) % 10) == (abs(w) % 10):
-        print(x, y, z, w)
-        A = max(A, x + y + z + w)
-
-for i in range(len(M)-4):
-    x, y, z, w, t = M[i], M[i+1], M[i+2], M[i+3], M[i+4]
-    if (x < A) + (y < A) + (z < A) + (w < A) + (t < A) == 1:
-        # print(x, y, z, w, t, A)
-        if (x + y + z + w + t) % max(D) == 0:
-            R.append(x + y + z + w + t)
-print(len(R), min(R))
-'''
-
-'''
-import time
-start = time.time()
-
-# def IsPrime(n):
-#     d = 2
-#     while n % d != 0:
-#         d += 1
-#     return d == n
-
-def IsPrime(n):
-    if n <= 1:
-        return False
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            return False
-    return True
-
-
-M = [x for x in range(2, 10000) if IsPrime(x)]
-print(M)
-
-
-print(time.time() - start)  # 0.20528 -> 0.0046
-'''
-
-
-# № 9993 (Уровень: Сложный)
-'''
-def IsPrime(n):
-    if n <= 1:
-        return False
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            return False
-    return True
-
-
-M = [int(s) for s in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 17]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if IsPrime(abs(x)) + IsPrime(abs(y)) == 1:
-        if (x + y) % max(D) == 0:
-            R.append(x * y)
-print(len(R), max(R))
-'''
-
 # endregion Урок: ********************************************************************
 # #
 # #
 # region Разобрать: ********************************************************************
 
+
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = [5, 14, 15, 16, 22, 23]
-# на следующем уроке: 17, 9, 24
+# КЕГЭ  = [5, 9, 14, 15, 16, 17, 22, 23]
+# на следующем уроке: 24
 
 
 # Первый пробник 21.12.24:

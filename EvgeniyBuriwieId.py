@@ -5,6 +5,100 @@
 # #
 # region Урок: ************************************************************
 
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n % 2 == 0 and n > 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
+
+k = 0
+for i in range(1, 501):
+    if F(i) == 8:
+        k += 1
+print(k)
+'''
+
+
+# № 8948 (Уровень: Базовый)
+'''
+symbols = 48
+alphabet = 8
+i = 3
+bite = symbols * i
+print(bite/8)
+byte = 18
+user = (5750/250)
+print(user)
+print(user - byte)
+'''
+
+
+# № 11230 (Уровень: Базовый)
+'''
+symbols = 17
+alphabet = 19+2
+i = 5
+bite = symbols * i
+print(bite / 8)  # 10.625
+byte = 11  # один пароль
+v = (byte+485)  # один пользователь = пароль + допы
+# v1 = (v / 2**10) * 4096
+v1 = (v * 4096) / 2**10
+print(v1)
+'''
+
+# № 17630 Основная волна 19.06.24 (Уровень: Средний)
+'''
+alphabet = 10 + 26 + 450
+print(alphabet)  # 486
+i = 9
+
+byte = (213 * 2**10) / 708
+print(byte)  # 308.06779
+bite = 309 * 8
+# bite = symbols * i
+symbols = bite / i
+print(symbols)  # 273.77
+'''
+
+
+'''
+def convert (n, b):
+    s = ''
+    while n > 0:
+        s += str(n%b)
+        n //= b
+    return s[::-1]
+
+for n in range(1,500):
+    s = convert(n,2)
+    if n % 5==0:
+        s = s+s[-3:]  # тут последние три, а ты взял первые
+    else:
+        x = (n%5)*5
+        x = convert(x,2)
+        s = s+x
+    r = int(s,2)
+    if r >= 257:  # тут больше 256
+        print(n)
+'''
+
+
+M = []
+for n in range(1,1000):
+    s = f"{n:b}"
+    if n % 3 == 0:
+        s = s.replace("0", "11")  # каждый нуль меняется на 11
+    else:
+        s = s.replace("1", "10")  # каждая единица меняется на 10
+    r = int(s, 2)
+    if r < 161:
+        M.append(r)  # Укажите максимальное число R
+print(max(M))
+
 
 # endregion Урок: ************************************************************
 # #

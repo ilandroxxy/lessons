@@ -1958,8 +1958,8 @@ print(cnt)
 
 
 
-# https://education.yandex.ru/ege/task/82c97d22-18da-44ce-aafa-9e25f9e55301
-
+# todo сделать разбор https://education.yandex.ru/ege/task/82c97d22-18da-44ce-aafa-9e25f9e55301
+'''
 cnt = 0
 for s in open('0. files/9.csv'):
     M = [int(x) for x in s.split(',')]
@@ -1969,4 +1969,39 @@ for s in open('0. files/9.csv'):
         if a**2 + b**2 == c**2:
             cnt += 1
 print(cnt)
+'''
 
+# todo сделать разбор https://education.yandex.ru/ege/task/2135bad3-5844-4cbd-8a72-93751f24130f
+'''
+from fnmatch import *
+for x in range(124, 10**10, 124):
+    if fnmatch(str(x), '1*28?64'):
+        divisors = [x % j == 0 for j in (14, 24, 34, 44, 54, 64, 74, 84, 94)]
+        if sum(divisors) == 5:
+            print(x, x // 124)
+'''
+
+
+# todo Сделать разброрм 17 номер № 12249 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+D = [int(x) for x in open('0. files/17.txt')]
+R = []
+A = [x for x in D if abs(x) % 10 == 3]
+B = [x for x in A if len(str(abs(x))) == 5]
+for i in range(len(D) - 2):
+    x, y, z = D[i], D[i + 1], D[i + 2]
+    if ((x in A) + (y in A) + (z in A)) >= 1:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+from math import prod
+for x in range(100, 1000):
+    total = prod([int(i) for i in str(x)])
+    summa = sum([int(i) for i in str(x)])
+    result = ''.join([str(i) for i in sorted((total, summa))[::-1]])
+    if result == '24019':
+        print(x)
+
+# Ответ: 865
