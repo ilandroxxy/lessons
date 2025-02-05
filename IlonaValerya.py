@@ -1,129 +1,124 @@
 # region Домашка: ******************************************************************
 
+'''
+def F(x, A):
+    return ((x & 103 == 0) and (x & 94 != 0)) <= (x & A != 0)
+
+
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 100)):
+        R.append(A)
+print(min(R))
+'''
+
+'''
+def F(x, a1, a2):
+    P = 10 <= x <= 45
+    Q = 35 <= x <= 78
+    A = a1 <= x <= a2
+    return ((not P) <= (Q)) and (not A)
+
+
+R = []
+M = [x / 4 for x in range(5 * 4, 90 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) == False for x in M):
+            R.append(a2 - a1)
+print(round(min(R)))
+'''
+
+'''
+def F(x, a1, a2):
+    P = 13 <= x <= 19
+    Q = 17 <= x <= 23
+    A = a1 <= x <= a2
+    return (not ((not P) <= (Q))) <= ((A) <= ((not Q) <= (P)))
+
+
+R = []
+M = [x / 4 for x in range(5 * 4, 30 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(round(max(R)))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# M = []
+# for s in open('0. files/17.txt'):
+#     M.append(int(s))
+# print(M)
 
-# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
-
-# Вариант 1
+# Как надо открывать файл для 17 номера:
 '''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
+M = [int(s) for s in open('0. files/17.txt')]
+R = []  # сюда будем складывать результаты
+'''
 
 
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if F(x, y, A) == False:
-                flag = False
-                break
-    if flag == True:
-        print(A)
-        break
+# Рассмотрим три типа задач 17 номера:
+'''
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
-# Вариант 2
+# 1. Под парой подразумевается пара идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. Под парой подразумевается пара различных элементов последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+'''
 
 
+# № 18957 (Уровень: Средний)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
 R = []
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(min(R))
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    # if (str(x).count('0') == 0) + (str(y).count('0') == 0) + (str(z).count('0') == 0) >= 2:
+    D = [str(p).count('0') == 0 for p in (x, y, z)]
+    if sum(D) >= 2:
+        if (x + y + z) < max(M) / 2:
+            R.append(x + y + z)
 
-
-# Вариант 2.2
-
-print(min([A for A in range(1, 10000) if all(((x - 3*y < A) or (y > 400) or (x > 56)) for x in range(1, 100) for y in range(1, 100))]))
+print(len(R), max(R))
 '''
 
 
-# № 18266 (Уровень: Базовый)
+# № 15333 Досрочная волна 2024 (Уровень: Базовый)
 '''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-'''
-
-
-# № 18175 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-
-# № 17528 Основная волна 07.06.24 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
-
-
+M = [int(s) for s in open('0. files/17.txt')]
+D = [x for x in M if x % 19 == 0]
 R = []
-M = [x / 4 for x in range(10 * 4, 80 * 4)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x > max(D) or y > max(D):
+        R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# № 12469 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return D <= (((not C) and (not A)) <= (not D))
 
-
-R = []
-M = [x / 10 for x in range(5 * 10, 120 * 10)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
-'''
-
-# № 7846 Danov2304 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a1 <= x <= a2
-    # return not (not (P) <= (Q)) <= ((A) <= (not (Q) <= (P)))
-    return (not((not P) <= Q)) <= (A <= ((not Q) <= P))
-
-
-R = []
-M = [x / 4 for x in range(10 * 4, 30 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(max(R))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -134,6 +129,6 @@ print(max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
