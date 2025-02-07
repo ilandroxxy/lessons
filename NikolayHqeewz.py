@@ -6,23 +6,6 @@
 # #
 # region Урок: ********************************************************************
 
-from itertools import *
-summa = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    copied = [x for x in M if M.count(x) == 3]
-    copied2 = [x for x in M if M.count(x) == 2]
-    if len(copied) == 3 and len(copied2) == 4:
-        # if any(sum(B[:2]) % 2 != 0 and sum(B[2:]) % 2 != 0 for B in permutations(M[:4])):
-        # if any((B[0] + B[1]) % 2 != 0 and (B[2] + B[3]) % 2 != 0 for B in permutations(M[:4])):
-
-        if any((B[0] + B[1]) % 2 != 0 and (B[2] + B[3]) % 2 != 0 for B in permutations(M[:4])):
-        # D = [x % 2 == 0 for x in M[:4]]
-        # if sum(D) == 2:
-            summa += sum(M)
-
-
-print(summa)
 
 # endregion Урок: *************************************************************
 # #

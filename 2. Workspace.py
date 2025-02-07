@@ -1861,17 +1861,16 @@ for p in range(30, 37):
 '''
 
 # todo сделать разбор номера 17 № 18257 (Уровень: Средний)
-'''
+
 R = []
 M = [int(x) for x in open('0. files/17.txt')]
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
     i, j = i+1, i+2
     if (i + j) % 10 == max(M) % 10:
-        # print(f'{i}:{x}, {j}:{y}')
         R.append(abs((x+y) - (i+j)))
 print(len(R), min(R))
-'''
+
 
 
 # todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
@@ -1996,12 +1995,3 @@ for i in range(len(D) - 2):
 print(len(R), max(R))
 '''
 
-from math import prod
-for x in range(100, 1000):
-    total = prod([int(i) for i in str(x)])
-    summa = sum([int(i) for i in str(x)])
-    result = ''.join([str(i) for i in sorted((total, summa))[::-1]])
-    if result == '24019':
-        print(x)
-
-# Ответ: 865

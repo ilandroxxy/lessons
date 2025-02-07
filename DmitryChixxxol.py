@@ -6,110 +6,55 @@
 # #
 # region Урок: ********************************************************************
 
-# Как открывать файлы
 '''
-file = open('0. files/17.txt')
-print(file)  # <_io.TextIOWrapper name='0. files/17.txt' mode='r' encoding='UTF-8'>
+# узел & маска = адрес сети
+# узел - knot
+# маска - mask
+# адрес сети - net
 
-# print(file.read())
-# print(file.readline())
-# print(file.readlines())
-file.close()
+from ipaddress import *
+# адрес сети = ip_network('узел/маска', 0)
 
-with open('0. files/17.txt', mode='r') as file:
-    print(file.readline())
-# Тут файл считается закрытым
 
-M = []
-with open('0. files/17.txt', mode='r') as file:
-    for s in file:
-        M.append(int(s))
-print(M)
-'''
+from ipaddress import *
+net = ip_network('214.96.0.0/255.240.0.0', 0)
+print(net)  # 214.96.0.0/12, где 12 - это кол-во единиц в маске
+print(net.network_address)  # 214.96.0.0 - адрес сети
+print(net.netmask)  # 255.240.0.0 - маска сети
+print(net.num_addresses)  # 1048576 - кол-во айпи адресов в сети
 
-# Как открывать файл для 17 номера
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
+# 255.240.0.0  -> 111111...000000 (32)
+# 11111111.11110000.00000000.00000000 -> 12 (12 единиц в маске)
+# Вариантов масок всего 32
 '''
 
-# Три прототипа задач 17 номера:
+# Первый прототип:
 '''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумеваются два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# 2. Под тройкой подразумеваются три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумеваются два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+from ipaddress import *
+net = ip_network('214.96.0.0/255.240.0.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('0') % 3 == 0:
+        cnt += 1
+print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/d5802159-70ca-4d5d-832c-9856d41c15a6
+# Второй прототип:
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if x > 0 and x % 100 == 17 and len(str(x)) == 5]
-B = [x for x in M if abs(x) % 100 == 17]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    # if x in B or y in B or z in B:
-    if (x in B) + (y in B) + (z in B) >= 1:
-        if (abs(x) + abs(y) + abs(z)) <= max(D):
-            R.append(x + y + z)
-print(len(R), min(R))
-'''
-
-
-# https://education.yandex.ru/ege/task/8e1b9524-b73c-49fc-9fe4-36e27cc94449
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if x % 2025 == 0]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if x % min(D) == 0 or y % min(D) == 0 or z % min(D) == 0:
-        if len(str((x + y + z))) == 6:
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if x % 16 == min(M) or y % 16 == min(M):
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# https://education.yandex.ru/ege/task/de7994f7-d8fe-4848-a91b-b9e7f7490d67
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 42]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in D) + (y in D) + (z in D) >= 2:
-        if (x * y * z) > max(D) ** 2:
-            R.append(x * y * z)
-print(len(R), max(R))
+from ipaddress import *
+cnt = 0
+for mask in range(32+1):
+    net1 = ip_network(f'201.44.240.33/{mask}', 0)
+    net2 = ip_network(f'201.44.240.107/{mask}', 0)
+    if net1 == net2:
+        net = net1.network_address
+        s = f'{net:b}'
+        if s.count('1') >= 5:
+            # print(net1.netmask)
+            cnt += 1
+print(cnt)
 '''
 
 # endregion Урок: *************************************************************
