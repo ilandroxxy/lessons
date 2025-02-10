@@ -118,7 +118,75 @@ print(len(R), max(R))
 '''
 
 
+# № 7819 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+D3 = [x for x in M if len(str(abs(x))) == 3 and x > 0]
+A2 = [x for x in M if len(str(abs(x))) == 2]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in D3) or (y in D3):
+        if (x + y) % max(A2) == 0:
+            R.append(x + y)
+print(len(R), max(R))
+'''
 
+
+# № 8161 /dev/inf 05.23 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+D3 = [x for x in M if len(str(abs(x))) == 3]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in D3) + (y in D3) == 1:
+        if (x + y) <= max(D3):
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# № 6696 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x + y + z) % 2022 == 0:
+        # if (x >= 0) or (y >= 0) or (z >= 0):
+        if (x >= 0) + (y >= 0) + (z >= 0) >= 1:
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# № 6353 (Уровень: Средний)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+D = [x for x in M if abs(x) % 118 == 0]
+A = [x for x in M if abs(x) % 118 == 0 and str(x)[-1] != '8']
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) or (y in D) or (z in D):
+        if str(x)[-3:] == '118' or str(y)[-3:] == '118' or str(z)[-3:] == '118':
+            if (x + y + z) > max(A):
+                R.append((x + y + z)**2)
+print(len(R), max(R))
+'''
+
+# № 7718 (Уровень: Средний)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+R = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            R.append(x + y)
+print(len(R), max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #

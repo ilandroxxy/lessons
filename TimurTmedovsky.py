@@ -6,47 +6,36 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 19878 (Уровень: Средний)
+# № 19410 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(not_copied) == 4:
-        if sum(not_copied) / 4 <= copied3[0]:
-            cnt += 1
-print(cnt)
+from itertools import *
+print('1 2 3 4 5 6')
+table = '12 14 15 21 23 26 32 35 41 45 51 53 54 62'
+graph = 'ГБ БГ БА АБ БВ ВБ АД ДА ДВ ВД ДЕ ЕД ЕВ ВЕ'
+for p in permutations('АБВГДЕ'):
+    new_table = table
+    for i in range(1, 6+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
+#   0    1    2    3    4    5
+# ('Е', 'Д', 'Г', 'Б', 'В', 'А')
+# 12 14 15 21 23 26 32 35 41 45 51 53 54 62
 
 
-# https://education.yandex.ru/ege/task/2c9beda9-8bb0-497c-b6d3-d4fd322f0df0
-'''
-summa = 0
-n = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    n += 1
+# № 19233 ЕГКР 21.12.24 (Уровень: Базовый)
 
-    if len(set(M)) == len(M):
-        if (M[0] + M[-1]) ** 2 > M[1] * M[2] * M[3]:
-            summa += n
-
-print(summa)
-'''
-
-
-# https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if (M[-1] ** 3) >= 2 * (M[0] * M[1] * M[2]):
-        if all(x > 10 for x in M):
-            cnt += 1
-print(cnt)
-'''
+from itertools import *
+print('1 2 3 4 5 6 7 8')
+table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
+graph = 'AF FA AG GA FG GF FH HF HE EH HC CH CB BC BE EB BD DB DE ED DG GD'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
 
 
@@ -59,7 +48,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 16, 17, 19-21, 23, 25]
+# ФИПИ = [1, 2, 5, 6, 8, 9, 12, 13, 14, 16, 17, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

@@ -94,6 +94,15 @@ for x in range(800_001, 10**10):
                 break
 '''
 
+
+#задание 13
+from ipaddress import *
+for mask in range(1, 32+1):
+    net = ip_network(f'213.168.83.190/{mask}',0)
+    if '213.168.64.0' in str(net):
+        print(32 - mask)
+
+
 # endregion Урок: *************************************************************
 # #
 # #

@@ -1982,19 +1982,7 @@ for x in range(124, 10**10, 124):
 '''
 
 
-# todo Сделать разброрм 17 номер № 12249 ЕГКР 16.12.23 (Уровень: Базовый)
-'''
-D = [int(x) for x in open('0. files/17.txt')]
-R = []
-A = [x for x in D if abs(x) % 10 == 3]
-B = [x for x in A if len(str(abs(x))) == 5]
-for i in range(len(D) - 2):
-    x, y, z = D[i], D[i + 1], D[i + 2]
-    if ((x in A) + (y in A) + (z in A)) >= 1:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
+
 
 # todo сделать разбор на канал + задачу ниже № 13715 (Уровень: Средний)
 
@@ -2006,10 +1994,11 @@ for i in range(len(s)-50):
     r = 'B' + 'AB'.join(s[i:i+51]) + 'A'
     maxi = max(maxi, len(r))
 print(maxi)
+'''
 
+# todo после 13715  сделать этот разбор https://education.yandex.ru/ege/task/764352cd-1971-4c8f-ac18-f74a63b9e5f2
 
-# https://education.yandex.ru/ege/task/764352cd-1971-4c8f-ac18-f74a63b9e5f2
-
+'''
 s = open('0. files/24.txt').readline()
 s = s.replace('C', 'D').replace('F', 'D')
 s = s.replace('O', 'A')
@@ -2033,4 +2022,19 @@ for ip in net:
 print(cnt)  # 1022 (минус широковещательного адреса)
 
 print(cnt / 33)
+'''
+
+
+# todo Сделать разброрм 17 номер № 12249 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+D = [int(x) for x in open('0. files/17.txt')]
+R = []
+A = [x for x in D if abs(x) % 10 == 3]
+B = [x for x in A if len(str(abs(x))) == 5]
+for i in range(len(D) - 2):
+    x, y, z = D[i], D[i + 1], D[i + 2]
+    if ((x in A) + (y in A) + (z in A)) >= 1:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
