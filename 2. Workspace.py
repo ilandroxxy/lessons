@@ -1861,7 +1861,7 @@ for p in range(30, 37):
 '''
 
 # todo сделать разбор номера 17 № 18257 (Уровень: Средний)
-
+'''
 R = []
 M = [int(x) for x in open('0. files/17.txt')]
 for i in range(len(M)-1):
@@ -1870,7 +1870,7 @@ for i in range(len(M)-1):
     if (i + j) % 10 == max(M) % 10:
         R.append(abs((x+y) - (i+j)))
 print(len(R), min(R))
-
+'''
 
 
 # todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
@@ -1970,7 +1970,8 @@ for s in open('0. files/9.csv'):
 print(cnt)
 '''
 
-# todo сделать разбор https://education.yandex.ru/ege/task/2135bad3-5844-4cbd-8a72-93751f24130f
+# todo сделать разбор
+
 '''
 from fnmatch import *
 for x in range(124, 10**10, 124):
@@ -1995,3 +1996,41 @@ for i in range(len(D) - 2):
 print(len(R), max(R))
 '''
 
+# todo сделать разбор на канал + задачу ниже № 13715 (Уровень: Средний)
+
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('AB')
+maxi = 0
+for i in range(len(s)-50):
+    r = 'B' + 'AB'.join(s[i:i+51]) + 'A'
+    maxi = max(maxi, len(r))
+print(maxi)
+
+
+# https://education.yandex.ru/ege/task/764352cd-1971-4c8f-ac18-f74a63b9e5f2
+
+s = open('0. files/24.txt').readline()
+s = s.replace('C', 'D').replace('F', 'D')
+s = s.replace('O', 'A')
+s = s.split('DA')
+maxi = 0
+for i in range(len(s)-5):
+    r = 'A' + 'DA'.join(s[i:i+6]) + 'D'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# todo Разобрать Даше
+#  https://education.yandex.ru/ege/task/ebdb9a1e-1e94-4af0-8ce6-003009385c7d
+'''
+from ipaddress import *
+net = ip_network('172.16.8.0/255.255.252.0', 0)
+cnt = 0
+for ip in net:
+    cnt += 1
+print(cnt)  # 1022 (минус широковещательного адреса)
+
+print(cnt / 33)
+'''

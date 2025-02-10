@@ -39,3 +39,16 @@ for a1 in M:
 print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
 '''
 
+
+# todo Хорошая задачка для 2 номера
+# https://education.yandex.ru/ege/task/4820b374-36df-4864-912e-ac63edcbab34
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not((((((w and x) == x) or 1) <= z) or (not x)) and y))
+                if F == 0:
+                    print(x, y, z, w)
+'''
