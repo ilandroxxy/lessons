@@ -6,154 +6,160 @@
 # #
 # region Урок: ********************************************************************
 
+# Определите максимальное количество идущих подряд символов
+# среди которых символ M встречается не более (ровно) 3 раз(а).
 
-# Тип 24 №27691
-# Текстовый файл состоит не более чем из 10**6 символов A, B и C.
-# Определите максимальное количество идущих подряд символов A.
+s = 'MxxxxMxxxxxMxxxMxxxxxxMxxxxMxxxxxxxMxxxxxMxxxxMxxxxxxM'
+# ['', 'xxxx', 'xxxxx', 'xxx', 'xxxxxx', 'xxxx', 'xxxxxxx', 'xxxxx', 'xxxx', 'xxxxxx', '']
+# 15 MxxxxMxxxxxMxxx
+# 21 xxxxMxxxxxMxxxMxxxxxx
+# 21 xxxxxMxxxMxxxxxxMxxxx
+# 23 xxxMxxxxxxMxxxxMxxxxxxx
+# 25 xxxxxxMxxxxMxxxxxxxMxxxxx
+# 23 xxxxMxxxxxxxMxxxxxMxxxx
+# 25 xxxxxxxMxxxxxMxxxxMxxxxxx
+# 18 xxxxxMxxxxMxxxxxxM
+'''
+s = s.split('M')
+maxi = 0
+for i in range(len(s)-3):
+    r = 'M'.join(s[i:i+4])
+    # print(len(r), r)
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
 
 
-# Вариант 1 - ctrl + F
+# № 19717 (Уровень: Средний)
 '''
 s = open('0. files/24.txt').readline()
-print(s)
+s = s.split('M')
+maxi = 0
+for i in range(len(s)-278):
+    r = 'M'.join(s[i:i+279])
+    maxi = max(maxi, len(r))
+print(maxi)
 '''
 
-
-# Вариант 2 - aka 17 номер
+# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
+# Определите в прилагаемом файле максимальное количество идущих подряд символов,
+# среди которых подстрока FSRQ встречается ровно 80 раз.
 '''
 s = open('0. files/24.txt').readline()
-count = 1  # длина промежуточной последовательности
-count_max = 0
+s = s.split('FSRQ')
+maxi = 0
+for i in range(len(s)-80):
+    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+
+# 17535 Основная волна 07.06.24 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('CD')
+maxi = 0
+for i in range(len(s)-160):
+    r = 'D' + 'CD'.join(s[i:i+161]) + 'C'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('CD')
+maxi = 0
+for i in range(len(s)-140):
+    r = 'D' + 'CD'.join(s[i:i+141]) + 'C'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# Определите минимальную подстроку, содержащую 3 символа M.
+'''
+s = 'MxxxxMxxxxxMxxxMxxxxxxMxxxxMxxxxxxxMxxxxxMxxxxMxxxxxxM'
+# ['', 'xxxx', 'xxxxx', 'xxx', 'xxxxxx', 'xxxx', 'xxxxxxx', 'xxxxx', 'xxxx', 'xxxxxx', '']
+# 7 MMxxxxM
+# 12 MxxxxMxxxxxM
+# 11 MxxxxxMxxxM
+# 12 MxxxMxxxxxxM
+# 13 MxxxxxxMxxxxM
+# 14 MxxxxMxxxxxxxM
+# 15 MxxxxxxxMxxxxxM
+# 12 MxxxxxMxxxxM
+# 13 MxxxxMxxxxxxM
+# 9 MxxxxxxMM
+s = s.split('M')
+mini = 10**9
 for i in range(len(s)-1):
-    # if s[i] == 'A' and s[i+1] == 'A':
-    if s[i:i+2] == 'AA':
-        count += 1
-        count_max = max(count_max, count)
-    else:
-        count = 1
-print(count_max)
+    r = 'M' + 'M'.join(s[i:i+2]) + 'M'
+    print(len(r), r)
+    mini = min(mini, len(r))
+print(mini)
 '''
 
 
-# Вариант 3
+# Определите минимальную подстроку, содержащую 100 символов Т.
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('B', ' ').replace('C', ' ')
-count_max = 0
-for x in s.split():
-    count_max = max(count_max, len(x))
-print(count_max)
-
-
-s = open('0. files/24.txt').readline()
-s = s.replace('B', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-
-
-print(max([len(x) for x in open('0. files/24.txt').readline().replace('B', ' ').replace('C', ' ').split()]))
+s = s.split('T')
+mini = 10**9
+for i in range(len(s)-98):
+    r = 'T' + 'T'.join(s[i:i+99]) + 'T'
+    mini = min(mini, len(r))
+print(mini)
 '''
 
 
-# Тип 24 №40740
+# Тип 24 №39253
 # Определите максимальное количество идущих подряд символов,
-# среди которых нет ни одной буквы A и при этом не менее трёх букв E.
+# среди которых не более одной буквы D.
 '''
 s = open('0. files/24.txt').readline()
-print(max([len(x) for x in s.split('A') if x.count('E') >= 3]))
+s = s.split('D')
+maxi = 0
+for i in range(len(s)-1):
+    r = 'D'.join(s[i:i+2])
+    maxi = max(maxi, len(r))
+print(maxi)
 '''
 
-
-# Тип 24 №37159
-# Найдите максимальную длину подстроки,
-# в которой символы a и d не стоят рядом.
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('ad', 'a d').replace('da', 'd a')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27689
-# Определите максимальную длину цепочки вида XYZXYZXYZ...
-# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
-
-s = open('0. files/24.txt').readline()
-count = 2
-count_max = 0
-for i in range(len(s) - 2):
-    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
-        if count == 2 and s[i:i+3] != 'XYZ':
-            continue
-        count += 1
-        count_max = max(count, count_max)
-    else:
-        count = 2
-print(count_max)
-
-
-# Тип 24 №27690
+# Тип 24 №63073
 # Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
+# среди которых каждая из букв C и D встречается не более двух раз.
 '''
 s = open('0. files/24.txt').readline()
-count = 1
-count_max = 0
-for i in range(len(s) - 1):
-    if s[i] != s[i+1]:
-        count += 1
-        count_max = max(count_max, count)
-    else:
-        count = 1
-print(count_max)
+s = s.replace('C', 'C ').replace('D', 'D ')
+s = s.split()
+maxi = 0
+for i in range(len(s)-4):
+    r = ''.join(s[i:i+5])[:-1]
+    if r.count('C') == 2 and r.count('D') == 2:
+        maxi = max(maxi, len(r))
+print(maxi)
+'''
+# ['C', 'YC', 'HD', 'YEKUWMD', 'EKHABHHPED']
 
+
+# № 19970 (Уровень: Сложный)
 
 s = open('0. files/24.txt').readline()
-while 'AA' in s or 'BB' in s or 'CC' in s:
-    s = s.replace('AA', 'A A')
-    s = s.replace('BB', 'B B')
-    s = s.replace('CC', 'C C')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №59849
-# Необходимо найти самую длинную подстроку,
-# содержащую символы из алфавита 26-ричной системы счисления.
-'''
-s = open('0. files/24.txt').readline()
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[26:]:
+for x in '++ ** +* *+'.split():
     s = s.replace(x, ' ')
-
-print(sorted([len(x) for x in s.split()])[-1])
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №47021
-# Определите количество групп из идущих подряд не менее 10 символов,
-# которые начинаются и заканчиваются буквой A и не содержат других
-# букв A (кроме первой и последней) и букв B.
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('A', 'A A')
-print(len([x for x in s.split() if 'B' not in x and len(x) >= 10]))
-'''
-
-
-# Тип 24 №47228
-# Текстовый файл состоит из символов A, C, D, F и O.
-# Определите максимальное количество идущих подряд пар символов вида:
-# согласная + гласная.
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('O', 'A')
-s = s.replace('C', 'F').replace('F', 'D')
-while 'AA' in s or 'DD' in s:
-    s = s.replace('DD', 'D D').replace('AA', 'A A')
-print(max([len(x) for x in s.split()]) / 2)
-'''
-
+maxi = 0
+for x in s.split():
+    try:
+        r = eval(x)
+        if len(str(r)) > 1 and r % 5 == 0:
+            if maxi < len(x):
+                maxi = len(x)
+                print(maxi, r, x)
+    except:
+        continue
+print(maxi)
 
 
 # endregion Урок: *************************************************************
@@ -161,11 +167,28 @@ print(max([len(x) for x in s.split()]) / 2)
 # #
 # region Разобрать: *************************************************************
 
+# todo разобрать задачку Тип 24 №59847
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('WW', ' ')
+s = s.split()
+maxi = 0
+for i in range(len(s)-100):
+    r = 'W' + 'WW'.join(s[i:i+101]) + 'W'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+from turtle import *
+print(bk)
+
+# зацепка может быть тут https://inf-ege.sdamgia.ru/problem?id=59729
+# В строке TTTT пара символов встречается ровно 3 раза.
 
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [5, 8, 9, 12, 13, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
