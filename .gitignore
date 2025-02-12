@@ -20,6 +20,9 @@ main.py
 .DS_Store/
 /lessons/*.txt
 /lessons/**/*.txt
+0. Accounting.py
+2. Workspace.py
+
 
 
 # Distribution / packaging

@@ -2038,3 +2038,12 @@ for i in range(len(D) - 2):
             R.append(x + y + z)
 print(len(R), max(R))
 '''
+
+
+
+
+
+
+
+
+
