@@ -2039,11 +2039,3 @@ for i in range(len(D) - 2):
 print(len(R), max(R))
 '''
 
-
-
-
-
-
-
-
-

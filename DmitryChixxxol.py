@@ -7,55 +7,29 @@
 # region Урок: ********************************************************************
 
 '''
-# узел & маска = адрес сети
-# узел - knot
-# маска - mask
-# адрес сети - net
-
-from ipaddress import *
-# адрес сети = ip_network('узел/маска', 0)
-
-
-from ipaddress import *
-net = ip_network('214.96.0.0/255.240.0.0', 0)
-print(net)  # 214.96.0.0/12, где 12 - это кол-во единиц в маске
-print(net.network_address)  # 214.96.0.0 - адрес сети
-print(net.netmask)  # 255.240.0.0 - маска сети
-print(net.num_addresses)  # 1048576 - кол-во айпи адресов в сети
-
-# 255.240.0.0  -> 111111...000000 (32)
-# 11111111.11110000.00000000.00000000 -> 12 (12 единиц в маске)
-# Вариантов масок всего 32
-'''
-
-# Первый прототип:
-'''
-from ipaddress import *
-net = ip_network('214.96.0.0/255.240.0.0', 0)
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('0') % 3 == 0:
-        cnt += 1
-print(cnt)
-'''
-
-
-# Второй прототип:
-'''
-from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net1 = ip_network(f'201.44.240.33/{mask}', 0)
-    net2 = ip_network(f'201.44.240.107/{mask}', 0)
-    if net1 == net2:
-        net = net1.network_address
-        s = f'{net:b}'
-        if s.count('1') >= 5:
-            # print(net1.netmask)
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    copied2 = [x for x in M if M.count(x) == 2]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(not_copied) == 3:
+        if M[0] * M[1] > sum(M[2:]):
             cnt += 1
 print(cnt)
 '''
+
+
+# https://education.yandex.ru/ege/task/f4fdf6fb-9ba6-4a16-b901-0b495310b132
+
+from itertools import *
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if M[-1] < sum(M[:-1]):
+        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M, r=4)):
+            cnt += 1
+print(cnt)
+
 
 # endregion Урок: *************************************************************
 # #

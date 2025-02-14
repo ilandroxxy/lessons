@@ -6,75 +6,38 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Пароль от пинсода банковской карты
-# symbols = 4
-# alphabet = 10  # 0123456789
-
-
-# https://education.yandex.ru/ege/task/74c0723d-e2c9-4116-a844-da6dfa3a3168
 '''
-symbols = 200
-alphabet = 10 + 2040  # alphabet = 2 ** i
-i = 12  # 2**12 >= 2050 (alphabet)
-# i - это количество бит на один символ
-
-bit = symbols * i
-print(bit / 8)  # 300.0
-byte = 300
-
-print((98_304 * byte) / 2**10)
-'''
-# Гбайт - Мбайт - Кбайт - байт - бит
-
-
-# https://education.yandex.ru/ege/task/d26658b5-8543-4e2d-bb16-d916165bdde9
-'''
-symbols = 8
-alphabet = 7
-i = 3
-
-bit = symbols * i
-print(bit / 8)  # 3.0
-byte = 3
-
-print(42 * (byte + 8))
+from itertools import *
+R = []
+for p in permutations('ПАРИЖАНКА'):
+    word = ''.join(p)
+    slovo = word  # копия для второго условия
+    slovo = slovo.replace('И', 'А')
+    if slovo.count('АА') == 1 and 'ААА' not in slovo:
+        R.append(word)
+print(len(set(R)))
 '''
 
-
-# https://education.yandex.ru/ege/task/f2ae72ec-dd45-47c0-996a-69d1b524b2e9
-'''
-symbols1 = 10
-alphabet1 = 26
-i1 = 5
-bit1 = symbols1 * i1
+alphabet = sorted('01234567890qwertyuiopasdfghjklzxcvbnm')
 
 
-symbols2 = 10
-alphabet2 = 10
-i2 = 4
-bit2 = symbols2 * i2
+def my_convert(a, b):
+    res = ''
+    while a:
+        res += alphabet[a % b]
+        a //= b
+    return res[::-1]
 
-bit = bit1 + bit2
-print(bit / 8)  # 11.25
-byte = 12
-# V = byte + доп
 
-V = 600 / 20
-print(V - byte)
-'''
+x = 5 * 729 ** 2024 + 3 * 243 ** 1413 - 7 * 81 ** 169 - 2 * 9 ** 107 + 3017
+s = my_convert(x, 27)
+summ = 0
+for i in s:
+    if i in alphabet[0::2]:
+        if i < 'o':
+            summ += alphabet.index(i)
+print(summ)
 
-# https://education.yandex.ru/ege/task/96f79e32-9433-4b33-a931-1b2f12d675b1
-'''
-V = (124 * 2**10) / 2000  # байт = допы + ID
-byte = V - 28
-print(byte)  # 35.488
-byte = 35
-bit = byte * 8
-symbols = 32
-i = bit / symbols
-print(i)  # 8.75
-'''
 
 # endregion Урок: *************************************************************
 # #

@@ -1,5 +1,19 @@
 # region Домашка: ******************************************************************
 
+# № 6696 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+    if (x + y + z) % 2022 == 0:
+        # if (x > 0) or (y > 0) or (z > 0):
+        if (x > 0) + (y > 0) + (z > 0) >= 1:
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,90 +21,71 @@
 # region Урок: ********************************************************************
 
 '''
-s = open('0. files/24.txt').readline()
-s = s.replace('B', 'A').replace('C', 'A')
-# AB BA AA BB BC CB CC CA AC  -> AA
-while 'AA' in s:
-    s = s.replace('AA', 'A A')
-
-print(max([len(x) for x in s.split()]))
-
-maxi = 0
-for x in s.split():
-    # print(len(x), x)
-    if maxi < len(x):
-        maxi = len(x)
-print(maxi)
+cnt = 0
+for s in open('0. files/9.csv'):
+    print(s)  # 49;20;13;90;55;28;87
+    M = [int(x) for x in s.split(';')]
+    print(M)  # [49, 20, 13, 90, 55, 28, 87]
 '''
 
-# M = []
-# for x in open('0. files/17.txt'):
-#     M.append(int(x))
-
-
-# Способ открытия файла для 17 номера
+# https://education.yandex.ru/ege/task/c255edb8-3ff7-4c2a-bf66-03487b499649
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    if len(copied3) == 3:
+        if len(set(M)) == 5:
+            if sum(M) < 502:
+                cnt += 1
+print(cnt)
 '''
 
 
-# Рассмотрим три прототипа 17 номера:
+# https://education.yandex.ru/ege/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
 '''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-# 1. Под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        print(f'{x}{y}', end=' ')
-    print()
-'''
-
-# № 18957 (Уровень: Средний)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 43 == min(M)) and (y % 43 == min(M)):
-        R.append(abs(x - y))
-print(len(R), max(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied = [x for x in M if M.count(x) == 2]  # 5 5
+    not_copied = [x for x in M if M.count(x) == 1]  # 4 5 6
+    if len(copied) == 4 and len(not_copied) == 3:
+        # if sum(copied) / len(copied) < sum(M) / len(M):
+            print(sum(copied) / len(copied), sum(M) / len(M), copied, M)
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 18582 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/82c97d22-18da-44ce-aafa-9e25f9e55301
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x < 0) + (y < 0) + (z < 0) >= 2:
-        if abs(x + y + z) % 10 == abs(min(M)) % 10:
-            R.append(abs(x + y + z))
-print(len(R), max(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied = [x for x in M if M.count(x) == 2]
+    if len(copied) == 6:
+        a, b, c = sorted(set(M))
+        if a ** 2 + b ** 2 == c ** 2:
+            cnt += 1
+print(cnt)
 '''
 
-print(123 % 10)  # 3
-print(-123 % 10)  # 7 -> 10 - 3 = 7
-print(abs(-123) % 10)  # 3
 
-
+# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    flag = 0
+    if len(M) == len(set(M)):  # все числа различны;
+        flag += 1
+    # if max(M) > sum(M) - max(M):
+    if max(M) > sum(M[:-1]):
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -101,7 +96,7 @@ print(abs(-123) % 10)  # 3
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

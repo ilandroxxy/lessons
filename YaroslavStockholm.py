@@ -1,122 +1,122 @@
 # region Домашка: ******************************************************************
 
-
-# № 17564 Основная волна 08.06.24 (Уровень: Средний)
-# https://stepik.org/lesson/1038816/step/14?unit=1062780
+# № 12922 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div.append(j)
-            div.append(x//j)
-    return sorted(set(div))
-
-
-k = 0
-for x in range(700000+1, 1000000):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = max(d) + min(d)
-        if M % 10 == 4:
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
+from ipaddress import *
+cnt = 0
+net = ip_network('136.36.240.16/255.255.255.248', 0)
+for ip in net:
+    # b = bin(int(ip))[2:]
+    b = f'{ip:b}'
+    if '101' not in b:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 5477 (Уровень: Средний) 🌶
-# https://stepik.org/lesson/1038816/step/15?unit=1062780
+# № 8503 Апробация 17.05 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div.append(j)
-            div.append(x//j)
-    return sorted(set(div))
+def F(x, A):
+    return ((x & 52 != 0) and (x & 36 == 0)) <= (x & A != 0)
 
 
-k = 0
-for x in range(600_000+1, 10**10):
-    if x % 6 == 0:
-        if len(divisors(x-1)) == 0 and len(divisors(x+1)) == 0:
-            print(x-1, x+1)
-            k += 1
-            if k == 6:
-                break
+for A in range(1, 100000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 '''
+
+'''
+def F(x, a1, a2):
+    P = 10 <= x <= 45
+    Q = 35 <= x <= 78
+    A = a1 <= x <= a2
+    return ((not P) <= Q) and (not A)
+
+
+R = []
+M = [x / 4 for x in range(1 * 4, 90 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) == False for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 68.0 -> 68
+'''
+
+# № 12469 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return D <= (((not C) and (not A)) <= (not D))
+
+
+R = []
+M = [x / 10 for x in range(1 * 10, 110 * 10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+# Ответ: 22
+
+
+# № 18930 Новогодний вариант 2025 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 10 <= x <= 150
+    Q = 160 <= x <= 250
+    R = 240 <= x <= 300
+    A = a1 <= x <= a2
+    return (Q <= P) or ((not A) <= R)
+
+R =[]
+M = [x / 2 for x in range(1 * 2, 310 * 2)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+            print(min(R))
+'''
+
+
+# № 18595 (Уровень: Базовый)
+'''
+def F(x, A1, A2):
+    C = 48 <= x <= 94
+    J = 83 <= x <= 100
+    A = A1 <= x <= A2
+    return (not(C or J)) <= (not A)
+
+
+R = []
+M = [x / 5 for x in range(35 * 5, 110 * 5)]
+for A1 in M:
+    for A2 in M:
+        if all(F(x, A1, A2) for x in M):
+            R.append(A2 - A1)
+print(max(R)) #74.8 -> 75
+'''
+#Ответ: 75
+
+
+def F(A, x):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+
+for A in range(1, 1000):
+    if all(F(A, x) for x in (1, 100000)):
+        print(A)
+        break
+
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-
-# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-def F(x, y, A):
-    return (x - 3*y < A) or (y > 400) or (x > 56)
-
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
-'''
-
-
-# № 18877 (Уровень: Базовый)
-'''
-def F(x, y, A):
-    return (not((x < 7) or (y >= 5*x + A - 60) or (x >= 36) or (y < 225)))
-
-
-for A in range(10000, 1, -1):
-    if all(F(x, y, A) == False for x in range(1, 1000) for y in range(1, 1000)):
-        print(A)
-        break
-'''
-
-
-# № 18266 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-'''
-
-# 14 & 5
-# 14 -> 1100_2
-# 5  -> 0101_2
-
-# Побитовая конъюнкция%
-
-
-# 1110
-# 0101
-# 0100 -> 4
-
-
-# 18175 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
-
-# print(max([A for A in range(1, 1000) if all( (((x % 7 != 0) and (x % 13 == 0)) <= (x > A - 40)) for x in range(1, 10000))]))
 
 
 # endregion Урок: *************************************************************
