@@ -107,5 +107,9 @@ summa3 = sum(map(int, s))
 # summa4 = s.count('1') + s.count('2') * 2 + ...
 
 
+def number(s: str):
+    return f'---------------------------------------- \n{s}: \n\n\n'
+
+
 if __name__ == '__main__':
     print("Hello, world!")
