@@ -52,3 +52,37 @@ for x in 0, 1:
                 if F == 0:
                     print(x, y, z, w)
 '''
+
+
+# todo просто интересная задача 24 № 7012 (Уровень: Средний)
+'''
+f = open('0. files/24.txt').readlines()
+cnt = 0
+for s in f:
+    for x in 'UIOPASDFGHJKLZXCVBNM0123456789':
+        s = s.replace(x, '')
+    flag = ''
+    bflag = 'QWERTY'
+    for i in range(len(s)):
+        if flag == 'QWERTY':
+            cnt += 1
+            break
+        if s[i] == bflag[0]:
+            flag += s[i]
+            bflag = bflag[1:]
+
+print(cnt)
+'''
+
+# todo интересная задача 24 номера № 14512 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('1', '1 1').replace('8', '8 8')
+maxi = 0
+for x in s.split():
+    if x.count('1') == 1:
+        if x.count('B') == x.count('C'):
+            maxi = max(maxi, len(x))
+print(maxi)
+# print(max([len(x) for x in s.split() if x.count('1') == 1 and x.count('B') == x.count('C')]))
+'''

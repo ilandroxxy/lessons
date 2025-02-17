@@ -1,171 +1,178 @@
 # region Домашка: ******************************************************************
 
-# № 11228 (Уровень: Сложный) 🌶
+# № 11954 (Уровень: Средний) 🌶
 '''
-from itertools import *
-
-summa = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    povt3 = [x for x in M if M.count(x) == 3]
-    povt2 = [x for x in M if M.count(x) == 2]
-    if len(povt3) == 3 and len(povt2) == 4:
-        if any((((p[0] + p[1]) % 2 != 0) + ((p[2] + p[3]) % 2 != 0)) == 2 for p in permutations(M[:4])):
-            summa += sum(M)
-print(summa)
-'''
-
-# № 9778 Основная волна 20.06.23 (Уровень: Средний)
-'''
-n = 0
-for s in open('0. files/9.csv'):
-    n += 1
-    M = sorted([int(x) for x in s.split(',')])
-
-    copied2 = [x for x in M if M.count(x) == 2]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(not_copied) == 4:
-        if sum(copied2) / 2 >= sum(not_copied) / 4:
-            print(n)
-            break
+s = open('0. files/24.txt').readline()
+s = s.split('X')
+mini = 10**9
+for i in range(len(s)-498):
+    r = 'X' + 'X'.join(s[i:i+499]) + 'X'
+    if 'Y' not in r:
+        mini = min(mini, len(r))
+print(mini)
 '''
 
 
-# № 9539  (Уровень: Средний)
+# № 8475 (Уровень: Средний)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    b = [x for x in M if M.count(x) == 2]
-    n = [x for x in M if M.count(x) == 1]
-    if len(b) == 4 and len(n) == 1:
-        if n[0] == M[2]:
-            cnt += 1
-print(cnt)
+s = [int(x) for x in open('0. files/17.txt')]
+f = [x for x in s if len(str(abs(x))) == 3 and abs(x) % 10 == 8]
+R = []
+for i in range(len(s) - 2):
+    a, b, c = s[i:i + 3]
+    v = [x for x in (a, b, c) if x ** 2 > min(f) ** 2]
+    w = [x for x in (a, b, c) if len(str(abs(x))) == 3]
+    if len(v) == 2 and len(w) >= 1:
+        R.append(a + b + c)
+print(len(R), max(R))
 '''
-
-# i           0   1   2  3  4
-# M = sorted([14, 14, 8, 9, 9])
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# https://education.yandex.ru/ege/task/a63bca73-d464-4237-a1f3-60131bbbee77
+# № 6757 Апробация 10.03.23 (Уровень: Базовый)
 '''
 s = open('0. files/24.txt').readline()
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-count = 1
-maxi = 0
-new_s = ' '
-for i in range(len(s)-1):
-    count += 1
-
-    if s[i] in alphabet[:16] and s[i] not in new_s:
-        if s[i] > max(new_s):
-            new_s += s[i]
-            maxi = max(maxi, count)
-        else:
-            new_s = ' '
-            count = 1
-print(maxi)
-'''
-
-'''
-s = 'xxxxxTxxxxTxxxxxTxxxxxTxxxxTxxxxTxxxxxTxxxx'
-# ['xxxxx', 'xxxx', 'xxxxx', 'xxxxx', 'xxxx', 'xxxx', 'xxxxx', 'xxxx']
-# 22 xxxxxTxxxxTxxxxxTxxxxx
-# 21 xxxxTxxxxxTxxxxxTxxxx
-# 21 xxxxxTxxxxxTxxxxTxxxx
-# 21 xxxxxTxxxxTxxxxTxxxxx
-# 20 xxxxTxxxxTxxxxxTxxxx
-s = s.split('T')
-maxi = 0
-for i in range(len(s)-3):
-    r = 'T'.join(s[i:i+4])
-    print(len(r), r)
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# № 10105 Демоверсия 2024 (Уровень: Средний)
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('T')
-maxi = 0
-for i in range(len(s)-100):
-    r = 'T'.join(s[i:i+101])
-    maxi = max(maxi, len(r))
-print(maxi)'''
-
-
-# № 13715 (Уровень: Средний)
-
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('AB')
-maxi = 0
-for i in range(len(s)-50):
-    r = 'B' + 'AB'.join(s[i:i+51]) + 'A'
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# https://education.yandex.ru/ege/task/764352cd-1971-4c8f-ac18-f74a63b9e5f2
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('C', 'D').replace('F', 'D')
-s = s.replace('O', 'A')
-s = s.split('DA')
-maxi = 0
-for i in range(len(s)-5):
-    r = 'A' + 'DA'.join(s[i:i+6]) + 'D'
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# № 13100 (Уровень: Средний)
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('C', 'C ').replace('D', 'D ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-5):
-    r = ''.join(s[i:i+5])[:-1]
-    if r.count('C') == 2 and r.count('D') == 2:
-        maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# https://education.yandex.ru/ege/task/b80b725b-df8b-407d-b120-941e53aa5df9
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('A', 'A ').replace('O', 'O ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-201):
-    r = ''.join(s[i:i+201])[:-1]
-    if r.count('A') == 100 and r.count('O') == 100:
-        maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-
-s = open('0. files/24.txt').readline()
-print(s)
-s = s.replace('XA', '**').replace('XY', '++').replace('TXA', '---')
-s = s.upper()
-for x in '0123456789QWERTYUIOPASDFGHJKLZXCVBNM':
+s = s.replace('CFE', '*').replace('FCE', '*')
+for x in 'CDEF':
     s = s.replace(x, ' ')
 print(max([len(x) for x in s.split()]))
+'''
+
+
+# № 7012 (Уровень: Средний)
+'''
+f = open('0. files/24.txt').readlines()
+cnt = 0
+for s in f:
+    for x in 'UIOPASDFGHJKLZXCVBNM0123456789':
+        s = s.replace(x, '')
+    flag = ''
+    bflag = 'QWERTY'
+    for i in range(len(s)):
+        if flag == 'QWERTY':
+            cnt += 1
+            break
+        if s[i] == bflag[0]:
+            flag += s[i]
+            bflag = bflag[1:]
+
+print(cnt)
+'''
+
+
+# № 9791 Основная волна 20.06.23 (Уровень: Средний)
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+s = open('0. files/24.txt').readline()
+for x in alphabet[16:]:
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# № 12476 PRO100 ЕГЭ 29.12.23 (Уровень: Сложный)
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('RO')
+maxi = 0
+for i in range(len(s)-21):
+    r = 'O' + 'RO'.join(s[i:i+22]) + 'R'
+    if 'ROR' in r or 'ORO' in r:
+        r = r.replace('ROR', 'RO OR')
+        r = r.replace('ORO', 'OR RO')
+        maxi = max(maxi, max([len(x) for x in r.split()]))
+print(maxi)
+'''
+
+'''
+s = open('files/24_9753.txt').readline()
+s = s.split('Y')
+maxi = 0
+for i in range(len(s) - 150):
+    d = 'Y'.join(s[i:i + 151])
+    maxi = max(maxi, len(d))
+print(maxi)
+'''
+
+
+# № 18029 (Уровень: Базовый)
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('X', 'X X').split()
+maxi_y = 0
+R = []
+for x in s:
+    if maxi_y <= x.count('Y'):
+        maxi_y = x.count('Y')
+        R.append([maxi_y, len(x)])
+for elem in R:
+    print(elem)
+'''
+
+
+# № 14512 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('1', '1 1').replace('8', '8 8')
+maxi = 0
+for x in s.split():
+    if x.count('1') == 1:
+        if x.count('B') == x.count('C'):
+            maxi = max(maxi, len(x))
+print(maxi)
+# print(max([len(x) for x in s.split() if x.count('1') == 1 and x.count('B') == x.count('C')]))
+'''
+
+
+# № 14513 (Уровень: Базовый)
+'''
+from string import *
+maxi = 0
+s = open('0. files/24.txt').readline()
+for x in digits:
+    s = s.replace(x, '&')
+for x in ascii_uppercase:
+    s = s.replace(x, '#')
+s = s.replace('&#', '& #')
+s = s.split()
+for i in range(len(s)-1):
+    r = ''.join(s[i:i+2])
+
+    while r[-1] == '&':
+        r = r[:-1]
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# № 19719 (Уровень: Базовый)
+'''
+s = open('0. files/24.txt').readline()
+while any(p in s for p in ('**', '--', '-*', '*-')):
+    for x in ('**', '--', '-*', '*-'):
+        s = s.replace(x, ' ')
+
+
+maxi = 0
+s = s.split()
+for x in s:
+    try:
+        eval(x)  # эта функция считает арифметическое действие от строки
+        maxi = max(maxi, len(x))
+    except Exception as e:
+        continue
+print(maxi)
+'''
+
 
 # endregion Урок: ********************************************************************
 # #
 # #
 # region Разобрать: ********************************************************************
+
 
 
 # endregion Разобрать: *************************************************************
