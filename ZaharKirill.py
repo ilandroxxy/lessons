@@ -1,146 +1,141 @@
 # region Домашка: ******************************************************************
 
-# № 2356 (Уровень: Базовый)
+# № 3691 (Уровень: Базовый)
+# https://stepik.org/lesson/1038816/step/8?unit=1062780
 '''
-def F(x, a1, a2):
-    P = 10 <= x <= 45
-    Q = 35 <= x <= 78
-    A = a1 <= x <= a2
-    return ((not P) <= Q) and (not A)
+k = 0
+for x in range(320_400+1, 10**8):
+    if all(x % p == 0 for p in (10, 12, 14, 16, 18)):
+        print(x, x // 18)
+        k += 1
+        if k == 5:
+            break
+'''
+
+# ? - 0123456789
+# 1? -> 10, 12, 14, 16, 18
 
 
-R = []  # сюда будем складывать длины отрезков
-M = [x / 4 for x in range(5 * 4, 90 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) == False for x in M):
-            R.append(a2 - a1)
-print(round(min(R)))
+# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
+# https://stepik.org/lesson/1038816/step/10?unit=1062780
 '''
+def divisors(x):  # 24
+    div = []
+    for j in range(2, int(x**0.5)+1):  #  не равный ни самому числу
+        if x % j == 0:
+            div.append(j)  # 4
+            div.append(x // j)  # 24 // 4 = 6
+    return sorted(set(div))
+
+
+k = 0
+for x in range(800000+1, 10**8):
+    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]
+    if len(d) > 0:
+        print(x, min(d))
+        k += 1
+        if k == 5:
+            break
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/4c423ac1-ef41-4eba-b73c-f8f714df7cd5
 '''
-from fnmatch import *
-for x in range(96437, 10**10, 96437):  # [0, 10**10)
-    if fnmatch(str(x), '7?2*4??9?'):
-        print(x, x // 96437)
-'''
+M = []
+for x in open('0. files/17.txt'):
+    M.append(int(x))
+print(M)
 
 
-# https://education.yandex.ru/ege/task/83b21e05-822c-44b1-b785-f14418c83449
-'''
-from fnmatch import *
-for x in range(42, 2*10**8, 42):
-    if fnmatch(str(x), '?2*4*0'):
-        if not fnmatch(str(x), '1*7*'):
-            print(x, x // 42)
+with open(file='0. files/17.txt', mode='r') as f:
+    M = []
+    for x in f:
+        M.append(int(x))
+    print(M)
+# Считается, что файл закрыт
 '''
 
-
-# https://education.yandex.ru/ege/task/2135bad3-5844-4cbd-8a72-93751f24130f
+# Способ чтения файла для 17.txt:
 '''
-from fnmatch import *
-for x in range(124, 10**10, 124):
-    if fnmatch(str(x), '1*28?64'):
-        divisors = [x % j == 0 for j in (14, 24, 34, 44, 54, 64, 74, 84, 94)]
-        if sum(divisors) == 5:
-            print(x, x // 124)
+M = [int(x) for x in open('0. files/17.txt')]
+R = []  # сюда мы будем складывать наши результаты
 '''
 
-
+# Рассмотрим три прототипа задач:
 '''
-import time
-start = time.time()
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
-# def divisors(x):
-#     div = []
-#     for j in range(1, x+1):
-#         if x % j == 0:
-#             div.append(j)
-#     return div
+# 1. Под парой подразумевается два идущих подряд элемента последовательности
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
 
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-print(divisors(24))
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 2.8512 -> 0.00033
+# 3. Под парой подразумевается два различных элемента последовательности
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
 
 
-# https://education.yandex.ru/ege/task/26295a68-9546-4dd9-87ca-c8f32bd7a755
+#
+# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(114578, 114616+1):
-    d = [j for j in divisors(x) if j % 10 == 8]
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 6:
-            print(x, R)
+M = [int(x) for x in open('0. files/17.txt')]
+D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in D) or (y in D) or (z in D):
+        if (x**2 + y**2 + z**2) <= max(D)**2:
+            R.append(x**2 + y**2 + z**2)
+print(len(R), min(R))
 '''
 
 
-# https://education.yandex.ru/ege/task/ad067f91-26ed-4058-b28a-cb9fc3d92ac0
+# № 17558 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(625681, 758641+1):
-    d = [j for j in divisors(x) if j > 10]
-    if len(d) == 7:
-        print(x, d)
+M = [int(x) for x in open('0. files/17.txt')]
+D = [x for x in M if x % 32 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x < 0) or (y < 0):
+        if (x + y) < len(D):
+            R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# https://education.yandex.ru/ege/task/dc4c312e-1acd-406e-83a6-d4aac88cf80e
+# 7718 (Уровень: Средний)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-k = 0
-for x in range(800_001, 10**10):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 10 == 4:
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            R.append(x + y)
+print(len(R), max(R))
 '''
+# (True) + (True) == 2
+# (True) + (False) == 1
+# (False) + (True) == 1
+# (False) + (False) == 0
+
 
 # endregion Урок: *************************************************************
 # #
@@ -151,7 +146,7 @@ for x in range(800_001, 10**10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 5, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 6, 5, 8, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

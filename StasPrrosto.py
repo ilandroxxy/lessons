@@ -6,54 +6,53 @@
 # #
 # region Урок: ********************************************************************
 
+# Вариант Бахтиев и Шастин номер 8
+
+# Номер 9
+'''
+n = 0
+summa = 0
+for i in open('0. files/9.csv'):
+    n += 1
+    M = sorted([int(x) for x in i.split(';')])
+    if len(set(M)) == len(M):
+        if (M[0] + M[3])**2 > M[1]**3 + M[2]**3:
+            summa += n
+print(summa)
+'''
+# Ответ: 58398
+
+
+# Номер 11
+'''
+from math import *
+k1 = 17
+N1 = 26
+i1 = ceil(log2(N1))
+I1 = k1*i1
+
+k2 = 1
+N2 = 365
+i2 = ceil(log2(N2))
+I2 = k2*i2
+
+I = ceil((I1 + I2) / 8)
+print(I)  # 12
+
+for dop in range(0, 100000):
+    if 50*(I+dop) == 2500:
+        print(dop)
+'''
+
+
+# Номер 13
 '''
 from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net1 = ip_network(f'201.44.240.33/{mask}', 0)
-    net2 = ip_network(f'201.44.240.107/{mask}', 0)
-    if net1 == net2:
-        if f'{net2.network_address:b}'.count('1') >= 5:
-            cnt += 1
-print(cnt)
+net = ip_network('158.214.121.40/255.255.255.224', 0)
+for ip in net:
+    print(ip)
+    # 158.214.121.33
 '''
-
-'''
-from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net = ip_network(f'201.44.240.33/{mask}', 0)
-    print(net.num_addresses)
-
-
-    # 201.44.240.33 - узел
-    # mask - кол-во единиц в двоичной записи маски сети
-    # 32 - mask - кол-во нулей в двоичной записи маски сети
-    # net = 201.44.240.32/28 (адрес сети / кол-во единиц в маске)
-    # net.network_address - адреса сети
-    # net.netmask - маска сети в десятичной записи
-    # net.num_addresses - это кол-во айпи адресов в сети
-'''
-
-
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
-
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    if (x in D) + (y in D) + (z in D) >= 1:
-        if (x**2 + y**2 + z**2) <= max(D)**2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
-
-
-
-
-
-
-
 # endregion Урок: *************************************************************
 # #
 # #
