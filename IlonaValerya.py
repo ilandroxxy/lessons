@@ -1,163 +1,144 @@
 # region Домашка: ******************************************************************
 
-'''
-def F(x, A):
-    return ((x & 103 == 0) and (x & 94 != 0)) <= (x & A != 0)
-
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 100)):
-        R.append(A)
-print(min(R))
-'''
-
-'''
-def F(x, a1, a2):
-    P = 10 <= x <= 45
-    Q = 35 <= x <= 78
-    A = a1 <= x <= a2
-    return ((not P) <= (Q)) and (not A)
-
-
-R = []
-M = [x / 4 for x in range(5 * 4, 90 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) == False for x in M):
-            R.append(a2 - a1)
-print(round(min(R)))
-'''
-
-'''
-def F(x, a1, a2):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a1 <= x <= a2
-    return (not ((not P) <= (Q))) <= ((A) <= ((not Q) <= (P)))
-
-
-R = []
-M = [x / 4 for x in range(5 * 4, 30 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(round(max(R)))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 19783 (Уровень: Базовый)
-#  У исполнителя имеются две команды, которые обозначены латинскими буквами:
-# A. Вычти 2
-# B. Если число чётное, раздели на 2, иначе вычти 3
-# Программа для исполнителя – это последовательность команд.
-#
-# Сколько существует программ, которые преобразуют исходное число 55 в число 3
-# и при этом траектория вычислений не содержит число 18?
+# Номер 12 (19244)
 '''
-def F(a, b):
-    if a < b or a == 18:
-        return 0
-    if a == b:
-        return 1
-    else:
-        if a % 2 == 0:
-            return F(a-2, b) + F(a // 2, b)
-        else:
-            return F(a-2, b) + F(a - 3, b)
+for n in range(4, 10000):
+    s = '1' + '2' * n
 
+    while '12' in s or '322' in s or '222' in s:
+        if '12' in s:
+            s = s.replace('12', '2', 1)
+        if '322' in s:
+            s = s.replace('322', '21', 1)
+        if '222' in s:
+            s = s.replace('222', '3', 1)
 
-print(F(55, 3))
+    summa = sum(map(int, s))
+    if summa == 15:
+        print(n)
+        break
 '''
 
 
-# № 19711 (Уровень: Базовый)
-# А. Прибавить 1
-# В. Умножить на 2
-# C. Возвести в квадрат
-#
-# Сколько существует последовательностей команд, для которых
-# при исходном числе 3 результатом является число 48
-# и при этом траектория вычислений не содержит число 36?
+# Номер 8 (19240)
 '''
-def F(a, b):
-    if a > b or a == 36:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a*2, b) + F(a**2, b)
-
-
-print(F(3, 48))
-'''
-
-# Пусть M — сумма минимального и максимального натуральных делителей целого числа,
-# не считая единицы и самого числа. Если таких делителей у числа нет, то считаем значение M равным нулю.
-#
-# Напишите программу, которая перебирает целые числа, бо́льшие 800 000,
-# в порядке возрастания и ищет среди них такие, для которых M оканчивается на 4.
-# В ответе запишите в первом столбце таблицы первые пять найденных
-# чисел в порядке возрастания, а во втором столбце — соответствующие им значения M.
-
-'''
-def divisors(n):  # 24
-    div = []
-    for j in range(2, int(n**0.5)+1):  # не считая единицы и самого числа.
-        if n % j == 0:
-            div.append(j)  # 4
-            div.append(n // j)  # 24 // 4 = 6
-    return sorted(set(div))
-
-
-k = 0
-for n in range(800_001, 10**10):
-    d = divisors(n)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 10 == 4:  # для которых M оканчивается на 4
-            print(n, M)
-            k += 1
-            if k == 5:
-                break
+s = sorted('ЯНВАРЬ')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if a != 'Я':
+                        if word.count('Ь') <= 1:
+                            if 'ЯЯ' not in word:
+                                print(n)
 '''
 
 
-# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
-# соответствующие маске 21?3*145?5 и делящиеся на 2025 без остатка.
-# В ответе запишите в первом столбце таблицы все найденные числа в порядке возрастания,
-# а во втором столбце – соответствующие им результаты деления этих чисел на 2025.
+# Номер 6 (19238)
 '''
-from fnmatch import *
-for x in range(2025, 10**10, 2025):
-    if fnmatch(str(x), '21?3*145?5'):
-        print(x, x//2025)
+import turtle as t
+t.screensize(-2000, 2000)
+t.left(90)
+t.tracer(0)
+size = 20
+
+# тут описываем псевдокод
+for i in range(8):
+    t.forward(16 * size)
+    t.right(90)
+    t.forward(22 * size)
+    t.right(90)
+t.up()
+t.forward(5 * size)
+t.right(90)
+t.forward(5 * size)
+t.left(90)
+t.down()
+for i in range(8):
+    t.forward(52 * size)
+    t.right(90)
+    t.forward(77 * size)
+    t.right(90)
+
+# тут рисуем точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
 '''
 
 
-# Определите количество пар последовательности, в которых хотя бы одно из чисел больше
-# чем максимальный элемент последовательности, кратный 11.
-# Гарантируется, что такой элементв последовательности есть.
-# В ответе запишите количество найденных пар, затем минимальную из сумм элементов таких пар.
+# Номер 5 (19237)
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 11 == 0]
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+
 R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x > max(D)) or (y > max(D)):
-        R.append(x + y)
-print(len(R), min(R))
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = s + s[-2:]
+    else:
+        summa = sum(map(int, s))
+        s = s + convert(summa, 3)
+    r = int(s, 3)  # в десятичную
+    if r > 220 and r % 2 == 0:
+        R.append(r)
+print(min(R))
+'''
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not(((not x) or y) and (not w)) or (not(z and (not(y and w)))))
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+# № 18482 (Уровень: Базовый)
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x ==(y <= (z or x))) and w
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-# 2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25
+# № 18126 (Уровень: Базовый)
 
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((z == x) <= w) and (w <= (y and x))
+                if F == 1:
+                    print(x, y, z, w)
 
 # endregion Урок: *************************************************************
 # #
