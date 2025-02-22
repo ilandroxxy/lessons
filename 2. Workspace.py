@@ -2047,3 +2047,19 @@ print(maxi)
 # № 18482 (Уровень: Базовый)
 # № 18126 (Уровень: Базовый)
 
+# https://education.yandex.ru/ege/task/f21ffc71-18b2-48d5-a4b3-5286316264af
+
+def F(x, a1, a2):
+    P = 3 <= x <= 87
+    Q = 50 <= x <= 72
+    A = a1 <= x <= a2
+    return P and (not(A == Q)) or (not(Q or A))
+
+
+R = []
+M = [x / 10 for x in range(1 * 10, 100 * 10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47

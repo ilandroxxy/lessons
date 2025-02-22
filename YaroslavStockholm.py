@@ -1,123 +1,157 @@
 # region Домашка: ******************************************************************
-
-# № 12922 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
-'''
-from ipaddress import *
-cnt = 0
-net = ip_network('136.36.240.16/255.255.255.248', 0)
-for ip in net:
-    # b = bin(int(ip))[2:]
-    b = f'{ip:b}'
-    if '101' not in b:
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 8503 Апробация 17.05 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x & 52 != 0) and (x & 36 == 0)) <= (x & A != 0)
-
-
-for A in range(1, 100000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-'''
-
-'''
-def F(x, a1, a2):
-    P = 10 <= x <= 45
-    Q = 35 <= x <= 78
-    A = a1 <= x <= a2
-    return ((not P) <= Q) and (not A)
-
-
-R = []
-M = [x / 4 for x in range(1 * 4, 90 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) == False for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 68.0 -> 68
-'''
-
-# № 12469 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return D <= (((not C) and (not A)) <= (not D))
-
-
-R = []
-M = [x / 10 for x in range(1 * 10, 110 * 10)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
-'''
-# Ответ: 22
-
-
-# № 18930 Новогодний вариант 2025 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 10 <= x <= 150
-    Q = 160 <= x <= 250
-    R = 240 <= x <= 300
-    A = a1 <= x <= a2
-    return (Q <= P) or ((not A) <= R)
-
-R =[]
-M = [x / 2 for x in range(1 * 2, 310 * 2)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-            print(min(R))
-'''
-
-
-# № 18595 (Уровень: Базовый)
-'''
-def F(x, A1, A2):
-    C = 48 <= x <= 94
-    J = 83 <= x <= 100
-    A = A1 <= x <= A2
-    return (not(C or J)) <= (not A)
-
-
-R = []
-M = [x / 5 for x in range(35 * 5, 110 * 5)]
-for A1 in M:
-    for A2 in M:
-        if all(F(x, A1, A2) for x in M):
-            R.append(A2 - A1)
-print(max(R)) #74.8 -> 75
-'''
-#Ответ: 75
-
-
-def F(A, x):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-for A in range(1, 1000):
-    if all(F(A, x) for x in (1, 100000)):
-        print(A)
-        break
-
-
+from functools import lru_cache
+from lib2to3.pgen2.grammar import opmap_raw
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
+'''
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            s = '0' + '1' * x + '2' * y + '3' * z
+            while '01' in s or '02' in s or '03' in s:
+                s = s.replace('01', '30', 1)
+                s = s.replace('02', '3103', 1)
+                s = s.replace('03', '1201', 1)
+            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
+                print(z)
+'''
+
+
+# https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'151.172.115.121/{mask}', 0)
+    net2 = ip_network(f'151.172.115.156/{mask}', 0)
+    if net1 != net2:
+        print(mask, 32 - mask)  # 32
+'''
+
+
+# № 19882 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 4:
+        return 1
+    if n >= 4:
+        return F(n - 1) + n * 2
+
+print(F(2025))
+
+# F(2025) = F(2024) + 2025 * 2
+# F(2024) = F(2023) + 2024 * 2  + 2025 * 2
+#  1 + .... + 2024 * 2  + 2025 * 2
+'''
+# RecursionError: maximum recursion depth exceeded in comparison
+
+
+# № 19597 (Уровень: Базовый)
+'''
+def F(n):
+    if n < 15:
+        return 4
+    if n >= 15 and n % 3 == 0:
+        return F(2 * n/3) + n - 1
+    if n >= 15 and n % 3 != 0:
+        return F(n - 1) + 3
+
+
+for n in range(1, 1000):
+    if F(n) == 251:
+        print(n)
+'''
+
+
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(10000)
+
+@lru_cache()
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n/2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
+
+for n in range(5000):
+    F(n)
+
+print(F(4952) + 2 * F(4958) + F(4964))
+'''
+
+
+# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return (n - 1) * F(n - 1)
+
+print((F(2024) // 7 - F(2023)) // F(2022))
+
+# Просто поменять / на //
+'''
+# print((F(2024) / 7 - F(2023)) / F(2022))
+# OverflowError: integer division result too large for a float
+
+
+# № 14338 (Уровень: Средний)
+# F(n) = G(n) = n, если n<10;
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 10:
+        return n
+    if n > 9:
+        return 3 * n + G(n - 2)
+
+
+def G(n):
+    if n < 10:
+        return n
+    if n > 9:
+        return n - 2 + F(n - 1)
+
+
+print(F(2204) - G(2200))
+'''
+
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(10000)
+@lru_cache()
+def F(n):
+    if n < 3:
+        return 2
+    if n > 2 and n % 2 == 0:
+        return 2*F(n-2)-F(n-1)+2
+    if n > 2 and n % 2 !=0:
+        return 2*F(n-1)+F(n-2)-2
+
+for n in range(5000):
+    F(n)
+
+print(F(170))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -128,9 +162,9 @@ for A in range(1, 1000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 15, 25]
+# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 15, 16, 25]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: 23
 
 
 # Первый пробник 21.12.24:

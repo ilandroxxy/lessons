@@ -6,54 +6,35 @@
 # #
 # region Урок: ********************************************************************
 
+# https://education.yandex.ru/ege/task/092c3e86-8ea1-41ca-8f61-ea6e823536a5
+'''
+def F(x, A):
+    B = 132 <= x <= 150
+    return ((x % A != 0) and B) <= (x % 13 != 0)
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# https://education.yandex.ru/ege/task/f21ffc71-18b2-48d5-a4b3-5286316264af
+
+def F(x, a1, a2):
+    P = 3 <= x <= 87
+    Q = 50 <= x <= 72
+    A = a1 <= x <= a2
+    return P and (not(A == Q)) or (not(Q or A))
+
+
 R = []
-for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    if (x in D) or (y in D) or (z in D):
-        if (x**2 + y**2 + z**2) <= max(D)**2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
-
-
-
-# № 18176 (Уровень: Средний)
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if x > 0 and x % 10 == 4]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    # s = str(abs(x)) + str(abs(y)) + str(abs(z))
-    s = ''.join([str(abs(p)) for p in (x, y, z)])
-    summa = sum(map(int, s))
-    if summa == min(D):
-        R.append(x + y + z)
-print(len(R), max(R))
-
-def result(number, answer):
-    print(f'Задача: {number} \n'
-          f'Ответ: {answer}')
-
-# № 5627 (Уровень: Средний)
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    flag = 0
-    if len(M) != len(set(M)):
-        flag += 1
-    D = sorted(set(M))
-    if all(D[1] - D[0] == D[i+1] - D[i] for i in range(len(D)-1)):
-        flag += 1
-    if flag > 0:
-        cnt += 1
-result('№ 5627', cnt)
-
-
-# № 20190 (Уровень: Базовый)
-
+M = [x / 10 for x in range(1 * 10, 100 * 10)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 
 
 # endregion Урок: *************************************************************
