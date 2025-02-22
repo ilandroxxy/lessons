@@ -6,30 +6,43 @@
 # #
 # region Урок: ********************************************************************
 
+
+# № 19233 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    copied2 = [x for x in M if M.count(x) == 2]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(not_copied) == 3:
-        if M[0] * M[1] > sum(M[2:]):
-            cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/f4fdf6fb-9ba6-4a16-b901-0b495310b132
-
 from itertools import *
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if M[-1] < sum(M[:-1]):
-        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M, r=4)):
-            cnt += 1
-print(cnt)
+print('1 2 3 4 5 6 7 8')
+table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
+graph = 'AG GA AF FA FG GF FH HF HC CH HE EH CB BC BE EB BD DB DE ED DG GD'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
+# 1 2 3 4 5 6 7 8
+# E H B D F A C G
+
+# AG + DE = 4 + 7 = 11
+'''
+
+
+# № 18308 (Уровень: Базовый)
+'''
+from itertools import *
+print('1 2 3 4 5 6 7 8 9')
+table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
+graph = 'AK KA KC CK KB BK BD DB DC CD DH HD DG GD DE ED EF FE FG GF GH HG'
+for p in permutations('ABCDEFGHK'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
+# 1 2 3 4 5 6 7 8 9
+# B G C D K A E F H
+# C G B D K A E F H
 
 # endregion Урок: *************************************************************
 # #
@@ -40,7 +53,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = [23]
 # на следующем уроке:
 
