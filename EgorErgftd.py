@@ -6,100 +6,39 @@
 # #
 # region Урок: ********************************************************************
 
-# Три прототипа для решения
 
-# Тип 24 №27691
-# Определите максимальное количество идущих
-# подряд символов A.
+# Тип 24 №38602
+# Текстовый файл состоит из символов P, Q, R и S.
+# Определите максимальное количество идущих подряд символов в прилагаемом файле,
+# среди которых нет идущих подряд символов P.
 '''
-# Вариант 1 - через поиск
 s = open('0. files/24.txt').readline()
-# print(s)  # воспользоваться ctrl + F
-# BBBBACAAAAAAACBB - длина подстроки 7
+while 'PP' in s:
+    s = s.replace('PP', 'P P')
+print(max([len(x) for x in s.split()]))
+'''
 
-# Вариант 2 - ака 17 номер (через пары)
+# Тип 24 №48472
+# Текстовый файл содержит только буквы A, C, D, F, O.
+# Определите максимальное количество идущих подряд групп символов вида:
+'''
 s = open('0. files/24.txt').readline()
-count = 1  # длина промежуточных последовательностей
-maxi = 0  # длина самой длинной последовательности
-for i in range(len(s) - 1):
-    # if s[i] == 'A' and s[i+1] == 'A':
-    if s[i:i+2] == 'AA':
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-
-
-# Вариант 3 - через замену
-s = open('0. files/24.txt').readline()
-s = s.replace('B', 'C').replace('C', ' ')
+s = s.replace('O', 'A').replace('C', 'D').replace('F', 'D')
+s = s.replace('AAD', '*')
+s = s.replace('A', ' ').replace('D', ' ')
 print(max([len(x) for x in s.split()]))
 '''
 
 
-# Тип 24 №59817
-# Определите максимальное количество идущих подряд символов,
-# среди которых никакие две буквы из набора букв A, B и C (с учетом повторений) не записаны подряд.
+# Тип 24 №27699
+# Определите максимальную длину цепочки вида LDRLDRLDR...
+# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('A', 'B').replace('B', 'C').replace('C', '*')
-while '**' in s:
-    s  = s.replace('**', '* *')
-
-print(max([len(x) for x in s.split()]))
-
-'''
-
-
-# Тип 24 №36037
-# Определите максимальное количество идущих подряд
-# символов, среди которых нет подстроки XZZY.
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №59848
-# Необходимо найти самую длинную подстроку, которая
-# может являться числом в 24-ричной системе счисления.
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-s = open('0. files/24.txt').readline()
-for x in alphabet[24:]:
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27421
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
-'''
-s = open('0. files/24.txt').readline()
-count = 1
 maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
-'''
-
-
-# Тип 24 №27689
-# Определите максимальную длину цепочки вида XYZXYZXYZ...
-# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
-'''
-s = open('0. files/24.txt').readline()
 count = 2
-maxi = 0
 for i in range(len(s)-2):
-    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
+    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
         count += 1
         maxi = max(maxi, count)
     else:
@@ -107,20 +46,33 @@ for i in range(len(s)-2):
 print(maxi)
 '''
 
-
-# Тип 24 №68525
-# Текстовый файл состоит из заглавных букв латинского алфавита
-# Q, R, W и цифр 1, 2, 4. Определите в прилагаемом файле максимальное
-# количество идущих подряд символов, среди которых ни одна буква
-# не стоит рядом с буквой, а цифра — с цифрой.
+# Тип 24 №39253
+# Определите максимальное количество идущих подряд символов,
+# среди которых не более одной буквы D.
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('1', '2').replace('4', '2')
-s = s.replace('Q', 'W').replace('R', 'W')
+s = s.split('D')
+maxi = 0
+for i in range(len(s)-2):
+    r = 'D'.join(s[i:i+2])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
 
-while 'WW' in s or '22' in s:
-    s = s.replace('WW', 'W W').replace('22', '2 2')
-print(max([len(x) for x in s.split()]))
+# Тип 24 №63073
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждая из букв C и D встречается не более двух раз.
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('C', 'C ').replace('D', 'D ')
+s = s.split()
+maxi = 0
+for i in range(len(s) - 4):
+    r = ''.join(s[i:i+5])[:-1]  # EKHABHHPED -> EKHABHHPE_
+    if r.count('C') == 2 and r.count('D') == 2:
+        maxi = max(maxi, len(r))
+    
+print(maxi)
 '''
 
 # endregion Урок: *************************************************************

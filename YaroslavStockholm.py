@@ -1,157 +1,91 @@
 # region Домашка: ******************************************************************
-from functools import lru_cache
-from lib2to3.pgen2.grammar import opmap_raw
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/c21fb755-a462-4ee3-97b3-4c3be812dd68
-'''
-for x in range(50):
-    for y in range(50):
-        for z in range(50):
-            s = '0' + '1' * x + '2' * y + '3' * z
-            while '01' in s or '02' in s or '03' in s:
-                s = s.replace('01', '30', 1)
-                s = s.replace('02', '3103', 1)
-                s = s.replace('03', '1201', 1)
-            if s.count('1') == 31 and s.count('2') == 24 and s.count('3') == 46:
-                print(z)
-'''
+# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
+# У исполнителя есть три команды, которым присвоены номера:
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Прибавить 3
+# Сколько существует программ, которые преобразуют число 5 в число 11,
+# и при этом траектория вычислений содержит число 7?
 
-
-# https://education.yandex.ru/ege/task/b5ea1e82-76f7-4781-8ef4-5f462fdc7638
+# 5 -> 7 -> 11  (+1 +2 +3)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'151.172.115.121/{mask}', 0)
-    net2 = ip_network(f'151.172.115.156/{mask}', 0)
-    if net1 != net2:
-        print(mask, 32 - mask)  # 32
-'''
-
-
-# № 19882 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 4:
+# a - старт, b - конец
+def F(a, b):
+    if a > b:
+        return 0
+    if a == b:
         return 1
-    if n >= 4:
-        return F(n - 1) + n * 2
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
-print(F(2025))
+print(F(5, 7) * F(7, 11))
 
-# F(2025) = F(2024) + 2025 * 2
-# F(2024) = F(2023) + 2024 * 2  + 2025 * 2
-#  1 + .... + 2024 * 2  + 2025 * 2
-'''
-# RecursionError: maximum recursion depth exceeded in comparison
+# Вариант 2
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a+3, b)
 
-
-# № 19597 (Уровень: Базовый)
-'''
-def F(n):
-    if n < 15:
-        return 4
-    if n >= 15 and n % 3 == 0:
-        return F(2 * n/3) + n - 1
-    if n >= 15 and n % 3 != 0:
-        return F(n - 1) + 3
-
-
-for n in range(1, 1000):
-    if F(n) == 251:
-        print(n)
+print(F(5, 7) * F(7, 11))
 '''
 
 
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+# № 17534 Основная волна 07.06.24 (Уровень: Базовый)
+# У исполнителя есть две команды:
+# A. Вычти 1
+# B. Найти целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 30
+# результатом является число 1
+# и при этом тракетория вычислений содержит число 8?
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
+def F(a, b):
+    if a <= b:
+        return a == b
+    return F(a-1, b) + F(a // 2, b)
 
-@lru_cache()
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for n in range(5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+print(F(30, 8) * F(8, 1))
 '''
 
 
-# № 17679 Пересдача 04.07.24 (Уровень: Базовый)
+# № 18047 (Уровень: Базовый)
+# А. Вычесть 2
+# В. Вычесть 3
+# С. Найти целую часть от деления на 4
+# Сколько существует программ, для которых при исходном
+# числе 36 результатом является число 13,
+# при этом траектория вычислений не содержит числа 24?
 '''
-import sys
-sys.setrecursionlimit(10000)
+def F(a, b):
+    if a <= b or a == 24:  # не содержит числа 24
+        return a == b
+    return F(a-2, b) + F(a-3, b) + F(a//4, b)
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return (n - 1) * F(n - 1)
-
-print((F(2024) // 7 - F(2023)) // F(2022))
-
-# Просто поменять / на //
-'''
-# print((F(2024) / 7 - F(2023)) / F(2022))
-# OverflowError: integer division result too large for a float
-
-
-# № 14338 (Уровень: Средний)
-# F(n) = G(n) = n, если n<10;
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 10:
-        return n
-    if n > 9:
-        return 3 * n + G(n - 2)
-
-
-def G(n):
-    if n < 10:
-        return n
-    if n > 9:
-        return n - 2 + F(n - 1)
-
-
-print(F(2204) - G(2200))
+print(F(36, 13))
 '''
 
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-@lru_cache()
-def F(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return 2*F(n-2)-F(n-1)+2
-    if n > 2 and n % 2 !=0:
-        return 2*F(n-1)+F(n-2)-2
 
-for n in range(5000):
-    F(n)
+# № 18267 (Уровень: Средний)
+# А. Прибавить 2
+# В. Прибавить 5
+# С. Возвести в квадрат
+# Сколько существует программ, для которых при исходном числе 4 результатом
+# является число 36, при этом последняя в них команда — не C?
 
-print(F(170))
-'''
+def F(a, b, c: str):
+    if a >= b:
+        print(c, a == b)  # CBBBAC 4**2 + 5 + 5 + 5 + 2 **2
+        return a == b and c[-1] != 'C'
+        # return a == b and c[-1] in 'AB'
+    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
+
+
+print(F(4, 36, ''))
 
 # endregion Урок: *************************************************************
 # #
@@ -162,9 +96,9 @@ print(F(170))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 15, 16, 25]
+# ФИПИ = [2, 5, 6, 8, 10, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
-# на следующем уроке: 23
+# на следующем уроке:
 
 
 # Первый пробник 21.12.24:

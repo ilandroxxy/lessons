@@ -6,7 +6,85 @@
 # #
 # region Урок: ********************************************************************
 
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
+# print(convert(8, 2))  # 1000
+
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        ostat = (n % 3) * 3
+        s = s + convert(ostat, 3)
+    r = int(s, 3)
+    if r > 150:
+        print(n)
+        break
+'''
+
+'''
+import turtle as t
+t.screensize(-10000, 10000)
+t.tracer(0)
+t.left(90)
+l = 20
+
+for i in range(4):
+    t.fd(10 * l)
+    t.rt(270)
+t.up()
+t.fd(3 * l)
+t.rt(270)
+t.fd(5 * l)
+t.rt(90)
+t.down()
+for i in range(2):
+    t.fd(10 * l)
+    t.rt(270)
+    t.fd(12 * l)
+    t.rt(270)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(2, "red")
+
+t.update()
+t.done()
+'''
+
+# https://education.yandex.ru/ege/task/066b8088-3cdb-4504-8403-9d62e96d195e
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+
+# print(convert(8, 2))  # 1000
+
+for n in range(14, 14+1):
+    s = convert(n, 5)
+    summa = sum(map(int, s))
+    if summa % 2 != 0:
+        s = s[-1] + s[:-1]
+    else:
+        x = ((n % 10) * 3)
+        s = s + convert(x, 5)
+    r = int(s, 5)
+    print(s)
+    if s.count('0') > 2:
+        print(n)
+        break
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -16,9 +94,12 @@
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 23, 24, 25]
-# КЕГЭ  = []
-# на следующем уроке:
+# КЕГЭ = []
+# на следующем уроке: 5 на системы счисления >2
 
 
 # Первый пробник 21.12.24:
 # Николай 9/19 -> 48 вторичных баллов +[1, 2, 4, 7, 13, 14, 16, 23, 25] -[5, 6, 8, 9, 12, 15, 17, 24]
+
+# Второй пробник 28.02.25:
+# Николай 12/19 -> 56 вторичных баллов +[1-4, 8-10, 12, 13, 15, 16, 23] -[5, 6, 14, 17, 18-22, 24, 25]

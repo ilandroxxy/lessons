@@ -2043,6 +2043,31 @@ for x in s:
 print(maxi)
 '''
 
+def is_prime(x):
+    if x <= 1:
+        return False
+    for i in range(2, int(x**0.5)+1):
+        if x % i == 0:
+            return False
+    return True
+
+
+for x in range(50):
+    for y in range(50):
+        for z in range(50):
+            for w in range(50):
+                s = '0' + '1' * x + '2' * y + '3' * z + '4' * w + '0'
+                while '00' not in s:
+                    s = s.replace('033', '21120', 1)
+                    s = s.replace('034', '22120', 1)
+                    s = s.replace('04', '220', 1)
+                    s = s.replace('030', '100', 1)
+                if len(s) == 60:
+                    summa = sum(map(int, s))
+                    if is_prime(summa):
+                        print(w)
+
+# Ответ: 26
 
 # № 18482 (Уровень: Базовый)
 # № 18126 (Уровень: Базовый)

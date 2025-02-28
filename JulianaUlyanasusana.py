@@ -1,31 +1,23 @@
 # region Домашка: ******************************************************************
 
-'''
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    copied2 = [x for x in M if M.count(x) == 2]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(not_copied) == 2:
-        if M.count(max(M)) == 1:
-            if M[0] * M[-1] > sum(M[1:-1]):
-                print(sum(M))
-                break
-'''
-
-
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if (sum(M)//7) in M:
-        cnt+=1
-print(cnt)
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
+'''
+from itertools import *
+print('1 2 3 4 5 6 7')
+table = '12 15 16 21 23 24 32 36 37 42 47 51 56 61 63 65 73 74'
+graph = 'AF FA AB BA BF FB BD DB DE ED DG GD GC CG CE EC EF FE'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -36,7 +28,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

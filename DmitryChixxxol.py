@@ -7,42 +7,48 @@
 # region Урок: ********************************************************************
 
 
-# № 19233 ЕГКР 21.12.24 (Уровень: Базовый)
+# 9)
 '''
-from itertools import *
-print('1 2 3 4 5 6 7 8')
-table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
-graph = 'AG GA AF FA FG GF FH HF HC CH HE EH CB BC BE EB BD DB DE ED DG GD'
-for p in permutations('ABCDEFGH'):
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-
-# 1 2 3 4 5 6 7 8
-# E H B D F A C G
-
-# AG + DE = 4 + 7 = 11
+counter = 0
+for x in open('0. files/9.csv'):
+    M = [int(i) for i in x.split(';')]
+    copied = [i for i in M if M.count(i) == 2]
+    uncopied = [i for i in M if M.count(i) == 1]
+    if len(copied) == 4 and len(uncopied) == 3:
+        if (sum(copied) / len(copied)) < (sum(uncopied) / len(uncopied)):
+            counter += 1
+print(counter)
 '''
 
+# net - Адрес сети
+# Адрес сети = Узел сети & Маска сети
+# net = ip_network(f'узел сети №/ маска сети', 0)
 
-# № 18308 (Уровень: Базовый)
+# 13)
 '''
-from itertools import *
-print('1 2 3 4 5 6 7 8 9')
-table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
-graph = 'AK KA KC CK KB BK BD DB DC CD DH HD DG GD DE ED EF FE FG GF GH HG'
-for p in permutations('ABCDEFGHK'):
-    new_table = table
-    for i in range(1, 9+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'111.118.179.50/{mask}', 0)
+    if '111.118.178.0' in str(net):
+        print(net, net.netmask)  # 111.118.178.0/23 255.255.254.0
 '''
-# 1 2 3 4 5 6 7 8 9
-# B G C D K A E F H
-# C G B D K A E F H
+
+# 17)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 29]
+R = []
+for i in range(len(M)-2):
+    # x, y, z = M[i], M[i+1], M[i+2]
+    x, y, z = M[i:i+3]
+    if (x in A) + (y in A) + (z in A) == 2:  # из трёх элементов тройки пятизначными числами являются только два,
+        if (x + y + z) <= max(B):  # сумма элементов тройки не больше максимального элемента последовательности, оканчивающегося на 29.
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
 
 # endregion Урок: *************************************************************
 # #
@@ -60,3 +66,6 @@ for p in permutations('ABCDEFGHK'):
 
 # Первый пробник 21.12.24:
 # Dmitry 11/14 -> 54 вторичных баллов +[1, 2, 4-7, 10-12, 14, 25] -[3, 8, 13]
+
+# Второй пробник 28.02.25:
+# Dmitry 13/16 -> 58 вторичных баллов +[1-5, 7, 8, 12, 14-16, 23, 25] -[6, 9, 13, 17]
