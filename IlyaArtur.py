@@ -6,81 +6,97 @@
 # #
 # region Урок: ********************************************************************
 
-# f = open('0. files/17.txt')
-# M = []
-# for s in f:
-#     M.append(int(s))
-# print(M)
-
 '''
-# Способ открытия файла для 17 номера:
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
+import turtle as t
+k = 30
+t.screensize(2000,2000)
+t.tracer(0)
+t.left(90)
+t.down()
 
-
-M = [1, 2, 3, 4, 5]
-# Рассмотрим три прототипа задач 17 номера:
-
-# 1. Назовём парой два идущих подряд элемента последовательности
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# 2. Назовём тройкой три идущих подряд элемента последовательности
-# 123 234 345
-for i in range(len(M)-2):
-    # x, y, z = M[i], M[i+1], M[i+2]
-    x, y, z = M[i:i+3]
-
-
-# 3. Назовём парой два различных элемента последовательности
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+for i in range(4):
+    t.forward(10*k)
+    t.right(270)
+t.up()
+t.forward(3*k)
+t.right(270)
+t.forward(5*k)
+t.right(90)
+t.down()
+for j in range(2):
+    t.forward(10*k)
+    t.right(270)
+    t.forward(12*k)
+    t.right(270)
+t.up()
+for x in range(-30,30):
+    for y in range(-30,30):
+        t.setpos(x*k, y*k)
+        t.dot(3, 'blue')
+t.update()
+t.done()
 '''
 
 
-# № 19486 (Уровень: Базовый)
+# № 20488 (Уровень: Сложный)
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 10 == 7]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x > 0) + (y > 0) == 1:
-        if (x + y) < len(D):
-            R.append(x + y)
-print(len(R), max(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) > 1]
+    uncopied = [x for x in M if M.count(x) == 1]
+
+    # if len(M) != len(set(M)):
+    if len(copied) > 0 and len(uncopied) > 0:
+
+        if M.count(max(M)) == 1:
+
+            if sum(uncopied) >= (3 * sum(copied)):
+                print(copied, uncopied)
+                cnt += 1
+print(cnt)
+'''
+# Ответ: 1382
+
+
+# https://education.yandex.ru/ege/task/0f1bb8de-fe34-40c1-a82e-8d012e8519dc
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if (max(M) + min(M)) ** 2 > M[1] ** 2 + M[2] ** 2 + M[3] ** 2:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/2f370a43-39d3-4557-97a3-920195435a5d
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if abs(x) % 100 == 43 and len(str(abs(x))) == 5]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    # if (x in D) or (y in D) or (z in D):
-    if (x in D) + (y in D) + (z in D) >= 1:
-        if (x ** 2 + y ** 2 + z ** 2) <= max(D) ** 2:
-            R.append(x ** 2 + y ** 2 + z ** 2)
-print(len(R), min(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if len(M) == len(set(M)):
+        if 3 * (M[0] + M[-1]) >= 2 * sum(M[1:-1]):
+            cnt += 1
+print(cnt)
 '''
 
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 55 == min(M)) or (y % 55 == min(M)):
-        R.append(x+y)
-print(len(R), min(R))
-'''
+
+# https://education.yandex.ru/ege/task/96c09be1-da8c-4460-b91f-05f352ddaa78
+
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    flag = 0
+    if len(M) != len(set(M)):
+        flag += 1
+    nechet = [x for x in M if x % 2 != 0]
+    if len(nechet) == 3:
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -90,7 +106,7 @@ print(len(R), min(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
