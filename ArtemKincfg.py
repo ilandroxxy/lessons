@@ -6,102 +6,92 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 19255 ЕГКР 21.12.24 (Уровень: Базовый)
+# Номер 23
 '''
-from fnmatch import *
-for x in range(18579, 10**10, 18579):
-    if fnmatch(str(x), '54?1?3*7'):
-        print(x, x // 18579)
-'''
-
-# todo Разобрать № 19720 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(153, 10**8, 153):
-    if fnmatch(str(x), '1*2?3*45'):
-        if str(x)[-3] in '13579':
-            print(x, x // 153)
+def F(a, b):
+    if a > b or a==13:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a + 1, b) + F(a + 2,b) + F(a * 3, b)
+print(F(3, 8) * F(8,18))
 '''
 
-
+# Номер 14
 '''
-import time
-start = time.time()
-
-# def divisors(n):
-#     div = []
-#     for j in range(1, n+1):
-#         if n % j == 0:
-#             div.append(j)
-#     return div
-
-
-def divisors(n):
-    div = []
-    for j in range(1, int(n**0.5)+1):
-        if n % j == 0:
-            div.append(j)
-            div.append(n // j)
-    return sorted(set(div))
-
-
-print(divisors(100_000_000))
-
-
-print(time.time() - start)  # 2.8418760 -> 0.00032
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:19]:
+    A = int(f'83{x}916', 19)
+    B = int(f'123{x}45', 19)
+    C = int(f'67{x}89', 19)
+    if (A+B+C) % 17 == 0:
+        print((A+B+C) // 17)
 '''
 
-
-# № 19721 (Уровень: Базовый)
+# Номер 13
 '''
-def divisors(n):
-    div = []
-    for j in range(1, int(n**0.5)+1):
-        if n % j == 0:
-            div.append(j)
-            div.append(n // j)
-    return sorted(set(div))
-
-
-for n in range(178965, 178982+1):
-    d = divisors(n)[::-1]
-    if len(d) == 4:
-        print(*d)
-'''
-
-
-# № 17879 Демоверсия 2025 (Уровень: Базовый)
-'''
-def divisors(n):
-    div = []
-    for j in range(2, int(n**0.5)+1):
-        if n % j == 0:
-            div.append(j)
-            div.append(n // j)
-    return sorted(set(div))
-
-
-k = 0
-for x in range(800_001, 10**10):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 10 == 4:
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
-'''
-
-
-#задание 13
 from ipaddress import *
-for mask in range(1, 32+1):
-    net = ip_network(f'213.168.83.190/{mask}',0)
-    if '213.168.64.0' in str(net):
-        print(32 - mask)
+for mask in range(1,32+1):
+    net = ip_network(f'111.118.179.50/{mask}', 0)
+    if '111.118.178.0' in str(net):
+        print(net, net.netmask)
+        # 111.118.178.0/23 255.255.254.0
+'''
 
+
+# Номер 12
+'''
+for n in range(4, 10000):
+    s = '5' + '2' * n
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122','25', 1)
+    summa = sum(map(int,s))
+    if summa == 64:
+        print(n)
+        break
+'''
+
+
+# Номер 8
+'''
+from itertools import *
+n = 0
+for p in product(sorted('СБОРНИК'), repeat = 6):
+    n += 1
+    word = ''.join(p)
+    if word.count('Б') == 2 and word.count('К') <= 1 and word[0] != 'Р':
+        print(n)
+'''
+
+
+# Номер 5
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+
+
+for n in range(1, 1000):
+    s = convert(n,3)
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 3) * 3
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r > 150:
+        print(n)
+        break
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -112,6 +102,10 @@ for mask in range(1, 32+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 3, 5, 6, 8, 12, 13, 14, 15, 16, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
+
+
+# Второй пробник 28.02.25:
+# Артем 4/29 -> 27 вторичных баллов +[2, 10, 15, 16] -[1, 5, 6, 8, 12, 13, 14, 23]

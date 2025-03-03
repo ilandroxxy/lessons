@@ -6,139 +6,66 @@
 # #
 # region Урок: ********************************************************************
 
-# Номер 12 (19244)
+# № 17522 Основная волна 07.06.24 (Уровень: Базовый)
+# [20, 72, 11, 24] {20, 72, 11, 24} нет
+# [20, 72, 11, 11] {20, 72, 11} два
+# [20, 20, 11, 11] {20, 11} нет
+# [11, 72, 11, 11] {11, 72} нет
 '''
-for n in range(4, 10000):
-    s = '1' + '2' * n
-
-    while '12' in s or '322' in s or '222' in s:
-        if '12' in s:
-            s = s.replace('12', '2', 1)
-        if '322' in s:
-            s = s.replace('322', '21', 1)
-        if '222' in s:
-            s = s.replace('222', '3', 1)
-
-    summa = sum(map(int, s))
-    if summa == 15:
-        print(n)
-        break
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if max(M) < sum(M) - max(M):
+        if len(set(M)) == 3:
+            cnt += 1
+print(cnt)
 '''
 
 
-# Номер 8 (19240)
+# https://education.yandex.ru/ege/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
 '''
-s = sorted('ЯНВАРЬ')
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    D = [x for x in M if str(x)[-1] == '3']
+    if len(D) == 3:
+        A = [x for x in M if x > 0]
+        B = [x for x in M if x < 0]
+        if sum(A) ** 2 < sum(B) ** 2:
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    k = 0
+    if len(M) == len(set(M)):
+        k += 1
+    if M[5] > M[0] + M[1] + M[2] + M[3] + M[4]:
+        k += 1
+    if k == 1:
+        cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/679cf8d3-a852-4dc0-a42f-e8b4825ea271
+'''
 n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if a != 'Я':
-                        if word.count('Ь') <= 1:
-                            if 'ЯЯ' not in word:
-                                print(n)
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    n += 1
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied3 = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 2 and len(copied3) == 3 and len(uncopied) == 3:
+        if copied3[0] > copied2[0]:
+            print(n)
 '''
-
-
-# Номер 6 (19238)
-'''
-import turtle as t
-t.screensize(-2000, 2000)
-t.left(90)
-t.tracer(0)
-size = 20
-
-# тут описываем псевдокод
-for i in range(8):
-    t.forward(16 * size)
-    t.right(90)
-    t.forward(22 * size)
-    t.right(90)
-t.up()
-t.forward(5 * size)
-t.right(90)
-t.forward(5 * size)
-t.left(90)
-t.down()
-for i in range(8):
-    t.forward(52 * size)
-    t.right(90)
-    t.forward(77 * size)
-    t.right(90)
-
-# тут рисуем точки
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(2, 'red')
-
-t.update()
-t.done()
-'''
-
-
-# Номер 5 (19237)
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        summa = sum(map(int, s))
-        s = s + convert(summa, 3)
-    r = int(s, 3)  # в десятичную
-    if r > 220 and r % 2 == 0:
-        R.append(r)
-print(min(R))
-'''
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (not(((not x) or y) and (not w)) or (not(z and (not(y and w)))))
-                if F == 0:
-                    print(x, y, z, w)
-'''
-
-# № 18482 (Уровень: Базовый)
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x ==(y <= (z or x))) and w
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-
-# № 18126 (Уровень: Базовый)
-
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((z == x) <= w) and (w <= (y and x))
-                if F == 1:
-                    print(x, y, z, w)
 
 # endregion Урок: *************************************************************
 # #
@@ -149,6 +76,6 @@ for x in 0, 1:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:

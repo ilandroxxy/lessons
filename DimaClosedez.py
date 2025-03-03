@@ -6,36 +6,6 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/092c3e86-8ea1-41ca-8f61-ea6e823536a5
-'''
-def F(x, A):
-    B = 132 <= x <= 150
-    return ((x % A != 0) and B) <= (x % 13 != 0)
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-
-# https://education.yandex.ru/ege/task/f21ffc71-18b2-48d5-a4b3-5286316264af
-
-def F(x, a1, a2):
-    P = 3 <= x <= 87
-    Q = 50 <= x <= 72
-    A = a1 <= x <= a2
-    return P and (not(A == Q)) or (not(Q or A))
-
-
-R = []
-M = [x / 10 for x in range(1 * 10, 100 * 10)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
-
 
 # endregion Урок: *************************************************************
 # #

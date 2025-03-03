@@ -2043,37 +2043,12 @@ for x in s:
 print(maxi)
 '''
 
-def is_prime(x):
-    if x <= 1:
-        return False
-    for i in range(2, int(x**0.5)+1):
-        if x % i == 0:
-            return False
-    return True
-
-
-for x in range(50):
-    for y in range(50):
-        for z in range(50):
-            for w in range(50):
-                s = '0' + '1' * x + '2' * y + '3' * z + '4' * w + '0'
-                while '00' not in s:
-                    s = s.replace('033', '21120', 1)
-                    s = s.replace('034', '22120', 1)
-                    s = s.replace('04', '220', 1)
-                    s = s.replace('030', '100', 1)
-                if len(s) == 60:
-                    summa = sum(map(int, s))
-                    if is_prime(summa):
-                        print(w)
-
-# Ответ: 26
 
 # № 18482 (Уровень: Базовый)
 # № 18126 (Уровень: Базовый)
 
 # https://education.yandex.ru/ege/task/f21ffc71-18b2-48d5-a4b3-5286316264af
-
+'''
 def F(x, a1, a2):
     P = 3 <= x <= 87
     Q = 50 <= x <= 72
@@ -2088,3 +2063,36 @@ for a1 in M:
         if all(F(x, a1, a2) for x in M):
             R.append(a2 - a1)
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
+'''
+
+# print(9900 + 14400 + 4800 + 3200 + 12000 + 10800 + 5700 + 8000 + 4800 + 10000 + 4000 + 4800 + 3200 + 10000 + 4800)
+
+'''
+print((2000 * 2**13) / 1000)  # 16384 - байт на одного пользователя
+
+# symbols1 = k ?
+alphabet1 = 32 + 10
+i1 = 6
+# bit1 = 6*k
+
+symbols2 = 1
+alphabet2 = 1024
+i2 = 10
+bit2 = 10  # symbols2 * i2
+
+
+# ((6 * k) + 10) = 16384 бит
+# 6*k = 16374
+# k = 16374 / 6  (2729.0)
+print(16374 / 6)
+'''
+
+for n in range(1, 1000):
+    nb = f'{n:b}'
+    nb = nb + str(sum(map(int, nb)) % 2)
+    nb = nb + str(sum(map(int, nb)) % 2)
+    if int(nb, 2) > 99:
+        print(n)
+        break
+
+# Ответ: 25

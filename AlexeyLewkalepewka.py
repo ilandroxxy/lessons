@@ -5,20 +5,60 @@
 # #
 # #
 # region Урок: ********************************************************************
+'''
+from ipaddress import *
 
-def F(a, b):
-    if a < b or a == 16:
-        return 0
-    if a == b:
-        return 1
-    else:
-        if a % 3 == 0:
-            return F(a-2, b) + F(a // 3, b)
-        else:
-            return F(a-2, b) + F(a - 4, b)
+cnt = 0
+for mask in range(33):
+    net = ip_network(f'68.30.20.77/{mask}', 0)
+    net_b = f'{net.network_address:b}'
+    if (32 - mask) == net_b.count('1'):
+        cnt = 0
+        for ip in net:
+            ip_b = f'{ip:b}'
+            if ip_b.count('1') == 10:
+                cnt += 1
+print(cnt)
+'''
+
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n == 0: return 0
+    if n > 0 and n % 4 < 2: return F(n//4) + n % 4
+    if n % 4 >= 2: return F(n//4) + n % 4 - 1
 
 
-print(F(36, 4))
+for n in range(200_000_000, 300_000_000):
+    if F(n) == 27 and F(n+1) == 16:
+        print(n)
+        break
+'''
+
+maxi = 0
+s = open('0. files/24.txt').readline()
+for x in 'BCD*':
+    s = s.replace(x, ' ')
+for x in '++ -- +- -+'.split():
+    s = s.replace(x, ' ')
+s = s.split()
+for x in s:
+    if 'A' not in x:
+        continue
+    x = x[x.index('A'):]
+    x = x.split('A')
+    for y in x:
+        try:
+            eval(y)
+            if y[0] in '+-':
+                continue
+            if maxi <= len(y):
+                maxi = len(y)
+                print(maxi, y, eval(y))
+        except:
+            continue
 
 # endregion Урок: *************************************************************
 # #
