@@ -12,6 +12,8 @@
 import reprlib
 import xml.sax
 
+from macholib.mach_o import rpath_command
+
 # endregion Работа над курсом
 
 # region Планирование бюджета:
@@ -2009,6 +2011,21 @@ print(len(set(R)))
 '''
 
 
+# todo сделать разбор Номер 13 18445
+'''
+from ipaddress import *
+net = ip_network('140.116.194.0/255.255.240.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s[7] == '0' and s[15] == '0' and s[23] == '0' and s[31] == '0':
+        cnt += 1
+print(cnt)
+'''
+# s[:8] s[8:16] s[16:24] s[24:]
+
+
+
 # todo Сделать разбор 24 номера № 14512 (Уровень: Средний)
 '''
 s = open('0. files/24.txt').readline()
@@ -2067,32 +2084,52 @@ print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 
 # print(9900 + 14400 + 4800 + 3200 + 12000 + 10800 + 5700 + 8000 + 4800 + 10000 + 4000 + 4800 + 3200 + 10000 + 4800)
 
+
 '''
-print((2000 * 2**13) / 1000)  # 16384 - байт на одного пользователя
+s = 'kejrhgjuerikfh98203457439875'  # str
 
-# symbols1 = k ?
-alphabet1 = 32 + 10
-i1 = 6
-# bit1 = 6*k
-
-symbols2 = 1
-alphabet2 = 1024
-i2 = 10
-bit2 = 10  # symbols2 * i2
-
-
-# ((6 * k) + 10) = 16384 бит
-# 6*k = 16374
-# k = 16374 / 6  (2729.0)
-print(16374 / 6)
+print('Hello,' + ' world!')
+print('Hello ' * 4)
 '''
 
-for n in range(1, 1000):
-    nb = f'{n:b}'
-    nb = nb + str(sum(map(int, nb)) % 2)
-    nb = nb + str(sum(map(int, nb)) % 2)
-    if int(nb, 2) > 99:
-        print(n)
-        break
 
-# Ответ: 25
+
+
+# range(0, STOP-1, 1)
+# range(START, STOP-1, 1)
+# range(START, STOP-1, STEP)
+
+# for n in range(2, 10+1, 2):
+#     print(n)
+
+# 12
+'''
+k = 0
+for n in range(4, 10000):
+    s = '1' + '2' * n
+
+    while '12' in s or '322' in s or '222' in s:
+        if '12' in s:
+            s = s.replace('12', '2', 1)
+        if '322' in s:
+            s = s.replace('322', '21', 1)
+        if '222' in s:
+            s = s.replace('222', '3', 1)
+
+    summa = s.count('1') + s.count('2') * 2 + s.count('3') * 3
+
+    summa = 0
+    for x in s:
+        summa += int(x)
+
+    summa = sum([int(x) for x in s])
+
+    summa = sum(map(int, s))
+
+    if summa == 15:
+        k += 1
+print(k)
+'''
+
+
+

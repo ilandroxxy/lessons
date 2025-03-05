@@ -1,122 +1,114 @@
 # region Домашка: ******************************************************************
 
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-R = []
-for n in range(1, 10000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        # summa = s.count('1') + s.count('2') * 2
-        summa = sum(map(int, s))
-        s = s + convert(summa, 3)
-    r = int(s, 3)
-    if r > 220 and r % 2 == 0:
-        R.append(r)
-print(min(R))
-'''
-
-'''
-from itertools import *
-n = 0
-for p in product(sorted('ЯНВАРЬ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    a, b, c, d, e = word
-    if a != 'Я':
-        if word.count('Ь') <= 1:
-            if 'ЯЯ' not in word:
-                print(n)
-'''
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Номер 5
 '''
-# IP-адрес сети (узел): 192.168.248.176
-# Сетевая маска (маска): 255.255.255.240
-
-# Адрес сети = Узел сети & Маска сети 
-# & - операция побитовой конъюнкции
-
-# 192.168.248.176 - на каждое число выделяется по 1 байту - 8 бит
-# 11110000 - восьмибитное число
-# Всего битов в айпишнике 32 = 8 + 8 + 8 + 8
-
-# Маска имеет вид: 1111111...00000
-
-# 255.255.255.240
-# 11111111.11111111.11111111.11000000
-# Вариантов маски сети всего 32
-'''
+def covert(n, b):
+    s = ''
+    while n > 0:
+        s = s + str(n % b)
+        n = n // b
+    return s[::-1]
 
 
-
-# № 18928 Новогодний вариант 2025 (Уровень: Базовый)
-
-# IP-адрес сети: 192.168.248.176
-# Сетевая маска: 255.255.255.240
-#
-# Необходимо узнать, сколько в этой сети IP-адресов,
-# для которых количество единиц и нулей в двоичной записи IP-адреса одинаково.
-'''
-from ipaddress import *
-net = ip_network('192.168.248.176/255.255.255.240', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') == b.count('0'):
-        cnt += 1
-print(cnt)
+m = []
+for n in range(1, 1000):
+    s = covert(n, 3)
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        s = s + covert((n%3)*3, 3)
+    r = int(s, 3)
+    if r > 150:
+        m.append(n)
+print(min(m))
 '''
 
 
-# № 18862 (Уровень: Базовый)
+# Номер 12
 '''
-from ipaddress import *
-net = ip_network('172.140.68.0/255.255.248.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('0') > 15:
-        cnt += 1
-print(cnt)
+summa=0
+for n in range(3,10000):
+    s='5'+'2'*n
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+            s=s.replace('52','11',1)
+        if '2222' in s:
+            s=s.replace('2222','5',1)
+        if '1122' in s:
+            s=s.replace('1122','25',1)
+
+    summa = s.count('1') + s.count('2') * 2 + s.count('5') * 5
+
+    summa = 0
+    for x in s:
+        summa += int(x)
+
+    summa = sum([int(x) for x in s])
+
+    summa = sum(map(int, s))
+
+    if summa == 64:
+        print(n)
+        break
 '''
 
 
-# № 18159 (Уровень: Базовый)
-# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
-# Чему равно наибольшее возможное значение третьего слева байта маски?
+# Номер 8
 '''
-from ipaddress import *
-for mask in range(33):  # перебираем кол-во единиц в маске
-    net = ip_network(f'205.154.212.20/{mask}', 0)
-    if '205.154.192.0' in str(net):
-        print(net, mask, net.netmask)
+from itertools import *
+
+n = 0
+m = []
+for p in product(sorted('СБОРНИК'), repeat=6):
+    word = ''.join(p)
+    n = n + 1
+    if word.count('Б') == 2 and word.count('К') <= 1 and word[0] != 'Р':
+        m.append(n)
+print(max(m))
 '''
 
 
-# № 18955 (Уровень: Средний)
-# Два узла, находящиеся в одной сети, имеют IP-адреса 200.154.190.12 и 200.154.184.0.
-# Укажите наибольшее возможное количество единиц в маске этой сети.
+# Номер 13
 '''
 from ipaddress import *
 for mask in range(33):
-    net1 = ip_network(f'200.154.190.12/{mask}', 0)
-    net2 = ip_network(f'200.154.184.0/{mask}', 0)
-    if net1 == net2:
-        print(mask)
+    net=ip_network(f'111.118.179.50/{mask}',0)
+    if '111.118.178.0' in str(net):
+        print(net.netmask)
+'''
+
+# Номер 9
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied2 = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(uncopied) == 3:
+        if sum(copied2) / 4 < sum(uncopied) / 3:
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    flag = 0
+    if len(M) == len(set(M)):
+        flag += 1
+    if max(M) > sum(M) - max(M):
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
 '''
 
 # endregion Урок: ********************************************************************
@@ -136,4 +128,4 @@ for mask in range(33):
 # Матвей 10/14 -> 51 вторичных баллов +[1, 3, 4, 6, 7, 10, 11, 14, 18, 25] -[2, 5, 8, 12]
 
 # Второй пробник 28.02.25:
-# Матвей 9/29 -> 48 вторичных баллов +[1-4, 6, 7, 10, 11, 18] -[5, 8, 9, 12-17, 19-21, 23, 24, 25]
+# Матвей 14/29 -> 62 вторичных баллов +[1-4, 6, 7, 10, 11, 14, 15, 16, 18, 23, 25] -[5, 8, 12, 13]

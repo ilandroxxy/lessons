@@ -7,153 +7,167 @@
 # region Урок: ********************************************************************
 
 
-# 17726 номер 6
+# Номер 23 18450
 '''
-from turtle import *
-screensize(-10000, 10000)
-tracer(0)
-left(90)
-l=10
-for i in range(55):
-    fd(69*l)
-    lt(90)
-    fd(84*l)
-    lt(90)
-up()
-fd(60*l)
-rt(90)
-fd(47*l)
-rt(90)
-down()
-for i in range(31):
-    fd(104*l)
-    lt(90)
-    fd(140*l)
-    lt(90)
-up()
-for x in range(-100,100):
-    for y in range(-100,100):
-        goto(x*l,y*l)
-        dot(3, 'red')
-update()
-done()
+def F(a):
+    if a >= 50 or a == 23:
+        return a in (50, 51, 52, 53, 54)
+    return F(a + 3) + F(a + 4) + F(a * 2)
+
+print(F(11))
 '''
 
-
-# 17730 номер 7
+# Номер 5 17720
 '''
-pixels = 1920 * 1080
+def f(n, b):
+    alp = sorted('0123456789')
+    res = ''
+    while n > 0:
+        res += alp[n % b]
+        n //= b
+    return res[::-1]
 
-V = ((3 * 2 ** 23) / 100) * 128  # бит
-print(V / pixels)  # 15.534
-print(2 ** 15)  # 15.53
 
-V2 = (3 * 2 ** 23) / 0.72
-print(V2 / pixels)  # 16.8
-print(2 ** 16)
-
-V3 = (3 / 0.72) * 2 ** 23
-print(V3 / pixels)
+R = []
+for n in range(0, 1000):
+    s = f(n, 5)
+    if n % 2 == 0:
+        d = str(n % 5)
+        s = '3' + s + d
+    else:
+        a = str(n % 4)
+        s = a + s + '4'
+    r = int(s, 5)
+    if n <= 15:
+        R.append(r)
+print(max(R))
 '''
 
+# Номер 6 17723
+'''
+import turtle as t
+t.screensize(-5000,5000)
+t.left(90)
+t.tracer(0)
+l=20
 
+t.color('teal')
+for i in range(2):
+    t.forward(77*l)
+    t.right(90)
+    t.forward(101*l)
+    t.right(90)
 
-# 17737 номер 8
+t.up()
+t.forward(29*l)
+t.left(90)
+t.forward(44*l)
+t.right(90)
+
+t.down()
+for i in range(7):
+    t.forward(88*l)
+    t.right(90)
+    t.forward(75*l)
+    t.right(90)
+
+for x in range(-30,30):
+    for y in range(-30,30):
+        t.goto(x*l,y*l)
+        t.dot(3, 'black')
+t.update()
+t.done()
+'''
+
+# Номер 8 17736
 '''
 from itertools import *
 cnt = 0
-alp=sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for s in product(alp[:16],repeat=5):
-    n = ''.join(s)
-    num = n
-    if n[0] != '0':
-        for x in alp[:16:2]:
-            num = num.replace(x, '2')
-        for x in alp[1:16:2]:
-            num = num.replace(x, '1')
-        if num[0] != '1' and num[-1] != '2':
-            if all(n[i] != n[i+1] for i in range(len(n) - 1)):
-                cnt += 1
-print(cnt)  # 177184
-'''
-
-
-# 18449 номер 23
-'''
-def F(a, b):
-    if a <= b:
-        return a == b
-    summa = 0
-    summa += F(a - 1, b)
-    if a % 2 == 0:
-        summa += F(a // 2, b)
-    if a % 3 == 0:
-        summa += F(a // 3, b)
-    return summa
-
-
-print(F(122, 57) * F(57, 11))
-'''
-
-
-# todo разобрать 18537 номер 24
-'''
-maxi = 0
-s = open('0. files/24.txt').readline()
-s = s.split('A')
-for i in range(len(s) - 22):
-    r = 'A'.join(s[i:i + 23])
-    maxi = max(maxi, max([len(x) for x in r.split('F')]))
-print(maxi)
-'''
-
-# 17942 номер 17
-'''
-C = [int(a) for a in open('0. files/17.txt')]
-R = []
-V = [x for x in C if abs(x) % 11 == 0 and abs(x) % 10 == 3]
-
-for i in range(len(C) - 2):
-    x, y, z = C[i], C[i + 1], C[i + 2]
-    if (x in V) + (y in V) + (z in V) == 2:
-        R.append(2 * (x + y + z))
-print(len(R), min(R))
-'''
-
-# номер 9
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n = [x for x in M if M.count(x) == 2]
-    z = [x for x in M if M.count(x) == 1]
-    if len(n) == 4 and len(z) == 3:
-        if (sum(n) / 4) < (sum(z) / 3):
-            cnt += 1
+for s in product(sorted('0123456'), repeat=7):
+    d = ''.join(s)
+    if d[0] not in '035' and d.count('0') <= 1 and d[-1] not in '0246':
+        cnt += 1
 print(cnt)
 '''
 
-# номер 17
+# Номер 9 18116
 '''
+summa = 0
+n = 0
+for s in open('0. files/9.txt'):
+    M = sorted([int(x) for x in s.split()])
+    n += 1
+    copied3 = [x for x in M if M.count(x) == 3 and x % 2 == 0]
+    uncopied = [x for x in M if M.count(x) == 1 and x % 2 != 0]
+    if len(copied3) == 3 and len(uncopied) == 3:
+        if sum(copied3) ** 2 > sum(uncopied) ** 2:
+            summa += n
+print(summa)
+'''
+
+'''
+s=132
+byte = 4 * 2**20 / 18750
+print(byte)  # 223.6962
+byte = 224
+bit = byte * 8
+
+i = bit / s
+print(i)
+# 13.5757
+i = 14
+8193
+
+# 8193
+# print(2 ** 13)
+'''
+
+
+# Номер 13 18445
+'''
+from ipaddress import *
+net = ip_network('140.116.194.0/255.255.240.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s[7] == '0' and s[15] == '0' and s[23] == '0' and s[31] == '0':
+        cnt += 1
+print(cnt)
+'''
+# s[:8] s[8:16] s[16:24] s[24:]
+
+'''
+def con(n,b):
+    alp=sorted('0123456789qwertyuiopasdfghjklzxcvbnm')
+    res=''
+    while n>0:
+        res+=alp[n%b]
+        n//=b
+    return res[::-1]
+
+x = 9 * 123**2053 + 5*23**3146 + 91 * 47 ** 5533 + 4099
+s = con(x, 23)
+D = [i for i in s if i > 'f']
+print(len(D))
+'''
+
+# Номер 17 17943
+'''
+M = [int(x) for x in open(f'0. files/17.txt')]
 R = []
-M = [int(x) for x in open('0. files/17.txt')]
-b = [x for x in M if len(str(abs(x))) == 5]
-a = [x for x in M if abs(x) % 100 == 29]
-for i in range(len(M) - 2):
-    z, e, c = M[i], M[i + 1], M[i + 2]
-    if (z in b) + (e in b) + (c in b) == 2:
-        if (z + e + c) <= max(a):
-            R.append(z + e + c)
+A = [x for x in M if x > 0]
+E = [x for x in M if x < 0]
+chet = [x for x in M if abs(x) % 2 == 0]
+for s in range(len(M) - 1):
+    z, a = M[s], M[s + 1]
+    if ((z in A) and (a in A)) or ((z in E) and (a in E)):
+        if abs(z - a) <= len(chet):
+            R.append(z + a)
 print(len(R), max(R))
 '''
 
-s=32
-a=16
-i= 4
-print((32 * 4) / 8)
-b=16  # байт
-print((16*16384)/2**10)
-print((16*16384)//2**10)
+
+
 
 # endregion Урок: ********************************************************************
 # #
