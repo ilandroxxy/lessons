@@ -6,162 +6,152 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Номер 5
 '''
-R = []
-for n in range(1, 10000):
-    n2 = bin(n)[2:]
-    if n2.count('0') % 2 == 0:
-        n2 = '1' + n2 + '1'
-    else:
-        n2 = '10' + n2
-    r = int(n2, 2)
-    if r < 100:
-        R.append(r)
-print(max(R))
-'''
-
-
-# Номер 8
-'''
-from itertools import permutations
-my_set = set()
-for p in permutations('ПАРИЖАНКА'):
-    word = ''.join(p)
-    D = [1 for i in range(len(word)-1) if word[i:i+2] in ('ИА', 'АИ', 'АА')]
-    if sum(D) == 1:
-        my_set.add(word)
-
-print(len(my_set))
-
-
-from itertools import permutations
-my_set = set()
-for p in permutations('ПАРИЖАНКА'):
-    word = ''.join(p)
-    new_word = word.replace('И',  'А')
-    if new_word.count('АА') == 1 and 'ААА' not in new_word:
-        my_set.add(word)
-print(len(my_set))
-'''
-
-
-'''
-def f(x, y, c):
-    if x > y:
-        return 0
-    elif x == y:
-        c = c.split()
-        return 1 and (not('20' in c and '30' in c))
-    return f(x + 2, y, c + ' ' + str(x)) + f(x + 3, y, c + ' ' + str(x)) + f(x * 2, y, c + ' ' + str(x))
-
-
-print(f(8, 35, ''))
-
-
-def f(x, y, c):
-    if x >= y:
-        c = c.split()
-        return x == y and (not('20' in c and '30' in c))
-    return f(x + 2, y, c + ' ' + str(x)) + f(x + 3, y, c + ' ' + str(x)) + f(x * 2, y, c + ' ' + str(x))
-
-
-print(f(8, 35, ''))
-
-
-# Не должно в траектории быть команды BACA
-def f(x, y, c):
-    if x >= y or x == 28:
-        return x == y and 'BACA' not in c
-    return f(x + 2, y, c + 'A') + f(x + 3, y, c + 'B') + f(x * 2, y, c + 'C')
-
-
-print(f(2, 40, ''))
+def divisors(x):  # 24
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)  # 4
+            div.append(x // j)  # 24 // 4 = 6
+    return sorted(set(div))
 '''
 
 '''
-f = open('24.txt').readline().strip()
-
-f = f.replace('WSFWW','i')
-
-z = f.split('i')
-
-print(z)
-
-otv = []
-
-for s in z:
-    #q = s.replace('WWF','x')
-
-    if s.count('WWF')<=120:
-        print(len(s),s)
-        otv.append(len(s))
-
-print(max(otv))
-'''
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('WSFWW')
-maxi = 0
-for i in range(len(s)-120):
-    r = 'SFWW' + 'WSFWW'.join(s[i:i+1]) + 'WSFW'
-    maxi = max(maxi, len(r))
-print(maxi)
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
 '''
 
-# 'WSFWWxxxxxxWSFWWxxxxxxxxWSFWW'
-# 'SFWWxxxxxxWSFWWxxxxxxxxWSFW'
-# 'xxxxxxWSFWWxxxxxxxx'
 
+# № 19755 (Уровень: Средний)
 '''
-s = 'TxxxxxTxxxxTxxxxxTxxxxxTxxxxTxxxxxxTxxxxxT'
-# ['', 'xxxxx', 'xxxx', 'xxxxx', 'xxxxx', 'xxxx', 'xxxxxx', 'xxxxx', '']
-# 17 TxxxxxTxxxxTxxxxx
-# 22 xxxxxTxxxxTxxxxxTxxxxx
-# 21 xxxxTxxxxxTxxxxxTxxxx
-# 23 xxxxxTxxxxxTxxxxTxxxxxx
-# 23 xxxxxTxxxxTxxxxxxTxxxxx
-# 18 xxxxTxxxxxxTxxxxxT
-s = s.split('T')
-for i in range(len(s)-3):
-    r = 'T'.join(s[i:i+4])
-    print(len(r), r)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
+
+# print([x for x in range(1, 100) if len(divisors(x)) == 0])
+
+cnt = 0
+for x in range(1_200_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M > 2000 and M % 10 == 8:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
+
+# № 19778 (Уровень: Средний)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(9_500_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        F = sum(d) // len(d)
+        if F != 0 and F % 813 == 0:
+            print(x, F)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# Тип 25 №29673
+# https://inf-ege.sdamgia.ru/problem?id=29673
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
+
+for x in range(123456789, 223456789+1):
+    # число является полным квадратом
+    # if (x ** 0.5) == int(x ** 0.5):
+    if (x ** 0.5).is_integer():
+        d = divisors(x)
+        if len(d) == 3:
+            print(x, max(d))
+'''
+
+
+# № 20288 (Уровень: Средний)
+
+# print(help(set))
+'''
+from fnmatch import *
+for x in range(9231, 10**10, 9231):
+    if fnmatch(str(x), '*12?4?'):
+        s = str(x)
+        if s[-1] in '13579' and s[-3] in '13579':
+            if all(p in '02468' for p in s[:-5]):
+                print(x, x // 9231)
+'''
+
+# № 19720 (Уровень: Средний)
+'''
+from fnmatch import *
+for x in range(153, 10**8, 153):
+    if fnmatch(str(x), '1*2?3*45'):
+        s = str(x)
+        if s[s.index('2')+1] in '02468':
+            if all(p in '13579' for p in s[1:s.index('2')]):
+                if all(p in '13579' for p in s[(s.index('2')+2):s.index('45')]):
+                    print(x, x//153)
+'''
+
+
+# № 18962 (Уровень: Базовый)
+'''
+from fnmatch import *
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x//j]
+    return sorted(set(div))
+
+cnt = 0
+for x in range(500_000+1, 10**10):
+    d = [j for j in divisors(x) if fnmatch(str(j), '2*3?')]
+    if len(d) >= 1:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
-# todo Широковещательный адрес изучить
-
-# номер 13
-'''
-from ipaddress import *
-
-ip1 = '158.214.121.40'
-mask = '255.255.255.224'
-net = ip_network(ip1+'/'+mask, 0)
-print(net.num_addresses)
-cnt = 0
-for ip in net:
-
-    print(ip)
-    cnt += 1
-print(cnt)
-print(net.broadcast_address)
-'''
-# 158.214.121.63
-# 11111111.11111111.11111111.11100000
 
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = []
+# ФИПИ = [25]
 # КЕГЭ  = []
-# на следующем уроке: 8, 9, 11, 13, 17, 18, 11, 25
+# на следующем уроке: 8, 9, 11, 13, 17, 18, 11, 22
 
 # Первый пробник 5.02.25:
 # Ангелина 11/29 -> 54 вторичных баллов +[1-5, 7, 14-16, 20-21] -[6, 8, 9, 10, 11, 12, 13, 17, 18, 19, 22, 23, 25]
@@ -169,4 +159,4 @@ print(net.broadcast_address)
 
 # Второй пробник 28.02.25:
 # Ангелина /29 -> _ вторичных баллов +[] -[]
-# Сергей 16/29 -> 67 вторичных баллов +[] -[]+[1, 2, 5, 6, 8, 11, 13-18, 19-21, 23, 25] -[3, 4, 7, 9, 10, 12, 22, 24]
+# Сергей 16/29 -> 67 вторичных баллов +[1, 2, 5, 6, 8, 11, 13-18, 19-21, 23, 25] -[3, 4, 7, 9, 10, 12, 22, 24]

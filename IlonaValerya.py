@@ -6,67 +6,51 @@
 # #
 # region Урок: ********************************************************************
 
-# № 17522 Основная волна 07.06.24 (Уровень: Базовый)
-# [20, 72, 11, 24] {20, 72, 11, 24} нет
-# [20, 72, 11, 11] {20, 72, 11} два
-# [20, 20, 11, 11] {20, 11} нет
-# [11, 72, 11, 11] {11, 72} нет
+# № 20486 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if max(M) < sum(M) - max(M):
-        if len(set(M)) == 3:
-            cnt += 1
-print(cnt)
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
 
-# https://education.yandex.ru/ege/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    D = [x for x in M if str(x)[-1] == '3']
-    if len(D) == 3:
-        A = [x for x in M if x > 0]
-        B = [x for x in M if x < 0]
-        if sum(A) ** 2 < sum(B) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    k = 0
-    if len(M) == len(set(M)):
-        k += 1
-    if M[5] > M[0] + M[1] + M[2] + M[3] + M[4]:
-        k += 1
-    if k == 1:
-        cnt += 1
-print(cnt)
+R = []
+for n in range(4, 1000):
+    # s = f'{n:b}'
+    s = convert(n, 2)
+    if n % 2 == 0:
+        s = s + s[:2+1]
+    else:
+        s = '1' + s + '01'
+    r = int(s, 2)
+    if r > 600:
+        R.append(r)
+print(min(R))
 '''
 
-
-# https://education.yandex.ru/ege/task/679cf8d3-a852-4dc0-a42f-e8b4825ea271
 '''
-n = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    n += 1
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied3 = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(copied3) == 3 and len(uncopied) == 3:
-        if copied3[0] > copied2[0]:
-            print(n)
-'''
+def convert(n,b):
+    s = ''
+    while n > 0:
+        s = s +str(n % b)
+        n = n // b
+    return s[::-1]
 
+
+for n in range(1,1000):
+    r = convert(n,3)
+    if n % 3 == 0 :
+        r = r + r[-3:]
+    else:
+        x = (n % 3) * 3
+        r = r + convert(x, 3)
+    res = int(r, 3)
+    if res > 150:
+        print(n)
+        break
+'''
 # endregion Урок: *************************************************************
 # #
 # #
