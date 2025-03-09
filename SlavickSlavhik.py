@@ -6,79 +6,81 @@
 # #
 # region Урок: ********************************************************************
 
-# Номер 15
+
+
 '''
-def F(x, y, A):
-    return (x < A) or (3*y + 2*x > 120) or (A > y)
-
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
-'''
+def F(x, a1, a2):
+    P = 13 <= x <= 19
+    Q = 17 <= x <= 23
+    A = a1 <= x <= a2
+    return (not((not P) <= Q)) <= (A <= ((not Q) <= P))
 
 
-# Номер 23
-'''
-def F(a, b):
-    if a >= b or a == 13:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a*3, b)
+R = []  # сюда складывать будем длины a2 - a1
+M = [x / 4 for x in range(5 * 4, 30 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
 
-print(F(3, 8) * F(8, 18))
-'''
-
-
-# Номер 25
-'''
-from fnmatch import *
-for x in range(2023, 10**8, 2023):
-    if fnmatch(str(x), '2*1?71'):
-        print(x, x//2023)
-'''
-
-
-# минимальное кол-во идущих подряд символов среди которых
-# символ Т встречается ровно 3 раза
-
-s = 'TxxxTxxxxxTxxxxxxxTxxxTxxxxxTxxxxTxxxxxxT'
-# ['', 'xxx', 'xxxxx', 'xxxxxxx', 'xxx', 'xxxxx', 'xxxx', 'xxxxxx', '']
-# 6 TTxxxT
-# 11 TxxxTxxxxxT
-# 15 TxxxxxTxxxxxxxT
-# 13 TxxxxxxxTxxxT
-# 11 TxxxTxxxxxT
-# 12 TxxxxxTxxxxT
-# 13 TxxxxTxxxxxxT
-# 9 TxxxxxxTT
-'''
-s = s.split('T')
-mini = 10**9
-for i in range(len(s)-1):
-    r = 'T' + 'T'.join(s[i:i+2]) + 'T'
-    mini = min(mini, len(r))
-    print(len(r), r)
-print(mini)
+print(max(R))
 '''
 
 '''
-s = open('0. files/24.txt').readline()
-s = s.split('T')
-mini = 10**9
-for i in range(len(s)-208):
-    r = 'T' + 'T'.join(s[i:i+209]) + 'T'
-    mini = min(mini, len(r))
-print(mini)
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
 
 
-s = open('0. files/24.txt').readline()
-s = s.split('T')
-maxi = 0
-for i in range(len(s)-210):
-    r = 'T'.join(s[i:i+211])
-    maxi = max(maxi, len(r))
-print(maxi)
+R = []
+M = [x / 4 for x in range(10 * 4, 70 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(int(min(R)))
 '''
+
+
+# 24  24 / 4 == 0   24 // 4 = 6
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(800_000+1, 10**10):
+    d = [j for j in divisors(x) if j != x and j != 9 and j % 10 == 9]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+print(divisors(24))
+
+cnt = 0
+for x in range(174457, 174506):
+    d = [j for j in divisors(x)]
+    if len(d) == 2:
+        print(*d)
+        cnt += 1
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -88,7 +90,7 @@ print(maxi)
 # #
 # #
 # ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
-# КЕГЭ  = [22, 25]
+# КЕГЭ = [22, 25]
 # на следующем уроке: повторить 22, 19-21, разобрать 3 с пробника
 
 # Второй пробник 28.02.25:

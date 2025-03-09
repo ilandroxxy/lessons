@@ -7,60 +7,47 @@
 # region Урок: ********************************************************************
 
 
-# № 19721 (Уровень: Базовый)
-'''
+def is_cube(n):
+    root = round(n * (1/3))
+    return root * 3 == n
+
+
 def divisors(n):
-    div = []
-    for j in range(1, int(n ** 0.5)+1):
-        if n % j == 0:
-            div += [j, n // j]
+    div=[]
+    for j in range(2, int(n**0.5)+1):
+        if n%j==0:
+            div+=[j, n//j]
+    div+=[n]
     return sorted(set(div))
 
 
-for x in range(178965, 178982+1):
-    d = divisors(x)
-    if len(d) == 4:
-        print(sorted(d)[::-1])
-'''
+for x in range(228224, 531136):
+    d = [j for j in divisors(x) if j % 2 != 0 and is_cube(j)]
+
+    if len(d) >= 4:
+        print(d)
+        print(len(d), max(d))
 
 
-# № 18620 (Уровень: Средний)
-'''
-def divisors(n):
-    div = []
-    for j in range(2, int(n ** 0.5)+1):  # не считая самого числа и единицы
-        if n % j == 0:
-            div += [j, n // j]
-    return sorted(set(div))
-
-for x in range(112_500_000, 112_550_000+1):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = d[-2] + d[-1]
-        if M % 10000 == 1214:
-            print(x)
-'''
-
-# № 19776 (Уровень: Средний)
 '''
 def divisors(n):
-    div = []
-    for j in range(2, int(n ** 0.5)+1):  # не считая самого числа и единицы
-        if n % j == 0:
-            div += [j, n // j]
+    div=[]
+    for j in range(2, int(n**0.5)+1):
+        if n%j==0:
+            div+=[j, n//j]
+    div+=[n]
     return sorted(set(div))
 
-cnt = 0
-for x in range(23_600_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) >= 2:
-        M = max(d) + min(d)
-        if M % 213 == 171:
-            print(x, M)
-            cnt += 1
-            if cnt == 6:
-                break
+# Генерация кубов нечетных чисел
+cubes = {x*3 for x in range(1, int(531135*(1/3)) + 1) if x % 2 != 0}
+print(cubes)
 '''
+# Перебор чисел в заданном диапазоне
+# for num in range(228224, 531136):
+#     div = divisors(num)
+#     cube_divisors = [j for j in div if j in cubes]
+#     if len(cube_divisors) >= 4:
+#         print(len(cube_divisors), max(cube_divisors))
 
 
 # endregion Урок: *************************************************************

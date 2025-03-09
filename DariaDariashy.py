@@ -6,60 +6,60 @@
 # #
 # region Урок: ********************************************************************
 
-
-# https://education.yandex.ru/ege/task/658ead8e-8e85-4ad1-a74d-075f3e9f8bf0
+# Номер 6
 '''
-symbols1 = 1
-alphabet1 = 1000  # 2**10 >= 1000
-i1 = 10
-bit1 = symbols1 * i1
+from turtle import *
+screensize(-5000, 5000)
+tracer(0)
+l = 20
 
-symbols2 = 10
-alphabet2 = 33  # 2**6 >= 33
-i2 = 6
-bit2 = symbols2 * i2  # бит на один символ
-print(bit2)
+for i in range(4):
+    fd(10 * l)
+    rt(270)
+up()
+fd(3 * l)
+rt(270)
+fd(5 * l)
+rt(90)
+down()
+for i in range(2):
+    fd(10 * l)
+    rt(270)
+    fd(12 * l)
+    rt(270)
+up()
 
-bit = bit1 + bit2
-print(bit / 8)  # 8.75
-byte = 9
-print(byte * 52)
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        goto(x * l, y * l)
+        dot(3, 'red')
+update()
+done()
 '''
-# Ответ: 468
+from struct import iter_unpack
 
-
-# https://education.yandex.ru/ege/task/a35ac12d-56d0-45d9-87ef-a1d81dbfd6b1
+# Номер 12
 '''
-symbols1 = 1
-alphabet1 = 2000  # 2 ** 11 >= 2000
-i1 = 11
-bit1 = symbols1 * i1
-print(bit1 / 8)  # 1.375
-byte1 = 2
-
-symbols2 = 30 + 10
-alphabet2 = 26 + 10 + 2  # 2 ** 6 >= 38
-i2 = 6
-bit2 = symbols2 * i2
-print(bit2 / 8)  # 30.0
-byte2 = 30
-
-
-symbols3 = 60
-alphabet3 = 33*2 + 2  # 2 ** 7 >= 68
-i3 = 7
-bit3 = symbols3 * i3
-print(bit3 / 8)  # 52.5
-byte3 = 53
-
-print((byte1 + byte2 + byte3) * 30)
+for n in range(4, 10001):
+    s = '5' + '2' * n
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
+    e = [int(i) for i in s]
+    if sum(e) == 64:
+        print(n)
+        break
 '''
-# Ответ: 2550
 
 
-# https://education.yandex.ru/ege/task/638ac2c9-defe-4ca9-971a-ee65a1774d31
+# Номер 5
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
 def convert(n, b):
     r = ''
     while n > 0:
@@ -67,52 +67,58 @@ def convert(n, b):
         n //= b
     return r[::-1]
 
-
-R = []
 for n in range(1, 1000):
     s = convert(n, 3)
-    if sum(map(int, s)) % 2 == 0:
-        s = '2' + s[2:] + '0'
+    if n % 3 == 0:
+        s = s + s[-3:]
     else:
-        s = '20' + s[2:] + '1'
+        x = (n % 3) * 3
+        s = s + convert(x, 3)
     r = int(s, 3)
-    if r > 75:
-        R.append([r, n])
-
-print(min(R))
-
-for x in R:
-    if x[0] == 78:
-        print(x)
+    if r > 150:
+        print(n)
+        break
 '''
-# R = [[78, 44], [78, 62], [78, 80], [78, 44]]
-# min(R) [78, 44]
 
+# # i   0    1    2    3    4
+# M = ['a', 'b', 'c', 'd', 'e']
+# # -i -5   -4   -3   -2   -1
 
+# Номер 8
 '''
-n = 8
-print(bin(n)[2:])  # двоичная
-print(convert(n, 2))
+from itertools import *
+n = 0
+for p in product(sorted('СБОРНИК'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if word[0] != 'Р' and word.count('Б') == 2 and word.count('К') <= 1:
+        print(n, word)
+'''
 
-print(oct(n)[2:])  # восьмеричная
-print(convert(n, 8))
-
-print(hex(n)[2:])  # шестнадцатеричная
-print(convert(n, 16))
-
-print(convert(n, 3))  # трочиная 
+# Номер 9
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied2 = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(uncopied) == 3:
+        if sum(copied2) / 4 < sum(uncopied) / 3:
+            cnt += 1
+print(cnt)
 '''
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
-# todo Разобрать сложную задачку:
-# https://education.yandex.ru/ege/task/724475c0-8d62-4879-80a6-99e86710b738
-
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: 8, 22, 25 повторять
+
+# Второй пробник 28.02.25:
+# Дарья 10/29 -> 51 вторичных баллов +[1, 2, 4, 7, 10, 11, 13, 15, 16, 18] -[3, 6, 12, 22]
+

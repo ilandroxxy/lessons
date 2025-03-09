@@ -2085,53 +2085,6 @@ print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 # print(9900 + 14400 + 4800 + 3200 + 12000 + 10800 + 5700 + 8000 + 4800 + 10000 + 4000 + 4800 + 3200 + 10000 + 4800)
 
 
-'''
-s = 'kejrhgjuerikfh98203457439875'  # str
-
-print('Hello,' + ' world!')
-print('Hello ' * 4)
-'''
-
-
-
-
-# range(0, STOP-1, 1)
-# range(START, STOP-1, 1)
-# range(START, STOP-1, STEP)
-
-# for n in range(2, 10+1, 2):
-#     print(n)
-
-# 12
-'''
-k = 0
-for n in range(4, 10000):
-    s = '1' + '2' * n
-
-    while '12' in s or '322' in s or '222' in s:
-        if '12' in s:
-            s = s.replace('12', '2', 1)
-        if '322' in s:
-            s = s.replace('322', '21', 1)
-        if '222' in s:
-            s = s.replace('222', '3', 1)
-
-    summa = s.count('1') + s.count('2') * 2 + s.count('3') * 3
-
-    summa = 0
-    for x in s:
-        summa += int(x)
-
-    summa = sum([int(x) for x in s])
-
-    summa = sum(map(int, s))
-
-    if summa == 15:
-        k += 1
-print(k)
-'''
-
-
 # todo Сделать пост про универсальную функцию
 '''
 from string import *
