@@ -6,47 +6,90 @@
 # region Урок: ********************************************************************
 
 
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
+    return sorted(set(div))
 
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
 
-for n in range(5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+cnt = 0
+for x in range(500_000+1, 10**10):
+    div = divisors(x)
+    R = sum(div)
+    if R % 10 == 9:
+        print(x, R)
+        cnt += 1
+        if cnt == 5:
+            break
 '''
 
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n == 1:
-        return 1
-    if n == 2:
-        return 2
-    if n > 2:
-        return n * (n - 1) + F(n - 1) + F(n - 2)
-
-for n in range(5000):
-    F(n)
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
+    return sorted(set(div))
 
 
-print(F(2024) - F(2022) - 2 * F(2021) - F(2020))
+cnt = 0
+for x in range(600_000+1, 10**10):
+    div = [j for j in divisors(x) if j != 9 and j % 10 == 9]
+    if len(div) > 0:
+        print(x, min(div))
+        cnt += 1
+        if cnt == 5:
+            break
 '''
+
+
+# № 19775 (Уровень: Средний)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа.
+        if x % j == 0:
+            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(32_500_000+1, 10**10):
+    div = [j for j in divisors(x) if len(divisors(j)) == 0]
+    S = sum(div)
+    if S != 0 and S % 145 == 0:
+        print(x, S)
+        cnt += 1
+        if cnt == 7:
+            break
+'''
+
+# № 19778 (Уровень: Средний)
+'''
+def divisors(x):
+    div=[]
+    for j in range(2,int(x**0.5)+1):
+        if x%j==0:
+            div+=[j,x//j]
+    return sorted(set(div))
+
+
+cnt=0
+for x in range(9_500_000+1,10**10):
+    div=[j for j in divisors(x) if len(divisors(j))==0]
+    if len(div)>0:
+        F=sum(div)//len(div)
+        if F%813==0:
+            print(x,F)
+            cnt+=1
+            if cnt==5:
+                break
+'''
+
 
 # endregion Урок: *************************************************************
 # #

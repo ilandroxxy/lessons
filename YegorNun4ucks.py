@@ -1,16 +1,4 @@
 # region Домашка: ******************************************************************
-'''
-s = open('0. files/24.txt').readline().split('WWF')
-print(s)
-m = 0
-
-for i in range(len(s) - 120):
-    r = 'WF' + 'WWF'.join(s[i:i+121]) + 'WW'
-    if 'WSFWW' in r:
-        r = r.replace('WSFWW', 'WSFW SFWW')
-        m = max(m, max([len(x) for x in r.split()]))
-print(m)
-'''
 
 
 # endregion Домашка: ******************************************************************
@@ -18,70 +6,28 @@ print(m)
 # #
 # region Урок: ********************************************************************
 
+
+# print(eval('(4 + 2) * 03'))
 '''
-from turtle import *
-
-tracer(0)
-
-k = 40
-down()
-for i in range(4):
-    fd(10*k)
-    rt(270)
-
-up()
-
-fd(3*k)
-rt(270)
-fd(5*k)
-rt(90)
-
-down()
-
-for i in range(2):
-    fd(10)
-    rt(270)
-    fd(12)
-    rt(270)
-up()
-for x in range(-40, 40):
-    for y in range(-40, 40):
-        goto(x*k, y*k)
-        dot(3, 'red')
-
-done()
+f = open('0. files/24.txt').readline()
+for x in ('--', '**', '-*', '*-', ' -', '- ', '* ', ' *'):
+    f = f.replace(x, ' ')
+f = f.replace('-00-', '-0 ')
+maxi = 0
+for s in f.split():
+    try:
+        eval(s)
+        if maxi < len(s):
+            maxi = len(s)
+            # print(len(s), s)
+    except:
+        if '*0' in s and s[-2:] != '*0':
+            s = s.replace('*0', ' ')
+        if '-0' in s and s[-2:] != '-0':
+            s = s.replace('-0', ' ')
+        s = s.split()  *0
+        continue
 '''
-
-'''
-s = open('0. files/24.txt').readline()
-m = 10000000
-s = s.split('T')
-for i in range(len(s) - 208):
-    b = 'T' + 'T'.join(s[i:i+209]) + 'T'
-    m = min(m, len(b))
-print(m)
-'''
-
-# № 18138 (Уровень: Базовый)
-
-M = []
-s = ''
-for i in range(0, 8+1):
-    s = '1' * i + '0' * (8 - i)
-    M.append(int(s, 2))
-print(M)
-# [0, 128, 192, 224, 240, 248, 252, 254, 255]
-
-from ipaddress import *
-for x in [0, 128, 192, 224, 240, 248, 252, 254, 255]:
-    net = ip_network(f'172.16.168.0/255.255.255.{x}', 0)
-    cnt = 0
-    for ip in net:
-        s = f'{ip:b}'
-        if s.count('0') % 7 == 0:
-            cnt += 1
-    if cnt == 35:
-        print(x)
 
 
 # endregion Урок: *************************************************************

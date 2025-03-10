@@ -6,64 +6,67 @@
 # #
 # region Урок: ************************************************************
 
-#
-# № 17862 Демоверсия 2025 (Уровень: Базовый)
-#
-# Определите количество 12-ричных пятизначных чисел,
-# в записи которых ровно одна цифра 7 и не более трёх цифр
-# с числовым значением, превышающим 8.
+
+# https://education.yandex.ru/ege/task/d26658b5-8543-4e2d-bb16-d916165bdde9
 '''
-from itertools import *
-cnt = 0
-for p in product('0123456789AB', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('7') == 1:
-            D = [x for x in num if x > '8']
-            if len(D) <= 3:
-                cnt += 1
-print(cnt)
-'''
-from macholib.mach_o import rpath_command
+from math import ceil
+sym = 8  # кол-во символов
+alp = 7  # 2 ** i >= alp
+i = 3  # бит на один символ
 
-# № 11660 (Уровень: Базовый)
-'''
-symbols = 35
-alphabet = 4090 + 10  # colors = 2 ** i
-print(2**13)
-i = 13  # бит на один символ
-bit = symbols * i
+bit = sym * i  # всего бит на один пароль
 
-print(bit / 8)  # 56.875
-byte = 57
+print(bit / 8)  # 3.0 - тут всегда округляем вверх (ceil)
+byte = 3  # всего байт на один пароль
+# byte = ceil(bit / 8)
 
-
-# user = password + dop
-user = 96000 / 300
-# password == byte
-dop = user - byte
-print(dop)  # 263.0
+# user = byte + dop
+dop = 8  # всего байт на дополнительные сведения пользователя
+user = byte + dop
+print(user * 42)
 '''
 
 
-# № 11832 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/a1beb780-b471-41fe-a815-b22e0ec632dc
+'''
+bytes = 276 * 2**10  # байт на 862 серийных номера
+byte = bytes / 862  # байт на один серийный номер
+print(byte)  # 327.870069 - не более, значит округляем вниз
+byte = 327
 
-symbols = 16
-alphabet = 26 * 2 + 10
-print(alphabet)
-i = 6
+bit = byte * 2**3  # бит на один серийный номер
 
-bit = symbols * i
-print(bit / 8)  # 12.0
+alp = 10 + 52 + 458  # 2 ** 10 >= 520 (alp)
+i = 10
+
+sym = bit / i
+print(sym)  # 261.6
+'''
+
+
+# https://education.yandex.ru/ege/task/f2ae72ec-dd45-47c0-996a-69d1b524b2e9
+'''
+sym1 = 10
+alp1 = 10
+i1 = 4
+bit1 = sym1 * i1
+
+sym2 = 10
+alp2 = 26
+i2 = 5
+bit2 = sym2 * i2
+
+bit = bit1 + bit2
+print(bit / 8)  # 11.25 -> 12
 byte = 12
 
-dop = 20
+user = 600 / 20
+print(user - byte)
+'''
 
-disk = 10 * 2 ** 10  # байт
 
-users = disk /  (dop + byte)
-print(users)
-
+print(1632 / 42)
+print(2 ** 38)
 
 # endregion Урок: ************************************************************
 # #
@@ -74,6 +77,6 @@ print(users)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
+# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 6, 14, 15, 17
