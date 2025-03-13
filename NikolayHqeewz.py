@@ -5,29 +5,44 @@
 # #
 # #
 # region Урок: ********************************************************************
-'''
-pixels = 1024 * 512
-i = 4 * 8
-# V = pixels * i
-V = pixels * i  # бит
 
-print(V / 32768)  # 512.0
+# https://education.yandex.ru/ege/task/eeee81f3-071e-46a6-967d-043f06c8af92
 '''
+a = 1
+b = 10000
+c = 16
+t = 8
 
-
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if abs(x) % 100 == 29]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
+v = a * b * c * t  # бит
+print(v / 2**13)  # 156.25
 '''
 
+# https://education.yandex.ru/ege/task/7407e7ee-2ca4-4372-b173-b39bffa2d1d9
+'''
+a = 2
+b = 44000
+c = 16
+t = 60
+
+v = a * b * c * t
+v32 = v * 32  # бит
+
+u = 1_802_240  # бит / с 
+
+print(v32 / u)  # с
+'''
+
+
+# https://education.yandex.ru/ege/task/2761e91c-9239-4e0e-b7c1-1e56166f3fc4
+
+pixels = 1600 * 900
+colors = 2048
+i = 11  # бит на один пиксель
+v = pixels * i
+v16 = v * 16
+
+u = v16 / 300
+print(u)
 
 
 # endregion Урок: *************************************************************

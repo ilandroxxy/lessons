@@ -1,115 +1,120 @@
 # region Домашка: ******************************************************************
 
-
-
-'''
-n = int(input())
-maxi = 0
-mini = 10
-while n > 0:
-    p = n % 10
-
-    maxi = max(maxi, p)
-
-    if p < mini:
-        mini = p
-
-    n //= 10
-print(maxi)
-print(mini)
-'''
-'''
-n = int(input())
-print(max(str(n)))
-print(min(str(n)))
-'''
-
-'''
-a = 5.2
-print(type(a))
-a = 5,2
-print(type(a))
-print(a)  # (5, 2)
-
-a = int(input())
-s, p, k = 0, 1, 0
-
-while a > 0:
-    b = a % 10
-    s += b  # s = s + b
-    p *= b  # p = p * b
-    k += 1  # k = k + 1
-    a //= 10  # a = a // 10
-print(s)
-print(k)
-print(p)
-'''
+# (x and (not y)) or (y == z) or w
+# ((y <= x) == (x <= w)) and (z or x)
+# (((not x) or z) == (y and (not w))) <= (z and y)
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+'''
+import turtle as t  # подключение библиотеки
+t.screensize(-2000, 2000)
+t.left(90)
+t.tracer(0)  # отключает анимацию отрисовки
+size = 20  # вводим переменную для масштаба
 
-# № 20567 (Уровень: Базовый)
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F=y∧(z≡(w→(x∨z)))
-                F = y and (z == (w <= (x or z)))
-                if F == 1:
-                    print(x, y, z, w)
-'''
+for i in range(8):
+    t.forward(16 * size)  # движение вперед на 100 пикселей
+    t.right(90)
+    t.forward(22 * size)
+    t.right(90)
+t.up()  # поднять хвост, то есть перестать рисовать
+t.forward(5 * size)
+t.right(90)
+t.forward(5 * size)
+t.left(90)
+t.down()  # опустить хвост
+for i in range(8):
+    t.fd(52 * size)
+    t.rt(90)
+    t.fd(77 * size)
+    t.rt(90)
 
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)  # прыгнуть в координату
+        t.dot(3, 'red')
 
-# № 19234 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F= ¬((¬x ∨ y)∧¬w)∨¬(z∧¬(y∧ w))
-                F = (not(((not x) or y) and (not w)) or (not(z and (not(y and w)))))
-                if F == 0:
-                    print(x, y, z, w)
-'''
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (not(w<=(x == (y or y))) and(z<=x))
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F=(x==(y<=(z or x))) and w
-                if F == 1:
-                    print(x, y, z, w)
+t.update()  # для корректной работы t.tracer()
+t.done()  # фиксировать окно после отрисовки
 '''
 
 
+# № 20817 Апробация 05.03.25 (Уровень: Средний)
+'''
+print(6552 + 364 - 168)  # 6748
 
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F=((z==x)<=w) and (w<=(y and x))
-                if F == 1:
-                    print(x, y, z, w)
+import turtle as t
+t.left(90)
+t.screensize(-2000, 2000)
+t.tracer(0)
+size = 20
+
+# Тут пишем псевдокод
+for i in range(3):
+    t.forward(27 * size)
+    t.right(90)
+    t.forward(12 * size)
+    t.right(90)
+t.up()
+t.forward(4 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+t.down()
+for i in range(4):
+    t.forward(83 * size)
+    t.right(90)
+    t.forward(77 * size)
+    t.right(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
+'''
+
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)
+size = 20
+t.left(90)
+
+t.fd(25 * size)
+t.rt(45)
+t.fd(50 * size)
+
+t.up()
+t.bk(50 * size)
+t.rt(45)
+t.fd(15 * size)
+t.lt(90)
+t.fd(30 * size)
+t.down()
+
+t.rt(180)
+t.fd(60 * size)
+t.bk(5 * size)
+t.rt(90)
+t.fd(31 * size)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+
 
 # endregion Урок: *************************************************************
 # #

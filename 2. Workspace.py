@@ -2078,7 +2078,10 @@ for a1 in M:
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 '''
 
-# print(9900 + 14400 + 4800 + 3200 + 12000 + 10800 + 5700 + 8000 + 4800 + 10000 + 4000 + 4800 + 3200 + 10000 + 4800)
+predict = 6000 + 9900 + 14400 + 4800 + 4800 + 12600 + 16200 + 5700 + 8000 + 4800 + 16200 + 4000 + 4800 + 10000 + 10000 + 4800 + 12500
+print(predict)
+result = 6000 + 4800
+print(predict - result)
 
 
 # todo Сделать пост про универсальную функцию
@@ -2101,38 +2104,5 @@ print(convert(n, 16))
 print(convert(n, 3))
 '''
 
-'''
-from functools import *
-import sys
 
-sys.setrecursionlimit(10000)
-
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return n * 4
-    if n >= 3 and n % 3 != 0:
-        return n * 2
-    if n >= 3 and n % 3 == 0:
-        return 5 * F(n - 2) + n ** 2
-
-for n in range(1, 10 ** 6):
-    F(n)
-
-cnt = 0
-for n in range(1, 10 ** 6):
-    result = F(n)
-    if len(str(abs(result))) == 3 and result % 2 == 0:
-        cnt += 1
-print(cnt)
-'''
-
-
-n = 3**333 + 3*822 - 9**111 - 8
-r = ''
-while n > 0:
-    r = str(n % 3) + r
-    n //= 3
-print(r.count('2'))
 

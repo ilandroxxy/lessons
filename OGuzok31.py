@@ -5,93 +5,68 @@
 # #
 # region Урок: ********************************************************************
 
-# № 19723 (Уровень: Базовый)
 '''
-from fnmatch import *
-for x in range(451, 10**9, 451):
-    if fnmatch(str(x), '10?451*3'):
-        print(x, x // 451)
-'''
+# Способ чтения файла из 17 номера
+M = [int(x) for x in open('0. files/17.txt')]
+R = []  # Сюда будем складывать наши результаты
 
 
-# № 20288 (Уровень: Средний)
-'''
-from fnmatch import *
-for x in range(9231, 10**10, 9231):
-    if fnmatch(str(x), '*12?4?'):
-        if str(x)[-3] in '13579' and str(x)[-1] in '13579':
-            r = str(x)[:-5]
-            if r[-1] in '02468':
-                print(x, x // 9231)
-'''
+# Рассмотрим три основных прототипа задач:
+M = [1, 2, 3, 4, 5]
 
+# 1. Под парой подразумевается два идущих подряд элемента последовательности
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
-'''
-import time
-start = time.time()
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
+# 123 234 345
+for i in range(len(M)-2):
+    # x, y, z = M[i], M[i+1], M[i+2]
+    x, y, z = M[i:i+3]
 
-# def divisors(x):
-#     div = []
-#     for j in range(1, x+1):
-#         if x % j == 0:
-#             div.append(j)
-#     return div
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-print(divisors(16))
-print(divisors(24))
-print(divisors(100_000_000))
-
-print(time.time() - start)  # 2.059286 -> 0.00035
+# 3. Под парой подразумевается два различных элемента последовательности
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
 
 
-# № 17536 Основная волна 07.06.24 (Уровень: Средний)
+# № 20603 (Уровень: Средний)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-k = 0
-for x in range(800_000+1, 10**10):
-    d = divisors(x)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 10 == 4:
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 10 == 5]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) > max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
 
+#
+# № 19749 (Уровень: Средний)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+mini = min(M) % 3
+maxi = max(M) % 7
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x % 3 == mini) + (y % 3 == mini) + (z % 3 == mini) == 1:
+        if (x % 7 == maxi) + (y % 7 == maxi) + (z % 7 == maxi) >= 2:
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+# 228 262713
 
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
 
-k = 0
-for x in range(800_000+1, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]
-    if len(d) > 0:
-        print(x, min(d))
-        k += 1
-        if k == 5:
-            break
 
 # endregion Урок: *************************************************************
 # #
