@@ -6,81 +6,151 @@
 # #
 # region Урок: ********************************************************************
 
-
-
-# № 20808 Апробация 05.03.25 (Уровень: Средний)
+# № 6588 Пробник ИМЦ СПб (Уровень: Средний)
 '''
-# from string import *
-# alphabet = digits + ascii_uppercase
-
-def convert(n, b):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-maxi = 0
-for x in range(1, 2030):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if maxi <= s.count('0'):
-        maxi = s.count('0')
-        print(maxi, x)
-'''
-
-
-# № 20486 (Уровень: Базовый)
-'''
-def convert(n, b):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-R = []
-for n in range(4, 1000):
-    # s = bin(n)[2:]
-    # s = f'{n:b}'
-    s = convert(n, 2)
-    if n % 2 == 0:
-        s = s + s[:2+1]
+for n in range(1, 1000):
+    s = f'{n:b}'
+    s = s.replace('0', '*')
+    s = s.replace('1', '0')
+    s = s.replace('*', '1')
+    s = '1' + s
+    if s.count('1') % 2 != 0:
+        s = s + '1'
     else:
-        s = '1' + s + '01'
+        s = s + '0'
     r = int(s, 2)
-    if r > 600:
-        R.append(r)
-print(min(R))
+    if r > 180:
+        print(n)
+        break
 '''
 
 
-# № 20182 (Уровень: Базовый)
 '''
 def convert(n, b):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
     r = ''
     while n > 0:
-        r += alphabet[n % b]
+        r += str(n % b)
         n //= b
     return r[::-1]
 
 
 for n in range(1, 1000):
     s = convert(n, 3)
-    summa = sum([int(x) for x in s])
-    if summa % 2 == 0:
-        s = '12' + s[2:] + '0'
+    if n % 3 == 0:
+        s = s + s[-3:]
     else:
-        s = '10' + s[2:] + '2'
+        x = (n % 3) * 3
+        s = s + convert(x, 3)
     r = int(s, 3)
-    if r  > 105:
+    if r > 150:
         print(n)
         break
+'''
+
+
+# Номер 12
+'''
+for n in range(4, 10_000+1):
+    s = '5' + '2' * n
+
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+            s = s.replace('52', '11', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
+
+    suma = 0
+    for x in s:
+        suma += int(x)
+    # for i in range(len(s)):
+    #     suma += int(s[i])
+
+
+    if suma == 64:
+        print(n)
+        break
+'''
+
+
+# Номер 7
+'''
+pixels = 1024 * 512
+# colors = 129
+# i = 8 # бит на одни пиксель
+# # Каждый пиксель в изображении кодируется 4 байтами.
+i = 4 * 8
+v = pixels * i  # бит
+
+u = 32_768  # бит / с
+
+print(v / u)  # 512.0
+'''
+
+
+# Номер 11
+'''
+sym = 32
+alp = 16
+i = 4
+bit = sym * i
+byte = bit / 8
+print(byte)  # 16.0
+
+print((16_384 * byte) / 2**10)
+'''
+
+# Номер 8
+'''
+s = 'БИКНОРС'
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        slovo = a + b + c + d + e + f
+                        n += 1
+                        if slovo[0] != 'Р':
+                            if slovo.count('Б') == 2:
+                                if slovo.count('К') <= 1:
+                                    print(n)
+'''
+
+# Номер 13
+# Для узла с IP-адресом 111.118.179.50 адрес сети равен 111.118.178.0.
+# Определите значение третьего байта маски.
+'''
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'111.118.179.50/{mask}', 0)
+    if '111.118.178.0' in str(net):
+        print(net.netmask)
+        # 255.255.254.0
+'''
+
+# Номер 10
+# сколько раз, не считая сносок, встречается
+# сочетание букв «вечер» или «Вечер» только в составе других слов,
+# но не как отдельное слово
+
+# 58 - 16 = 42
+
+
+# Номер 17
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 29]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
 
 # endregion Урок: *************************************************************
@@ -94,12 +164,11 @@ for n in range(1, 1000):
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
 # КЕГЭ  = []
-# на следующем уроке:
-
+# на следующем уроке: 7, 8, 11, 13, 19-21, 22, 24
 
 # Первый пробник 21.12.24:
 # Михаил 8/18 -> 46 вторичных баллов +[2, 4, 6, 12, 14, 15, 16, 23] -[1, 3, 5, 7, 8, 9, 11, 13, 17, 25]
 
 # Второй пробник 28.02.25:
 # Михаил 17/29 -> 70 вторичных баллов +[1-4, 6, 8, 9, 11, 12, 14-16, 18, 19-20, 23, 25] -[5, 7, 10, 13, 17, 21, 22, 24]
-# Егор _/29 -> _ вторичных баллов +[] -[]
+# Егор 16/29 -> 68 вторичных баллов +[1-7, 9, 13, 14-18, 23, 25] -[8, 10, 11, 12, 19-21, 22, 24]

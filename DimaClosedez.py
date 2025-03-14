@@ -6,77 +6,87 @@
 # #
 # region Урок: ********************************************************************
 
-'''
-print('x y z w')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (x or (not y)) and (not(y==z)) and (not w)
-                if F == 1:
-                    print(x,y,z,w)
-'''
-# x y z w
-# 0 0 1 0
-# 1 0 1 0
-# 1 1 0 0
 
-
-# Номер 14
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:19]:
-    A = int(f'83{x}916', 19)
-    B = int(f'123{x}45', 19)
-    C = int(f'67{x}89', 19)
-    if (A + B + C) % 17 == 0:
-        print((A + B + C) // 17)
-'''
-
-# Номер 13
+# https://education.yandex.ru/ege/task/946e0f2d-56db-4fe1-aa6a-94cd603ea823
+# Сеть задана IP-адресом 195.102.65.64 и маской сети 255.255.255.192.
+#
+# Сколько в этой сети IP-адресов, в которых одинаковое количество нулей и единиц в правом байте адреса?
 '''
 from ipaddress import *
+net = ip_network('195.102.65.64/255.255.255.192', 0)
+cnt = 0
+for ip in net:
+    ipb = f'{ip:b}'
+    if ipb[24:].count('0') == ipb[24:].count('1'):
+        cnt += 1
+print(cnt)
+'''
+
+# https://education.yandex.ru/ege/task/d8ca0667-b307-492b-902f-13aae0569d27
+# Сеть задана IP-адресом 128.224.31.192 и маской сети 255.255.255.192.
+# Сколько в этой сети IP-адресов, для которых количество нулей в двоичной
+# записи IP-адреса является полным квадратом? В ответе укажите только число.
+'''
+from ipaddress import *
+net = ip_network('128.224.31.192/255.255.255.192', 0)
+cnt = 0
+for ip in net:
+    ipb = f'{ip:b}'
+    count_0 = ipb.count('0')
+    if (count_0 ** 0.5).is_integer():
+        cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/7dc01dcf-a5ee-427d-89a9-7c68f664b615
+# Два узла, находящиеся в разных подсетях, имеют IP-адреса 101.96.170.244 и 101.96.126.212.
+# В масках обеих подсетей одинаковое количество единиц.
+# Найдите наибольшее возможное количество нулей в двоичной записи маски подсети.
+'''
+from ipaddress import *
+R = []
 for mask in range(33):
-    net = ip_network(f'111.118.179.50/{mask}', 0)
-    if '111.118.178.0' in str(net):
-        print(net.netmask)
-        # 255.255.254.0
-'''
-# Ответ: 254
-
-'''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-for x in range(100_000, 200_000):
-    d = divisors(x)
-    if sum(d) % 10 == 9:
-        print(x, sum(d))
+    net1 = ip_network(f'101.96.170.244/{mask}', 0)
+    net2 = ip_network(f'101.96.126.212/{mask}', 0)
+    if net1 != net2:
+        R.append(32 - mask)
+print(max(R))
 '''
 
-# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
 
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+# https://education.yandex.ru/ege/task/7a7901a6-c4ac-4554-aaaa-29270d559b19
+# Сеть, в которой содержится узел с IP-адресом (248.112.A.35),
+# задана маской сети 255.255.255.240, где (A) — некоторое допустимое для
+# записи IP-адреса число. Определите максимальное значение (A), для которого
+# для всех IP-адресов этой сети в двоичной записи IP-адреса суммарное количество
+# нулей в левых двух байтах не больше суммарного количества нулей в правых двух байтах.
+'''
+from ipaddress import *
+for A in range(255+1):
+    net = ip_network(f'248.112.{A}.35/255.255.255.240', 0)
+    if all(f'{ip:b}'[:16].count('0') <= f'{ip:b}'[16:].count('0') for ip in net):
+        print(A)
+'''
+
+# 1 байт = 8 бит (10101010) -> максимальное число (11111111) -> 255
 
 
-k = 0
-for x in range(800_000+1, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 9 and j != 9 and j != x]
-    if len(d) > 0:
-        print(x, min(d))
-        k += 1
-        if k == 5:
-            break
-
+# https://education.yandex.ru/ege/task/4827e366-3e61-48f6-9a59-a9f3ae25020d
+# Для узла с IP-адресом 215.181.200.27 адрес сети равен 215.181.192.0.
+# Чему равно наибольшее возможное значение третьего слева байта маски?
+# Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'215.181.200.27/{mask}', 0)
+    if '215.181.192.0' in str(net):
+        print(net, net.netmask)
+        # 215.181.192.0/18 255.255.192.0
+        # 215.181.192.0/19 255.255.224.0
+        # 215.181.192.0/20 255.255.240.0
+# Ответ: 240
+'''
 
 # endregion Урок: *************************************************************
 # #

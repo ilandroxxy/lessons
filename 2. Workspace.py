@@ -22,24 +22,6 @@ print(pairs + groups + individual)
 # endregion Планирование бюджета:
 
 
-# todo сделать разбор: 8. 11616
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alphabet[3:17:2])
-from itertools import *
-cnt = 0
-for s in product(alphabet[:17], repeat=5):
-    num = ''.join(s)
-    if num[0] != '0':
-        if num.count('1') <= 2:
-            for a in alphabet[3:17:2]:
-                num = num.replace(a, '*')
-            if '1*' not in num and '*1' not in num and '11' not in num:
-                cnt += 1
-
-print(cnt)
-'''
-
 # 9. 11617
 # 13. 11791
 # 14. 11622
@@ -47,50 +29,6 @@ print(cnt)
 # 23. 11629
 # 24. 11630
 # 25. 11718
-
-
-# todo Сделать разбор: 9 №11228
-'''
-from itertools import *
-summa = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    copied_2 = [x for x in M if M.count(x) == 2]
-    copied_3 = [x for x in M if M.count(x) == 3]
-    if len(copied_3) == 3 and len(copied_2) == 4:
-        if any(sum(p[:2]) % 2 != 0 and sum(p[2:]) % 2 != 0 for p in permutations(M[:4])):
-            summa += sum(M)
-print(summa)
-'''
-
-
-# todo: Сделать разбор № 8960 Джобс 02.06.2023 (Уровень: Базовый)
-'''
-from fnmatch import *
-
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-k = 0
-for x in range(500_001, 10**10):
-    summa = sum(divisors(x))
-    if fnmatch(str(summa), '*7?'):
-        print(x, summa)
-        k += 1
-        if k == 5:
-            break
-'''
-# Ответ:
-# 500001 666672
-# 500048 968874
-# 500069 500070
-# 500079 666776
-# 500114 750174
-
 
 
 # todo сделать разбор Тип 14 №63030
@@ -992,57 +930,6 @@ print(maxi)
 '''
 
 
-
-# todo Собрать пост с тремя способами решения 8 номера
-
-# Тип 8 №3700
-# Все 5-буквенные слова, составленные из букв Б, К, Ф, Ц, записаны
-# в алфавитном порядке и пронумерованы. Вот начало списка:
-# 1. БББББ
-# 2. ББББК
-# 3. ББББФ
-# 4. ББББЦ
-# 5. БББКБ
-#
-# Запишите слово, которое стоит на 486-м месте от начала списка.
-
-# Вариант 1
-'''
-s = sorted('БКФЦ')
-print(s)  # ['Б', 'К', 'Ф', 'Ц']
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    n += 1
-                    if n == 486:
-                        print(n, slovo)
-'''
-
-# Вариант 2
-'''
-from itertools import *
-n = 0
-for p in product(sorted('БКФЦ'), repeat=5):
-    slovo = ''.join(p)
-    n += 1
-    if n == 486:
-        print(n, slovo)
-'''
-
-
-# Вариант 3
-'''
-from itertools import *
-for n, p in enumerate(product(sorted('БКФЦ'), repeat=5), 1):
-    slovo = ''.join(p)
-    if n == 486:
-        print(n, slovo)
-'''
-
 # todo Нужно ли сделать разбор на задачу? Тип 17 №57424
 # Определите количество пар последовательности,
 # в которых только один из элементов является двузначным
@@ -1157,35 +1044,6 @@ print(F(2, 62))
 '''
 
 
-# todo Разобрать № 4333 Пробный 06.2022 /dev/inf advanced (Уровень: Средний)
-# У исполнителя есть три команды, которым присвоены номера:
-# 1. Прибавить 1
-# 2. Прибавить 3
-# 3. Возвести в квадрат
-
-# Известно, что исполнитель не может повторить команду,
-# выполненную на предыдущем шаге.
-#
-# Сколько существует программ, для которых при исходном числе 1 результатом
-# является число 25, и при этом траектория вычислений содержит число 5,
-# но не содержит число 6?
-'''
-def F(a, b, c):
-    if a >= b or a == 6:
-        return a == b
-    if c == '1':
-        return F(a + 3, b, '2') + F(a ** 2, b, '3')
-    if c == '2':
-        return F(a + 1, b, '1') + F(a ** 2, b, '3')
-    if c == '3':
-        return F(a + 1, b, '1') + F(a + 3, b, '2')
-    return F(a + 1, b, '1') + F(a + 3, b, '2') + F(a ** 2, b, '3')
-
-
-print(F(1, 5, '') * F(5, 25, ''))
-'''
-
-
 # todo: Сделать разбор # № 10027 (Уровень: Базовый)
 # У исполнителя есть три команды, которым присвоены номера:
 # A. Прибавить 2
@@ -1276,38 +1134,6 @@ if A or B:
     print(' Выполняется хотя бы один')
 if (A) != (B):  
     print('Выполняется либо 1, либо 2 (только один)')
-'''
-
-
-# todo Разбор на канал № 11953 (Уровень: Средний)
-'''
-from functools import lru_cache
-
-
-@lru_cache(None)
-def F(a, b):
-
-    if a >= b or a == 100:
-        return a == b
-
-    count = 0
-
-    x = a % 10  # Команда A: Прибавить последнюю цифру
-    if x != 0:
-        count += F(a + x, b)
-
-    x = a % 68   # Команда B: Добавить остаток от деления на 68
-    if x != 0:
-        count += F(a + x, b)
-
-    x = a ** 2   # Команда C: Возвести в квадрат
-    if x != a:
-        count += F(x, b)
-
-    return count
-
-
-print(F(2, 68) * F(68, 680))
 '''
 
 
@@ -2078,14 +1904,9 @@ for a1 in M:
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 '''
 
-predict = 6000 + 9900 + 14400 + 4800 + 4800 + 12600 + 16200 + 5700 + 8000 + 4800 + 16200 + 4000 + 4800 + 10000 + 10000 + 4800 + 12500
-print(predict)
-result = 6000 + 4800
-print(predict - result)
-
 
 # todo Сделать пост про универсальную функцию
-'''
+
 from string import *
 alphabet = digits + ascii_uppercase
 # alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
@@ -2102,7 +1923,16 @@ print(convert(n, 2))
 print(convert(n, 8))
 print(convert(n, 16))
 print(convert(n, 3))
-'''
 
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def conv(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+print(convert(8, 2))  # 1000
 
 
