@@ -6,49 +6,41 @@
 # #
 # region Урок: ********************************************************************
 
+'''
+from fnmatch import *
 
-def is_cube(n):
-    root = round(n * (1/3))
-    return root * 3 == n
+R = []
+for x in range(11071, 10 ** 10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[0] in '13579' and str(x)[-2] in '02468':
+            R.append([x, x // 11071])
+
+print(*R[-5])
+print(*R[-4])
+print(*R[-3])
+print(*R[-2])
+print(*R[-1])
+'''
 
 
+cnt = 0
 def divisors(n):
     div=[]
     for j in range(2, int(n**0.5)+1):
         if n%j==0:
             div+=[j, n//j]
-    div+=[n]
     return sorted(set(div))
 
 
-for x in range(228224, 531136):
-    d = [j for j in divisors(x) if j % 2 != 0 and is_cube(j)]
-
-    if len(d) >= 4:
-        print(d)
-        print(len(d), max(d))
-
-
-'''
-def divisors(n):
-    div=[]
-    for j in range(2, int(n**0.5)+1):
-        if n%j==0:
-            div+=[j, n//j]
-    div+=[n]
-    return sorted(set(div))
-
-# Генерация кубов нечетных чисел
-cubes = {x*3 for x in range(1, int(531135*(1/3)) + 1) if x % 2 != 0}
-print(cubes)
-'''
-# Перебор чисел в заданном диапазоне
-# for num in range(228224, 531136):
-#     div = divisors(num)
-#     cube_divisors = [j for j in div if j in cubes]
-#     if len(cube_divisors) >= 4:
-#         print(len(cube_divisors), max(cube_divisors))
-
+for x in range(700000+1, 10**10):
+    d = divisors(x)
+    if len(d)>=2:
+        M = min(d) + max(d)
+        if M%10==4:
+            print(x, M)
+            cnt+=1
+            if cnt==5:
+                break
 
 # endregion Урок: *************************************************************
 # #

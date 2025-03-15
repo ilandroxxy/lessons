@@ -6,107 +6,73 @@
 # #
 # region Урок: ********************************************************************
 
-# Номер 6
 '''
-from turtle import *
-screensize(-5000, 5000)
-tracer(0)
-l = 20
+print(17 ** 0.5)  # 4.123105625617661
+print(int(17 ** 0.5))  # 4 - просто взятие целой части
 
-for i in range(4):
-    fd(10 * l)
-    rt(270)
-up()
-fd(3 * l)
-rt(270)
-fd(5 * l)
-rt(90)
-down()
-for i in range(2):
-    fd(10 * l)
-    rt(270)
-    fd(12 * l)
-    rt(270)
-up()
+# 24 [1, 2, 3, 4, {4.898}, 6, 8, 12, 24]
+print(24 ** 0.5)  # 4.898
 
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        goto(x * l, y * l)
-        dot(3, 'red')
-update()
-done()
-'''
-from struct import iter_unpack
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            # делитель слева и его сомножитель справа
+            div += [j, x // j]  # j = 4, x = 24, 24 // 4 = 6
+    return sorted(set(div))
 
-# Номер 12
-'''
-for n in range(4, 10001):
-    s = '5' + '2' * n
-    while '52' in s or '1122' in s or '2222' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-    e = [int(i) for i in s]
-    if sum(e) == 64:
-        print(n)
-        break
+# Если у числа нет полного квадратного корня, то у него четное кол-во делителей
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+
+# Если у числа есть полный квадратный корень, то у него нечетное кол-во делителей
+print(divisors(16))  # [1, 2, 4, 8, 16]
 '''
 
 
-# Номер 5
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # 1/2
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
 
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r > 150:
-        print(n)
-        break
+# не считая единицы и самого числа
+print(divisors(24))  # [2, 3, 4, 6, 8, 12]
 '''
 
-# # i   0    1    2    3    4
-# M = ['a', 'b', 'c', 'd', 'e']
-# # -i -5   -4   -3   -2   -1
+# Номер 25 20814
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # 1/2
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
-# Номер 8
+k = 0
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    R = sum(d)
+    if str(R)[-1] == '9':
+        print(x, R)
+        k += 1
+        if k == 5:
+            break
 '''
-from itertools import *
-n = 0
-for p in product(sorted('СБОРНИК'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if word[0] != 'Р' and word.count('Б') == 2 and word.count('К') <= 1:
-        print(n, word)
-'''
+# Ответ:
+# 500014 250009
+# 500038 495289
+# 500040 1170359
+# 500054 250029
+# 500058 667289
 
-# Номер 9
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(uncopied) == 3:
-        if sum(copied2) / 4 < sum(uncopied) / 3:
-            cnt += 1
-print(cnt)
-'''
+
+
+
+
+
 # endregion Урок: *************************************************************
 # #
 # #

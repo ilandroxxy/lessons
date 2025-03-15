@@ -5,61 +5,18 @@
 # #
 # region Урок: ********************************************************************
 
-# № 5946 (Уровень: Средний)
+# 17558
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if len(M) == len(set(M)):
-        chet = len([x for x in M if x % 2 == 0])
-        nechet = len([x for x in M if x % 2 != 0])
-        if chet > nechet:
-            cnt += 1
-print(cnt)
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 32 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x < 0) + (y < 0) >= 1:
+        if (x + y) < len(A):
+            R.append(x + y)
+print(len(R), max(R))
 '''
-
-
-# № 8946 (Уровень: Базовый)
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if M[4] ** 2 > M[0] * M[1] * M[2] * M[3]:
-        if (M[4] + M[3]) > (M[0] + M[1] + M[2]) * 2:
-            cnt += 1
-print(cnt)
-'''
-
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x)for x in s.split(',')])
-    flag = 0
-    if all(x == 18 for x in M):
-        flag += 1
-    if sum(M) % 18 == 0:
-        flag += 1
-    if flag >= 1:
-        cnt +=1
-print(cnt)
-'''
-
-'''
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a - 2, b) + (a // 2, b)
-
-
-print(F(38, 16) * F(16, 2))
-'''
-
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a - 2, b) + F(a // 2, b)
-
-print(F(38, 16))
 
 # endregion Урок: *************************************************************
 # #

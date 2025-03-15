@@ -1905,34 +1905,3 @@ print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 '''
 
 
-# todo Сделать пост про универсальную функцию
-
-from string import *
-alphabet = digits + ascii_uppercase
-# alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-n = 15552
-print(convert(n, 2))
-print(convert(n, 8))
-print(convert(n, 16))
-print(convert(n, 3))
-
-
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def conv(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-print(convert(8, 2))  # 1000
-
-

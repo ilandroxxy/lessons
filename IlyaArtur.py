@@ -6,96 +6,145 @@
 # #
 # region Урок: ********************************************************************
 
+# https://education.yandex.ru/ege/task/ba906ead-d64b-46b6-930b-859ba8de9004
 '''
-import turtle as t
-k = 30
-t.screensize(2000,2000)
-t.tracer(0)
-t.left(90)
-t.down()
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-for i in range(4):
-    t.forward(10*k)
-    t.right(270)
-t.up()
-t.forward(3*k)
-t.right(270)
-t.forward(5*k)
-t.right(90)
-t.down()
-for j in range(2):
-    t.forward(10*k)
-    t.right(270)
-    t.forward(12*k)
-    t.right(270)
-t.up()
-for x in range(-30,30):
-    for y in range(-30,30):
-        t.setpos(x*k, y*k)
-        t.dot(3, 'blue')
-t.update()
-t.done()
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
 
 
-# № 20488 (Уровень: Сложный)
-'''
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) > 1]
-    uncopied = [x for x in M if M.count(x) == 1]
-
-    # if len(M) != len(set(M)):
-    if len(copied) > 0 and len(uncopied) > 0:
-
-        if M.count(max(M)) == 1:
-
-            if sum(uncopied) >= (3 * sum(copied)):
-                print(copied, uncopied)
-                cnt += 1
-print(cnt)
-'''
-# Ответ: 1382
-
-
-# https://education.yandex.ru/ege/task/0f1bb8de-fe34-40c1-a82e-8d012e8519dc
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if (max(M) + min(M)) ** 2 > M[1] ** 2 + M[2] ** 2 + M[3] ** 2:
+for n in range(1, 1000):
+    r = convert(n, 17)
+    if r[0] == '3' and r[-1] == 'D':
         cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/2f370a43-39d3-4557-97a3-920195435a5d
+# https://education.yandex.ru/ege/task/4babe488-42fc-4124-946f-edefedd0d21f
 '''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+summa = 0
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if len(M) == len(set(M)):
-        if 3 * (M[0] + M[-1]) >= 2 * sum(M[1:-1]):
+for n in range(95):
+    r3 = convert(n, 3)
+    r5 = convert(n, 5)
+    if r3[-2:] == '21':
+        if r5[0] == '3':
+            summa += n
             cnt += 1
+print(summa)
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/96c09be1-da8c-4460-b91f-05f352ddaa78
+# https://education.yandex.ru/ege/task/945d02c3-876e-4bd3-8a57-0e076865e42a
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
 
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    flag = 0
-    if len(M) != len(set(M)):
-        flag += 1
-    nechet = [x for x in M if x % 2 != 0]
-    if len(nechet) == 3:
-        flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
+
+for x in range(1, 2030+1):
+    n = 6**260 + 6**160 + 6**60 - x
+    r = convert(n, 6)
+    if r.count('0') == 202:
+        print(x)
+        break
+'''
+
+
+# https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+for x in range(1, 2030+1):
+    n = 3 ** 100 - x
+    r = convert(n, 3)
+    if r.count('0') == 5:
+        print(x)
+'''
+
+
+# https://education.yandex.ru/ege/task/e5f6be71-eb11-46e1-8dec-d1d1a4346927
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+n = 125 ** 10
+r = convert(n, 5)
+print(r.count('0'))
+'''
+
+
+# https://education.yandex.ru/ege/task/749a92f0-0083-4931-90cf-8c987a48ed9c
+'''
+R = []
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:16]:
+    for y in alphabet[:16]:
+        A = int(f'27A{x}23', 16)
+        B = int(f'8{y}E5D2', 16)
+        if (A + B) % 5 == 0:
+            R.append(int(x, 16) + int(y, 16))
+print(max(R))
+'''
+
+
+'''
+r = '432890978354'
+
+# summa = r.count('1') + r.count('2') * 2 + r.count('3') * 3
+
+summa = 0
+for x in r:
+    summa += int(x)
+
+
+summa = sum([int(x) for x in r])
+
+summa = sum(map(int, r))
+print(summa)
+'''
+
+'''
+R = []
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:15]:
+    A = int(f'9897{x}21', 15)
+    B = int(f'12{x}023', 15)
+    if (A + B) % 14 == 0:
+        print((A + B) // 14)
+'''
 
 # endregion Урок: *************************************************************
 # #
