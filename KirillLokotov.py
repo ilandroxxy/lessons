@@ -7,66 +7,95 @@
 # region Урок: ************************************************************
 
 
-# https://education.yandex.ru/ege/task/d26658b5-8543-4e2d-bb16-d916165bdde9
+# КЕГЭ № 17630 Основная волна 19.06.24 (Уровень: Средний)
 '''
-from math import ceil
-sym = 8  # кол-во символов
-alp = 7  # 2 ** i >= alp
-i = 3  # бит на один символ
+# sym - ?
+alp = 10 + 26 + 450
+i = 9  # 2 ** 9 >= 486
+# bit = sym * i
 
-bit = sym * i  # всего бит на один пароль
+byte708 = 213 * 2 ** 10
+byte = byte708 / 708
+print(byte)  # 308.06779
+byte = 309  # так как отведено БОЛЕЕ
 
-print(bit / 8)  # 3.0 - тут всегда округляем вверх (ceil)
-byte = 3  # всего байт на один пароль
-# byte = ceil(bit / 8)
-
-# user = byte + dop
-dop = 8  # всего байт на дополнительные сведения пользователя
-user = byte + dop
-print(user * 42)
+bit = byte * 8
+sym = bit / i
+print(sym)  # 274.666
 '''
+# В ответе запишите только целое число.
+# Ответ: 274
 
 
-# https://education.yandex.ru/ege/task/a1beb780-b471-41fe-a815-b22e0ec632dc
+# КЕГЭ № 17524 Основная волна 07.06.24 (Уровень: Средний)
 '''
-bytes = 276 * 2**10  # байт на 862 серийных номера
-byte = bytes / 862  # байт на один серийный номер
-print(byte)  # 327.870069 - не более, значит округляем вниз
+# sym - ?
+alp = 10 + 52 + 458  # 520
+i = 10  # 2 ** 10 >= 520
+# bit = sym * i
+
+byte862 = 276 * 2 ** 10
+byte = byte862 / 862
+print(byte)  # 327.8700 -> 327
 byte = 327
 
-bit = byte * 2**3  # бит на один серийный номер
-
-alp = 10 + 52 + 458  # 2 ** 10 >= 520 (alp)
-i = 10
-
+bit = byte * 8
 sym = bit / i
 print(sym)  # 261.6
 '''
+# Ответ: 261
 
 
-# https://education.yandex.ru/ege/task/f2ae72ec-dd45-47c0-996a-69d1b524b2e9
+# № 20805 Апробация 05.03.25 (Уровень: Средний)
 '''
-sym1 = 10
-alp1 = 10
-i1 = 4
-bit1 = sym1 * i1
+sym = 248
+# alp - ?
+# i - ?
 
-sym2 = 10
-alp2 = 26
-i2 = 5
-bit2 = sym2 * i2
+# bit = sym * i
 
-bit = bit1 + bit2
-print(bit / 8)  # 11.25 -> 12
-byte = 12
+byte_75_600 = 16 * 2 ** 20  # байт
+byte = byte_75_600 / 75_600
+print(byte)  # 221.9208 -> 222 так как у нас БОЛЕЕ
+byte = 222
 
-user = 600 / 20
-print(user - byte)
+bit = 222 * 8
+i = bit / sym
+print(i)  # 7.161 -> 8 бит на один символ
+
+print(2 ** 7)  # [65:128]
+print(2 ** 8)  # [129:256]
+'''
+# Минимально возможную мощность алфавита
+# Ответ: 129
+
+
+# № 20904 Апробация 05.03.25
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 '''
 
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
 
-print(1632 / 42)
-print(2 ** 38)
+for x in range(1, 2030+1):
+    n = 3**100 - x
+    s = convert(n, 3)
+    if s.count('0') == 1:
+        print(x)
+'''
+# Ответ: 1823
+
 
 # endregion Урок: ************************************************************
 # #

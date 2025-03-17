@@ -1904,4 +1904,35 @@ for a1 in M:
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 '''
 
+# Пора бы освежить пост про all
+print(all(x % 2 == 0 for x in (2, 4, 6)))  # True
+print(all(x % 2 == 0 for x in (2, 5, 6)))  # False
+
+'''
+def F(n):
+    # Преобразуем число в строку с четырьмя цифрами
+    num_str = f"{n:04}"
+    print(num_str)
+    for digit in set(num_str):
+        if num_str.count(digit) == 3:
+            return True
+    return False
+
+n = 3363
+print(F(n))  # Выведет True
+'''
+
+
+import sys
+sys.setrecursionlimit(10**6)
+
+
+def F(n):
+    if n < 100:
+        return n
+    if n >= 100:
+        return n + F(n - 2)
+
+print(F(66666) // F(777))
+
 

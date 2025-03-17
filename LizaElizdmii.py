@@ -5,92 +5,18 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+# № 17558 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(500_000+1, 10**10):
-    div = divisors(x)
-    R = sum(div)
-    if R % 10 == 9:
-        print(x, R)
-        cnt += 1
-        if cnt == 5:
-            break
+M = [int(x) for x in open('0. files/17.txt')]
+krat = [x for x in M if abs(x) % 32 == 0]
+A = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i + 1]
+    if (x < 0) + (y < 0) >= 1:
+        if (x + y) < len(krat):
+            A.append(x + y)
+print(len(A), max(A))
 '''
-
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(600_000+1, 10**10):
-    div = [j for j in divisors(x) if j != 9 and j % 10 == 9]
-    if len(div) > 0:
-        print(x, min(div))
-        cnt += 1
-        if cnt == 5:
-            break
-'''
-
-
-# № 19775 (Уровень: Средний)
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая самого числа.
-        if x % j == 0:
-            div += [j, x // j]  # x = 24, j = 4, 24 // 4 = 6
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(32_500_000+1, 10**10):
-    div = [j for j in divisors(x) if len(divisors(j)) == 0]
-    S = sum(div)
-    if S != 0 and S % 145 == 0:
-        print(x, S)
-        cnt += 1
-        if cnt == 7:
-            break
-'''
-
-# № 19778 (Уровень: Средний)
-'''
-def divisors(x):
-    div=[]
-    for j in range(2,int(x**0.5)+1):
-        if x%j==0:
-            div+=[j,x//j]
-    return sorted(set(div))
-
-
-cnt=0
-for x in range(9_500_000+1,10**10):
-    div=[j for j in divisors(x) if len(divisors(j))==0]
-    if len(div)>0:
-        F=sum(div)//len(div)
-        if F%813==0:
-            print(x,F)
-            cnt+=1
-            if cnt==5:
-                break
-'''
-
-
 # endregion Урок: *************************************************************
 # #
 # #
@@ -100,7 +26,7 @@ for x in range(9_500_000+1,10**10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
