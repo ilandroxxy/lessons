@@ -1,57 +1,7 @@
 # region Домашка: ******************************************************************
 
 
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
-
-# https://education.yandex.ru/ege/task/ba906ead-d64b-46b6-930b-859ba8de9004
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-cnt = 0
-for n in range(1, 1000):
-    r = convert(n, 17)
-    if r[0] == '3' and r[-1] == 'D':
-        cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/4babe488-42fc-4124-946f-edefedd0d21f
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-summa = 0
-cnt = 0
-for n in range(95):
-    r3 = convert(n, 3)
-    r5 = convert(n, 5)
-    if r3[-2:] == '21':
-        if r5[0] == '3':
-            summa += n
-            cnt += 1
-print(summa)
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/945d02c3-876e-4bd3-8a57-0e076865e42a
+# № 12923  (Уровень: Базовый)
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 def convert(n, b):
@@ -62,89 +12,170 @@ def convert(n, b):
     return r[::-1]
 
 
+s = 3 * 3125**9 + 2 * 625**8 - 4 * 625**7 + 3 * 125**6 - 2 * 25**5 - 2024
+s = convert(s, 25)
+print(s.count('0'))
+'''
+
+
+# № 17633 Основная волна 19.06.24 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+R = []
 for x in range(1, 2030+1):
-    n = 6**260 + 6**160 + 6**60 - x
-    r = convert(n, 6)
-    if r.count('0') == 202:
+    s = 6**260 + 6**160 + 6**60 - x
+    s = convert(s, 6)
+    if s.count('0') == 202:
         print(x)
         break
 '''
 
 
-# https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
+# № 12246 ЕГКР 16.12.23 (Уровень: Базовый)
 '''
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 def convert(n, b):
-    r = ''
+    s = ''
     while n > 0:
-        r += alphabet[n % b]
+        s += alphabet[n % b]
         n //= b
-    return r[::-1]
+    return s[::-1]
 
 
-for x in range(1, 2030+1):
-    n = 3 ** 100 - x
-    r = convert(n, 3)
-    if r.count('0') == 5:
-        print(x)
+# c = 0
+n = 2*729**333 + 2*243**334 - 81**335 + 2*27**336 - 2*9**337 - 338
+r = convert(n, 9)
+print(len(r) - r.count('0'))
+
+# for i in range(len(r)):
+#     if r[i] != '0':
+#         c += 1
+# print(c)
 '''
 
 
-# https://education.yandex.ru/ege/task/e5f6be71-eb11-46e1-8dec-d1d1a4346927
+# № 11663 (Уровень: Базовый)
 '''
+Z = []
 alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-n = 125 ** 10
-r = convert(n, 5)
-print(r.count('0'))
+for x in alphabet[:27]:
+    A = int(f'17{x}35', 27)
+    B = int(f'{x}742M', 27)
+    C = int(x, 27) ** 3
+    if (A + B + C) % 23 == 0:
+        Z.append((A + B + C) // 23)
+print(max(Z))
 '''
 
-
-# https://education.yandex.ru/ege/task/749a92f0-0083-4931-90cf-8c987a48ed9c
+# Пример перевода из 2-й в 10-ю
 '''
-R = []
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:16]:
-    for y in alphabet[:16]:
-        A = int(f'27A{x}23', 16)
-        B = int(f'8{y}E5D2', 16)
-        if (A + B) % 5 == 0:
-            R.append(int(x, 16) + int(y, 16))
-print(max(R))
-'''
-
-
-'''
-r = '432890978354'
-
-# summa = r.count('1') + r.count('2') * 2 + r.count('3') * 3
-
+# i  0  1  2  3
+L = [1, 0, 0, 0]
+b = 2
 summa = 0
-for x in r:
-    summa += int(x)
-
-
-summa = sum([int(x) for x in r])
-
-summa = sum(map(int, r))
+for i, x in enumerate(L[::-1], 0):
+    print(i, x)
+    summa += x * b ** i
 print(summa)
 '''
 
+
+# Универсальная функция перевода из b-ой системы в n-ую
 '''
+def my_int(L: list, b: int):
+    return sum(x * b ** i for i, x in enumerate(L[::-1], 0))
+
+
+n = 8
+print(bin(n)[2:])
+print(int('1000', 2))
+print(my_int([1, 0, 0, 0], 2))
+'''
+
+# A = int(f'73{x}1{y}', 67)
+# ValueError: int() base must be >= 2 and <= 36, or 0
+
+'''
+def my_int(L: list, b: int):
+    return sum(x * b ** i for i, x in enumerate(L[::-1], 0))
+
+
 R = []
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:15]:
-    A = int(f'9897{x}21', 15)
-    B = int(f'12{x}023', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
+for x in range(10, 67):
+    for y in range(0, x):
+        A = my_int([7, 3, x, 1, y], 67)
+        B = my_int([4, 9, y, 6], x)
+        R.append(A + B)
+print(len(set(R)))
 '''
+
+# endregion Домашка: ******************************************************************
+# #
+# #
+# region Урок: ********************************************************************
+
+
+# № 20801 Апробация 05.03.25 (Уровень: Базовый)
+'''
+from itertools import permutations
+print('1 2 3 4 5 6 7')
+table = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
+graph = 'AC CA AE EA CF FC CG GC GB BG GF FG FE EF ED DE DB BD'
+for p in permutations('ACBDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
+# 1 2 3 4 5 6 7
+# B G E F A D C
+
+
+# № 18308 (Уровень: Базовый)
+'''
+from itertools import permutations
+print('1 2 3 4 5 6 7 8 9')
+table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
+graph = 'AK KA KC CK BK KB CD DC BD DB DH HD DG GD DE ED EF FE FG GF GH HG'
+for p in permutations('ACBDEFGKH'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
+# 1 2 3 4 5 6 7 8 9
+# C G B D K A E F H
+# B G C D K A E F H
+
+# FE: 8, ED: 15
+# FE + ED = 23
+
+'''
+from itertools import permutations
+print('1 2 3 4 5 6 7')
+table = '14 15 17 25 26 27 34 35 41 43 46 51 52 53 62 64 67 71 72 76'
+graph = 'AB BA AF FA FE EF EG GE EC CE GB BG CB BC CD DC FD DF AD DA'
+for p in permutations('ACBDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+'''
+#1 2 3 4 5 6 7
+#C A G E B F D
+#C F G B E A D
+# A + F = 2, D + C = 8 => 8 + 2 = 10
 
 # endregion Урок: *************************************************************
 # #
@@ -155,7 +186,7 @@ for x in alphabet[:15]:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 5, 6, 8, 9, 12, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

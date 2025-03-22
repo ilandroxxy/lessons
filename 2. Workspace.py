@@ -1923,16 +1923,3 @@ print(F(n))  # Выведет True
 '''
 
 
-import sys
-sys.setrecursionlimit(10**6)
-
-
-def F(n):
-    if n < 100:
-        return n
-    if n >= 100:
-        return n + F(n - 2)
-
-print(F(66666) // F(777))
-
-
