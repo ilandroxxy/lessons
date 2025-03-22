@@ -24,8 +24,7 @@ byte = ceil(bit / 8)  # эта функция всегда округляет в
 
 print((byte * 2**20) / 2**20)
 '''
-from gettext import dpgettext
-from typing import is_protocol
+
 
 # https://education.yandex.ru/ege/task/d60b216e-85cb-45b3-9ebd-ef508c14c5db
 '''
