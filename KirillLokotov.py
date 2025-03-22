@@ -5,96 +5,89 @@
 # #
 # #
 # region Урок: ************************************************************
-
-
-# КЕГЭ № 17630 Основная волна 19.06.24 (Уровень: Средний)
 '''
-# sym - ?
-alp = 10 + 26 + 450
-i = 9  # 2 ** 9 >= 486
-# bit = sym * i
-
-byte708 = 213 * 2 ** 10
-byte = byte708 / 708
-print(byte)  # 308.06779
-byte = 309  # так как отведено БОЛЕЕ
-
-bit = byte * 8
-sym = bit / i
-print(sym)  # 274.666
-'''
-# В ответе запишите только целое число.
-# Ответ: 274
-
-
-# КЕГЭ № 17524 Основная волна 07.06.24 (Уровень: Средний)
-'''
-# sym - ?
-alp = 10 + 52 + 458  # 520
-i = 10  # 2 ** 10 >= 520
-# bit = sym * i
-
-byte862 = 276 * 2 ** 10
-byte = byte862 / 862
-print(byte)  # 327.8700 -> 327
-byte = 327
-
-bit = byte * 8
-sym = bit / i
-print(sym)  # 261.6
-'''
-# Ответ: 261
-
-
-# № 20805 Апробация 05.03.25 (Уровень: Средний)
-'''
-sym = 248
-# alp - ?
-# i - ?
-
-# bit = sym * i
-
-byte_75_600 = 16 * 2 ** 20  # байт
-byte = byte_75_600 / 75_600
-print(byte)  # 221.9208 -> 222 так как у нас БОЛЕЕ
-byte = 222
-
-bit = 222 * 8
-i = bit / sym
-print(i)  # 7.161 -> 8 бит на один символ
-
-print(2 ** 7)  # [65:128]
-print(2 ** 8)  # [129:256]
-'''
-# Минимально возможную мощность алфавита
-# Ответ: 129
-
-
-# № 20904 Апробация 05.03.25
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (z <= x) and ((not y) and ((not w) == y))
+                print(x, y, z, w, int(F))
 '''
 
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+print((28 * 13) + (84 * 78) - (24 * 7))
 
-for x in range(1, 2030+1):
-    n = 3**100 - x
-    s = convert(n, 3)
-    if s.count('0') == 1:
-        print(x)
+import turtle as t
+t.left(90)  # поворот головы по оси y вверх из условия
+t.tracer(0)  # отключение анимации отрисовки, то есть мгновенное рисование
+t.screensize(-2000, 2000)  # регулирование окна отрисовки (ползунки)
+size = 20  # наша переменная для регулирования масштаба
+
+
+# Тут пишется псевдокод:
+for i in range(3):
+    t.forward(27 * size)  # 28 * 13 = 364
+    t.right(90)
+    t.forward(12 * size)
+    t.right(90)
+
+t.up()  # Поднять хвост
+t.forward(4 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+
+t.down()  # Опустить хвост
+for _ in range(4):
+    t.fd(83 * size)  # 84 * 78 = 6468
+    t.rt(90)
+    t.fd(77 * size)
+    t.rt(90)
+
+# Тут перебираем координаты:
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)  # Прыгаем в определенную координату
+        t.dot(3, 'red')  # Рисуем точку толщиной 3 и цвет 'red'
+
+t.update()  # Для корректной работы t.tracer(0)
+t.done()  # Фиксация окна отрисовки
 '''
-# Ответ: 1823
+
+
+import turtle as t
+t.left(90)
+t.tracer(0)
+t.screensize(-2000, 2000)
+size = 20
+
+for i in range(9):
+    t.fd(27*size)
+    t.rt(90)
+    t.fd(30*size)
+    t.rt(90)
+t.up()
+t.fd(3*size)
+t.rt(90)
+t.fd(6*size)
+t.lt(90)
+t.down()
+for i in range(9):
+    t.fd(77 * size)
+    t.rt(90)
+    t.fd(66 * size)
+    t.rt(90)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)  # Прыгаем в определенную координату
+        t.dot(3, 'red')  # Рисуем точку толщиной 3 и цвет 'red'
+
+t.update()  # Для корректной работы t.tracer(0)
+t.done()
+
 
 
 # endregion Урок: ************************************************************

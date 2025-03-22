@@ -1,67 +1,88 @@
 # region Домашка: ******************************************************************
-
+from runpy import run_path
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-'''
-s = open('0. files/24.txt').readline()
-while 'ABA' in s or 'BAB' in s:
-    if 'ABA' in s:
-        s = s.replace('ABA', '*', 1)
-    if 'BAB' in s:
-        s = s.replace('BAB', '+', 1)
 
-for x in 'ABC':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
+# Определите максимальное количество идущих подряд символов,
+# среди которых символ T встречается не более 3 раз.
 
-# s = 'CABCABABABABCBA'
+s = 'TxxxxxxTxxxTxxxxxxTxxxxTxxxxxTxxxxTxxxxxTxxxxxT'
+# ['', 'xxxxxx', 'xxx', 'xxxxxx', 'xxxx', 'xxxxx', 'xxxx', 'xxxxx', 'xxxxx', '']
+# 18 TxxxxxxTxxxTxxxxxx
+# 22 xxxxxxTxxxTxxxxxxTxxxx
+# 21 xxxTxxxxxxTxxxxTxxxxx
+# 22 xxxxxxTxxxxTxxxxxTxxxx
+# 21 xxxxTxxxxxTxxxxTxxxxx
+# 22 xxxxxTxxxxTxxxxxTxxxxx
+# 17 xxxxTxxxxxTxxxxxT
 '''
-s = open('0. files/24.txt').readline()
-cnt = 2
+s = s.split('T')
 maxi = 0
-for i in range(len(s)-2):
-    if s[i:i+3] in ('ABA', 'BAB'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 2
+for i in range(len(s) - 3):
+    r = 'T'.join(s[i:i+3+1])
+    maxi = max(maxi, len(r))
 print(maxi)
 '''
 
+
+s = 'TxxxxxxTxxxTxxxxxxTxxxxTxxxxxTxxxxTxxxxxTxxxxxT'
+# Определите минимальное количество идущих подряд символов,
+# среди которых символ T встречается не более 3 раз.
+# 9 TTxxxxxxT
+# 12 TxxxxxxTxxxT
+# 12 TxxxTxxxxxxT
+# 13 TxxxxxxTxxxxT
+# 12 TxxxxTxxxxxT
+# 12 TxxxxxTxxxxT
+# 12 TxxxxTxxxxxT
+# 13 TxxxxxTxxxxxT
+# 8 TxxxxxTT
+'''
+mini = 10**9
+s = s.split('T')
+for i in range(len(s) - (3-2)):
+    r = 'T' + 'T'.join(s[i:i+3-2+1]) + 'T'
+    print(len(r), r)
+    mini = min(mini, len(r))
+print(mini)
+'''
+
+# № 9753 Основная волна 19.06.23 (Уровень: Сложный)
+# Определите максимальное количество идущих подряд символов,
+# среди которых символ Y встречается не более 150 раз.
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('O', 'A').replace('F', 'D').replace('C', 'D')
-s = s.replace('AAD', '*')
-s = s.replace('A', ' ').replace('D', ' ')
-print(max([len(x) for x in s.split()]))
+s = s.split('Y')
+maxi = 0
+for i in range(len(s) - 150):
+    r = 'Y'.join(s[i:i+150+1])
+    maxi = max(maxi, len(r))
+print(maxi)
 '''
 
 
-# Тип 24 №45258
+# № 11954 (Уровень: Средний)
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('AB', '*').replace('CB', '+')
-for x in 'ABC':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
+mini = 10**9
+s = s.split('X')
+for i in range(len(s) - (500-2)):
+    r = 'X' + 'X'.join(s[i:i+500-2+1]) + 'X'
+    if 'Y' not in r:
+        mini = min(mini, len(r))
+print(mini)
 '''
 
-
-# s = 'xxxAAxxxxAAxxx'
-# s = 'xxxA AxxxxA Axxx'
-# s = 'xxx xxxx xxx'
-'''
 s = open('0. files/24.txt').readline()
-s = s.replace('B', 'A').replace('C', 'A')
-while 'AA' in s:
-    s = s.replace('AA', 'A A')
-R = [len(x) for x in s.split()]
-print(max(R))
-'''
+s = s.split('T')
+mini = 0
+for i in range(len(s)- 100):
+    r ='T'.join(s[i:i+100+1])
+    mini = max(mini, len(r))
+print(mini)
 
 # endregion Урок: *************************************************************
 # #

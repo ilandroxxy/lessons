@@ -1,130 +1,66 @@
 # region Домашка: ******************************************************************
 
 
-# https://education.yandex.ru/ege/task/d73b5f1e-ee81-4928-94f5-ea2abff0a9a0
-'''
-from itertools import *
-A='02468'
-B='1357'
-cnt=0
-for x in permutations('01234567', r=4):
-    w = ''.join(x)
-    if w[0]=='3' and w[-1]=='0':
-        if w[1] not in A or w[2] not in A:
-            if w[2] not in A or w[-1] not in A:
-                cnt+=1
-print(cnt)
-
-
-from itertools import *
-A='02468'
-B='1357'
-cnt=0
-for x in permutations('01234567', r=4):
-    w = ''.join(x)
-    if w[0]=='3' and w[-1]=='0':
-        for x in A:
-            w = w.replace(x, '2')
-        if '22' not in w:
-            cnt+=1
-print(cnt)
-'''
-
-
-# Определите количество пар элементов последовательности, в которых либо сумма элементов кратна 18,
-# либо произведение элементов кратно 18. В ответе запишите два числа: сначала количество найденных пар,
-# затем максимальную сумму элементов этих пар.
-# В данной задаче под парой подразумевается два различных элемента последовательности.
-'''
-M = [int(x) for x in open ('0. files/17.txt')]
-R = []
-for i in range(len(M)):
-    for j in range(i+1,len(M)):
-        x, y = M[i],M[j]
-        cnt = 0
-        if (x+y)%18==0:
-            cnt += 1
-        if (x*y)%18==0:
-            cnt += 1
-        if cnt == 1:
-            R.append(x + y)
-
-print(len(R), max(R))
-'''
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# https://education.yandex.ru/ege/task/f89886b4-de58-4c14-b999-c17d6276c1a8
 '''
-n = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied3 = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(copied3) == 3 and len(uncopied) == 3:
-        if copied3[0] > copied2[0]:
-            print(n)
-'''
+def F(x, A):
+    return ((x % 2 == 0) <= (x % 3 != 0)) or (x + A >= 100)
 
-# https://education.yandex.ru/ege/task/dcf64491-b2a9-43d3-8307-3d9aad5e7fe4
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(uncopied) == 3:
-        if sum(copied2) / 4 < sum(M) / 7:
-            cnt += 1
-print(cnt)
+R = []
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 '''
 
 
-# https://education.yandex.ru/ege/task/dcf64491-b2a9-43d3-8307-3d9aad5e7fe4
+# № 20801 Апробация 05.03.25 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.txt'):
-    M = [int(x) for x in s.split()]
-    # uncopied = [x for x in M if M.count(x) == 1]
-    # if len(uncopied) == len(M):
-    if len(set(M)) == len(M):
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(chet) > len(nechet):
-            cnt += 1
-print(cnt)
+from itertools import *
+print('1 2 3 4 5 6 7')
+table = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
+graph = 'AC CA AE EA CF FC CG GC GF FG FE EF ED DE DB BD BG GB'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(graph.split()) == set(new_table.split()):
+        print(*p)
+'''
+
+# i 0    1    2    3    4    5    6
+# ('G', 'E', 'B', 'C', 'D', 'F', 'A')
+'''
+new_table = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
+new_table = 'G2 16 2G 24 27 34 35 36 42 43 47 53 57 6G 63 72 74 75'
+new_table = 'GE 16 EG E4 E7 34 35 36 4E 43 47 53 57 6G 63 7E 74 75'
+new_table = 'GE 16 EG E4 E7 B4 B5 B6 4E 4B 47 5B 57 6G 6B 7E 74 75'
 '''
 
 
-# https://education.yandex.ru/ege/task/2c9beda9-8bb0-497c-b6d3-d4fd322f0df0
+# № 18308 (Уровень: Базовый)
 '''
-summa = 0
-n = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    n += 1
-    if len(M) == len(set(M)):
-        if (M[0] + M[-1]) ** 2 > M[1] * M[2] * M[3]:
-            summa += n
-print(summa)
+from itertools import *
+print('1 2 3 4 5 6 7 8 9')
+table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
+graph = 'AK KA KB BK KC CK CD DC BD DB DE ED DG GD DH HD HG GH GF FG FE EF'
+for p in permutations('ABCDEFGHK'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(graph.split()) == set(new_table.split()):
+        print(*p)
 '''
+# 1 2 3 4 5 6 7 8 9
+# B G C D K A E F H
+# C G B D K A E F H
 
-# https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if all(x > 10 for x in M):
-        if max(M) ** 3 >= (M[0] * M[1] * M[2]) * 2:
-
-            cnt += 1
-print(cnt)
-'''
+# FE = 8, ED = 15, итого: 23
 
 # endregion Урок: *************************************************************
 # #
@@ -135,7 +71,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

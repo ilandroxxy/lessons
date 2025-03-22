@@ -6,151 +6,71 @@
 # #
 # region Урок: ********************************************************************
 
-# № 6588 Пробник ИМЦ СПб (Уровень: Средний)
-'''
-for n in range(1, 1000):
-    s = f'{n:b}'
-    s = s.replace('0', '*')
-    s = s.replace('1', '0')
-    s = s.replace('*', '1')
-    s = '1' + s
-    if s.count('1') % 2 != 0:
-        s = s + '1'
-    else:
-        s = s + '0'
-    r = int(s, 2)
-    if r > 180:
-        print(n)
-        break
-'''
-
-
+# № 17624 Основная волна 19.06.24 (Уровень: Базовый)
 '''
 def convert(n, b):
+    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
     r = ''
     while n > 0:
-        r += str(n % b)
+        r += alphabet[n % b]
         n //= b
     return r[::-1]
 
-
+R = []
 for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r > 150:
-        print(n)
-        break
+    s = convert(n, 2)
+    for i in range(2):
+        summa = sum(int(x) for x in s)
+        s = s + str(summa % 2)
+
+    r = int(s, 2)
+    if r > 75:
+        R.append(r)
+print()
 '''
 
 
-# Номер 12
-'''
-for n in range(4, 10_000+1):
-    s = '5' + '2' * n
-
-    while '52' in s or '1122' in s or '2222' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-
-    suma = 0
-    for x in s:
-        suma += int(x)
-    # for i in range(len(s)):
-    #     suma += int(s[i])
-
-
-    if suma == 64:
-        print(n)
-        break
-'''
-
-
-# Номер 7
-'''
-pixels = 1024 * 512
-# colors = 129
-# i = 8 # бит на одни пиксель
-# # Каждый пиксель в изображении кодируется 4 байтами.
-i = 4 * 8
-v = pixels * i  # бит
-
-u = 32_768  # бит / с
-
-print(v / u)  # 512.0
-'''
-
-
-# Номер 11
-'''
-sym = 32
-alp = 16
-i = 4
-bit = sym * i
-byte = bit / 8
-print(byte)  # 16.0
-
-print((16_384 * byte) / 2**10)
-'''
-
-# Номер 8
-'''
-s = 'БИКНОРС'
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        n += 1
-                        if slovo[0] != 'Р':
-                            if slovo.count('Б') == 2:
-                                if slovo.count('К') <= 1:
-                                    print(n)
-'''
-
-# Номер 13
-# Для узла с IP-адресом 111.118.179.50 адрес сети равен 111.118.178.0.
-# Определите значение третьего байта маски.
+# № 20902 Апробация 05.03.25 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.16.80.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, для которых количество единиц
+# в двоичной записи IP-адреса не кратно 2?
 '''
 from ipaddress import *
-for mask in range(33):
-    net = ip_network(f'111.118.179.50/{mask}', 0)
-    if '111.118.178.0' in str(net):
+net = ip_network('172.16.80.0/255.255.248.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 2 != 0:
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 18955 (Уровень: Средний)
+# Два узла, находящиеся в одной сети, имеют IP-адреса
+# 200.154.190.12 и 200.154.184.0. Укажите наибольшее возможное
+# количество единиц в маске этой сети. Учтите,
+# что два адреса в любой подсети зарезервированы:
+# адрес всей подсети и широковещательный адрес.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'200.154.190.12/{mask}', 0)
+    net2 = ip_network(f'200.154.184.0/{mask}', 0)
+    if net1 == net2:
+        print(mask)
+'''
+
+
+# № 18159 (Уровень: Базовый)
+# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
+# Чему равно наибольшее возможное значение третьего слева байта маски?
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'205.154.212.20/{mask}', 0)
+    if '205.154.192.0' in str(net):
         print(net.netmask)
-        # 255.255.254.0
-'''
-
-# Номер 10
-# сколько раз, не считая сносок, встречается
-# сочетание букв «вечер» или «Вечер» только в составе других слов,
-# но не как отдельное слово
-
-# 58 - 16 = 42
-
-
-# Номер 17
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if abs(x) % 100 == 29]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
 '''
 
 # endregion Урок: *************************************************************
