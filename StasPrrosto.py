@@ -7,6 +7,78 @@
 # region Урок: ********************************************************************
 
 
+# 17558
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+M32 = [x for x in M if abs(x) % 32 == 0]
+sp = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
+    # if x < 0 or y < 0:
+    if (x < 0) + (y < 0) >= 1:
+        if (x + y) < len(M32):
+            sp.append(x+y)
+print(len(sp), max(sp))
+'''
+
+
+# № 19723 (Уровень: Базовый)
+'''
+from fnmatch import *
+for x in range(0, 10**9, 451):
+    if fnmatch(str(x), '10?451*3'):  # 103451733
+        print(x, x // 451)
+'''
+
+# № 19720 (Уровень: Средний)
+'''
+from fnmatch import *
+for x in range(0, 10**8, 153):
+    if fnmatch(str(x), '1*2?3*45'):
+        flag = 0
+        s = str(x)
+        if s[1] != '2':
+            a = s[1:s.index('2')]
+            if all(x in '13579' for x in a):
+                flag += 1
+        else:
+            flag += 1
+
+        b = s[s.index('2')+1]
+        if b in '02468':
+            flag += 1
+        if s[s.index('2')+3] != '4':
+            c = s[s.index('2')+3:s.rindex('4')]
+            if all(x in '13579' for x in c):
+                flag += 1
+        else:
+            flag += 1
+
+        if flag == 3:
+            print(x, x // 153)  # 15126345
+'''
+
+
+# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+k = 0
+for x in range(800_000+1, 10**10):
+    d = [j for j in divisors(x) if j != 9 and j % 10 == 9]
+    if len(d) > 0:
+        print(x, min(d))
+        k += 1
+        if k == 5:
+            break
+
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -17,8 +89,8 @@
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = []
-# на следующем уроке: 8, 7, 11, 22, 24
+# КЕГЭ = []
+# на следующем уроке: повторить 22 номер
 
 # Первый пробник 21.12.24:
 # Стас 9/29 -> 48 вторичных баллов +[2, 3-5, 7, 10, 12, 16, 22] -[1, 6, 8, 9, 11, 13, 14, 15, 17-21, 24-25]

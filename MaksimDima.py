@@ -7,30 +7,104 @@
 # region Урок: ********************************************************************
 
 
+
+# № 20897 Апробация 05.03.25 (Уровень: Базовый)
+'''
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)  # отключение анимации
+t.left(90)
+size = 20
+
+# тут пишем псевдокод
+for i in range(9):
+    t.forward(27 * size)
+    t.right(90)
+    t.forward(30 * size)
+    t.right(90)
+t.up()  # Поднять хвост
+t.forward(3 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+t.down()  # Опустить хвост
+for i in range(9):
+    t.forward(77 * size)
+    t.right(90)
+    t.forward(66 * size)
+    t.right(90)
+
+
+# тут рисуются точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+'''
+
+
+# № 20817 Апробация 05.03.25 (Уровень: Средний)
+'''
+print(28 * 13 + 84 * 78 - 7 * 24)
+# 6748
+
+import turtle as t
+t.screensize(-2000, 2000)
+t.tracer(0)  # отключение анимации
+t.left(90)
+size = 20
+
+# тут пишем псевдокод
+for i in range(3):
+    t.forward(27 * size)
+    t.right(90)
+    t.forward(12 * size)
+    t.right(90)
+
+t.up()
+t.forward(4 * size)
+t.rt(90)
+t.fd(6 * size)
+t.lt(90)
+t.down()
+for i in range(4):
+    t.fd(83 * size)
+    t.rt(90)
+    t.fd(77 * size)
+    t.rt(90)
+
+
+# тут рисуются точки
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+'''
+
+'''
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+C = {1, 2, 3, 4, 5, 6}
+'''
+
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
-# todo разобрать задачку Тип 24 №59847
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('WW', ' ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-100):
-    r = 'W' + 'WW'.join(s[i:i+101]) + 'W'
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# зацепка может быть тут https://inf-ege.sdamgia.ru/problem?id=59729
-# В строке TTTT пара символов встречается ровно 3 раза.
 
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 4, 5, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21.1, 23, 24, 25]
+# ФИПИ = [1, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 
