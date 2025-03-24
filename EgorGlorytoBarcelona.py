@@ -6,41 +6,22 @@
 # #
 # region Урок: ********************************************************************
 
-'''
-from fnmatch import *
 
-R = []
-for x in range(11071, 10 ** 10, 11071):
-    if fnmatch(str(x), '?136*1'):
-        if str(x)[0] in '13579' and str(x)[-2] in '02468':
-            R.append([x, x // 11071])
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r=''
+    while n>0:
+        r+=alphabet[n%b]
+        n//=b
+    return r[::-1]
 
-print(*R[-5])
-print(*R[-4])
-print(*R[-3])
-print(*R[-2])
-print(*R[-1])
-'''
-
-
-cnt = 0
-def divisors(n):
-    div=[]
-    for j in range(2, int(n**0.5)+1):
-        if n%j==0:
-            div+=[j, n//j]
-    return sorted(set(div))
-
-
-for x in range(700000+1, 10**10):
-    d = divisors(x)
-    if len(d)>=2:
-        M = min(d) + max(d)
-        if M%10==4:
-            print(x, M)
-            cnt+=1
-            if cnt==5:
-                break
+maxi = 0
+for x in range(1, 2005):
+    n = 5**150 + 5**98 - x
+    s = convert(n, 5)
+    if maxi <= s.count('0'):
+        maxi = s.count('0')
+        print(x, maxi)
 
 # endregion Урок: *************************************************************
 # #
@@ -51,7 +32,7 @@ for x in range(700000+1, 10**10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 18, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

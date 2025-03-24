@@ -1923,3 +1923,13 @@ print(F(n))  # Выведет True
 '''
 
 
+# todo сделать № 18450 Сергей Горбачев
+'''
+def F(a, b: list):
+    if a >= min(b) or a == 23:
+        return a in b
+    return F(a + 3, b) + F(a + 4, b) + F(a * 2, b)
+
+
+print(F(11, [50, 51, 52, 53, 54]))
+'''

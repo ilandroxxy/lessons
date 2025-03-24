@@ -5,60 +5,25 @@
 # #
 # #
 # region Урок: ********************************************************************
+
+# № 18450 Сергей Горбачев
 '''
-from ipaddress import *
+def F(a, b: list):
+    if a >= min(b) or a == 23:
+        return a in b
+    return F(a + 3, b) + F(a + 4, b) + F(a * 2, b)
 
-cnt = 0
-for mask in range(33):
-    net = ip_network(f'68.30.20.77/{mask}', 0)
-    net_b = f'{net.network_address:b}'
-    if (32 - mask) == net_b.count('1'):
-        cnt = 0
-        for ip in net:
-            ip_b = f'{ip:b}'
-            if ip_b.count('1') == 10:
-                cnt += 1
-print(cnt)
+
+print(F(11, [50, 51, 52, 53, 54]))
 '''
+# print(F(11, 50))  # 720
+# print(F(11, 51))  # 861
+# print(F(11, 52))  # 1075
+# print(F(11, 53))  # 594 (or a == 50)
+# print(F(11, 54))  # 4 (or a == 50 or a == 51)
+#
+# print(720 + 861 + 1075 + 594 + 4)
 
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n == 0: return 0
-    if n > 0 and n % 4 < 2: return F(n//4) + n % 4
-    if n % 4 >= 2: return F(n//4) + n % 4 - 1
-
-
-for n in range(200_000_000, 300_000_000):
-    if F(n) == 27 and F(n+1) == 16:
-        print(n)
-        break
-'''
-
-maxi = 0
-s = open('0. files/24.txt').readline()
-for x in 'BCD*':
-    s = s.replace(x, ' ')
-for x in '++ -- +- -+'.split():
-    s = s.replace(x, ' ')
-s = s.split()
-for x in s:
-    if 'A' not in x:
-        continue
-    x = x[x.index('A'):]
-    x = x.split('A')
-    for y in x:
-        try:
-            eval(y)
-            if y[0] in '+-':
-                continue
-            if maxi <= len(y):
-                maxi = len(y)
-                print(maxi, y, eval(y))
-        except:
-            continue
 
 # endregion Урок: *************************************************************
 # #
