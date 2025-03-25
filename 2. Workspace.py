@@ -1933,3 +1933,19 @@ def F(a, b: list):
 
 print(F(11, [50, 51, 52, 53, 54]))
 '''
+
+
+# todo № 14512 (Уровень: Средний)
+'''
+s = open('24.txt').readline()
+s = s.replace('1', ' 1 ').replace('8', ' 8 ')
+s = s.split()
+
+maxi = 0
+for i in range(len(s)-2):
+    a, b, c = s[i], s[i+1], s[i+2]
+    if (a == '1' and c == '8') or (a == '8' and c == '1'):
+        if b.count('B') == b.count('C'):
+            maxi = max(maxi, len(a+b+c))
+print(maxi)
+'''

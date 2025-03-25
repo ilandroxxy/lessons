@@ -5,114 +5,61 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Номер 5
 '''
-m = []
-for n in range(1, 1000):
-    s = bin(n)[2:]  # 0b1000
-    # s = f'{n:b}'
-    if n % 2 == 0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)
-    if n <= 12:
-        m.append(r)
-print(max(m))
-'''
+# Чтение файла для 17 номера
+M = [int(x) for x in open('0. files/17.txt')]
+R = []  # Сюда будем складывать результаты
 
 
-# Номер 23
-'''
-def f(a, b):
-    if a <= b:
-        return a == b  # a < b (False), a == b (True)
-    return f(a - 2, b) + f(a // 2, b)
-    # True + True + False + True == 3
+# Рассмотрим три прототипа задач:
+M = [1, 2, 3, 4, 5]
 
+# 1. Под парой подразумевается два идущих подряд элемента
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
-print(f(38, 16) * f(16, 2))
-'''
+# 2. Под тройкой подразумевается три идущих подряд элемента
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
 
-# Номер 14
-'''
-m = []
-for x in range(1, 2031):
-    n = 7 ** 170 + 7 ** 100 - x
-    s = ''
-    while n > 0:
-        s += str(n % 7)
-        n //= 7
-    m.append([s.count('0'), x])
-print(max(m))
-
-
-m = []
-for x in range(1, 2031):
-    n = 7 ** 170 + 7 ** 100 - x
-    cnt = 0
-    while n > 0:
-        if n % 7 == 0:
-            cnt += 1
-        n //= 7
-    m.append([cnt, x])
-print(max(m))
+# 3. Под парой подразумевается два различных элемента
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        print(f'{x}{y}', end=' ')
+    print()
 '''
 
 
-# Функция для решения 25 номеров с делителями:
+# № 18142 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-# [1, 2, 3, 4]  # 24 // 4 == 6
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(divisors(16))  # [1, 2, 4, 8, 16]
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 10 == 8]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 16 == min(A)) + (y % 16 == min(A)) == 1:
+        R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# Номер 25 (20814)
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+# № 18045 (Уровень: Базовый)
 
-
-cnt = 0
-for x in range(500_000+1, 10**10):
-    d = divisors(x)
-    R = sum(d)
-    if R % 10 == 9:
-        print(x, R)
-        cnt += 1
-        if cnt == 5:
-            break
-'''
-
-
-# Номер 9 (17863)
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(uncopied) == 3:
-        if sum(copied) ** 2 > sum(uncopied) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 2]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 10) + (y % 10) == len(A):
+        R.append(x + y)
+print(len(R), min(R))
 
 # endregion Урок: ********************************************************************
 # #
@@ -122,7 +69,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1.1, 2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 18, 23, 25]
+# ФИПИ = [1.1, 2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке: 17 номер
 

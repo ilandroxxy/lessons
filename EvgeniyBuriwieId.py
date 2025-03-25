@@ -5,17 +5,74 @@
 # #
 # region Урок: ************************************************************
 
+
+# 20808
 '''
-symbols = 32
-alphabet = 16
-i = 4
-bite = symbols * i
-print(bite / 8)
-byte = 16
-v = (16384 * byte) / 2**10
-print(v)
+maxi = 0
+for x in range(1, 2030+1):
+    n = 7**170 + 7**100 - x
+    M = []
+    while n > 0:
+        M.append(n % 7)
+        n //= 7
+    M.reverse()
+    if M.count(0) >= maxi:
+        maxi = M.count(0)
+        print(x, maxi)
 '''
-# Ответ: 256
+
+
+# 20809
+'''
+def F(a, x):
+    b = 60 <= x <= 80
+    return (x % a == 0) or (b <= (x % 22 != 0))
+R = []
+for a in range(1, 10000):
+    if all(F(a, x) for x in range(1,10000)):
+        R.append(a)
+print(max(R))
+'''
+
+
+# 20814
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+for x in range(500_000+1, 10**10):
+    div = divisors(x)
+    R = sum(div)
+    if R % 100 == 99:
+        print(x, R)
+        input()
+'''
+
+
+# № 19778 (Уровень: Средний)
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+for x in range(9_500_000+1, 10**10):
+    div = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(div) > 0:
+        F = sum(div) // len(div)
+        if F % 813 == 0:
+            print(x, F)
+            input()
 
 # endregion Урок: ************************************************************
 # #
