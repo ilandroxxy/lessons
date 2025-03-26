@@ -5,67 +5,54 @@
 # #
 # region Урок: ********************************************************************
 
+# Определите максимальное количество идущих подряд символов A.
 '''
-# Способ чтения файла из 17 номера
-M = [int(x) for x in open('0. files/17.txt')]
-R = []  # Сюда будем складывать наши результаты
+# Вариант 1
+s = open('0. files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    # if s[i] == 'A' and s[i+1] == 'A':
+    if s[i:i+2] == 'AA':
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
 
-
-# Рассмотрим три основных прототипа задач:
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
-# 123 234 345
-for i in range(len(M)-2):
-    # x, y, z = M[i], M[i+1], M[i+2]
-    x, y, z = M[i:i+3]
-
-# 3. Под парой подразумевается два различных элемента последовательности
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+# Вариант 2
+s = open('0. files/24.txt').readline()
+s = s.replace('B', ' ').replace('C', ' ')
+print(max([len(x) for x in s.split()]))
 '''
 
 
-# № 20603 (Уровень: Средний)
+# Тип 24 №59848
+# Необходимо найти самую длинную подстроку,
+# которая может являться числом в 24-ричной системе счисления.
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if abs(x) % 10 == 5]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) > max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
+from string import *
+alphabet = digits + ascii_uppercase
+s = open('0. files/24.txt').readline()
+for x in alphabet[24:]:
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split() if x[0] != '0']))
 '''
 
-#
-# № 19749 (Уровень: Средний)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-mini = min(M) % 3
-maxi = max(M) % 7
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x % 3 == mini) + (y % 3 == mini) + (z % 3 == mini) == 1:
-        if (x % 7 == maxi) + (y % 7 == maxi) + (z % 7 == maxi) >= 2:
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-# 228 262713
+# Тип 24 №27690
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждые два соседних различны.
 
+s = open('0. files/24.txt').readline()
+count = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] != s[i+1]:
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
 
 
 # endregion Урок: *************************************************************

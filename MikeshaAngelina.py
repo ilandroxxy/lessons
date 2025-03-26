@@ -6,110 +6,196 @@
 # #
 # region Урок: ********************************************************************
 
-# Номер 12
 '''
-def f(n):
-    s = '5' + '2' * n
-    while '52' in s or '1122' in s or '2222' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-    return s
-
-
-for n in range(4, 10000):
-    if sum(map(int, f(n))) == 64:
-        print(n)
-        break
-'''
-
-
-# Номер 9
-'''
+f = open('9.csv')
 c = 0
-for s in open('0. files/9.csv'):
+for s in f:
     z = [int(i) for i in s.split(';')]
+    d = [z.count(i) for i in z]
 
-    p = [i for i in z if z.count(i) == 2]
+    p = [i for i in z if z.count(i) > 1]
     np = [i for i in z if z.count(i) == 1]
 
-    if len(p) == 4 and len(np) == 3:
+    u1 = d.count(2) == 2 and d.count(1) == 5
+
+    # print(z,d,p,np,u1)
+    if u1:
         if (sum(p) / len(p)) < (sum(np) / len(np)):
             c += 1
 print(c)
+
+
+f = open('17.txt')
+z = [int(i) for i in f]
+
+a5 = [i for i in z if len(str(abs(i))) == 5]
+maxi = max([i for i in z if abs(i) % 100 == 29])
+ans = []
+for i in range(len(z) - 2):
+    a, b, c = z[i:i + 3]
+    u1 = (a in a5) + (b in a5) + (c in a5) == 2
+    u2 = a + b + c <= maxi
+    if u1 and u2:
+        ans += [a + b + c]
+
+print(len(ans), max(ans))
 '''
 
 
-# Номер 24
 '''
-s = open('0. files/24.txt').readline()
-s = s.split('T')
-mini = 10**9
-for i in range(len(s)-208):
-    r = 'T' + 'T'.join(s[i:i+209]) + 'T'
-    mini = min(mini, len(r))
-print(mini)
-'''
-# 4361 -> 4363
+# Открытие и чтение файла 17 номера
+M = [int(x) for x in open('0. files/17.txt')]
+R = []  # сюда будем складывать результат
 
+# Три прототипа 17 номера:
+M = [1, 2, 3, 4, 5]
 
-'''
-# s[i:i+4]  len(s)-3
-s = 'xxxxxTxxxTxxxxxxTxxxxx'
-s = ['xxxxx', 'xxx', 'xxxxxx', 'xxxxx']  # maxi
-s = ['xxx', 'xxxxxx']  # mini
-# 'T' + 'xxxTxxxxxx' + 'T'
-'''
+# 1. Под парой подразумевается два идущих подряд элемента
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
+# 2. Под тройкой подразумевается три идущих подряд элемента
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
 
-# Номер 15
-'''
-def F(x, y, A):
-    return (x < A) or (3*y + 2*x > 120) or (A > y)
-
-
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 300) for y in range(1, 300)):
-        print(A)
-        break
+# 3. Под парой подразумевается два различных элемента
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
 
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-'''
 
-# Номер 17
+# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
 M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if str(x)[-2:] == '29']
+A = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 43]
 R = []
 for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(B):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) >= 1:
+        if (x**2 + y**2 + z**2) <= max(A)**2:
+            R.append(x**2 + y**2 + z**2)
+print(len(R), min(R))
+'''
+
+
+# № 19749 (Уровень: Средний)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x % 3 == min(M) % 3) + (y % 3 == min(M) % 3) + (z % 3 == min(M) % 3) == 1:
+        if (x % 7 == max(M) % 7) + (y % 7 == max(M) % 7) + (z % 7 == max(M) % 7) >= 2:
             R.append(x + y + z)
 print(len(R), max(R))
 '''
 
-from itertools import product, permutations
-for p in permutations('12345', r=3):
-    num = ''.join(p)
-    print(num)
 
-for p in product('12345', repeat=4):
-    print(p)
+# № 18045 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 2]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if ((abs(x) % 10) + (abs(y) % 10)) == len(A):
+        R.append(x + y)
+print(len(R), min(R))
+'''
 
-# 1, 6, 8, 22, 19-21
-# 3, 4, 7, 22
+# двоичная запись маски, нам нужно взять 3 байт
+# mask[:8] mask[8:16] mask[16:24] mask[24:]
+'''
+n = 10**8
+print(bin(n)[2:])
+print(f'{n:b}')
+
+print(oct(n)[2:])
+print(f'{n:o}')
+
+print(hex(n)[2:])  # 5f5e100
+print(f'{n:x}')  # 5f5e100
+print(f'{n:X}')  # 5F5E100
+'''
+
+# № 20902 Апробация 05.03.25 (Уровень: Базовый)
+# Сеть задана IP-адресом 172.16.80.0 и маской сети 255.255.248.0.
+# Сколько в этой сети IP-адресов, для которых количество
+# единиц в двоичной записи IP-адреса не кратно 2?
+'''
+from ipaddress import *
+net = ip_network('172.16.80.0/255.255.248.0', 0)
+cnt = 0
+for ip in net:
+    # print(bin(int(ip))[2:], f'{ip:b}')
+    b = f'{ip:b}'  # двоичная запись ip
+    if b.count('1') % 2 != 0:
+        cnt += 1
+print(cnt)
+'''
+# print(net)  # 172.16.80.0/21, где 21 - это кол-во единиц в двоичной записи маски сети
+# print(net.network_address)
+
+
+# № 18159 (Уровень: Базовый)
+# Для узла с IP-адресом 205.154.212.20 адрес сети
+# равен 205.154.192.0. Чему равно наибольшее возможное
+# значение третьего слева байта маски?
+# Ответ запишите в виде десятичного числа.
+
+'''
+from ipaddress import *
+for mask in range(0, 32+1):
+    net = ip_network(f'205.154.212.20/{mask}', 0)
+    if '205.154.192.0' in str(net):
+        print(net, net.netmask)
+        # 205.154.192.0/18 255.255.192.0
+        # 205.154.192.0/19 255.255.224.0
+'''
+# Ответ: 224
+
+
+# № 19748 (Уровень: Средний)
+# Узлы с IP-адресами 157.220.185.237 и 157.220.184.230
+# принадлежат одной сети.
+# Какое наименьшее количество IP-адресов, в двоичной
+# записи которых ровно 15 единиц, может содержаться в этой сети?
+'''
+from ipaddress import *
+for mask in range(10, 32+1):
+    net1 = ip_network(f'157.220.185.237/{mask}', 0)
+    net2 = ip_network(f'157.220.184.230/{mask}', 0)
+    if net1 == net2:
+        cnt = 0
+        for ip in net1:
+            b = f'{ip:b}'
+            if b.count('1') == 15:
+                cnt += 1
+        print(mask, cnt)
+'''
+
+# № 18487 (Уровень: Средний)
+# Сеть, в которой содержится узел с IP-адресом 192.214.A.184,
+# задана маской сети 255.255.255.224, где A - некоторое допустимое
+# для записи IP-адреса число. Определите минимальное значение A,
+# для которого для всех IP-адресов этой сети в двоичной записи
+# IP-адреса суммарное количество единиц будет больше 15.
+# В ответе укажите только число.
+'''
+from ipaddress import *
+for A in range(0, 255+1):
+    net = ip_network(f'192.214.{A}.184/255.255.255.224', 0)
+    if all(f'{ip:b}'.count('1') > 15 for ip in net):
+        print(A)
+        break
+'''
 
 # endregion Урок: *************************************************************
 # #
