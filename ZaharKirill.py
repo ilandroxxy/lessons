@@ -7,103 +7,121 @@
 # region Урок: ********************************************************************
 
 
-# https://education.yandex.ru/ege/task/0cee3383-2699-4e0d-a2f1-5f50a85ad086
+# № 5627 (Уровень: Средний) 🌶
 '''
-from itertools import *
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    # if max(M) < sum(M) - max(M):
-    # if M[-1] < M[0] + M[1] + M[2]:
-    if M[-1] < sum(M[:-1]):
-        if any(P[0] + P[1] == P[2] + P[3] for P in permutations(M)):
-            cnt += 1
-print(cnt)
-'''
-
-'''
-from itertools import *
-M = [9, 18, 19, 20]
-for P in permutations(M):
-    print(P)
-    # (9, 18, 19, 20)
-    # (9, 18, 20, 19)
-    # (9, 19, 18, 20)
-    # (9, 19, 20, 18)
-    # (9, 20, 18, 19)
-    # (9, 20, 19, 18)
-    # (18, 9, 19, 20)
-    # (18, 9, 20, 19)
-'''
-
-
-# https://education.yandex.ru/ege/task/d2c3cbfd-85f3-4d63-a34e-ad3278d25635
-'''
-from math import prod
 cnt = 0
 for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(',')])
-    # if max(M) ** 2 > M[0] * M[1] * M[2] * M[3]:
-    if max(M) ** 2 > prod(M[:-1]):
-        if (M[-1] + M[-2]) > (M[0] + M[1] + M[3]) * 2:
-            cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/task/96c09be1-da8c-4460-b91f-05f352ddaa78
-# Определите количество строк таблицы, содержащих числа,
-# для которых выполнено строго одно из условий:
-# в строке есть повторяющиеся числа;
-# в строке есть ровно три нечётных числа.
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
     flag = 0
     if len(M) != len(set(M)):
         flag += 1
-    nechet = [x for x in M if x % 2 != 0]
-    if len(nechet) == 3:
+    if all(M[1] - M[0] == M[i+1] - M[i] for i in range(len(M)-1)):
         flag += 1
-    if flag == 1:
+    if flag >= 1:
         cnt += 1
 print(cnt)
 '''
 
-# https://education.yandex.ru/ege/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
+
+# № 12797 (Уровень: Средний) 🌶
 '''
 cnt = 0
 for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    copied2 = [x for x in M if M.count(x) == 2]
+    M = sorted([int(x) for x in s.split(',')])
+    # if len(set(M)) == 3:
+    copied = [x for x in M if M.count(x) == 2]
     uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(uncopied) == 3:
-        if sum(copied2) / 4 < sum(M) / 7:
-            cnt += 1
+    if len(copied) == 2 and len(uncopied) == 2:
+        if all(x % 2 != 0 for x in uncopied):
+            if all(x % 2 == 0 for x in copied):
+                cnt += 1
 print(cnt)
 '''
 
-
-# https://education.yandex.ru/ege/task/d73c5edf-63bd-47d8-87cb-7810e03725a0
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if len(M) == len(set(M)):
-        if 5 * (M[0] + M[-1]) >= 3 * (M[1] + M[2] + M[3] + M[4]):
-            cnt += 1
-print(cnt)
+from itertools import *
+print('1 2 3 4 5 6 7')  # тут
+table = '12 16 21'  # тут
+graph = 'AE EA AC'  # тут
+for p in permutations('ABCDEFG'):  # тут
+    new_table = table
+    for i in range(1, 7+1):  # тут
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+
+
+
+from itertools import *
+print('1 2 3 4 5 6 7 8 9')  # тут
+table = '14 24 26 34 43 49 51 53 65 74 82 87 92 94'  # тут
+graph = 'AK KA KC CK KB BK DB BD DC CD ED DH GD DG GH HG HD DH EF FE '  # тут
+for p in permutations('ABCDEFG'):  # тут
+    new_table = table
+    for i in range(1, 8+1):  # тут
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
 
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if len(M) == len(set(M)):
-         if sum(M) % 3 == 0:
-            cnt += 1
-print(cnt)
+# Единицы измерения информации
+# 1 бит - минимальная единица измерения информации
+# 1 байт - 8 бит - 2**3 бит
+# 1 Кбайт - 1024 байт - 2**10 байт - 2**13 бит
+# 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит
+# 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
+
+# 64 Мбайт = 64 * 2**23 бит
+# 3 Гбайт = 3 * 2**20 Кбайт
+# 7 Кбайт = бит
+
+
+# bit = pixels * i, где i - это кол-во бит на один пиксель
+# colors = 2 ** i
+'''
+pixels = 1280 * 960
+colors = 2048  # colors = 2 ** i
+i = 11
+bit = pixels * i
+bit_all = 96_468_992 * 132  # бит на весь пакет
+count = bit_all / bit
+print(count)  # 942.08
+'''
+
+
+# № 19557 (Уровень: Базовый)
+'''
+pixels = 1920 * 1080
+i = 11
+bit = pixels * i
+bit_313 = bit * 313
+print(bit_313 / 2**23)  # 851.08337
+'''
+
+
+# № 9280 (Уровень: Базовый)
+'''
+pixels = 512 * 256
+bit = 64 * 2 ** 13  # бит
+bit = bit * 1.25
+i = bit / pixels
+print(2 ** i)
+'''
+
+
+# № 7883 (Уровень: Средний)
+
+pixels = 1920 * 1080
+print(2 ** 16)
+i = 16
+bit = pixels * i
+byte = bit / 8
+byte_100 = byte * 100
+disk = 4 * 2**30
+print(disk / byte_100)
+print(disk - 10 * byte_100)  # 147767296
+print((disk - 10 * byte_100) / 2 ** 10)  # 144304
 
 # endregion Урок: *************************************************************
 # #
@@ -114,7 +132,7 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 5, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

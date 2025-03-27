@@ -1949,3 +1949,19 @@ for i in range(len(s)-2):
             maxi = max(maxi, len(a+b+c))
 print(maxi)
 '''
+
+
+# todo сделать разбор № 12797 (Уровень: Средний) 🌶
+
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    # if len(set(M)) == 3:
+    copied = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 2 and len(uncopied) == 2:
+        if all(x % 2 != 0 for x in uncopied):
+            if all(x % 2 == 0 for x in copied):
+                cnt += 1
+print(cnt)
+
