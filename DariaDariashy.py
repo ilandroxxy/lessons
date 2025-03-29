@@ -6,160 +6,117 @@
 # #
 # region Урок: ********************************************************************
 
-
-
-# print((28 * 13) + (84 * 78) - (7 * 24))  # 6748
-
+# https://education.yandex.ru/ege/task/5e46684b-8408-47c0-92e8-9065796469f1
 '''
-import turtle as t
-t.screensize(-2000, 2000)
-t.tracer(0)
-t.left(90)
-size = 30
-
-for i in range(3):
-    t.fd(27 * size)
-    t.rt(90)
-    t.fd(12 * size)
-    t.rt(90)
-t.up()
-t.fd(4 * size)
-t.rt(90)
-t.fd(6 * size)
-t.lt(90)
-t.down()
-for i in range(4):
-    t.fd(83 * size)
-    t.rt(90)
-    t.fd(77 * size)
-    t.rt(90)
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3]  # x -> 978 304 '-273'
+B = [x for x in A if abs(x) % 10 == 5]  # 305, 235, 555
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    # if (x in A) or (y in A):
+    if (x in A) + (y in A) >= 1:  #  которых хотя бы один
+        if (x + y) % min(B) == 0:
+            R.append(x + y)
+print(len(R), max(R))
 '''
+from pprint import pformat
 
+# https://education.yandex.ru/ege/task/d4439e7b-ef28-49d4-9c2f-1a0c67026188
 '''
-from turtle import *
-screensize(-5000, 5000)
-tracer(0)
-l = 10
-up()
-
-rt(270)
-fd(350 * l)
-rt(270)
-fd(50 * l)
-rt(180)
-down()
-for i in range(20):
-    fd(530 * l)
-    rt(90)
-    fd(380 * l)
-    rt(90)
-up()
-rt(90)
-fd(10 * l)
-rt(90)
-fd(20 * l)
-rt(270)
-down()
-for i in range(32):
-    fd(830 * l)
-    rt(270)
-    fd(530 * l)
-    rt(270)
-up()
-
-for x in range(-50, 50):
-    for y in range(-50,50):
-        goto(x * l, y * l)
-        dot(3, 'red')
-update()
-done()
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 21 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    # if (x % min(A) == 0) or (y % min(A) == 0):
+    if (x % min(A) == 0) + (y % min(A) == 0) >= 1:
+        R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# № 19889 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/c255edb8-3ff7-4c2a-bf66-03487b499649
 '''
-def divisors(x):
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]  # [3, 3, 3, 4, 5, 6, 7]
+    if len(copied) == 3:  # copied = [3, 3, 3]
+        if len(set(M)) == 5:  #  {3, 4, 5, 6, 7}
+            if sum(M) < 502:
+                cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/d73c5edf-63bd-47d8-87cb-7810e03725a0
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    if len(M) == len(set(M)):
+        if 5 * (min(M) + max(M)) >= 3 * (M[1] + M[2] + M[3] + M[4]):
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/41a06b51-e4e0-4204-b3ac-432f00e2ac2c
+'''
+def divisors(x):  # 24
     div = []
-    for j in range(2, int(x**0.5)+1):
+    for j in range(1, int(x ** 0.5)+1):
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div.append(j)  # 4
+            div.append(x // j)  # 24 // 4 = 6
     return sorted(set(div))
 
 
-for x in range(902714+1, 10**10):
-    d = [j for j in divisors(x) if j != 5 and j % 10 == 5]
-    if len(d) > 0:
-        print(x, min(d))
-        input()
+for x in range(977004, 977022+1):
+    div = [j for j in divisors(x) if j % 2 == 0]
+    if len(div) > 6:
+        print(x, div[-2])
 '''
 
 
-# № 19779 (Уровень: Средний)
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(55_000_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0 and j % 1000 == 777]
-    if len(d) > 0:
-        print(x, min(d))
-        input()
-'''
-
-
-# № 18591 (Уровень: Средний)
-# – символ «Н» означает ровно одну нечётную цифру;
-# – символ «Ч» означает ровно одну чётную цифру.
-# Ч9?23?*23НЧ
+# https://education.yandex.ru/ege/task/08b93dc7-c401-48a3-9078-75af3fa2e240
 '''
 from fnmatch import *
-for x in range(1984, 10**10, 1984):  # делящиеся на 1984 без остатка.
-    if fnmatch(str(x), '?9?23?*23??'):
-        if str(x)[0] in '2468' and str(x)[-1] in '02468':
-            if str(x)[-2] in '13579':
-                print(x, x // 1984)
+for x in range(13, 10**8, 13):
+    if fnmatch(str(x), '123*678'):
+        print(x, x // 13)
 '''
-# 491234 2336
-# ?9?23?*23??
-
-# ?: 0123456789
-# *: 00008 0000 00 _
 
 
-# № 5642 (Уровень: Средний)
+# https://education.yandex.ru/ege/task/c624bf95-c3d7-48d7-898f-7a8868480573
 '''
-from fnmatch import *
-
 def divisors(x):
     div = []
-    for j in range(2, int(x**0.5)+1):
+    for j in range(1, int(x ** 0.5)+1):
         if x % j == 0:
             div.append(j)
             div.append(x // j)
     return sorted(set(div))
 
-for x in range(500_000+1, 10**10):
-    d = [j for j in divisors(x) if fnmatch(str(j), '*1?3')]
-    if len(d) == 3:
-        print(x, max(divisors(x)))
-        input()
+
+for x in range(326496, 649632+1):
+    d = divisors(x)
+    chet = [j for j in d if j % 2 == 0]
+    nechet = [j for j in d if j % 2 != 0]
+    if len(chet) == len(nechet):
+        if len(chet) >= 70:
+            print(x, min([j for j in d if j > 1000]))
 '''
+
+
+print(float(5))  # 5.0
+
+print(float(5.5))  # 5.5
+print(int(5.5))  # 5
+
+print(4 / 2, type(4 / 2))
+# 2.0 <class 'float'>
 
 # endregion Урок: *************************************************************
 # #

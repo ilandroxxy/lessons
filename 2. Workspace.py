@@ -1952,7 +1952,7 @@ print(maxi)
 
 
 # todo сделать разбор № 12797 (Уровень: Средний) 🌶
-
+'''
 cnt = 0
 for s in open('0. files/9.csv'):
     M = sorted([int(x) for x in s.split(',')])
@@ -1964,4 +1964,78 @@ for s in open('0. files/9.csv'):
             if all(x % 2 == 0 for x in copied):
                 cnt += 1
 print(cnt)
+'''
 
+
+# todo сделать разбор № 11201 (Уровень: Средний)
+'''
+from itertools import *
+cnt = 0
+for p in permutations('ПАЙТОН'):
+    word = ''.join(p)
+    summa = word.index('А')+1 + word.index('О')+1
+    if summa == 6:
+        cnt += 1
+print(cnt)
+'''
+
+# todo сделать разбор 19888
+'''
+R = []
+for n in range(1, 1000):
+    s = f'{n:o}'
+    if n % 2 == 0:
+        for x in '1357':
+            s = s.replace(x, '2')
+    else:
+        s = '3' + s[1:-1] + '3'
+    r = int(s, 8)
+    if r < 300:
+        R.append(r)
+print(max(R))
+'''
+
+
+'''
+import re
+
+text = "Python is awesome!"
+result = re.search(r"awesome", text)
+if result:
+    print("Найдено:", result.group())  # Найдено: awesome
+else:
+    print("Не найдено.")
+
+
+text = "Python is great"
+result = re.match(r"Python", text)
+if result:
+    print("Начинается с Python")  # Сработает
+else:
+    print("Не начинается")
+
+
+text = "10 cats, 20 dogs, 30 birds"
+numbers = re.findall(r"\d+", text)  # \d+ означает "одна или больше цифр"
+print(numbers)  # ['10', '20', '30']
+
+text = "Hello, World!"
+new_text = re.sub(r"World", "Python", text)
+print(new_text)  # Hello, Python!
+
+text = "apple,banana;orange"
+fruits = re.split(r"[,;]", text)  # Разделяем по запятой или точке с запятой
+print(fruits)  # ['apple', 'banana', 'orange']
+
+'''
+
+def F(n, k, c):
+    if n > k+3 or "aaa" in c:
+        return 0
+    if n == k:
+        return 1 and "aaa" not in c
+    else:
+        return F(n - 1, k, c + "a") + F(n + 5, k, c + "b") + F(n * 2, k, c + "c")
+
+
+print(F(5, 34, ""))

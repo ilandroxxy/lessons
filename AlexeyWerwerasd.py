@@ -6,50 +6,51 @@
 # #
 # region Урок: ************************************************************
 
-
-# Номер 12
 '''
-s = '1' * 81
-while '111' in s or '88888' in s:
-    if '111' in s:
-        s = s.replace('111', '88', 1)
-    else:
-        s = s.replace('88888', '8', 1)
-print(s)
-'''
-
-
-# Номер 14
-'''
-maxi = 0
-for x in range (1, 2030+1):
-    t = 7**170 + 7**100 - x
-    cnt = 0
-    while t != 0:
-        if t % 7 == 0:
-            cnt += 1
-        t //= 7
-    if maxi <= cnt:
-        maxi = cnt
-        print(x, maxi)
-'''
-
-# Номер 17
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if abs(x) % 32 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x < 0) + (y < 0) >= 1:
-        if (x + y) < len(A):
-            R.append(x + y)
-print(len(R), max(R))
+import turtle as t
+t.lt(90)
+size = 10
+t.screensize(-2000, 2000)
+t.tracer(0)
+t.down()
+for i in range(2):
+    t.fd(77 * size)
+    t.rt(90)
+    t.fd(101 * size)
+    t.rt(90)
+t.up()
+t.fd(29 * size)
+t.lt(90)
+t.fd(44*size)
+t.rt(90)
+t.down()
+for i in range(7):
+    t.fd(88 * size)
+    t.rt(90)
+    t.fd(75 * size)
+    t.rt(90)
+t.up()
+for x in range(-100, 100):
+    for y in range(-100, 100):
+        t.setpos(x * size, y * size)
+        t.dot(2,'red')
+t.update()
+t.done()
 '''
 
 
-
-# 17-25
+# 18116
+n = 0
+summa = 0
+for s in open('0. files/9.csv'):
+  M = [int(x) for x in s.split(';')]
+  n += 1
+  F = [x for x in M if M.count(x) == 3 and x % 2 == 0]
+  f = [x for x in M if M.count(x) == 1 and x % 2 != 0]
+  if len(F) == 3 and len(f) == 3:
+    if sum(F)**2 > sum(f)**2:
+      summa += n
+print(summa)
 
 
 # endregion Урок: ************************************************************
