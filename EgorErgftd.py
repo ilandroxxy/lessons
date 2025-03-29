@@ -6,71 +6,73 @@
 # #
 # region Урок: ********************************************************************
 
-# № 17624 Основная волна 19.06.24 (Уровень: Базовый)
+
+# № 18120 (Уровень: Базовый)
 '''
-def convert(n, b):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 2)
-    for i in range(2):
-        summa = sum(int(x) for x in s)
-        s = s + str(summa % 2)
-
-    r = int(s, 2)
-    if r > 75:
-        R.append(r)
-print()
-'''
-
-
-# № 20902 Апробация 05.03.25 (Уровень: Базовый)
-# Сеть задана IP-адресом 172.16.80.0 и маской сети 255.255.248.0.
-# Сколько в этой сети IP-адресов, для которых количество единиц
-# в двоичной записи IP-адреса не кратно 2?
-'''
-from ipaddress import *
-net = ip_network('172.16.80.0/255.255.248.0', 0)
+from itertools import *
+n = 0
 cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 2 != 0:
+for p in product(sorted('ПРЕСТОЛ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if word[-1] in 'ЕО':
+            if len([x for x in word if x in 'ПРСТЛ']) <= 3:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 18133 (Уровень: Базовый)
+'''
+from itertools import *
+n = 0
+for p in product(sorted('КОДИМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if word.count('М') == 2 and 'ММ' not in word:
+        print(n)
+'''
+
+
+# № 11294 (Уровень: Базовый)
+'''
+from itertools import *
+cnt = 0
+for p in product('ДГШЯБЖ', repeat=6):
+    word = ''.join(p)
+    if word.count('Я') == 1:
         cnt += 1
 print(cnt)
 '''
 
 
-# № 18955 (Уровень: Средний)
-# Два узла, находящиеся в одной сети, имеют IP-адреса
-# 200.154.190.12 и 200.154.184.0. Укажите наибольшее возможное
-# количество единиц в маске этой сети. Учтите,
-# что два адреса в любой подсети зарезервированы:
-# адрес всей подсети и широковещательный адрес.
+# № 11201 (Уровень: Средний)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'200.154.190.12/{mask}', 0)
-    net2 = ip_network(f'200.154.184.0/{mask}', 0)
-    if net1 == net2:
-        print(mask)
+from itertools import *
+cnt = 0
+for p in permutations('ПАЙТОН'):
+    word = ''.join(p)
+    summa = word.index('А')+1 + word.index('О')+1
+    if summa == 6:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 18159 (Уровень: Базовый)
-# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
-# Чему равно наибольшее возможное значение третьего слева байта маски?
+# № 11657 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'205.154.212.20/{mask}', 0)
-    if '205.154.192.0' in str(net):
-        print(net.netmask)
+from itertools import *
+cnt = 0
+for p in permutations('01234567', r=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if '3' not in num:
+            for x in '0246':
+                num = num.replace(x, '2')
+            if '22' in num:
+                cnt += 1
+print(cnt)
 '''
 
 # endregion Урок: *************************************************************

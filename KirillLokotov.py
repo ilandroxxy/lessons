@@ -5,89 +5,118 @@
 # #
 # #
 # region Урок: ************************************************************
+
+
+# № 47403 (Уровень: Базовый)
 '''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (z <= x) and ((not y) and ((not w) == y))
-                print(x, y, z, w, int(F))
-'''
-
-'''
-print((28 * 13) + (84 * 78) - (24 * 7))
-
-import turtle as t
-t.left(90)  # поворот головы по оси y вверх из условия
-t.tracer(0)  # отключение анимации отрисовки, то есть мгновенное рисование
-t.screensize(-2000, 2000)  # регулирование окна отрисовки (ползунки)
-size = 20  # наша переменная для регулирования масштаба
-
-
-# Тут пишется псевдокод:
-for i in range(3):
-    t.forward(27 * size)  # 28 * 13 = 364
-    t.right(90)
-    t.forward(12 * size)
-    t.right(90)
-
-t.up()  # Поднять хвост
-t.forward(4 * size)
-t.right(90)
-t.forward(6 * size)
-t.left(90)
-
-t.down()  # Опустить хвост
-for _ in range(4):
-    t.fd(83 * size)  # 84 * 78 = 6468
-    t.rt(90)
-    t.fd(77 * size)
-    t.rt(90)
-
-# Тут перебираем координаты:
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)  # Прыгаем в определенную координату
-        t.dot(3, 'red')  # Рисуем точку толщиной 3 и цвет 'red'
-
-t.update()  # Для корректной работы t.tracer(0)
-t.done()  # Фиксация окна отрисовки
-'''
-
-
 import turtle as t
 t.left(90)
 t.tracer(0)
-t.screensize(-2000, 2000)
-size = 20
+t.screensize(-4000, 4000)
+size = 40
 
-for i in range(9):
-    t.fd(27*size)
+for i in range(4):
+    t.fd(12*size)
     t.rt(90)
-    t.fd(30*size)
-    t.rt(90)
-t.up()
-t.fd(3*size)
-t.rt(90)
-t.fd(6*size)
-t.lt(90)
-t.down()
-for i in range(9):
-    t.fd(77 * size)
-    t.rt(90)
-    t.fd(66 * size)
-    t.rt(90)
+t.rt(30)
+for i in range(3):
+    t.fd(8*size)
+    t.rt(60)
+    t.fd(8*size)
+    t.rt(120)
 t.up()
 for x in range(-50, 50):
     for y in range(-50, 50):
-        t.goto(x * size, y * size)  # Прыгаем в определенную координату
-        t.dot(3, 'red')  # Рисуем точку толщиной 3 и цвет 'red'
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
 
-t.update()  # Для корректной работы t.tracer(0)
+t.update()
 t.done()
+'''
 
+
+# № 7264 OpenFIPI (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alphabet[n % b] + r
+        n //= b
+    return r
+
+print(convert(8, 2))  # 1000
+
+
+n = 343**515 - 6*49**520 + 5*49**510 - 3*7**530 - 550
+R = []
+while n > 0:
+    R.append(n % 7)
+    n //= 7
+R.reverse()
+print(R.count(6))
+'''
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alphabet[n % b] + r
+        n //= b
+    return r
+
+
+n = 343**515 - 6*49**520 + 5*49**510 - 3*7**530 - 550
+s = convert(n, 7)
+print(s.count('6'))
+'''
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alphabet[n % b] + r
+        n //= b
+    return r
+
+
+for x in range(1, 2030+1):
+    n = 3**100 - x
+    r = convert(n, 3)
+    if r.count('0') == 1:
+        print(x)
+'''
+
+
+# № 19484 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# print(alphabet[25])
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alphabet[n % b] + r
+        n //= b
+    return r
+
+n = 5*729**2024 + 3*243**1413 - 7*81**169 - 2*9**107 + 3017
+s = convert(n, 27)
+print([alphabet.index(x) for x in s if x < 'P' and x in alphabet[0::2]])
+print(sum([alphabet.index(x) for x in s if x < 'P' and x in alphabet[0::2]]))
+'''
+
+
+# № 19246 ЕГКР 21.12.24 (Уровень: Базовый)
+
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:25]:
+    A = int(f'11353{x}12', 25)
+    B = int(f'135{x}21', 25)
+    if (A + B) % 24 == 0:
+        print((A + B) // 24)
 
 
 # endregion Урок: ************************************************************
@@ -101,4 +130,4 @@ t.done()
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 6, 14, 15, 17
+# на следующем уроке: 15, 17
