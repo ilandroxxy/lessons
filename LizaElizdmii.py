@@ -12,74 +12,66 @@
 # 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит
 # 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
 
-# большее всегда делится на меньшее
-# все измерения лучше производить в бит
-
-# v = pixels * i, где i - это бит на один пиксель
-# colors = 2 ** i
-
-
-# v = a * b * c * t
-#   кол-во каналов * частоту * глубину кодирования * время
-
-# https://education.yandex.ru/ege/task/5b2df675-96d3-460d-b1ed-e3dfb6ed7c63
+# https://education.yandex.ru/ege/task/221f688c-b7dd-4fd8-b384-f8c245b17f14
 '''
-pixels = 2560 * 1440
-v = 2**33 / 200
-i = v / pixels
-print(i)  # 11.650
-print(2 ** 11)
-'''
+sym = 23
+alp = 12  # colors = 2 ** i
+i = 4  # 2 ** i >= 12, i - это бит выделяется на один символ
+
+bit = sym * i  # вес одного пароля в бит
+print(bit / 8)  # 11.5
+byte = 12  # вес одного пароля в байт
 
 
-# https://education.yandex.ru/ege/task/ceddc23d-72f7-4523-87fc-761db29eff27
+# user = byte +
+user = 13068 / 297
+print(user - byte)  # 32.0
 '''
-pixels = 640 * 860
-v = 500 * 2 ** 13  # бит
-v = v * 1.23
-print(v / pixels)  # 9.15348
-'''
+# pin
+# sym = 4
+# alp = 10
 
 
-# https://education.yandex.ru/ege/task/26133fed-3f76-4e26-9b4a-a96c4160e69c
+# https://education.yandex.ru/ege/task/f2ae72ec-dd45-47c0-996a-69d1b524b2e9
 '''
-pixels = 1536 * 1024
-count = 6
-v6 = 9 * 2**23
-v = v6 / 6
-i = v / pixels
-print(i)
-'''
+sym1 = 10
+alp1 = 26
+i1 = 5
+bit1 = sym1 * i1
 
 
-# https://education.yandex.ru/ege/task/ce57772b-890f-46fc-814d-c8818d3e67ca
-'''
-a = 4
-b = 48000
-c = 16
-t = 3 * 60  # сек
-v = a * b * c * t
-T = v / 3200
-print(T / 3600)  # 48
+sym2 = 10
+alp2 = 10
+i2 = 4
+bit2 = sym2 * i2
+
+bit = bit1 + bit2
+print(bit / 8)  # 11.25
+byte = 12
+
+user = 600 / 20
+print(user - byte)  # 18.0
 '''
 
-# https://education.yandex.ru/ege/task/97232e31-d97b-4f20-badf-1c38458126c4
-'''
-a = 2
-b = 48000
-# 1024 уровнями квантования.
-c = 10  # 2 ** 10 = 1024
+
+# https://education.yandex.ru/ege/task/298579d9-a483-4edc-8be5-167e3464430f
+
+# sym - ?
+alp = 10 + 26 + 26
+i = 6
+
+byte = 10 * 2**13 / 1000
+print(byte)  # 10.24
+byte = 10
+
+bit = byte * 8
+sym = bit / i
+print(sym)  # 13.33
 
 
-u = 256000
-T = 18 * 60
-v = T * u  # сжатый
-v = (v / 60) * 100  # вес не сжатого
-t = v / (a * b * c)
-print(t / 60)
-'''
 
-print((48 * 1.5) / 3 )
+
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -89,7 +81,7 @@ print((48 * 1.5) / 3 )
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
+# ФИПИ = [2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

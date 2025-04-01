@@ -6,24 +6,50 @@
 # #
 # region Урок: ********************************************************************
 
-# № 18450 Сергей Горбачев
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+
+def f(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [f(s+1, n-1), f(s+4, n-1), f(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print( [s for s in range(1, 51) if f(s, 2)] ) # 19
+print( [s for s in range(1, 51) if f(s, 3) and not f(s, 1)] ) # 20
+print( [s for s in range(1, 51) if f(s, 4) and not f(s, 2)] ) # 21
+
+
+# № 18144 (Уровень: Базовый)
 '''
-def F(a, b: list):
-    if a >= min(b) or a == 23:
-        return a in b
-    return F(a + 3, b) + F(a + 4, b) + F(a * 2, b)
+from math import ceil
 
+def f(s, n):
+    if s <= 19: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(s-4, n-1), f(s-6, n-1), f(ceil(s/2), n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
 
-print(F(11, [50, 51, 52, 53, 54]))
+print([s for s in range(20, 1000) if f(s, 2)]) # 19 - 39
+print([s for s in range(20, 1000) if f(s, 3) and not f(s, 1)]) # 20 - 43 44
+print([s for s in range(20, 1000) if f(s, 4) and not f(s, 2)]) # 21 - 88
 '''
-# print(F(11, 50))  # 720
-# print(F(11, 51))  # 861
-# print(F(11, 52))  # 1075
-# print(F(11, 53))  # 594 (or a == 50)
-# print(F(11, 54))  # 4 (or a == 50 or a == 51)
-#
-# print(720 + 861 + 1075 + 594 + 4)
 
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def f(a, s, n):
+    if s + a >= 81: return n % 2 == 0
+    if n == 0: return 0
+    h = [f(a+1, s, n-1), f(a, s+1, n-1), f(a*2, s, n-1), f(a, s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 74) if f(7, s, 2)]) # 19 - 19
+print([s for s in range(1, 74) if f(7, s, 3) and not f(7, s, 1)]) # 20
+print([s for s in range(1, 74) if f(7, s, 4) and not f(7, s, 2)]) # 21
+'''
 
 # endregion Урок: *************************************************************
 # #
