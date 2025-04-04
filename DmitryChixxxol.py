@@ -7,43 +7,67 @@
 # region Урок: ********************************************************************
 
 
-# № 18313 (Уровень: Средний)
+def F(a, b):
+    if a >= b:
+        return a == b  # True/False
+    h = [F(a + 2, b), F(a * 2, b)]
+    return sum(h)
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+
+# s - это кол-во камней в куче
+# n - это шаг игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
 '''
-sym = 25
-alp = 10 + 26 + 26 + 465
-print(alp)  # 527 >= 2 ** i
-i = 10  # бит на один символ
-bit = sym * i
-print(bit / 8)  # 31.25
-byte = 32
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-# d = dop + pas (byte)
-d = (77 * 2 ** 10) / 1500
-print(d - byte)  # 20.56533
-'''
-
-# № 20805 Апробация 05.03.25 (Уровень: Средний)
-'''
-sym = 248
-# alp - ?
-# i - ?
-
-# 75 600 серийных номеров требуется более 16 Мбайт памяти.
-byte = (16 * 2 ** 20) / 75_600
-print(byte)  # 221.920
-byte = 222
-bit = byte * 8
-# bit = sym * i
-i = bit / sym
-print(i)  # 7.1612
-i = 8
-print(2 ** 8)  # 256
-
-
-alp = 128  # i = 7
-alp = 129  # i = 8
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
+# № 17875 Демоверсия 2025 (Уровень: Базовый)
+'''
+from math import ceil, floor
+
+def F(s, n):
+    if s <= 19:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(s-5, n-1), F(floor(s/3), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(20, 2000) if F(s, 2)])
+print([s for s in range(20, 2000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20, 2000) if F(s, 4) and not F(s, 2)])
+'''
+
+# № 17532 Основная волна 07.06.24 (Уровень: Базовый)
+
+def F(a, s, n):
+    if a + s >= 65:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*3, s, n-1), F(a, s*3, n-1)]
+    # return any(h) if (n - 1) % 2 == 0 else any(h)  # После неудачного первого хода Пети.
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # При любой игре Пети.
+
+print([s for s in range(1, 59) if F(6, s, 2)])  # [7, 8,
+print([s for s in range(1, 59) if F(6, s, 3) and not F(6, s, 1)])  # [10, 19]
+print([s for s in range(1, 59) if F(6, s, 4) and not F(6, s, 2)])  # [18]
 
 # endregion Урок: *************************************************************
 # #

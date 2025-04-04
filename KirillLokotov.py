@@ -6,93 +6,99 @@
 # #
 # region Урок: ************************************************************
 
-
-#  № 11663 (Уровень: Базовый)
+# 19722 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBBNM')
-for x in alphabet[:27]:
-    A = int(f'17{x}35', 27)
-    B = int(f'{x}742M', 27)
-    C = int(f'{x}', 27) ** 3
-    if (A + B + C**3) % 23 == 0:
-        print((A + B + C**3) // 23)
+from fnmatch import *
+for x in range(12602, 10**10, 12602):  #  делящиеся на 12602 без остатка.
+    if fnmatch(str(x), '*45?49*24'):
+        print(x)
 '''
 
 
-# № 20580 (Уровень: Базовый)
-# Для какого наибольшего натурального значения A выражение
-# (9x + y > A) ∨ (x ≥ 36) ∨ (y ≥ 18)
-# тождественно истинно для любых положительных и целых x и y?
+# № 19723 (Уровень: Базовый)
 '''
-def F(x, y, A):
-    return (9*x + y > A) or (x >= 36) or (y >= 18)
+def divisors(x):
+    div = []
+    # for j in range(1, int(x ** 0.5)+1):
+    for j in range(2, int(x ** 0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
-R = []
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(max(R))
-'''
 
-
-# № 20584 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((405 % x == 0) <= (81 % x == 0)) or (A - x > 162)
-
-R = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(min(R))
+cnt = 0
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 9:
+            print(x, R)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
+# № 19778 (Уровень: Средний)
 '''
-def F(x, A):
-    B = 60 <= x <= 80
-    return (x % A == 0) or (B <= (x % 22 != 0))
-
-R = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
+def D(x):
+    div = []
+    for j in range(2, int(x ** 0.5)+1):  #  не считая самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
 
-# print(12 & 6)  # 4
-# № 20577 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
-
-R = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
+cnt = 0
+for x in range(9_500_000+1, 10**10):
+    d = [j for j in D(x) if len(D(j)) == 0]
+    if len(d) > 0:
+        F = sum(d) // len(d)  # среднего арифметического
+        if F != 0 and F % 813 == 0:
+            print(x, F)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-
-#
-# № 20905 Апробация 05.03.25 (Уровень: Базовый)
 '''
-def F(x, a1, a2):
-    P = 17 <= x <= 58
-    Q = 29 <= x <= 80
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
+# Нашли все простые числа
+print([x for x in range(2, 100) if len(divisors(x)) == 0])
+# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
-R = []
-M = [x / 4 for x in range(10 * 4, 100 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 29.0
+# Нашли все составные числа
+print([x for x in range(2, 100) if len(divisors(x)) != 0])
+# [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99]
 '''
+
+
+# № 19776 (Уровень: Средний)
+'''
+def D(x):
+    div = []
+    for j in range(2, int(x ** 0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(23_600_000+1, 10**10):
+    d = [j for j in D(x) if len(D(j)) == 0]
+    if len(d) > 0:
+        # M = d[0] + d[-1]
+        M = min(d) + max(d)
+        if M % 213 == 171:  # значение M при делении на 213 даёт в остатке 171
+            print(x, M)
+            cnt += 1
+            if cnt == 6:
+                break
+'''
+
+
+
 # endregion Урок: ************************************************************
 # #
 # #
@@ -104,4 +110,4 @@ print(min(R))  # 29.0
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 15, 17, 23, 25
+# на следующем уроке: 17, 23
