@@ -7,118 +7,92 @@
 # region Урок: ************************************************************
 
 
-# № 47403 (Уровень: Базовый)
+#  № 11663 (Уровень: Базовый)
 '''
-import turtle as t
-t.left(90)
-t.tracer(0)
-t.screensize(-4000, 4000)
-size = 40
-
-for i in range(4):
-    t.fd(12*size)
-    t.rt(90)
-t.rt(30)
-for i in range(3):
-    t.fd(8*size)
-    t.rt(60)
-    t.fd(8*size)
-    t.rt(120)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBBNM')
+for x in alphabet[:27]:
+    A = int(f'17{x}35', 27)
+    B = int(f'{x}742M', 27)
+    C = int(f'{x}', 27) ** 3
+    if (A + B + C**3) % 23 == 0:
+        print((A + B + C**3) // 23)
 '''
 
 
-# № 7264 OpenFIPI (Уровень: Базовый)
+# № 20580 (Уровень: Базовый)
+# Для какого наибольшего натурального значения A выражение
+# (9x + y > A) ∨ (x ≥ 36) ∨ (y ≥ 18)
+# тождественно истинно для любых положительных и целых x и y?
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
+def F(x, y, A):
+    return (9*x + y > A) or (x >= 36) or (y >= 18)
 
-print(convert(8, 2))  # 1000
-
-
-n = 343**515 - 6*49**520 + 5*49**510 - 3*7**530 - 550
 R = []
-while n > 0:
-    R.append(n % 7)
-    n //= 7
-R.reverse()
-print(R.count(6))
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
-
-
-n = 343**515 - 6*49**520 + 5*49**510 - 3*7**530 - 550
-s = convert(n, 7)
-print(s.count('6'))
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
-
-
-for x in range(1, 2030+1):
-    n = 3**100 - x
-    r = convert(n, 3)
-    if r.count('0') == 1:
-        print(x)
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(max(R))
 '''
 
 
-# № 19484 (Уровень: Базовый)
+# № 20584 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-# print(alphabet[25])
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alphabet[n % b] + r
-        n //= b
-    return r
+def F(x, A):
+    return ((405 % x == 0) <= (81 % x == 0)) or (A - x > 162)
 
-n = 5*729**2024 + 3*243**1413 - 7*81**169 - 2*9**107 + 3017
-s = convert(n, 27)
-print([alphabet.index(x) for x in s if x < 'P' and x in alphabet[0::2]])
-print(sum([alphabet.index(x) for x in s if x < 'P' and x in alphabet[0::2]]))
+R = []
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(min(R))
 '''
 
 
-# № 19246 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 20809 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def F(x, A):
+    B = 60 <= x <= 80
+    return (x % A == 0) or (B <= (x % 22 != 0))
+
+R = []
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
+'''
 
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:25]:
-    A = int(f'11353{x}12', 25)
-    B = int(f'135{x}21', 25)
-    if (A + B) % 24 == 0:
-        print((A + B) // 24)
+# print(12 & 6)  # 4
+# № 20577 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
+
+R = []
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
+'''
 
 
+#
+# № 20905 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 17 <= x <= 58
+    Q = 29 <= x <= 80
+    A = a1 <= x <= a2
+    return P <= ((Q and (not A)) <= (not P))
+
+R = []
+M = [x / 4 for x in range(10 * 4, 100 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 29.0
+'''
 # endregion Урок: ************************************************************
 # #
 # #
@@ -130,4 +104,4 @@ for x in alphabet[:25]:
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 15, 17
+# на следующем уроке: 15, 17, 23, 25

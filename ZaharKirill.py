@@ -6,65 +6,6 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 5627 (Уровень: Средний) 🌶
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    flag = 0
-    if len(M) != len(set(M)):
-        flag += 1
-    if all(M[1] - M[0] == M[i+1] - M[i] for i in range(len(M)-1)):
-        flag += 1
-    if flag >= 1:
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 12797 (Уровень: Средний) 🌶
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    # if len(set(M)) == 3:
-    copied = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 2 and len(uncopied) == 2:
-        if all(x % 2 != 0 for x in uncopied):
-            if all(x % 2 == 0 for x in copied):
-                cnt += 1
-print(cnt)
-'''
-
-'''
-from itertools import *
-print('1 2 3 4 5 6 7')  # тут
-table = '12 16 21'  # тут
-graph = 'AE EA AC'  # тут
-for p in permutations('ABCDEFG'):  # тут
-    new_table = table
-    for i in range(1, 7+1):  # тут
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-
-
-
-from itertools import *
-print('1 2 3 4 5 6 7 8 9')  # тут
-table = '14 24 26 34 43 49 51 53 65 74 82 87 92 94'  # тут
-graph = 'AK KA KC CK KB BK DB BD DC CD ED DH GD DG GH HG HD DH EF FE '  # тут
-for p in permutations('ABCDEFG'):  # тут
-    new_table = table
-    for i in range(1, 8+1):  # тут
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-'''
-
-
 # Единицы измерения информации
 # 1 бит - минимальная единица измерения информации
 # 1 байт - 8 бит - 2**3 бит
@@ -72,57 +13,170 @@ for p in permutations('ABCDEFG'):  # тут
 # 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит
 # 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
 
-# 64 Мбайт = 64 * 2**23 бит
-# 3 Гбайт = 3 * 2**20 Кбайт
-# 7 Кбайт = бит
+
+# bit = a * b * c * t - вес аудио файла
+
+# a - кол-во каналов (шт)
+# b - частота дискретизации (Гц)
+# с - глубина кодирования (бит)
+# t - временной промежуток записи (сек)
 
 
-# bit = pixels * i, где i - это кол-во бит на один пиксель
-# colors = 2 ** i
+# https://education.yandex.ru/ege/task/7407e7ee-2ca4-4372-b173-b39bffa2d1d9
 '''
-pixels = 1280 * 960
-colors = 2048  # colors = 2 ** i
-i = 11
-bit = pixels * i
-bit_all = 96_468_992 * 132  # бит на весь пакет
-count = bit_all / bit
-print(count)  # 942.08
-'''
+a = 2
+b = 44000
+c = 16
+t = 60
 
+bit = a * b * c * t
 
-# № 19557 (Уровень: Базовый)
-'''
-pixels = 1920 * 1080
-i = 11
-bit = pixels * i
-bit_313 = bit * 313
-print(bit_313 / 2**23)  # 851.08337
+bit_32 = bit * 32  # бит
+
+u = 1_802_240  # бит / с
+print(bit_32 / u)  # 1500.0
 '''
 
 
-# № 9280 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/97232e31-d97b-4f20-badf-1c38458126c4
 '''
-pixels = 512 * 256
-bit = 64 * 2 ** 13  # бит
-bit = bit * 1.25
-i = bit / pixels
-print(2 ** i)
+a = 2
+b = 48000
+c = 10
+# t - ?
+
+u = 256_000  # бит / с
+T = 18 * 60
+bit = u * T  # 60%
+bit = (bit / 60) * 100  # файл до сжатия
+t = bit / (a * b * c)
+print(t / 60)
+'''
+
+# https://education.yandex.ru/ege/task/79f258a0-f83f-4f92-9d8f-a5400b888821
+'''
+a = 2
+b = 11000
+c = 16  # 2 ** c >= 65536
+# print(2 ** 16)  # 65536
+t = 4*60 + 16
+Kbyte = (a * b * c * t) / (2**13)  # Кбайт
+print(Kbyte)
+
+
+a = 2
+b = 44000
+c = 10
+t = 4*60 + 16
+Kbyte = (a * b * c * t) / (2**13)  # Кбайт
+print(Kbyte)
+
+
+print(27500.0 - 11000.0)
 '''
 
 
-# № 7883 (Уровень: Средний)
+# https://education.yandex.ru/ege/task/6ecda92d-9696-4d5b-8434-0d3638b2160e
+'''
+a = 4
+b = 48000
+c = 16
+t = 180
+bit = a * b * c * t
+bit = bit * 0.5
 
-pixels = 1920 * 1080
-print(2 ** 16)
-i = 16
-bit = pixels * i
-byte = bit / 8
-byte_100 = byte * 100
-disk = 4 * 2**30
-print(disk / byte_100)
-print(disk - 10 * byte_100)  # 147767296
-print((disk - 10 * byte_100) / 2 ** 10)  # 144304
+u = 4800  # бит/с
+print((bit / u) / 60)
+'''
 
+# https://education.yandex.ru/ege/task/5eb03c97-3887-48dd-8145-55039b7a4d03
+'''
+sym = 11
+alp = 10 + 26  # alp = 2 ** i
+i = 6  # 2 ** 6 >= 36 (alp)
+# i - это кол-во бит на один символ
+bit = sym * i
+
+print(bit / 8)  # 8.25
+byte = 9
+
+# user = byte + dop
+user = 750 / 30  # вес одного пользователя
+print(user - byte)
+'''
+
+
+# https://education.yandex.ru/ege/task/5b359b5d-e6d1-4701-9d12-c1b1db50e775
+'''
+sym = 116
+alp = 16 + 2035  # 2**12 >= alp
+i = 12
+bit = sym * i
+
+print(bit / 8)  # 174.0
+byte = 174
+
+print((65536 * byte) / 2**20)
+'''
+
+
+# https://education.yandex.ru/ege/task/7d47d6e9-3b01-44d0-83dd-2b280b962cef
+'''
+sym = 15
+alp = 10 + 12
+i = 5
+bit = sym * i
+
+print(bit / 8)  # 9.375
+byte = 10
+
+user = 12 + byte
+print(user * 40)
+'''
+
+
+# https://education.yandex.ru/ege/task/a1beb780-b471-41fe-a815-b22e0ec632dc
+'''
+# sym - ?
+alp = 10 + 52 + 458
+print(alp, 2 ** 10)
+i = 10
+# bit = sym * i
+
+byte = 276 * 2 ** 10 / 862
+print(byte)  # 327.87
+
+byte = 327
+bit = byte * 8
+print(bit / i)
+
+# sym = 261.6 -> 261
+'''
+
+
+# https://education.yandex.ru/ege/task/96f79e32-9433-4b33-a931-1b2f12d675b1
+'''
+sym = 34
+# alp - ?
+# i - ?
+
+byte = 124 * 2**10 / 2000
+print(byte)
+byte = 63 - 28
+
+bit = byte * 8
+i = bit / sym
+print(i)  # 8.2352
+i = 8
+
+
+# пределите максимально возможную мощность алфавита, из которого составляются серийные номера.
+alp = 2**8
+print(alp)
+
+i = 7  # [65:128]
+i = 8  # [129:256]
+'''
 # endregion Урок: *************************************************************
 # #
 # #

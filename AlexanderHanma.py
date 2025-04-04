@@ -1,222 +1,170 @@
 # region Домашка: ******************************************************************
 
+# https://education.yandex.ru/ege/task/4361eddf-5383-491c-a4a7-a67acaf27b9a
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    flag = 0
+    copied = [x for x in M if M.count(x) == 3]
+    not_copied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(not_copied) == 3:
+        flag += 1
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if len(chet) > len(nechet):
+        flag += 1
+    if (M[-1] + M[-2]) > 2*(M[0] + M[1] + M[2] + M[3]):
+        flag += 1
+    if flag >= 2:
+        cnt += 1
+print(cnt)
+'''
+from zoneinfo import reset_tzpath
+
+'''
+R = []
+M = [int(x) for x in open('0. files/17.txt')]
+U = [x for x in M if abs(x) % 41 == 0 and x > 0]
+for i in range(len(M) - 1):
+    x, n = M[i], M[i + 1]
+    if abs(x - n) % min(U) == 0:
+        R.append(x + n)
+print(len(R), max(R))
+'''
+'''
+R=[]
+M=[int(x)for x in open('0. files/17.txt')]
+Q=[x for x in M if abs(x)%10==3 and len(str(abs(x)))==3]
+for i in range(len(M)-2):
+    a,b,c = M[i],M[i+1],M[i+2]
+    if (a in Q) + (b in Q) + (c in Q) >= 1:
+        if (a + b + c) < max(Q):  # а сумма всех элементов меньше максимального элемента последовательности, оканчивающегося на 3 и являющегося трёхзначным числом.
+            R.append(a+b+c)
+print(len(R),max(R))
+'''
+'''
+R=[]
+M=[int(x)for x in open('0. files/17.txt')]
+A=[x for x in M if abs(x)%32==0]
+for i in range(len(M)-1):
+    a,b=M[i],M[i+1]
+    if (a < 0)+(b < 0) >= 1:
+        if (a+b)<len(A):
+            R.append(a+b)
+print(len(R),max(R))
+'''
+'''
+R=[]
+M=[int(x)for x in open('0. files/17.txt')]
+for i in range(len(M)-1):
+    a,b=M[i],M[i+1]
+    if (a % 55 == min(M)) + (b % 55 == min(M)) >= 1:
+        R.append(a+b)
+print(len(R),min(R))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# 19885
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51,  1 ≤ s ≤ 50
 '''
-from itertools import *
-print('1 2 3 4 5 6 7')
-table = '12 15 21 23 27 32 36 37 45 46 51 54 56 63 64 65 72 73'
-graph = 'БА АБ БВ ВБ ВА АВ ВЕ ЕВ ЕЖ ЖЕ ЕД ДЕ ДЖ ЖД ДГ ГД ГА АГ'
-for p in permutations('АБВГДЖЕ'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(graph.split()) == set(new_table.split()):
-        print(*p)
-'''
-# 1 2 3 4 5 6 7
-# Г А В Ж Д Е Б
-# Г Д Е Б А В Ж
+def F(s, n):
+    """
+    n = 1: Первый шаг Пети
+    n = 2: Первый шаг Вани
+    n = 3: Второй шаг Пети
+    n = 4: Второй шаг Вани
 
+    :param s: - это кол-во камней в куче
+    :param n: - это шаг игры
+    """
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-# 19888
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:o}'
-    if n % 2 == 0:
-        for x in '1357':
-            s = s.replace(x, '2')
-    else:
-        s = '3' + s[1:-1] + '3'
-    r = int(s, 8)
-    if r < 300:
-        R.append(r)
-print(max(R))
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# 20068
+# № 17682 Пересдача 04.07.24 (Уровень: Базовый)
 '''
-print(25 * 34 + 25 * 17 - (17 * 13))
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+3, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-from turtle import *
-lt(90)
-tracer(0)
-s = 15
-screensize(-2000, 2000)
-
-for i in range(777):
-    fd(25 * s)
-    lt(90)
-    fd(34 * s)
-    lt(90)
-up()
-fd(12 * s)
-lt(90)
-fd(17 * s)
-rt(90)
-down()
-color('green')
-for i in range(1996):
-    fd(25 * s)
-    lt(90)
-    fd(17 * s)
-    lt(90)
-
-up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        goto(x * s, y * s)
-        dot(3, 'red')
-
-update()
-done()
-'''
-
-
-# 19892
-'''
-pixels = 1920 * 1080
-# print(2 ** 16)
-i = 16
-bit = pixels * i
-
-print(512 - 52)
-
-for i in range(1, 15):
-    print(i, 460 % i)
-
-print(460 / 5)
-
-
-print((bit * 92) / 2**23)
-'''
-
-
-# 20218
-'''
-from itertools import *
-n = 0
-for p in product(sorted('СИНЕРГЯ'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if 'ГИРЯ' in word:
-        print(n)
-'''
-
-
-# 20219
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    A = [x for x in M if len(str(x)) == 3]
-    if len(A) >= 3:
-        B = [x for x in M if x % 5 != 0]
-        if len(B) == 6:
-            cnt += 1
-print(cnt)
-'''
-
-
-# 19895
-'''
-alp = 10 + 2040
-# print(2 ** 12)
-i = 12  # бит на один символ
-
-byte = (369 * 2 ** 10) / 718
-print(byte)  # 526.261
-byte = 526
-
-bit = byte * 8
-sym = bit / i
-print(sym)  # 350.66
-'''
-
-
-'''
-s = '12121212121>'
-s = s[:-1]
-summa = sum(map(int, s))
-summa = sum([int(x) for x in s if x.isdigit()])
-print(summa)
+print([s for s in range(1, 67) if F(s, 2)])
+print([s for s in range(1, 67) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 67) if F(s, 4) and not F(s, 2)])
 '''
 
 '''
-from ipaddress import *
-for mask in range(1, 32+1):
-    net = ip_network(f'111.233.75.16/{mask}', 0)
-    if '111.233.75.0' in str(net):
-        print(net.num_addresses)
+from math import ceil, floor
+
+print(ceil(7 / 2))  # 4 - округляет вверх
+print(floor(7 / 2))  # 3 - округляет вниз
 '''
 
 
-# 19898
+# № 17875 Демоверсия 2025 (Уровень: Базовый)
+# -2, -5, //3 | <= 19
 '''
-maxi = 0
-for x in range(1, 10000):
-    n = 7**270 + 7**170 + 7**70 - x
-    r = ''
-    while n > 0:
-        r = str(n % 7) + r
-        n //= 7
-    if maxi <= r.count('0'):
-        maxi = r.count('0')
-        print(x, r.count('0'))
-'''
+from math import floor
 
+def F(s, n):
+    if s <= 19:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(s-5, n-1), F(floor(s/3), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-# 19899
-'''
-def F(x, A):
-    return (A + 2*x > 400 - A) and ((A % 100) + (120 % A) > 140)
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
+print([s for s in range(20, 1000) if F(s, 2)])
+print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# 20071
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# +1, *2 |  a + s >= 81
 '''
-def F(n):
-    if n > 2000:
-        return 16
-    if n <= 2000:
-        return 2 * F(n + 3)
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-s = F(50) // F(110)  # 1048576.0
-M = [int(x) for x in str(s)]
-total = 1
-for x in M:
-    if x != 0:
-        total *= x
-print(total)
+print([s for s in range(1, 74) if F(7, s, 2)])  # [19,
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 '''
 
 
-# 19900
+def F(s, n):
+    if s <= 116:
+        return n%2==0
+    if n == 0:
+        return 0
+    h = [F(s-7, n-1), F(s//3, n-1)]
+    return any(h) if (n-1) % 2 ==0 else any(h)
 
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3]
-B = [x for x in M if len(str(abs(x))) == 4]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x * y * z) > sum(B):
-            R.append(x * y * z)
-print(len(R), abs(min(R)))
-
+print(max([s for s in range(117, 10001) if F(s, 3)]))
+print([s for s in range(117, 10001) if F(s, 3)  and not F(s, 1)])
+print([s for s in range(117, 10001) if F(s, 4) and not F(s, 2)])
 
 
 # endregion Урок: ********************************************************************
