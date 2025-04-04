@@ -6,22 +6,39 @@
 # #
 # region Урок: ********************************************************************
 
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2, >= 51
+'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r=''
-    while n>0:
-        r+=alphabet[n%b]
-        n//=b
-    return r[::-1]
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+'''
 
-maxi = 0
-for x in range(1, 2005):
-    n = 5**150 + 5**98 - x
-    s = convert(n, 5)
-    if maxi <= s.count('0'):
-        maxi = s.count('0')
-        print(x, maxi)
+
+#
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 132) if F(s, 2)])
+print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
+'''
+
 
 # endregion Урок: *************************************************************
 # #
@@ -34,7 +51,7 @@ for x in range(1, 2005):
 # #
 # ФИПИ = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19-21, 23, 25]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: 22 номер
 
 
 # Первый пробник 21.12.24:

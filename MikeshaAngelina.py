@@ -197,6 +197,42 @@ for A in range(0, 255+1):
         break
 '''
 
+def go(x):
+    return {x + 1, x + 5, x * 4}
+
+
+game = {x for x in range(1, 5000) if x < 473}
+gameover = {x for x in range(1, 5000) if x >= 473}
+
+w1 = {x for x in game if go(x) & gameover}
+game -= w1
+
+l1 = {x for x in game if go(x) <= w1}
+game -= l1
+
+w2 = {x for x in game if go(x) & l1}
+game -= w2
+
+l2 = {x for x in game if go(x) <= (w1 | w2)}
+game -= l2
+
+print(min(l1))  # 19
+print(sorted(w2)[0], sorted(w2)[1])  # 20
+print(min(l2))  # 21
+
+
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -206,9 +242,9 @@ for A in range(0, 255+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [25]
+# ФИПИ = [22, 25]
 # КЕГЭ  = []
-# на следующем уроке: 8, 9, 11, 13, 17, 18, 11, 22
+# на следующем уроке: 8, 9, 11, 17, 19-21
 
 # Первый пробник 5.02.25:
 # Ангелина 11/29 -> 54 вторичных баллов +[1-5, 7, 14-16, 20-21] -[6, 8, 9, 10, 11, 12, 13, 17, 18, 19, 22, 23, 25]
