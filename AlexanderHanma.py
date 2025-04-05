@@ -1,144 +1,49 @@
 # region Домашка: ******************************************************************
 
-# https://education.yandex.ru/ege/task/4361eddf-5383-491c-a4a7-a67acaf27b9a
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    flag = 0
-    copied = [x for x in M if M.count(x) == 3]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(not_copied) == 3:
-        flag += 1
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > len(nechet):
-        flag += 1
-    if (M[-1] + M[-2]) > 2*(M[0] + M[1] + M[2] + M[3]):
-        flag += 1
-    if flag >= 2:
-        cnt += 1
-print(cnt)
-'''
-from zoneinfo import reset_tzpath
-
-'''
-R = []
-M = [int(x) for x in open('0. files/17.txt')]
-U = [x for x in M if abs(x) % 41 == 0 and x > 0]
-for i in range(len(M) - 1):
-    x, n = M[i], M[i + 1]
-    if abs(x - n) % min(U) == 0:
-        R.append(x + n)
-print(len(R), max(R))
-'''
-'''
-R=[]
-M=[int(x)for x in open('0. files/17.txt')]
-Q=[x for x in M if abs(x)%10==3 and len(str(abs(x)))==3]
-for i in range(len(M)-2):
-    a,b,c = M[i],M[i+1],M[i+2]
-    if (a in Q) + (b in Q) + (c in Q) >= 1:
-        if (a + b + c) < max(Q):  # а сумма всех элементов меньше максимального элемента последовательности, оканчивающегося на 3 и являющегося трёхзначным числом.
-            R.append(a+b+c)
-print(len(R),max(R))
-'''
-'''
-R=[]
-M=[int(x)for x in open('0. files/17.txt')]
-A=[x for x in M if abs(x)%32==0]
-for i in range(len(M)-1):
-    a,b=M[i],M[i+1]
-    if (a < 0)+(b < 0) >= 1:
-        if (a+b)<len(A):
-            R.append(a+b)
-print(len(R),max(R))
-'''
-'''
-R=[]
-M=[int(x)for x in open('0. files/17.txt')]
-for i in range(len(M)-1):
-    a,b=M[i],M[i+1]
-    if (a % 55 == min(M)) + (b % 55 == min(M)) >= 1:
-        R.append(a+b)
-print(len(R),min(R))
-'''
-
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
-
 # № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51,  1 ≤ s ≤ 50
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
 '''
 def F(s, n):
-    """
-    n = 1: Первый шаг Пети
-    n = 2: Первый шаг Вани
-    n = 3: Второй шаг Пети
-    n = 4: Второй шаг Вани
-
-    :param s: - это кол-во камней в куче
-    :param n: - это шаг игры
-    """
     if s >= 51:
-        return n % 2 == 0
+        return n % 2 == 0  # True - если Ваня / False - если Петя
     if n == 0:
-        return 0
+        return 0  # False
     h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
     return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(1, 51) if F(s, 2)])
+
+print([s for s in range(1, 51) if F(s, 2)])  # При любом ходе Пети Ваня может выиграть своим первым ходом
 print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
 print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# № 17682 Пересдача 04.07.24 (Уровень: Базовый)
-'''
-def F(s, n):
-    if s >= 67:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+3, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 67) if F(s, 2)])
-print([s for s in range(1, 67) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 67) if F(s, 4) and not F(s, 2)])
-'''
-
+# 18144 (Уровень: Базовый)
+# 1 куча: -4, -6, /2 вверх | <= 19 | S ≥ 20
 '''
 from math import ceil, floor
-
-print(ceil(7 / 2))  # 4 - округляет вверх
-print(floor(7 / 2))  # 3 - округляет вниз
-'''
-
-
-# № 17875 Демоверсия 2025 (Уровень: Базовый)
-# -2, -5, //3 | <= 19
-'''
-from math import floor
 
 def F(s, n):
     if s <= 19:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s-2, n-1), F(s-5, n-1), F(floor(s/3), n-1)]
+    h = [F(s-4, n-1), F(s-6, n-1), F(ceil(s/2), n-1)]
     return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(20, 1000) if F(s, 2)])
+
+print([s for s in range(20, 1000) if F(s, 2)])  # При любом ходе Пети Ваня может выиграть своим первым ходом
 print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
 print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
-
 # № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# +1, *2 |  a + s >= 81
+# 2 кучи: a+1, s+1, a*2, s*2 | >= 81 | 1 ≤ S ≤ 73 | В первой куче 7
 '''
 def F(a, s, n):
     if a+s >= 81:
@@ -148,24 +53,263 @@ def F(a, s, n):
     h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
     return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(1, 74) if F(7, s, 2)])  # [19,
+# [19,
+print([s for s in range(1, 74) if F(7, s, 2)])  # При любом ходе Пети Ваня может выиграть своим первым ходом
 print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
 print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 '''
 
-
-def F(s, n):
-    if s <= 116:
-        return n%2==0
+# № 19635 (Уровень: Базовый)
+'''
+from math import ceil,floor
+def F(a, s, n):
+    if a+s<= 100:
+        return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s-7, n-1), F(s//3, n-1)]
-    return any(h) if (n-1) % 2 ==0 else any(h)
+    h = [F(a-3, s-3, n-1), F(floor(a/2), s, n-1), F(a,floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else any(h)
 
-print(max([s for s in range(117, 10001) if F(s, 3)]))
-print([s for s in range(117, 10001) if F(s, 3)  and not F(s, 1)])
-print([s for s in range(117, 10001) if F(s, 4) and not F(s, 2)])
+print([s for s in range(53, 1000) if F(48, s, 2)])  # [52
+print([s for s in range(53, 1000) if F(48, s, 3) and not F(48, s, 1)])
+print([s for s in range(53, 1000) if F(48, s, 4) and not F(48, s, 2)])
+'''
 
+
+# № 19120 (Уровень: Базовый)
+'''
+from math import ceil,floor
+def F(s, n):
+    if s <= 12:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-1, n-1),F(s-2, n-1),F(s-3, n-1),F(s-4, n-1),F(s-5, n-1),F(floor(s/5), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(20,1000) if F(s, 2)])  # [59
+print([s for s in range(20,1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20,1000) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 15336 Досрочная волна 2024 (Уровень: Базовый)
+'''
+def F(a,s, n):
+    if a+s>=123:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1,s, n-1),F(a,s+1, n-1),F(a*2,s, n-1),F(a,s*2, n-1),]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1,110) if F(13,s, 2)])  # [59
+print([s for s in range(1,110) if F(13,s, 3) and not F(13,s, 1)])
+print([s for s in range(1,110) if F(13,s, 4) and not F(13,s, 2)])
+'''
+# endregion Домашка: ******************************************************************
+# #
+# #
+# region Урок: ********************************************************************
+
+
+# № 18176 (Уровень: Средний)
+'''
+R = []
+M = [int(x) for x in open('0. files/17.txt')]
+W = [x for x in M if abs(x) % 10 == 4 and x > 0]
+for i in range(len(M) - 2):
+    a, b, c = M[i], M[i + 1], M[i + 2]
+    summa = sum([int(x) for x in str(a) + str(b) + str(c) if x.isdigit()])
+    if summa == min(W):
+        R.append(a + b + c)
+print(len(R), max(R))
+'''
+
+
+# № 21161 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+word = r'([ABCabc][abc]*)'
+pred = rf'[ABC][abc]*( {word})*.'
+m = [x.group() for x in finditer(pred,s)]
+# for x in m:
+#     print(x)
+print(max([len(x) for x in m]))
+'''
+
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|0)'
+reg = rf'{num}([-*]{num})+'
+m = [x.group() for x in finditer(reg,s)]
+for x in m:
+    print(x)
+"""
+98789-89099089999-99-8-8888
+8877-9078
+98-9798087
+9*0-7*9009
+8
+0-7-9998-8-778
+"""
+
+# m = [x.group() for x in finditer(reg,s)]
+# print(max([len(x) for x in m]))
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+
+# № 19968 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+# num = r'([12345][012345]*|0)'
+num = r'(?:[1-5][0-5]*|0)'  # ?:
+reg = rf'{num}([+*]{num})+'
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+
+# № 19967 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+
+num = r'([1-9][0-9]*|0)'
+reg = rf'AFD{num}([+*]{num})+'
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+# № 19719 (Уровень: Базовый)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([12349][012349]*|0)'
+reg = rf'{num}([-*]{num})+'
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+
+# № 18619 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-6][1-6]*)'
+reg = rf'B{num}([-*]{num})*'
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+
+# № 18285 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*)'
+reg = rf'{num}([+*]{num})*'
+m = [x.group() for x in finditer(reg,s)]
+for x in m:
+    print(x)
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+
+# № 18147 (Уровень: Средний)
+'''
+from re import *
+R = []
+s = open('0. files/24.txt').readline()
+num = r'([789][789]*)'
+reg = rf'{num}([*+]{num})*'
+m = [x.group() for x in finditer(reg,s)]
+for x in m:
+    print(x)
+    R.append(eval(x))
+print(max(R))
+'''
+# 89797978998877
+
+
+# № 17878 Демоверсия 2025 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([6789][06789]*)'
+reg = rf'{num}([-*]{num})*'
+m = [x.group() for x in finditer(reg,s)]
+for x in m:
+    print(x)
+print(max([len(x.group()) for x in finditer(reg,s)]))
+'''
+
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def divisors(x):
+    div=[]
+    for i in range(2,int(x**0.5)+1):  # не считая единицы и самого числа.
+    # for i in range(1,int(x**0.5)+1):  #  считая единицы и само число.
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt = 0
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    d = [j for j in divisors(x) if j % 2 == 0]  # все четные делители
+    d = [j for j in divisors(x) if j % 2 != 0]  # все нечетные делители
+    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]  # делители, которые оканчиваются на 9 и не равны 9
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]  # делители, которые являются простыми числами
+    R = sum(d)
+    if R % 10 == 9:
+        print(x, R)
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+# № 17564 Основная волна 08.06.24 (Уровень: Средний)
+'''
+def divisors(x):
+    div = []
+    for i in range(2, int(x ** 0.5) + 1):
+        if x % i == 0:
+            div += [i, x // i]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(700_000 + 1, 10 ** 10):
+    d = divisors(x)
+    if len(d) > 0:
+        M = max(d) + min(d)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+'''
+def divisors(x):
+    div=[]
+    for i in range(1,int(x**0.5)+1):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(800_000+1, 10**10):
+    d=[a for a in divisors(x) if a%10==9 and a!=9]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt+=1
+        if cnt==5:
+            break
+'''
 
 # endregion Урок: ********************************************************************
 # #

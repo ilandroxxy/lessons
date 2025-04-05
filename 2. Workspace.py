@@ -2040,6 +2040,21 @@ print([x for x in range(2, 100) if len(divisors(x)) != 0])
 # [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99]
 '''
 
+
+# todo сделать разбор № 18176 (Уровень: Средний)
+'''
+R = []
+M = [int(x) for x in open('0. files/17.txt')]
+W = [x for x in M if abs(x) % 10 == 4 and x > 0]
+for i in range(len(M) - 2):
+    a, b, c = M[i], M[i + 1], M[i + 2]
+    summa = sum([int(x) for x in str(a) + str(b) + str(c) if x.isdigit()])
+    if summa == min(W):
+        R.append(a + b + c)
+print(len(R), max(R))
+'''
+
+
 def F(n, k, c):
     if n > k+3 or "aaa" in c:
         return 0

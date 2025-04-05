@@ -6,39 +6,22 @@
 # #
 # region Урок: ********************************************************************
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2, >= 51
+# № 5924 (Уровень: Средний)
 '''
 def F(s, n):
-    if s >= 51:
+    if s >= 56:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    h = [F(s + 1, n - 1), F(s + 2, n - 1)]
+    if s % 3 == 0:
+        h += [F(s*3, n-1)]
     return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+print([s for s in range(1, 56) if F(s, 2)])
+print([s for s in range(1, 56) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 56) if F(s, 6) and not F(s, 4)])
 '''
-
-
-#
-# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-def F(s, n):
-    if s >= 132:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 132) if F(s, 2)])
-print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
-'''
-
 
 # endregion Урок: *************************************************************
 # #
@@ -49,7 +32,7 @@ print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19-21, 23, 25]
+# ФИПИ = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19-21, 22, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке: 22 номер
 

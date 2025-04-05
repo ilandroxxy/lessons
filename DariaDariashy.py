@@ -6,117 +6,152 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/5e46684b-8408-47c0-92e8-9065796469f1
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3]  # x -> 978 304 '-273'
-B = [x for x in A if abs(x) % 10 == 5]  # 305, 235, 555
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    # if (x in A) or (y in A):
-    if (x in A) + (y in A) >= 1:  #  которых хотя бы один
-        if (x + y) % min(B) == 0:
-            R.append(x + y)
-print(len(R), max(R))
-'''
-from pprint import pformat
-
-# https://education.yandex.ru/ege/task/d4439e7b-ef28-49d4-9c2f-1a0c67026188
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if abs(x) % 21 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    # if (x % min(A) == 0) or (y % min(A) == 0):
-    if (x % min(A) == 0) + (y % min(A) == 0) >= 1:
-        R.append(x + y)
-print(len(R), max(R))
-'''
+a = [3, 3, 3, 3]
+e = [5, 5]
+print(a + e)  # [3, 3, 3, 3, 5, 5]
+print(max(a + e))  # 5
 
 
-# https://education.yandex.ru/ege/task/c255edb8-3ff7-4c2a-bf66-03487b499649
+# todo Почему не срабатывает условие 25 строка
+k = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    a = [x for x in M if M.count(x) == 4]
+    e = [x for x in M if M.count(x) == 2]
+    n = [x for x in M if M.count(x) == 1]
+    if len(a) == 4 and len(e) == 2 and len(n) == 3:
+        if sum(n)/3 >= max(a + e):
+        # if (sum(n)/3 >= max(M)) and (max(M) in (a + e)):  #
+            k += 1
+print(k)
+'''
+from os import confstr_names
+
+# print('*'.join(['a', 'b', 'c']))  # a*b*c
+
 '''
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]  # [3, 3, 3, 4, 5, 6, 7]
-    if len(copied) == 3:  # copied = [3, 3, 3]
-        if len(set(M)) == 5:  #  {3, 4, 5, 6, 7}
-            if sum(M) < 502:
-                cnt += 1
-print(cnt)
+from itertools import *  # * - это подключение всего содержимого
+# from itertools import product
+
+for p in product(sorted('КОДИМ'), repeat=5):
+    word = ''.join(p)
+    cnt += 1
+print(cnt)  # 3125
 '''
 
 
-# https://education.yandex.ru/ege/task/d73c5edf-63bd-47d8-87cb-7810e03725a0
+# № 18133 (Уровень: Базовый)
 '''
+from itertools import *
+n = 0
+for p in product(sorted('КОДИМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if word.count('М') == 2 and 'ММ' not in word:
+        print(n)
+'''
+
+'''
+print(all(x % 2 == 0 for x in [2, 4, 6, 8]))  #  True
+print(all(x % 2 == 0 for x in [2, 4, 7, 8]))  #  False
+print(any(x % 2 == 0 for x in [2, 3, 7, 9]))  #  True
+'''
+
+
+# № 8417 (Уровень: Базовый)
+'''
+from itertools import *
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if len(M) == len(set(M)):
-        if 5 * (min(M) + max(M)) >= 3 * (M[1] + M[2] + M[3] + M[4]):
+for p in permutations('ЯРОСЛАВ', r=5):
+    word = ''.join(p)
+    sogl = [x for x in word if x in 'РСЛВ']
+    glas = [x for x in word if x in 'ЯОА']
+    if len(sogl) > len(glas):  # согласных в коде должно быть больше, чем гласных
+        # if all(x not in word for x in 'ЯО ОЯ ОА АО ЯА АЯ'.split()): # две гласные буквы нельзя ставить рядом
+        word = word.replace('О', 'Я').replace('Я', 'А')
+        if 'АА' not in word:
             cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/41a06b51-e4e0-4204-b3ac-432f00e2ac2c
+# № 18120 (Уровень: Базовый)
 '''
-def divisors(x):  # 24
-    div = []
-    for j in range(1, int(x ** 0.5)+1):
-        if x % j == 0:
-            div.append(j)  # 4
-            div.append(x // j)  # 24 // 4 = 6
-    return sorted(set(div))
-
-
-for x in range(977004, 977022+1):
-    div = [j for j in divisors(x) if j % 2 == 0]
-    if len(div) > 6:
-        print(x, div[-2])
-'''
-
-
-# https://education.yandex.ru/ege/task/08b93dc7-c401-48a3-9078-75af3fa2e240
-'''
-from fnmatch import *
-for x in range(13, 10**8, 13):
-    if fnmatch(str(x), '123*678'):
-        print(x, x // 13)
+from itertools import *
+cnt = 0
+n = 0
+for p in product(sorted('ПРЕСТОЛ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if word[-1] in 'ЕО':  # оканчиваются на гласную букву
+        # if word[-1] not in 'ПРСТЛ':  # оканчиваются на гласную букву
+            sogl = [x for x in word if x in 'ПРСТЛ']
+            if len(sogl) <= 3:
+                cnt += 1
+print(cnt)
 '''
 
-
-# https://education.yandex.ru/ege/task/c624bf95-c3d7-48d7-898f-7a8868480573
+# № 17862 Демоверсия 2025 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(326496, 649632+1):
-    d = divisors(x)
-    chet = [j for j in d if j % 2 == 0]
-    nechet = [j for j in d if j % 2 != 0]
-    if len(chet) == len(nechet):
-        if len(chet) >= 70:
-            print(x, min([j for j in d if j > 1000]))
+from itertools import *
+cnt = 0
+for p in product('0123456789AB', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('7') == 1:
+            D = [x for x in num if x > '8']  # 9 A B
+            if len(D) <= 3:
+                cnt += 1
+print(cnt)
 '''
 
 
-print(float(5))  # 5.0
+# № 17695 (Уровень: Средний)
+'''
+from itertools import *
+cnt = 0
+for p in product('0123456', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        # if num.count('3') + num.count('4') + num.count('5') == 2:
+        # if len([x for x in num if '3' <= x <= '5']) == 2:
+        if len([x for x in num if x in '345']) == 2:
+            # if all(x not in num for x in '00 11 22 33 44 55 66'.split()):
+            if all(num[i] != num[i+1] for i in range(len(num)-1)):
+                cnt += 1
+print(cnt)
+'''
 
-print(float(5.5))  # 5.5
-print(int(5.5))  # 5
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+print(M)
+R = []
+for i in range(len(M)-2):
+    # x, y, z = M[i], M[i+1], M[i+2]
+    x, y, z = M[i:i+3]
+    print(f'{x}, {y}, {z}')
+'''
 
-print(4 / 2, type(4 / 2))
-# 2.0 <class 'float'>
+
+# № 20855 (Уровень: Средний)
+'''
+from itertools import *
+n = -1
+cnt = 0
+for p in product('0123456789ABC', repeat=3):
+    num = ''.join(p)
+    if num[0] != '0':
+        n += 1
+        if n % 10 == 7:
+            for x in '0123456789ABC'[1::2]:
+                num = num.replace(x, '1')
+            if '11' not in num:
+                cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -127,8 +162,8 @@ print(4 / 2, type(4 / 2))
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
-# КЕГЭ  = []
-# на следующем уроке: 8, 22, 24.1 повторять
+# КЕГЭ = []
+# на следующем уроке: 19-21 код, 22, 24.1 повторять
 
 # Второй пробник 28.02.25:
 # Дарья 10/29 -> 51 вторичных баллов +[1, 2, 4, 7, 10, 11, 13, 15, 16, 18] -[3, 6, 12, 22]

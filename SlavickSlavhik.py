@@ -7,79 +7,58 @@
 # region Урок: ********************************************************************
 
 
-
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
 '''
-def F(x, a1, a2):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a1 <= x <= a2
-    return (not((not P) <= Q)) <= (A <= ((not Q) <= P))
+def F(s, h):
+    if s >= 51:
+        return h % 2 == 0    # True - Ваня победил / False - победил Петя
+    if h == 0:
+        return 0
+    step = [F(s+1, h-1), F(s+4, h-1), F(s*2, h-1)]
+    return any(step) if (h - 1) % 2 == 0 else all(step)
 
 
-R = []  # сюда складывать будем длины a2 - a1
-M = [x / 4 for x in range(5 * 4, 30 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-
-print(max(R))
-'''
-
-'''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
-
-
-R = []
-M = [x / 4 for x in range(10 * 4, 70 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(int(min(R)))
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# 24  24 / 4 == 0   24 // 4 = 6
+# № 18144 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+from math import ceil, floor
+
+def F(s, h):
+    if s <= 19:
+        return h % 2 == 0    # True - Ваня победил / False - победил Петя
+    if h == 0:
+        return 0
+    step = [F(s-4, h-1), F(s-6, h-1), F(ceil(s/2), h-1)]
+    return any(step) if (h - 1) % 2 == 0 else all(step)
 
 
-cnt = 0
-for x in range(800_000+1, 10**10):
-    d = [j for j in divisors(x) if j != x and j != 9 and j % 10 == 9]
-    if len(d) > 0:
-        print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+print([s for s in range(20, 1000) if F(s, 2)])
+print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
 
-def divisors(x):
-    div = []
-    for j in range(2, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def F(a, s, h):
+    if a+s >= 81:
+        return h % 2 == 0    # True - Ваня победил / False - победил Петя
+    if h == 0:
+        return 0
+    step = [F(a+1, s, h-1), F(a, s+1, h-1), F(a*2, s, h-1), F(a, s*2, h-1)]
+    return any(step) if (h - 1) % 2 == 0 else all(step)
 
-print(divisors(24))
 
-cnt = 0
-for x in range(174457, 174506):
-    d = [j for j in divisors(x)]
-    if len(d) == 2:
-        print(*d)
-        cnt += 1
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+'''
 
 # endregion Урок: *************************************************************
 # #
