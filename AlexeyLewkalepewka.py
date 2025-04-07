@@ -7,48 +7,86 @@
 # region Урок: ********************************************************************
 
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-
-def f(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [f(s+1, n-1), f(s+4, n-1), f(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print( [s for s in range(1, 51) if f(s, 2)] ) # 19
-print( [s for s in range(1, 51) if f(s, 3) and not f(s, 1)] ) # 20
-print( [s for s in range(1, 51) if f(s, 4) and not f(s, 2)] ) # 21
-
-
-# № 18144 (Уровень: Базовый)
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
 '''
-from math import ceil
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|0)'
+reg = rf'{num}([-*]{num})*'
 
-def f(s, n):
-    if s <= 19: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(s-4, n-1), f(s-6, n-1), f(ceil(s/2), n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
+"""
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+"""
 
-print([s for s in range(20, 1000) if f(s, 2)]) # 19 - 39
-print([s for s in range(20, 1000) if f(s, 3) and not f(s, 1)]) # 20 - 43 44
-print([s for s in range(20, 1000) if f(s, 4) and not f(s, 2)]) # 21 - 88
+print(max([len(x.group()) for x in finditer(reg, s)]))
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# № 17563 Основная волна 08.06.24 (Уровень: Сложный)
+# натуральные числа без незначащих нулей.
 '''
-def f(a, s, n):
-    if s + a >= 81: return n % 2 == 0
-    if n == 0: return 0
-    h = [f(a+1, s, n-1), f(a, s+1, n-1), f(a*2, s, n-1), f(a, s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*)'
+reg = rf'{num}([-*]{num})*'
 
-print([s for s in range(1, 74) if f(7, s, 2)]) # 19 - 19
-print([s for s in range(1, 74) if f(7, s, 3) and not f(7, s, 1)]) # 20
-print([s for s in range(1, 74) if f(7, s, 4) and not f(7, s, 2)]) # 21
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+
+# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|0)'
+reg = rf'{num}([+*]{num})*'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    if eval(x) == 0:
+        maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+
+# 17756 (Уровень: Базовый)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|0)'
+reg = rf'[+*]{num}([+*]{num})*[+*]'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+
+# № 17878 Демоверсия 2025 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([6789][06789]*|0)'
+reg = rf'{num}([-*]{num})*'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 # endregion Урок: *************************************************************

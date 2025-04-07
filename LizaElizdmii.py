@@ -5,71 +5,81 @@
 # #
 # region Урок: ********************************************************************
 
-# Единицы измерения информации:
-# 1 бит - Минимальная единица измерения информации
-# 1 байт - 8 бит - 2**3 бит
-# 1 Кбайт - 1024 байт - 2**10 байт - 2**13 бит
-# 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит
-# 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
-
-# https://education.yandex.ru/ege/task/221f688c-b7dd-4fd8-b384-f8c245b17f14
 '''
-sym = 23
-alp = 12  # colors = 2 ** i
-i = 4  # 2 ** i >= 12, i - это бит выделяется на один символ
+def F(a, b):
+    if a >= b:
+        return a == b  # True / False
+    h = [F(a+2, b), F(a*2, b)]
+    return sum(h)
 
-bit = sym * i  # вес одного пароля в бит
-print(bit / 8)  # 11.5
-byte = 12  # вес одного пароля в байт
-
-
-# user = byte +
-user = 13068 / 297
-print(user - byte)  # 32.0
+print(F(4, 20))
 '''
-# pin
-# sym = 4
-# alp = 10
 
-
-# https://education.yandex.ru/ege/task/f2ae72ec-dd45-47c0-996a-69d1b524b2e9
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
 '''
-sym1 = 10
-alp1 = 26
-i1 = 5
-bit1 = sym1 * i1
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - победа Вани / False - победа Пети
+    if n == 0:
+        return 0  # False
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+
+    # при любом ходе Пети Ваня может выиграть своим первым ходом
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+    # Ваня может выиграть своим первым ходом после неудачного хода Пети
+    # return any(h) if (n - 1) % 2 == 0 else any(h)
 
 
-sym2 = 10
-alp2 = 10
-i2 = 4
-bit2 = sym2 * i2
-
-bit = bit1 + bit2
-print(bit / 8)  # 11.25
-byte = 12
-
-user = 600 / 20
-print(user - byte)  # 18.0
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# https://education.yandex.ru/ege/task/298579d9-a483-4edc-8be5-167e3464430f
+# № 18144 (Уровень: Базовый)
+'''
+from math import ceil, floor
 
-# sym - ?
-alp = 10 + 26 + 26
-i = 6
-
-byte = 10 * 2**13 / 1000
-print(byte)  # 10.24
-byte = 10
-
-bit = byte * 8
-sym = bit / i
-print(sym)  # 13.33
+def F(s, n):
+    if s <= 19:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-4, n-1), F(s-6, n-1), F(ceil(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
 
+print([s for s in range(20, 1000) if F(s, 2)])
+print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
+'''
 
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 
 
 # endregion Урок: *************************************************************
@@ -81,7 +91,7 @@ print(sym)  # 13.33
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
 

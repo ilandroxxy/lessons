@@ -2054,6 +2054,35 @@ for i in range(len(M) - 2):
 print(len(R), max(R))
 '''
 
+P = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    for i in range(2):
+        if s.count('1') % 2 == 0:
+            s = '11' + s[2:] + '00'
+        else:
+            s = '10' + s[2:] + '11'
+    r = int(s, 2)
+    if n < 100:
+        P.append(r)
+print(max(P))
+
+
+M = []
+for i in range(1, 100):
+    s = bin(i)[2:]
+
+    for _ in range(2):
+        if s.count('1') % 2 == 0:
+            s = "11" + s[2:] + '00'
+        else:
+            s = '10' + s[2:] + '11'
+
+    r = int(s, 2)
+    M.append(r)
+print(max(M))
+
+
 
 def F(n, k, c):
     if n > k+3 or "aaa" in c:
