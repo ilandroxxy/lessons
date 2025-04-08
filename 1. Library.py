@@ -86,3 +86,126 @@ for x in s.split():
 print(maxi)
 # print(max([len(x) for x in s.split() if x.count('1') == 1 and x.count('B') == x.count('C')]))
 '''
+
+
+# region todo Тут будем хранить интересные 24 номера на import re
+
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    maxi = max(maxi, len(x))
+print(maxi)
+
+print(max([len(x.group()) for x in finditer(reg, s)]))
+'''
+
+
+# № 19967 (Уровень: Сложный)
+'''
+from re import *
+s = open('24.txt').readline()
+num1 = r'([AFD][1-9][0-9]*|0)'
+num2 = r'([1-9][0-9]*|0)'
+reg = rf'AF{num1}([+*]{num2})*'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    maxi = max(len(x), maxi)
+print(maxi)
+'''
+
+
+# № 18619 (Уровень: Сложный)
+'''
+from re import *
+s = open('24.txt').readline()
+for i in 'ACD':
+    s = s.replace(i, ' ')
+num1 = r'[B]([1-6][1-6]*)'
+num2 = r'([1-6][1-6]*)'
+reg = rf'{num1}([-*]{num2})*'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    maxi = max(len(x), maxi)
+print(maxi)
+'''
+
+
+# № 18285 (Уровень: Сложный)
+'''
+from re import *
+s = open('24.txt').readline()
+num = r'([1-9][0-9]*)'
+reg = rf'{num}([+*]{num})*'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    x = x.replace('+', ' ').replace('*', ' ')
+    maxi = max(maxi, len(x.split()))
+print(maxi)
+'''
+
+
+# № 18147 (Уровень: Средний)
+'''
+from re import *
+s = open('24.txt').readline()
+num = r'([789]+)'
+reg = rf'{num}([+]{num})+'
+
+m = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in m:
+    if eval(x) >= maxi:
+        maxi = max(eval(x), maxi)
+        print(x, eval(x))
+'''
+
+
+# № 19968 (Уровень: Сложный)
+'''
+from re import *
+
+s = open('files/24_19968.txt').readline()
+num = r'([12345][012345]*)'
+reg = rf'{num}([+*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+
+maxi = 0
+for x in M:
+    maxi = max(len(x), maxi)
+print(maxi)
+'''
+
+
+# № 19970 (Уровень: Сложный)
+'''
+from re import *
+
+s = open('files/24_19970.txt').readline()
+num = rf'([1-9][0-9]*[05]|0|5)'
+reg = rf'{num}([+*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+
+maxi = 0
+for x in M:
+    maxi = max(len(x), maxi)
+    print(x)
+print(maxi)
+'''
+
+
+
+
+# endregion
