@@ -6,44 +6,86 @@
 # #
 # region Урок: ********************************************************************
 
-# colors = 2 ** i, где i - это кол-во бит на один пиксель
-# alp = 2 ** i, где i - это кол-во бит на один символ
-
-# https://education.yandex.ru/ege/task/a966c079-3007-446e-86e0-f30cd55477df
+# n - число, которое переводим
+# b - система счисления в которую переводим
 '''
-from math import ceil
-sym = 33  # символов в идентификаторе (пароле)
-alp = 257   # 2 ** i >= 257 (alp) -> i = 9
-i = 9  # кол-во бит на один символ
+from string import digits, ascii_uppercase
+alphabet = digits + ascii_uppercase
 
-bit = sym * i  # бит на один идентификатор
-print(bit / 8)  # 37.125 -> 38 (тут всегда округляем вверх)
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def G(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
 
-# byte = 38
-byte = ceil(bit / 8)  # эта функция всегда округляет вверх
-
-print((byte * 2**20) / 2**20)
-'''
-
-
-# https://education.yandex.ru/ege/task/d60b216e-85cb-45b3-9ebd-ef508c14c5db
-'''
-sym = 48
-alp = 8
-i = 3
-
-bit = sym * i
-print(bit / 8)  # 18.0
-byte = 18
-
-# user = pas + dop
-
-user = 5750 / 250
-print(user)
-dop = user - byte
-print(dop)
+n = 8
+b = 2
+r = G(n, b)
+print(r) # 1000
+print(int(r, b))  # 8
 '''
 
+
+
+
+# № 21404 Досрочная волна 2025 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def G(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+
+for n in range(1, 10000):
+    s = G(n, 2)
+    if s.count('1') % 2 == 0:
+        s = '10' + s[2:] + '0'
+    else:
+        s = '11' + s[2:] + '1'
+    r = int(s, 2)
+    if r > 480:
+        print(n)
+        break
+'''
+
+
+# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        print((A + B + C) // 20)
+'''
+
+# № 20808 Апробация 05.03.25 (Уровень: Средний)
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def G(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+R = []
+for x in range(1, 2030):
+    n = 7**170 + 7**100 - x
+    s = G(n, 7)
+    R.append([s.count('0'), x])
+print(max(R))
+
+for x in sorted(R):
+    print(x)
+'''
+# [73, 1715]
 
 # endregion Урок: *************************************************************
 # #

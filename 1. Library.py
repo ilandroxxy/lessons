@@ -205,6 +205,32 @@ for x in M:
 print(maxi)
 '''
 
+# endregion
+
+
+
+# region Все, что нужно "заучить" для экзамена
+
+# n - число, которое переводим
+# b - система счисления в которую переводим
+'''
+from string import digits, ascii_uppercase
+alphabet = digits + ascii_uppercase
+
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def G(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+n = 8
+b = 2
+r = G(n, b) 
+print(r) # 1000
+print(int(r, b))  # 8
+'''
 
 
 

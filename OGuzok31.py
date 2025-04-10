@@ -5,55 +5,80 @@
 # #
 # region Урок: ********************************************************************
 
-# Определите максимальное количество идущих подряд символов A.
-'''
-# Вариант 1
-s = open('0. files/24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    # if s[i] == 'A' and s[i+1] == 'A':
-    if s[i:i+2] == 'AA':
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
 
-# Вариант 2
-s = open('0. files/24.txt').readline()
-s = s.replace('B', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-'''
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
 
+# s - это кол-во камней
+# n - это шаг нашей игры
 
-# Тип 24 №59848
-# Необходимо найти самую длинную подстроку,
-# которая может являться числом в 24-ричной системе счисления.
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
 '''
-from string import *
-alphabet = digits + ascii_uppercase
-s = open('0. files/24.txt').readline()
-for x in alphabet[24:]:
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split() if x[0] != '0']))
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - если победа Вани / False - победа Пети
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
-# Тип 24 №27690
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
 
-s = open('0. files/24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0  # True - если победа Вани / False - победа Пети
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
+print([s for s in range(1, 132) if F(s, 2)])
+print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 19120 (Уровень: Базовый)
+'''
+from math import ceil, floor
+
+def F(s, n):
+    if s <= 12:
+        return n % 2 == 0  # True - если победа Вани / False - победа Пети
+    if n == 0:
+        return 0
+    h = [F(s-1, n-1), F(s-2, n-1), F(s-3, n-1), F(s-4, n-1), F(s-5, n-1), F(floor(s/5), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(20, 1000) if F(s, 2)])
+print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+'''
 
 # endregion Урок: *************************************************************
 # #

@@ -6,73 +6,78 @@
 # #
 # region Урок: ************************************************************
 
+def gameOver(pos):
+    return sum(pos) >= 77
 
-# 6901
+
+def moves(pos):
+    x, y = pos
+    return (x + 1, y), (2 * x, y), (x, y + 1), (x, 2 * y)
+
+
+def win(pos, M):
+    if gameOver(pos): return M % 2 == 0
+    if M == 0: return False
+    r = [win(move, M - 1)
+         for move in moves(pos)]
+    return any(r) if M % 2 != 0 else \
+        all(r)
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+
+# M = 1: Петя первый ход
+# M = 2: Ваня первый ход
+# M = 3: Петя Второй ход
+# M = 4: Ваня Второй ход
 '''
-from itertools import *
-count = 0
-for i in product(sorted('БАРШ'), repeat=5):
-    count += 1
-    p = ''.join(i)
+def F(s, m):
+    if s >= 51:  # условие победы
+        return m % 2 == 0
+    if m == 0:
+        return 0
+    h = [F(s+1, m-1), F(s+4, m-1), F(s*2, m-1)]  # действия
+    return any(h) if (m - 1) % 2 == 0 else all(h)  # all / any
 
-    tempB = sum([1 if x in 'БРШ' else 0 for x in p]) <= 3
-    tempA = sum([p.count(x) for x in p])==7
-    if tempA and tempB:
-        print(count)
-'''
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 
 '''
-from itertools import *
-n = 0
-for i in product(sorted('БАРШ'), repeat=5):
-    word = ''.join(i)
-    n += 1
-    if len([x for x in word if x in 'БРШ']) <= 3:
-        copied = [x for x in word if word.count(x) == 2]
-        uncopied = [x for x in word if word.count(x) == 1]
-        if len(copied) == 2 and len(uncopied) == 3:
-            print(n)
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча | -2, /2 вниз | <= 87 | s > 88
 '''
+from math import ceil, floor
+def F(s, m):
+    if s <= 87:  # условие победы
+        return m % 2 == 0
+    if m == 0:
+        return 0
+    h = [F(s-2, m-1), F(floor(s/2), m-1)]  # действия
+    return any(h) if (m - 1) % 2 == 0 else all(h)  # all / any
 
-# https://education.yandex.ru/ege/task/4361eddf-5383-491c-a4a7-a67acaf27b9a
-'''
-from itertools import *
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if max(M) < M[0] + M[1] + M[2]:
-        if any(p[0] + p[1] == p[2] + p[3]  for p in permutations(M)):
-            cnt += 1
-print(cnt)
+print([s for s in range(89, 1000) if F(s, 2)])
+print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# https://education.yandex.ru/ege/task/4361eddf-5383-491c-a4a7-a67acaf27b9a
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | 1 ≤ S ≤ 73
+'''
+def F(a, s, m):
+    if a+s >= 81:  # условие победы
+        return m % 2 == 0
+    if m == 0:
+        return 0
+    h = [F(a+1, s, m-1), F(a, s+1, m-1), F(a*2, s, m-1), F(a, s*2, m-1)]  # действия
+    return any(h) if (m - 1) % 2 == 0 else all(h)  # all / any
 
-# Определите количество строк таблицы с числами, для которых работают не менее двух из трёх условий:
-#
-# в строке одно число повторяется трижды, остальные различны
-# чётных чисел больше, чем нечётных
-# сумма двух наибольших значений больше, чем в два раза превышает сумму остальных значений
-
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    flag = 0
-    copied3 = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(uncopied) == 3:
-        flag += 1
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > len(nechet):
-        flag += 1
-    M = sorted(M)
-    if (M[-1] + M[-2]) > 2 * (M[0] + M[1] + M[2] + M[3]):
-        flag += 1
-    if flag >= 2:
-        cnt += 1
-print(cnt)
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+'''
 
 # endregion Урок: ************************************************************
 # #
