@@ -2096,13 +2096,22 @@ def F(n, k, c):
 print(F(5, 34, ""))
 
 
-import sys
-sys.setrecursionlimit(10000)
+# todo Пример кода КОНФЛИКТОМ ИМЕН
+'''
+count = 0
+# from itertools import *
+# from itertools import count, permutations
+from itertools import permutations
+for p in permutations('abc'):
+    word = ''.join(p)
+    print(word)
+    count += 1
+print(count)  # 6
 
-def F(n):
-    if (n**0.5).is_integer() and (n**0.5) != 0:
-        return n**0.5
-    else:
-        return F(n+1)+1
-
-print(F(4850)+F(5000))
+# abc
+# acb
+# bac
+# bca
+# cab
+# cba
+'''

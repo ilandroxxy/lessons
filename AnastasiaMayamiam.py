@@ -6,67 +6,73 @@
 # region Урок: ********************************************************************
 
 
-# № 20196 (Уровень: Базовый)
+# № 4741 (Уровень: Средний)
 '''
 import sys
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(6000)
 
-def F(n):
-    if n < 110:
-        return n
-    if n >= 110:
-        return n + F(n - 1)
-
-print(F(2025) - F(2021))
-'''
-# [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
-
-
-# № 14338 (Уровень: Средний)
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 10:
-        return n
-    if n > 9:
-        return 3 * n + G(n - 2)
-
-def G(n):
-    if n < 10:
-        return n
-    if n > 9:
-        return n - 2 + F(n - 1)
-
-print(F(2204) - G(2200))
+from math import sqrt
+def f(n):
+    # if sqrt(n) == int(sqrt(n)):  # sqrt(16) == 16
+    if (n ** 0.5).is_integer():
+        return n ** 0.5
+    else:
+        return f(n + 1) + 1
+print(int(f(4850) + f(5000)))
 '''
 
 
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+# № 4739 (Уровень: Средний)
 '''
 from functools import *
 import sys
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(400000)
 
 @lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
+def f(n):
+    if n > 10000:
+        return n - 10000
+    if 1 <= n <= 10000:
+        return f(n + 1) + f(n + 2)
 
-for n in range(5000):
-    F(n)
+for i in range(13000, 1, -1):
+    f(i)
 
-print(F(4952) + 2 *F(4958) + F(4964))
+print(f(12345) * (f(10) - f(12))//f(11) + f(10101))
 '''
 
 
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def f(n):
+    if n > 10000:
+        return n - 10000
+    if 1 <= n <= 10000:
+        return f(n + 1) + f(n + 2)
+
+
+print(f(12345) * 1 + f(10101))
+'''
+# f(10) = f(11) + f(12)
+
+
+# № 8474 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def f(n):
+    if n > 3456:
+        return n + 1
+    if n <= 3456 and n % 3 == 0:
+        return f(n + 1) + f(n + 2)
+    if n <= 3456 and n % 3 != 0:
+        return f(n + n % 3) + 2
+
+print(f(12) - f(17))
+'''
+
+
+# № 10659 (Уровень: Средний)
 '''
 import sys
 sys.setrecursionlimit(10000)
@@ -75,66 +81,117 @@ def F(n):
     if n == 1:
         return 1
     if n > 1:
-        return n * F(n - 1)
+        return n + F(n - 1)
 
-print((F(2024) // 4 + F(2023)) / F(2022))
-# print((F(2024) / 4 + F(2023)) / F(2022))
-#             ~~~^~~
-# OverflowError: integer division result too large for a float
+cnt = 0
+for n in range(1, 100+1):
+    if  F(2023) // F(n) % 2 == 0:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-
-print(F(5, 7) * F(7, 11))
-
-
-def F(a, b):
-    if a >= b:
-        return a == b  # True/False
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-
-# print(True + True + False)  # 2
-
-print(F(5, 7) * F(7, 11))
-'''
-
-
-# № 6756 Апробация 10.03.23 (Уровень: Базовый)
+# № 8585 (Уровень: Базовый)
+# 1. Вычти сумму всех цифр числа
+# 2. Найди целую часть от деления на 2
+# 3. Вычти 1
+#
+# Сколько существует программ, для которых при исходном числе 40
+# результатом является число 10, и при этом траектория
+# вычислений содержит число 25?
 '''
 def F(a, b):
     if a <= b:
         return a == b
-    return F(a-2, b) + F(a//2, b)
+    h = [F(a - sum(map(int, str(a))), b), F(a // 2, b), F(a-1, b)]
+    return sum(h)
 
-print(F(40, 10) * F(10, 2))
+
+print(F(40, 25) * F(25, 10))  # 247
 '''
 
 
-# № 7011 (Уровень: Средний)
-'''
-def F(a, b, c):
-    if a >= b or a == 28:
-        return a == b and 'BACA' not in c
-    return F(a+2, b, c+'A') + F(a+3, b, c+'B')  +F(a*2, b, c+'C')
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
 
-print(F(2, 40, ''))
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя Второй ход
+# n = 4: Ваня Второй ход
 '''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - Ваня победил / False - Петя победил
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+# 1 куча: +3, +6, *3 | >= 132 | 1 ≤S≤ 131
+'''
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 132) if F(s, 2)])
+print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | S > 88
+'''
+from math import sqrt, ceil, floor
+
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(89, 1000) if F(s, 2)])
+print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 куча: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
+
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    # return any(h) if (n - 1) % 2 == 0 else all(h) # при любом ходе Пети
+    return any(h) if (n - 1) % 2 == 0 else any(h) # после неудачного первого хода Пети
+
+
+print([s for s in range(1, 74) if F(7, s, 2)])  # [19, 20, 21,
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -146,7 +203,7 @@ print(F(2, 40, ''))
 # #
 # ФИПИ = [15, 16, 23]
 # КЕГЭ  = []
-# на следующем уроке: 5, 7, 8, 9, 13, 19-21 (2 кучи + убывание), 25
+# на следующем уроке: 5, 7, 8, 9, 13, 25
 
 # Первый пробник 21.12.24:
 # Анастасия 9/29 -> 48 вторичных баллов +[1, 2, 4, 12, 16, 14, 15, 23, 20-21] -[3, 8, 10, 11, 18, 19]

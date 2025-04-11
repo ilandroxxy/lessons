@@ -6,7 +6,64 @@
 # region Урок: ********************************************************************
 
 
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ s ≤ 50
 
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый шаг
+# n = 2: Ваня первый шаг
+# n = 3: Петя второй шаг
+# n = 4: Ваня второй шаг
+'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - Ваня победил, False - победил Петя
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | S > 88
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(89, 1000) if F(s, 2)])
+print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a+s>=81 | 1 ≤ S ≤ 73 | a = 7
+'''
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # после неудачного первого хода Пети
+
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+'''
 # endregion Урок: *************************************************************
 # #
 # #
