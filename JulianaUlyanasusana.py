@@ -5,66 +5,142 @@
 # #
 # #
 # region Урок: ********************************************************************
-
-def F(a, b):
-    if a >= b:
-        return a == b
-    h = [F(a+2, b), F(a+3, b), F(a*2, b)]
-    return sum(h)
-
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True/False
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((not x) and y and z and (not w)) or ((not x) and y and (not z) and w) or (x and y and z and (not w))
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-# № 17682 Пересдача 04.07.24 (Уровень: Базовый)
+# 5
 '''
-def F(s, n):
-    if s >= 67:
-        return n % 2 == 0  # True/False
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+3, n-1), F(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
-print([s for s in range(1, 67) if F(s, 2)])
-print([s for s in range(1, 67) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 67) if F(s, 4) and not F(s, 2)])
+R = []
+for n in range(1, 10000):
+    s = convert(n, 7)
+    if s.count('3') % 2 == 0:
+        s = '3' + s + s[0]
+    else:
+        s = '6' + s + s[-1]
+    r = int(s, 7)
+    if r < 16777:
+        R.append(r)
+print(max(R))
+'''
+
+# 8
+'''
+s = '0123456789ABC'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        if len(num) == len(set(num)):
+                            for x in s[::2]:
+                                num = num.replace(x, '2')
+                            for x in s[1::2]:
+                                num = num.replace(x, '1')
+                            if '22' not in num and '11' not in num:
+                                cnt += 1
+print(cnt)  # 10440
 '''
 
 
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0  # True/False
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
+# 9
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    flag = 0
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        flag += 1
+    if M.count(min(M)) > 1:
+        flag += 1
+    if flag >= 1:
+        cnt += 1
+print(cnt)
+'''
 
-print([s for s in range(1, 74) if F(7, s, 2)])  # [19, 20, 21,
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+# 12
+'''
+mini = 10**9
+for n in range(1000):
+    s = '7' * n + '8' * n + '9' * n
+
+    while '78' in s or '98' in s or '999' in s:
+        if '78' in s:
+            s = s.replace('78', '8', 1)
+        if '98' in s:
+            s = s.replace('98', '7', 1)
+        if '999' in s:
+            s = s.replace('999', '9', 1)
+    if sum(map(int, s)) == 801:
+        mini = min(mini, n*3)
+        print(mini)
+'''
+
+
+# 13
+'''
+from ipaddress import *
+for A in range(255+1):
+    net = ip_network(f'135.{A}.170.5/255.255.0.0', 0)
+    if all(f'{ip:b}'[:16].count('1') > 10 for ip in net):
+        print(A)
+        break
+'''
+
+
+# 14
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alphabet[20])  # K
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alphabet[n % b]
+        n //= b
+    return r[::-1]
+
+n = 9*57**2024 + 14 * 13**3059 - 87 * 67**1111 + 2027
+s = convert(n, 36)
+print(len([x for x in s if x > 'K']))
+'''
+
+
+# 15
+'''
+def F(x, a1, a2):
+    P = 3 <= x <= 83
+    Q = 62 <= x <= 131
+    A = a1 <= x <= a2
+    return (not Q) <= (((not A) and P) <= Q)
+
+R = []
+M = [x / 2 for x in range(0, 140 * 2)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 58.75 -> 59
+'''
 
 # endregion Урок: *************************************************************
 # #

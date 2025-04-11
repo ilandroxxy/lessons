@@ -1996,39 +1996,6 @@ print(max(R))
 '''
 
 
-'''
-import re
-
-text = "Python is awesome!"
-result = re.search(r"awesome", text)
-if result:
-    print("Найдено:", result.group())  # Найдено: awesome
-else:
-    print("Не найдено.")
-
-
-text = "Python is great"
-result = re.match(r"Python", text)
-if result:
-    print("Начинается с Python")  # Сработает
-else:
-    print("Не начинается")
-
-
-text = "10 cats, 20 dogs, 30 birds"
-numbers = re.findall(r"\d+", text)  # \d+ означает "одна или больше цифр"
-print(numbers)  # ['10', '20', '30']
-
-text = "Hello, World!"
-new_text = re.sub(r"World", "Python", text)
-print(new_text)  # Hello, Python!
-
-text = "apple,banana;orange"
-fruits = re.split(r"[,;]", text)  # Разделяем по запятой или точке с запятой
-print(fruits)  # ['apple', 'banana', 'orange']
-'''
-
-
 # todo сделать пост про простые числа
 '''
 # Нашли все простые числа
@@ -2054,47 +2021,6 @@ for i in range(len(M) - 2):
 print(len(R), max(R))
 '''
 
-P = []
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    for i in range(2):
-        if s.count('1') % 2 == 0:
-            s = '11' + s[2:] + '00'
-        else:
-            s = '10' + s[2:] + '11'
-    r = int(s, 2)
-    if n < 100:
-        P.append(r)
-print(max(P))
-
-
-M = []
-for i in range(1, 100):
-    s = bin(i)[2:]
-
-    for _ in range(2):
-        if s.count('1') % 2 == 0:
-            s = "11" + s[2:] + '00'
-        else:
-            s = '10' + s[2:] + '11'
-
-    r = int(s, 2)
-    M.append(r)
-print(max(M))
-
-
-
-def F(n, k, c):
-    if n > k+3 or "aaa" in c:
-        return 0
-    if n == k:
-        return 1 and "aaa" not in c
-    else:
-        return F(n - 1, k, c + "a") + F(n + 5, k, c + "b") + F(n * 2, k, c + "c")
-
-
-print(F(5, 34, ""))
-
 
 # todo Пример кода КОНФЛИКТОМ ИМЕН
 '''
@@ -2115,3 +2041,6 @@ print(count)  # 6
 # cab
 # cba
 '''
+
+
+

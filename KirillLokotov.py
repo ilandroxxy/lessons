@@ -6,98 +6,80 @@
 # #
 # region Урок: ************************************************************
 
-# 19722 (Уровень: Базовый)
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+
+# s - это кол-во камней в куче (мы это ищем)
+# n - это шаг игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
 '''
-from fnmatch import *
-for x in range(12602, 10**10, 12602):  #  делящиеся на 12602 без остатка.
-    if fnmatch(str(x), '*45?49*24'):
-        print(x)
-'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - если победа Вани / False - победа Пети
+    if n == 0:
+        return 0  # False
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h
 
-
-# № 19723 (Уровень: Базовый)
-'''
-def divisors(x):
-    div = []
-    # for j in range(1, int(x ** 0.5)+1):
-    for j in range(2, int(x ** 0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(500_000+1, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 9:
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
 '''
 
-# № 19778 (Уровень: Средний)
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
 '''
-def D(x):
-    div = []
-    for j in range(2, int(x ** 0.5)+1):  #  не считая самого числа.
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # при любом ходе Пети Ваня может выиграт
 
-
-cnt = 0
-for x in range(9_500_000+1, 10**10):
-    d = [j for j in D(x) if len(D(j)) == 0]
-    if len(d) > 0:
-        F = sum(d) // len(d)  # среднего арифметического
-        if F != 0 and F % 813 == 0:
-            print(x, F)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-'''
-# Нашли все простые числа
-print([x for x in range(2, 100) if len(divisors(x)) == 0])
-# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-
-# Нашли все составные числа
-print([x for x in range(2, 100) if len(divisors(x)) != 0])
-# [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99]
+print([s for s in range(1, 132) if F(s, 2)])
+print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# № 19776 (Уровень: Средний)
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | S > 88
 '''
-def D(x):
-    div = []
-    for j in range(2, int(x ** 0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-
-cnt = 0
-for x in range(23_600_000+1, 10**10):
-    d = [j for j in D(x) if len(D(j)) == 0]
-    if len(d) > 0:
-        # M = d[0] + d[-1]
-        M = min(d) + max(d)
-        if M % 213 == 171:  # значение M при делении на 213 даёт в остатке 171
-            print(x, M)
-            cnt += 1
-            if cnt == 6:
-                break
+print([s for s in range(89, 1000) if F(s, 2)])
+print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
 
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
+'''
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # при любом ходе Пети Ваня может выиграт
+
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+'''
 
 # endregion Урок: ************************************************************
 # #

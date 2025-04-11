@@ -6,145 +6,72 @@
 # #
 # region Урок: ********************************************************************
 
-# № 12097
 '''
-from itertools import *
-n = 0
-R = []
-for p in product(sorted('ГИРЛЯНДА'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0 and word[0] != 'Я' and word.count('Д') == 3:
-        R.append(n)
-print(max(R))
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+2, b) + F(a*2, b)
+'''
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - победа Ваня / False - победа Пети
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 51) if F(s, 2)])
+print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+'''
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | S > 88
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(89, 1000) if F(s, 2)])
+print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
 '''
 
 
-# № 12917  (Уровень: Базовый)
-'''
-from itertools import *
-R = []
-for p in permutations('ПРОСТО', r=6):
-    word = ''.join(p)
-    if 'ОО' not in word:
-        R.append(word)
-print(len(set(R)))
-'''
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
 
-'''
-from itertools import *
-cnt = 0
-for p in set(permutations('ПРОСТО', r=6)):
-    word = ''.join(p)
-    if 'ОО' not in word:
-        cnt += 1
-print(cnt)
-'''
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
+# else all(h) - при любой игре Пети
+# else any(h) - после неудачного первого хода Пети
 
-# № 11827
-'''
-from itertools import *
-cnt = 0
-for p in product('01234567', repeat=7):
-    num = ''.join(p)
-    if num[0] != '0':
-        chet = [int(x) for x in num if x in '0246']
-        if len(chet) == 2:
-            for el in '135':
-                num = num.replace(el, '*')
-                # print(num, num2)
-            if '*7' not in num and '7*' not in num and '77' not in num:
-                cnt += 1
-print(cnt)
-'''
-
-# № 20902 Апробация 05.03.25 (Уровень: Базовый)
-# Сеть задана IP-адресом 172.16.80.0 и маской сети 255.255.248.0.
-#
-# Сколько в этой сети IP-адресов, для которых количество
-# единиц в двоичной записи IP-адреса не кратно 2?
-'''
-from ipaddress import *
-net = ip_network('172.16.80.0/255.255.248.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 2 != 0:
-        cnt += 1
-print(cnt)
-'''
-
-
-
-# № 11787 (Уровень: Базовый)
-#  суммарное количество единиц в левых двух байтах
-#  больше суммарного количества единиц в правых двух байтах.
-'''
-from ipaddress import *
-net = ip_network('101.157.240.0/255.255.252.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'  # 32 бит
-    if b[:16].count('1') > b[16:].count('1'):
-        cnt += 1
-print(cnt)
-'''
-# байт байт байт байт
-# b[:8] b[8:16] b[16:24] b[24:]
-
-
-# № 11770 (Уровень: Базовый)
-# Для узла с IP-адресом 251.211.38.240 адрес сети равен 251.211.38.0.
-# Для скольких различных значений маски это возможно?
-'''
-from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net = ip_network(f'251.211.38.240/{mask}', 0)
-    if '251.211.38.0' in str(net):
-        cnt += 1
-print(cnt)
-'''
-
-'''
-from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net = ip_network(f'157.17.164.129/{mask}', 0)
-    if '157.17.128.0' in str(net):
-        print(net.netmask)
-'''
-
-'''
-from ipaddress import *
-cnt = 0
-for mask in range(32+1):
-    net1 = ip_network(f'201.44.240.33/{mask}', 0)
-    net2 = ip_network(f'201.44.240.107/{mask}', 0)
-    if net1 == net2:
-        if f'{net1.network_address:b}'.count('1') >= 5:
-            cnt += 1
-print(cnt)
-'''
-
-from functools import *
-import sys
-sys.setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n/2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for n in range(5000):
-    F(n)
-
-print(F(4952) + 2 *F(4958) + F(4964))
+print([s for s in range(1, 74) if F(7, s, 2)])
+print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
+print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 
 
 

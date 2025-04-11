@@ -6,68 +6,103 @@
 # #
 # region Урок: ********************************************************************
 
-
-def F(a, b):
-    if a >= b:
-        return a == b  # True/False
-    h = [F(a + 2, b), F(a * 2, b)]
-    return sum(h)
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-
-# s - это кол-во камней в куче
-# n - это шаг игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
+# № 20144
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+def divisors(x):
+    div = []
+    for j in range(2, int(x ** 0.5) + 1):  # не считая самого числа
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+# print([x for x in range(2, 100) if len(divisors(x)) == 0])
+
+cnt = 0
+for x in range(3_333_337+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        R = max(d) - min(d)
+        if R > 1000 and R % 3 == 0:
+            print(x, R)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-# № 17875 Демоверсия 2025 (Уровень: Базовый)
+
+# 20068
 '''
-from math import ceil, floor
+print(25 * 34 + 25 * 17 - 13 * 17)
 
-def F(s, n):
-    if s <= 19:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(s-5, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+import turtle as t
+t.screensize(5000, 5000)
+t.tracer(0)
+l = 30
 
-print([s for s in range(20, 2000) if F(s, 2)])
-print([s for s in range(20, 2000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(20, 2000) if F(s, 4) and not F(s, 2)])
+for x in range(777):
+    t.forward(25 * l)
+    t.left(90)
+    t.forward(34 * l)
+    t.left(90)
+t.up()
+t.forward(12 * l)
+t.left(90)
+t.forward(17 * l)
+t.right(90)
+t.down()
+for x in range(1996):
+    t.forward(25 * l)
+    t.left(90)
+    t.forward(17 * l)
+    t.left(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * l, y * l)
+        t.dot(3, 'red')
+t.update()
+t.done()
+
 '''
 
-# № 17532 Основная волна 07.06.24 (Уровень: Базовый)
 
-def F(a, s, n):
-    if a + s >= 65:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*3, s, n-1), F(a, s*3, n-1)]
-    # return any(h) if (n - 1) % 2 == 0 else any(h)  # После неудачного первого хода Пети.
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # При любой игре Пети.
+# 19895
+'''
+# sym - ?
+alp = 10 + 2040
+print(2**12)
+i = 12
 
-print([s for s in range(1, 59) if F(6, s, 2)])  # [7, 8,
-print([s for s in range(1, 59) if F(6, s, 3) and not F(6, s, 1)])  # [10, 19]
-print([s for s in range(1, 59) if F(6, s, 4) and not F(6, s, 2)])  # [18]
+byte = 369 * 2**10 / 718
+print(byte)  # 526.261
+byte = 526
+
+bit = byte * 8
+
+sym = bit / i
+print(sym)  # 350.66
+'''
+
+
+# 19892
+'''
+pixels = 1920 * 1080
+i = 16  # 2 ** 16 >= colors
+bit = pixels * i  # бит на одну фотографию
+print(512 - 52)  # 460
+
+for i in range(1, 15):
+    if 460 % i == 0:
+        print(i, 460 // i)
+        # 5 92
+
+
+print((92 * bit) / 2**23)  # 363.86
+'''
+# Ответ: 364
+
+
 
 # endregion Урок: *************************************************************
 # #
