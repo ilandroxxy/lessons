@@ -2043,4 +2043,40 @@ print(count)  # 6
 '''
 
 
+def F(a, s, h):
+    if a+s >= 81:
+        return h % 2 == 0
+    if h == 0:
+        return 0
+    step = [F(a+1, s, h-1), F(a, s+1, h-1), F(a*2, s, h-1), F(a, s*2, h-1)]
+    return any(step) if (h - 1) % 2 == 0 else all(step)
 
+
+
+def F(a, s, h):
+    if a + s >= 65:
+        return h % 2 == 0
+    if h == 0:
+        return 0
+    res = [F(a + 1, s, h - 1), F(a, s + 1, h-1), F(a * 3, s, h - 1), F(a, s * 3, h - 1)]
+    return any(res) if (h - 1) % 2 == 0 else all(res)
+
+
+print([x for x in range(1, 59) if F(6, x, 2)])
+print([x for x in range(1, 59) if F(6, x, 3) and (not F(6, x, 1))])
+print([x for x in range(1, 59) if F(6, x, 4) and (not F(6, x, 2))])
+
+'''
+for n in range(4, 10000):
+    s='3'+'1'*n
+    while '31' in s or '211' in s or '1111' in s:
+        if '31' in s:
+            s=s.replace('31', '1', 1)
+        if '211' in s:
+            s=s.replace('211', '13', 1)
+        if '1111' in s:
+            s=s.replace('1111', '2', 1)
+    t=sum(map(int, s))
+    if t==15:
+        print(n)
+        break'''
