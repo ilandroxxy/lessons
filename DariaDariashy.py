@@ -6,152 +6,98 @@
 # #
 # region Урок: ********************************************************************
 
+
+# № 21412 Досрочная волна 2025 (Уровень: Базовый)
+# Сеть задана IP-адресом одного из входящих в неё узлов 143.168.72.213
+# и сетевой маской 255.255.255.240.
+# Определите наибольший IP-адрес данной сети, который может быть присвоен компьютеру.
+# В ответе укажите найденный IP-адрес без разделителей.
 '''
-a = [3, 3, 3, 3]
-e = [5, 5]
-print(a + e)  # [3, 3, 3, 3, 5, 5]
-print(max(a + e))  # 5
-
-
-# todo Почему не срабатывает условие 25 строка
-k = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    a = [x for x in M if M.count(x) == 4]
-    e = [x for x in M if M.count(x) == 2]
-    n = [x for x in M if M.count(x) == 1]
-    if len(a) == 4 and len(e) == 2 and len(n) == 3:
-        if sum(n)/3 >= max(a + e):
-        # if (sum(n)/3 >= max(M)) and (max(M) in (a + e)):  #
-            k += 1
-print(k)
-'''
-from os import confstr_names
-
-# print('*'.join(['a', 'b', 'c']))  # a*b*c
-
-'''
-cnt = 0
-from itertools import *  # * - это подключение всего содержимого
-# from itertools import product
-
-for p in product(sorted('КОДИМ'), repeat=5):
-    word = ''.join(p)
-    cnt += 1
-print(cnt)  # 3125
+from ipaddress import *
+net = ip_network('143.168.72.213/255.255.255.240', 0)
+for ip in net:
+    print(ip)  # 143.168.72.222 -> 14316872222
 '''
 
 
-# № 18133 (Уровень: Базовый)
+# № 21413 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from itertools import *
-n = 0
-for p in product(sorted('КОДИМ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('М') == 2 and 'ММ' not in word:
-        print(n)
-'''
-
-'''
-print(all(x % 2 == 0 for x in [2, 4, 6, 8]))  #  True
-print(all(x % 2 == 0 for x in [2, 4, 7, 8]))  #  False
-print(any(x % 2 == 0 for x in [2, 3, 7, 9]))  #  True
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        print((A + B + C) // 20)
 '''
 
 
-# № 8417 (Уровень: Базовый)
+# № 20905 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from itertools import *
-cnt = 0
-for p in permutations('ЯРОСЛАВ', r=5):
-    word = ''.join(p)
-    sogl = [x for x in word if x in 'РСЛВ']
-    glas = [x for x in word if x in 'ЯОА']
-    if len(sogl) > len(glas):  # согласных в коде должно быть больше, чем гласных
-        # if all(x not in word for x in 'ЯО ОЯ ОА АО ЯА АЯ'.split()): # две гласные буквы нельзя ставить рядом
-        word = word.replace('О', 'Я').replace('Я', 'А')
-        if 'АА' not in word:
-            cnt += 1
-print(cnt)
+def F(x, a1, a2):
+    P = 17 <= x <= 58
+    Q = 29 <= x <= 80
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+R = []
+M = [x / 4 for x in range(10 * 4, 90 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 29.0
+'''
+
+'''
+print(all(x % 2 == 0 for x in [2, 4, 6, 8]))
+# Все элементы списка должны быть четные
+
+print(any(x % 2 != 0 for x in [2, 5, 6, 8]))
+# Хотя бы один элемент списка должен быть нечетным
+'''
+
+# i: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+# s: 0 1 2 3 4 5 6 7 8 9 A  B  C  D  E  F  G  H  I  J  K
+
+# Четыре вариант подключения библиотек:
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+import sys as s  # короткое имя 
+s.setrecursionlimit(10000)
+
+from sys import setrecursionlimit
+setrecursionlimit(10000)
+
+from sys import *
+setrecursionlimit(10000)
 '''
 
 
-# № 18120 (Уровень: Базовый)
 '''
-from itertools import *
-cnt = 0
-n = 0
-for p in product(sorted('ПРЕСТОЛ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0:
-        if word[-1] in 'ЕО':  # оканчиваются на гласную букву
-        # if word[-1] not in 'ПРСТЛ':  # оканчиваются на гласную букву
-            sogl = [x for x in word if x in 'ПРСТЛ']
-            if len(sogl) <= 3:
-                cnt += 1
-print(cnt)
-'''
-
-# № 17862 Демоверсия 2025 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in product('0123456789AB', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('7') == 1:
-            D = [x for x in num if x > '8']  # 9 A B
-            if len(D) <= 3:
-                cnt += 1
-print(cnt)
+count = 0
+from itertools import product  # подключение всего содержимого библиотеки 
+for p in product('123', repeat=2):
+    count += 1
+print(count)
 '''
 
 
-# № 17695 (Уровень: Средний)
-'''
-from itertools import *
-cnt = 0
-for p in product('0123456', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        # if num.count('3') + num.count('4') + num.count('5') == 2:
-        # if len([x for x in num if '3' <= x <= '5']) == 2:
-        if len([x for x in num if x in '345']) == 2:
-            # if all(x not in num for x in '00 11 22 33 44 55 66'.split()):
-            if all(num[i] != num[i+1] for i in range(len(num)-1)):
-                cnt += 1
-print(cnt)
-'''
-
+# № 21416 Досрочная волна 2025 (Уровень: Базовый)
 '''
 M = [int(x) for x in open('0. files/17.txt')]
-print(M)
-R = []
+A = [x for x in M if x < 0]
+R = []  # сюда будем записывать результаты
 for i in range(len(M)-2):
-    # x, y, z = M[i], M[i+1], M[i+2]
-    x, y, z = M[i:i+3]
-    print(f'{x}, {y}, {z}')
+    x, y, z = M[i], M[i+1], M[i+2]
+    if max(x, y, z) * min(x, y, z) > sum(A):
+        R.append(x + y + z)
+print(len(R), max(R))
 '''
 
 
-# № 20855 (Уровень: Средний)
-'''
-from itertools import *
-n = -1
-cnt = 0
-for p in product('0123456789ABC', repeat=3):
-    num = ''.join(p)
-    if num[0] != '0':
-        n += 1
-        if n % 10 == 7:
-            for x in '0123456789ABC'[1::2]:
-                num = num.replace(x, '1')
-            if '11' not in num:
-                cnt += 1
-print(cnt)
-'''
 
 # endregion Урок: *************************************************************
 # #

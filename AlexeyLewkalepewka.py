@@ -7,87 +7,19 @@
 # region Урок: ********************************************************************
 
 
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
-'''
+# № 19751 (Уровень: Сложный)
+
 from re import *
 s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|0)'
-reg = rf'{num}([-*]{num})*'
-
-"""
-m = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in m:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-"""
-
-print(max([len(x.group()) for x in finditer(reg, s)]))
-'''
-
-
-# № 17563 Основная волна 08.06.24 (Уровень: Сложный)
-# натуральные числа без незначащих нулей.
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*)'
-reg = rf'{num}([-*]{num})*'
+num = r'([1-9]+)'
+reg = rf'A{num}([+]{num})*'
 
 m = [x.group() for x in finditer(reg, s)]
 maxi = 0
 for x in m:
     print(x)
-    maxi = max(maxi, len(x))
+    maxi = max(maxi, eval(x[1:]))
 print(maxi)
-'''
-
-
-# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|0)'
-reg = rf'{num}([+*]{num})*'
-
-m = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in m:
-    if eval(x) == 0:
-        maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-
-# 17756 (Уровень: Базовый)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|0)'
-reg = rf'[+*]{num}([+*]{num})*[+*]'
-
-m = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in m:
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-
-# № 17878 Демоверсия 2025 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([6789][06789]*|0)'
-reg = rf'{num}([-*]{num})*'
-
-m = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in m:
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
 
 # endregion Урок: *************************************************************
 # #
