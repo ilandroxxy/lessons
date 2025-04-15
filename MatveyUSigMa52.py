@@ -4,55 +4,69 @@
 # #
 # #
 # region Урок: ********************************************************************
-
-'''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
-'''
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-'''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
-'''
-
-
-# № 19635 (Уровень: Базовый)
 '''
 from math import *
 
-def F(a, s, n):
-    if a+s <= 100:
+def F(s, n):
+    if s <= 1:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(a-3, s-3, n-1), F(floor(a/2), s, n-1), F(a, floor(s/2), n-1)]
+    h = [F(s - 1, n - 1)]
+    if s >= 4:
+        h += [F(s - 4, n - 1)]
+    if s % 3 == 0:
+        h += [F(s / 3, n - 1)]
     return any(h) if (n - 1) % 2 == 0 else all(h)
 
 
-print([s for s in range(53, 1000) if F(48, s, 2)])
-print([s for s in range(53, 1000) if F(48, s, 3) and not F(48, s, 1)])
-print([s for s in range(53, 1000) if F(48, s, 4) and not F(48, s, 2)])
+print([s for s in range(4, 101) if F(s, 2)])
+print([s for s in range(4, 101) if F(s, 3) and not F(s, 1)])
+print([s for s in range(4, 101) if F(s, 4) and not F(s, 2)])
+'''
+
+
+# № 9742 Основная волна 19.06.23 (Уровень: Базовый)
+'''
+sym = 105
+n = 10 + 1500  # 2 ** i >= n
+i = 11  # бит на один символ
+
+bit = sym * i  # бит на один пароль
+print(bit / 8)  # 144.375
+
+byte = 145
+print((byte * 16384) / 2**10)
+'''
+
+
+# № 19243 ЕГКР 21.12.24 (Уровень: Базовый)
+'''
+sym = 377
+# n - ?
+# i - ?
+
+byte = (5536 * 1024) / 23155
+print(byte)  # 244.822 -> 245 (требуется более 5536 Кбайт)
+byte = 245
+
+bit = byte * 8
+
+i = bit / sym
+print(i)  # 5.198
+i = 6
+
+# 64 максимально возможную мощность алфавита
+# 33 минимально возможную мощность алфавита
+
+n = 64  # i = 6
+n = 32  # i = 5
+n = 33  # i = 6
+
+# i = 5  [17:32]
+# i = 6  [33:64]
+# i = 7  [65:128]
+# i = 8  [129:256]
 '''
 
 # endregion Урок: ********************************************************************
@@ -63,7 +77,7 @@ print([s for s in range(53, 1000) if F(48, s, 4) and not F(48, s, 2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1.1, 2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
+# ФИПИ = [1.1, 2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
 

@@ -2055,3 +2055,12 @@ for s in open('0. files/9.csv'):
             cnt += 1
 print(cnt)
 '''
+
+def F(n):
+    if n <= 1:
+        return 1/2
+    else:
+        return (n+1) * F(n-1)
+
+
+print(201 * 200)
