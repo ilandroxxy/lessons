@@ -1,7 +1,44 @@
 
+# region 1 номер
 
+# endregion 1 номер
+#
+#
+# region 2 номер
+
+# todo Хорошая задачка для 2 номера
+# https://education.yandex.ru/ege/task/4820b374-36df-4864-912e-ac63edcbab34
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not((((((w and x) == x) or 1) <= z) or (not x)) and y))
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+
+# endregion 2 номер
+#
+#
+# region 3 номер
+
+# № 20177 (Уровень: Базовый) (М. Попков)
+
+# endregion 3 номер
+#
+#
 # 3 номер № 20177 (Уровень: Базовый) (М. Попков)
+#
+#
+# region 4 номер
 
+# endregion 4 номер
+#
+#
+# region 5 номер
 
 # № 18287 (Уровень: Базовый)
 # todo Номер 5: Интересная задача с ловушкой под списки и минимальный r
@@ -20,6 +57,55 @@ for n in range(3, 10000):
 print(min(sp))
 '''
 
+# endregion 5 номер
+#
+#
+# region 6 номер
+
+# endregion 6 номер
+#
+#
+# region 7 номер
+
+# endregion 7 номер
+#
+#
+# region 8 номер
+
+# endregion 8 номер
+#
+#
+# region 9 номер
+
+# endregion 9 номер
+#
+#
+# region 10 номер
+
+# endregion 10 номер
+#
+#
+# region 11 номер
+
+# endregion 11 номер
+#
+#
+# region 12 номер
+
+# endregion 12 номер
+#
+#
+# region 13 номер
+
+# endregion 13 номер
+#
+#
+# region 14 номер
+
+# endregion 14 номер
+#
+#
+# region 15 номер
 
 # № 12469 (Уровень: Базовый)
 # todo Номер 15: Интересная задача с отрезками
@@ -43,19 +129,40 @@ print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
 '''
 
 
-# todo Хорошая задачка для 2 номера
-# https://education.yandex.ru/ege/task/4820b374-36df-4864-912e-ac63edcbab34
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (not((((((w and x) == x) or 1) <= z) or (not x)) and y))
-                if F == 0:
-                    print(x, y, z, w)
-'''
+# endregion 15 номер
+#
+#
+# region 16 номер
 
+# endregion 16 номер
+#
+#
+# region 17 номер
+
+# endregion 17 номер
+#
+#
+# region 18 номер
+
+# endregion 18 номер
+#
+#
+# region 19-21 номер
+
+# endregion 19-21 номер
+#
+#
+# region 22 номер
+
+# endregion 22 номер
+#
+#
+# region 23 номер
+
+# endregion 23 номер
+#
+#
+# region 24 номер
 
 # todo просто интересная задача 24 № 7012 (Уровень: Средний)
 '''
@@ -76,6 +183,7 @@ for s in f:
 
 print(cnt)
 '''
+
 
 # todo интересная задача 24 номера № 14512 (Уровень: Средний)
 '''
@@ -210,6 +318,28 @@ print(maxi)
 
 # endregion
 
+# endregion 24 номер
+#
+#
+# region 25 номер
+
+# endregion 25 номер
+#
+#
+# region 26 номер
+
+# endregion 26 номер
+#
+#
+# region 27 номер
+
+# endregion 27 номер
+
+
+
+
+
+
 
 
 # region Все, что нужно "заучить" для экзамена
@@ -234,7 +364,5 @@ r = G(n, b)
 print(r) # 1000
 print(int(r, b))  # 8
 '''
-
-
 
 # endregion

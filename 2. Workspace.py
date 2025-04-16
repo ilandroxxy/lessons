@@ -2056,11 +2056,32 @@ for s in open('0. files/9.csv'):
 print(cnt)
 '''
 
-def F(n):
-    if n <= 1:
-        return 1/2
+# todo сделать разбор № 19712 (Уровень: Средний)
+'''
+def F(a, b, s):
+    if a <= b:
+        return a == b and 'AAA' not in s and 'BBB' not in s
+    h = [F(a-2, b, s+'A')]
+    if a % 2 == 0:
+        h += [F(a/2, b, s+'B')]
     else:
-        return (n+1) * F(n-1)
+        h += [F(a-7, b, s+'B')]
+    return sum(h)
+
+print(F(40, 1, ''))
+'''
 
 
-print(201 * 200)
+# todo сделать разбор https://education.yandex.ru/ege/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        if (copied[0] ** 2) * 3 > (sum([x**2 for x in uncopied])):
+            cnt += 1
+print(cnt)
+'''
+

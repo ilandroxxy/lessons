@@ -5,65 +5,86 @@
 # #
 # region Урок: ********************************************************************
 
+# Единицы измерения информации
+# 1 бит - это минимальная единица измерения информации
+# 1 байт - 8 бит - 2**3 бит
+# 1 Кбайт - 1024 байт - 2**10 байт - 2**13 бит
+# 1 Мбайт - 1024 Кбайт - 2**20 байт - 2**23 бит
+# 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ s ≤ 50
+# 63 Мбайт = 63 * 2**23 бит
 
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
 
-# n = 1: Петя первый шаг
-# n = 2: Ваня первый шаг
-# n = 3: Петя второй шаг
-# n = 4: Ваня второй шаг
+
+# colors = 2 ** i, i - это кол-во бит на один пиксель
+# pixels = x * y
+# N = (x * y) * i
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - Ваня победил, False - победил Петя
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+colors = 2048  # 2048 <= 2 ** 12
+i = 11
+print(2**11)
+pixels = 1600 * 900
+print(pixels)
+N = pixels * i
+print(N)  # вес одной картинки (бит)
+N16 = N * 16
+print(N16)
 
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
-'''
-
-
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 вниз | <= 87 | S > 88
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(89, 1000) if F(s, 2)])
-print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
+print(N16 / (5*60))  # 3317760000
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s>=81 | 1 ≤ S ≤ 73 | a = 7
+# https://education.yandex.ru/ege/task/bf064a47-3902-46d8-a405-a5300e8caf5b
 '''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # после неудачного первого хода Пети
+pixels = 1024 * 768
+colors = 4096
+i = 12
+N = pixels * i
+N256 = N * 256  # бит
+print(N256 / 2**23)
+'''
 
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+
+# https://education.yandex.ru/ege/task/b211c7d5-1f29-4efd-bbdd-ee32b831869e
 '''
+pixels = 1280 * 1024
+i = 32
+N = pixels * i
+print((N * 0.6) / 2**23)
+'''
+
+
+# https://education.yandex.ru/ege/task/ee646cf7-b673-4401-87f5-eb996022d56a
+'''
+# N = a * b * c * t
+
+a = 2
+b = 16000
+c = 24
+t = 90
+N = a * b * c * t
+
+print(N / 64000)
+'''
+
+
+# https://education.yandex.ru/ege/task/ce57772b-890f-46fc-814d-c8818d3e67ca
+
+a = 4
+t = 3*60
+c = 16
+b = 48000
+
+N = a * b * c * t
+print((N / 3200) / 3600)
+
+
+a = 1
+t = 1.5 * 3600
+c = 16000
+n = 256 * 2**23
+print(n / (a * t * c))
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -73,6 +94,6 @@ print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 3, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
+# ФИПИ = [2, 3, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:

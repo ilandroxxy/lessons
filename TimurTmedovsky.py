@@ -6,86 +6,79 @@
 # #
 # region Урок: ********************************************************************
 
-# n - число, которое переводим
-# b - система счисления в которую переводим
 '''
-from string import digits, ascii_uppercase
-alphabet = digits + ascii_uppercase
+def F(a, b):
+    if a >= b or a == 35:
+        return a == b  # True / False
+    h = [F(a+1, b), F(a+2, b), F(a*2, b)]
+    return sum(h)
 
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-n = 8
-b = 2
-r = G(n, b)
-print(r) # 1000
-print(int(r, b))  # 8
+print(F(7 , 13) * F(13, 15) * F(15, 51))
 '''
 
+# s - это кол-во камней в кучи
+# n - это шаг нашей игры
 
+# n = 1: Петя первый шаг
+# n = 2: Ваня первый шаг
+# n = 3: Петя второй шаг
+# n = 4: Ваня второй шаг
 
-
-# № 21404 Досрочная волна 2025 (Уровень: Базовый)
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ s ≤ 50
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - если победил Ване, False - если победил Петя
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+                # при любом ходе Пети: else all(h)
+                # после неудачного хода Пети: else any(h)
+                # ТОЛЬКО для 19 номера 
 
-
-for n in range(1, 10000):
-    s = G(n, 2)
-    if s.count('1') % 2 == 0:
-        s = '10' + s[2:] + '0'
-    else:
-        s = '11' + s[2:] + '1'
-    r = int(s, 2)
-    if r > 480:
-        print(n)
-        break
+print([s for s in range(1, 51) if F(s, n=2)])
+print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | S > 88
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        print((A + B + C) // 20)
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(89, 1000) if F(s, n=2)])
+print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
-# № 20808 Апробация 05.03.25 (Уровень: Средний)
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
 
-R = []
-for x in range(1, 2030):
-    n = 7**170 + 7**100 - x
-    s = G(n, 7)
-    R.append([s.count('0'), x])
-print(max(R))
-
-for x in sorted(R):
-    print(x)
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
 '''
-# [73, 1715]
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 74) if F(7, s, n=2)])
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+'''
 
 # endregion Урок: *************************************************************
 # #

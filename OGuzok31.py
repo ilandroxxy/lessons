@@ -1,83 +1,65 @@
 # region Домашка: ******************************************************************
-
+from pprint import pformat
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-
-# s - это кол-во камней
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - если победа Вани / False - победа Пети
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[02468A])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-
-# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 20968 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 132:
-        return n % 2 == 0  # True - если победа Вани / False - победа Пети
-    if n == 0:
-        return 0
-    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 132) if F(s, 2)])
-print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*[02468]|[02468])'
+reg = rf'{num}([+*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 19120 (Уровень: Базовый)
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
 '''
-from math import ceil, floor
-
-def F(s, n):
-    if s <= 12:
-        return n % 2 == 0  # True - если победа Вани / False - победа Пети
-    if n == 0:
-        return 0
-    h = [F(s-1, n-1), F(s-2, n-1), F(s-3, n-1), F(s-4, n-1), F(s-5, n-1), F(floor(s/5), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(20, 1000) if F(s, 2)])
-print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# № 21597 (Уровень: Сложный)
 '''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 # endregion Урок: *************************************************************
