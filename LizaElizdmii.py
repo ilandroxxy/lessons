@@ -4,82 +4,24 @@
 # #
 # #
 # region Урок: ********************************************************************
-
 '''
-def F(a, b):
-    if a >= b:
-        return a == b  # True / False
-    h = [F(a+2, b), F(a*2, b)]
-    return sum(h)
+from string import punctuation
 
-print(F(4, 20))
-'''
+s = open('0. files/9.txt').read()
+p = '!"#$%&()*+,./:;<=>?@[]^_`{|}~'
+for x in p:
+    s = s.replace(x, ' ')
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-'''
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - победа Вани / False - победа Пети
-    if n == 0:
-        return 0  # False
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-
-    # при любом ходе Пети Ваня может выиграть своим первым ходом
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-    # Ваня может выиграть своим первым ходом после неудачного хода Пети
-    # return any(h) if (n - 1) % 2 == 0 else any(h)
-
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+cnt = 0
+for x in s.split():
+    if x == 'как':
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 18144 (Уровень: Базовый)
-'''
-from math import ceil, floor
-
-def F(s, n):
-    if s <= 19:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-4, n-1), F(s-6, n-1), F(ceil(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(20, 1000) if F(s, 2)])
-print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
-'''
-
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+# Определите минимальное время, через которое завершится
+# выполнение всей совокупности процессов
 
 
 # endregion Урок: *************************************************************
@@ -91,9 +33,9 @@ print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: 24, 26, 27
 
 
 # Первый пробник 21.12.24:

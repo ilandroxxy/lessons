@@ -1935,65 +1935,7 @@ print(F(11, [50, 51, 52, 53, 54]))
 '''
 
 
-# todo № 14512 (Уровень: Средний)
-'''
-s = open('24.txt').readline()
-s = s.replace('1', ' 1 ').replace('8', ' 8 ')
-s = s.split()
 
-maxi = 0
-for i in range(len(s)-2):
-    a, b, c = s[i], s[i+1], s[i+2]
-    if (a == '1' and c == '8') or (a == '8' and c == '1'):
-        if b.count('B') == b.count('C'):
-            maxi = max(maxi, len(a+b+c))
-print(maxi)
-'''
-
-
-# todo сделать разбор № 12797 (Уровень: Средний) 🌶
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    # if len(set(M)) == 3:
-    copied = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 2 and len(uncopied) == 2:
-        if all(x % 2 != 0 for x in uncopied):
-            if all(x % 2 == 0 for x in copied):
-                cnt += 1
-print(cnt)
-'''
-
-
-# todo сделать разбор № 11201 (Уровень: Средний)
-'''
-from itertools import *
-cnt = 0
-for p in permutations('ПАЙТОН'):
-    word = ''.join(p)
-    summa = word.index('А')+1 + word.index('О')+1
-    if summa == 6:
-        cnt += 1
-print(cnt)
-'''
-
-# todo сделать разбор 19888
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:o}'
-    if n % 2 == 0:
-        for x in '1357':
-            s = s.replace(x, '2')
-    else:
-        s = '3' + s[1:-1] + '3'
-    r = int(s, 8)
-    if r < 300:
-        R.append(r)
-print(max(R))
-'''
 
 
 # todo сделать пост про простые числа
@@ -2005,20 +1947,6 @@ print([x for x in range(2, 100) if len(divisors(x)) == 0])
 # Нашли все составные числа
 print([x for x in range(2, 100) if len(divisors(x)) != 0])
 # [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99]
-'''
-
-
-# todo сделать разбор № 18176 (Уровень: Средний)
-'''
-R = []
-M = [int(x) for x in open('0. files/17.txt')]
-W = [x for x in M if abs(x) % 10 == 4 and x > 0]
-for i in range(len(M) - 2):
-    a, b, c = M[i], M[i + 1], M[i + 2]
-    summa = sum([int(x) for x in str(a) + str(b) + str(c) if x.isdigit()])
-    if summa == min(W):
-        R.append(a + b + c)
-print(len(R), max(R))
 '''
 
 
@@ -2043,45 +1971,8 @@ print(count)  # 6
 '''
 
 
-# todo сделать разбор https://education.yandex.ru/ege/task/1e999a1a-d2c1-4bcd-9169-6a90e39b17e9
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(uncopied) == 5:
-        if M.count(max(M)) == M.count(min(M)):
-            cnt += 1
-print(cnt)
-'''
-
-# todo сделать разбор № 19712 (Уровень: Средний)
-'''
-def F(a, b, s):
-    if a <= b:
-        return a == b and 'AAA' not in s and 'BBB' not in s
-    h = [F(a-2, b, s+'A')]
-    if a % 2 == 0:
-        h += [F(a/2, b, s+'B')]
-    else:
-        h += [F(a-7, b, s+'B')]
-    return sum(h)
-
-print(F(40, 1, ''))
-'''
 
 
-# todo сделать разбор https://education.yandex.ru/ege/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(uncopied) == 3:
-        if (copied[0] ** 2) * 3 > (sum([x**2 for x in uncopied])):
-            cnt += 1
-print(cnt)
-'''
+
+
 

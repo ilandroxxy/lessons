@@ -6,80 +6,36 @@
 # #
 # region Урок: ************************************************************
 
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-
-# s - это кол-во камней в куче (мы это ищем)
-# n - это шаг игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
+# https://education.yandex.ru/ege/task/7102b1d9-1aed-45d5-bb07-8fb3361ed445
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - если победа Вани / False - победа Пети
-    if n == 0:
-        return 0  # False
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    copied = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 2 and len(uncopied) == 3:
+        if (max(M) + min(M)) ** 2 < (M[1] ** 2 + M[2] ** 2 + M[3] ** 2):
+            cnt += 1
+print(cnt)
 '''
 
-# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/d3ce64c1-1875-458b-b8d6-ae96bb169c58
 '''
-def F(s, n):
-    if s >= 132:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # при любом ходе Пети Ваня может выиграт
-
-print([s for s in range(1, 132) if F(s, 2)])
-print([s for s in range(1, 132) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 132) if F(s, 4) and not F(s, 2)])
-'''
-
-
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 вниз | <= 87 | S > 88
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(89, 1000) if F(s, 2)])
-print([s for s in range(89, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(89, 1000) if F(s, 4) and not F(s, 2)])
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    copied = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) > 0:
+        if len(uncopied) == 0:
+            maxi = 0
+        else:
+            maxi = max(uncopied)
+        if min(copied) > maxi:
+            cnt += 1
+print(cnt)
 '''
 
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
-'''
-def F(a, s, n):
-    if a + s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # при любом ходе Пети Ваня может выиграт
-
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
-'''
 
 # endregion Урок: ************************************************************
 # #
@@ -92,4 +48,4 @@ print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 17, 23
+# на следующем уроке: 17, 23, 9, 8
