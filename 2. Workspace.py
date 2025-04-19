@@ -1458,113 +1458,8 @@ for n, p in enumerate(product(s, repeat=4), 1):
 '''
 
 
-
-
-# todo сделать разбор 19254
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('FSRQ')
-maxi = 0
-for i in range(len(s)-80):
-    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-
 # todo сделать разбора № 18258 (Уровень: Сложный)
 
-
-
-# todo № 15413 (Уровень: Средний)
-
-'''from itertools import *
-cnt = 0
-for i in product('012345678', repeat=4):
-    s = ''.join(i)
-    if s[0] not in '0':
-        if s.count('8') == 1:
-            v = s.index('8')
-            if sum(map(int, s[:v])) == sum(map(int, s[v+1:])):
-                cnt += 1
-print(cnt)'''
-
-
-'''
-s = open('0. files/IlonaValerya.txt').readline()
-maxi = 0
-for x in 'KLMN':
-    s = s.replace(x, 'K')
-for x in '123':
-    s = s.replace(x, '2')
-for i in range(len(s)):
-    cnt1 = 0
-    cnt2 = 0
-    for j in range(i+1, len(s)):
-        if s[j] == '2':
-            cnt1 += 1
-        else:
-            cnt2 += 1
-        if cnt2 == cnt1 * 2:
-            maxi = max(maxi, len(s[i:j]))
-print(maxi)
-'''
-
-'''
-s = open('0. files/24.txt').readline()
-maxi = 0
-for x in 'KLMN':
-    s = s.replace(x, 'K')
-for x in '123':
-    s = s.replace(x, '2')
-for i in range(len(s)):
-    for j in range(i+1, len(s)):
-        r = s[i + 1:j + 1]
-        if r.count('K') == r.count('2') * 2:
-            # print(maxi, r.count('K'), r.count('2'), r)
-            maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-
-# todo будто можно добавить в практику № 12779 (Уровень: Средний)
-# № 12779 (Уровень: Средний)
-'''
-def F(n, x):
-    if n >= 3000:
-        return n
-    if n < 3000:
-        return n + x + F(n+2, x)
-
-
-for x in range(-100, 100):
-    if F(2984, x) - F(2988, x) == 5916:
-        print(x)
-'''
-
-
-# todo Разобрать номер: # № 15413 (Уровень: Средний)
-# (А. Вдовин) Найдите количество четырехзначных чисел в девятеричной системе счисления,
-# в которых есть ровна одна цифра 8, а сумма цифр слева от нее равна сумме цифр справа от нее.
-# Примечание: если слева или справа от 8 цифр нет, то сумма считается равной нулю
-'''
-from itertools import *
-cnt = 0
-for p in product('012345678', repeat=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('8') == 1:
-            i = num.index('8')
-            summa_left = sum(map(int, num[:i]))
-            summa_right = sum(map(int, num[i+1:]))
-            if summa_left == summa_right:
-                cnt += 1
-print(cnt)
-            # print(summa_left, num, summa_right)
-            # i 0123
-            #   2840  i = num.index('8') == 1
-            # num[:i] num[i+1:]
-'''
 
 # todo сделать подробный разбор
 '''
@@ -1655,48 +1550,6 @@ print(F(1, 50, ''))
 '''
 
 
-# todo сделать разбор номера 9 № 18258 (Уровень: Сложный)
-'''
-R = []
-for n, s in enumerate(open('0. files/9.csv'), 1):
-    M = [int(x) for x in s.split(';')]
-    if M == sorted(M):
-        if any(M.count(x) > 1 and sum(map(int, str(x))) % 2 == 0 for x in M):
-            R.append(n)
-print(max(R))
-'''
-
-
-# todo сделать разбор номера 14 № 18265 (Уровень: Средний)
-'''
-from string import *
-alphabet = digits + ascii_uppercase
-
-for i in range(len(alphabet)):
-    print(i, alphabet[i])
-
-for p in range(30, 37):
-    for s in range(10, 35):
-        A = int(f'R4', p-1)
-        B = int(f'B0', s+2)
-        C = int(f'T3NK4', p)
-        if (A + B + C) == 23593399:
-            print(p * s)
-'''
-
-# todo сделать разбор номера 17 № 18257 (Уровень: Средний)
-'''
-R = []
-M = [int(x) for x in open('0. files/17.txt')]
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    i, j = i+1, i+2
-    if (i + j) % 10 == max(M) % 10:
-        R.append(abs((x+y) - (i+j)))
-print(len(R), min(R))
-'''
-
-
 # todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
 '''
 M = [int(s) for s in open('0. files/17.txt')]
@@ -1741,31 +1594,6 @@ print(cnt)
 '''
 
 
-# todo Разобрать на канал 17 номер № 16264 Джобс 03.05.24 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-D = [x for x in M if len(str(abs(x))) == 2 and x % sum(map(int, str(x))) == 0]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i + 1]
-    if (x % min(D) == 0) + (y % min(D) == 0) >= 1:
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# todo Сделать разбор 8 номера № 7029 Danov2303 (Уровень: Базовый)
-'''
-from itertools import *
-
-for n, p in enumerate(product(sorted('МАРИН'), repeat=8), 1):
-    word = ''.join(p)
-    if word == 'МАРИАННА':
-        print(n)
-        break
-'''
-
-
 # todo Сделать разбор 9 номер https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
 '''
 cnt = 0
@@ -1806,20 +1634,6 @@ for x in range(124, 10**10, 124):
 '''
 
 
-# todo Разобрать Даше
-#  https://education.yandex.ru/ege/task/ebdb9a1e-1e94-4af0-8ce6-003009385c7d
-'''
-from ipaddress import *
-net = ip_network('172.16.8.0/255.255.252.0', 0)
-cnt = 0
-for ip in net:
-    cnt += 1
-print(cnt)  # 1022 (минус широковещательного адреса)
-
-print(cnt / 33)
-'''
-
-
 # todo Сделать разбор
 '''
 from ipaddress import *
@@ -1831,36 +1645,6 @@ for mask in range(0, 33):
             R.append(str(net.netmask).split('.')[2])
 print(len(set(R)))
 '''
-
-
-# todo сделать разбор Номер 13 18445
-'''
-from ipaddress import *
-net = ip_network('140.116.194.0/255.255.240.0', 0)
-cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s[7] == '0' and s[15] == '0' and s[23] == '0' and s[31] == '0':
-        cnt += 1
-print(cnt)
-'''
-# s[:8] s[8:16] s[16:24] s[24:]
-
-
-
-# todo Сделать разбор 24 номера № 14512 (Уровень: Средний)
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('1', '1 1').replace('8', '8 8')
-maxi = 0
-for x in s.split():
-    if x.count('1') == 1:
-        if x.count('B') == x.count('C'):
-            maxi = max(maxi, len(x))
-print(maxi)
-# print(max([len(x) for x in s.split() if x.count('1') == 1 and x.count('B') == x.count('C')]))
-'''
-
 
 
 # todo сделать разборы № 19719 (Уровень: Базовый)
@@ -1904,9 +1688,6 @@ for a1 in M:
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
 '''
 
-# Пора бы освежить пост про all
-print(all(x % 2 == 0 for x in (2, 4, 6)))  # True
-print(all(x % 2 == 0 for x in (2, 5, 6)))  # False
 
 '''
 def F(n):
@@ -1921,21 +1702,6 @@ def F(n):
 n = 3363
 print(F(n))  # Выведет True
 '''
-
-
-# todo сделать № 18450 Сергей Горбачев
-'''
-def F(a, b: list):
-    if a >= min(b) or a == 23:
-        return a in b
-    return F(a + 3, b) + F(a + 4, b) + F(a * 2, b)
-
-
-print(F(11, [50, 51, 52, 53, 54]))
-'''
-
-
-
 
 
 # todo сделать пост про простые числа
@@ -1971,6 +1737,15 @@ print(count)  # 6
 '''
 
 
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        if (copied[0] ** 2) * 3 > (sum([x**2 for x in uncopied])):
+            cnt += 1
+print(cnt)
 
 
 
