@@ -6,117 +6,37 @@
 # #
 # region Урок: ************************************************************
 
-
-# № 13968 (Уровень: Базовый)
-# A. Прибавить 2
-# B. Прибавить 3
-# C. Умножить на 2
-# Сколько существует программ, для которых при исходном числе 7 результатом является число 32,
-# и при этом траектория вычислений содержит число 14 и не содержит 21?
-
+# № 21420 Досрочная волна 2024 (Уровень: Базовый)
 '''
 def F(a, b):
-    if a > b or a == 21:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+2, b) + F(a+3, b) + F(a*2, b)
+    if a >= b or a == 35:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*2, b)
 
-
-print(F(7, 14) * F(14, 32))
-'''
-
-'''
-def F(a, b):
-    if a >= b or a == 21:
-        return a == b  # True/False
-    h = [F(a+2, b), F(a+3, b), F(a*2, b)]
-    return sum(h)
-
-
-print(F(7, 14) * F(14, 32))
-'''
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
-'''
-# s - это кол-во камней в куче 
-# n - это актуальный шаг игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя Второй ход
-# n = 4: Ваня Второй ход
-'''
-
-'''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - Ваня, False - Петя
-    if n == 0:
-        return 0  # False - не нашлось благоприятных исходов
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+print(F(7, 13) * F(13, 15) * F(15, 51))
 '''
 
 
-# № 17638 Основная волна 19.06.24 (Уровень: Базовый)
-'''
-def F(s, n):
-    if s >= 39:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+3, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
 
-print([s for s in range(1, 39) if F(s, 2)])
-print([s for s in range(1, 39) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 39) if F(s, 4) and not F(s, 2)])
-'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
 
-# № 18144 (Уровень: Базовый)
-# 1 куча: -4, -6, /2 вверх | <= 19 | S ≥ 20
-'''
-from math import ceil, floor
-# ceil - округляет вверх
-# floor - округляет вниз
+cnt = 0
+for x in range(1_125_000+1, 10**10):
+    # оканчивающийся на цифру 7 и не равный ни самому числу, ни числу 7
+    d = [j for j in divisors(x) if j != x and j != 7 and j % 10 == 7]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
 
-def F(s, n):
-    if s <= 19:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-4, n-1), F(s-6, n-1), F(ceil(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(20, 1000) if F(s, 2)])
-print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
-'''
-
-# № 18144 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s <= 81 | 1 ≤ S ≤ 73 | в превой куче 7
-'''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # При любом ходе Пети
-    # return any(h) if (n - 1) % 2 == 0 else any(h)  # После неудачного первого хода Пети
-
-print([s for s in range(1, 74) if F(7, s, 2)])  # [19, 
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])  # [33, 36]
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])  # [32, 
-'''
 
 # endregion Урок: ************************************************************
 # #

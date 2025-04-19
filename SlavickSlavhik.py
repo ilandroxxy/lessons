@@ -7,58 +7,52 @@
 # region Урок: ********************************************************************
 
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ S ≤ 50
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-def F(s, h):
-    if s >= 51:
-        return h % 2 == 0    # True - Ваня победил / False - победил Петя
-    if h == 0:
-        return 0
-    step = [F(s+1, h-1), F(s+4, h-1), F(s*2, h-1)]
-    return any(step) if (h - 1) % 2 == 0 else all(step)
-
-
-print([s for s in range(1, 51) if F(s, 2)])
-print([s for s in range(1, 51) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 51) if F(s, 4) and not F(s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([123456789AB][0-B]*[02468A])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-
-# № 18144 (Уровень: Базовый)
+# № 17878 Демоверсия 2025 (Уровень: Сложный)
 '''
-from math import ceil, floor
-
-def F(s, h):
-    if s <= 19:
-        return h % 2 == 0    # True - Ваня победил / False - победил Петя
-    if h == 0:
-        return 0
-    step = [F(s-4, h-1), F(s-6, h-1), F(ceil(s/2), h-1)]
-    return any(step) if (h - 1) % 2 == 0 else all(step)
-
-
-print([s for s in range(20, 1000) if F(s, 2)])
-print([s for s in range(20, 1000) if F(s, 3) and not F(s, 1)])
-print([s for s in range(20, 1000) if F(s, 4) and not F(s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([6-9][06789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# № 21597 (Уровень: Сложный)
 '''
-def F(a, s, h):
-    if a+s >= 81:
-        return h % 2 == 0    # True - Ваня победил / False - победил Петя
-    if h == 0:
-        return 0
-    step = [F(a+1, s, h-1), F(a, s+1, h-1), F(a*2, s, h-1), F(a, s*2, h-1)]
-    return any(step) if (h - 1) % 2 == 0 else all(step)
-
-
-print([s for s in range(1, 74) if F(7, s, 2)])
-print([s for s in range(1, 74) if F(7, s, 3) and not F(7, s, 1)])
-print([s for s in range(1, 74) if F(7, s, 4) and not F(7, s, 2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if len(x) == 51:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+
 
 # endregion Урок: *************************************************************
 # #
