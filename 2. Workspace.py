@@ -1737,17 +1737,10 @@ print(count)  # 6
 '''
 
 
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(uncopied) == 3:
-        if (copied[0] ** 2) * 3 > (sum([x**2 for x in uncopied])):
-            cnt += 1
-print(cnt)
+lst = ['A']
+lst.extend('BCD')
 
-
+print(lst)
 
 
 
