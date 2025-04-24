@@ -1,49 +1,125 @@
 # region Домашка: ******************************************************************
-from zoneinfo import reset_tzpath
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+
+# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
+# A. Прибавь 3
+# B. Прибавь 7
+# C. Умножь на 3
+# Сколько существует таких программ, которые исходное число 12 преобразуют в 89,
+# и при этом траектория вычислений программы содержит числа 40 и 72 и не содержит 56?
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = x and (z <= w) and (not y)
-                if F == 1:
-                    print(x, y, z, w)
+def F(a, b):
+    if a >= b or a == 56:
+        return a == b  # True / False
+    h = [F(a+3, b), F(a+7, b), F(a * 3, b)]
+    return sum(h)
+
+print(F(12, 40) * F(40, 72) * F(72, 89))
 '''
 
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый шаг
+# n = 2: Ваня первый шаг
+# n = 3: Петя второй шаг
+# n = 4: Ваня второй шаг
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
 '''
-from itertools import *
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - Победа Вани / False - Победа Пети
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    # при любом ходе Пети Ваня может выиграть своим первым ходом
 
-def F(x, y, z, w):
-    return x and (z <= w) and (not y)
+    # return any(h) if (n - 1) % 2 == 0 else any(h)
+    # после неудачного хода Пети Ваня может выиграть своим первым ходом
 
-
-for a1, a2, a3, a4, a5, a6, a7 in product([0, 1], repeat=7):
-    table = [(a1, a2, 1, a3), (a4, 1, 0, a5), (1, 0, a6, a7)]
-    if len(set(table)) == len(table):
-        for i in permutations('xyzw'):
-            if [F(**dict(zip(i, r))) for r in table] == [1, 1, 1]:
-                print(*i, sep='')
+print([s for s in range(1, 51) if F(s, n=2)])
+print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
 '''
-# Ответ: xwzy
 
 
-# № 20569 (Уровень: Базовый)
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = x and (z <= w) and (not y)
-                print(x, y, z, w, int(F))
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 127) if F(s, n=2)])
+print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
 '''
+
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
+'''
+from math import ceil, floor
+
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(89, 1000) if F(s, n=2)])
+print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+#
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
+'''
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 74) if F(7, s, n=2)])  # 19
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+'''
+
+from math import ceil, floor
+
+
+def F(a, s, n):
+    if a + s <= 100:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a - 3, s - 3, n - 1), F(a, floor(s / 2), n - 1), F(floor(a / 2), s, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(53, 500) if F(48, s, n=3) and not F(48, s, n=1)])
+
 
 # endregion Урок: *************************************************************
 # #
@@ -54,8 +130,8 @@ for x in 0, 1:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
-# КЕГЭ  = []
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24, 25]
+# КЕГЭ = []
 # на следующем уроке: порешать 2 номера сложные 101
 
 

@@ -5,69 +5,76 @@
 # #
 # region Урок: ********************************************************************
 '''
-from math import *
+s='АБДЕОП'
+k=0
+for x1 in s:
+    for x2 in s:
+        for x3 in s:
+            for x4 in s:
+                for x5 in s:
+                    for x6 in s:
+                        s1=x1+x2+x3+x4+x5+x6
+                        k=k+1
+                        if s1[0]=='О' and len(s1) == len(set(s1)):
+                            if k%2==0:
+                                print(k,s1)
+'''
 
-def F(s, n):
-    if s <= 1:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 1, n - 1)]
-    if s >= 4:
-        h += [F(s - 4, n - 1)]
-    if s % 3 == 0:
-        h += [F(s / 3, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+'''
+from itertools import *
+k = 0
+for p in product('АБДЕОП', repeat=6):
+    w = ''.join(p)
+    k += 1
+    if w[0] == 'О':
+        if k % 2 == 0:
+            if len(w) == len(set(w)):
+                print(k)
+'''
 
+# 21702
+'''
+def F(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
-print([s for s in range(4, 101) if F(s, 2)])
-print([s for s in range(4, 101) if F(s, 3) and not F(s, 1)])
-print([s for s in range(4, 101) if F(s, 4) and not F(s, 2)])
+R = []
+for x in range(1, 3000):
+    n = 4**210 + 4**110 - x
+    s = F(n, 4)
+    R.append([s.count('0'), x])
+
+print(max(R))  # [105, 2048]
+for el in R:
+    if el[0] == 105:
+        print(el)
 '''
 
 
-# № 9742 Основная волна 19.06.23 (Уровень: Базовый)
-'''
-sym = 105
-n = 10 + 1500  # 2 ** i >= n
-i = 11  # бит на один символ
+# 21700
 
-bit = sym * i  # бит на один пароль
-print(bit / 8)  # 144.375
-
-byte = 145
-print((byte * 16384) / 2**10)
-'''
+def F(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
 
-# № 19243 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-sym = 377
-# n - ?
-# i - ?
+for n in range(3, 100000):
+    s = F(n, 3)
+    if n % 3 == 0:
+        s = s + s[-2:]
+    else:
+        ost = (n % 3) * 3
+        s = s + F(ost, 3)
+    r = int(s, 3)
+    if r < 150:
+        print(n)
 
-byte = (5536 * 1024) / 23155
-print(byte)  # 244.822 -> 245 (требуется более 5536 Кбайт)
-byte = 245
-
-bit = byte * 8
-
-i = bit / sym
-print(i)  # 5.198
-i = 6
-
-# 64 максимально возможную мощность алфавита
-# 33 минимально возможную мощность алфавита
-
-n = 64  # i = 6
-n = 32  # i = 5
-n = 33  # i = 6
-
-# i = 5  [17:32]
-# i = 6  [33:64]
-# i = 7  [65:128]
-# i = 8  [129:256]
-'''
 
 # endregion Урок: ********************************************************************
 # #
@@ -79,7 +86,7 @@ n = 33  # i = 6
 # #
 # ФИПИ = [1.1, 2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 9, 17 c ЕГКР (если не получились дома)
 
 
 # Первый пробник 21.12.24:

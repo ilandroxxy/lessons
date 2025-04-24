@@ -6,17 +6,32 @@
 # #
 # region Урок: ********************************************************************
 
-def is_divisible_by_6_in_base12(number_str):
-    # Переводим 12-ричное число в 10-ричное
-    num = int(number_str, 12)
-    return num % 6 == 0
 
-print(is_divisible_by_6_in_base12("10"))  # True (12₁₀)
-print(is_divisible_by_6_in_base12("16"))  # True (18₁₀)
-print(is_divisible_by_6_in_base12("20"))  # True (24₁₀)
-print(is_divisible_by_6_in_base12("13"))  # False (15₁₀)
+'''
+sym = 248
+# alp - ?  (мощность алфавита)
+
+byte = (16 * 2 ** 20) / 75600
+print(byte)  # 221.920 -> 222
+byte = 222
+
+bit = byte * 8
+
+# bit = sym * i (alp = 2 ** i)
+print(bit / sym)  # 7.161 -> i = 8
+
+i = 8  # [129-256]
+# Ответ: 129
+
+# alp = 16, i = 4
+# alp = 32, i = 5
+# alp = 30, i = 5
+# i = 5 [17-32]
+'''
 
 
+п
+# № 17643 Основная волна 19.06.24 (Уровень: Базовый)
 
 # endregion Урок: *************************************************************
 # #

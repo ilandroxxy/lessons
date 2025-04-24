@@ -6,6 +6,89 @@
 # #
 # region Урок: ********************************************************************
 
+'''
+def F(a, b):
+    if a >= b or a == 56:
+        return a == b
+    return F(a+3, b) + F(a+7, b) + F(a*3, b)
+
+print(F(12, 40) * F(40, 72) * F(72, 89))
+'''
+
+
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
+'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0  # True - если победил Ваня / False - если победил Петя
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 51) if F(s, n=2)])
+print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 127) if F(s, n=2)])
+print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
+'''
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | <= 87 | s > 88
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print([s for s in range(89, 1000) if F(s, n=2)])
+print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | 1 ≤ s ≤ 73 | a = 7
+'''
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else any(h)  # после неудачного первого хода
+
+print([s for s in range(1, 74) if F(7, s, n=2)])
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+'''
 
 
 # endregion Урок: *************************************************************
@@ -17,9 +100,9 @@
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 23, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ  = []
-# на следующем уроке: 19-21
+# на следующем уроке:
 
 # Первый пробник 21.12.24:
 # Захар 4/6 -> 27 вторичных баллов +[2, 8, 12, 14] -[5, 6]

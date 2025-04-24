@@ -1,174 +1,89 @@
 # region Домашка: ******************************************************************
 
-# № 11669 (Уровень: Базовый)
-# https://stepik.org/lesson/1221217/step/4?unit=1234627
+# № 6884 OpenFIPI (Уровень: Базовый)
 '''
-from math import ceil, floor
-
-def F(s, n):
-    if s <= 116:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 7, n - 1), F(floor(s/3), n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print(max([s for s in range(117, 10000 + 1) if F(s, n=3)]))
-print([s for s in range(117, 10000 + 1) if F(s, 3) and not F(s, 1)])
-print([s for s in range(117, 10000 + 1) if F(s, 4) and not F(s, 2)])
-'''
-import shutil
-
-# № 8710 (Уровень: Средний)
-# https://stepik.org/lesson/1221217/step/5?unit=1234627
-'''
-def F(s, n):
-    if s <= 1:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 1, n - 1)]
-    if s >= 4:
-        h += [F(s - 4, n - 1)]
-    if s % 3 == 0:
-        h += [F(s / 3, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(4, 100 + 1) if F(s, 2)])
-print([s for s in range(4, 100 + 1) if F(s, 3) and not F(s, 1)])
-print([s for s in range(4, 100 + 1) if F(s, 4) and not F(s, 2)])
+R = []
+for n in range(1, 10000):
+    b = bin(n)[2:]
+    if n % 2 == 0:
+        b = '1' + b + '0'
+    else:
+        b = '11' + b + '11'
+    r = int(b, 2)
+    if r > 225:
+        R.append(r)
+print(min(R))
 '''
 
 
-# № 12928 (Уровень: Средний)
-# https://stepik.org/lesson/1221217/step/11?unit=1234627
+# № 6903 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 21:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 1, n - 1), F(s * 2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-# print([s for s in range(1, 21) if F(s, 2)])
-print([s for s in range(1, 21) if F(s, 3) and not F(s, 1)])
-print([s for s in range(1, 21) if F(s, 4) and not F(s, 2)])
-print([s for s in range(1, 21) if F(s, 5) and not F(s, 3) and not F(s, 1)])
+R = []
+for n in range(1, 10000):
+    b = bin(n)[2:]
+    for i in range(2):
+        if b.count('1') % 2 == 0:
+            b = '11' + b[2:] + '00'
+        else:
+            b = '10' + b[2:] + '11'
+    r = int(b, 2)
+    if n < 100:
+        R += [r]
+print(max(R))
 '''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 21404 Досрочная волна 2025 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/8cdef5ec-7247-4ed7-aa24-502481f2a4c8
 '''
-for n in range(1, 10000):
-    # b = bin(n)[2:]
-    # b = convert(n, 2)
-    b = f'{n:b}'
+# from math import ceil
+sym = 163
+alp = 1510  # alp = 2 ** i
+i = 11  # 2**11 >= 1510, i - это кол-во бит на один символ
+bit = sym * i  # бит на один пароль
 
-    if b.count('1') % 2 == 0:
-        b = '10' + b[2:] + '0'
-    else:
-        b = '11' + b[2:] + '1'
-    r = int(b, 2)
-    if r > 480:
-        print(n)
-        break
+print(bit / 8)  # 224.125
+byte = 225
+# byte = ceil(bit / 8)
+
+print((65536 * byte) / 2**10)  
 '''
 
 
-'''
-# i   012345
-s = ['123456']
+# Единицы измерения информации
+# 1 бит - минимальная единица измерения
+# 1 байт = 8 бит = 2**3 бит
+# 1 Кбайт = 1024 байт = 2**10 байт = 2**13 бит
+# 1 Мбайт = 1024 Кбайт = 2**20 байт = 2**23 бит
+# 1 Гбайт = 1024 Мбайт = 2**30 байт = 2**33 бит
 
-print(s[2:])  # ['3456']
-'''
+# https://education.yandex.ru/ege/task/a4132687-04dc-4ed6-85e0-76ebd94d668a
 
+sym = 197
+# alp - ?
+# i - ?
+# bit = sym * i
+# i = bit / sym
 
-# № 20486 (Уровень: Базовый)
-'''
-R = []
-for n in range(1, 10000):
-    b = f'{n:b}'
-    if n % 2 == 0:
-        b = b + b[:3]
-    else:
-        b = '1' + b + '01'
-    r = int(b, 2)
-    if r > 600:
-        R.append(r)
+# Округляем вверх - Отведено более 25 Мбайт
+# Округляем вниз - Отведено не более 25 Мбайт
+# Округляем вниз - Отведено 25 Мбайт
 
-print(min(R))
-'''
+byte = 25 * 2**20 / 178_080  # байт выделено на один серийный номер
+print(byte)  # 147.205 -> 148
+byte = 148
+bit = byte * 8
+i = bit / sym
+print(i)  # 6.0101 -> 7
 
+# Минимальная мощность алфавита при i = 7 равна 65 (2**6+1)
+# i = 7 - alp = 2 ** i = 128 - максимальная мощность алфавита при i = 7
+# alp = 129 - i = 8 - минимальная мощность алфавита при i = 8
 
-# № 20278 (Уровень: Средний)
-'''
-for n in range(1, 1000):
-    b = f'{n:b}'
-    if sum(map(int, b)) % 2 == 0:
-        b = '101' + b[3:] + '01'
-    else:
-        b = '111' + b[3:] + '11'
-    r = int(b, 2)
-    if r < 385:
-        print(n)
-'''
-
-# № 20182 (Уровень: Базовый)
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += alphabet[n % b]
-        n //= b
-    return r[::-1]
-
-
-for n in range(1, 10000):
-    b = convert(n, 3)
-    if sum(map(int, b)) % 2 == 0:
-        b = '12' + b[2:] + '0'
-    else:
-        b = '10' + b[2:] + '2'
-    r = int(b, 3)
-    if r > 105:
-        print(n)
-        break
-'''
-
-
-
-# n - это число, которое будем переводить
-# b - система счисления в которую будем переводить
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-print(convert(8, 2))
-
-
-n = 8
-print(bin(n)[2:])  # 1000
-print(oct(n)[2:])  # 10
-print(hex(n)[2:])  # 8
-
-
-print(f'{n:b}')  # 1000
-print(f'{n:o}')  # 10
-print(f'{n:x}')  # 8
-'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -178,7 +93,7 @@ print(f'{n:x}')  # 8
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 15, 16, 23, 19-21]
+# ФИПИ = [5, 11, 15, 16, 23, 19-21]
 # КЕГЭ  = []
 # на следующем уроке: 7, 8, 9, 13, 25
 

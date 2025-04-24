@@ -142,6 +142,77 @@ for a1 in M:
 print(min(R))  # 58.75 -> 59
 '''
 
+
+# 16
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 52:
+        return n
+    if n >= 51:
+        return 3 * F(n - 2) - n
+
+print(F(15127) // F(15099))
+'''
+# 4782968
+
+
+# 17
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3]
+B = [x for x in M if abs(x) % 7 == 0 and abs(x) % 10 == 7]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) >= 1:
+        if (x + y) > min(B):
+            R.append(x**2 + y**2)
+print(len(R), max(R))
+'''
+# 3174 9955651250
+
+
+# 25
+'''
+from fnmatch import *
+for x in range(25, 10**7, 25):
+    if fnmatch(str(x), '89?45*75'):
+        print(x, x // 25)
+'''
+
+
+# 23
+'''
+def F(a, b):
+    if a > b or a == 0:
+        return 0
+    if a == b:
+        return 1
+    summa = F(a+3, b) + F(a+4, b)
+    if a < 0:
+        summa += F(abs(a), b)
+    return summa
+
+
+print(F(-21, -8) * F(-8, 35))
+'''
+
+'''
+def F(a, s, n, c):
+    if a + s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+2, s, n, c+'1'), F(a, s+2, n, c+'1'), F(a*2, s, n, c+'2'), F(a, s*2, n, c+'2'), F(a*3, s, n, c+'3'), F(a, s*3, n, c+'3')]
+    return any(h) and c.count('3') == 1 if (n- 1) % 2 == 0 else all(h) and c.count('3') == 1
+
+print([s for s in range(1, 101) if F(31, s, 2, '')])
+# print([s for s in range(1, 101)])
+# print([s for s in range(1, 101)])
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -151,9 +222,9 @@ print(min(R))  # 58.75 -> 59
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 23, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: Разобрать досрочный вариант - повспоминать все задачки
+# на следующем уроке:
 
 
 # Первый пробник 21.12.24:

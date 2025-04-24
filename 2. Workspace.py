@@ -1736,11 +1736,4 @@ print(count)  # 6
 # cba
 '''
 
-
-lst = ['A']
-lst.extend('BCD')
-
-print(lst)
-
-
-
+print(53658 / 12)

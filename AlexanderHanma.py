@@ -6,63 +6,17 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21412 Досрочная волна 2025 (Уровень: Базовый)
+# № 17730 Сергей Горбачев
 '''
-from ipaddress import *
-net = ip_network('143.168.72.213/255.255.255.240', 0)
-for ip in net:
-    print(ip)
-
-# 143.168.72.222
-# 14316872222
-'''
-
-
-# № 20909 Апробация 05.03.25 (Уровень: Средний)
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('AB')
-maxi = 0
-for i in range(len(s)-100):
-    r = 'B' + 'AB'.join(s[i:i+101]) + 'A'
-    maxi = max(maxi, len(r))
-print(maxi)
+pixels = 1920 * 1080
+bit = ((3*2**23) / 72) * 100
+i = bit / pixels
+print(i)  # 16.85596
+print(2**16)
 '''
 
 
 
-'''
-s=open('0. files/24.txt').readline()
-s=s.split('WWF')
-maxi=0
-for i in range(len(s)-120):
-    e='WF'+'WWF'.join(s[i:i+121])+'FW'
-    e = e.replace('WSFWW', 'WSFW SFWW').split()
-    for x in e:
-        maxi=max(maxi,len(x))
-print(maxi)
-'''
-
-# https://education.yandex.ru/ege/task/0f1bb8de-fe34-40c1-a82e-8d012e8519dc
-'''
-cnt=0
-for s in open('0. files/9.csv'):
-    M=sorted([int(x)for x in s.split(';')])
-    if (M[-1]+M[0])**2>(M[1]**2+M[2]**2+M[3]**2):
-        cnt+=1
-print(cnt)
-'''
-
-
-cnt=0
-for s in open('0. files/9.csv'):
-    M=sorted([int(x)for x in s.split(';')])
-    povt=[x for x in M if M.count(x)==3]
-    nepov=[x for x in M if M.count(x)==1]
-    if len(povt) == 3 and len(nepov) == 3:
-        if ((povt[0]**2)*3 > nepov[0]**2 + nepov[1]**2 + nepov[2]**2):
-            cnt+=1
-print(cnt)
 
 
 # endregion Урок: ********************************************************************

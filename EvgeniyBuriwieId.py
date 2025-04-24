@@ -5,20 +5,15 @@
 # #
 # region Урок: ************************************************************
 
-'''
-from math import ceil, floor
-def F(a ,s, n):
-    if a+s >= 77:
-        return n % 2 == 0
-    if n == 0:
+def F(a,b):
+    if a > b or a == 35:
         return 0
-    h = [F(a+3,s, n-1), F(a,s+3, n-1),F(a*3, s, n-1),F(a, s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b)+F(a+2, b)+F(a*2, b)
+print(F(7,13) * F(13,15) * F(15,51))
 
-print([s for s in range(1,65) if F(12,s, 2)])
-print([s for s in range(1,65) if F(12,s, 3) and not F(12,s, 1)])
-print([s for s in range(1,65) if F(12,s, 4) and not F(12,s, 2)])
-'''
 
 # endregion Урок: ************************************************************
 # #
