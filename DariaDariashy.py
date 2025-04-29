@@ -7,95 +7,113 @@
 # region Урок: ********************************************************************
 
 
-# № 21412 Досрочная волна 2025 (Уровень: Базовый)
-# Сеть задана IP-адресом одного из входящих в неё узлов 143.168.72.213
-# и сетевой маской 255.255.255.240.
-# Определите наибольший IP-адрес данной сети, который может быть присвоен компьютеру.
-# В ответе укажите найденный IP-адрес без разделителей.
+# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
+# A. Прибавь 3
+# B. Прибавь 7
+# C. Умножь на 3
+# Сколько существует таких программ, которые исходное число 12 преобразуют в 89,
+# и при этом траектория вычислений программы содержит числа 40 и 72 и не содержит 56?
+
+def F(a, b):
+    if a >= b or a == 56:
+        return a == b  # True / False
+    # return F(a+3, b) + F(a+7, b) + F(a*3, b)
+    h = [F(a+3, b), F(a+7, b), F(a*3, b)]
+    return sum(h)
+
+
+
+print(F(12, 40) * F(40, 72) * F(72, 89))
+
+
+# s - это кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+
+# № 20811 Апробация 05.03.25 (Уровень: Базовый)
+# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
 '''
-from ipaddress import *
-net = ip_network('143.168.72.213/255.255.255.240', 0)
-for ip in net:
-    print(ip)  # 143.168.72.222 -> 14316872222
-'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
+    # if (n - 1) % 2 == 0:  # Стоим на шаге Пети
+    #     return any(h)
+    # else:
+    #     return all(h)
+    return any(h) if (n-1) % 2 == 0 else all(h)
 
 
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        print((A + B + C) // 20)
-'''
-
-
-# № 20905 Апробация 05.03.25 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 17 <= x <= 58
-    Q = 29 <= x <= 80
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
-
-R = []
-M = [x / 4 for x in range(10 * 4, 90 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 29.0
-'''
-
-'''
-print(all(x % 2 == 0 for x in [2, 4, 6, 8]))
-# Все элементы списка должны быть четные
-
-print(any(x % 2 != 0 for x in [2, 5, 6, 8]))
-# Хотя бы один элемент списка должен быть нечетным
-'''
-
-# i: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-# s: 0 1 2 3 4 5 6 7 8 9 A  B  C  D  E  F  G  H  I  J  K
-
-# Четыре вариант подключения библиотек:
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-import sys as s  # короткое имя 
-s.setrecursionlimit(10000)
-
-from sys import setrecursionlimit
-setrecursionlimit(10000)
-
-from sys import *
-setrecursionlimit(10000)
+print([s for s in range(1, 51) if F(s, n=2)])
+print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-count = 0
-from itertools import product  # подключение всего содержимого библиотеки 
-for p in product('123', repeat=2):
-    count += 1
-print(count)
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 127) if F(s, n=2)])
+print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 21416 Досрочная волна 2025 (Уровень: Базовый)
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 вниз | s <= 87 | s > 88
+
+# ceil - округление вверх
+# floor - округление вниз
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if x < 0]
-R = []  # сюда будем записывать результаты
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if max(x, y, z) * min(x, y, z) > sum(A):
-        R.append(x + y + z)
-print(len(R), max(R))
+from math import ceil, floor
+
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+
+print([s for s in range(89, 1000) if F(s, n=2)])
+print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ s ≤ 73 | a = 7
+
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    # При любом ходе Пети Ваня может выиграть своим первым ходом
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+    # Ваня выиграл своим первым ходом после неудачного первого хода Пети
+    # return any(h) if (n-1) % 2 == 0 else any(h)
+
+print([s for s in range(1, 74) if F(7, s, n=2)])
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
 
 
 
@@ -109,7 +127,7 @@ print(len(R), max(R))
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
 # КЕГЭ = []
-# на следующем уроке: 19-21 код, 22, 24.1 повторять
+# на следующем уроке: 22, 24.1 повторять
 
 # Второй пробник 28.02.25:
 # Дарья 10/29 -> 51 вторичных баллов +[1, 2, 4, 7, 10, 11, 13, 15, 16, 18] -[3, 6, 12, 22]

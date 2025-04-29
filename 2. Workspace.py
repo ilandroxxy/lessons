@@ -1736,4 +1736,10 @@ print(count)  # 6
 # cba
 '''
 
-print(53658 / 12)
+s=[int(x) for x in open('0. files/17.txt')]
+m=max(x for x in s if 100 < abs(x) <= 999)
+d=[]
+for i in range (len(s)-1):
+    if (s[i]*s[i+1])%m and (((100<s[i]<=999)+(100<s[i+1]<=999))==1):
+        d.append(s[i]*s[i+1])
+print(len(d), min(d))
