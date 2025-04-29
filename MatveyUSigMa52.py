@@ -4,78 +4,69 @@
 # #
 # #
 # region Урок: ********************************************************************
+
+
+# № 21895 Открытый вариант 2025 (Уровень: Базовый)
 '''
-s='АБДЕОП'
-k=0
-for x1 in s:
-    for x2 in s:
-        for x3 in s:
-            for x4 in s:
-                for x5 in s:
-                    for x6 in s:
-                        s1=x1+x2+x3+x4+x5+x6
-                        k=k+1
-                        if s1[0]=='О' and len(s1) == len(set(s1)):
-                            if k%2==0:
-                                print(k,s1)
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    M = sorted(M)
+    if len(set(M)) == len(M):
+        if (M[-1] + M[-2]) <= (M[0] + M[1] + M[2]):
+            cnt += 1
+print(cnt)
 '''
 
+
+# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
 '''
-from itertools import *
-k = 0
-for p in product('АБДЕОП', repeat=6):
-    w = ''.join(p)
-    k += 1
-    if w[0] == 'О':
-        if k % 2 == 0:
-            if len(w) == len(set(w)):
-                print(k)
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    
+    flag = 0
+    
+    if len(set(M)) == len(M):
+        flag += 1
+
+    M = sorted(M)
+    if (M[-1]) <= (M[0] + M[1] + M[2] + M[3] + M[4]):
+         flag += 1
+        
+    if flag == 0:
+        cnt += 1
+        
+print(cnt)
 '''
 
-# 21702
-'''
-def F(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
 
+# https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        if sum(copied) ** 2 > sum(uncopied) ** 2:
+            cnt += 1
+print(cnt)
+'''
+
+# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 10 == 6 and 1000 <= abs(x) <= 9999]
+B = [x for x in M if str(x)[-1] == '6' and len(str(abs(x))) == 4 and x > 0]
 R = []
-for x in range(1, 3000):
-    n = 4**210 + 4**110 - x
-    s = F(n, 4)
-    R.append([s.count('0'), x])
-
-print(max(R))  # [105, 2048]
-for el in R:
-    if el[0] == 105:
-        print(el)
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 1:
+        if (x + y + z) <= min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
-
-
-# 21700
-
-def F(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
-for n in range(3, 100000):
-    s = F(n, 3)
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        ost = (n % 3) * 3
-        s = s + F(ost, 3)
-    r = int(s, 3)
-    if r < 150:
-        print(n)
-
-
 # endregion Урок: ********************************************************************
 # #
 # #
@@ -86,7 +77,7 @@ for n in range(3, 100000):
 # #
 # ФИПИ = [1.1, 2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 9, 17 c ЕГКР (если не получились дома)
+# на следующем уроке:
 
 
 # Первый пробник 21.12.24:

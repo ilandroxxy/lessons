@@ -6,39 +6,84 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(7993, 10**10, 7993):
-    if fnmatch(str(x), '4*4736*1'):
-        print(x, x // 7993)
-'''
-
-# № 20288 (Уровень: Средний)
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
 from re import *
-for x in range(9231, 10**10, 9231):
-    if fullmatch('[02468]*12[13579]4[13579]', str(x)):
-        print(x, x // 9231)
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[02468A])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
-# 608812143 65953
-# 2086012149 225979
-# 4440212541 481011
-# 6286412541 681011
-# 8486012145 919295
 
 
-# № 19255 ЕГКР 21.12.24 (Уровень: Базовый)
-# Среди натуральных чисел, не превышающих 10**10,
-# найдите все числа, соответствующие маске 54?1?3*7,
-# делящиеся на 18579 без остатка.
+# № 20968 (Уровень: Базовый)
 '''
 from re import *
-for x in range(18579, 10**10, 18579):
-    if fullmatch('54[0-9]1[0-9]3[0-9]*7', str(x)):
-        print(x, x // 18579)
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*[02468]|[02468])'
+reg = rf'{num}([+*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
+
+
+# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([+*]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if eval(x) == 0:
+        print(x)
+        maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([+*]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+
+# № 21597 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if len(x) == 51:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
 
 
 # endregion Урок: *************************************************************
@@ -50,8 +95,8 @@ for x in range(18579, 10**10, 18579):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25, 26.1]
-# КЕГЭ = []
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24.2, 25, 26.1]
+# КЕГЭ = [19-21, 24, 25]
 # на следующем уроке:
 
 # Второй пробник 28.02.25:

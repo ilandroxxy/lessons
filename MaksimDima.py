@@ -6,119 +6,159 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
-# A. Прибавь 3
-# B. Прибавь 7
-# C. Умножь на 3
-# Сколько существует таких программ, которые исходное число 12 преобразуют в 89,
-# и при этом траектория вычислений программы содержит числа 40 и 72 и не содержит 56?
 '''
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b  # True / False
-    h = [F(a+3, b), F(a+7, b), F(a * 3, b)]
-    return sum(h)
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((y <= w) == (x <= (not z))) and (x or w)
+                if F == 1:  # F == 0
+                    print(x, y, z, w, int(F))
 '''
+from pprint import pformat
 
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый шаг
-# n = 2: Ваня первый шаг
-# n = 3: Петя второй шаг
-# n = 4: Ваня второй шаг
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
+# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - Победа Вани / False - Победа Пети
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    # при любом ходе Пети Ваня может выиграть своим первым ходом
+from fnmatch import *
+for x in range(7993, 10**10+1, 7993):
+    if fnmatch(str(x), '4*4736*1'):
+        print(x, x // 7993)
 
-    # return any(h) if (n - 1) % 2 == 0 else any(h)
-    # после неудачного хода Пети Ваня может выиграть своим первым ходом
 
-print([s for s in range(1, 51) if F(s, n=2)])
-print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+from re import *
+for x in range(7993, 10**10+1, 7993):
+    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
+        print(x, x // 7993)
 '''
 
 
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# № 18591 (Уровень: Средний)
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 127) if F(s, n=2)])
-print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
+from re import *
+for x in range(1984, 10**10, 1984):
+    if fullmatch('[02468]9[0-9]23[0-9][0-9]*23[13579][02468]', str(x)):
+        print(x, x // 1984)
 '''
 
 
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from math import ceil, floor
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[02468A])'
 
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(89, 1000) if F(s, n=2)])
-print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    if len(x) >= maxi:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-#
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
+# № 21908 Открытый вариант 2025 (Уровень: Базовый)
 '''
-def F(a, s, n):
-    if a + s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-D][0-D]*[02468AC])'
 
-
-print([s for s in range(1, 74) if F(7, s, n=2)])  # 19
-print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    if len(x) >= maxi:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-from math import ceil, floor
+
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+# alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+s = open('0. files/24.txt').readline()
+for x in alphabet[14:]:
+    s = s.replace(x, ' ')
+
+print(max([len(x) for x in s.split() if x[0] != '0']))
+maxi = 0
+for x in s.split():
+    if len(x) == 2:
+        continue
+    if x[0] == '0':
+        while x[0] == '0':
+            x = x[1:]
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*[02468])'
+reg = rf'{num}([+*]{num})+'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
 
 
-def F(a, s, n):
-    if a + s <= 100:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a - 3, s - 3, n - 1), F(a, floor(s / 2), n - 1), F(floor(a / 2), s, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([+*]{num})+'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if eval(x) == 0:
+        print(x)
+        maxi = max(maxi, len(x))
+print(maxi)
+'''
 
 
-print([s for s in range(53, 500) if F(48, s, n=3) and not F(48, s, n=1)])
+# № 21597 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+
+    if len(x) == 51:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+
+
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*+]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
 
 
 # endregion Урок: *************************************************************
@@ -130,7 +170,7 @@ print([s for s in range(53, 500) if F(48, s, n=3) and not F(48, s, n=1)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24.2, 25]
 # КЕГЭ = []
 # на следующем уроке: порешать 2 номера сложные 101
 
