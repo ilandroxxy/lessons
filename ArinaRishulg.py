@@ -5,186 +5,103 @@
 # #
 # #
 # region Урок: ************************************************************
-
-
 '''
-M = [1, 2, 3, 4, 5]
-# 12 23 34 45
+s = '01'
+k = 0
+for x in s:
+    for y in s:
+        num = x + y
+        k += 1
+        print(k, num)
 
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        print(f'{x}{y}',end=' ')
-    print()
-'''
-from ipaddress import ip_network
-
-# № 19753 (Уровень: Средний)
-'''
-from itertools import *
-cnt = 0
-for x in permutations('0123456789', r=6):
-    s = ''.join(x)
-    if s[0] != '0':
-        if int(s) % 4 == 0:
-            s = s.replace('0', '2').replace('4', '2').replace('6', '2').replace('8', '2')
-            if s.count('22') == 0:
-                cnt += 1
-print(cnt)
 '''
 
 
-# № 19087 (Уровень: Средний)
-'''
-R = []
-for n in range(4, 10000):
-    s = '2' + '7' * n
-    while '27' in s or '777' in s or '377' in s:
-        if '27' in s:
-            s = s.replace('27', '7', 1)
-        if '777' in s:
-            s = s.replace('777', '3', 1)
-        if '377' in s:
-            s = s.replace('377', '72', 1)
-    p = 1
-    for i in s:
-        p *= int(i)
-
-    if p % 3 == 0 and str(p)[-1] == '1':
-        R.append(n)
-        
-print(max(R))
-'''
-
-# Срезы списков и строк:
-"""
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(M[0])  # первый элемент списка M
-print(M[-1])  # последний элемент списка M
-
-# СРЕЗ[START : STOP-1 : STEP]
-
-s = 'abcde'
-print(s[2:4])  # cd
-print(s[2:])  # cde - все элементы справа от 2 индекса (Включительно)
-print(s[:2])  # ab - взяли элементы, которые лежат слева от 2 индекса (не включительНО)
-print(s[:-1])  # abcd - все элементы, кроме последнего
-print(s[1:-1])  # bcd - все элементы кроме первого и последнего
-print(s[:])  # abcde
-print(s[::])  # abcde
-print(s[0::2])  # ace - все четные индексы
-print(s[1::2])  # bd - все нечетные индексы
-print(s[::-1])  # edcba
-
-#        |
-s = '1000111'
-print(s[-3:])  # '111'
-s = s[:-3] + '101'
-#   '1000'
-print(s)  # '1000101'
-
-
-# i  0123456
-s = 'abcdefg'
-# a - i = [0|-7]
-# b - i = [1|-6]
-# c - i = [2|-5]
-# d - i = [3|-4]
-# e - i = [4|-3]
-# f - i = [5|-2]
-# g - i = [6|-1]
-
-print(s[-3:])  # efg - взять последние три
-print(s[-3:-1])  # ef - ПРАВЫЙ КРАЙ НЕ БЕРЕТСЯ
-print(s[:-3])  # abcd - все числа до -3 индекс не включая
-
-# Поменять последние три символа на '101'
-s = s[:-3] + '101'
-print(s)  # abcd101
-
-'''
-s = '10' + s[2:]  # Заменил первые два элемента (ака 5 номер)
-print(s)  # 10cde
-
-n = 8
-print(bin(n)[2:])  # 1000 - убрали первые два элемента 
-'''
-
-M = [0, 1, 2, 3, 4]
-print(M[::-1])  # [4, 3, 2, 1, 0]
-
-s = 'abcde'
-print(s[::-1])  # edcba
-"""
-
-
-# ГЕНЕРАТОРЫ СПИСКОВ
-
-M = []
-for i in range(1, 20):
-    if i % 2 == 0:
-        M.append(i)
-print(M)
-
-M = [i for i in range(1, 20) if i % 2 == 0]
-# [2, 4, 6, 8, 10, 12, 14, 16, 18]
-
-# ГЕНЕРАТОР[что кладем | откуда берем | при каком условии]
-
-M = [i//2 for i in range(1, 20) if i % 2 == 0]
-# [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-M = [x / 4 for x in range(10, 40)]  # список дробей
-# [2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75]
-
-
-from random import randint
-M = [randint(1, 100) for x in range(10)]
-# [50, 99, 9, 41, 84, 25, 75, 17, 58, 14]
-
-
-chet = [x for x in M if x % 2 == 0]
-# [50, 84, 58, 14]
-
-nechet = [x for x in M if x % 2 == 0]
-# [50, 84, 58, 14]
-
-# ТОЛЬКО ОДНО ЧИСЛО ТРЕХЗНАЧНОЕ
+# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
 M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if 100 <= abs(x) <= 999]
-A = [x for x in M if len(str(abs(x))) == 3]
+# A = [x for x in M if str(x)[-1] == '6' and len(str(abs(x))) == 4]
+A = [x for x in M if abs(x) % 10 == 6 and 1000 <= abs(x) <= 9999]
+B = [x for x in A if x > 0]
+# B = [x for x in M if abs(x) % 10 == 6 and 1000 <= x <= 9999]
 R = []
 for i in range(len(M)-2):
     x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 1:  # только одно трехзначное
-    if (x in A) + (y in A) + (z in A) == 2:  # только два трехзначное
-    if (x in A) + (y in A) + (z in A) == 3:  # все трехзначное
-    if (x in A) + (y in A) + (z in A) >= 1:  # хотя бы один
-    if (x in A) + (y in A) + (z in A) <= 2:  # не более двух
+    # в которых ровно один элемент является четырёхзначным числом и оканчивается на 6
+    if (x in A) + (y in A) + (z in A) == 1:
+        if (x + y + z) <= min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
+# является четырёхзначным числом и оканчивается на 6,
+# минимального положительного элемента последовательности, являющегося четырёхзначным числом, которое оканчивается на 6.
 
-
-# № 17867 Демоверсия 2025 (Уровень: Базовый)
-
-from itertools import *
-net = ip_network('172.16.168.0/255.255.248.0', 0)
+'''
 cnt = 0
-for ip in net:
-    f = f'{ip:b}'
-    if f.count('1') % 5 != 0:
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    k = 0
+    M = sorted(M)
+    if len(set(M)) == 6:
+        k += 1
+    if M[-1] > (M[0] + M[1] + M[2] + M[3] + M[4]):
+        k += 1
+    if k == 2:
         cnt += 1
 print(cnt)
+'''
 
-# 1663
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    M = sorted(M)
+    if (M[-1] + M[0]) ** 2 > (M[1] ** 2 + M[2] ** 2 + M[3] ** 2):
+        cnt += 1
+print(cnt)
+'''
+
+# https://education.yandex.ru/ege/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        if 3 * (copied[0] ** 2) > (uncopied[0] ** 2  + uncopied[1] ** 2 + uncopied[2] ** 2):
+            cnt += 1
+print(cnt)
+'''
+
+# https://education.yandex.ru/ege/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied = [x for x in M if M.count(x) == 2]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 4 and len(uncopied) == 3:
+        if sum(copied) / 4 < sum(M) / 7:
+            cnt += 1
+print(cnt)
+'''
+
+# https://education.yandex.ru/ege/task/01a992ef-abe9-43e7-8dfe-5dd7e31159ff
+'''
+n = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if len(copied) == 3 and len(uncopied) == 4:
+        if len(chet) > len(nechet):
+            print(n)
+'''
+
 
 # endregion Урок: ************************************************************
 # #
@@ -195,9 +112,9 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 16, 18, 19-21]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 16, 18, 19-21]
 # КЕГЭ = []
-# на следующем уроке: 2, 9, 5 СРЕЗЫ и ГЕНЕРАТОРЫ
+# на следующем уроке: 2, 8, 5
 
 
 # Первый пробник 7.03.25:

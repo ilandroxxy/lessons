@@ -1,66 +1,78 @@
 # region Домашка: ******************************************************************
-from pprint import pformat
+
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+# № 13883 (Уровень: Базовый)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-B][0-B]*[02468A])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
+sym = 35
+alp = 52   # 2**6 >= 52
+i = 6  # бит на один символ
 
-# № 20968 (Уровень: Базовый)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*[02468]|[02468])'
-reg = rf'{num}([+*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+bit = sym * i
+print(bit / 8)  # 26.25 -> 27
+byte = 27
+
+print(byte * 25)
 '''
 
 
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+# № 21897 Открытый вариант 2025 (Уровень: Базовый)
+# Известно, что для хранения 703 569 серийных номеров
+# доступно не более 77 Мбайт памяти.
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+sym = 246
+# alp - ?
+# i - ?
+
+byte = 77 * 2**20 / 703_569
+print(byte)  # 114.75 -> 114
+
+byte = 114
+bit = byte*8
+
+i = bit / sym
+print(i)  # 3.7073 -> 3
+i = 3
+
+print(2**i)  # 8
 '''
 
-# № 21597 (Уровень: Сложный)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+alp = 16  # i = 4
+
+alp = 17  # i = 5 - минимальная мощность алфавита
+alp = 20  # i = 5
+alp = 32  # i = 5 - максимальная мощность алфавита
+
+alp = 33  # i = 6
+
+# [min:max]
+# i = 4 [9:16]
+# i = 5 [17:32]
+# i = 6 [2**5+1:2**6]
 '''
+
+# № 21887 Открытый вариант 2025 (Уровень: Базовый)
+
+from itertools import permutations
+print('1 2 3 4 5 6 7')
+table = '12 13 14 21 23 26 31 32 41 45 47 54 56 57 62 65 74 75'
+graph = 'AD DA AE EA DB BD DF FD BF FB FG GF GC CG GE EG CE EC'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+
+# 1 2 3 4 5 6 7
+# F D B G E A C
+# G E C F D A B
+
 
 # endregion Урок: *************************************************************
 # #
@@ -71,7 +83,7 @@ print(maxi)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2? сопоставление, 3, 4, 5, 7, 8, 9-, 11-, 12-, 13, 14, 15, 16, 18, 19-21-, 22, 23]
+# ФИПИ = [1, 2? сопоставление, 3, 4, 5, 7, 8, 9-, 11, 12, 13, 14, 15, 16, 18, 19-21, 22, 23]
 # КЕГЭ = []
 # на следующем уроке:
 

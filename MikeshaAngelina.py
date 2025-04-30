@@ -1,118 +1,165 @@
 # region Домашка: ******************************************************************
 
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/221f688c-b7dd-4fd8-b384-f8c245b17f14
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-# num = r'([123456789AB][0123456789AB]*[02468A])'
-num = r'([1-B][0-B]*[02468A])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
+from math import ceil
+sym = 23
+alp = 12  # alp >= 2 ** i, где i - это кол-во бит на один символ
+i = 4
+
+bit = sym * i  # вес в битах одного пароля
+print(bit / 8)  # 11.5 -> 12
+byte = ceil(bit / 8)  # вес в байтах одного пароля
+
+
+# user = byte  + dop
+user = 13068 / 297
+print(user - byte)
 '''
+from multiprocessing.pool import worker
 
-
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+# № 21897 Открытый вариант 2025 (Уровень: Базовый)
+# Известно, что для хранения 703 569 серийных
+# номеров доступно не более 77 Мбайт памяти.
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([*-]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
-'''
+sym = 246
+# alp - ?
 
+# bit = sym * i
 
-# № 17563 Основная волна 08.06.24 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
+byte = 77 * 2**20 / 703_569
+print(byte)  # 114.75 - > 114
 
-num = r'([789][0789]*)'  # натуральные числа |[0]
+byte = 114  # вес серийного номера в байтах
+bit = byte * 8
 
-reg = rf'{num}([*-]{num})*'
-
-M = [x.group() for x in finditer(reg, s)]
-
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
+i = bit / sym
+print(i)  # 3.7073
+i = 3  # [5:8]
+alp = 2**3
+print(8)
 '''
 
-
-# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+# № 21706 ЕГКР 19.04.25 (Уровень: Базовый)
+# Известно, 125 300 серийных номеров занимают
+# более 23 Мбайт памяти
 '''
-from re import *
-s = open('0. files/24.txt').readline()
+sym = 119
 
-num = r'([1-9][0-9]*|[0])'  
-reg = rf'{num}([*+]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
+byte = 23 * 2**20 / 125_300
+print(byte)  # 192.476 -> 193
 
-maxi = 0
-for x in M:
-    if eval(x) == 0:
-        maxi = max(maxi, len(x))
-        print(x)
-print(maxi)
-'''
-# print(eval('0*54223*83454*0*0+96571*0+0+0'))
+bit = 193 * 8
+i = bit / sym
+print(i)  # 12.974 -> 13
 
-
-# № 21597 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-
-print(maxi)
+print(2**13)
+print(2**12+1)
 '''
 
-#      46 1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-
-
 '''
-from re import *
-s = open('0. files/24.txt').readline()
+alp = 16  # i = 4
 
-num = r'([1-9][0-9]*[05]|[0])'
-reg = rf'{num}([*+]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
+alp = 17  # i = 5
+alp = 20  # i = 5
+alp = 32  # i = 5
+i = 5  # [17:32]
 
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
 
-print(maxi)
+i = 8  # [2**7+1, 2**8]
+i = 8  # [129, 256]
 '''
+
+
+# № 20957 (Уровень: Базовый)
+# Известно, что для хранения 2048 серийных номеров
+# отведено более 172 Кбайт памяти.
+'''
+alp = 10 + 52 + 972  # 1034
+i = 11  # 2 ** 11 >= 1034
+
+byte = 172 * 2**10 / 2048
+print(byte)  # 86.0
+
+bit = byte * 8
+
+sym = bit / i
+print(sym)  # 62.545
+'''
+
+#
+# № 17674 Пересдача 04.07.24 (Уровень: Средний)
+# Известно, что для хранения 575 серийных номеров
+# отведено более 100 Кбайт памяти.
+'''
+alp = 10 + 26 + 450
+i = 9  # 2**9 >= 486
+
+byte = 100 * 2 ** 10 / 575
+print(byte)  # 178.086
+byte = 179
+bit = byte * 8
+
+sym = bit / i
+print(sym)  # 159.111
+'''
+
+
+# № 21894 Открытый вариант 2025 (Уровень: Базовый)
+'''
+from itertools import *
+cnt = 0
+for p in permutations('0123456789', r=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468':
+            num = num.replace(x, '2')
+        for x in '13579':
+            num = num.replace(x, '1')
+        if '22' not in num and '11' not in num:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 21703 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+from itertools import *
+n = 0
+for p in product(sorted('ПОБЕДА'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] == 'О':
+            if len(word) == len(set(word)):
+                print(n, word)
+'''
+
+from itertools import *
+k = 0
+for p in product('0123456789AB', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '13579B':
+            num = num.replace(x, '1')
+        cnt = 0
+        for j in range(len(num) - 1):
+            if num[j] + num[j + 1] == '11':
+                cnt += 1
+        if cnt <= 2:
+            k += 1
+print(k)
+
+
+num = '111'
+
+
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -122,9 +169,9 @@ print(maxi)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [9, 13, 17, 19-21, 22, 24.2, 25]
+# ФИПИ = [8, 9, 11, 13, 17, 19-21, 22, 24.2, 25]
 # КЕГЭ  = []
-# на следующем уроке: 8, 11
+# на следующем уроке:
 
 # Первый пробник 5.02.25:
 # Ангелина 11/29 -> 54 вторичных баллов +[1-5, 7, 14-16, 20-21] -[6, 8, 9, 10, 11, 12, 13, 17, 18, 19, 22, 23, 25]

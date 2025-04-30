@@ -1736,4 +1736,3 @@ print(count)  # 6
 # cba
 '''
 
-print(53658 / 12)
