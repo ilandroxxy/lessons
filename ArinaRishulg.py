@@ -5,103 +5,179 @@
 # #
 # #
 # region Урок: ************************************************************
+
+# № 21897 Открытый вариант 2025 (Уровень: Базовый)
+# Известно, что для хранения 703 569 серийных номеров
+# доступно не более 77 Мбайт памяти.
+
+# не более - округялем вниз
+# более - округялем вверх
+# ничего не написано - округялем вниз
 '''
-s = '01'
-k = 0
-for x in s:
-    for y in s:
-        num = x + y
-        k += 1
-        print(k, num)
+sym = 246
+# bit = sym * i
+# alp = 2**i
+
+
+byte = (77 * 2**20) / 703_569  # сколько байт на один серийный номер
+print(byte)  # 114.758 -> 114
+bit = 114 * 8  # сколько бит на один серийный номер
+
+i = bit / sym
+print(i)  # 3.707 -> 3  (доступно не более 77 Мбайт памяти)
+print(2**3)  # максимально возможную мощность алфавита
+
+
+alp = 8  # i = 3
+alp = 9  # i = 4 -> минимальная мощность алфавита
+alp = 16 # i = 4 -> максимальная мощность алфавита
+
+
+# i = 4 [9, 10, 11, ..., 13, 14, 15, 16]
+# i = 5 -> alp[2**4+1 : 2**5]
+
+i = 6  # alp_max = 64
+i = 6  # alp_min = 33
+'''
+
+
+# № 21706 ЕГКР 19.04.25 (Уровень: Базовый)
+# Известно, 125 300 серийных номеров занимают более 23 Мбайт памяти.
+# Определите минимально возможную мощность алфавита
+'''
+sym = 119
+byte = 23*2**20 / 125_300
+print(byte)  # 192.476 -> 193
+bit = 193 * 8
+i = bit / sym
+print(i)  # 12.974
+i = 13
+
+print(2**12 + 1)
+'''
 
 '''
+from fnmatch import fnmatch
+for x in range(7993, 10**10, 7993):
+    if fnmatch(str(x), '4*4736*1'):
+        print(x, x // 7993)
 
 
-# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
+from re import fullmatch
+for x in range(7993, 10**10, 7993):
+    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
+        print(x, x // 7993)
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-# A = [x for x in M if str(x)[-1] == '6' and len(str(abs(x))) == 4]
-A = [x for x in M if abs(x) % 10 == 6 and 1000 <= abs(x) <= 9999]
-B = [x for x in A if x > 0]
-# B = [x for x in M if abs(x) % 10 == 6 and 1000 <= x <= 9999]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    # в которых ровно один элемент является четырёхзначным числом и оканчивается на 6
-    if (x in A) + (y in A) + (z in A) == 1:
-        if (x + y + z) <= min(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-# является четырёхзначным числом и оканчивается на 6,
-# минимального положительного элемента последовательности, являющегося четырёхзначным числом, которое оканчивается на 6.
+
 
 '''
+def F(x):  # x = 24
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)  # j = 4
+            div.append(x // j)  # j = 6
+    return sorted(set(div))
+
+
+print(F(16))  # [1, 2, 4, 4, 8, 16]
+print(F(24))  # [1, 24, 2, 12, 3, 8, 4, 6]
+print(F(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+'''
+
+
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def F(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    k = 0
-    M = sorted(M)
-    if len(set(M)) == 6:
-        k += 1
-    if M[-1] > (M[0] + M[1] + M[2] + M[3] + M[4]):
-        k += 1
-    if k == 2:
-        cnt += 1
-print(cnt)
-'''
-
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    M = sorted(M)
-    if (M[-1] + M[0]) ** 2 > (M[1] ** 2 + M[2] ** 2 + M[3] ** 2):
-        cnt += 1
-print(cnt)
-'''
-
-# https://education.yandex.ru/ege/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(uncopied) == 3:
-        if 3 * (copied[0] ** 2) > (uncopied[0] ** 2  + uncopied[1] ** 2 + uncopied[2] ** 2):
+for x in range(500_001, 10**10):
+    d = F(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 6:  # if str(R)[-1] == '6':
+            print(x, R)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
-# https://education.yandex.ru/ege/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
+
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
 '''
+def F(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    copied = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 4 and len(uncopied) == 3:
-        if sum(copied) / 4 < sum(M) / 7:
+for x in range(500_001, 10**10):
+    d = F(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 9:  # if str(R)[-1] == '6':
+            print(x, R)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
-# https://education.yandex.ru/ege/task/01a992ef-abe9-43e7-8dfe-5dd7e31159ff
+
+# № 17564 Основная волна 08.06.24 (Уровень: Средний)
 '''
-n = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(copied) == 3 and len(uncopied) == 4:
-        if len(chet) > len(nechet):
-            print(n)
+def F(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(700_001, 10**10):
+    d = F(x)
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
+
+
+# № 17686 Пересдача 04.07.24 (Уровень: Базовый)
+
+def F(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(700_001, 10**10):
+    d = [j for j in F(x) if j % 10 == 7 and j != 7]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
 
 # endregion Урок: ************************************************************
 # #
@@ -112,9 +188,9 @@ for s in open('0. files/9.csv'):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 16, 18, 19-21]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 16, 17, 18, 19-21, 23]
 # КЕГЭ = []
-# на следующем уроке: 2, 8, 5
+# на следующем уроке: 17, 22, 25
 
 
 # Первый пробник 7.03.25:

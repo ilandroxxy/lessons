@@ -8,100 +8,58 @@ from zoneinfo import reset_tzpath
 # region Урок: ********************************************************************
 
 
-# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
-# A. Прибавь 3
-# B. Прибавь 7
-# C. Умножь на 3
-# Сколько существует таких программ, которые исходное число 12 преобразуют в 89,
-# и при этом траектория вычислений программы содержит числа 40 и 72 и не содержит 56?
+# № 11953 (Уровень: Средний)
+# Сколько существует программ, для которых при исходном
+# числе 2 результатом является число 680, при этом
+# траектория вычислений содержит число 68 и
+# не содержит числа 100?
 '''
+from functools import *
+@lru_cache(None)
 def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    return F(a+3, b) + F(a+7, b) + F(a*3, b)
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
-
-
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    h = [F(a+3, b), F(a+7, b), F(a*3, b)]
-    return sum(h)
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
-'''
-
-
-# № 19784 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    h = [F(a-2, b)]
-    if a % 2 == 0:
-        h += [F(a / 2, b)]
-    else:
-        h += [F(a - 3, b)]
-    return sum(h)
-
-print(F(98, 1))
-
-
-def F(a, b):
-    if a <= b or a == 28:
+    if a >= b or a == 100:
         return a == b
     summa = 0
-    summa += F(a - 2, b)
-    if a % 2 == 0:
-        summa += F(a / 2, b)
-    else:
-        summa += F(a - 3, b)
+    if (a%10) != 0:
+        summa += F(a + (a % 10), b)
+    if (a % 68) != 0:
+        summa += F(a + (a % 68), b)
+    if a**2 != 0:
+        summa += F(a**2, b)
     return summa
 
-print(F(98, 1))
+print(F(2, 68) * F(68, 680))
 '''
 
-
-# № 18267 (Уровень: Средний)
-# А. Прибавить 2
-# В. Прибавить 5
-# С. Возвести в квадрат
-# Сколько существует программ, для которых при исходном числе 4 результатом
-# является число 36, при этом последняя в них команда — не C?
+# № 4500 (Уровень: Сложный)
 '''
-def F(a, b, c):
-    if a >= b:
-        return a == b and c[-1] != 'C'
-    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a**2, b, c+'C')
-
-
-print(F(4, 36, ''))
-'''
-'''
-def f(a,b,c):
-    if a<=b:
-        return a==b and c not in 'AA' and c not in 'BB' and c not in 'CC'
-    p=[f(a-2,b,c+'A')]
-    if a%2==0:
-        p+=[f(a/2,b,c+'B')]
-    else:
-        p+=[f(a-7,b,c+'C')]
-    return sum(p)
-print(f(40, 1, ''))
-'''
-
-
+from functools import *
+@lru_cache(None)
 def f(a, b, c):
-    if a > b + 1 or 'AA' in c:
-        return 0
-    if a == b:
-        return 1
-    return f(a - 1, b, c + 'A') + f(a * 2, b, c + 'B') + f(a * 3, b, c + 'C')
+    if a >= b or a == 23:
+        return a == b and 'AA' not in c
+    return f(a + 1, b, c + 'A') + f(a + 2, b, c + 'B') + f(a * 2, b, c + 'C')
 
 
-print(f(3, 15, ''))
+# print(f(3, 11, ''))
+print(f(11, 79, ''))
+'''
 
+# № 16335 Открытый вариант 2024 (Уровень: Базовый)
+'''
+file = open('0. files/26.txt')
+N = file.readline()
+M = sorted([int(x) for x in file])[::-1]
+
+flag = M[0]
+A = [flag]
+for x in M:
+    if flag - x >= 4:
+        A.append(x)
+        flag = x
+print(len(A))
+print(min(A))
+'''
 # endregion Урок: ********************************************************************
 # #
 # #
