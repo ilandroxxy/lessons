@@ -6,85 +6,67 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+
+# № 17934 (Уровень: Средний)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-B][0-B]*[02468A])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+sym = 99
+alp = 520  # 510 + 10
+i = 10  # кол-во бит на один символ
+
+bit = sym * i  # бит выделенных на один ID
+print(bit / 8)  # 123.75 -> 124 (округление вверх всегда)
+byte = 124  # байт выделенных на один ID
+
+# Для хранения сведений о 4322 пользователях потребовалось более 543 Кбайт.
+user = (543 * 2**10) / 4322  # сколько в байтах весит один пользователь
+# user = dop + byte
+print(user - byte)  # 4.6515
+'''
+# Ответ: 5
+
+
+
+
+'''
+# i = 8  [2**7+1, 2**8]
+alp = 8   # i = 3  [5:8]
+alp = 16  # i = 4  [9:16]
+alp = 32  # i = 5
+alp = 33  # i = 6 [33: 64]
 '''
 
 
-# № 20968 (Уровень: Базовый)
+#
+# № 11293 (Уровень: Средний)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*[02468]|[02468])'
-reg = rf'{num}([+*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-
-# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|[0])'
-reg = rf'{num}([+*]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    if eval(x) == 0:
-        print(x)
-        maxi = max(maxi, len(x))
-print(maxi)
+from itertools import *
+cnt = 0
+for p in product('0123456789ABC', repeat=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('5') <= 1:
+            for x in '13579B':
+                num = num.replace(x, '1')
+            if '11' not in num:
+                cnt += 1
+print(cnt)
 '''
 
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|[0])'
-reg = rf'{num}([+*]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:13]:
+    if all((int(f'CC68{x}{y}', 13) + int(f'2{y}343{x}7', 13)) % 7 == 0 for y in alp[:13]):
+        print(int(f'CC68{x}{3}', 13) + int(f'2{3}343{x}7', 13) // 7)
 '''
+# 6364612
 
+def F(x, A):
+    return ((x % 20 == 0) <= (x % 11 != 0)) or (A < 3*x + 600)
 
-# № 21597 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    if len(x) == 51:
-        print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-
+for A in range(10000, 0, -1):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 
 # endregion Урок: *************************************************************
 # #
@@ -95,7 +77,7 @@ print(maxi)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24.2, 25, 26.1]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.2, 22, 23, 24.2, 25, 26.1]
 # КЕГЭ = [19-21, 24, 25]
 # на следующем уроке:
 

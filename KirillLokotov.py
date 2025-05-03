@@ -1,4 +1,5 @@
 # region Домашка: ************************************************************
+from encodings.idna import sace_prefix
 from pprint import pformat
 
 # endregion Домашка: ************************************************************
@@ -6,20 +7,44 @@ from pprint import pformat
 # #
 # region Урок: ************************************************************
 
-# № 13088 (Уровень: Средний)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if str(x)[-2:] == '17']
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x % 5 == 0) + (y % 5 == 0) + (z % 5 == 0) >= 1:
-        if (x in A) + (y  in A) + (z in A) == 2:
-            if (x + y + z) > max(B):
-                R.append(x + y + z)
-print(len(R), max(R))
-'''
+
+# Адрес сети = Узел сети & Маска сети
+# Два узла, находящиеся в одной сети,
+# имеют IP-адреса 200.154.190.12 и 200.154.184.0.
+# Укажите наибольшее возможное количество единиц в маске этой сети.
+# Учтите, что два адреса в любой подсети зарезервированы:
+# адрес всей подсети и широковещательный адрес.
+
+# Количество единиц в маске этой сети
+"""
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'200.154.190.12/{mask}', 0)
+    net2 = ip_network(f'200.154.184.0/{mask}', 0)
+    if net1 == net2:
+        print(mask)
+        '''
+        print(mask)  # кол-во единиц в маске сети
+        print(32 - mask)  # кол-во нулей в маске сети
+        print(net1.netmask)  # 255.255.248.0 - маска в десятичной записи
+        print(net1.num_addresses)  # кол-во ip адресов в сети 
+        '''
+"""
+# 200.154.184.0/21
+# адрес сети / кол-во единиц в маске
+
+
+
+# № 18956 (Уровень: Средний)
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for A in range(1, 1000000):
+    for x in alp[:15]:
+        M = int(f'432{x}3', 15)
+        N = int(f'86{x}86', 15)
+        if (M + A) % N == 0:
+            print(A)
+            exit()
 
 
 

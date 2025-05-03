@@ -6,84 +6,23 @@
 # #
 # region Урок: ************************************************************
 
-
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-B][0-B]*[02468A]|[0])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
-'''
+from sys import setrecursionlimit
+setrecursionlimit(10000)
 
+def F(n):
+    if n == 3:
+        return 3
+    if n > 3:
+        return (3 + n) * F(n - 1)
 
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
+print((F(3076) // 17 + F(3075) // 45) // F(3072))
+#            ~~^~~~
+# OverflowError: integer division result too large for a float
 '''
 
 
-# № 20968 (Уровень: Базовый)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*[02468]|[02468])'
-reg = rf'{num}([+*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
-'''
 
-# № 18619 (Уровень: Сложный
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-6]+)'
-reg = rf'B{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    maxi = max(maxi, len(x))
-    print(x)
-print(maxi)
-'''
-
-
-# № 21597 (Уровень: Сложный)
-
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi=0
-for x in M:
-    if len(x) == 46:
-        print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-
-
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 46 1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-#
 
 
 # endregion Урок: ************************************************************

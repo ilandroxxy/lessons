@@ -5,35 +5,85 @@
 # #
 # #
 # region Урок: ********************************************************************
-'''
-pixels = 1280 * 1024
-i = 32
-bit = pixels * i
-print(bit)
-bit = bit * 0.6
-print(bit / 2**23)
-'''
 
-
-# https://education.yandex.ru/ege/task/79f258a0-f83f-4f92-9d8f-a5400b888821
+# https://education.yandex.ru/ege/task/8172e3b1-0da6-40a8-96c1-c0a5c2131296
 '''
-t = 4 * 60 + 16
 a = 2
-b = 11000
+b = 56000
 c = 16
-v1 = a * b * c * t
-print(v1 / 2**13)
+t = 120
 
-t = 4 * 60 + 16
+v = a * b * c * t  # бит
+u = 32000  # бит / с
+T = v / u
+print(T)  # 6720.0
+
+
 a = 2
-b = 44000
-c = 10
-v2 = a * b * c * t
-print(v2 / 2**13)
+b = 56000 / 2
+c = 16
+t = 120
 
-print((v2 / 2**13) - (v1 / 2**13))
+v = a * b * c * t  # бит
+u = 32000  # бит / с
+T2 = v / u
+print(T2)  # 3360.0
 
+print(abs(T2 - T))
 '''
+
+
+# https://education.yandex.ru/ege/task/84fa6081-f218-4027-83d3-677e893ca3f7
+'''
+sym = 7
+alp = 10 + 8188  # alp = 2 ** i
+i = 14  # 2 ** 14 >= 8198
+
+bit = sym * i  # бит на один пароль
+print(bit / 8)  # 12.25 -> 13
+byte = 13
+
+print((20240 * byte) / 2**10)
+'''
+
+# https://education.yandex.ru/ege/task/221f688c-b7dd-4fd8-b384-f8c245b17f14
+'''
+sym = 23
+alp = 12
+i = 4
+
+bit = sym * i  # бит на один пароль
+print(bit / 8)  # 11.5 -> 12
+byte = 12
+
+# user = byte + dop
+
+user = 13068 / 297
+print(user - byte)  # 32.0
+'''
+
+
+# https://education.yandex.ru/ege/task/96f79e32-9433-4b33-a931-1b2f12d675b1
+# Известно, что для хранения сведений
+# о 2000 изделий отведено не более 124 Кбайт памяти.
+
+sym = 34
+# alp - ?
+# i - ?
+
+byte = ((124 * 2**10) / 2000) - 28
+print(byte)  # 35.488 -> 35
+bit = 35 * 8
+
+i = bit / sym
+print(i)  # 8.235 -> 8
+i = 8
+
+print(2**i)  # 256
+
+i = 8  # [2**7+1:256]
+alp = 33  # i = 6
+
 # endregion Урок: *************************************************************
 # #
 # #
