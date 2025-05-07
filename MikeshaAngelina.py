@@ -5,160 +5,43 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/221f688c-b7dd-4fd8-b384-f8c245b17f14
+
+# № 21910 Открытый вариант 2025 (Уровень: Базовый)
 '''
-from math import ceil
-sym = 23
-alp = 12  # alp >= 2 ** i, где i - это кол-во бит на один символ
-i = 4
-
-bit = sym * i  # вес в битах одного пароля
-print(bit / 8)  # 11.5 -> 12
-byte = ceil(bit / 8)  # вес в байтах одного пароля
-
-
-# user = byte  + dop
-user = 13068 / 297
-print(user - byte)
-'''
-from multiprocessing.pool import worker
-
-# № 21897 Открытый вариант 2025 (Уровень: Базовый)
-# Известно, что для хранения 703 569 серийных
-# номеров доступно не более 77 Мбайт памяти.
-'''
-sym = 246
-# alp - ?
-
-# bit = sym * i
-
-byte = 77 * 2**20 / 703_569
-print(byte)  # 114.75 - > 114
-
-byte = 114  # вес серийного номера в байтах
-bit = byte * 8
-
-i = bit / sym
-print(i)  # 3.7073
-i = 3  # [5:8]
-alp = 2**3
-print(8)
-'''
-
-# № 21706 ЕГКР 19.04.25 (Уровень: Базовый)
-# Известно, 125 300 серийных номеров занимают
-# более 23 Мбайт памяти
-'''
-sym = 119
-
-byte = 23 * 2**20 / 125_300
-print(byte)  # 192.476 -> 193
-
-bit = 193 * 8
-i = bit / sym
-print(i)  # 12.974 -> 13
-
-print(2**13)
-print(2**12+1)
-'''
-
-'''
-alp = 16  # i = 4
-
-alp = 17  # i = 5
-alp = 20  # i = 5
-alp = 32  # i = 5
-i = 5  # [17:32]
-
-
-i = 8  # [2**7+1, 2**8]
-i = 8  # [129, 256]
+file = open('0. files/26.txt')
+N = file.readline()
+M = [int(x) for x in file]
+M = sorted(M)[::-1]
+R = [M[0]]
+for x in M:
+    if R[-1] - x >= 9:
+        R.append(x)
+print(len(R), min(R))
 '''
 
 
-# № 20957 (Уровень: Базовый)
-# Известно, что для хранения 2048 серийных номеров
-# отведено более 172 Кбайт памяти.
+# № 21719 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-alp = 10 + 52 + 972  # 1034
-i = 11  # 2 ** 11 >= 1034
-
-byte = 172 * 2**10 / 2048
-print(byte)  # 86.0
-
-bit = byte * 8
-
-sym = bit / i
-print(sym)  # 62.545
+file = open('0. files/26.txt')
+N = file.readline()
+R = []
+for s in file:
+    a, b = [int(x) for x in s.split()]
+    if [a, b] not in R:
+        R.append([a, b])
+R = sorted(R)[::-1]
+A = [R[0]]
+maxi = 0
+for x in R:
+    a, b = x
+    if a == A[-1][0] and A[-1][1] - b == 2:
+        A.append([a, b])
+        if maxi <= len(A):
+            print(a, maxi)
+            maxi = len(A)
+    else:
+        A = [[a, b]]
 '''
-
-#
-# № 17674 Пересдача 04.07.24 (Уровень: Средний)
-# Известно, что для хранения 575 серийных номеров
-# отведено более 100 Кбайт памяти.
-'''
-alp = 10 + 26 + 450
-i = 9  # 2**9 >= 486
-
-byte = 100 * 2 ** 10 / 575
-print(byte)  # 178.086
-byte = 179
-bit = byte * 8
-
-sym = bit / i
-print(sym)  # 159.111
-'''
-
-
-# № 21894 Открытый вариант 2025 (Уровень: Базовый)
-'''
-from itertools import *
-cnt = 0
-for p in permutations('0123456789', r=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        for x in '02468':
-            num = num.replace(x, '2')
-        for x in '13579':
-            num = num.replace(x, '1')
-        if '22' not in num and '11' not in num:
-            cnt += 1
-print(cnt)
-'''
-
-
-# № 21703 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-from itertools import *
-n = 0
-for p in product(sorted('ПОБЕДА'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] == 'О':
-            if len(word) == len(set(word)):
-                print(n, word)
-'''
-
-from itertools import *
-k = 0
-for p in product('0123456789AB', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        for x in '13579B':
-            num = num.replace(x, '1')
-        cnt = 0
-        for j in range(len(num) - 1):
-            if num[j] + num[j + 1] == '11':
-                cnt += 1
-        if cnt <= 2:
-            k += 1
-print(k)
-
-
-num = '111'
-
-
 
 # endregion Урок: *************************************************************
 # #

@@ -6,179 +6,118 @@
 # #
 # region Урок: ************************************************************
 
-# № 21897 Открытый вариант 2025 (Уровень: Базовый)
-# Известно, что для хранения 703 569 серийных номеров
-# доступно не более 77 Мбайт памяти.
-
-# не более - округялем вниз
-# более - округялем вверх
-# ничего не написано - округялем вниз
-'''
-sym = 246
-# bit = sym * i
-# alp = 2**i
-
-
-byte = (77 * 2**20) / 703_569  # сколько байт на один серийный номер
-print(byte)  # 114.758 -> 114
-bit = 114 * 8  # сколько бит на один серийный номер
-
-i = bit / sym
-print(i)  # 3.707 -> 3  (доступно не более 77 Мбайт памяти)
-print(2**3)  # максимально возможную мощность алфавита
-
-
-alp = 8  # i = 3
-alp = 9  # i = 4 -> минимальная мощность алфавита
-alp = 16 # i = 4 -> максимальная мощность алфавита
-
-
-# i = 4 [9, 10, 11, ..., 13, 14, 15, 16]
-# i = 5 -> alp[2**4+1 : 2**5]
-
-i = 6  # alp_max = 64
-i = 6  # alp_min = 33
-'''
-
-
-# № 21706 ЕГКР 19.04.25 (Уровень: Базовый)
-# Известно, 125 300 серийных номеров занимают более 23 Мбайт памяти.
-# Определите минимально возможную мощность алфавита
-'''
-sym = 119
-byte = 23*2**20 / 125_300
-print(byte)  # 192.476 -> 193
-bit = 193 * 8
-i = bit / sym
-print(i)  # 12.974
-i = 13
-
-print(2**12 + 1)
-'''
 
 '''
-from fnmatch import fnmatch
-for x in range(7993, 10**10, 7993):
-    if fnmatch(str(x), '4*4736*1'):
-        print(x, x // 7993)
+def divisors(x):
+    x = 24
+    div = []
+    for j in range(1, int(x**0.5)+1):  # 1 2 3 4 5
+        if 24 % j == 0:  # 1 2 3 4
+            div += [j, 24 // j]
+            #       1     24
+            #       2     12
+            #       3      8
+            #       4      6
+            #
+    div = [1, 24, 2, 12, 3, 8, 4, 6]
+    return sorted(set(div))
+    # [1, 2, 3, 4, 6, 8, 12, 24]
+
+divisors(24)
 
 
-from re import fullmatch
-for x in range(7993, 10**10, 7993):
-    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
-        print(x, x // 7993)
+
+def divisors(x):
+    x = 24
+    div = []
+    for j in range(2, int(x**0.5)+1):  # 1 2 3 4 5
+        if 24 % j == 0:  # 2 3 4
+            div += [j, 24 // j]
+            #       2     12
+            #       3      8
+            #       4      6
+            #
+    div = [1, 24, 2, 12, 3, 8, 4, 6]
+    return sorted(set(div))
+    # [1, 2, 3, 4, 6, 8, 12, 24]
+
+divisors(24)
 '''
 
 
 '''
-def F(x):  # x = 24
+def divisors(x):
     div = []
     for j in range(1, int(x**0.5)+1):
         if x % j == 0:
-            div.append(j)  # j = 4
-            div.append(x // j)  # j = 6
+            div += [j, x // j]
     return sorted(set(div))
 
-
-print(F(16))  # [1, 2, 4, 4, 8, 16]
-print(F(24))  # [1, 24, 2, 12, 3, 8, 4, 6]
-print(F(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-'''
-
-
-# № 21909 Открытый вариант 2025 (Уровень: Базовый)
-'''
-def F(x):
+# не считая единицы и самого числа.
+def divisors(x):
     div = []
-    for j in range(1, int(x**0.5)+1):
+    for j in range(2, int(x**0.5)+1):
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
-
-
-cnt = 0
-for x in range(500_001, 10**10):
-    d = F(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 6:  # if str(R)[-1] == '6':
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
 '''
 
 
 # № 20814 Апробация 05.03.25 (Уровень: Базовый)
 '''
-def F(x):
+def divisors(x):
     div = []
     for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
 
 
-cnt = 0
 for x in range(500_001, 10**10):
-    d = F(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 9:  # if str(R)[-1] == '6':
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
+    div = divisors(x)
+    R = sum(div)
+    if R % 10 == 9:
+        print(x, R)
+        input()
 '''
 
 
 # № 17564 Основная волна 08.06.24 (Уровень: Средний)
 '''
-def F(x):
+def divisors(x):
     div = []
     for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
 
 
-cnt = 0
 for x in range(700_001, 10**10):
-    d = F(x)
+    d = [j for j in divisors(x)]
     if len(d) > 0:
         M = min(d) + max(d)
         if M % 10 == 4:
             print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
+            input()
 '''
 
 
-
-# № 17686 Пересдача 04.07.24 (Уровень: Базовый)
-
-def F(x):
+# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
+'''
+def divisors(x):
     div = []
     for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
 
 
-cnt = 0
-for x in range(700_001, 10**10):
-    d = [j for j in F(x) if j % 10 == 7 and j != 7]
+for x in range(800_001, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]
     if len(d) > 0:
         print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
-
+        input()
+'''
 # endregion Урок: ************************************************************
 # #
 # #
