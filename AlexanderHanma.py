@@ -1,4 +1,5 @@
 # region Домашка: ******************************************************************
+from sys import base_prefix
 from zoneinfo import reset_tzpath
 
 
@@ -7,59 +8,77 @@ from zoneinfo import reset_tzpath
 # #
 # region Урок: ********************************************************************
 
-
-# № 11953 (Уровень: Средний)
-# Сколько существует программ, для которых при исходном
-# числе 2 результатом является число 680, при этом
-# траектория вычислений содержит число 68 и
-# не содержит числа 100?
 '''
-from functools import *
-@lru_cache(None)
-def F(a, b):
-    if a >= b or a == 100:
-        return a == b
-    summa = 0
-    if (a%10) != 0:
-        summa += F(a + (a % 10), b)
-    if (a % 68) != 0:
-        summa += F(a + (a % 68), b)
-    if a**2 != 0:
-        summa += F(a**2, b)
-    return summa
-
-print(F(2, 68) * F(68, 680))
+from itertools import *
+cnt = 0
+for s in product('0123456789', repeat=4):
+    sl = ''.join(s)
+    if sl[0] != '0':
+        if len(sl) == len(set(sl)):
+            for a in '02468':
+                sl = sl.replace(a, '*')
+            for a in '13579':
+                sl = sl.replace(a, '+')
+            if '**' not in sl and '++' not in sl:
+                print(sl)
+                cnt += 1
+print(cnt)
 '''
 
-# № 4500 (Уровень: Сложный)
 '''
-from functools import *
-@lru_cache(None)
-def f(a, b, c):
-    if a >= b or a == 23:
-        return a == b and 'AA' not in c
-    return f(a + 1, b, c + 'A') + f(a + 2, b, c + 'B') + f(a * 2, b, c + 'C')
-
-
-# print(f(3, 11, ''))
-print(f(11, 79, ''))
+cnt=0
+for s in open('0. files/9.csv'):
+    M=sorted([int(x) for x in s.split(';')])
+    numb=[x for x in M if M.count(x)==1]
+    if len(numb)==5:
+        if M[-1]+M[-2]<=M[0]+M[1]+M[2]:
+            cnt+=1
+print(cnt)
 '''
 
-# № 16335 Открытый вариант 2024 (Уровень: Базовый)
 '''
-file = open('0. files/26.txt')
-N = file.readline()
-M = sorted([int(x) for x in file])[::-1]
+M = [int(x) for x in open('0. files/17.txt')]
+ok15 = min([x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15])
+od = [x for x in M if x > 0]
+nod = [x for x in M if x < 0]
+R = []
+for i in range(len(M) - 2):
+    a, b, c = M[i], M[i + 1], M[i + 2]
+    if ((a in od) + (b in od) + (c in od) == 3) or ((a in nod) + (b in nod) + (c in nod) == 3):
+        if min(a, b, c) * max(a, b, c) > ok15 ** 2:
+            R.append(min(a, b, c) * max(a, b, c))
+print(len(R), min(R))
+'''
 
-flag = M[0]
-A = [flag]
-for x in M:
-    if flag - x >= 4:
-        A.append(x)
-        flag = x
-print(len(A))
-print(min(A))
+# v = pixels * i
+# colors = 2 ** i
 '''
+pixels = 1024 * 768
+i = 23  # бит
+v = pixels * i * 100
+
+pixels2 = 800 * 600
+i2 = 22  # бит
+v2 = pixels2 * i2 * 100
+
+print((v - v2) / 2**13)
+'''
+
+
+# bit = sym * i
+'''
+sym = 246
+
+byte = 77 * 2**20 / 703_569  # байт на один серийный номер
+print(byte)  # 114.7582 -> 114
+byte = 114
+bit = byte * 8
+
+i = bit / 246
+print(i)  # 3.7073
+i = 3  # alp[5:8]
+'''
+
 # endregion Урок: ********************************************************************
 # #
 # #

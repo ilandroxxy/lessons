@@ -7,113 +7,110 @@
 # region Урок: ********************************************************************
 
 
-# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
-# A. Прибавь 3
-# B. Прибавь 7
-# C. Умножь на 3
-# Сколько существует таких программ, которые исходное число 12 преобразуют в 89,
-# и при этом траектория вычислений программы содержит числа 40 и 72 и не содержит 56?
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b  # True / False
-    # return F(a+3, b) + F(a+7, b) + F(a*3, b)
-    h = [F(a+3, b), F(a+7, b), F(a*3, b)]
-    return sum(h)
-
-
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
-
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
+# 1A2  2222 20 AAAA20
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    # if (n - 1) % 2 == 0:  # Стоим на шаге Пети
-    #     return any(h)
-    # else:
-    #     return all(h)
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 51) if F(s, n=2)])
-print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[02468A])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+# 7*9009*9009*9009*9009*9009
 
 
-print([s for s in range(1, 127) if F(s, n=2)])
-print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
+# № 21597 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+
+# 5*5*5-5-5-3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 5*5*5-5-5-3021
+#                1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+#           3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+
+
+print(eval('(3 * (2 + 2)) ** 2'))
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([+*]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if eval(x) == 0:
+        print(x)
+        maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 вниз | s <= 87 | s > 88
-
-# ceil - округление вверх
-# floor - округление вниз
+# 20969
 '''
-from math import ceil, floor
+from fnmatch import *
+for x in range(154682, 10**11, 154682):
+    if fnmatch(str(x), '*192?3*68'):
+        print(x, x // 154682)
 
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-
-print([s for s in range(89, 1000) if F(s, n=2)])
-print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+from re import *
+for x in range(154682, 10**11, 154682):
+    if fullmatch('[0-9]*192[0-9]3[0-9]*68', str(x)):
+        print(x, x // 154682)
 '''
 
+# № 18591 (Уровень: Средний)
+'''
+from re import *
+for x in range(1984, 10**10, 1984):
+    if fullmatch('[02468]9[0-9]23[0-9][0-9]*23[13579][02468]', str(x)):
+        print(x, x // 1984)
+'''
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ s ≤ 73 | a = 7
 
-def F(a, s, n):
-    if a + s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    # При любом ходе Пети Ваня может выиграть своим первым ходом
-    return any(h) if (n-1) % 2 == 0 else all(h)
 
-    # Ваня выиграл своим первым ходом после неудачного первого хода Пети
-    # return any(h) if (n-1) % 2 == 0 else any(h)
 
-print([s for s in range(1, 74) if F(7, s, n=2)])
-print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+
+
+
+
+
+
+
+
 
 
 

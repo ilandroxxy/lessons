@@ -1,5 +1,5 @@
 # region Домашка: ******************************************************************
-
+from traceback import print_tb
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,96 +7,126 @@
 # region Урок: ********************************************************************
 
 
-# Тип 24 №27688
-# Текстовый файл состоит не более чем из 10**6 символов X, Y и Z.
-# Определите длину самой длинной последовательности, состоящей из символов Z.
-
-# Вариант 1
+# 14642
 '''
 s = open('0. files/24.txt').readline()
-cnt = 1  # счетчик промежуточной последовательности
-maxi = 0  # счетчик самой большой последовательности
-for i in range(len(s)-1):
-    # if s[i] == 'Z' and s[i+1] == 'Z':
-    if s[i:i+2] == 'ZZ':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-# Вариант 2
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('X', ' ').replace('Y', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27690
-# Текстовый файл состоит не более чем из 10**6 символов A, B и C.
-# Определите максимальное количество идущих подряд символов, среди которых каждые два соседних различны.
-'''
-s = open('0. files/24.txt').readline()
-cnt = 1
+s = s.split('F')
 maxi = 0
 for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
+    r = 'F'.join(s[i:i+2])
+    maxi = max(maxi, len(r))
 print(maxi)
 '''
 
 
-# Тип 24 №58327
-# Текстовый файл состоит не более чем из 10**6 символов арабских цифр (0,1,...,9).
-# Определите максимальное количество идущих подряд цифр,
-# расположенных в невозрастающем порядке.
+# 2251
 '''
 s = open('0. files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if int(s[i]) >= int(s[i+1]):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-
-# Тип 24 №27699
-# Текстовый файл состоит не более чем из 106 символов L, D и R.
-# Определите максимальную длину цепочки вида LDRLDRLDR...
-# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
-'''
-s = open('0. files/24.txt').readline()
-cnt = 2
+s = s.split('D')
 maxi = 0
 for i in range(len(s)-2):
-    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 2
+    r = 'D'.join(s[i:i+3])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# 13100
+'''
+s = open('0. files/24.txt').readline()
+s = s.replace('C', 'C ').replace('D', 'D ')
+s = s.split(' ')
+maxi = 0
+for i in range(len(s)-4):
+    r = ''.join(s[i:i+5])[:-1]
+    if r.count('C') == 2 and r.count('D') == 2:
+        maxi = max(maxi, len(r))
 print(maxi)
 '''
 
 
-# Тип 24 №57431
-# Определите максимальное количество идущих подряд символов, среди которых никакие
-# две буквы из набора букв A, B и C (с учетом повторений) не записаны подряд.
+# Определите в прилагаемом файле максимальное количество идущих
+# подряд символов, среди которых символ T встречается ровно 3 раз.
+'''
+s = 'TxxxxTxxxxTxxxxxxxTxxxTxxxxxTxxxxTxxxxxxxxxxxTxxxxxT'
+# ['', 'xxxx', 'xxxx', 'xxxxxxx', 'xxx', 'xxxxx', 'xxxx', 'xxxxxxxxxxx', 'xxxxx', '']
+# 18 TxxxxTxxxxTxxxxxxx
+# 21 xxxxTxxxxTxxxxxxxTxxx
+# 22 xxxxTxxxxxxxTxxxTxxxxx
+# 22 xxxxxxxTxxxTxxxxxTxxxx
+# 26 xxxTxxxxxTxxxxTxxxxxxxxxxx
+# 28 xxxxxTxxxxTxxxxxxxxxxxTxxxxx
+# 23 xxxxTxxxxxxxxxxxTxxxxxT
+
+s = 'TxxxxTxxxxTxxxxxxxTxxxTxxxxxTxxxxTxxxxxxxxxxxTxxxxxT'
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-3):
+    r = 'T'.join(s[i:i+4])
+    print(len(r), r)
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# Определите в прилагаемом файле минимальное количество идущих
+# подряд символов, среди которых символ T встречается ровно 3 раз.
+'''
+s = 'TxxxxTxxxxTxxxxxxxTxxxTxxxxxTxxxxTxxxxxxxxxxxTxxxxxT'
+# 7 TTxxxxT
+# 11 TxxxxTxxxxT
+# 14 TxxxxTxxxxxxxT
+# 13 TxxxxxxxTxxxT
+# 11 TxxxTxxxxxT
+# 12 TxxxxxTxxxxT
+# 18 TxxxxTxxxxxxxxxxxT
+# 19 TxxxxxxxxxxxTxxxxxT
+# 8 TxxxxxTT
+# ['', 'xxxx', 'xxxx', 'xxxxxxx', 'xxx', 'xxxxx', 'xxxx', 'xxxxxxxxxxx', 'xxxxx', '']
+s = s.split('T')
+mini = 10**9
+for i in range(len(s)-1):
+    r = 'T' + 'T'.join(s[i:i+2]) + 'T'
+    mini = min(mini, len(r))
+print(mini)
+'''
+
+
+
+
+# № 10105 Демоверсия 2024 (Уровень: Средний)
+# Определите в прилагаемом файле максимальное количество идущих
+# подряд символов, среди которых символ T встречается ровно 100 раз.
 '''
 s = open('0. files/24.txt').readline()
-s = s.replace('B', 'C').replace('C', 'A')
-while 'AA' in s:
-    s = s.replace('AA', 'A A')
-print(max([len(x) for x in s.split()]))
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'T'.join(s[i:i+101])
+    maxi = max(maxi, len(r))
+print(maxi)
 '''
+
+# № 13715 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('AB')
+maxi = 0
+for i in range(len(s)-50):
+    r = 'B' + 'AB'.join(s[i:i+51]) + 'A'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# № 21717 ЕГКР 19.04.25 (Уровень: Средний)
+
+s = open('0. files/24.txt').readline()
+s = s.split('RSQ')
+mini = 10**9
+for i in range(len(s)-128):
+    r = 'RSQ' + 'RSQ'.join(s[i:i+129]) + 'RSQ'
+    mini = min(mini, len(r))
+print(mini)
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -106,7 +136,7 @@ print(max([len(x) for x in s.split()]))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.2, 25]
 # КЕГЭ  = [23]
 # на следующем уроке:
 

@@ -6,89 +6,54 @@
 # #
 # region Урок: ********************************************************************
 
+# № 21899 Открытый вариант 2025 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    return F(a+3, b) + F(a+7, b) + F(a*3, b)
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
-'''
-
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
-'''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - если победил Ваня / False - если победил Петя
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 51) if F(s, n=2)])
-print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+from ipaddress import *
+net = ip_network('98.81.154.195/255.252.0.0', 0)
+for ip in net:
+    print(ip)
 '''
 
 
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# 20959
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 127) if F(s, n=2)])
-print([s for s in range(1, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 127) if F(s, n=4) and not F(s, n=2)])
-'''
-
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 вниз | <= 87 | s > 88
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print([s for s in range(89, 1000) if F(s, n=2)])
-print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+from ipaddress import *
+net = ip_network('203.68.128.0/255.255.192.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') % 7 != 0:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | 1 ≤ s ≤ 73 | a = 7
+# 21747
+# Для узла с IP адресом 84.23.84.23 адрес сети
+# равен 84.23.84.0. Чему равно наибольшее значение суммы
+# третьего и четвёртого слева байтов маски?
 '''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n-1) % 2 == 0 else any(h)  # после неудачного первого хода
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'84.23.84.23/{mask}', 0)
+    if '84.23.84.0' in str(net):
+        print(net.netmask)
+'''
 
-print([s for s in range(1, 74) if F(7, s, n=2)])
-print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
-'''
+from ipaddress import *
+maxi = 0
+for mask in range(32+1):
+    net1 = ip_network(f'95.24.2.9/{mask}', 0)
+    net2 = ip_network(f'95.24.3.10/{mask}', 0)
+    if net1 != net2:
+        cnt = 0
+        for ip in net1.hosts() :
+            b = f'{ip:b}'
+            if b[-1] == '0':
+                cnt += 1
+        maxi = max(maxi, cnt)
+print(maxi)
+
 
 
 # endregion Урок: *************************************************************
@@ -101,7 +66,7 @@ print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
-# КЕГЭ  = []
+# КЕГЭ  = [13]
 # на следующем уроке:
 
 # Первый пробник 21.12.24:
