@@ -1739,3 +1739,15 @@ print(count)  # 6
 
 
 
+def f(n, m):
+    if n == m:
+        return 1
+    if n > m:
+        return 0
+    if n < 0:
+        return f(n + 3, m) + f(n + 4, m) + f(abs(n), m)
+    else:
+        return f(n + 3, m) + f(n + 4, m)
+
+
+print(f(-21, -8) * f(-8, 35))

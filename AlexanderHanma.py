@@ -7,76 +7,213 @@ from zoneinfo import reset_tzpath
 # #
 # #
 # region Урок: ********************************************************************
+'''
+def divi(x):
+    div=[]
+    for i in range(1,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
 
-'''
-from itertools import *
-cnt = 0
-for s in product('0123456789', repeat=4):
-    sl = ''.join(s)
-    if sl[0] != '0':
-        if len(sl) == len(set(sl)):
-            for a in '02468':
-                sl = sl.replace(a, '*')
-            for a in '13579':
-                sl = sl.replace(a, '+')
-            if '**' not in sl and '++' not in sl:
-                print(sl)
-                cnt += 1
-print(cnt)
-'''
 
-'''
 cnt=0
-for s in open('0. files/9.csv'):
-    M=sorted([int(x) for x in s.split(';')])
-    numb=[x for x in M if M.count(x)==1]
-    if len(numb)==5:
-        if M[-1]+M[-2]<=M[0]+M[1]+M[2]:
+for i in range(500_001,10**9):
+    d=divi(i)
+    if len(d)!=0:
+        R = sum(d)
+        if R%10==6:
             cnt+=1
-print(cnt)
+            print(i,R)
+            if cnt==5:
+                break
 '''
 
 '''
-M = [int(x) for x in open('0. files/17.txt')]
-ok15 = min([x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15])
-od = [x for x in M if x > 0]
-nod = [x for x in M if x < 0]
-R = []
-for i in range(len(M) - 2):
-    a, b, c = M[i], M[i + 1], M[i + 2]
-    if ((a in od) + (b in od) + (c in od) == 3) or ((a in nod) + (b in nod) + (c in nod) == 3):
-        if min(a, b, c) * max(a, b, c) > ok15 ** 2:
-            R.append(min(a, b, c) * max(a, b, c))
-print(len(R), min(R))
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(1125000+1,10**9):
+    d=[i for i in divi(x) if i%10==7 and i!=7]
+    if len(d)!=0:
+        cnt+=1
+        print(x, min(d))
+        if cnt==5:
+            break
 '''
 
-# v = pixels * i
-# colors = 2 ** i
 '''
-pixels = 1024 * 768
-i = 23  # бит
-v = pixels * i * 100
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
 
-pixels2 = 800 * 600
-i2 = 22  # бит
-v2 = pixels2 * i2 * 100
-
-print((v - v2) / 2**13)
+cnt=0
+for x in range(1273547+1,10**9):
+    d=divi(x)
+    if len(d)!=0:
+        M=sum(d)
+        if len(divi(M % 100_000)) == 0:
+            cnt+=1
+            print(x,M)
+            if cnt==5:
+                break
 '''
 
-
-# bit = sym * i
 '''
-sym = 246
+from fnmatch import *
 
-byte = 77 * 2**20 / 703_569  # байт на один серийный номер
-print(byte)  # 114.7582 -> 114
-byte = 114
-bit = byte * 8
+def divi(x):
+    div=[]
+    for i in range(1,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
 
-i = bit / 246
-print(i)  # 3.7073
-i = 3  # alp[5:8]
+cnt=0
+for x in range(10**7):
+    if fnmatch(str(x),'*2?2*'):
+        if str(x) == str(x)[::-1]:
+            if x%53==0 :
+                d=divi(x)
+                if len(d)>30:
+                    print(x,sum(d))
+'''
+
+'''
+from fnmatch import *
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+for x in range(10**7):
+    if fnmatch(str(x),'3*52?'):
+        d=divi(x)
+        if len(d)%2!=0:
+            print(x,max(d))
+'''
+
+'''
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(220_000+1,10**9):
+    d=divi(x)
+    if len(d) > 0:
+        M=min(d)+max(d)
+        if M%10==4:
+            cnt+=1
+            print(x,M)
+            if cnt==5:
+                break
+'''
+
+'''
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(460_000_000+1,10**9):
+    d=divi(x)
+    if len(d)>=5:
+        M=d[-5]
+        if M > 0:
+            cnt+=1
+            print(M)
+            if cnt==5:
+                break
+'''
+
+# № 2685 Пробный 02.2022 /dev/inf Base level (Уровень: Средний)
+'''
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(1_200_000, 1, -1):
+    d=divi(x)
+    if len(d)>=2:
+        S=d[0] + d[1]
+        if S!=0 and S%2022==0:
+            cnt+=1
+            print(x,S)
+            if cnt==5:
+                break
+'''
+
+'''
+def divi(x):
+    div=[]
+    for i in range(2,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+
+for x in range(400_000_000+1,10**9):
+    d=divi(x)
+    if len(d)>=5:
+        P=d[0]*d[1]*d[2]*d[3]*d[4]
+        if P%100==17 and P < x:
+            cnt+=1
+            print(P, d[4])
+            if cnt==5:
+                break
+'''
+
+'''
+def divi(x):
+    div=[]
+    for i in range(1,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+for x in range(190201,190260+1):
+    d=[i for i in divi(x) if i%2==0]
+    if len(d)==4:
+        print(d[-1], d[-2])
+'''
+
+'''
+def divi(x):
+    div=[]
+    for i in range(1,(int(x**0.5)+1)):
+        if x%i==0:
+            div+=[i,x//i]
+    return sorted(set(div))
+
+cnt=0
+for x in range(500_000+1,10**9):
+    d=[i for i in divi(x) if i%10==8 and i!=8 and i!=x]
+    if len(d)>0:
+        cnt+=1
+        print(x, min(d))
+        if cnt==5:
+            break
 '''
 
 # endregion Урок: ********************************************************************

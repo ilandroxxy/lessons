@@ -7,37 +7,124 @@
 # region Урок: ********************************************************************
 
 
+# № 21907 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def F(a,b):
+    if a >= b or a == 8:
+        return a == b
+    return F(a+1,b)+F(a+2,b)+F(a*2,b)
+
+print(F(3,14) * F(14,18))
+'''
+from pprint import pformat
+
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def div(x):
+    d = set()
+    for i in range(1, int(x**0.5)+1):
+        if x % i == 0:
+            d.add(i)
+            d.add(x//i)
+    return sorted(d)
+
+cnt = 0
+for x in range(500000+1, 10**10):
+    d = div(x)
+    if len(d) > 0:
+        r = sum(d)
+        if r % 10 == 6:
+            print(x,r)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# 21902 (16)
+'''
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
+
+print(F(82) - F(81))
+'''
+
+
+# № 21895 Открытый вариант 2025 (Уровень: Базовый)
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    M = sorted(M)
+    if len(M) == len(set(M)):
+        if M[-1] + M[-2] <= M[0] + M[1] + M[2]:
+            cnt += 1
+print(cnt)
+'''
+
+
 # s - это кол-во камней в куче
 # n - это шаг нашей игры
 
 # n = 1: Петя первый ход
 # n = 2: Ваня первый ход
 # n = 3: Петя второй ход
-# n = 4: Ваня второй ход
+# n = 4: Ваня Второй ход
+# n = 5: Петя третий ход
 
-# № 21905 Открытый вариант 2025 (Уровень: Базовый)
-# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
-
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
+'''
 def F(s, n):
-    if s >= 67:
-        return n % 2 == 0  # True - если победа Вани / False - если победа Пети
+    if s >= 128:
+        return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-
-print([s for s in range(1, 67) if F(s, n=2)])
-print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
-
-
+print([s for s in range(2, 127) if F(s, n=2)])
+print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
 '''
-def F(a, b):
-    if a >= b:
-        return a == b
-    return
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
 '''
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(89, 1000) if F(s, n=2)])
+print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ s ≤ 73 | a = 7
+
+def F(a, s, n):
+    if a + s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(1, 74) if F(7, s, n=2)])
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+
+
 # endregion Урок: *************************************************************
 # #
 # #
@@ -49,7 +136,7 @@ def F(a, b):
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21.1, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: ТИ кодом
+# на следующем уроке:
 
 
 # Первый пробник 21.12.24:
