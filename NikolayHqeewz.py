@@ -6,80 +6,93 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21420 Досрочная волна 2024 (Уровень: Базовый)
+# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a >= b or a == 35:
-        return a == b  # True / False
-    h = [F(a+1, b), F(a+2, b), F(a*2, b)]
-    return sum(h)
+from fnmatch import *
+for x in range(7993, 10**10, 7993):
+    if fnmatch(str(x), '4*4736*1'):
+        print(x, x // 7993)
 
 
-print(F(7, 13) * F(13, 15) * F(15, 51))
+from re import *
+for x in range(7993, 10**10, 7993):
+    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
+        print(x, x // 7993)
+'''
+from pprint import pformat
+# [123] - берем один элемент из этого набора
+# [123]* - берем последовательность любой длины из этих символов, в том числе она может быть пустой
+# [123]+ - берем последовательность любой длины из этих символов, но она не может быть пустой (хотя бы один элемент в ней есть)
+# [02468] - берем одну четную цифру
+# [02468]* - берем последовательность четных цифр
+# (123) - это значит, что я ищу именно такую последовательность
+# (123)* - это значит, что я ищу все такие последовательности: 123123123
+
+
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[02468])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый шаг
-# n = 2: Ваня первый шаг
-# n = 3: Петя второй шаг
-# n = 4: Ваня второй шаг
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | >= 51 | 1 ≤ s ≤ 50
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0  # True - победа Вани / False - победа Пети
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 51) if F(s, n=2)])
-print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
-'''
-
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 вниз | <= 87 | s > 88
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-print([s for s in range(89, 1000) if F(s, n=2)])
-print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 81 | 1 ≤ S ≤ 73 | a = 7
+# № 21597 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if len(x) == 51:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
 
-def F(a, s, n):
-    if a + s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    # при любом ходе Пети Ваня может выиграть своим первым ходом
-    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-    # Ваня выиграл своим первым ходом после неудачного первого хода Пети
-    # return any(h) if (n - 1) % 2 == 0 else any(h)
+# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
+
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([*+]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if eval(x) == 0:
+        print(x)
+        maxi = max(maxi, len(x))
+print(maxi)
 
 
-print([s for s in range(1, 73) if F(7, s, n=2)])
-print([s for s in range(1, 73) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 73) if F(7, s, n=4) and not F(7, s, n=2)])
+
 
 
 # endregion Урок: *************************************************************
@@ -90,7 +103,7 @@ print([s for s in range(1, 73) if F(7, s, n=4) and not F(7, s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19-21, 23, 24, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
 # КЕГЭ = []
 # на следующем уроке:
 

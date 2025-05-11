@@ -1738,16 +1738,99 @@ print(count)  # 6
 
 
 
+'''
 
-def f(n, m):
-    if n == m:
-        return 1
-    if n > m:
-        return 0
-    if n < 0:
-        return f(n + 3, m) + f(n + 4, m) + f(abs(n), m)
-    else:
-        return f(n + 3, m) + f(n + 4, m)
+Список всех студентов из db: 
 
+1729463507 DariaDariashy.py 15:00 14400 Дарья 8 0 Saturday https://u.to/RCYDIQ 
 
-print(f(-21, -8) * f(-8, 35))
+5273592655 StasPrrosto.py 20:00 8000 Стас 4 0 Tuesday https://u.to/ycf_IA 
+
+1623764697 SlavickSlavhik.py 23:00 10800 Славик 8 0 Saturday https://u.to/9yYDIQ 
+
+561902196 AlexeyLewkalepewka.py 23:00 8000 Alexey 4 0 Monday https://u.to/ycf_IA 
+
+1181414651 RomanBackrooms.py 23:00 14400 Роман 8 0 Tuesday https://u.to/RCYDIQ 
+
+1062566672 DmitryChixxxol.py 22:00 14400 Dmitry 8 0 Friday https://u.to/RCYDIQ 
+
+1604612981 MatveyUSigMa52.py 22:00 14400 Матвей 8 0 Tuesday https://u.to/RCYDIQ 
+
+1200826856 EvgeniyBuriwieId.py 21:00 5700 Евгений 4 0 Tuesday https://u.to/AicDIQ 
+
+5480724105 ZaharKirill.py 16:00 4800 Захар 4 0 Tuesday https://u.to/zCYDIQ 
+
+955612528 ZaharKirill.py 16:00 4800 Kirill 4 0 Tuesday https://u.to/zCYDIQ 
+
+1080123898 AlexanderHanma.py 18:00 8800 Alexander 8 0 Tuesday https://u.to/1yYDIQ 
+
+1080123898 AlexanderHanma.py 18:00 8800 Alexander 8 0 Saturday https://u.to/1yYDIQ 
+
+760888450 AlexanderHanma.py 18:00 8800 Александр 8 0 Tuesday https://u.to/1yYDIQ 
+
+760888450 AlexanderHanma.py 18:00 8800 Александр 8 0 Saturday https://u.to/1yYDIQ 
+
+745814650 LizaElizdmii.py 20:00 14400 Лиза 8 0 Monday https://u.to/RCYDIQ 
+
+1084280667 IlyaArtur.py 20:00 7000 Илья 4 0 Saturday https://u.to/uCYDIQ 
+
+1413456505 IlyaArtur.py 20:00 4800 Артур 4 0 Saturday https://u.to/zCYDIQ 
+
+6440986217 MaksimDima.py 17:00 12000 Дима 8 485918353 Tuesday https://u.to/viYDIQ 
+
+6044184101 MaksimDima.py 17:00 4000 Максим 2 0 Tuesday https://u.to/rCYDIQ 
+
+7513062530 AlexeyWerwerasd.py 16:00 14400 Алексей 8 0 Saturday https://u.to/RCYDIQ 
+
+5837523987 KirillLokotov.py 15:20 14400 Кирилл 8 1492656325 Friday https://u.to/RCYDIQ 
+
+5837523987 KirillLokotov.py 15:20 14400 Кирилл 8 1492656325 Monday https://u.to/RCYDIQ 
+
+1305840792 TimurTmedovsky.py 15:00 8000 Тимур 4 0 Wednesday https://u.to/ycf_IA 
+
+1058315710 ArtemKincfg.py 22:00 8000 Артём 4 0 Monday https://u.to/RCYDIQ 
+
+5553926810 NikolayHqeewz.py 16:20 14400 Николай 8 0 Friday https://u.to/RCYDIQ 
+
+5553926810 NikolayHqeewz.py 15:00 14400 Николай 8 0 Tuesday https://u.to/RCYDIQ
+
+7404957280 Gungallla.py 22:00 8000 Екатерина 4 287775587 Wednesday https://u.to/ycf_IA 
+
+751717056 JulianaUlyanasusana.py 23:00 14400 Ульяна 9 0 Friday https://u.to/RCYDIQ 
+
+1902912889 MikeshaAngelina.py 20:00 3200 Сергей 4 0 Wednesday https://i.tochka.com/bank/myprofile/ilandroxxy 
+
+2036393394 MikeshaAngelina.py 20:00 3200 Ангелина 4 0 Wednesday https://i.tochka.com/bank/myprofile/ilandroxxy 
+
+1826739564 YaroslavStockholm.py 20:00 4800 Ярослав 4 0 Friday https://u.to/zCYDIQ 
+
+5017385870 YaroslavStockholm.py 20:00 8800 Женя 8 0 Friday https://u.to/1yYDIQ 
+
+1033961646 EgorErgftd.py 21:00 4800 Михаил 4 5132806488 Friday https://u.to/zCYDIQ 
+
+906308840 EgorErgftd.py 21:00 8800 Егор 8 0 Friday https://u.to/1yYDIQ 
+
+1104869233 YegorNun4ucks.py 21:00 8000 Yegor 4 0 Saturday https://u.to/ycf_IA 
+
+1372898240 EfimFurryfaris.py 17:20 8000 Ефим 5 971638042 Friday https://u.to/ycf_IA 
+
+5580459516 IlonaValerya.py 17:00 8000 Валерия 4 0 Wednesday https://u.to/ycf_IA 
+
+5580459516 IlonaValerya.py 18:20 8000 Валерия 4 0 Monday https://u.to/ycf_IA 
+
+902741149 DimaClosedez.py 18:20 14400 Дмитрий 9 0 Friday https://u.to/RCYDIQ 
+
+902741149 DimaClosedez.py 17:20 14400 Дмитрий 9 0 Monday https://u.to/RCYDIQ
+ 
+900144269 ArinaRishulg.py 18:00 20000 Арина 8 0 Wednesday https://clck.ru/3GyzAp
+
+900144269 ArinaRishulg.py 17:00 20000 Арина 8 0 Saturday https://clck.ru/3GyzAp
+
+1024471090 LevLevnskRishulg.py 16:00 6000 Лев 4 0 Wednesday https://clck.ru/3GyzAp
+
+5227541364 EgorGlorytoBarcelona.py 22:00 14400 Egor 8 0 Saturday https://u.to/RCYDIQ 
+
+5227541364 EgorGlorytoBarcelona.py 21:00 14400 Egor 8 0 Wednesday https://u.to/RCYDIQ 
+
+5227541364 EgorGlorytoBarcelona.py 21:00 14400 Egor 8 0 Monday https://u.to/RCYDIQ
+'''
