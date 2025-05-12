@@ -1739,7 +1739,6 @@ print(count)  # 6
 
 
 '''
-
 Список всех студентов из db: 
 
 1729463507 DariaDariashy.py 15:00 14400 Дарья 8 0 Saturday https://u.to/RCYDIQ 
@@ -1834,3 +1833,16 @@ print(count)  # 6
 
 5227541364 EgorGlorytoBarcelona.py 21:00 14400 Egor 8 0 Monday https://u.to/RCYDIQ
 '''
+
+
+from ipaddress import *
+net = ip_network('140.116.194.0/255.255.240.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b[:8][-1] == '0':
+        if b[8:16][-1] == '0':
+            if b[16:24][-1] == '0':
+                if b[24:][-1] == '0':
+                    cnt += 1
+print(cnt)

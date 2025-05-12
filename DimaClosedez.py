@@ -6,68 +6,28 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 17934 (Уровень: Средний)
+# v = a * b * c * t
 '''
-sym = 99
-alp = 520  # 510 + 10
-i = 10  # кол-во бит на один символ
-
-bit = sym * i  # бит выделенных на один ID
-print(bit / 8)  # 123.75 -> 124 (округление вверх всегда)
-byte = 124  # байт выделенных на один ID
-
-# Для хранения сведений о 4322 пользователях потребовалось более 543 Кбайт.
-user = (543 * 2**10) / 4322  # сколько в байтах весит один пользователь
-# user = dop + byte
-print(user - byte)  # 4.6515
-'''
-# Ответ: 5
-
-
-
-
-'''
-# i = 8  [2**7+1, 2**8]
-alp = 8   # i = 3  [5:8]
-alp = 16  # i = 4  [9:16]
-alp = 32  # i = 5
-alp = 33  # i = 6 [33: 64]
+a = 1
+b = 10000
+c = 16
+t = 8
+v = a * b * c * t  # бит
+print(v / 2**13)  # 156.25
 '''
 
 
-#
-# № 11293 (Уровень: Средний)
-'''
-from itertools import *
-cnt = 0
-for p in product('0123456789ABC', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('5') <= 1:
-            for x in '13579B':
-                num = num.replace(x, '1')
-            if '11' not in num:
-                cnt += 1
-print(cnt)
-'''
+# https://education.yandex.ru/ege/task/e0309b53-310b-4c80-a557-c75800407e4c
 
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:13]:
-    if all((int(f'CC68{x}{y}', 13) + int(f'2{y}343{x}7', 13)) % 7 == 0 for y in alp[:13]):
-        print(int(f'CC68{x}{3}', 13) + int(f'2{3}343{x}7', 13) // 7)
-'''
-# 6364612
+pixels = 1440 * 900
+colors = 2048
+i = 11
+bit = pixels * i
+bit_256 = bit * 256
+bit_256_32 = bit_256 * 32
 
-def F(x, A):
-    return ((x % 20 == 0) <= (x % 11 != 0)) or (A < 3*x + 600)
-
-for A in range(10000, 0, -1):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-
+print(bit_256_32 / (21600 * 2**13))
+print(660 / 60)
 # endregion Урок: *************************************************************
 # #
 # #

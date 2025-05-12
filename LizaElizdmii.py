@@ -1,4 +1,5 @@
 # region Домашка: ******************************************************************
+from http.cookiejar import join_header_words
 
 # endregion Домашка: ******************************************************************
 # #
@@ -6,186 +7,131 @@
 # region Урок: ********************************************************************
 
 
+# Минимальное количество идущих подряд символов,
+# среди которых символ M встречается не более 3 раз.
+
+# 7 MMxxxxM
+# 10 MxxxxMxxxM
+# 12 MxxxMxxxxxxM
+# 12 MxxxxxxMxxxM
+# 13 MxxxMxxxxxxxM
+# 15 MxxxxxxxMxxxxxM
+# 15 MxxxxxMxxxxxxxM
+# 15 MxxxxxxxMxxxxxM
+# 14 MxxxxxMxxxxxxM
+# 9 MxxxxxxMM
+'''
+s = 'MxxxxMxxxMxxxxxxMxxxMxxxxxxxMxxxxxMxxxxxxxMxxxxxMxxxxxxM'
+s = s.split('M')
+mini = 10**9
+for i in range(len(s)-1):
+    r = 'M' + 'M'.join(s[i:i+2]) + 'M'
+    print(len(r), r)
+    mini = min(mini, len(r))
+print(mini)
+'''
+
+# Максимальное количество идущих подряд символов,
+# среди которых символ M встречается не более 3 раз.
+
+# MxxxxMxxxMxxxxxx 16
+# xxxxMxxxMxxxxxxMxxx 19
+# xxxMxxxxxxMxxxMxxxxxxx 22
+# xxxxxxMxxxMxxxxxxxMxxxxx 24
+# xxxMxxxxxxxMxxxxxMxxxxxxx 25
+# xxxxxxxMxxxxxMxxxxxxxMxxxxx 27
+# xxxxxMxxxxxxxMxxxxxMxxxxxx 26
+# xxxxxxxMxxxxxMxxxxxxM 21
+'''
+s = 'MxxxxMxxxMxxxxxxMxxxMxxxxxxxMxxxxxMxxxxxxxMxxxxxMxxxxxxM'
+s = s.split('M')
+maxi = 0
+for i in range(len(s)-3):
+    r = 'M'.join(s[i:i+4])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# № 19717 (Уровень: Средний)
+# (М. Попков) Текстовый файл состоит из символов A, E, G, I, L, M и R.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов (длину непрерывной подпоследовательности), среди которых
+# символ M встречается не более 278 раз.
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('M')
+maxi = 0
+for i in range(len(s)-278):
+    r = 'M'.join(s[i:i+279])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
+# Определите в прилагаемом файле максимальное количество идущих подряд символов,
+# среди которых подстрока FSRQ встречается ровно 80 раз.
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('FSRQ')
+maxi = 0
+for i in range(len(s)-80):
+    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# № 17535 Основная волна 07.06.24 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('CD')
+maxi = 0
+for i in range(len(s)-160):
+    r = 'D' + 'CD'.join(s[i:i+161]) + 'C'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# № 11954 (Уровень: Средний)
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('X')
+mini = 10**9
+for i in range(len(s)-498):
+    r = 'X' + 'X'.join(s[i:i+499]) + 'X'
+    if 'Y' not in r:
+        mini = min(mini, len(r))
+print(mini)
+'''
+
+# № 18445 Сергей Горбачев
+'''
+from ipaddress import *
+net = ip_network('140.116.194.0/255.255.240.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b[:8][-1] == '0':
+        if b[8:16][-1] == '0':
+            if b[16:24][-1] == '0':
+                if b[24:][-1] == '0':
+                    cnt += 1
+print(cnt)
+'''
+
 
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
 
-# Тип 24 №27687
-
-# Вариант 1
-'''
-# s = 'xxxYYYYxxxYYYYYYxYYxxx'
-
-s = open('0. files/24.txt').readline()
-cnt = 1  # длина промежуточных последовательностей
-maxi = 0  # длина самой большой последовательности
-for i in range(len(s)-1):
-    # if s[i] == 'Y' and s[i+1] == 'Y':
-    if s[i:i+2] == 'YY':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-# Вариант 2
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('X', ' ').replace('Z', ' ')
-print([x for x in s.split()])
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27421
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
-'''
-s = open('0. files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-
-# Тип 24 №27689
-# Определите максимальную длину цепочки вида XYZXYZXY...
-# (составленной из фрагментов XYZ,
-# последний фрагмент может быть неполным).
-'''
-s = open('0. files/24.txt').readline()
-cnt = 2
-maxi = 0
-for i in range(len(s)-2):
-    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 2
-print(maxi)
-'''
-
-
-# Тип 24 №58329
-# Определите максимальное количество идущих подряд цифр,
-# среди которых сумма двух
-# идущих подряд цифр больше числа следующего за ними.
-'''
-s = open('0. files/24.txt').readline()
-cnt = 2
-maxi = 0
-for i in range(len(s)-2):
-    if int(s[i]) + int(s[i+1]) > int(s[i+2]):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 2
-print(maxi)
-'''
-
-# Тип 24 №58326
-# Определите максимальное количество идущих подряд цифр,
-# расположенных в строгом убывающем порядке.
-'''
-s = open('0. files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if int(s[i]) > int(s[i+1]):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-
-# Тип 24 №37159
-# Найдите максимальную длину подстроки,
-# в которой символы a и d не стоят рядом.
-
-# xxxxAAxxxxx
-# xxxxA AxxxxxA
-# xxxx  xxxxx
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('ad', 'a d').replace('da', 'd a')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №48445
-# Определите максимальное количество идущих подряд
-# групп символов вида: A, C, D, F, O
-# согласная + согласная + гласная
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('O', 'A')
-s = s.replace('C', 'D').replace('F', 'D')
-s = s.replace('DDA', '*')
-s = s.replace('D', ' ').replace('A', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №55820
-# Определите максимальное количество идущих подряд символов,
-# среди которых символы Q, R, S в различных комбинациях
-# (с учётом повторений) не стоят рядом.
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('R', 'Q').replace('S', 'Q')
-s = s.replace('QQ', 'Q Q')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-
-# Тип 24 №39253
-# Определите максимальное количество идущих подряд символов,
-# среди которых не более одной буквы D.
-
-# ['YEKUWM', 'EKHABHHPE'] = 'YEKUWMDEKHABHHPE'
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('D')
-maxi = 0
-for i in range(len(s)-1):
-    r = 'D'.join(s[i:i+2])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-
-# Тип 24 №61370
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('A', 'A ').replace('B', 'B ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-2):
-    r = ''.join(s[i:i+3])[:-1]
-    if r.count('A') == 1 and r.count('B') == 1:
-        maxi = max(maxi, len(r))
-print(maxi)
-'''
-# 'CWYB', 'OA', 'XTQVHDA' -> 'CWYBOAXTQVHDA'
 
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
-# КЕГЭ  = []
-# на следующем уроке: 26, 27
+# КЕГЭ = []
+# на следующем уроке: регулярные выражения, 26, 27
 
 
 # Первый пробник 21.12.24:
