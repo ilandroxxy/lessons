@@ -5,43 +5,96 @@
 # #
 # region Урок: ********************************************************************
 
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
 
-# № 21910 Открытый вариант 2025 (Уровень: Базовый)
+# 21905 Открытый вариант 2025 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
 '''
-file = open('0. files/26.txt')
-N = file.readline()
-M = [int(x) for x in file]
-M = sorted(M)[::-1]
-R = [M[0]]
-for x in M:
-    if R[-1] - x >= 9:
-        R.append(x)
-print(len(R), min(R))
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(1, 67) if F(s, n=2)])
+print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 21719 ЕГКР 19.04.25 (Уровень: Базовый)
+# № 12928 (Уровень: Средний)
+# 1 куча: +1, *2 | s >= 21 |  1 ≤ s ≤ 20
 '''
-file = open('0. files/26.txt')
-N = file.readline()
-R = []
-for s in file:
-    a, b = [int(x) for x in s.split()]
-    if [a, b] not in R:
-        R.append([a, b])
-R = sorted(R)[::-1]
-A = [R[0]]
-maxi = 0
-for x in R:
-    a, b = x
-    if a == A[-1][0] and A[-1][1] - b == 2:
-        A.append([a, b])
-        if maxi <= len(A):
-            print(a, maxi)
-            maxi = len(A)
-    else:
-        A = [[a, b]]
+def F(s, n):
+    if s >= 21:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+# print([s for s in range(1, 21) if F(s, n=2)])
+print([s for s in range(1, 21) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 21) if F(s, n=4) and not F(s, n=2)])
+print([s for s in range(1, 21) if F(s, n=5) and not F(s, n=3) and not F(s, n=1)])
 '''
+
+# № 21907 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a >= b or a == 8:
+        return a == b
+    h = [F(a+1, b), F(a+2, b), F(a*2, b)]
+    return sum(h)
+
+print(F(3, 14) * F(14, 18))
+'''
+
+# № 19784 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a <= b or a == 28:
+        return a == b
+    return F(a-2, b) + F(a // 2 if a % 2 == 0 else a - 3, b)
+
+print(F(98, 1))
+
+
+def F(a, b):
+    if a <= b or a == 28:
+        return a == b
+    h = [F(a-2, b)]
+    if a % 2 == 0:
+        h += [F(a // 2, b)]
+    if a % 2 != 0:
+        h += [F(a -3 , b)]
+    return sum(h)
+
+print(F(98, 1))
+'''
+
+# № 13964 (Уровень: Базовый)
+# 2 кучи: a-2, s-2, a/2, s/2 (больше) | a + s <= 108 | s > 48
+
+from math import ceil, floor
+def F(a, s, n):
+    if a + s <= 108:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a-2, s, n-1), F(a, s-2, n-1), F(ceil(a/2), s, n-1), F(a, ceil(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+
+print([s for s in range(49, 1000) if F(60, s, n=2)])
+print([s for s in range(49, 1000) if F(60, s, n=3) and not F(60, s, n=1)])
+print([s for s in range(49, 1000) if F(60, s, n=4) and not F(60, s, n=2)])
+
 
 # endregion Урок: *************************************************************
 # #

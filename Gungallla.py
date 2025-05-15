@@ -6,36 +6,88 @@
 # #
 # region Урок: ********************************************************************
 '''
-from itertools import *
-cnt = 0
-for p in permutations('ЯРОСЛАВ', r=5):
-    word = ''.join(p)
-    sogl = [x for x in word if x in 'РСЛВ']
-    glas = [x for x in word if x in 'ЯОА']
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+n = 82433987
+b = 16
+r = ''
+while n > 0:
+    r += alp[n % b]
+    n //= b
+r = r[::-1]
+print(r)
+'''
+from traceback import print_tb
 
-    if len(sogl) > len(glas):
-        if all(x not in word for x in 'ЯА АЯ АО ОА ОЯ ЯО'.split()):
-            cnt += 1
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    r = r[::-1]
+    return r
 
-print(cnt)
+print(convert(8, 2))
 '''
 
+'''
+n = 82433987
+b = 16
+R = []
+while n > 0:
+    R.append(n % b)
+    n //= b
+R = R[::-1]
+print(R)
+'''
 
-from itertools import *
-M = []
-n = 0
-for p in product(sorted('МАРКСЛ'), repeat = 6):
-    word = ''.join(p)
-    n += 1
-    if 'КС' not in word and 'СК' not in word:
-        copied = [x for x in word if word.count(x) == 3]
-        not_copied = [x for x in word if word.count(x) == 1]
-        if len(copied) == 3 and len(not_copied) == 3:
-            M.append(n)
-
-print(max(M))
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    r = r[::-1]
+    return r
 
 
+r = convert(8, 2)
+print(r)
+'''
+
+# № 14343 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    r = r[::-1]
+    return r
+
+n = 5 * 343**2031 + 4*49**2142 - 3*7**111 + 7**222
+r = convert(n, 7)
+print(sum(map(int, r)))
+print(sum([int(x) for x in r]))
+'''
+
+# № 12923 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    r = r[::-1]
+    return r
+
+n = 3*3125**9 + 2*625**8 - 4*625**7 + 3*125**6 -2*25**5 - 2024
+r = convert(n, 25)
+print(r.count('0'))
 
 # endregion Урок: *************************************************************
 # #
@@ -46,6 +98,6 @@ print(max(M))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 6, 8.1, 12]
+# ФИПИ = [2, 6, 8, 12, 14.1]
 # КЕГЭ  = []
 # на следующем уроке:

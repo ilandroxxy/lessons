@@ -6,117 +6,104 @@
 # #
 # region Урок: ************************************************************
 
+# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# print(alp[:2])
+# print(alp[:8])
+# print(alp[:21])
+for x in alp[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        print(x, (A + B + C) // 20)
+'''
+# 72450445
+
+
+# № 12246 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+n = 2*729**333 + 2*243**334 - 81**335 + 2*27**336 -2*9**337 - 338
+R = []
+while n > 0:
+    R.append(n % 9)
+    n //= 9
+R.reverse()
+print(R)
+print(len(R) - R.count(0))
+'''
 
 '''
-def divisors(x):
-    x = 24
-    div = []
-    for j in range(1, int(x**0.5)+1):  # 1 2 3 4 5
-        if 24 % j == 0:  # 1 2 3 4
-            div += [j, 24 // j]
-            #       1     24
-            #       2     12
-            #       3      8
-            #       4      6
-            #
-    div = [1, 24, 2, 12, 3, 8, 4, 6]
-    return sorted(set(div))
-    # [1, 2, 3, 4, 6, 8, 12, 24]
-
-divisors(24)
-
-
-
-def divisors(x):
-    x = 24
-    div = []
-    for j in range(2, int(x**0.5)+1):  # 1 2 3 4 5
-        if 24 % j == 0:  # 2 3 4
-            div += [j, 24 // j]
-            #       2     12
-            #       3      8
-            #       4      6
-            #
-    div = [1, 24, 2, 12, 3, 8, 4, 6]
-    return sorted(set(div))
-    # [1, 2, 3, 4, 6, 8, 12, 24]
-
-divisors(24)
+R = [0, 0, '0', '1', '0', 0, 0]
+print(R.count(0))  # 4
+print(R.count('0'))  # 2
 '''
 
 
+# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-# не считая единицы и самого числа.
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+for x in range(1, 2030):
+    n = 7**91 + 7**160 - x
+    R = []
+    while n > 0:
+        R.append(n % 7)
+        n //= 7
+    R.reverse()
+    if R.count(0) == 70:
+        print(x)
 '''
 
-
-# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+# № 17527 Основная волна 07.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-for x in range(500_001, 10**10):
-    div = divisors(x)
-    R = sum(div)
-    if R % 10 == 9:
-        print(x, R)
-        input()
+for x in range(1, 2030):
+    n = 3**100 - x
+    R = []
+    while n > 0:
+        R.append(n % 3)
+        n //= 3
+    R = R[::-1]
+    if R.count(0) == 5:
+        print(x)
 '''
 
 
-# № 17564 Основная волна 08.06.24 (Уровень: Средний)
+# № 20808 Апробация 05.03.25 (Уровень: Средний)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+M = []
+for x in range(1, 2030):
+    n = 7**170 + 7**100 - x
+    R = []
+    while n > 0:
+        R.append(n % 7)
+        n //= 7
+    R.reverse()
+    if R.count(0) == 73:
+        print(x, R.count(0))
+    M.append(R.count(0))
 
-
-for x in range(700_001, 10**10):
-    d = [j for j in divisors(x)]
-    if len(d) > 0:
-        M = min(d) + max(d)
-        if M % 10 == 4:
-            print(x, M)
-            input()
+print(max(M))
 '''
 
-
-# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+M = []
+for x in range(1, 2005):
+    n=5**150+5**98-x
+    p=[]
+    while n>0:
+        p.append(n%5)
+        n=n//5
+    p.reverse()
+    M.append(p.count(0))
+print(max(M))
+'''
 
-
-for x in range(800_001, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 9 and j != 9]
-    if len(d) > 0:
-        print(x, min(d))
-        input()
+'''
+for x in '01234567':
+    for y in '01234567':
+        a=int(f'{y}04{x}5', 11)+int(f'253{x}{y}', 8)
+        if a%117==0:
+            print(a//117)
 '''
 # endregion Урок: ************************************************************
 # #
@@ -127,9 +114,9 @@ for x in range(800_001, 10**10):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 16, 17, 18, 19-21, 23]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 17, 22, 25
+# на следующем уроке: 22, 16 номера руками
 
 
 # Первый пробник 7.03.25:

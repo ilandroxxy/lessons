@@ -1,13 +1,50 @@
 # region Домашка: ******************************************************************
 
-def F(x, y, A):
-    return ((3 * x + y > 48) or (x > y) or (4 * x + y < A))
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
-R = []
-for A in range(100):
-    if any(F(x, y, A) == 0 for x in range(100) for y in range (100)):
-        R.append(A)
-print(max(R))
+
+L = []
+for n in range(1, 10000):
+    s = convert(n, 4)
+    print(s)
+    if sum(map(int, s)) % 2 == 0:
+        s = '31' + s + '02'
+    else:
+        s = '1' + s + convert(((n % 3) * 7), 4)
+
+    r = int(s, 4)
+    if r < 4528:
+        L.append(n)
+print(max(L))
+
+
+def ch(x, b):
+    s = ''
+    while x > 0:
+        s = str(x % b) + s
+        x = x // b
+    if s == '':
+        return '0'
+    return s
+
+res = []
+for n in range(1, 10000):
+    s = ch(n, 4)
+    if sum(int(e) for e in s) % 2 == 0:
+        s = '31' + s + '02'
+    else:
+        s = '1' + s + ch((n % 3) * 7, 4)
+    r = int(s, 4)
+    if r < 4528:
+        res.append(n)
+print(max(res))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
