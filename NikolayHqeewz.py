@@ -6,93 +6,93 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(7993, 10**10, 7993):
-    if fnmatch(str(x), '4*4736*1'):
-        print(x, x // 7993)
 
 
-from re import *
-for x in range(7993, 10**10, 7993):
-    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
-        print(x, x // 7993)
-'''
-from pprint import pformat
-# [123] - берем один элемент из этого набора
-# [123]* - берем последовательность любой длины из этих символов, в том числе она может быть пустой
-# [123]+ - берем последовательность любой длины из этих символов, но она не может быть пустой (хотя бы один элемент в ней есть)
-# [02468] - берем одну четную цифру
-# [02468]* - берем последовательность четных цифр
-# (123) - это значит, что я ищу именно такую последовательность
-# (123)* - это значит, что я ищу все такие последовательности: 123123123
-
-
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-B][0-B]*[02468])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-
-# № 21597 (Уровень: Сложный)
+# 19968 (24)
 '''
 from re import *
 s = open('0. files/24.txt').readline()
 num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    if len(x) == 51:
-        print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-
-
-# № 17641 Основная волна 19.06.24 (Уровень: Гроб)
-
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|[0])'
 reg = rf'{num}([*+]{num})*'
 reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
+M = [x.group(1) for x in finditer(reg,s)]
 maxi = 0
 for x in M:
-    if eval(x) == 0:
-        print(x)
-        maxi = max(maxi, len(x))
+    print(x)
+    maxi = max(maxi,len(x))
+print(maxi)
+'''
+
+
+# 19751 (24)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-9]+)'
+# num = r'([1-9][1-9]*)'
+reg = rf'A{num}([+]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg,s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, eval(x[1:]))
+print(maxi)  # 67622777
+
+print(eval('4+4+4+4'))  # 16
+print(eval('5+22'))  # 27
+'''
+
+
+# № 18147 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][789]*)'
+reg = rf'{num}([+]{num})+'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg,s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, eval(x))
+print(maxi)
+'''
+# 89797978998877
+# 9988877898985
+
+
+# № 20909 Апробация 05.03.25 (Уровень: Средний)
+# Определите в прилагаемом файле максимальное количество
+# идущих подряд символов, среди которых пара AB (в указанном порядке)
+# cвстречается ровно 100 раз.
+
+s = open('0. files/24.txt').readline()
+s = s.split('AB')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'A' + 'AB'.join(s[i:i+101]) + 'B'
+    maxi = max(maxi, len(r))
 print(maxi)
 
 
 
+s = open('0. files/24.txt').readline()
+s = s.split('ABC')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'BC' + 'ABC'.join(s[i:i+101]) + 'AB'
+    maxi = max(maxi, len(r))
+print(maxi)
+
+
+s = open('0. files/24.txt').readline()
+s = s.split('ABCD')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'BCD' + 'ABCD'.join(s[i:i+101]) + 'ABC'
+    maxi = max(maxi, len(r))
+print(maxi)
 
 
 # endregion Урок: *************************************************************

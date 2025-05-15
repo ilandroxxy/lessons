@@ -6,55 +6,131 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21899 Открытый вариант 2025 (Уровень: Базовый)
+# № 21902 Открытый вариант 2025 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('98.81.154.195/255.252.0.0', 0)
-for ip in net:
-    print(ip)
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
+
+print(F(82) - F(81))  # 1945
+'''
+from runpy import run_path
+
+# № 21415 Досрочная волна 2025 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(100000)
+
+def F(n):
+    if n <= 5:
+        return 1
+    if n > 5:
+        return n + F(n - 2)
+
+print(F(2126) - F(2122))
+'''
+# RecursionError: maximum recursion depth exceeded
+
+
+
+# № 21711 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(100000)
+
+def F(n):
+    if n < 20:
+        return n
+    if n >= 20:
+        return (n - 6) * F(n - 7)
+
+print((F(47872) - 290 * F(47865)) / F(47858))
 '''
 
 
-# 20959
+# № 20906 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('203.68.128.0/255.255.192.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 7 != 0:
-        cnt += 1
-print(cnt)
-'''
+import sys
+sys.setrecursionlimit(100000)
 
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
 
-# 21747
-# Для узла с IP адресом 84.23.84.23 адрес сети
-# равен 84.23.84.0. Чему равно наибольшее значение суммы
-# третьего и четвёртого слева байтов маски?
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'84.23.84.23/{mask}', 0)
-    if '84.23.84.0' in str(net):
-        print(net.netmask)
+print((F(2024) // 4 + F(2023)) // F(2022))
+#           ~~~^~~
+# OverflowError: integer division result too large for a float
 '''
 
-from ipaddress import *
-maxi = 0
-for mask in range(32+1):
-    net1 = ip_network(f'95.24.2.9/{mask}', 0)
-    net2 = ip_network(f'95.24.3.10/{mask}', 0)
-    if net1 != net2:
-        cnt = 0
-        for ip in net1.hosts() :
-            b = f'{ip:b}'
-            if b[-1] == '0':
-                cnt += 1
-        maxi = max(maxi, cnt)
-print(maxi)
+
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(100000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n / 2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
 
 
+for n in range(1, 5000):
+    F(n)
+
+print(F(4952) + 2 * F(4958) + F(4964))
+'''
+
+
+# № 21907 Открытый вариант 2025 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Умножить на 2
+# Сколько существует программ, для которых при исходном
+# числе 3 результатом является число 18,
+# при этом траектория вычислений содержит число 14 и не содержит 8?
+'''
+def F(a, b):
+    if a > b or a == 8:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*2, b)
+
+print(F(3, 14) * F(14, 18))
+
+
+def F(a, b):
+    if a >= b or a == 8:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*2, b)
+    
+
+print(F(3, 14) * F(14, 18))
+'''
+
+
+# № 21604 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a < b or a == 24:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a-1, b) + F(a-4, b) + F(a//2, b)
+
+print(F(34, 30) * F(30, 20) * F(20, 9))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -66,7 +142,7 @@ print(maxi)
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
-# КЕГЭ  = [13]
+# КЕГЭ  = [13, 16, 23]
 # на следующем уроке:
 
 # Первый пробник 21.12.24:
