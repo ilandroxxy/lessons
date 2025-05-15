@@ -35,6 +35,8 @@ for x in 0, 1:
 #
 # region 4 номер
 
+# № 17912 Сергей Горбачев
+
 # endregion 4 номер
 #
 #
@@ -76,6 +78,33 @@ print(min(sp))
 #
 #
 # region 9 номер
+
+# https://education.yandex.ru/ege/task/0cee3383-2699-4e0d-a2f1-5f50a85ad086
+'''
+cnt = 0
+from itertools import permutations
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    M = sorted(M)
+    if M[-1] < (M[0] + M[1] + M[2]):
+        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied = [x for x in M if M.count(x) == 3]
+    uncopied = [x for x in M if M.count(x) == 1]
+    if len(copied) == 3 and len(uncopied) == 3:
+        if sum(copied) ** 2 > sum(uncopied) ** 2:
+            cnt += 1
+print(cnt)
+'''
 
 # endregion 9 номер
 #

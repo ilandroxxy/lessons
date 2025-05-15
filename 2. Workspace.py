@@ -1835,14 +1835,138 @@ print(count)  # 6
 '''
 
 
-from ipaddress import *
-net = ip_network('140.116.194.0/255.255.240.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b[:8][-1] == '0':
-        if b[8:16][-1] == '0':
-            if b[16:24][-1] == '0':
-                if b[24:][-1] == '0':
-                    cnt += 1
-print(cnt)
+# todo сделать разбор № 9553 Джобс 14.06.23 (Уровень: Базовый)
+'''
+from re import *
+for x in range(13, 10**9, 13):
+    if fullmatch('24[02468]*68[39]35', str(x)):
+        print(x, x // 13)
+'''
+# 24268335 1866795
+# 24868935 1912995
+# 240068335 18466795
+# 240668935 18512995
+# 242668335 18666795
+# 248468935 19112995
+
+# todo сделать разбор № 19784 (Уровень: Базовый)
+'''
+def F(a, b):
+    if a < b or a == 28:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a-2, b) + F(a // 2 if a % 2 == 0 else a - 3, b)
+
+print(F(98, 1))
+'''
+
+
+# todo Шпаргалка по 16 номерам освежить:
+
+
+# № 21902 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
+
+print(F(82) - F(81))  # 1945
+'''
+
+
+# № 21415 Досрочная волна 2025 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(100000)
+
+def F(n):
+    if n <= 5:
+        return 1
+    if n > 5:
+        return n + F(n - 2)
+
+print(F(2126) - F(2122))
+'''
+# RecursionError: maximum recursion depth exceeded
+
+
+
+# № 21711 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(100000)
+
+def F(n):
+    if n < 20:
+        return n
+    if n >= 20:
+        return (n - 6) * F(n - 7)
+
+print((F(47872) - 290 * F(47865)) / F(47858))
+'''
+
+
+# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(100000)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
+
+print((F(2024) // 4 + F(2023)) // F(2022))
+#           ~~~^~~
+# OverflowError: integer division result too large for a float
+'''
+
+
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+'''
+from functools import *
+import sys
+sys.setrecursionlimit(100000)
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n / 2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
+
+
+for n in range(1, 5000):
+    F(n)
+
+print(F(4952) + 2 * F(4958) + F(4964))
+'''
+
+
+# Сколько существует десятичных четырёхзначных чисел, в которых
+# все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?
+
+w=("0123456789")
+s1='02468'
+s2='13579'
+c=0
+for a in w:
+    for s in w:
+        for d in w:
+            for f in w:
+                wo=a+s+d+f
+                if a!='0':
+                    if len(wo)==len(set(wo)):
+                        if a in s1 and s in s2 and d in s1 and f in s2:
+                            c+=1
+                        if a in s2 and s in s1 and d in s2 and f in s1:
+                            c+=1
+print(c)
+
