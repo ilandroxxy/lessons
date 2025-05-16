@@ -5,29 +5,59 @@
 # #
 # #
 # region Урок: ********************************************************************
-
-# v = a * b * c * t
 '''
-a = 1
-b = 10000
-c = 16
-t = 8
-v = a * b * c * t  # бит
-print(v / 2**13)  # 156.25
+import turtle as t
+t.tracer(0)
+t.screensize(2000, 2000)
+t.left(90)
+t.down()
+s= 20
+
+for n in range(9):
+  t.forward(27*s)
+  t.right(90)
+  t.forward(30*s)
+  t.right(90)
+t.up()
+t.forward(3*s)
+t.right(90)
+t.forward(6*s)
+t.left(90)
+t.down()
+for n in range(9):
+  t.forward(77*s)
+  t.right(90)
+  t.forward(66*s)
+  t.right(90)
+t.up()
+
+for x in range(-50, 50):
+  for y in range(-50, 50):
+    t.goto(x*s, y*s)
+    t.dot(3, 'red')
+
+t.done()
+t.update()
 '''
 
 
-# https://education.yandex.ru/ege/task/e0309b53-310b-4c80-a557-c75800407e4c
 
-pixels = 1440 * 900
-colors = 2048
-i = 11
-bit = pixels * i
-bit_256 = bit * 256
-bit_256_32 = bit_256 * 32
+R = []
+def conv(a, b):
+  r = ''
+  while a > 0:
+    r = str(a%b) + r
+    a = a//b
+  return r
+print(conv(8,2))
+for x in range(1, 2031):
+  s = 7**170 + 7**100 - x
+  r = conv(s, 7)
+  R.append(r.count('0'))
 
-print(bit_256_32 / (21600 * 2**13))
-print(660 / 60)
+print(max(R))
+
+
 # endregion Урок: *************************************************************
 # #
 # #

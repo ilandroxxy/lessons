@@ -6,29 +6,36 @@
 # region Урок: ************************************************************
 
 
-# № 21895 Открытый вариант 2025 (Уровень: Базовый)
+# № 11946 (Уровень: Средний)
 '''
 cnt = 0
 for s in open('0. files/9.csv'):
+    k = 0
     M = [int(x) for x in s.split(';')]
-    if len(set(M)) == len(M):
-        M = sorted(M)
-        if M[-1] + M[-2] <= sum(M[:3]):
-            cnt += 1
+    pov = [x for x in M if M.count(x) == 3]
+    pazl = [x for x in M if M.count(x) == 1]
+    if len(pov) == 3 and len(pazl) == 4:
+        k += 1
+    if sorted(M) == M:
+        k += 1
+    if k <= 1:
+        cnt += 1
+
 print(cnt)
 '''
 
+def F(s, n):
+  if s >= 67:
+    return n % 2 == 0
+  if n == 0:
+    return 0
+  h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+  return any(h) if (n-1) % 2 == 0 else all(h)
+print([s for s in range(1, 67) if F(s, 2)])
+print([s for s in range(1, 67) if F(s, 3) and not F(s, 1)])
+print([s for s in range(1, 67) if F(s, 4) and not F(s, 2)])
 
-# № 21704 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    # if sorted(M, reverse=True) == M:
-    if sorted(M)[::-1] == M:
-        if (min(M) + max(M)) / 2 > sum(M[1:-1]) / 5:
-            print(M, sum(M))
-            break
-'''
+
 
 # endregion Урок: ************************************************************
 # #

@@ -1,91 +1,93 @@
 # region Домашка: ******************************************************************
-from random import shuffle
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# 6309 (12)
+# 21718 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-from itertools import *
+from fnmatch import *
+for x in range(7993, 10**10, 7993):
+    if fnmatch(str(x), '4*4736*1'):
+        print(x, x // 7993)
 
-for n in range(270, 1000):
-    for p in product('12', repeat=n):
-        if p.count('1') == p.count('2'):
-            s = '0' + ''.join(p) + '0'
-
-            while '00' not in s:
-                s = s.replace('02', '101', 1)
-                s = s.replace('11', '2', 1)
-                s = s.replace('12', '21', 1)
-                s = s.replace('010', '00', 1)
-            summa = sum(map(int, s))
-            if summa % 2 == 0:
-                print(n)
-'''
-
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-
-num = r'([1-B][0-B]*[02468A])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-
-
-# № 21597 (Уровень: Сложный)
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    if len(x) == 51:
-        print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
-'''
-# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-
-
-# № 18619 (Уровень: Сложный)
 
 from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-6][1-6]*)'
-reg = rf'B{num}([*-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+for x in range(7993, 10**10, 7993):
+    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
+        print(x, x // 7993)
+'''
+
+
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(500_001, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 6:
+            print(x, R)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(500_001, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 9:
+            print(x, R)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(1_125_001, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+
 
 # endregion Урок: *************************************************************
 # #
@@ -96,7 +98,7 @@ print(maxi)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке: 22
 

@@ -6,115 +6,47 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21412 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('143.168.72.213/255.255.255.240', 0)
-for ip in net:
-    print(ip)
-'''
-import reprlib
-
-# 143.168.72.222 -> 14316872222
-
-
-# № 20959 (Уровень: Базовый)
-'''
-from ipaddress import *
-net = ip_network('203.68.128.0/255.255.192.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') % 7 != 0:
-        cnt += 1
-print(cnt)
+a, b = 7, 2
+print(a // b)  # 3
+print(a / b)  # 3.5
+print(a % b)  # 1
 '''
 
+# 21891 (5)
 '''
-from ipaddress import *
-net = ip_network('203.68.128.0/255.255.192.0', 0)
-print(net)
-'''
-
-# № 18928 Новогодний вариант 2025 (Уровень: Базовый)
-'''
-from ipaddress import *
-net = ip_network('192.168.248.176/255.255.255.240', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') == b.count('0'):
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 18159 (Уровень: Базовый)
-'''
-from ipaddress import *
-for mask in range(32+1):  # кол-во единиц в маске сети (двоичная запись)
-    net = ip_network(f'205.154.212.20/{mask}', 0)
-    if '205.154.192.0' in str(net):
-        print(net, mask, net.netmask)
-'''
-'''
-from ipaddress import *
-for mask in range(32+1):  # кол-во единиц в маске сети (двоичная запись)
-    net = ip_network(f'205.154.212.20/{mask}', 0)
-    print(net, net.netmask)
-'''
-
-
-'''
-from ipaddress import *
-for mask in range(32+1):  # кол-во единиц в маске сети (двоичная запись)
-    net1 = ip_network(f'123.20.103.136/{mask}', 0)
-    net2 = ip_network(f'123.20.103.151/{mask}', 0)
-    if net1 != net2:
-        print(net1.netmask)
-'''
-
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        print((A + B + C) // 20)
-'''
-
-
-# № 19880 (Уровень: Базовый)
-'''
-n = 15625**16 - 3125**3 * 25**19 + 625**4 - 2005
-R = []
-while n > 0:
-    # R.append(n % 25)
-    R = [n % 25] + R
-    n //= 25
-# R.reverse()
-print(R.count(0))
-'''
-
-
-# № 21709 ЕГКР 19.04.25 (Уровень: Базовый)
-
-M = []
-for x in range(1, 3000+1):
-    n = 4**210 + 4**110 - x
-    R = []
+def convert(n, b):
+    r = ''
     while n > 0:
-        R.append(n % 4)
-        n //= 4
-    R.reverse()
-    if R.count(0) == 105:
-        print(x)
-    M.append([R.count(0), x])
+        r += str(n % b)
+        n //= b
+    return r[::-1]
 
-print(max(M))
+for n in range(1, 1000):
+    b = convert(n, 2)
+    # b = f'{n:b}'
+    # b = bin(b)[2:]
+    b = b + str(b.count('1') % 2)
+    b = b + str(b.count('1') % 2)
+    r = int(b, 2)
+    if r > 253:
+        print(n)
+        break
+'''
 
+
+
+# 21899 (13)
+'''
+from ipaddress import *
+net = ip_network('98.81.154.195/255.252.0.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b.count('1') == 5:
+        cnt += 1
+print(cnt)
+'''
 
 
 # endregion Урок: *************************************************************

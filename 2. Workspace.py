@@ -1949,24 +1949,24 @@ for n in range(1, 5000):
 print(F(4952) + 2 * F(4958) + F(4964))
 '''
 
+'''
+from itertools import permutations
 
-# Сколько существует десятичных четырёхзначных чисел, в которых
-# все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?
+table = '13 18 26 27 29 31 37 39 45 46 54 58 59 62 64 69 72 73 81 85 89 92 93 95 96 98'
+graph = 'АБ БА АД ДА АГ ГА ГЖ ЖГ ЖД ДЖ ЖИ ИЖ ИД ДИ ИК КИ КЕ ЕК ЕД ДЕ ЕВ ВЕ ВБ БВ БД ДБ'
+print('1 2 3 4 5 6 7 8 9')
+for per in permutations('АБВГДЖИЕК'):
+    new_table = table
+    for i in range(1, 9+1):
+        new_table = new_table.replace(str(i), per[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*per)
 
-w=("0123456789")
-s1='02468'
-s2='13579'
-c=0
-for a in w:
-    for s in w:
-        for d in w:
-            for f in w:
-                wo=a+s+d+f
-                if a!='0':
-                    if len(wo)==len(set(wo)):
-                        if a in s1 and s in s2 and d in s1 and f in s2:
-                            c+=1
-                        if a in s2 and s in s1 and d in s2 and f in s1:
-                            c+=1
-print(c)
+Полученные перестановки
+# 1 2 3 4 5 6 7 8 9
+# В И Е Г А Ж К Б Д (1)
+# К Б Е Г Ж А В И Д (2)
 
+Из этих двух перестановок верной является вторая (2) перестановка, так как в первой перестановке ДИ (92) имеет нечетную длину 11.
+Исходя из этого факта ответом будет АБ = 8 (62)
+'''
