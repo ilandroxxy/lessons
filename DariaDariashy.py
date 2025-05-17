@@ -7,111 +7,155 @@
 # region Урок: ********************************************************************
 
 
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
-
-# 1A2  2222 20 AAAA20
+# 23
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-B][0-B]*[02468A])'
-M = [x.group() for x in finditer(num, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+def F(a, b):
+    if a > b or a == 31:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+3, b) + F(a+5, b) + F(a*3, b)
+
+print(F(12, 15) * F(15, 52) * F(52, 80))
 '''
 
 
-# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+# 15
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([789][0789]*|[0])'
-reg = rf'{num}([-*]{num})*'
-M = [x.group() for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+def F(x, a1, a2):
+    B = 66 <= x <= 75
+    C = 71 <= x <= 85
+    A = a1 <= x <= a2
+    return (not A) <= (B == C)
+
+R = []
+M = [x / 4 for x in range(50 * 4, 100 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
 '''
-# 7*9009*9009*9009*9009*9009
 
-
-# № 21597 (Уровень: Сложный)
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-5][0-5]*|[0])'
-reg = rf'{num}([*]{num})*([-]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
-print(maxi)
+def F(x, A):
+    return (x & A == 0)
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 1000)):
+        print(A)
+        break
 '''
-# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
 
-# 5*5*5-5-5-3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-# 5*5*5-5-5-3021
-#                1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-#           3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
-
-
-print(eval('(3 * (2 + 2)) ** 2'))
+# 14
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-num = r'([1-9][0-9]*|[0])'
-reg = rf'{num}([+*]{num})*'
-reg = rf'(?=({reg}))'
-M = [x.group(1) for x in finditer(reg, s)]
-maxi = 0
-for x in M:
-    if eval(x) == 0:
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+R = []
+for x in range(1, 2000):
+    n = 4**210 - 4**110 - x
+    s = convert(n, 4)
+    if s.count('0') == 0:
         print(x)
-        maxi = max(maxi, len(x))
-print(maxi)
+#     R.append(s.count('0'))
+# print(min(R))
+'''
+# Ответ: 1707
+
+
+# 13
+'''
+from ipaddress import *
+net = ip_network('208.74.51.243/255.255.252.0', 0)
+for ip in net:
+    print(ip)
+'''
+
+# 11
+'''
+sym = 240
+# alp - ?
+# i - ?
+
+byte = 55 * 2**20 / 154_789  # сколько байт на один серийный номер
+print(byte)  # 372.582 -> 372
+bit = 372 * 8  # сколько бит на один серийный номер
+
+# bit = sym * i
+i = bit / sym
+print(i)  # 12.4 -> 12
+
+print(f'Максимальная мощность: {2**12}')
+print(f'Минимальная мощность: {2**11+1}')
 '''
 
 
-# 20969
+# 8
 '''
-from fnmatch import *
-for x in range(154682, 10**11, 154682):
-    if fnmatch(str(x), '*192?3*68'):
-        print(x, x // 154682)
-
-from re import *
-for x in range(154682, 10**11, 154682):
-    if fullmatch('[0-9]*192[0-9]3[0-9]*68', str(x)):
-        print(x, x // 154682)
-'''
-
-# № 18591 (Уровень: Средний)
-'''
-from re import *
-for x in range(1984, 10**10, 1984):
-    if fullmatch('[02468]9[0-9]23[0-9][0-9]*23[13579][02468]', str(x)):
-        print(x, x // 1984)
+n = 0
+s = sorted('ПЛЮШКА')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if n % 2 != 0:
+                            if a != 'А':
+                                if len(word) == len(set(word)):
+                                    print(n)
+                                    exit()
 '''
 
+# 7
+'''
+pixels = 3620 * 2180
+colors = 2**16  # i -> 16
+i = 16  # это бит на один пиксель
+bit = pixels * i  # бит на одну фотографию
+
+card = 4*2**33  # бит
+
+cnt = card / bit
+print(cnt)  # 272.122 -> 272
+
+print(3500 // 272)  # 12 - это кол-во полных таких карт
+print(3500 % 272)  # 236 - это кол-во оставшихся 
+'''
+# Ответ: 236
 
 
+# 5
 
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
 
+R = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    # s = convert(n, 2)
+    # s = f'{n:b}'
+    if n % 2 == 0:
+        s = '10' + s
+    else:
+        s = '1' + s + '01'
+    r = int(s, 2)
+    if n > 10:
+        R.append(r)
 
-
-
-
-
-
-
-
+print(min(R))
 
 
 # endregion Урок: *************************************************************

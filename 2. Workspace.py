@@ -1949,24 +1949,22 @@ for n in range(1, 5000):
 print(F(4952) + 2 * F(4958) + F(4964))
 '''
 
-'''
-from itertools import permutations
+# № 5736
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
-table = '13 18 26 27 29 31 37 39 45 46 54 58 59 62 64 69 72 73 81 85 89 92 93 95 96 98'
-graph = 'АБ БА АД ДА АГ ГА ГЖ ЖГ ЖД ДЖ ЖИ ИЖ ИД ДИ ИК КИ КЕ ЕК ЕД ДЕ ЕВ ВЕ ВБ БВ БД ДБ'
-print('1 2 3 4 5 6 7 8 9')
-for per in permutations('АБВГДЖИЕК'):
-    new_table = table
-    for i in range(1, 9+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*per)
-
-Полученные перестановки
-# 1 2 3 4 5 6 7 8 9
-# В И Е Г А Ж К Б Д (1)
-# К Б Е Г Ж А В И Д (2)
-
-Из этих двух перестановок верной является вторая (2) перестановка, так как в первой перестановке ДИ (92) имеет нечетную длину 11.
-Исходя из этого факта ответом будет АБ = 8 (62)
-'''
+cnt = 0
+for x in range((10**9)+1, 10**10):
+    if str(x)[::-1] == str(x):
+        d = [j for j in divisors(x)]
+        if len(d) > 0:
+            if max(d) % 7 == 0:
+                print(x, max(d))
+                cnt += 1
+                if cnt == 5:
+                    break

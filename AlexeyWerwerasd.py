@@ -6,99 +6,107 @@
 # #
 # region Урок: ************************************************************
 
+# 5
 '''
 R = []
-for n in range(1, 100):
-    s = f'{n:b}'
-    for i in range(2):
-       if s.count('1') % 2 == 0:
-           s = '11' + s[2:] + '00'
-       else:
-           s = '10' + s[2:] + '11'
-    r = int(s, 2)
-    R.append(r)
-print(max(R))
-'''
-
-
-# № 19237 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
+for n in range(1,100):
+    s = bin(n)[2:]
     if n % 3 == 0:
-        s = s + s[-2:]
+        s = s + s[-3:]
     else:
-        summa = s.count('1') + s.count('2') * 2
-        s = s + convert(summa, 3)
-    r = int(s, 3)
-    if r > 220 and r % 2 == 0:
-        R.append(r)
+        x = (n % 3) * 3
+        s = s + bin(x)[2:]
+    r = int(s, 2)
+    if r >= 76:
+        R.append(n)
 print(min(R))
 '''
 
-# № 19240 ЕГКР 21.12.24 (Уровень: Базовый)
+
+# 14
 '''
-s = sorted('ЯНВАРЬ')
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+M = []
+for x in alphabet[:22]:
+    A = int(f'63{x}59685', 22)
+    B = int(f'17{x}53', 22)
+    С = int(f'36{x}5', 22)
+    if (A + B + С) % 21 == 0:
+        M.append((A + B + С) // 21)
+print(min(M))
+'''
+
+
+# 12
+'''
 R = []
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e 
-                    n += 1
-                    if 'ЯЯ' not in slovo and slovo.count('Ь') <= 1 and slovo[0] != 'Я':
-                        R.append(n)
-print(max(R))
+for n in range(4, 10000):
+    s = '1' + '2' * n
+    while '12' in s or '322' in s or '222' in s:
+      if '12' in s:
+        s = s.replace('12', '2', 1)
+      if '322' in s:
+        s = s.replace('322', '21', 1)
+      if '222' in s:
+        s = s.replace('222', '3', 1)
+    summa = sum([int(x) for x in s if x.isdigit()])
+    R.append(summa)
+    print(max(R))
 '''
 
-
-# № 19243 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-sym = 377
-byte = (5536 * 1024) / 23155
-print(byte) # 244.82245735262362 -> 245
-byte = 245
-bit = byte * 8
-print(bit/sym) # 5.19893899204244 -> 6
-i = 6
-
-print(2**6)
-print(2**5+1) - 33 минимальная мощность алфавита 
-'''
-
-
-# № 19253 ЕГКР 21.12.14 (Уровень: Базовый)
+# 23
 '''
 def F(a, b):
-    if a <= b or a == 24:
+    if a <= b or a == 13:
         return a == b
-    return F(a - 1, b) + F(a - 6, b) + F(a // 2, b)
-print(F(34, 29) * F(29, 19) * F(19, 6))
+    return F(a - 1, b) + F(a - 2, b) + F(a // 3, b)
+print(F(18, 8) * F(8, 3))
+'''
+
+# 2
+'''
+print('x y z w')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (y <= x) and w and (not z)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 43]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) >= 1:
-        if (x**2 + y**2 + z**2) <= max(A) ** 2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
-'''
+# 6
+
+print(21*21 + 21*25 - 15*11)
+print(20*20 + 20*24 - 14*10)
+
+import turtle as t
+t.tracer(0)
+size = 15
+for i in range (4):
+    t.forward(20*size)
+    t.right(270)
+t.up()
+t.backward(6*size)
+t.right(270)
+t.forward(10*size)
+t.right(90)
+t.down()
+for i in range(2):
+    t.forward(20*size)
+    t.right(270)
+    t.forward(24*size)
+    t.right(270)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
+
 
 # endregion Урок: ************************************************************
 # #
