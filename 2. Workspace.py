@@ -1949,22 +1949,44 @@ for n in range(1, 5000):
 print(F(4952) + 2 * F(4958) + F(4964))
 '''
 
-# № 5736
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+# 16
+'''
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
 
-cnt = 0
-for x in range((10**9)+1, 10**10):
-    if str(x)[::-1] == str(x):
-        d = [j for j in divisors(x)]
-        if len(d) > 0:
-            if max(d) % 7 == 0:
-                print(x, max(d))
-                cnt += 1
-                if cnt == 5:
-                    break
+print(F(82) - F(81))  # 1945
+
+'''
+
+
+# Дана программа для Редактора:
+#
+# ПОКА нашлось (19) ИЛИ нашлось (399) ИЛИ нашлось (999)
+#   ЕСЛИ нашлось (19)
+#     ТО заменить (19, 9)
+#   ЕСЛИ нашлось (399)
+#     ТО заменить (399, 91)
+#   ЕСЛИ нашлось (999)
+#     ТО заменить (999, 3)
+
+
+for n in range(4, 10):
+    s = '1' + '9' * n
+    print(s)
+
+    while '19' in s or '399' in s or '999' in s:
+        if '19' in s:
+            s = s.replace('19', '9', 1)
+        if '399' in s:
+            s = s.replace('399', '91', 1)
+        if '999' in s:
+            s = s.replace('999', '3', 1)
+    print(s)
+    print()
+
+R = []
+R.append(2)
+

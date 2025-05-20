@@ -5,52 +5,23 @@
 # #
 # region Урок: ********************************************************************
 
-# 9364
+# 9
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    k = 0
-    M = [int(x) for x in s.split(';')]
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if sum(nechet) > sum(chet):
-        k = k + 1
-    copied = [x for x in M if M.count(x) == 2]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 2 and len(uncopied) == 3:
-        k = k + 1
-    if k == 1:
-        cnt += 1
-print(cnt)
+k = 0
+for s in open('0. files/9.txt'):
+    m = sorted([int(x) for x in s.split()])
+    copied = [x for x in m if m.count(x) == 2]
+    uncopied = [x for x in m if m.count(x) == 1]
+    if len(copied) == 2 and len(uncopied) == 4:
+        if sum(copied) / 2 < sum(uncopied) / 4:
+            k = k + 1
+print(k)
 '''
 
-# 18116
-'''
-summa = 0
-n = 0
-for s in open('0. files/9.csv'):
-    n += 1
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3 and x % 2 == 0]
-    uncopied = [x for x in M if M.count(x) == 1 and x % 2 != 0]
-    if len(copied) == 3 and len(uncopied) == 3:
-         if sum(copied) ** 2 > sum(uncopied) ** 2:
-             summa += n
-print(summa)
-'''
-
-# 8554
-
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    tri = [x for x in M if str(x)[-1] == '3']
-    pol = [x for x in M if x > 0]
-    otr = [x for x in M if x < 0]
-    if len(tri) == 3 and sum(pol) ** 2 < sum(otr) ** 2:
-        print(M)
-        cnt += 1
-print(cnt)
+from fnmatch import *
+for x in range(6072,10**8,6072):
+    if fnmatch(str(x),'5*4?48'):
+        print(x,x//6072)
 
 # endregion Урок: ********************************************************************
 # #
@@ -70,3 +41,6 @@ print(cnt)
 
 # Второй пробник 28.02.25:
 # Матвей 14/29 -> 62 вторичных баллов +[1-4, 6, 7, 10, 11, 14, 15, 16, 18, 23, 25] -[5, 8, 12, 13]
+
+# Третий пробник 20.05.25:
+# Матвей 14/29 -> 62 вторичных баллов +[1-3, 5-16, 18-21, 23, 25] -[4, 17, 22, 24]

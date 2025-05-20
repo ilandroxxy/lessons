@@ -1,5 +1,4 @@
 # region Домашка: ******************************************************************
-from http.cookiejar import join_header_words
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,118 +6,148 @@ from http.cookiejar import join_header_words
 # region Урок: ********************************************************************
 
 
-# Минимальное количество идущих подряд символов,
-# среди которых символ M встречается не более 3 раз.
-
-# 7 MMxxxxM
-# 10 MxxxxMxxxM
-# 12 MxxxMxxxxxxM
-# 12 MxxxxxxMxxxM
-# 13 MxxxMxxxxxxxM
-# 15 MxxxxxxxMxxxxxM
-# 15 MxxxxxMxxxxxxxM
-# 15 MxxxxxxxMxxxxxM
-# 14 MxxxxxMxxxxxxM
-# 9 MxxxxxxMM
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-s = 'MxxxxMxxxMxxxxxxMxxxMxxxxxxxMxxxxxMxxxxxxxMxxxxxMxxxxxxM'
-s = s.split('M')
-mini = 10**9
-for i in range(len(s)-1):
-    r = 'M' + 'M'.join(s[i:i+2]) + 'M'
-    print(len(r), r)
-    mini = min(mini, len(r))
-print(mini)
-'''
-
-# Максимальное количество идущих подряд символов,
-# среди которых символ M встречается не более 3 раз.
-
-# MxxxxMxxxMxxxxxx 16
-# xxxxMxxxMxxxxxxMxxx 19
-# xxxMxxxxxxMxxxMxxxxxxx 22
-# xxxxxxMxxxMxxxxxxxMxxxxx 24
-# xxxMxxxxxxxMxxxxxMxxxxxxx 25
-# xxxxxxxMxxxxxMxxxxxxxMxxxxx 27
-# xxxxxMxxxxxxxMxxxxxMxxxxxx 26
-# xxxxxxxMxxxxxMxxxxxxM 21
-'''
-s = 'MxxxxMxxxMxxxxxxMxxxMxxxxxxxMxxxxxMxxxxxxxMxxxxxMxxxxxxM'
-s = s.split('M')
-maxi = 0
-for i in range(len(s)-3):
-    r = 'M'.join(s[i:i+4])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# № 19717 (Уровень: Средний)
-# (М. Попков) Текстовый файл состоит из символов A, E, G, I, L, M и R.
-# Определите в прилагаемом файле максимальное количество идущих подряд
-# символов (длину непрерывной подпоследовательности), среди которых
-# символ M встречается не более 278 раз.
-'''
+from re import *
 s = open('0. files/24.txt').readline()
-s = s.split('M')
+num = r'([1-B][0-B]*[02468A]|[02468A])'
+M = [x.group() for x in finditer(num, s)]
 maxi = 0
-for i in range(len(s)-278):
-    r = 'M'.join(s[i:i+279])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
-# Определите в прилагаемом файле максимальное количество идущих подряд символов,
-# среди которых подстрока FSRQ встречается ровно 80 раз.
-'''
-s = open('0. files/24.txt').readline()
-s = s.split('FSRQ')
-maxi = 0
-for i in range(len(s)-80):
-    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
-    maxi = max(maxi, len(r))
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
 print(maxi)
 '''
 
 
-# № 17535 Основная волна 07.06.24 (Уровень: Средний)
+# № 22362 (Уровень: Средний)
 '''
+from re import *
 s = open('0. files/24.txt').readline()
-s = s.split('CD')
+num = r'([1-B][0-B]*[13579B])'
+M = [x.group() for x in finditer(num, s)]
 maxi = 0
-for i in range(len(s)-160):
-    r = 'D' + 'CD'.join(s[i:i+161]) + 'C'
-    maxi = max(maxi, len(r))
+res = ''
+for x in M:
+    if maxi < int(x, 12):
+        maxi = int(x, 12)
+        res = x
+print(maxi)
+print(s.index(res))
+'''
+
+#
+# № 22357 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-D][0-D]*[02468AC])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    if maxi < int(x, 14):
+        maxi = int(x, 14)
+        res = x
+print(maxi)
+print(s.index(res))
+'''
+
+
+#
+# № 22358 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*)'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    if int(x, 12) % 3 == 0:
+        if maxi < int(x, 12):
+            maxi = int(x, 12)
+            res = x
+print(maxi)
+print(s.index(res))
+'''
+
+
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([789][0789]*|[0])'
+reg = rf'{num}([-*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(len(x), x)
+    maxi = max(maxi, len(x))
 print(maxi)
 '''
 
-# № 11954 (Уровень: Средний)
+
+# № 19968 (Уровень: Сложный)
 '''
+from re import *
 s = open('0. files/24.txt').readline()
-s = s.split('X')
-mini = 10**9
-for i in range(len(s)-498):
-    r = 'X' + 'X'.join(s[i:i+499]) + 'X'
-    if 'Y' not in r:
-        mini = min(mini, len(r))
-print(mini)
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([+*]{num})*'
+M = [x.group() for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(len(x), x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
-# № 18445 Сергей Горбачев
+
+# № 21597 (Уровень: Сложный)
 '''
-from ipaddress import *
-net = ip_network('140.116.194.0/255.255.240.0', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b[:8][-1] == '0':
-        if b[8:16][-1] == '0':
-            if b[16:24][-1] == '0':
-                if b[24:][-1] == '0':
-                    cnt += 1
-print(cnt)
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([*]{num})*([-]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    if len(x) == 51:
+        print(len(x), x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+# 46      1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+# 51 3021*1*1*1*1*2*3*3*4*2-25430-451-12-12-4431-0-0-0-1
+
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-5][0-5]*|[0])'
+reg = rf'{num}([-*]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
+
+from re import *
+s=open('0. files/24.txt').readline()
+num=r'([1-9][0-9]*|[0])'
+reg=fr'{num}([+*]{num})*'
+reg=fr'(?=({reg}))'
+M=[x.group(1) for x in finditer(reg,s)]
+maxi=0
+for x in M:
+    if eval(x)==0:
+        print(x)
+        maxi=max(maxi,len(x))
+print(maxi)
 
 # endregion Урок: *************************************************************
 # #

@@ -6,17 +6,73 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21910 Открытый вариант 2025 (Уровень: Базовый)
+
+# № 21908 Открытый вариант 2025 (Уровень: Базовый)
 '''
-file = open('0. files/26.txt')
-N = int(file.readline())
-M = [int(x) for x in file]
-M = sorted(M)[::-1]
-R = [M[0]]
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-D][0-D]*[02468AC])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
 for x in M:
-    if R[-1] - x >= 9:
-        R.append(x)
-print(len(R), min(R))
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+
+# № 22356 Апробация 14.05.25 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*[13579B])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    print(x)
+    if maxi < int(x, 12):
+        maxi = int(x, 12)
+        res = x
+print(maxi)
+print(s.index(res))
+'''
+
+
+# № 22357 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-D][0-D]*[02468AC])'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    print(x)
+    if maxi < int(x, 14):
+        maxi = int(x, 14)
+        res = x
+print(maxi)
+print(s.index(res))
+'''
+
+
+# № 22358 (Уровень: Средний)
+'''
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'([1-B][0-B]*)'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    print(x)
+    if int(x, 12) % 3 == 0:
+        if maxi < int(x, 12):
+            maxi = int(x, 12)
+            res = x
+print(maxi)
+print(s.index(res))
 '''
 
 # endregion Урок: *************************************************************

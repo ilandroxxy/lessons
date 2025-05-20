@@ -6,132 +6,154 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21902 Открытый вариант 2025 (Уровень: Базовый)
+
+# № 20580 (Уровень: Базовый)
 '''
-def F(n):
-    if n >= 2025:
-        return n
-    if n < 2025:
-        return n * 2 + F(n + 2)
+def F(x, y, A):
+    return (9*x + y > A) or (x >= 36) or (y >= 18)
 
-print(F(82) - F(81))  # 1945
-'''
-from runpy import run_path
-
-# № 21415 Досрочная волна 2025 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(100000)
-
-def F(n):
-    if n <= 5:
-        return 1
-    if n > 5:
-        return n + F(n - 2)
-
-print(F(2126) - F(2122))
-'''
-# RecursionError: maximum recursion depth exceeded
-
-
-
-# № 21711 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(100000)
-
-def F(n):
-    if n < 20:
-        return n
-    if n >= 20:
-        return (n - 6) * F(n - 7)
-
-print((F(47872) - 290 * F(47865)) / F(47858))
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        print(A)
 '''
 
 
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+# № 20584 (Уровень: Базовый)
 '''
-import sys
-sys.setrecursionlimit(100000)
+def F(x, A):
+    return ((405 % x == 0) <= (81 % x == 0)) or (A - x > 162)
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
-
-print((F(2024) // 4 + F(2023)) // F(2022))
-#           ~~~^~~
-# OverflowError: integer division result too large for a float
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
 '''
 
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+# № 20809 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from functools import *
-import sys
-sys.setrecursionlimit(100000)
+def F(x, A):
+    B = 60 <= x <= 80
+    return (x % A == 0) or ((B) <= (x % 22 != 0))
 
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-
-for n in range(1, 5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
 '''
 
 
-# № 21907 Открытый вариант 2025 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Умножить на 2
-# Сколько существует программ, для которых при исходном
-# числе 3 результатом является число 18,
-# при этом траектория вычислений содержит число 14 и не содержит 8?
+# № 20577 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a > b or a == 8:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a*2, b)
+def F(x, A):
+    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
 
-print(F(3, 14) * F(14, 18))
-
-
-def F(a, b):
-    if a >= b or a == 8:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a*2, b)
-    
-
-print(F(3, 14) * F(14, 18))
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
 '''
 
 
-# № 21604 (Уровень: Базовый)
+# № 21710 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a < b or a == 24:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a-1, b) + F(a-4, b) + F(a//2, b)
+def F(x, a1, a2):
+    B = 36 <= x <= 75
+    C = 60 <= x <= 110
+    A = a1 <= x <= a2
+    return (not A) <= ((B) == (C))
 
-print(F(34, 30) * F(30, 20) * F(20, 9))
+
+R = []
+M = [x / 4 for x in range(30 * 4, 120 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
 '''
 
+
+# № 20905 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    P = 17 <= x <= 58
+    Q = 29 <= x <= 80
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+
+R = []
+M = [x / 4 for x in range(10 * 4, 90 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
+'''
+
+
+# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        print(x, (A + B + C) // 20)
+'''
+
+
+
+# № 19562 (Уровень: Базовый)
+'''
+n = 16807**35 + 2401**2 * 343**9 - 49**52 + 7**3 - 2005
+R = []
+while n > 0:
+    R.append(n % 49)
+    n //= 49
+R.reverse()
+print(len([x for x in R if x > 9]))
+'''
+
+
+# № 19484 (Уровень: Базовый)
+'''
+n = 5 * 729 ** 2024 + 3*243**1413 - 7 * 81**169 - 2*9**107 + 3017
+R = []
+while n > 0:
+    R.append(n % 27)
+    n //= 27
+R.reverse()
+print(sum([x for x in R if x <= 25 and x % 2 == 0]))
+'''
+
+
+# № 21900 Открытый вариант 2025 (Уровень: Базовый)
+'''
+for x in range(1, 2300):
+    n = 7**350 + 7**150 - x
+    R = []
+    while n > 0:
+        R.append(n % 7)
+        n //= 7
+    R.reverse()
+    if R.count(0) == 200:
+        print(x)
+'''
+
+'''
+# M = []
+for x in range(1, 3000):
+    n = 4**210 + 4**110 - x
+    R = []
+    while n > 0:
+        R.append(n % 4)
+        n //= 4
+    R.reverse()
+    if R.count(0) == 105:
+        print(x)
+#   M.append(R.count(0))
+# print(max(M))
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -142,7 +164,7 @@ print(F(34, 30) * F(30, 20) * F(20, 9))
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25]
-# КЕГЭ  = [13, 16, 23]
+# КЕГЭ  = [13, 14, 15, 16, 23]
 # на следующем уроке:
 
 # Первый пробник 21.12.24:
