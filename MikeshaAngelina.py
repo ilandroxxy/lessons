@@ -5,95 +5,45 @@
 # #
 # region Урок: ********************************************************************
 
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# 21905 Открытый вариант 2025 (Уровень: Базовый)
-# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 67:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 67) if F(s, n=2)])
-print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'[1-B][0-B]*[02468A]'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+for x in M:
+    print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 '''
 
 
-# № 12928 (Уровень: Средний)
-# 1 куча: +1, *2 | s >= 21 |  1 ≤ s ≤ 20
+# № 22356 Апробация 14.05.25 (Уровень: Средний)
 '''
-def F(s, n):
-    if s >= 21:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+from re import *
+s = open('0. files/24.txt').readline()
+num = r'[1-B][0-B]*[13579B]'
+M = [x.group() for x in finditer(num, s)]
+maxi = 0
+res = ''
+for x in M:
+    if maxi < int(x, 12):
+        maxi = int(x, 12)
+        res = x
+print(s.index(res))
 
-# print([s for s in range(1, 21) if F(s, n=2)])
-print([s for s in range(1, 21) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 21) if F(s, n=4) and not F(s, n=2)])
-print([s for s in range(1, 21) if F(s, n=5) and not F(s, n=3) and not F(s, n=1)])
-'''
 
-# № 21907 Открытый вариант 2025 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a >= b or a == 8:
-        return a == b
-    h = [F(a+1, b), F(a+2, b), F(a*2, b)]
-    return sum(h)
-
-print(F(3, 14) * F(14, 18))
+f = open("0. files/24.txt").readline()
+reg = r'([1-B][0-B]*[13579B])'
+m = [a.group() for a in finditer(reg,s)]
+n = [int(a,12) for a in m]
+print(s.index(m[n.index(max(n))]))
 '''
 
-# № 19784 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    return F(a-2, b) + F(a // 2 if a % 2 == 0 else a - 3, b)
 
-print(F(98, 1))
-
-
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    h = [F(a-2, b)]
-    if a % 2 == 0:
-        h += [F(a // 2, b)]
-    if a % 2 != 0:
-        h += [F(a -3 , b)]
-    return sum(h)
-
-print(F(98, 1))
-'''
-
-# № 13964 (Уровень: Базовый)
-# 2 кучи: a-2, s-2, a/2, s/2 (больше) | a + s <= 108 | s > 48
-
-from math import ceil, floor
-def F(a, s, n):
-    if a + s <= 108:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-2, s, n-1), F(a, s-2, n-1), F(ceil(a/2), s, n-1), F(a, ceil(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-
-print([s for s in range(49, 1000) if F(60, s, n=2)])
-print([s for s in range(49, 1000) if F(60, s, n=3) and not F(60, s, n=1)])
-print([s for s in range(49, 1000) if F(60, s, n=4) and not F(60, s, n=2)])
+from ipaddress import *
+net = ip_network('98.81.154.195/255.252.0.0', 0)
 
 
 # endregion Урок: *************************************************************

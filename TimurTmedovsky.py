@@ -6,49 +6,52 @@
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/task/9a4ed264-8f61-4713-91c3-37fceb735e15
+
+# № 21703 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    k = 0
-    if len(set(M)) == len(M):
-        k += 1
-    M = sorted(M)
-    if M[-1] > (M[0] + M[1] + M[2] + M[3] + M[4]):
-        k += 1
-    if k == 1:
-        cnt += 1
-print(cnt)
+from itertools import *
+n = 0
+for p in product(sorted('ПОБЕДА'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] in 'О':
+            if len(word) == len(set(word)):
+                print(n)
 '''
 
 
-# https://education.yandex.ru/ege/task/0cee3383-2699-4e0d-a2f1-5f50a85ad086
+#
+# № 21407 Досрочная волна 2025 (Уровень: Базовый)
 '''
+from itertools import *
 cnt = 0
-from itertools import permutations
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    M = sorted(M)
-    if M[-1] < (M[0] + M[1] + M[2]):
-        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+for p in product('ДГИАШЭ', repeat=5):
+    word = ''.join(p)
+    if word[0] not in 'ИАЭ':
+        if word[-1] not in 'ДГШ':
             cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
-'''
+#
+# № 21894 Открытый вариант 2025 (Уровень: Базовый)
+
+from itertools import *
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) == 3]
-    uncopied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 3 and len(uncopied) == 3:
-        if sum(copied) ** 2 > sum(uncopied) ** 2:
+for p in permutations('0123456789', r=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468':
+            num = num.replace(x, '2')
+        for x in '13579':
+            num = num.replace(x, '1')
+        if '22' not in num and '11' not in num:
             cnt += 1
 print(cnt)
-'''
+
+
 
 # endregion Урок: *************************************************************
 # #
