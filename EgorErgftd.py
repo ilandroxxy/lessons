@@ -6,87 +6,99 @@
 # #
 # region Урок: ********************************************************************
 
-# 21718 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(7993, 10**10, 7993):
-    if fnmatch(str(x), '4*4736*1'):
-        print(x, x // 7993)
-
-
-from re import *
-for x in range(7993, 10**10, 7993):
-    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
-        print(x, x // 7993)
-'''
-
-
-# № 21909 Открытый вариант 2025 (Уровень: Базовый)
-'''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(500_001, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 6:
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-# № 20814 Апробация 05.03.25 (Уровень: Базовый)
 '''
 def divisors(x):
     div = []
     for j in range(2, int(x**0.5)+1):
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
 
 
-cnt = 0
-for x in range(500_001, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 9:
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+
+print(is_prime(7))  # True
+print(is_prime(8))  # False
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(len(divisors(7)) == 0)  # True
+print(len(divisors(8)) == 0)  # False
 '''
 
 
-# № 21422 Досрочная волна 2025 (Уровень: Базовый)
+# № 5477 (Уровень: Средний)
+'''
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
 
+
+cnt = 0
+for x in range(600_000+1, 10**10):
+    if x % 6 == 0:
+        if is_prime(x-1) and is_prime(x+1):
+            print(x-1, x+1)
+            cnt += 1
+            if cnt == 6:
+                break
+'''
+'''
 def divisors(x):
     div = []
     for j in range(2, int(x**0.5)+1):
         if x % j == 0:
-            div.append(j)
-            div.append(x // j)
+            div += [j, x // j]
     return sorted(set(div))
 
 
 cnt = 0
-for x in range(1_125_001, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
-    if len(d) > 0:
-        print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+for x in range(600_000+1, 10**10):
+    if x % 6 == 0:
+        if len(divisors(x-1)) == 0 and len(divisors(x+1)) == 0:
+            print(x-1, x+1)
+            cnt += 1
+            if cnt == 6:
+                break
+'''
+
+# № 21903 Открытый вариант 2025 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if ((x > 0) + (y > 0) + (z > 0) == 3) or ((x < 0) + (y < 0) + (z < 0) == 3):
+        if min(x, y, z) * max(x, y, z) > min(A) ** 2:
+            R.append(min(x, y, z) * max(x, y, z))
+print(len(R), min(R))
+'''
+
+
+
+
+# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
+
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4  and abs(x) % 10 == 6]
+B = [x for x in A if x > 0]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 1:
+        if (x + y + z) <= min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 
 
 # endregion Урок: *************************************************************
@@ -108,3 +120,6 @@ for x in range(1_125_001, 10**10):
 # Второй пробник 28.02.25:
 # Михаил 17/29 -> 70 вторичных баллов +[1-4, 6, 8, 9, 11, 12, 14-16, 18, 19-20, 23, 25] -[5, 7, 10, 13, 17, 21, 22, 24]
 # Егор 16/29 -> 68 вторичных баллов +[1-7, 9, 13, 14-18, 23, 25] -[8, 10, 11, 12, 19-21, 22, 24]
+
+# Третий пробник 20.05.25:
+# Михаил 19/29 -> 75 вторичных баллов +[1, 2, 5, 6, 7, 9-16, 18-20, 23-25] -[3, 4, 8, 17, 21, 22]

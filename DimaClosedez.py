@@ -5,57 +5,8 @@
 # #
 # #
 # region Урок: ********************************************************************
-'''
-import turtle as t
-t.tracer(0)
-t.screensize(2000, 2000)
-t.left(90)
-t.down()
-s= 20
-
-for n in range(9):
-  t.forward(27*s)
-  t.right(90)
-  t.forward(30*s)
-  t.right(90)
-t.up()
-t.forward(3*s)
-t.right(90)
-t.forward(6*s)
-t.left(90)
-t.down()
-for n in range(9):
-  t.forward(77*s)
-  t.right(90)
-  t.forward(66*s)
-  t.right(90)
-t.up()
-
-for x in range(-50, 50):
-  for y in range(-50, 50):
-    t.goto(x*s, y*s)
-    t.dot(3, 'red')
-
-t.done()
-t.update()
-'''
 
 
-
-R = []
-def conv(a, b):
-  r = ''
-  while a > 0:
-    r = str(a%b) + r
-    a = a//b
-  return r
-print(conv(8,2))
-for x in range(1, 2031):
-  s = 7**170 + 7**100 - x
-  r = conv(s, 7)
-  R.append(r.count('0'))
-
-print(max(R))
 
 
 # endregion Урок: *************************************************************
@@ -74,4 +25,5 @@ print(max(R))
 # Второй пробник 28.02.25:
 # Дмитрий 14/29 -> 62 вторичных баллов +[1, 3, 4, 5, 8, 9, 12, 15, 16, 17, 23, 18, 19-21] -[13, 14, 22]
 
-
+# Третий пробник 20.05.25:
+# Дмитрий 13/29 -> 59 вторичных баллов +[1, 2, 5, 9, 10, 12, 15, 16, 17, 18, 19, 20, 25] -[3, 4, 6, 7, 8, 11, 13, 14, 21, 22]
