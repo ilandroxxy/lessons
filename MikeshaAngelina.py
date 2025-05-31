@@ -5,45 +5,105 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+# 21981
+'''
+from re import *
+
+f = open('0. files/24.txt').readline()
+
+s = r'([1-F][0-F]*)'
+s = rf'(?=({s}))'
+M = [x.group(1) for x in finditer(s,f)]
+maxi = 0
+l = 0
+for x in M:
+    if x.count('B') == 10:
+        if maxi < int(x, 16):
+            maxi = int(x, 16)
+            l = len(x)
+print(l, maxi)
+'''
+# 5*5-5-5-5-5-3454645*5*5*5*5-5-5-5-5
+# 5*5-5-5-5-5-3454645   5*5*5*5-5-5-5-5
+# 5*5-5-5-5-5-3454645   3454645*5*5*5*5-5-5-5-5
+
+
+# № 17685 Пересдача 04.07.24 (Уровень: Гроб)
 '''
 from re import *
 s = open('0. files/24.txt').readline()
-num = r'[1-B][0-B]*[02468A]'
-M = [x.group() for x in finditer(num, s)]
+num = r'([1-9][0-9]*|[0])'
+reg = rf'{num}([+*]{num})*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
 maxi = 0
 for x in M:
-    print(x)
-    maxi = max(maxi, len(x))
+    if eval(x) == 0:
+        print(x)
+        maxi = max(maxi, len(x))
+print(maxi)
+'''
+
+'''
+s = open('0. files/24.txt').readline()
+s = s.split('FSRQ')
+maxi = 0
+for i in range(len(s)-80):
+    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
+    maxi = max(maxi, len(r))
 print(maxi)
 '''
 
 
-# № 22356 Апробация 14.05.25 (Уровень: Средний)
+# № 12931 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
 '''
+s = open('0. files/24.txt').readline()
+s = s.replace('T', ' ').replace('U', ' ').split()
+for x in s:
+    if len(x) > 5:
+        print(x, len(x))
+'''
+
+# XYZVWXYZVWXYZV
+'''
+s = open('0. files/24.txt').readline()
+cnt = 4  # считаем промежуточные последовательности
+maxi = 0  # считаем максимальную последовательность
+for i in range(len(s)-4):
+    if s[i:i+5] in ('VWXYZ', 'WXYZV', 'XYZVW', 'YZVWX', 'ZVWXY'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 4
+print(maxi)
+'''
+
+s = open('0. files/24.txt').readline()
+cnt = 2  # считаем промежуточные последовательности
+maxi = 0  # считаем максимальную последовательность
+for i in range(len(s)-2):
+    if s[i:i+3] in ('XYZ', 'YZX', 'ZXY'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 2
+print(maxi)
+
+
+# № 12931 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+
 from re import *
 s = open('0. files/24.txt').readline()
-num = r'[1-B][0-B]*[13579B]'
-M = [x.group() for x in finditer(num, s)]
+num = r'(VWXYZ)+'
+reg = rf'((Z)|(YZ)|(XYZ)|(WXYZ))*{num}((VWXY)|(VWX)|(VW)|(V))*'
+reg = rf'(?=({reg}))'
+M = [x.group(1) for x in finditer(reg, s)]
 maxi = 0
-res = ''
 for x in M:
-    if maxi < int(x, 12):
-        maxi = int(x, 12)
-        res = x
-print(s.index(res))
-
-
-f = open("0. files/24.txt").readline()
-reg = r'([1-B][0-B]*[13579B])'
-m = [a.group() for a in finditer(reg,s)]
-n = [int(a,12) for a in m]
-print(s.index(m[n.index(max(n))]))
-'''
-
-
-from ipaddress import *
-net = ip_network('98.81.154.195/255.252.0.0', 0)
+    if len(x) == 40:
+        print(x)
+    maxi = max(maxi, len(x))
+print(maxi)
 
 
 # endregion Урок: *************************************************************

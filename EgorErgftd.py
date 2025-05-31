@@ -6,105 +6,61 @@
 # #
 # region Урок: ********************************************************************
 
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-def is_prime(x):
-    if x <= 1:
-        return False
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            return False
-    return True
-
-
-print(is_prime(7))  # True
-print(is_prime(8))  # False
-print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
-print(len(divisors(7)) == 0)  # True
-print(len(divisors(8)) == 0)  # False
-'''
-
-
-# № 5477 (Уровень: Средний)
-'''
-def is_prime(x):
-    if x <= 1:
-        return False
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            return False
-    return True
-
-
-cnt = 0
-for x in range(600_000+1, 10**10):
-    if x % 6 == 0:
-        if is_prime(x-1) and is_prime(x+1):
-            print(x-1, x+1)
-            cnt += 1
-            if cnt == 6:
-                break
-'''
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(600_000+1, 10**10):
-    if x % 6 == 0:
-        if len(divisors(x-1)) == 0 and len(divisors(x+1)) == 0:
-            print(x-1, x+1)
-            cnt += 1
-            if cnt == 6:
-                break
-'''
-
-# № 21903 Открытый вариант 2025 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if ((x > 0) + (y > 0) + (z > 0) == 3) or ((x < 0) + (y < 0) + (z < 0) == 3):
-        if min(x, y, z) * max(x, y, z) > min(A) ** 2:
-            R.append(min(x, y, z) * max(x, y, z))
-print(len(R), min(R))
-'''
-
-
-
-
-# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
-
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4  and abs(x) % 10 == 6]
-B = [x for x in A if x > 0]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 1:
-        if (x + y + z) <= min(B):
-            R.append(x + y + z)
-print(len(R), max(R))
 
 
 # endregion Урок: *************************************************************
 # #
 # #
 # region Разобрать: *************************************************************
+
+
+# 8
+'''
+from itertools import *
+cnt = 0
+for p in product('012345678', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('3') == 2:
+            for el in '1357':
+                num = num.replace(el, '*')
+            if '*2' not in num and '2*' not in num:  # тут должно быть and и проверка идет после замены (после for)
+                cnt += 1
+print(cnt)
+'''
+
+
+# 17
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+D = [x for x in M if abs(x) % 100 == 22]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(D):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+# 19-21
+
+def F(s, n):
+    if s >= 184:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+5, n-1), F(s*4, n-1)]
+
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 184) if F(s, 2)]) # 45
+print([s for s in range(1, 184) if F(s, 3) and not F(s, 2)]) # 40, 44
+print([s for s in range(1, 184) if F(s, 4) and not F(s, 2)]) # 39, 43
+
+
+
 
 
 # endregion Разобрать: *************************************************************
@@ -123,3 +79,4 @@ print(len(R), max(R))
 
 # Третий пробник 20.05.25:
 # Михаил 19/29 -> 75 вторичных баллов +[1, 2, 5, 6, 7, 9-16, 18-20, 23-25] -[3, 4, 8, 17, 21, 22]
+# Егор 15/29 -> 64 вторичных баллов +[2, 4, 7, 9, 10, 11, 14, 15, 16, 17, 18, 22, 23, 24, 25] -[1, 3, 5, 6, 8, 12, 13, 19-21]
