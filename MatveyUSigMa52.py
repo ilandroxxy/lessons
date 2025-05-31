@@ -5,23 +5,12 @@
 # #
 # region Урок: ********************************************************************
 
-# 9
-'''
-k = 0
-for s in open('0. files/9.txt'):
-    m = sorted([int(x) for x in s.split()])
-    copied = [x for x in m if m.count(x) == 2]
-    uncopied = [x for x in m if m.count(x) == 1]
-    if len(copied) == 2 and len(uncopied) == 4:
-        if sum(copied) / 2 < sum(uncopied) / 4:
-            k = k + 1
-print(k)
-'''
+M = [int(x) for x in open('17.txt')]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
 
-from fnmatch import *
-for x in range(6072,10**8,6072):
-    if fnmatch(str(x),'5*4?48'):
-        print(x,x//6072)
+
 
 # endregion Урок: ********************************************************************
 # #
