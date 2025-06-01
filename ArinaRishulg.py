@@ -6,221 +6,85 @@
 # #
 # region Урок: ************************************************************
 
-# 20958 (12)
 '''
-p=[]
-for n in range(4, 1000):
-    s='4'+'7'*n
-    while '444' in s or '777' in s:
-        if '777' in s:
-            s=s.replace('777', '4', 1)
-        else:
-            s=s.replace('444', '7', 1)
-    p.append(sum(map(int, s)))
-print(max(p))
+from fnmatch import fnmatch
+for x in range(6072, 10**8, 6072):
+    if fnmatch(str(x), '5*4?48'):
+        print(x, x//6072)
 '''
-
-
-# 9370 Джобс 10.06.23 (Уровень: Сложный)
 '''
-def F(x, A):
-    P = 5 <= x <= 54
-    Q = 50 <= x <= 93
-    return ((not P) and (Q)) <= (x > A)
-
-for A in range(1, 10000):
-    B = [1 for x in range(1, 10000) if F(x, A)]
-    if len(B) == 20:
-        print(A)
+from fnmatch import *
+x=10**4
+while x%6072!=0:
+    x+=1
+for n in range(x, 10**8+1, 6072):
+    if fnmatch(str(n), '5*4?48'):
+        print(n, n//6072)
 '''
 
 
+# 11 из пробника
 '''
-def div(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+sym = 15
+alp = 12
+i = 4
+bit = sym * i
+print(bit / 8)  # 7.5 -> 8
+byte = 8
 
+# user = byte + dop
+user = 400 / 20
 
-# не считая единицы и самого числа:
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+dop = user - byte
+print(dop)
 '''
 
 
-# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+# 17
 '''
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if 10000 <= abs(x) <= 99999 or len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 22]
 
-
-k = 0
-for x in range(500_000+1, 10**10):
-    d = div(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 9:
-            print(x, R)
-            k += 1
-            if k == 5:
-                break
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
 
 
-# № 19889 (Уровень: Базовый)
+# № 21710 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-def div(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+def F(x, a1, a2):
+    B = 36 <= x <= 75
+    C = 60 <= x <= 110
+    A = a1 <= x <= a2
+    return (not A) <= ((B) == (C))
 
-
-k = 0
-for x in range(902_714+1, 10**10):
-    d = [j for j in div(x) if j % 10 == 5 and j != x and j != 5]
-    if len(d) > 0:
-        print(x, min(d))
-        k += 1
-        if k == 6:
-            break
+R = []
+M = [x / 4 for x in range(30*4, 120*4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))
 '''
 
-
-# № 18148 (Уровень: Базовый)
-'''
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):  #  не считая единицы и самого числа
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-
-k = 0
-for x in range(900_000+1, 10**10):
-    d = div(x)
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M % 100 == 46:
-            print(x, M)
-            k += 1
-            if k == 5:
-                break
-'''
-
-
-# Тип 25 №27855
-'''
-def div(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-
-for x in range(95632, 95700+1):
-    d = [j for j in div(x) if j % 2 == 0]
-    if len(d) == 6:
-        print(*d)
-'''
-
-
-# Тип 25 №27422
-# Напишите программу, которая ищет среди целых чисел, принадлежащих
-# числовому отрезку [174457; 174505], числа, имеющие
-# ровно два различных натуральных делителя,
-# не считая единицы и самого числа.
-'''
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-
-for x in range(174457, 174505+1):
-    d = div(x)
-    if len(d) == 2:
-        print(*d)
-'''
-
-
-# Тип 25 №40741
-# Пусть M(N) — сумма двух наибольших различных натуральных делителей
-# натурального числа N, не считая самого числа. Если у числа N меньше
-# двух таких делителей, то M(N) считается равным 0.
-#
-# Найдите 5 наименьших натуральных чисел, превышающих 10000000,
-# для которых 0<M(N)<10000. В ответе запишите найденные
-# значения M(N) в порядке возрастания соответствующих им чисел N.
-'''
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-
-k = 0
-for x in range(10000000+1, 10**10):
-    d = div(x)
-    if len(d) >= 2:
-        M = d[-2] + d[-1]
-        if 0 < M < 10000:
-            print(M)
-            k += 1
-            if k == 5:
-                break
-'''
-
-'''
-def div(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-
-k = 0
-for x in range(100000+1, 1, -1):
-    d = div(x)
-    if len(d) >= 2:
-        M = d[-2] + d[-1]
-        if 0 < M < 10000:
-            print(M)
-            k += 1
-            if k == 5:
-                break
-'''
-
-
-# Тип 25 №46983
-# Пусть M(x)— пятый по величине делитель натурального числа x
-# без учёта самого числа и единицы. Н
-#
-# Найдите 5 наименьших натуральных чисел, превышающих 460_000_000,
-# для которых M(x)>0.
-
-# В ответе запишите найденные значения M(x) в порядке возрастания
-# соответствующих им чисел x.
-
-
+def f(x, a1, a2):
+    D=7<=x<=68
+    C=29<=x<=100
+    A=a1<=x<=a2
+    return D <= (((not C) and (not A)) <= (not D))
+R=[]
+M=[x/4 for x in range(1*4, 120*4)]
+for a1 in M:
+    for a2 in M:
+        if all(f(x, a1, a2) for x in M):
+            R.append(a2-a1)
+print(min(R))
 # endregion Урок: ************************************************************
 # #
 # #
@@ -237,3 +101,6 @@ for x in range(100000+1, 1, -1):
 
 # Первый пробник 7.03.25:
 # Арина 12/29 -> 56 вторичных баллов +[1, 2, 3, 4, 5, 8, 9, 11, 12, 14, 15, 23] -[7, 13, 17, 19-21, 18, 25]
+
+# Второй пробник 20.05.25:
+# Арина 21/29 -> 80 вторичных баллов +[1-5, ..] -[6, 11, 17, 24, 26, 27]

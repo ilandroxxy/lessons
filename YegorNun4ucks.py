@@ -6,13 +6,56 @@
 # #
 # region Урок: ********************************************************************
 
-s = open('0. files/24.txt').readline()
-s = s.split('RSQ')
-mini = 10**9
-for i in range(len(s)-128):
-    r = 'RSQ' + 'RSQ'.join(s[i:i+129]) + 'RSQ'
-    mini = min(mini, len(r[:-1]))
-print(mini)
+# 8 статград
+'''
+from itertools import *
+
+alph = '0123456789ABC'
+cnt = 0
+for i in product(alph, repeat=6):
+    s = ''.join(i)
+    if s[0] != '0' and s.count('1') == 2:
+        for k in '02468':
+            s = s.replace(k, '*')
+        # for k in 'ABC':
+        #     s = s.replace(k, '#')
+        # if '#*' not in s and '*#' not in s and '##' not in s:
+        if all(p not in s for p in 'A* *A B* *B C* *C AA CC AC CA BA AB CB BC'.split()):
+            cnt += 1
+
+print(cnt)
+'''
+
+'''
+for n in range(1, 10000):
+    s = '>' + '7' * n + '5' * 11 + '2' * 28
+
+    while '>5' in s or '>7' in s or '>2' in s:
+        if '>5' in s:
+            s = s.replace('>5', '77>', 1)
+        if '>7' in s:
+            s = s.replace('>7', '222>', 1)
+        if '>2' in s:
+            s = s.replace('>2', '55>', 1)
+
+    summa = sum([int(x) for x in s if x.isdigit()])
+    if summa % 20 == 0 and summa > 1000:
+        print(n)
+        break
+'''
+
+'''
+from ipaddress import *
+net = ip_network('112.208.0.0/255.255.224.0', 0)
+cnt = 0
+for ip in net:
+    b = f'{ip:b}'
+    if b[-3:] == '111' or b[-3:] == '000':
+        cnt += 1
+
+print(cnt)
+'''
+
 
 # endregion Урок: *************************************************************
 # #
