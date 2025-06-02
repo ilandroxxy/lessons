@@ -64,6 +64,29 @@ for s in range(1125000, 10 ** 9):
                 break
 '''
 
+'''
+R=[]
+for n in range(1,1000):
+    s=f'{n:b}'
+    if n%3==0:
+        s=s+s[-3:]
+    else:
+        dei=(n%3)*3
+        s=s+f'{dei:b}'
+    r=int(s,2)
+    if r>=76:
+        R.append(n)
+print(min(R))
+'''
+
+
+ster=2
+chat=64*1000
+bit=24
+m=220 * 2**23
+t= m / (ster*chat*bit)
+print(t/60)
+
 
 # endregion Урок: ********************************************************************
 # #
