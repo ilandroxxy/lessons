@@ -6,86 +6,103 @@
 # region Урок: ********************************************************************
 
 '''
-from ipaddress import*
-net =ip_network('98.81.154.195/255.252.0.0',0)
-for ip in net:
-    print(ip)
-'''
-
-
-# 21909 (25)
-'''
-def divisors(x):
-    div = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
+s = '01234567'
 cnt = 0
-for x in range(500_001, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        R = sum(d)
-        if R % 10 == 6:
-            print(x, R)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-# 500032 1070356
-# 500035 606816
-# 500039 501456
-# 500050 949716
-# 500052 1333696
-
-
-# № 18148 (Уровень: Базовый)
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(900_001, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        M = min(d) + max(d)
-        if M % 100 == 46:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for g in s:
+                        num = a+b+c+d+e+g
+                        if a != '0':
+                            if '54' not in num and '26' in num:
+                                if len(set(num))== len(num):
+                                    cnt += 1
+                                    print(cnt)
 '''
 
 
-# № 17642 Основная волна 19.06.24 (Уровень: Базовый)
 '''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+def convert(n,b):
+    s = ''
+    while n > 0:
+        s = s + str(n % b)
+        n = n // b
+    return s[::-1]
+
+M = []
+for n in range(1, 10000):
+    r = convert(n,4)
+    if sum(map(int, r)) % 2 == 0:
+        r = '31' + r +'02'
+    else:
+        x = (n % 3) * 7
+        r = '1' + r + convert(x, 4)
+    r = int(r,4)
+    if r < 4528:
+        M.append(n)
+print(max(M))
+'''
+
+'''
+def ch(x):
+    s = ''
+    while x > 0:
+        s = str(x % 4) + s
+        x = x // 4
+
+    return s
 
 
-cnt = 0
-for x in range(800_001, 10**10):
-    d = [j for j in divisors(x) if j % 10 == 9 and j != 9 and j != x]
-    if len(d) > 0:
-        print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+res = []
+for n in range(1, 10000):
+    s = ch(n)
+    if sum(int(e) for e in s) % 2 == 0:
+        s = '31' + s + '02'
+    else:
+        s = '1' + s + ch((n % 3) * 7)
+    r = int(s, 4)
+    if r < 4528:
+        res.append(n)
+print(max(res))
 '''
+
+
+print(135 * 122 + 149 * 75 - 9*96)
+print(26799)
+
+import turtle as t
+t.screensize(5000, 5000)
+t.left(90)
+t.tracer(0)
+l = 10
+
+t.color('teal')
+for _ in range(4):
+    t.forward(135 * l)
+    t.right(90)
+    t.forward(122 * l)
+    t.right(90)
+t.up()
+t.forward(41 * l)
+t.left(90)
+t.forward(66 * l)
+t.right(90)
+t.down()
+t.color('purple')
+for _ in range(4):
+    t.forward(149 * l)
+    t.right(90)
+    t.forward(75 * l)
+    t.right(90)
+
+t.up()
+for x in range(-80, 80):
+    for y in range(-80, 80):
+        t.goto(x * l, y * l)
+        t.dot(3, 'black')
+t.done()
 
 # endregion Урок: *************************************************************
 # #

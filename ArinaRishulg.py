@@ -6,85 +6,129 @@
 # #
 # region Урок: ************************************************************
 
+
 '''
-from fnmatch import fnmatch
-for x in range(6072, 10**8, 6072):
-    if fnmatch(str(x), '5*4?48'):
-        print(x, x//6072)
-'''
-'''
-from fnmatch import *
-x=10**4
-while x%6072!=0:
-    x+=1
-for n in range(x, 10**8+1, 6072):
-    if fnmatch(str(n), '5*4?48'):
-        print(n, n//6072)
-'''
+import time
+start = time.time()
+
+# def divisors(x):
+#     div = []
+#     for j in range(1, x+1):
+#         if x % j == 0:
+#             div.append(j)
+#     return div
+# Скорость работы простой функции на 1_000_000_000: 17.484
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(1_000_000_000))
+
+# Скорость работы хорошей функции на 1_000_000_000: 0.001150
 
 
-# 11 из пробника
-'''
-sym = 15
-alp = 12
-i = 4
-bit = sym * i
-print(bit / 8)  # 7.5 -> 8
-byte = 8
-
-# user = byte + dop
-user = 400 / 20
-
-dop = user - byte
-print(dop)
-'''
-
-
-# 17
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if 10000 <= abs(x) <= 99999 or len(str(abs(x))) == 5]
-B = [x for x in M if abs(x) % 100 == 22]
-
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
+end = time.time()
+print(end - start)
 '''
 
 
-# № 21710 ЕГКР 19.04.25 (Уровень: Базовый)
+# № 18148 (Уровень: Базовый)
+# (В. Колчев) Пусть M – сумма минимального и максимального натуральных делителей целого числа,
+# не считая единицы и самого числа. Если таких делителей у числа нет, то считаем значение M равным нулю.
+# Напишите программу, которая перебирает целые числа, бо́льшие 900 000,
+# в порядке возрастания и ищет среди них такие, для которых
+# M оканчивается на 46. В ответе запишите в первом столбце таблицы первые
+# пять найденных чисел в порядке возрастания, а во втором столбце – соответствующие им значения M.
+# Количество строк в таблице для ответа избыточно
 '''
-def F(x, a1, a2):
-    B = 36 <= x <= 75
-    C = 60 <= x <= 110
-    A = a1 <= x <= a2
-    return (not A) <= ((B) == (C))
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
 
-R = []
-M = [x / 4 for x in range(30*4, 120*4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))
+
+cnt = 0
+for x in range(900_000+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 100 == 46:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-def f(x, a1, a2):
-    D=7<=x<=68
-    C=29<=x<=100
-    A=a1<=x<=a2
-    return D <= (((not C) and (not A)) <= (not D))
-R=[]
-M=[x/4 for x in range(1*4, 120*4)]
-for a1 in M:
-    for a2 in M:
-        if all(f(x, a1, a2) for x in M):
-            R.append(a2-a1)
-print(min(R))
+
+# № 18192 (Уровень: Базовый)
+# (Д. Бахтиев) Напишите программу, которая перебирает целые числа,
+# бо́льшие 1 000 000, в порядке возрастания и ищет среди них те, которые
+# имеют ровно 3 простых делителя. В ответе запишите 5 наименьших таких
+# чисел в порядке возрастания.
+# Справа от каждого такого числа укажите его наибольший простой делитель
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+cnt = 0
+for x in range(1_000_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2]
+    if len(d) == 3:
+        print(x, max(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+# 2 -> [1, 2]  # простое
+# 5 -> [1, 5]  # простое
+# 13 -> [1, 13]  # простое
+# 7 -> [1, 7]  # простое
+# 8 -> [1, 2, 4, 8]  # составное
+
+
+# № 19778 (Уровень: Средний)
+'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(9_500_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    # целую часть среднего арифметического всех простых делителей
+    if len(d) > 0:
+        F = sum(d) // len(d)
+        if F != 0 and F % 813 == 0:
+            print(x, F)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+# d = [j for j in divisors(x) if j != 9 and j != x and j % 10 == 9]
+
+
 # endregion Урок: ************************************************************
 # #
 # #

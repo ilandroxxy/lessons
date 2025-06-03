@@ -1939,10 +1939,10 @@ for n in range(1, 5000):
 print(F(4952) + 2 * F(4958) + F(4964))
 '''
 
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    a = sorted(M)
-    if (M[0] >= M[1] >= M[2] >= M[3] >= M[4] >= M[5] >= M[6]):
-        if ((a[0] + a[6]) / 2 > (a[1] + a[2] + a[3] + a[4] + a[5]) / 5):
-            print(M, sum(M))
-            break
+sym = 71118
+byte = 2*2**30 / 12288
+print(byte)
+byte = 174762  # 174762.666
+bit = 174762 * 8
+print(bit / sym)  # 19.658
+print(2**19)

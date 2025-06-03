@@ -7,52 +7,45 @@
 # region Урок: ************************************************************
 
 
-
 #5
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-
 R = []
-for n in range(1,1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-2:]
+for n in range(1, 1000):
+    s = f'{n:b}'
+
+    if s.count('1') % 2 == 0:
+        s = '10' + s[2:] + '0'
     else:
-        x = sum(map(int, s))
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r >= 220 and r % 2 == 0:
-        R.append(r)
+        s = '11' + s[2:] + '1'
+
+    r = int(s, 2)
+    if n > 27:
+       R.append(r)
 print(min(R))
 '''
+from typing import is_protocol
 
 #6
 '''
 import turtle as t
 t.screensize(5000, 5000)
 t.tracer(0)
-size = 30
-for i in range (8):
-    t.forward(16*size)
+size = 15
+for i in range (4):
+    t.forward(19*size)
     t.right(90)
-    t.forward(22*size)
+    t.forward(30*size)
     t.right(90)
 t.up()
-t.forward(5*size)
+t.forward(2*size)
 t.right(90)
-t.forward(5*size)
+t.forward(8*size)
 t.left(90)
 t.down()
-for i in range(8):
-    t.forward(52*size)
+for i in range(4):
+    t.forward(93*size)
     t.right(90)
-    t.forward(77*size)
+    t.forward(97*size)
     t.right(90)
 t.up()
 for x in range(-50, 50):
@@ -64,62 +57,41 @@ t.update()
 t.done()
 '''
 
-
-#8
+#12
 '''
-s = sorted('ЯНВАРЬ')
-R = []
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e 
-                    n += 1
-                    if 'ЯЯ' not in slovo and slovo.count('Ь') <= 1 and slovo[0] != 'Я':
-                        R.append(n)
-print(max(R))
+s = '9' * 134
+while '22222' in s or '9999' in s:
+    if '22222' in s:
+        s = s.replace('22222', '99', 1)
+    else:
+        s = s.replace('9999', '2', 1)
+print(s)
 '''
 
 
-#11
+#16
 '''
-sym = 377
-byte = (5536 * 1024) / 23155
-print(byte) # 244.82245735262362 
-byte = 245
-bit = byte * 8
-i = bit / sym
-print(i)  # 5.1989 -> 6
-i = 6
-
-print(2**5+1)  # минимальная
-print(2**6)  # максимальная
+import sys
+sys.setrecursionlimit(100000)
+def F(n):
+    if n == 1:
+        return n 
+    if n > 1:
+        return (n - 1) * F(n - 1)
+print((F(2024)//7 - F(2023))/F(2022))
 '''
 
+# 11
 
-#17
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 43]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) >= 1:
-        if (x**2 + y**2 + z**2) <= max(A) ** 2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
-'''
+alp = 10+26+450  # 486
+i = 9
 
-#23
-'''
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a - 1, b) + F(a - 6, b) + F(a // 2, b)
-print(F(34, 29) * F(29, 19) * F(19, 6))
-'''
+byte = 100 * 1024 / 575
+print(byte)  # 178.086 -> 179
+
+bit = 179 * 8
+sym = bit / i
+print(sym)  # 159.1111
 
 
 # endregion Урок: ************************************************************

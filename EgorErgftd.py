@@ -6,6 +6,60 @@
 # #
 # region Урок: ********************************************************************
 
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'195.23.86.50/{mask}', 0)
+    if '195.23.80.0' in str(net):
+        print(net, net.netmask)
+
+'''
+
+
+# 21900
+'''
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
+
+for x in range(1, 2300):
+    n = 7**350 + 7**150 - x
+    s = convert(n, 7)
+    if s.count('0') == 200:
+        print(x)
+'''
+
+
+# № 16325 Открытый вариант 2024 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += alp[n % b]
+        n //= b
+    return s[::-1]
+
+n = 2*729**2014 + 2*243**2016 - 2*81**2018 + 2*27**2020 - 2*9**2022 - 2024
+s = convert(n, 27)
+print(len([x for x in s if x > '9']))
+'''
+
+'''
+def F(a, b, c):
+    if a > b:
+        return 0
+    if a == b:
+        return 1 and 'AAA' not in c and 'BBB' not in c
+    else:
+        return F(a+1, b, c+"A") + F(a*2, b, c+'B')
+
+print(F(1, 16, ''))
+'''
+
 
 
 # endregion Урок: *************************************************************
@@ -14,61 +68,12 @@
 # region Разобрать: *************************************************************
 
 
-# 8
-'''
-from itertools import *
-cnt = 0
-for p in product('012345678', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('3') == 2:
-            for el in '1357':
-                num = num.replace(el, '*')
-            if '*2' not in num and '2*' not in num:  # тут должно быть and и проверка идет после замены (после for)
-                cnt += 1
-print(cnt)
-'''
-
-
-# 17
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-D = [x for x in M if abs(x) % 100 == 22]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(D):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-# 19-21
-
-def F(s, n):
-    if s >= 184:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+5, n-1), F(s*4, n-1)]
-
-    return any(h) if (n-1) % 2 == 0 else all(h)
-
-print([s for s in range(1, 184) if F(s, 2)]) # 45
-print([s for s in range(1, 184) if F(s, 3) and not F(s, 2)]) # 40, 44
-print([s for s in range(1, 184) if F(s, 4) and not F(s, 2)]) # 39, 43
-
-
-
-
-
 # endregion Разобрать: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = []
-# на следующем уроке: 22
+# на следующем уроке:
 
 # Первый пробник 21.12.24:
 # Михаил 8/18 -> 46 вторичных баллов +[2, 4, 6, 12, 14, 15, 16, 23] -[1, 3, 5, 7, 8, 9, 11, 13, 17, 25]

@@ -51,6 +51,59 @@ print(max(res))
 # #
 # region Урок: ********************************************************************
 
+#8
+'''
+n = 0
+from itertools import *
+for p in product('012345678', repeat = 5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('3')==2:
+            for x in '1357':
+                num = num.replace(x, '*')
+            if '*2' not in num and '2*' not in num and '*2*' not in num:
+                n+=1
+print(n)
+'''
+
+
+
+#6
+
+print(21*21 + 21*25 - 11*15)
+
+import turtle as t
+t.screensize(2000, 2000)
+size = 30
+t.tracer(0)
+t.left(90)
+
+
+for i in range(4):
+    t.fd(20*size)
+    t.right(270)
+
+t.up()
+t.fd(6*size)
+t.right(270)
+t.fd(10 * size)
+t.right(90)
+t.down()
+
+for i in range(2):
+    t.fd(20*size)
+    t.right(270)
+    t.fd(24*size)
+    t.right(270)
+t.up()
+
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x*size, y*size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 
 # endregion Урок: *************************************************************
 # #
