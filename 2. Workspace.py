@@ -1939,10 +1939,51 @@ for n in range(1, 5000):
 print(F(4952) + 2 * F(4958) + F(4964))
 '''
 
-sym = 71118
-byte = 2*2**30 / 12288
-print(byte)
-byte = 174762  # 174762.666
-bit = 174762 * 8
-print(bit / sym)  # 19.658
-print(2**19)
+
+
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('0. files/27_A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 0:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
+
+for s in open('0. files/27_B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if x < 2:
+        clustersB[0].append([x, y])
+    elif x > 2 and x < 22:
+        clustersB[1].append([x, y])
+    else:
+        clustersB[2].append([x, y])
+
+
+def d(A, B):
+    x1, y1 = A
+    x2, y2 = B
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+
+
+def center(c):
+    R = []
+    for p in c:
+        summa = sum(d(p, p1) for p1 in c)
+        R.append([summa, p])
+    return min(R)[1]
+vgf
+
+centersA = [center(c) for c in clustersA]
+pxA = sum(x for x, y in centersA) / 2 * 10000
+pyA = sum(y for x, y in centersA) / 2 * 10000
+print(pxA, pyA)
+
+centersB = [center(c) for c in clustersB]
+pxB = sum(x for x, y in centersB) / 3 * 10000
+pyB = sum(y for x, y in centersB) / 3 * 10000
+print(pxB, pyB)
+

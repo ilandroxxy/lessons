@@ -6,18 +6,62 @@
 # #
 # region Урок: ********************************************************************
 
-# 21910
-'''
-file = open('0. files/26.txt')
-N = file.readline()
-M = [int(x) for x in file]
-M = sorted(M)[::-1]
-R = [M[0]]
-for x in M:
-    if R[-1] - x >= 9:
-        R.append(x)
-print(len(R), min(R))
-'''
+# № 21425 Досрочная волна 2025 (Уровень: Базовый)
+
+clusterA = [[], []]
+clusterB = [[], [], []]
+
+for s in open('0. files/27_A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 0:
+        clusterA[0].append([x, y])
+    else:
+        clusterA[1].append([x, y])
+
+
+for s in open('0. files/27_B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if x > 0 and  y > 0:
+        clusterB[0].append([x, y])
+    elif x > 0 and y < 0:
+        clusterB[1].append([x, y])
+    else:
+        clusterB[2].append([x, y])
+
+
+def d(A, B):
+    """
+    Расстояние между двумя точками на плоскости вычисляется по формуле ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+    """
+    x1, y1 = A
+    x2, y2 = B
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+
+
+def center(cl):
+    """
+    Будем называть центром кластера точку этого кластера,
+    сумма расстояний от которой до всех остальных точек кластера минимальна
+    """
+    R = []
+    for p in cl:
+        summa = sum([d(p, g) for g in cl])
+        R.append([summa, p])
+    return min(R)[1]
+
+centersA = [center(cl) for cl in clusterA]
+pxA = sum([x for x, y in centersA]) / 2 * 10000
+pyA = sum([y for x, y in centersA]) / 2 * 10000
+print(int(pxA), int(pyA))
+
+
+centersB = [center(cl) for cl in clusterB]
+pxB = sum([x for x, y in centersB]) / 3 * 10000
+pyB = sum([y for x, y in centersB]) / 3 * 10000
+print(int(pxB), int(pyB))
+
 
 # endregion Урок: *************************************************************
 # #

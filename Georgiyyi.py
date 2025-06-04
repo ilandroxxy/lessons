@@ -6,125 +6,203 @@
 # #
 # region Урок: ************************************************************
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# У исполнителя есть три команды, которым присвоены номера:
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+
+# № 21414 Досрочная волна 2025 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    if a == b:
-        return 1
+def F(x, y, A):
+    return (5 < y) or (x > 32) or (x + 2*y < A)
+
+
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        print(A)
+        break
+'''
+
+
+# № 19485 (Уровень: Базовый)
+'''
+def F(x, A):
+    B = 170 <= x <= 220
+    return (x % A == 0) or ((B) <= (x % 24 != 0))
+
+cnt = 0
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 18266 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
+'''
+
+
+# № 18595 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    C = 48 <= x <= 94
+    J = 83 <= x <= 100
+    A = a1 <= x <= a2
+    return (not (C or J)) <= (not A)
+
+R = []
+M = [x / 4 for x in range(40 * 4, 120 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(max(R))  # 52.0 -> 52
+'''
+
+
+# № 21411 Досрочная волна 2025 (Уровень: Базовый)
+# Дана программа для Редактора:
+#
+#    ПОКА нашлось (31) ИЛИ нашлось (211) ИЛИ нашлось (1111)
+#      ЕСЛИ нашлось (31)
+#        ТО заменить (31, 1)
+#      ЕСЛИ нашлось (211)
+#        ТО заменить (211, 13)
+#      ЕСЛИ нашлось (1111)
+#        ТО заменить (1111, 2)
+'''
+for n in range(4, 10000):
+    s = '3' + '1' * n
+
+    while '31' in s or '211' in s or '1111' in s:
+        if '31' in s:
+            s = s.replace('31', '1', 1)
+        if '211' in s:
+            s = s.replace('211', '13', 1)
+        if '1111' in s:
+            s = s.replace('1111', '2', 1)
+
+
+    summa = sum([int(x) for x in s if x.isdigit()])
+    # summa = sum(map(int, s))
+    if summa == 15:
+        print(n)
+        break
+'''
+
+'''
+from string import *
+alp = digits + ascii_uppercase
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+print(convert(8, 2))
+
+n = 10**8
+print(bin(n)[2:])  # 101111101011110000100000000
+print(oct(n)[2:])  # 575360400
+print(hex(n)[2:])  # 5f5e100
+
+print(f'{n:b}')  # 101111101011110000100000000
+print(f'{n:o}')  # 575360400
+print(f'{n:X}')  # 5F5E100
+
+print(convert(n, 2))  # 101111101011110000100000000
+print(convert(n, 8))  # 575360400
+print(convert(n, 16))  # 5F5E100
+print(convert(n, 3))  # 20222011112012201
+print(convert(n, 4))  # 11331132010000
+'''
+
+
+# № 21700 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+R = []
+for n in range(3, 10000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = s + s[-2:]
     else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-print(F(5, 7) * F(7, 11))
-
-
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-print(F(5, 7) * F(7, 11))
-
-
-def F(a, b):
-    if a >= b:
-        return a == b
-    h = [F(a+1, b), F(a+2, b), F(a+3, b)]
-    return sum(h)
-
-print(F(5, 7) * F(7, 11))
+        x = (n % 3) * 3
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r <= 150:
+        R.append(n)
+print(max(R))
 '''
 
 
-# № 21905 Открытый вариант 2025 (Уровень: Базовый)
-# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
+# № 21474 (Уровень: Средний)
 '''
-def F(s, n):
-    if s >= 67:
-        return n % 2 == 0  # True - победа Вани, False - победа Пети
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-    # но при любом ходе Пети: else all(h)
-    # после неудачного первого хода Пети: else any(h)
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-print([s for s in range(1, 67) if F(s, n=2)])
-print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
 
-# s - кол-во камней в куче
-# n - это шаг нашей игры
-
-# n = 1: Первый шаг Пети
-# n = 2: Первый шаг Вани
-# n = 3: Второй шаг Пети
-# n = 4: Второй шаг Вани
-
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
-'''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(2, 127) if F(s, n=2)])
-print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
+R = []
+for n in range(1, 1000):
+    s = convert(n, 6)
+    if sum(map(int, s)) % 5 == 0:
+        s = s.replace('0', '*').replace('3', '0').replace('*', '3')
+        s = '11' + s
+    else:
+        s = s[0] + '05' + s[3:] + '44'
+    r = int(s, 6)
+    if r > 1500:
+        if r == 1504:
+            print(n)
+        R.append(r)
+print(min(R))
 '''
 
 
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 (до меньшего) | s <= 87 | s > 88
-'''
-from math import ceil, floor
-# ceil - округление вверх
-# floor - округление вниз
+def convert(n, b):
+    s = ''
+    while n > 0:
+        s += str(n % b)
+        n //= b
+    return s[::-1]
 
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+print(convert(8, 2))
 
-print([s for s in range(89, 1000) if F(s, n=2)])
-print([s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# В начальный момент в первой куче было семь камней
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s>=81 | 1 ≤ s ≤ 73 | a = 7
-'''
-def F(a, s, n):
-    if a + s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    # return any(h) if (n - 1) % 2 == 0 else any(h) # после неудачного первого хода Пети
-
-print([s for s in range(1, 74) if F(7, s, n=2)])  # 19
-print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
-'''
+minim = 100000000
+for n in range(1, 10000):
+    s = convert(n, 3)
+    if sum([int(i) for i in s]) % 4 == 0:
+        s = '10' + s.replace('1', '*').replace('2', '1').replace('*', '2')
+    else:
+        s  = s[0]+ '02' + s[3:] + '20'
+    r = int(s, 3)
+    if r > 302:
+        if r < minim:
+            minim = r
+        if r == minim:
+            print(n)
 
 # endregion Урок: ************************************************************
 # #
@@ -135,8 +213,8 @@ print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = []
+# ФИПИ = [5, 12, 15, 19-21]
 # КЕГЭ = []
-# на следующем уроке: 12, 5, 14, 17, 9, 18, 25 и 7, 11 повторить 8 (возможно 15)
+# на следующем уроке: 14, 17, 9, 18, 25 и 7, 11 повторить 8
 
 
