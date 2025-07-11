@@ -126,6 +126,21 @@ print(cnt)
 #
 # region 13 номер
 
+# № 18445 Сергей Горбачев
+'''
+from ipaddress import *
+net = ip_network('140.116.194.0/255.255.240.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s[:8][-1] == '0':
+        if s[8:16][-1] == '0':
+            if s[16:24][-1] == '0':
+                if s[24:][-1] == '0':
+                    cnt += 1
+print(cnt)
+'''
+
 # endregion 13 номер
 #
 #
