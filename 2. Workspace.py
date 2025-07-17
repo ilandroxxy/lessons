@@ -1863,3 +1863,89 @@ def F(a, b):
 print(F(98, 1))
 '''
 
+
+'''
+from re import *
+from string import *
+
+alp = digits + ascii_uppercase
+
+def convert(num, base):
+    result = ''
+    while num > 0:
+        result += alp[num % base]
+        num //= base
+    return result[::-1]
+
+def Divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+def number(d):
+    for i in range(1, 10**12):
+        if len(Divisors(i)) == d:
+            return i
+
+
+cnt = 0
+for x in range(1, 10**12):
+    s = convert(x, 30)
+    if fullmatch(r'[0-T]*I[0-T]*T[0-T]*', s):
+        d = len(Divisors(x))
+        if d % 2 != 0:
+            print(s, number(d))
+            cnt += 1
+            if cnt == 7:
+                break
+'''
+
+# print('A B C D | L')
+# for A in 0, 1:
+#     for B in 0, 1:
+#         for C in 0, 1:
+#             for D in 0, 1:
+#                 L = ((((((not A) and B) <= (not C)) <= C) and (A and ((B or D) <= A))) or ((A and C) or (A and ((not B) and C))))
+#                 print(A, B, C, D, '|', int(L))
+
+
+# print('A B| L')
+# for A in 0, 1:
+#     for B in 0, 1:
+#         L = ((A <= A) and (B <= B))
+#         print(A, B, '|', int(L))
+
+from collections import deque
+
+mx = 0;
+ans = 0
+for s in range(100, 201):
+    d = [10 ** 9] * 201
+    c = [0] * 201
+    d[s] = 0
+    c[s] = 1
+    q = deque([s])
+    while q:
+        x = q.popleft()
+        bd = x % 10 if x % 10 % 2 == 0 else int(str(x)[0])
+        for y in (x + 1, x + bd):
+            if y > 200:
+                continue
+            if d[y] > d[x] + 1:
+                d[y] = d[x] + 1
+                c[y] = c[x]
+                q.append(y)
+            elif d[y] == d[x] + 1:
+                c[y] += c[x]
+
+    for f in range(s, 201):
+        if c[f] > mx:
+            mx = c[f];
+            ans = 1
+        elif c[f] == mx:
+            ans += 1
+
+print(ans, mx)
