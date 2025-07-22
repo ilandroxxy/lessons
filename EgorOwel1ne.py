@@ -1,193 +1,289 @@
 # region Домашка: ******************************************************************
-from runpy import run_path
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# Способы подключения библиотек
-"""
-# Сочетание клавиш ctrl + B - открывает документацию по функции
-# Или функция help()
-print(help(len))
-# len(obj, /)
-#     Return the number of items in a container.
-
-
-# Взятие квадратного корня
-print(16 ** (1/2))  # 4.0
-
-import math  # самый стандартный способ подключения библиотеки
-print(math.sqrt(16))  # 4.0
-
-import math as m  # подключаем библиотеку с коротким именем
-print(m.sqrt(16))  # 4.0
-
-from math import sqrt, factorial  # подключаем определенные функции из библиотеки
-print(sqrt(16))  # 4.0
-
-from math import *  # подключаем сразу все функции из библиотеки
-print(sqrt(4.0))
-
-# Пример почему не стоит подключать библиотеку через *
+# Цикл for используется для: "Пробеги от А до В", "Повтори n раз"
 '''
-count = 0
-for i in range(10):
-      count += 1
-print(count)
+# range(START=0, STOP, STEP=1)
 
-count = 0
-from itertools import *
-for p in permutations('123'):
-      count += 1
-print(count)
+for i in range(10):  # range(START=0, STOP=10, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10):  # range(START=2, STOP=10, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10, 2):  # range(START=2, STOP=10, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0, -1):  #  # range(START=10, STOP=1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+# i  01234
+s = 'abcde'
+
+print(len(s), len(M))  # 5 5
+
+
+for i in range(len(M)):  # Пробегаем элементы списка через индексы
+    print(i, M[i])
+
+for i in range(len(M)):  # Можем эти элементы через индексы менять
+    M[i] = M[i] * i
+
+print(M)  # ['', 'b', 'cc', 'ddd', eeee'']
+
+M = ['a', 'b', 'c', 'd', 'e']
+
+# В таком случае менять элементы нельзя, только если пересоздавать список
+for x in M:
+    print(x)
+
+# Зато это удобный способ достать элементы и отфильтровать нужные
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')   # a e
 '''
-"""
+from xxsubtype import bench
 
-# Перечислим библиотеки, которые мы будем использовать на ЕГЭ
+# Цикл while используется для: "Повторяй пока условие верно", "бесконечный цикл"
 '''
-# 1.
-from itertools import product, permutations
-# Используется в первую очередь для решения 8 и 1 номера через код, так же может помогать решать 2, 9, 17, 24 номера
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-for p in permutations('123', 2):
-      print(p)
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2
+print()
+'''
 
-for p in product('123', repeat=2):
-      print(p)
-
-# 2.
-from ipaddress import *
-# Этот номер нужен для решения 13 номера и только его.
-
-# 3.
-from fnmatch import *
-# Библиотека для решения 25 номера с масками и только его
-
-# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
-# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-# - символ «?» означает ровно одну произвольную цифру;
-# - символ «*» означает любую последовательность произвольной длины;
-# в том числе «*» может задавать и пустую последовательность.
-
-# Среди натуральных чисел, не превышающих 10**10,
-# найдите все числа, соответствующие маске 4*4736*1,
-# которые делятся на 7993 без остатка.
-
-from fnmatch import *
-for x in range(7993, 10**10, 7993):
-      if fnmatch(str(x), '4*4736*1'):
-            print(x, x // 7993)
-
-from re import *
-for x in range(7993, 10**10, 7993):
-      if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
-            print(x, x // 7993)
-
-# 4.
-from re import *
-# Библиотека для решения 24 номера и 25 номера с масками
+# Переводы в различную систему счисления
+'''
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r += str(n % b)
+    n //= b
+r = r[::-1]
+print(r)
 
 
-# 5.
-from math import ceil, floor, dist
-# ceil - округление вверх
-# floor - округление вниз
-# dist - поиск расстояния между двумя точками (для 27 номера)
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+print(r)
 
 
-# 6.
-import turtle as t
-# Для решения 6 номера с черепашкой
-
-# 7.
 from string import *
 alp = digits + ascii_uppercase
 print(alp)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-# Удобная штука для переводов в различные системы счисления 14, 5 номера
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alp)  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', '...
+n = 10**8
+b = 16
+r = ''
+while n > 0:
+    r = alp[n % b] + r
+    n //= b
+print(r)
 
-# 8.
-from functools import *
-from sys import setrecursionlimit
+from string import *
+alp = digits + ascii_uppercase
 
-# RecursionError: maximum recursion depth exceeded
-setrecursionlimit(10**6)
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
 
-@lru_cache(None)
-def F(n):
-      if n <= 3:
-            return n - 1
-      if n > 3 and n % 2 == 0:
-            return F(n - 2) + n/2 - F(n - 4)
-      if n > 3 and n % 2 != 0:
-            return F(n - 1) * n + F(n - 2)
-
-for n in range(5000):
-      F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+print(convert(8, 2))  # 1000
 '''
 
 
-# Условные операторы: if, elif, else
-
-# x = int(input('x: '))
-# y = int(input('y: '))
+# Бесконечный цикл и операторы: break, continue, exit()
 '''
-x, y = -5, 4
-
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит на какой-то Оси')
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # Прерывает шаг (итерацию) цикла
+    if k == 50_000:
+        exit()  # Прерывает выполнение всей программы
+    if k == 100_000:
+        break  # Прерывает цикл в котором он лежит сейчас
+    print(k)
+print('Программа продолжается ')
 '''
 
-# Логические связки и функции all, any
+# Минипример программы для проверки паролей
 '''
-a, b, c = -5, 6, 7
-if a > 0 and b > 0 and c > 0:
-    print('and - все условия выполняются')
-if a > 0 or b > 0 or c > 0:
-    print('or - хотя бы одно условие выполняется')
-
-print(True + True + True)  # 3
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Выполняется только два условия')
-elif (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Выполняется только одно условие')
-
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
-
-M = [1, 1, 1]
-if all(x % 2 == 0 for x in M):
-    print('Все четные')
-elif any(x % 2 == 0 for x in M):
-    print('Хотя бы кто-то четный')
-else:
-    print('Никто не четный')
-'''
-
-
-# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
-
-def F(x, y, A):
-    return (x < A) and (y < 3*A) or (2*x + y > 128)
-
-for A in range(1, 10000):
-    if all(F(x, y, A) == True for x in range(1, 100) for y in range(1, 100)):
-        print(A)
+password = 'qwerty'
+pas = input('Введите пароль: ')
+while True:
+    if pas == password:
+        print('Пароль верный.')
         break
+    pas = input('Пароль неверный, повторите попытку: ')
+
+print('Добро пожаловать в программу!')
+'''
+
+# Небольшая программа по переводу в различные системы счисления
+'''
+from string import *
+alp = digits + ascii_uppercase
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+while True:
+    case = input('\ncase 1: Перевод из 10-ой в n-ю систему. \n'
+                 'case 2: Перевод из n-ой в 10-ю систему. \n'
+                 'case 3: Перевод из n-ой в k-ю систему. \n'
+                 'case 0: Выход из программы\n'
+                 'case: ')
+
+    if case == '1':
+        n = int(input('Введите число n: '))
+        b = int(input('Введите систему счисления b: '))
+        print(f'Результат перевода числа {n} в систему счисления {b}: {convert(n, b)}')
+
+    elif case == '2':
+        b = int(input('Введите систему счисления b: '))
+        r = input(f'Введите число r в {b}-ой системе счисления: ')
+        print(f'Результат перевода числа {r} из {b}-й системы счисления: {int(r, b)}')
+
+    elif case == '3':
+        pass
+
+    elif case == '0':
+        print('Спасибо, что пользовались нашей программой!')
+        exit()
+
+    else:
+        print('Не понимаю о чем вы.')
+'''
+
+
+# Строковый тип данных
+'''
+# i  01234
+s = 'abcde'
+
+print(f'Первый элемент строки: {s[0]}')  # a
+print(f'Последний элемент строки: {s[-1]}')  # e
+
+# Конкатенация (склеивание) строк
+h2 = 'world!'
+print('Hello, ' + h2)  # Hello, world!
+
+print('Hello ' * 4)  # дублирование строк при умножении на целое число
+
+
+for i in range(len(s)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(s[i], end=' ')  # a b c d e 
+print()
+
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in s:
+    print(x*2, end=' ')  # aa bb cc dd ee
+print()
+'''
+
+# Строки нельзя менять, только если через срезы:
+
+# i  012345678
+s = '122333221'
+# s = s[:3] + '***' + s[6:]
+# print(s)  # 122***221
+s = s[:3] + '' + s[6:]
+print(s)  # 122221
+
+
+# Срезы на примерах строк срез[START : STOP-1 : STEP]
+
+# i  012345678
+s = '122333221'
+
+print(s[:3])  # 122 - Как первые три элемента под индексами 0, 1, 2
+print(s[3:])  # 333221 - Все элементы начиная с 3 индекса (включительно)
+
+print(s[-3:])  # 221 - Последние три элемента под индексами: -3, -2, -1
+print(s[3:6])  # 333 - Начиная с 3 индекса и до 6 (не включительно)
+
+print(s[1:-1])  # Все элементы кроме первого и последнего
+print(s[::])  # Все элементы
+print(s[::-1])  # Все элементы в обратном порядке
+
+
+# Сумма цифр в строке:
+'''
+n = int(input())
+s = str(n)  # '12345'
+
+summa1 = 0
+for x in s:
+    summa1 += int(x)
+print(summa1)
+
+# summa2 = s.count('1') + s.count('2') * 2 + s.count('3') * 3 + ...
+summa2 = 0
+for i in range(1, 9+1):
+    summa2 += s.count(str(i)) * i
+print(summa2)
+
+summa3 = sum([int(x) for x in s])
+# summa3 = sum([int(x) for x in s if x.isdigit()])
+print(summa3)
+
+summa4 = sum(map(int, s))
+print(summa4)
+'''
+
+
+# Произведение элементов строки:
+'''
+from math import prod
+total1 = prod([int(x) for x in s])
+print(total1)
+
+total2 = 1
+for x in s:
+    total2 *= int(x)
+print(total2)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -200,6 +296,6 @@ for A in range(1, 10000):
 # #
 # ФИПИ = []
 # КЕГЭ = []
-# на следующем уроке: Циклы
+# на следующем уроке: # Функции строк + Методы строк, Cписки строк
 
 
