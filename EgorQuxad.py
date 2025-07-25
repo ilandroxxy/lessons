@@ -1,15 +1,28 @@
 # region Домашка: ******************************************************************
 
-# k = int(input())
-# kk = int(str(k)*2)
-# kkk = int(str(k)*3)
-# summ = k+kk+kkk
-# print(f'Сумма чисел: {summ}')
 '''
-k = input()  # '3'
-# summ = k+kk+kkk
-summ = int(k) + int(k * 2) + int(k * 3)
-print(f'Сумма чисел: {summ}')
+a = int(input())
+b = int(input())
+c = int(input())
+if a == b == c:
+    print("Равносторонний")
+elif a != b != c != a:
+    print('Разносторонний')
+else:
+    print("Равнобедренный")
+'''
+
+
+'''
+H = int(input())
+M = int(input())
+if 0 <= H <= 4:
+    print('Ночь')
+elif H == 5:
+    if 0 <= M <= 29:
+        print('Ночь')
+    else:
+        print('Утро')
 '''
 
 
@@ -18,230 +31,158 @@ print(f'Сумма чисел: {summ}')
 # #
 # region Урок: ********************************************************************
 
-
-# Способов подлючения библиотек
+# Цикл for отвечает на запросы: "повтори 10 раз", "пробеги от А до В"
 '''
-# ctrl + B - посмотреть содержимое библиотеки
-print(help(len))  #   Return the number of items in a container.
-
-# Функция help() - возвращает документацию пайтон 
-
-n = 16
-
-import math  # самое стандартное подключение библиотеки
-print(math.sqrt(16))
-
-import math as m  # подключение библиотеки с коротким именем
-print(m.sqrt(16))
-
-from math import sqrt, fabs, factorial  # подключаем конкретные элементы из библиотеки
-print(sqrt(16))
-
-from math import *  # подключение сразу всего содержимого библиотеки
-print(sqrt(16))
-print(factorial(5))
+# Работа for с функцией range(START, STOP, STEP)
+# range(STOP-1)
+# range(START, STOP-1)
+# range(START, STOP-1, STEP)
 
 
-# Пример почему не стоит подключаться через *
-"""
+for i in range(10):  # range(STAR=0, STOP=10-1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10):  # range(STAR=2, STOP=10-1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10, 2):  # range(STAR=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
+
+for i in range(2, 10+1, 2):  # range(STAR=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0, -1):  # # range(STAR=10, STOP=1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# Работа цикла for с списками
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  #
+
+
+# Такой способ используется для перебора и фильтрации элементов списка
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+
+for x in M:
+    if x > 'a' and x < 'e':
+        print(x, end=' ')  # b c d 
+print()
+
+
+# Такой способ используется, если мы хотим изменить элементы списка
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
+
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
+
+# Цикл while отвечает на запросы: "повторяй пока условие верно", "бесконечный цикл"
+
+for i in range(2, 10+1, 2):  # range(STAR=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2  # 2 4 6 8 10
+print()
+
+'''
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+print(r)
+
+
+alp = sorted('0123456789qwertyuiopasdfghjklzxcvbnm')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+print(convert(8, 2))
+print(convert(8, 3))
+'''
+
+
+# Бесконечный цикл и операторы break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 == 0:
+        continue  # прерывает итерацию (шаг) цикла 
+    if k == 50_000:
+        exit()  # прерывание вообще всей программы
+    if k == 100_000:
+        break  # прерывает выполнение цикла в котором лежит
+    print(k)
+print('Продолжение программы')
+'''
+
+
+# Программу для проверки паролей:
+
+from random import randint, choice
+from time import sleep
+
+password_error_messages = [
+    "Неверный пароль, попробуйте снова:",
+    "Неправильный пароль, введите еще раз:",
+    "Пароль не подходит, попробуйте еще:",
+    "Ошибка в пароле, повторите попытку:",
+    "Введен неверный пароль, попробуйте еще раз:",
+    "Пароль не совпадает, введите снова:",
+    "Неверный пароль, пожалуйста, попробуйте еще:",
+    "Пароль ошибочный, повторите ввод:",
+    "Неправильный пароль, введите заново:",
+    "Пароль не принят, попробуйте снова:"
+]
+
+password = 'qwerty'
 count = 0
-from itertools import *
-
-for p in permutations('1234'):
-    print(p)
+pas = input('Введите пароль: ')
+while True:
+    if pas == password:
+        print('Пароль верный')
+        break
     count += 1
-print(count)
-"""
-'''
+    if count == 3:
+        print('Пройди проверку на робота: ')
+        a = randint(1, 100)
+        b = randint(1, 100)
+        x = int(input(f'Решите пример: {a} + {b} = '))
+        if x == a + b:
+            count = 0
+            print("Проверка пройдена успешно!")
+        else:
+            print('Проверка не пройдена, попробуйте через 5 минут')
+            sleep(5 * 60)
+    pas = input(choice(password_error_messages))
 
-
-# Список библиотек, который мы будем использовать на ЕГЭ
-
-# 1.
-'''
-from math import ceil, floor, dist
-
-# Будем использовать их в 19-21 номерах и 27 номере
-
-print(4/3)  # 1.3333333333
-
-# ceil - округление вверх
-print(ceil(4/3))  # 2
-
-# floor - округление вниз
-print(floor(4/3))  # 1
-
-# Функция дист ищет расстояние между двумя точками
-print(dist([3, 4], [5, 6]))  # 2.828427
-'''
-
-# 2.
-'''
-import turtle as t
-t.forward(100)
-t.done()
-
-# Конкретно для решения только 6 номера с черепашкой 
-'''
-
-
-# 3.
-'''
-from itertools import product, permutations
-
-for p in permutations('abc'):
-    print(p)
-    # ('a', 'b', 'c')
-    # ('a', 'c', 'b')
-    # ('b', 'a', 'c')
-    # ('b', 'c', 'a')
-    # ('c', 'a', 'b')
-    # ('c', 'b', 'a')
-
-# Функции перемешивания (комбинаторики) помогают решать 8, 1 номера кодом и иногда встречаются в 12, 9, 17, 24 номерах
-'''
-
-# 4.
-'''
-from ipaddress import *
-
-# Библиотека только для решения 13 номера с айпи адресами 
-'''
-
-# 5.
-'''
-from string import digits, ascii_uppercase
-print(digits)
-print(ascii_uppercase)
-alp = digits + ascii_uppercase
-print(alp)
-'''
-
-# 6.
-'''
-# № 19723 (Уровень: Базовый)
-
-from fnmatch import *
-for x in range(451, 10**9, 451):
-    if fnmatch(str(x), '10?451*3'):
-        print(x, x // 451)
-'''
-# Для решения 25 номера с масками
-
-
-# 7.
-
-# # № 19723 (Уровень: Базовый)
-'''
-from re import *
-for x in range(451, 10**9, 451):
-    if fullmatch('10[0-9]451[0-9]*3', str(x)):
-        print(x, x // 451)
-'''
-
-# Для решения 24 на регулярные выражения и 25 номера с масками
-
-# № 20288 (Уровень: Средний)
-'''
-from re import *
-for x in range(9231, 10**10, 9231):
-    if fullmatch('[02468]*12[13579]4[13579]', str(x)):
-        print(x, x // 9231)
-'''
-
-
-# 8.
-'''
-# Для оптимизации 16 номера
-
-# № 21711 ЕГКР 19.04.25 (Уровень: Базовый)
-
-from functools import *
-import sys
-sys.setrecursionlimit(10**6)
-
-@lru_cache(None)
-def F(n):
-    if n < 20:
-        return n
-    if n >= 20:
-        return (n - 6) * F(n - 7)
-
-print((F(47872) - 290 * F(47865)) / F(47858))
-'''
-
-
-# Условные операторы: if, elif, else
-'''
-x = int(input('x: '))  # 5
-y = int(input('y: '))  # -6
-
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит на осях')
-'''
-
-# Логические связки
-'''
-a, b, c = 7, -2, -5
-
-if a > 0 and b > 0 and c > 0:
-    print('and - все условия должны выполняться')
-if a > 0 or b > 0 or c > 0:
-    print('or - хотя бы одно условие выполняется')
-
-
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Только одно из них выполняется')
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два из них выполняется')
-if (a > 0) + (b > 0) + (c > 0) == 3:
-    print('Все выполняются')
-if (a > 0) + (b > 0) + (c > 0) >= 1:
-    print('Хотя бы один выполняется')
-
-
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
-'''
-
-
-# Пример, где if, elif, else встречаются в 27 номере 
-'''
-from math import dist
-
-clustersB = [[], [], []]
-
-for s in open('0. files/27_B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 5:
-        clustersB[0].append([x, y])
-    elif y < -5:
-        clustersB[1].append([x, y])
-    else:
-        clustersB[2].append([x, y])
-
-
-# for x, y in clustersB[2]:
-#     print(x, y)
-
-def d(A, B):
-    x1, y1 = A
-    x2, y2 = B
-    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-
-print(d([4, 5], [5, 6]))  # 1.4142
-print(dist([4, 5], [5, 6]))  # 1.4142
-'''
+print('Добро пожаловать в программу ')
 
 # endregion Урок: *************************************************************
 # #
@@ -254,4 +195,4 @@ print(dist([4, 5], [5, 6]))  # 1.4142
 # #
 # ФИПИ = []
 # КЕГЭ = []
-# на следующем уроке: Циклы
+# на следующем уроке:
