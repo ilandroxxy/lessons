@@ -1903,3 +1903,11 @@ for x in range(1, 10**12):
                 break
 '''
 
+
+def F(x, y, A):
+    return (x < A) and (y < 3*A) or (2*x + y > 128)
+
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        print(A)
+        break

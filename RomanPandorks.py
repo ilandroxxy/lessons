@@ -1,212 +1,258 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1309432/step/6?unit=1324548
+'''
+a = int(input())
+b = int(input())
+c = int(input())
+summa = 0
+if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
+    summa += a
+if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
+    summa += b
+if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
+    summa += c
+print(summa)
+'''
+
+
+# https://stepik.org/lesson/1309432/step/8?unit=1324548
+'''
+a = int(input())
+b = int(input())
+c = int(input())
+if a == b == c:
+    print("Равносторонний")
+elif a == b or a == c or b == c:
+    print("Равнобедренный")
+else:
+    print("Разносторонний")
+'''
+
+
+# https://stepik.org/lesson/1309432/step/10?unit=1324548
+'''
+a = int(input())
+if (a % 4 == 0 and a % 100 != 0) or a % 400 == 0:
+    print("Високосный")
+else:
+    print("Обычный")
+'''
+
+# https://stepik.org/lesson/1309432/step/11?unit=1324548
+'''
+H = int(input())
+M = int(input())
+if 0 <= H <= 4:
+    print('Ночь')
+elif H == 5:
+    if 0 <= M <= 29:
+        print('Ночь')
+    elif 30 <= M <= 59:
+        print('Утро')
+elif 6 <= H <= 11:
+    print('Утро')
+'''
+
+
+# https://stepik.org/lesson/1309431/step/13?unit=1324547
+'''
+k = int(input())
+k = str(k)
+print(f'Сумма чисел: {int(k) + int(k*2) + int(k*3)}')
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Типы данных переменных
+
+# В Пайтон есть два типа циклом: for и while
+
+# Цикл for отвечает на запросы: "повтори n раз", "пробеги от А до В"
+
+# Работа цикла for с функцией range(START, STOP-1, STEP)
 '''
-a = 5  # int (integer) - целочисленные значения
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-b = 5.0  # float - число с плавающей точкой
-print(type(0.5))  # <class 'float'>
-print(4/2, type(4/2))  # 2.0 <class 'float'>
-
-c = 0,5  # c = (0, 5)
-print(type(c))  # <class 'tuple'>
-
-d = '5'  # str (string) - строковый тип данных для хранения текста
-print(a, d)  # 5 5
-print(a * 4, d * 4)  # 20 5555
-print('Hello ' * 4)  # Hello Hello Hello Hello
-
-# Конкатенация строк (склеивание)
-d1 = 'Hello'
-d2 = ', '
-d3 = 'world!'
-print(d1 + d2 + d3)  # Hello, world!
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
 
-f0 = False  # bool (Boolean) - это основы Булевой алгебры (Математическая логика)
-f1 = True
-print(4 == 4)  # True
-print(4 > 10)  # False
-'''
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
 
-# Типы данных коллекций (последовательностей)
-'''
-A = [1, 2, 3]  # list (список)
-# 1. Могут хранить в себе неограниченное кол-во переменных, причем различных типов данных
-# 2. Каждый элемент списка имеет свой порядковый номер: индекс
-# 3. Индексы же могут считаться слева-направо начиная с 0, или справа-налево начиная с -1
-# 4. В списках можно изменять элементы через их индексы, в отличие от строк и кортежей
+for i in range(1, 10, 2):  # range(START=1, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 1 3 5 7 9
+print()
+
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(10, 0, -1):  # range(START=10, STOP=1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+
+# Работа цикла for с списками и другими итерируемыми объектами:
 
 # i   0    1    2    3    4
 M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
 
-print(M[0])  # первый элемент списка M
-print(M[-1])  # последний элемент списка M
+print(len(M))  # 5 - Длину (кол-во элементов) списка
 
-B = (1, 2, 3)  # tuple (кортеж)
-# 1. Все тоже самое, что и списки, только нельзя изменять элементы
+# Что такой способ позволяет просто пробегать элементы и фильтровать их
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
 
-C = {1, 2, 2, 3, 3, 3}  # set (множество)
-# 2. Удаляет копии элементов
-print(C)  # {1, 2, 3}
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
 
-С = set()  # способ создания пустого множества
-print(type(С))  # <class 'set'>
+# Такой способ позволяет изменять элементы списка
 
-C.add(1)  # добавить новый элемент в множество
-C.add(2)
-C.add(2)
-C.add(3)
-print(C)  # {1, 2, 3}
-
-# Проверить строчку или список на "различные элементы"
-
-s = '213213214231'
-if len(s) == len(set(s)):
-    print('Все элементы различные')
-else:
-    print('Есть повторения')
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
 
 
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
 
-D = {'один':'one', 'два':'two'}  # dict (словарь)
-# 1. Каждый элемент словаря сопровождается индивидуальным ключом
-# 2. То есть доступ к значению элемента осуществляется через ключ
+# Цикл while отвечает на запросы: "выполняем действие, пока условие верно", "бесконечный цикл"
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-print(D['один'])  # one
-D['один'] = '1'
-print(D)  # {'один': '1', 'два': 'two'}
 
-for key, value in D.items():
-    print(key, value)
-    # один 1
-    # два two
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10 
+    i += 2 
+print()
+'''
+
+'''
+n = int(input('n: '))  # 8
+b = int(input('b: '))  # 2
+r = ''
+while n > 0:
+    r += str(n % b)
+    n //= b
+r = r[::-1]
+print(r)
+
+
+n = int(input('n: '))  # 8
+b = int(input('b: '))  # 2
+r = ''
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+print(r)
+
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+n = int(input('n: '))  # 8
+b = int(input('b: '))  # 2
+r = ''
+while n > 0:
+    r = alp[n % b]+ r
+    n //= b
+print(r)
+'''
+
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+print(convert(8, 2))  # 1000
+print(convert(8, 4))  # 20
 '''
 
 
-# Конвертация типов данных:
+# Бесконечные циклы и операторы: break, continue, exit()
 '''
-a = 5
-print(a, type(a))  # 5 <class 'int'>
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # Прерывает итерацию (шаг) цикла
+    if k == 100_000:
+        exit()  # Прерывает выполнение вообще всей программы
+    if k == 50_000:
+        break  # Выход из цикла в котором сейчас находимся
+    print(k)
 
-a = str(a)
-print(a, type(a))  # 5.0 <class 'str'>
-
-a = float(a)
-print(a, type(a))  # 5.0 <class 'float'>
-
-a = int(a)
-print(a, type(a))  # 5 <class 'int'>
-
-
-A = [1, 2, 2, 3, 3, 3]
-print(A, type(A))  # [1, 2, 2, 3, 3, 3] <class 'list'>
-
-A = tuple(A)
-print(A, type(A))  # (1, 2, 2, 3, 3, 3) <class 'tuple'>
-
-A = set(A)
-print(A, type(A))  # {1, 2, 3} <class 'set'>
-
-A = list(A)
-print(A, type(A))  # [1, 2, 3] <class 'list'>
+print('Продолжение программы')
 '''
 
 
-# Ввод данных с клавиатуры
-'''
-s = input('Введите текст: ')
-print(s)
+# Напишем простую программу перевода в различные системы счисления
 
-n = int(input('Введите целое число: '))
-print(n)
-'''
+from string import digits, ascii_uppercase
+alp = digits + ascii_uppercase
+# print(alp)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-
-# Работа с f-строками
-'''
-weather = 'облачно'
-temperature = int(input('Введите температуру: '))
-print('Сегодня', weather, ', а температура: ', temperature, ' градуса!')
-print('Сегодня ' + weather + ', а температура: ' + str(temperature) + ' градуса!')
-print('Сегодня {}, а температура: {} градуса!'.format(weather, temperature))
-print(f'Сегодня {weather}, а температура: {temperature} градуса!')
-'''
-
-# Переводы в различные системы счисления
-'''
-n = 8
-print(bin(n))  # 0b1000
-print(bin(n)[2:])  # 1000
-print(f'{n:b}')  # 1000
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
 
 
-# Базовая арифметика
-"""
-a, b = 7, 2
-
-print(f'{a} + {b} = {a + b} \n'
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b}')
-
-print()  # в каждой функции print() есть один переход на новую строку /n
-
-# Деления в python
-print(f'{a} / {b} = {a / b} \n'  # 3.5 - вещественное деление, то есть результат всегда float (дробь)
-      f'{a} // {b} = {a // b} \n'  # 3 - целочисленное деление, то есть взятие только целой части 
-      f'{a} % {b} = {a % b}')  # 1 - взятие остатка от деления
-'''
-n = int(input('n: '))
-if n % 2 == 0:
-    print('Четное / Делится на два / Кратно двум')
-elif n % 3 == 0:
-    print('Кратное трем / Делится на три')
-elif n % 10 == 7:
-    print('Число n оканчивается на 7')
-elif n % 100 == 12:
-    print('Число n оканчивается на 12')
-'''
-
-from math import ceil, floor, sqrt
-
-print(4/3)  # 1.33333333333
-
-# floor - это округление вниз
-print(floor(4/3))  # 1
-
-# ceil - это округление вверх
-print(ceil(4/3))  # 2
-
-print(f'Возведем число {a} в степень числа {b}: {a} ** {b} = {a**b}')  # 49
-print(f'Возьмем квадратный корень от числа 16: {sqrt(16)}')  # 4.0
-print(f'Возьмем квадратный корень от числа 16: 16 ** 0.5 = {16 ** (1/2)}')  # 4.0
-print(f'Возьмем кубический корень от числа 27: 27 ** (1/3)) = {27 ** (1/3)}')  # 3.0
-"""
+while True:
+    case = input('\n'
+                 'case 1: Перевод из 10-й в n-ую систему счисления: \n'
+                 'case 2: Перевод из n-й в 10-ую систему счисления: \n'
+                 'case 3: Перевод из n-й в k-ую систему счисления: \n'
+                 'case 0: Выход из программы \n'
+                 'case: ')
 
 
-# Условные операторы: if, elif, else
+    if case == '1':
+        n = int(input('Введите десятичное число, которые хотите перевести: '))
+        b = int(input('Введите систему счисления в которую будем переводить: '))
+        c = convert(n, b)
+        print(f'Результат перевода числа {n} в {b}-ю систему: {c}')
 
-x = int(input('x: '))
-y = int(input('y: '))
 
-if x > 0 and y > 0:
-      print('Первая четверть')
-elif x < 0 and y > 0:
-      print('Вторая четверть')
-elif x < 0 and y < 0:
-      print('Третья четверть')
-elif x > 0 and y < 0:
-      print('Четвертая четверть')
-else:
-      print('Попали на ось')
+    elif case == '2':
+        b = int(input('Введите систему счисления из которой будем переводить: '))
+        c = input(f'Введите число в {b}-й системе счисления: ')
+        n = int(c, b)
+        print(f'Результат перевода числа {c} из {b}-й системы: {n}')
+
+
+    elif case == '3':
+        pass
+
+
+    elif case == '0':
+        print('Спасибо, что пользовались нашим калькулятором!')
+        break
+
+
+    else:
+        print('Я не понимаю никаких команд, кроме: 1/2/3/0')
 
 # endregion Урок: *************************************************************
 # #

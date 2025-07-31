@@ -1,131 +1,201 @@
 # region Домашка: ******************************************************************
 
 
+# https://stepik.org/lesson/1309432/step/6?unit=1324548
+'''
+a = int(input())
+b = int(input())
+c = int(input())
+summa = 0
+if a % 7 == 0 and a % 49 != 0 or a % 40 == 0:
+    summa += a
+if b % 7 == 0 and b % 49 != 0 or b % 40 == 0:
+    summa += b
+if c % 7 == 0 and c % 49 != 0 or c % 40 == 0:
+    summa += c
+print(summa)
+'''
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Циклы в Пайтон: while и for
 
-# ctrl + B - открыть содержимое библиотеки или документацию к фуункции
-# print(help(len))  # - вывести документацию к функции
+# Цикл for отвечает на запросы: "повтори n раз", "пробеги от числа А до числа В"
 
-# len(obj, /)
-#     Return the number of items in a container.
-
-# Какие есть способы подключения библиотек в Пайтон
+# Работа цикла for с функцией range(START, STOP-1, STEP):
 '''
-import math  # самый обычный способ подключения библиотеки
-print(math.sqrt(16))
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-import math as m  # подключение с новым именем (поменяли имя на m)
-print(m.sqrt(16))
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-from math import sqrt, factorial  # подключаем сразу несколько конкретных функций
-print(sqrt(16))
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
 
-from math import *  # подключаем сразу все функции
-print(sqrt(16))
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-count = 0
-from itertools import permutations
-for p in permutations('1234'):
-    count += 1
-    print(count, p)
-
-
-count = 0
-from itertools import *
-for p in permutations('1234'):
-    count += 1
-    print(count, p)
+for i in range(10, -1, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1 0
+print()
 '''
 
+# Работа цикла for с итерируемыми объектами:
 
-# Список библиотек, которые пригодятся на ЕГЭ
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+print(len(M))  # кол-во элементов в списке (длину списка)
+
+
+# Это удобный способ пробегать элементы списка и фильтровать их
 '''
-from itertools import product, permutations
-# 1. Камбиноторика для 8 номера, а так же для решения 1 номера
-# и может пригодиться в номерах: 9, 12, 17, 24
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
 
+for x in M:
+    if x in 'ae':
+        print(x, end=' ')  # a e
+print()
+'''
 
-import turtle as t
-# 2. Для решения 6 номера
+# Такой способ позволяет пробежать элементы, фильтровать элементы И ИЗМЕНЯТЬ ЭЛЕМЕНТЫ через индексы
+'''
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
 
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
 
-from ipaddress import *
-# 3. Для решения 13 номера с айпи адресами
+# Цикл while отвечает на запросы: "повторяй пока условие верно", "бесконечный цикл"
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-
-from fnmatch import *
-# 4. Для решения 25 номера с масками
-
-
-from re import fullmatch
-# 5. Для решения 25 номера и для решения 24
-
-
-from functools import *
-from sys import setrecursionlimit
-setrecursionlimit(100000)
-# 6. Для оптимизации 16 номера 
-
-@lru_cache(None)
-def F(n):
-    return G(n - 1) + G(n - 3)
-
-def G(n):
-    if n <= 9:
-        return 3 * n
-    if n > 9:
-        return G(n - 4) + 2
-
-print(F(42999))
-
-
-from math import ceil, floor, dist
-# 7. Библиотека математики и функции из математики 
-# ceil - округление вверх
-# floor - округление вниз
-# dist - поиск расстояния между двумя точками 
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2
 '''
 
 
-# Условные операторы if, elif, else
+# Перевод в различные системы счисления
 '''
-x = int(input('x: '))
-y = int(input('y: '))
+# alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from string import digits, ascii_uppercase
+alp = digits + ascii_uppercase
 
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит на осях')
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r = alp[n % b] + r
+    n //= b
+print(r)
 '''
 
 
-# Логические связки and, or, not
+# Идеальная функция перевода в различные системы счисления
+'''
+# alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from string import digits, ascii_uppercase
+alp = digits + ascii_uppercase
 
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
 
-a, b, c = -4, -5, -6
-if a > 0 and b > 0 and c > 0:
-    print('and - все условия верные ')
-if a > 0 or b > 0 or c > 0:
-    print('or - хотя бы одно из условий выполняется')
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Только два условия выполняются')
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Только одно условие выполняется')
-if (a > 0) + (b > 0) + (c > 0) >= 1:
-    print('Хотя бы одно условие выполняется')
+print(convert(8, 2))
+'''
+
+
+# Бесконечные циклы и операторы: break, continue, exit()
+'''
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # Прерывает итерацию (шаг) цикла
+    if k == 50_000:
+        exit()  # Функция прерывает выполнение всей программы
+    if k == 100_000:
+        break  # Прерывает выполнение цикла в котором лежит
+    print(k)
+print('Продолжение программы')
+'''
+
+
+# Программы перевода в различные системы счисления
+'''
+from string import digits, ascii_uppercase
+alp = digits + ascii_uppercase
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+while True:
+    case = input('\n'
+                 'case 1: Перевод из 10-й в b-ю систему счисления\n'
+                 'case 2: Перевод из b-й в 10-ю систему счисления\n'
+                 'case 3: Перевод из b-й в k-ю систему счисления\n'
+                 'case 0: Выход из программы. \n'
+                 'case: ')
+
+    if case == '1':
+        n = int(input('Введите число для перевода: '))
+        b = int(input('Введите систему счисления: '))
+        print(f'Результат перевода числа {n} в {b}-ю систему: {convert(n, b)}')
+
+    elif case == '2':
+        b = int(input('Введите систему счисления: '))
+        r = input(f'Введите число в {b}-ой системе счисления: ')
+
+        print(f'Результат перевода числа {r} их {b}-й системы: {int(r, b)}')
+
+    elif case == '3':
+        pass
+
+    elif case == '0':
+        print('Спасибо, что пользовались нашим калькулятором!')
+        exit()
+
+    else:
+        print('Я понимаю только команды 1/2/3/0')
+'''
+
+# Проверка пароля
+'''
+pas = 'qwerty'
+password = input('Введите пароль: ')
+while True:
+    if pas == password:
+        print('Пароль верный.')
+        break
+    password = input('Пароль неверный, попробуйте снова: ')
+print('Добро пожаловать!')
+'''
 
 
 # endregion Урок: *************************************************************
