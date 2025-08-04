@@ -22,7 +22,7 @@ main.py
 /lessons/**/*.txt
 0. files
 0. Accounting.py
-
+2. Workspace.py
 
 # Distribution / packaging
 .Python
