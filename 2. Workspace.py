@@ -1306,34 +1306,6 @@ print(cnt)
 # Правые два байта: mask[16:]
 
 
-# todo сделать разбор Задание 12 https://education.yandex.ru/ege/task/ebd5c150-9b1a-44f5-99f9-b0c6adfa95d9
-# Определите, сколько различных строк может получиться в результате её работы.
-'''
-my_set = set()
-for n in range(4, 1000):
-    s = '4' + '9' * n
-
-    while '44' in s or '9299' in s or '49' in s:
-        s = s.replace('49', '944', 1)
-        s = s.replace('44', '2', 1)
-        s = s.replace('9299', '4', 1)
-    my_set.add(s)
-print(len(my_set))
-'''
-
-# todo сделать разбор https://education.yandex.ru/ege/task/e327b270-8faa-450f-a350-e313a28bbee9
-'''
-from itertools import *
-cnt = 0
-for p in product('0123', repeat=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        if any(num.count(x) >= 2 for x in num):
-            cnt += 1
-print(cnt)
-'''
-# Ответ: 174
-
 
 # Сделать разбор задачи с канала
 '''
@@ -1378,15 +1350,6 @@ for n in range(1000, 10000):
         continue
 '''
 
-
-'''
-s1 = 8000 + 14400 + 14400 + 5700 + 8800 + 8800 + 8800 + 8000 + 7000 + 8000 + 14400 + 8000
-s2 = 14400 + 8000 + 14400 + 4800 + 8800 + 8000 + 4800 + 4800 + 12000
-print(s1)
-print(s2)
-print(s1 + s2)
-'''
-# RecursionError: maximum recursion depth exceeded
 
 # todo сделать разбор 7 https://education.yandex.ru/ege/task/2640303f-cc77-424f-989c-f142e11c46f6
 '''
@@ -1434,28 +1397,6 @@ for a1, a2, a3, a4, a5, a6, a7 in product([0, 1], repeat=7):
                 print(*i, sep='')
 
 # Ответ: zywx
-'''
-
-
-# todo Сделать разбор # № 17799 (Уровень: Средний)
-'''
-from itertools import *
-n = 0
-for p in product(sorted('АРГУМЕНТ'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if len(word) == len(set(word)):
-        if list(word) == sorted(word):
-            print(n)
-
-
-from itertools import *
-s = sorted('АРГУМЕНТ')
-for n, p in enumerate(product(s, repeat=4), 1):
-    word = ''.join(p)
-    if len(word) == len(set(word)):
-        if list(word) == sorted(word):
-            print(n)
 '''
 
 
@@ -1551,38 +1492,6 @@ print(F(1, 50, ''))
 '''
 
 
-# todo сделать разбор 17 https://education.yandex.ru/ege/task/6488e44b-c19d-41be-a53f-3877c2d12728
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-5):
-    x, y, z, w, r, t = M[i:i+6]
-    if (z + w) > (x + y) and (z + w) > (r + t):
-        if z + w > 0 and x + y > 0 and r + t > 0:
-            R.append(z * w)
-print(len(R), min(R))
-'''
-
-
-# todo сделать разбор 25 https://education.yandex.ru/ege/task/e9239096-46bf-4dab-a19b-ad07eed75bb4
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
-
-
-for x in range(106732567, 152673836+1):
-    if (x**0.5).is_integer():
-        d = divisors(x)
-        if len(d) == 3:
-            print(x, max(d))
-'''
-
-
 # todo сделать разбор https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
 '''
 cnt = 0
@@ -1609,20 +1518,6 @@ print(cnt)
 '''
 
 
-
-# todo сделать разбор https://education.yandex.ru/ege/task/82c97d22-18da-44ce-aafa-9e25f9e55301
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    copied_2 = [x for x in M if M.count(x) == 2]
-    if len(copied_2) == 6:
-        a, b, c = sorted(set(copied_2))
-        if a**2 + b**2 == c**2:
-            cnt += 1
-print(cnt)
-'''
-
 # todo сделать разбор
 
 '''
@@ -1648,26 +1543,6 @@ print(len(set(R)))
 '''
 
 
-# todo сделать разборы № 19719 (Уровень: Базовый)
-'''
-s = open('0. files/24.txt').readline()
-while any(p in s for p in ('**', '--', '-*', '*-')):
-    for x in ('**', '--', '-*', '*-'):
-        s = s.replace(x, ' ')
-
-
-maxi = 0
-s = s.split()
-for x in s:
-    try:
-        eval(x) 
-        maxi = max(maxi, len(x))
-    except Exception as e:
-        continue
-print(maxi)
-'''
-
-
 # № 18482 (Уровень: Базовый)
 # № 18126 (Уровень: Базовый)
 
@@ -1687,21 +1562,6 @@ for a1 in M:
         if all(F(x, a1, a2) for x in M):
             R.append(a2 - a1)
 print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
-'''
-
-
-'''
-def F(n):
-    # Преобразуем число в строку с четырьмя цифрами
-    num_str = f"{n:04}"
-    print(num_str)
-    for digit in set(num_str):
-        if num_str.count(digit) == 3:
-            return True
-    return False
-
-n = 3363
-print(F(n))  # Выведет True
 '''
 
 
@@ -1736,178 +1596,3 @@ print(count)  # 6
 # cab
 # cba
 '''
-
-
-
-'''
-Список всех студентов из db: 
-
-1729463507 DariaDariashy.py 15:00 14400 Дарья 8 0 Saturday https://u.to/RCYDIQ 
-
-5273592655 StasPrrosto.py 20:00 8000 Стас 4 0 Tuesday https://u.to/ycf_IA 
-
-1623764697 SlavickSlavhik.py 23:00 10800 Славик 8 0 Saturday https://u.to/9yYDIQ 
-
-561902196 AlexeyLewkalepewka.py 23:00 8000 Alexey 4 0 Monday https://u.to/ycf_IA 
-
-1181414651 RomanBackrooms.py 23:00 14400 Роман 8 0 Tuesday https://u.to/RCYDIQ 
-
-1062566672 DmitryChixxxol.py 22:00 14400 Dmitry 8 0 Friday https://u.to/RCYDIQ 
-
-1604612981 MatveyUSigMa52.py 22:00 14400 Матвей 8 0 Tuesday https://u.to/RCYDIQ 
-
-1200826856 EvgeniyBuriwieId.py 21:00 5700 Евгений 4 0 Tuesday https://u.to/AicDIQ 
-
-5480724105 ZaharKirill.py 16:00 4800 Захар 4 0 Tuesday https://u.to/zCYDIQ 
-
-955612528 ZaharKirill.py 16:00 4800 Kirill 4 0 Tuesday https://u.to/zCYDIQ 
-
-1080123898 AlexanderHanma.py 18:00 8800 Alexander 8 0 Tuesday https://u.to/1yYDIQ 
-
-1080123898 AlexanderHanma.py 18:00 8800 Alexander 8 0 Saturday https://u.to/1yYDIQ 
-
-760888450 AlexanderHanma.py 18:00 8800 Александр 8 0 Tuesday https://u.to/1yYDIQ 
-
-760888450 AlexanderHanma.py 18:00 8800 Александр 8 0 Saturday https://u.to/1yYDIQ 
-
-745814650 LizaElizdmii.py 20:00 14400 Лиза 8 0 Monday https://u.to/RCYDIQ 
-
-1084280667 IlyaArtur.py 20:00 7000 Илья 4 0 Saturday https://u.to/uCYDIQ 
-
-1413456505 IlyaArtur.py 20:00 4800 Артур 4 0 Saturday https://u.to/zCYDIQ 
-
-6440986217 MaksimDima.py 17:00 12000 Дима 8 485918353 Tuesday https://u.to/viYDIQ 
-
-6044184101 MaksimDima.py 17:00 4000 Максим 2 0 Tuesday https://u.to/rCYDIQ 
-
-7513062530 AlexeyWerwerasd.py 16:00 14400 Алексей 8 0 Saturday https://u.to/RCYDIQ 
-
-5837523987 KirillLokotov.py 15:20 14400 Кирилл 8 1492656325 Friday https://u.to/RCYDIQ 
-
-5837523987 KirillLokotov.py 15:20 14400 Кирилл 8 1492656325 Monday https://u.to/RCYDIQ 
-
-1305840792 TimurTmedovsky.py 15:00 8000 Тимур 4 0 Wednesday https://u.to/ycf_IA 
-
-1058315710 ArtemKincfg.py 22:00 8000 Артём 4 0 Monday https://u.to/RCYDIQ 
-
-5553926810 NikolayHqeewz.py 16:20 14400 Николай 8 0 Friday https://u.to/RCYDIQ 
-
-5553926810 NikolayHqeewz.py 15:00 14400 Николай 8 0 Tuesday https://u.to/RCYDIQ
-
-7404957280 Gungallla.py 22:00 8000 Екатерина 4 287775587 Wednesday https://u.to/ycf_IA 
-
-751717056 JulianaUlyanasusana.py 23:00 14400 Ульяна 9 0 Friday https://u.to/RCYDIQ 
-
-1902912889 MikeshaAngelina.py 20:00 3200 Сергей 4 0 Wednesday https://i.tochka.com/bank/myprofile/ilandroxxy 
-
-2036393394 MikeshaAngelina.py 20:00 3200 Ангелина 4 0 Wednesday https://i.tochka.com/bank/myprofile/ilandroxxy 
-
-1826739564 YaroslavStockholm.py 20:00 4800 Ярослав 4 0 Friday https://u.to/zCYDIQ 
-
-5017385870 YaroslavStockholm.py 20:00 8800 Женя 8 0 Friday https://u.to/1yYDIQ 
-
-1033961646 EgorErgftd.py 21:00 4800 Михаил 4 5132806488 Friday https://u.to/zCYDIQ 
-
-906308840 EgorErgftd.py 21:00 8800 Егор 8 0 Friday https://u.to/1yYDIQ 
-
-1104869233 YegorNun4ucks.py 21:00 8000 Yegor 4 0 Saturday https://u.to/ycf_IA 
-
-1372898240 EfimFurryfaris.py 17:20 8000 Ефим 5 971638042 Friday https://u.to/ycf_IA 
-
-5580459516 IlonaValerya.py 17:00 8000 Валерия 4 0 Wednesday https://u.to/ycf_IA 
-
-5580459516 IlonaValerya.py 18:20 8000 Валерия 4 0 Monday https://u.to/ycf_IA 
-
-902741149 DimaClosedez.py 18:20 14400 Дмитрий 9 0 Friday https://u.to/RCYDIQ 
-
-902741149 DimaClosedez.py 17:20 14400 Дмитрий 9 0 Monday https://u.to/RCYDIQ
- 
-900144269 ArinaRishulg.py 18:00 20000 Арина 8 0 Wednesday https://clck.ru/3GyzAp
-
-900144269 ArinaRishulg.py 17:00 20000 Арина 8 0 Saturday https://clck.ru/3GyzAp
-
-1024471090 LevLevnskRishulg.py 16:00 6000 Лев 4 0 Wednesday https://clck.ru/3GyzAp
-
-5227541364 EgorGlorytoBarcelona.py 22:00 14400 Egor 8 0 Saturday https://u.to/RCYDIQ 
-
-5227541364 EgorGlorytoBarcelona.py 21:00 14400 Egor 8 0 Wednesday https://u.to/RCYDIQ 
-
-5227541364 EgorGlorytoBarcelona.py 21:00 14400 Egor 8 0 Monday https://u.to/RCYDIQ
-'''
-
-
-# todo сделать разбор № 9553 Джобс 14.06.23 (Уровень: Базовый)
-'''
-from re import *
-for x in range(13, 10**9, 13):
-    if fullmatch('24[02468]*68[39]35', str(x)):
-        print(x, x // 13)
-'''
-# 24268335 1866795
-# 24868935 1912995
-# 240068335 18466795
-# 240668935 18512995
-# 242668335 18666795
-# 248468935 19112995
-
-# todo сделать разбор № 19784 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a < b or a == 28:
-        return 0
-    if a == b:
-        return 1
-    else:
-        return F(a-2, b) + F(a // 2 if a % 2 == 0 else a - 3, b)
-
-print(F(98, 1))
-'''
-
-
-'''
-from re import *
-from string import *
-
-alp = digits + ascii_uppercase
-
-def convert(num, base):
-    result = ''
-    while num > 0:
-        result += alp[num % base]
-        num //= base
-    return result[::-1]
-
-def Divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-def number(d):
-    for i in range(1, 10**12):
-        if len(Divisors(i)) == d:
-            return i
-
-
-cnt = 0
-for x in range(1, 10**12):
-    s = convert(x, 30)
-    if fullmatch(r'[0-T]*I[0-T]*T[0-T]*', s):
-        d = len(Divisors(x))
-        if d % 2 != 0:
-            print(s, number(d))
-            cnt += 1
-            if cnt == 7:
-                break
-'''
-
-
-def F(x, y, A):
-    return (x < A) and (y < 3*A) or (2*x + y > 128)
-
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
