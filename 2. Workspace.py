@@ -1596,3 +1596,10 @@ print(count)  # 6
 # cab
 # cba
 '''
+
+# Правки в Степик
+
+# 1. https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
+'''
+Добавить примечение из математики 
+'''

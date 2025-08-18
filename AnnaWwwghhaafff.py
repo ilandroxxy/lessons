@@ -1,228 +1,144 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1309431/step/10?unit=1324547
+# https://stepik.org/lesson/1309433/step/8?unit=1324549
 '''
-a = int(input())
-b = int(input())
-print(f'Периметр прямоугольника: {2 * (a + b)}')
-print(f'Площадь прямоугольника: {(a * b)}')
-'''
-
-
-# https://stepik.org/lesson/1309431/step/13?unit=1324547
-'''
-k = int(input())
-summa = k + k * 11 + k * 111
-print(f'Сумма чисел: {summa}')
-
-k = input()  # '4'
-summa = int(k) + int(k * 2) + int(k * 3)
-print(f'Сумма чисел: {summa}')
-'''
-
-
-# https://stepik.org/lesson/1309432/step/4?unit=1324548
-'''
-n = int(input())
-if n % 2 == 0:
-    print('Чётное')
+a = input()
+if a == 'Информатика' or a == 'Программирование':
+    print("Петя берёт с собой компьютер")
 else:
-    print('Нечётное')
+    print("Петя берёт с собой тетрадь")
 '''
 
 
-# https://stepik.org/lesson/1309432/step/5?unit=1324548
+# Пару слов про функцию len()
 '''
-n = int(input()) # 41392
-a = n // 10000
-b = (n // 1000) % 10
-c = (n // 100) % 10
-d = (n % 100) //10
-e = n % 10
-f = a * c
-g = b + d + e
-if f == g :
-    print('Да')
+n = 56  # неитерируемый объект
+# print(len(n))
+# TypeError: object of type 'int' has no len()
+
+# i  01
+s = '56'  # итерируемый объект
+L = ['5', '6']
+print(len(s))  # 2 - Функция len() возвращает длину (кол-во элементов) списка/строки..
+'''
+
+
+# https://stepik.org/lesson/1309433/step/9?auth=login&unit=1324549
+'''
+a = input()
+if len(a) >= 10 or len(a) % 2 == 0:
+    print("ДА")
 else:
-    print('Нет')
+    print("НЕТ")
 '''
 
 
-# https://stepik.org/lesson/1309432/step/6?unit=1324548
+# https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
 '''
 a = int(input())
 b = int(input())
 c = int(input())
-summa = 0
-if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
-    summa += a
 
-print(summa)
+if max(a, b, c) <= (a + b + c) - max(a, b, c):
+    print('ДА')
+else:
+    print('НЕТ')
 '''
-
-
 
 '''
 a = int(input())
 b = int(input())
 c = int(input())
 
-if a == b == c:
-    print('Равносторонний')
-elif a == b or a == c or b == c:
-    print('Равнобедренный')
+if a > b and a > c:
+    if a <= c + b:
+        print('ДА')
+    else:
+        print('НЕТ')
+elif b > a and b > c:
+    if c <= a + b:
+        print('ДА')
+    else:
+        print('НЕТ')
+elif c > a and c > b:
+    if c <= a + b:
+        print('ДА')
+    else:
+        print('НЕТ')
+elif a == b == c:
+    print('ДА')
 else:
-    print('Разносторонний')
+    print('НЕТ')
 '''
 
+
+# https://stepik.org/lesson/1309434/step/5?unit=1324550
 '''
 a = int(input())
 b = int(input())
-if a > b:
-    if a % b == 0:
-        print('Делится')
-    else:
-        print('Не делится')
+if a < b:
+    for i in range(a, b+1):
+        print(i)
 else:
-    if b % a == 0:
-        print('Делится')
-    else:
-        print('Не делится')
+    for i in range(a, b-1, -1):
+        print(i)
 '''
 
+
+# https://stepik.org/lesson/1309434/step/6?unit=1324550
 '''
-y = int(input())
-if (y % 4 == 0 and y % 100 != 0) or y % 400 == 0:
-    print('Високосный')
-else:
-    print('Обычный')
+a = int(input())
+b = int(input())
+for i in range(a, b+1):
+    if (i % 20 == 0) or (i % 7 == 0 and i % 14 == 0) or (i % 10 == 9):
+        print(i)
 '''
+
+
+# https://stepik.org/lesson/1309434/step/7?unit=1324550
+'''
+m = int(input())  # 14
+total = 1
+for j in range(1, m+1):
+    if m % j == 0:
+        total *= j
+print(total)
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Цикл for отвечает на запросы: "повторить 5 раз", "пробежать числа от 5 до 10"
 '''
-# Цикл for работает с функцией range()
-
-# range(0, STOP-1, 1)
-# range(START, STOP-1, 1)
-# range(START, STOP-1, STEP)
-
-for i in range(10):
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
+from random import randint
+from time import sleep
 
 
-for i in range(2, 10):
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-
-for i in range(2, 10, 2):
-    print(i, end=' ')  # 2 4 6 8
-print()
-
-
-for i in range(2, 10+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-for i in range(10, 0, -1):
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
-
-
-
-# Цикл for работает с итерируемыми объектами (list, tuple, str)
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-print(len(M))  # 5 - кол-во элементов в итерируемом объекте
-
-# Прямой перебор полезен, если нам нужно просто перебрать элементы или фильтровать их
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e
-print()
-
-
-# Перебор через индексы помогает нам изменять элементы списка
-
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-'''
-
-
-# Цикл while отвечает на запросы: "пока условие верно - выполняем", "бесконечный цикл"
-'''
-for i in range(2, 10+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
-
-
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 2 4 6 8 10
-    i += 2
-print()
-'''
-
-
-# Перевод в различные системы счисления
-'''
-n = 8
-b = 2  # система счисления
-r = ''
-while n > 0:
-    r = str(n % b) + r
-    n //= b
-print(r)
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-n = int(input('Введите число в 10-й системе для перевода: '))
-b = int(input('Введите систему счисления b: '))
-print(convert(n, b))  # 1000
-'''
-
-
-# Бесконечные циклы и операторы break, continue, exit()
-'''
-k = 0
+password = 'qwerty'
+pas = input('Введите пароль: ')
+count = 1
 while True:
-    k += 1
-    if k % 2 != 0:
-        continue  # прерывает выполнение итерации (шаг) цикла
-    if k == 50_000:
-        exit()  # прерывает вообще все выполнение программы
-    if k == 100_000:
-        break  # прерывает цикл в котором он лежит
-    print(k)
+    if pas == password:
+        print('Пароль верный!')
+        break
+    else:
+        count += 1
+        pas = input('Пароль неверный, повторите попытку: ')
+        if count == 3:
+            print('Пройдите проверку на робота. ')
+            a = randint(0, 100)
+            b = randint(0, 100)
+            x = int(input(f'Решите пример: {a} + {b} = '))
+            if x == a + b:
+                print('Пример решен верно.')
+                count = 0
+            else:
+                print('Повторите попытку через 5 минут.')
+                sleep(5 * 60)
 
-print('Продолжение программы')
+print('Добро пожаловать в личный кабинет.')
 '''
 
 
@@ -237,4 +153,4 @@ print('Продолжение программы')
 # #
 # ФИПИ = []
 # КЕГЭ = []
-# на следующем уроке: Пример программы с бесконечными циклами 
+# на следующем уроке:
