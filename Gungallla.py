@@ -6,83 +6,51 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21415 Досрочная волна 2025 (Уровень: Базовый)
+
+# № 23380 Резервный день 19.06.25 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Умножить на 2
+# Сколько существует программ, для которых при исходном числе 3
+# результатом является число 20, при этом траектория вычислений
+# содержит число 7 и не содержит 10?
 '''
-# RecursionError: maximum recursion depth exceeded
-
-import sys
-sys.setrecursionlimit(10**6)
-
-def F(n):
-    if n <= 5:
+def F(a, b):
+    if a == b:
         return 1
-    if n > 5:
-        return n + F(n-2)
+    elif a > b or a == 10:
+        return 0
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*2, b)
 
-print(F(2126) - F(2122))
+print(F(3, 7) * F(7, 20))
 '''
-import sys
 
-# № 23275 Основная волна 11.06.25 (Уровень: Базовый)
+# Вариант 2
 '''
-import sys
-sys.setrecursionlimit(10**6)
+def F(a, b):
+    if a >= b or a == 10:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*2, b)
 
-def F(n):
-    return 2 * (G(n - 3) + 8)
-
-def G(n):
-    if n < 10:
-        return 2*n
-    if n >= 10:
-        return G(n - 2) + 1
-
-print(F(15548))
+print(F(3, 7) * F(7, 20))
 '''
 
 
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+# № 23567 Пересдача 03.07.25 (Уровень: Базовый)
+# A. Вычти 2
+# B. Найди целую часть от деления на 2
+# Сколько существует программ, для которых при исходном числе 48
+# результатом является число 2, и при этом траектория вычислений
+# содержит число 16?
 '''
-import sys
-sys.setrecursionlimit(10**6)
+def F(a, b):
+    if a <= b:
+        return a == b
+    return F(a - 2, b) + F(a // 2, b)
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
-
-print((F(2024) // 4 + F(2023)) // F(2022))
+print(F(48, 16) * F(16, 2))
 '''
-# print((F(2024) / 4 + F(2023)) / F(2022))
-#        ~~~~~~~~^~~
-# OverflowError: integer division result too large for a float
-
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
-# F(n)=n−1, при n⩽3;
-# F(n)=F(n−2)+n/2−F(n−4), если n>3 и n чётно;
-# F(n)=F(n−1)×n+F(n−2), если n>3 и n нечётно,
-'''
-from functools import *
-import sys
-sys.setrecursionlimit(10**6)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for n in range(5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
-'''
-
 # endregion Урок: *************************************************************
 # #
 # #
