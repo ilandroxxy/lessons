@@ -1,145 +1,219 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1309433/step/8?unit=1324549
-'''
-a = input()
-if a == 'Информатика' or a == 'Программирование':
-    print("Петя берёт с собой компьютер")
-else:
-    print("Петя берёт с собой тетрадь")
-'''
 
-
-# Пару слов про функцию len()
+# https://stepik.org/lesson/1309435/step/11?unit=1324551
 '''
-n = 56  # неитерируемый объект
-# print(len(n))
-# TypeError: object of type 'int' has no len()
-
-# i  01
-s = '56'  # итерируемый объект
-L = ['5', '6']
-print(len(s))  # 2 - Функция len() возвращает длину (кол-во элементов) списка/строки..
+n = int(input())
+while n > 0:
+    x = n % 10
+    print(x)
+    n //= 10
 '''
 
 
-# https://stepik.org/lesson/1309433/step/9?auth=login&unit=1324549
-'''
-a = input()
-if len(a) >= 10 or len(a) % 2 == 0:
-    print("ДА")
-else:
-    print("НЕТ")
-'''
-
-
-# https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
+# https://stepik.org/lesson/1309435/step/12?unit=1324551
 '''
 a = int(input())
 b = int(input())
-c = int(input())
-
-if max(a, b, c) <= (a + b + c) - max(a, b, c):
-    print('ДА')
-else:
-    print('НЕТ')
+for x in range(a, b + 1):
+    flag = True
+    if x <= 1:
+        continue
+    for j in range(2, x):
+        if x % j == 0:
+            flag = False
+            break
+    if flag == True:
+        print(x)
 '''
 
+# https://stepik.org/lesson/1309435/step/13?unit=1324551
 '''
-a = int(input())
-b = int(input())
-c = int(input())
-
-if a > b and a > c:
-    if a <= c + b:
-        print('ДА')
-    else:
-        print('НЕТ')
-elif b > a and b > c:
-    if c <= a + b:
-        print('ДА')
-    else:
-        print('НЕТ')
-elif c > a and c > b:
-    if c <= a + b:
-        print('ДА')
-    else:
-        print('НЕТ')
-elif a == b == c:
-    print('ДА')
-else:
-    print('НЕТ')
+a = int(input())  # 20
+summa = 0
+count = 0
+for i in range(1, a+1):
+    summa += i
+    count += 1
+    if summa > a:
+        break
+print(count)
 '''
-
-
-# https://stepik.org/lesson/1309434/step/5?unit=1324550
-'''
-a = int(input())
-b = int(input())
-if a < b:
-    for i in range(a, b+1):
-        print(i)
-else:
-    for i in range(a, b-1, -1):
-        print(i)
-'''
-
-
-# https://stepik.org/lesson/1309434/step/6?unit=1324550
-'''
-a = int(input())
-b = int(input())
-for i in range(a, b+1):
-    if (i % 20 == 0) or (i % 7 == 0 and i % 14 == 0) or (i % 10 == 9):
-        print(i)
-'''
-
-
-# https://stepik.org/lesson/1309434/step/7?unit=1324550
-'''
-m = int(input())  # 14
-total = 1
-for j in range(1, m+1):
-    if m % j == 0:
-        total *= j
-print(total)
-'''
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+
+# Основные свойства списков list()
 '''
-from random import randint
-from time import sleep
+# i   0    1    2    3    4
+L = ['a', 'b', 'c', 'd', 'e']  # list (список)
+# -i -5   -4   -3   -2   -1
 
+# 1. Могут содержать неограниченное кол-во элементов
+# 2. Элементы могут быть различных типов данных
+# 3. Каждый элемент списка имеет свой порядковый номер: индекс
+# 4. Индексы можно считать слева-направо начиная с 0 или справа-налево начиная с -1
+print(f'Первый элемент списка L: {L[0]}')
+print(f'Последний элемент списка L: {L[4]}')
+print(f'Последний элемент списка L: {L[len(L)-1]}')
+print(f'Последний элемент списка L: {L[-1]}')
 
-password = 'qwerty'
-pas = input('Введите пароль: ')
-count = 1
-while True:
-    if pas == password:
-        print('Пароль верный!')
-        break
-    else:
-        count += 1
-        pas = input('Пароль неверный, повторите попытку: ')
-        if count == 3:
-            print('Пройдите проверку на робота. ')
-            a = randint(0, 100)
-            b = randint(0, 100)
-            x = int(input(f'Решите пример: {a} + {b} = '))
-            if x == a + b:
-                print('Пример решен верно.')
-                count = 0
-            else:
-                print('Повторите попытку через 5 минут.')
-                sleep(5 * 60)
-
-print('Добро пожаловать в личный кабинет.')
+# 5. Через индексы мы можем изменять значения элементов
+L[0], L[-1] = 'e', 'a'
+print(L)  # ['e', 'b', 'c', 'd', 'a']
 '''
+
+
+# Срезы списков, строк и других последовательностей
+
+# СРЕЗЫ[START : STOP-1 : STEP]
+'''
+# i   0    1    2    3    4
+L = ['a', 'b', 'c', 'd', 'e']
+
+print(L[1:4])  # ['b', 'c', 'd'] - Все элементы под индексами с 1 по 4 (не включая конец)
+print(L[:4])  # ['a', 'b', 'c', 'd'] - Все что слева от 4 индекса (не включая конец)
+print(L[2:])  # ['c', 'd', 'e'] - Все что справа начиная с 2 индекса
+
+print(L[2:])  # - Все элементы кроме первых двух
+print(L[-3:])  # - Последние три элемента
+
+print(L[:])
+print(L[::])  # - Все элементы без ограничений
+
+print(L[::2])  # ['a', 'c', 'e'] - Все элементы с шагом два (под четными индексами)
+print(L[1::2])  # ['b', 'd'] - Все элементы с нечетными индексам 
+
+print(L[::-1])  # ['e', 'd', 'c', 'b', 'a'] - Все элементы в обратном порядке
+'''
+
+
+# Функции списков
+'''
+L = [1, 3, 3, 3, 2, 2]
+
+print(len(L))  # - Возвращает кол-во элементов в списке (длину списка)
+print(sum(L))  # - Возвращает сумму целых элементов списка
+print(max(L), min(L))  #
+
+print(sorted(L))  # [1, 2, 2, 3, 3, 3] - сортирует элементы в порядке возрастания
+print(sorted(L, reverse=True))  # [3, 3, 3, 2, 2, 1] - сортирует элементы в порядке убывания
+
+print(reversed(L))  # <list_reverseiterator object at 0x102b47010>
+print(list(reversed(L)))  # [2, 2, 3, 3, 3, 1] - Разворачивает элементы списка
+
+print(set(L))  # {1, 2, 3} - при конвертации в множество - убираются копии элементов 
+'''
+
+
+# Все методы списков в Python, которые понадобятся на ЕГЭ
+
+
+# .APPEND()
+# Метод .append() используется для добавления элемента в конец списка. Пример:
+'''
+my_list = [1, 2, 3]
+my_list.append(4)
+my_list.append(5)
+print(my_list)  # Вывод: [1, 2, 3, 4, 5]
+'''
+# Можно реализовать через конкатенацию (склеивание) списков:
+'''
+my_list = [1, 2, 3]
+my_list = [0] + my_list + [4, 5]
+print(my_list)  # Вывод: [0, 1, 2, 3, 4, 5]
+'''
+
+
+# .REVERSE()
+# Метод .reverse() изменяет порядок элементов в списке на обратный. Пример:
+'''
+my_list = [1, 2, 3, 4]
+my_list.reverse()
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+# Можно записать по другому через срез:
+'''
+my_list = [1, 2, 3, 4]
+my_list = my_list[::-1]
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+
+# .COUNT()
+# Метод .count() возвращает количество вхождений заданного элемента в список. Пример:
+'''
+my_list = [1, 2, 2, 3, 4, 2]
+print(my_list.count(2))  # Вывод: 3
+'''
+
+
+# .REMOVE()
+# Метод .remove() удаляет первое вхождение указанного элемента из списка. Пример:
+'''
+my_list = [1, 2, 3, 2, 4]
+my_list.remove(2)  # Первая найденная двойка
+print(my_list)  # Вывод: [1, 3, 2, 4]
+
+
+my_list = [1, 2, 3, 2, 4]
+while 2 in my_list:
+    my_list.remove(2)
+print(my_list)  # [1, 3, 4]
+'''
+
+# Можно удалить элемент через его индекс используя del:
+'''
+my_list = [1, 2, 3, 2, 4]
+del my_list[1]  # Индекс удаляемого элемента
+print(my_list)  # Вывод: [1, 3, 2, 4]
+'''
+
+
+# .INDEX()
+# Метод .index() возвращает индекс первого вхождения заданного элемента в списке. Пример:
+'''
+my_list = [1, 2, 3, 2, 4]
+print(my_list.index(2))  # Вывод: 1
+'''
+
+
+# .SORT()
+# Метод .sort() сортирует элементы списка по возрастанию (по умолчанию) или в обратном порядке, если передан аргумент reverse=True. Пример:
+'''
+my_list = [4, 1, 3, 2]
+my_list.sort()
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list.sort(reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+# Скажу честно я не любитель этого метода, считаю, что удобнее будет использовать функцию sorted():
+'''
+my_list = [4, 1, 3, 2]
+my_list = sorted(my_list)
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list = sorted(my_list, reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+# https://stepik.org/lesson/1309452/step/6?unit=1324568
+
+# i  0  1  2  3
+L = [4, 5, 6, 9]
+L[1] = 14
+L.append(1)
+L += [2, 5]
+
+del L[0]
+L = L * 3
+
+L.insert(4, 45)
+print(L)
 
 
 # endregion Урок: *************************************************************
@@ -153,4 +227,4 @@ print('Добро пожаловать в личный кабинет.')
 # #
 # ФИПИ = []
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: Генераторы на следующем уроке

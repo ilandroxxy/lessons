@@ -1599,8 +1599,23 @@ print(count)  # 6
 
 # Правки в Степик
 
-# 1. https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
-'''
-Добавить примечение из математики 
-'''
+# todo 1. https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
+'''Добавить примечение из математики '''
+
+# todo 2. https://stepik.org/lesson/1309453/step/9?unit=1324569
+'''Эта задача для строк'''
+
+# todo 3. https://stepik.org/lesson/1309452/step/6?unit=1324568
+''' Убрать insert'''
+
+
+# todo Удалять срезом??
+n = int(input())
+L = []
+for i in range(n):
+    a = int(input())
+    L.append(a)
+del L[::2]
+print(L)
+
 
