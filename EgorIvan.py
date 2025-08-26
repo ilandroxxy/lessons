@@ -7,6 +7,56 @@
 # region Урок: ********************************************************************
 
 
+# № 23548 Пересдача 03.07.25 (Уровень: Базовый)
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x or y) <= z) or (y == w) or z
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+
+# № 23739 Демоверсия 2026 (Уровень: Базовый)
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x or y) and (not(y == z)) and (not w)
+                if F == 1:
+                    print(x, y, z, w)
+'''
+
+
+# № 12234 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = y and (x or z) or (not(y or z)) or w
+                if F == 0:
+                    print(x, y, z, w)
+'''
+
+
+
+# № 20564 (Уровень: Базовый)
+
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = x and ((w <= y) == z)
+                print(x, y, z, w, int(F))
+
 # endregion Урок: *************************************************************
 # #
 # #
