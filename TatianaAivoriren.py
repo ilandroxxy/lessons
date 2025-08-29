@@ -1,184 +1,162 @@
 # region Домашка: ******************************************************************
 
-# Пример работы с генераторами
 '''
-M = [x for x in range(10)]
-print(M)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-
-M = []
-a = int(input())
-for i in range(a):
-    b = int(input())
-    M.append(b ** 2)
-print(M)
-
-
-M = [int(input()) ** 2 for i in range(int(input()))]
-print(M)
-'''
-from runpy import run_path
-
-# https://stepik.org/lesson/1309453/step/6?unit=1324569
-'''
-M = []
 n = int(input())
-for i in range(n):
-    b = int(input())
-    M.append(b)
-
-# M = [1, 2, 3, 4, 5]
-# B = [3, 5, 7, 9]
-B = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    B.append(x + y)
-print(B)
+b = 3
+r = ''
+while n > 0:
+    r += str(n % b)
+    n //= b
+print(r[::-1])
 '''
+
+
+n = 293048390248
+b = 16
+# 8 6 5 4 9 14 12 15
+# 10 -> A
+# 11 -> B
+# 12 -> C
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
+
+print(convert(8, 2))  # 1000
+print(int('1000', 2))  # 8
+
+print(convert(8, 3))  # 22
+print(int('22', 3))  # 8
+
+print(convert(10**8, 16))  # 5F5E100
+print(int('5F5E100', 16))  # 10**8
+
+# Функция int - делает обратный перевод из b-ой системы в 10-ю
+'''
+
+'''
+s = input()
+digit = False
+for char in s:
+    if char.isdigit():
+        digit = True
+        print('Да')
+        break
+if digit == False:
+    print('Нет')
+'''
+
+
+# Встроенные функции перевода из 10-й системы
+'''
+n = 8
+
+# Перевод в 2-ю систему счисления
+print(bin(n))  # 0b1000
+print(bin(n)[2:])  # 1000
+print(f'{n:b}')  # 1000
+
+# Перевод в 8-ю систему счисления
+print(oct(n)[2:])  # 10
+print(f'{n:o}')  # 10
+
+
+# Перевод в 16-ю систему счисления
+print(hex(n)[2:])  # 8
+print(f'{n:x}')  # 8 
+'''
+
+
+# https://stepik.org/lesson/1309455/step/8?unit=1324571
+'''
+text = list(input())
+while '@' in text:
+    text.remove('@')
+print(''.join(text))
+'''
+
+
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
+# № 23754 Демоверсия 2026 (Уровень: Базовый)
 '''
-# i  01234
-s = 'abcde'
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-print(f'Первый элемент строки s: {s[0]}')
-print(f'Последний элемент строки s: {s[-1]}')
-# s[0], s[-1] = s[-1], s[0] - Так делать нельзя, потому что в строках нельзя менять элементы по индексам
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
 
-# Давайте букву 'С' заменим на символы '***'
-s = 'abСde'
-s = s[:2] + '***' + s[3:]
-print(s)  # ab***de
-'''
-
-
-# Срезы строк работают полностью аналогично спискам
-'''
-s = 'abcde'
-print(s[1:-1])  # - Все элементы кроме первого и последнего 
-print(s[2:])  # - Все элементы кроме первых двух
-print(s[-3:])  # - Последние три элемента строки
-print(s[::-1])  # - Строка в обратном порядке 
+for x in range(1, 3000):
+    n = 9 * 11**210  + 8 * 11**150 - x
+    r = convert(n, 11)
+    if r.count('0') == 60:
+        print(x)
 '''
 
-
-# Функции строк
+# № 21709 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-s = 'addbbb'
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-print(len(s))  # - Возвращает кол-во элементов в строке (длину строки)
-print(max(s), min(s))  # - Возвращает максимальный и минимальный элемент строки по алфавито
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
 
-print(sorted('23498sdijkuhfERIUWH'))  # - Возвращает отсортированный строчный список символов из таблицы ASCII
-# ['2', '3', '4', '8', '9', 'E', 'H', 'I', 'R', 'U', 'W', 'd', 'f', 'h', 'i', 'j', 'k', 's', 'u']
-
-print(reversed(s))  # <reversed object at 0x104267340>
-print(list(reversed(s)))  # ['b', 'b', 'b', 'd', 'd', 'a'] - разворачивает элементы строки, но возвращает в виде строчного списка
-
-print(set(s))  # {'b', 'a', 'd'} - Перевод в множество и удаление копий 
+R = []
+for x in range(1, 3000):
+    n = 4**210 + 4**110 - x
+    r = convert(n, 4)
+    R.append(r.count('0'))
+    if r.count('0') == 105:
+        print(x)
+        break
+print(max(R))
 '''
 
 
-# Все методы строк в Python, которые понадобятся на ЕГЭ
-
-
-# 1⃣ .strip()
-# Метод strip() удаляет пробелы (или другие символы) из начала и конца строки.
-# Это полезно для очистки пользовательского ввода.
+# № 17869 Демоверсия 2025 (Уровень: Базовый)
 '''
-text = "  Привет, мир!  "
-cleaned_text = text.strip()
-print(cleaned_text) # "Привет, мир!"
-'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-# 2⃣ .lower() и .upper()
-# Эти методы позволяют изменять регистр строки.
-# lower() преобразует строку в нижний регистр, а upper() – в верхний.
-'''
-text = "ПрIvEt"
-print(text.lower())  # "привет"
-print(text.upper())  # "ПРИВЕТ"
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
 
-# 3⃣ .replace()
-# Метод replace(old, new, count) заменяет подстроку old на new в строке count раз.
-'''
-text = "Я люблю Python!"
-new_text = text.replace("Python", "программирование")
-print(new_text)  # "Я люблю программирование!"
-
-s = '11211121122221211'
-s = s.replace('12', '*')
-print(s)  # 1*11*1*222*11
-
-
-s = s.replace('*', '+', 2)
-print(s)  # 1+11+1*222*11
-'''
-
-# 4⃣  .split()
-# Метод split(separator) разделяет строку на части по указанному разделителю.
-# Если разделитель не указан, используется пробел.
-'''
-text = "яблоко груша банан"
-fruits = text.split()  # по умолчанию разделяет по пробелам
-print(fruits) # ['яблоко', 'груша', 'банан']
-
-ip = '123.45.234.5'
-print(ip.split('.'))  # ['123', '45', '234', '5']
+n = 3 * 3125  8 + 2 * 625  7 - 4 * 625  6 + 3 * 125  5 - 2 * 25 ** 4 - 2025
+r = convert(n, 25)
+print(r.count('0'))
 '''
 
 
-# 5⃣ .join()
-
-# Метод join(iterable) соединяет элементы списка
-# (или другого итерируемого объекта) в строку с указанным разделителем.
+# № 23753 Демоверсия 2026 (Уровень: Базовый)
 '''
-fruits = ['яблоко', 'груша', 'банан']
-result = ', '.join(fruits)
-print(result)  # "яблоко, груша, банан"
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-
-number = ['123', '423', '234']
-print('_'.join(number))  # 123_423_234
+for x in alp[:29]:
+    A = int(f'923{x}874', 29)
+    B = int(f'524{x}6152', 29)
+    if (A + B) % 28 == 0:
+        print((A + B) // 28)
 '''
 
-# 6⃣ .find()
-# Метод find(substring) ищет подстроку в строке и возвращает индекс, с которого начинается первая встреча.
-# Если подстрока не найдена, возвращает -1.
-'''
-text = 'abcdedcba'
-print(text.find('b'))  # 1
-print(text.index('b'))  # 1
-
-print(text.rfind('b'))  # 7
-print(text.rindex('b'))  # 7
-
-print(text.find('0'))  # -1
-# print(text.index('0'))  # ValueError: substring not found
-'''
-
-
-# 7⃣ .count()
-# Метод count(substring) возвращает количество вхождений подстроки в строку.
-'''
-text = "яблоко, груша, яблоко"
-count = text.count("яблоко")
-print(count)  # 2
-'''
-
-# 8⃣ .startswith() и .endswith()
-# Эти методы проверяют, начинается ли строка с указанной подстроки или заканчивается ли ею.
-'''
-text = "Привет, мир!"
-print(text.startswith("Привет"))  # True
-print(text.endswith("мир!"))  # True
-'''
 
 # endregion Урок: *************************************************************
 # #
