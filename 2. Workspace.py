@@ -1620,22 +1620,3 @@ del L[::2]
 print(L)
 '''
 
-# todo Что за библиотека?
-'''
-from sympy import divisors
-from math import prod
-
-n = int(input())
-print(prod(divisors(n)))
-'''
-
-'''
-def F(x, y, A):
-    return (x < A) and (y < 3*A) or (2*x + y > 128)
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(min(R))
-'''
