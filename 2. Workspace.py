@@ -1609,6 +1609,10 @@ print(count)  # 6
 ''' Убрать insert'''
 
 
+# todo 4. https://stepik.org/lesson/1038775/step/10?unit=1062778
+'''Заменить номер 17'''
+
+
 # todo Удалять срезом??
 '''
 n = int(input())
@@ -1620,3 +1624,23 @@ del L[::2]
 print(L)
 '''
 
+# todo интересный 9 номер https://education.yandex.ru/ege/task/3c10485a-aca0-427e-8464-c7669e3315f9
+
+
+# todo сделать разбор 9 номера
+#
+# https://education.yandex.ru/ege/task/5c54e314-516a-44fb-b41f-b06ffe3345af
+'''
+from itertools import permutations
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    # сумма чисел в строке чётна
+    if sum(M) % 2 == 0:
+        # максимальное число строки меньше суммы трёх оставшихся чисел
+        if max(M) < sum(M) - max(M):
+            # четыре числа строки можно разбить на две пары чисел с равными суммами
+            if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+                cnt += 1
+print(cnt)
+'''

@@ -1,35 +1,5 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1309452/step/8?unit=1324568
-# На вход программе подается натуральное число n, а затем n целых чисел
-'''
-n = int(input())
-M = []
-for i in range(n):
-    x = int(input())
-    M.append(x)
-M.sort()
-print(M[-2])
-
-# Вариант 2
-n = int(input())
-M = []
-for i in range(n):
-    x = int(input())
-    M.append(x)
-M.remove(max(M))
-print(max(M))
-'''
-
-
-n = int(input())
-M = []
-for i in range(n):
-    x = int(input())
-    if x % 2 == 0:
-        M.append(x)
-print(M)
-
 
 # endregion Домашка: ******************************************************************
 # #

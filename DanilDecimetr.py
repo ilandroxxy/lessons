@@ -1,75 +1,93 @@
 # region Домашка: ******************************************************************
 
 
+# № 7038 Danov2303 (Уровень: Средний)
+'''
+a = [int(i) for i in open("0. files/17.txt")]
+b = []
+for i in range(len(a)):
+    for j in range(i+1, len(a)):
+        x, y = a[i], a[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            b.append(x + y)
+print(len(b), max(b))
+'''
+
+
+# № 7038 (Уровень: Средний) 🌶
+'''
+a = [int(i) for i in open("0. files/17.txt")]
+# M = [x for x in a if abs(x) % 10 == 1]
+M = [x for x in a if str(x)[-1] == '1']
+
+B = []
+for i in range(len(a)-1):
+    x, y = a[i], a[i+1]
+    if (x in M) + (y in M) == 1:
+        B.append((x + y) / 2)
+
+# максимального среднего значения пары среди всех пар отвечающих предыдущему условию.
+maxi = max(B)
+
+cnt = 0
+for i in range(len(a)-1):
+    x, y = a[i], a[i+1]
+    if (x in M) + (y in M) == 1:
+        if (x < maxi) and (y < maxi):
+            cnt += 1
+print(cnt)
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# Способы открытия файла для 9 номера
 '''
-a = [int(i) for i in open("17_19486.txt")]
-x7 = [x for x in a if abs(x) % 10 == 7]
-l = []
-for i in range(len(a) - 1):
-    x, y = a[i], a[i+1]
-    # if ((x < 0 and y > 0) or (x > 0 and y < 0)):
-    if (x > 0) + (y > 0) == 1:
-        if x + y < len(x7):
-            l.append(x + y)
-print(len(l), max(l))
-'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    print(s)  # 5;45;16;39
+    M = [int(x) for x in s.split(';')]
 
-
-'''
-f = open("17_17680.txt")
-a = [int(i) for i in f]
-m = min(x for x in a if x > 0 and x % 41 == 0)
-l = []
-for i in range(len(a)-1):
-    if a[i] != a[i+1] and (a[i]-a[i+1]) % m == 0:
-        l.append(a[i]+a[i+1])
-print(len(l), max(l)) 
-
-# Мои небольшие правки 
-a = [int(i) for i in open("17_17680.txt")]
-m = min(x for x in a if x > 0 and abs(x) % 41 == 0)
-l = []
-for i in range(len(a)-1):
-    x, y = a[i], a[i+1]
-    if x != y and abs(x - y) % m == 0:
-        l.append(x + y)
-print(len(l), max(l))
+cnt = 0
+for s in open('0. files/9.txt'):
+    print(s)  # 5 45 16 39
+    M = [int(x) for x in s.split()]
 '''
 
 
-# № 23757 Демоверсия 2026 (Уровень: Базовый)
+# Перестановки элементов без дублирования элементов
 '''
-a = [int(i) for i in open('0. files/17.txt')]
-b = [x for x in a if len(str(abs(x))) == 2]
-l = []
-for i in range(len(a)-1):
-    x, y = a[i], a[i+1]
-    if (x in b) + (y in b) == 1:
-        if (x + y) % min(b) == 0:
-            l.append(x + y)
-print(len(l), max(l))
+from itertools import permutations
+M = [13, 22, 3]
+for p in permutations(M):
+    print(p)
+    # (13, 22, 3)
+    # (13, 3, 22)
+    # (22, 13, 3)
+    # (22, 3, 13)
+    # (3, 13, 22)
+    # (3, 22, 13)
 '''
 
 
-a = [int(i) for i in open('0. files/17.txt')]
-m = [x for x in a if len(str(abs(x))) == 5]
-b = [x for x in a if str(x)[-3:] == '238' or abs(x) % 1000 == 238]
-l = []
-for i in range(len(a)-2):
-    x, y, z = a[i], a[i+1], a[i+2]
-    if (x in m) + (y in m) + (z in m) in (1, 2):
-        n3 = [i for i in (x, y, z) if i % 3 == 0]
-        n5 = [i for i in (x, y, z) if i % 5 == 0]
-        if len(n3) > len(n5):
-            if (x + y + z) > max(b):
-                l.append(x + y + z)
-print(len(l), max(l))
+# https://education.yandex.ru/ege/task/5c54e314-516a-44fb-b41f-b06ffe3345af
+
+from itertools import permutations
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    # сумма чисел в строке чётна
+    if sum(M) % 2 == 0:
+        # максимальное число строки меньше суммы трёх оставшихся чисел
+        if max(M) < sum(M) - max(M):
+            # четыре числа строки можно разбить на две пары чисел с равными суммами
+            if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+                cnt += 1
+print(cnt)
+
+
 
 # endregion Урок: *************************************************************
 # #
@@ -82,4 +100,4 @@ print(len(l), max(l))
 # #
 # ФИПИ = []
 # КЕГЭ = []
-# на следующем уроке: Домашка по спискам
+# на следующем уроке:
