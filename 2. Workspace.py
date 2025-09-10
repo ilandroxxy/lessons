@@ -1612,6 +1612,9 @@ print(count)  # 6
 # todo 4. https://stepik.org/lesson/1038775/step/10?unit=1062778
 '''Заменить номер 17'''
 
+# todo 5. https://stepik.org/lesson/1038775/step/12?unit=1062778
+'''Убрать слова про абсолютную сумму'''
+
 
 # todo Удалять срезом??
 '''
@@ -1644,3 +1647,5 @@ for s in open('0. files/9.csv'):
                 cnt += 1
 print(cnt)
 '''
+
+

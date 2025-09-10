@@ -7,75 +7,63 @@
 # region Урок: ********************************************************************
 
 
-# Как отрывать файл для 17 номера
+# Способ открытия файла для 9 номера
 '''
-M = [int(x) for x in open('0. files/17.txt')]
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
 '''
 
-# Какие есть прототипы 17 номера
+# № 23555 Пересдача 03.07.25 (Уровень: Базовый)
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied3) == 3  and len(copied2) == 2 and len(copied1) == 2:
+        if max(copied3 + copied2) > max(copied1):
+            cnt += 1
+print(cnt)
+'''
 
-M = [1, 2, 3, 4, 5]
+# https://education.yandex.ru/ege/task/c255edb8-3ff7-4c2a-bf66-03487b499649
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    if len(copied3) >= 3:
+        if len(set(M)) == 5:
+            if sum(M) < 502:
+                cnt += 1
+print(cnt)
+'''
 
-# 1. Под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
+# https://education.yandex.ru/ege/task/5c54e314-516a-44fb-b41f-b06ffe3345af
+'''
+from itertools import permutations
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+        if max(M) < sum(M) - max(M):
+            if sum(M) % 2 == 0:
+                cnt += 1
+print(cnt)
+'''
 
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+# https://education.yandex.ru/ege/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
 
 
 
-# № 23757 Демоверсия 2026 (Уровень: Базовый)
-
-# Определите количество пар последовательности,
-# в которых только один из элементов является двузначным числом,
-
-# а сумма элементов пары кратна минимальному двузначному элементу
-# последовательности.
+# https://education.yandex.ru/ege/task/d73c5edf-63bd-47d8-87cb-7810e03725a0
 #
-# В ответе запишите количество найденных пар,
-# затем максимальную из сумм элементов таких пар.
-
-# В данной задаче под парой подразумевается
-# два идущих подряд элемента последовательности.
-
-
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 2]
-# len(str(-20)) = 3
-# len(str(abs(-20))) = 2
-count = 0
-maxi = 0
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) % min(A) == 0:
-            count += 1
-            maxi = max(maxi, x + y)
-print(count, maxi)
-
-
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 2]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) % min(A) == 0:
-            R.append(x + y)
-print(len(R), max(R))
+#
+# https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
+#
+#
+# https://education.yandex.ru/ege/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
 
 
 
@@ -88,6 +76,6 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 12, 13, 14, 15, 16, 17, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
