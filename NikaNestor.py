@@ -1,16 +1,31 @@
 # region Домашка: ******************************************************************
 
-# № 7718 (Уровень: Средний)
+
+# https://inf-ege.sdamgia.ru/problem?id=55592
 '''
-M = [int(x) for x in open('17.txt')]
-R = []
-for i in range(len(M)):
-    for j in range(i + 1, len(M)):
-        x, y = M[i], M[j]
-        # if ((x + y) % 18 == 0) ^ ((x * y) % 18 == 0):
-        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
-            R.append(x + y)
-print(len(R), max(R))
+k = 0
+for n in range(14, 15):
+    r = bin(n)[2:]
+    for _ in range(3):
+        sctt = len([x for x in str(n) if x in '02468'])
+        snecht = len([x for x in str(n) if x not in '02468'])
+
+        if sctt > snecht:
+            r = r + '1'
+        elif snecht > sctt:
+            r = r + '0'
+        else:
+            if n % 2 == 0:
+                r = r + '0'
+            else:
+                r = r + '1'
+        n = int(r, 2)
+
+    ans = int(r, 2)
+    print(ans)
+    if 123_455 <= ans <= 987_654_321:
+        k += 1
+print(k)
 '''
 
 
@@ -20,164 +35,115 @@ print(len(R), max(R))
 # region Урок: ********************************************************************
 
 
+# 1. Системы счисления (перевод)
+# 2. Срезы строк (списков)
+# 3. Основы списков
 
-# Методы строк .split() и ''.join()
+# Пару слов про срезы
 '''
-ip = '234.34.78.90'
-new_ip = ip.split('.')
-print(new_ip)  # ['234', '34', '78', '90']
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-new_ip = ['234', '34', '78', '90']
-ip = '* *'.join(new_ip)
-print(ip)  # 234.34.78.90
-'''
-
-
-# Способы открытия файла для 9 номера
-'''
-for s in open('0. files/9.txt'):
-    print(s)  # '48	31	3	32'
-    M = [int(x) for x in s.split()]
-    print(M)
-
-for s in open('0. files/9.csv'):
-    # '28;197;100;54;54;152;34'
-    M = [int(x) for x in s.split(';')]
-    print(M)  # [118, 182, 35, 176, 171, 171, 171]
+print(M[2:])  # ['c', 'd', 'e']
+print(M[-3:])  # ['c', 'd', 'e']
+print(M[:-2])  # 'a', 'b', 'c']
 '''
 
-
-# № 23555 Пересдача 03.07.25 (Уровень: Базовый)
+# № 23742 Демоверсия 2026 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(copied2) == 2 and len(copied1) == 2:
-        if max(copied3 + copied2) > max(copied1):
-            cnt += 1
-print(cnt)
+R = []
+for n in range(1, 10000):
+    s = bin(n)[2:]  # s = f'{n:b}'  # s = convert(n, 2)
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 3) * 3
+        s = s + f'{x:b}'
+    r = int(s, 2)
+    # ValueError: int() base must be >= 2 and <= 36, or 0
+    if r >= 200:
+        R.append(n)
+print(min(R))
 '''
 
 
-# https://education.yandex.ru/ege/task/622b91cc-fe32-4b92-9127-6137aae32039
+# Универсальная функция перевода в различные системы счисления
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if len(M) == len(set(M)):  # в строке все числа различны;
-        M = sorted(M)
-        if (M[-1] + M[-2]) <= (M[-3] + M[-4] + M[-5]):
-            cnt += 1
-print(cnt)
-'''
+from string import *
+alp = digits + ascii_uppercase  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+alp = '0123456789ABC...'
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-# Как работает функция permutations
-'''
-from itertools import permutations
-for p in permutations([6, 54, 53, 39]):
-    print(p)
-    # (6, 54, 53, 39)
-    # (6, 54, 39, 53)
-    # (6, 53, 54, 39)
-    # (6, 53, 39, 54)
-    # (6, 39, 54, 53)
-    # (6, 39, 53, 54)
-    # (54, 6, 53, 39)
-    # (54, 6, 39, 53)
-    # (54, 53, 6, 39)
-    # (54, 53, 39, 6)
-    # (54, 39, 6, 53)
-    # (54, 39, 53, 6)
-    # (53, 6, 54, 39)
-    # (53, 6, 39, 54)
-    # (53, 54, 6, 39)
-    # (53, 54, 39, 6)
-    # (53, 39, 6, 54)
-    # (53, 39, 54, 6)
-    # (39, 6, 54, 53)
-    # (39, 6, 53, 54)
-    # (39, 54, 6, 53)
-    # (39, 54, 53, 6)
-    # (39, 53, 6, 54)
-    # (39, 53, 54, 6)
-'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
 
-# https://education.yandex.ru/ege/task/c51900be-b855-4ffb-97d5-8402bb52ffd8
-'''
-from itertools import permutations
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if max(M) < sum(M) - max(M):
-        if all(p[0] + p[1] != p[2] + p[3] for p in permutations(M)):
-            cnt += 1
-print(cnt)
-'''
-
-# https://education.yandex.ru/ege/task/f4fdf6fb-9ba6-4a16-b901-0b495310b132
-
-# Откройте файл электронной таблицы, содержащей в каждой строке четыре натуральных числа. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
-#
-# наибольшее из четырёх чисел меньше суммы трёх других;
-# четыре числа нельзя разбить на две пары чисел с равными суммами.
-# В ответе запишите только число.
-'''
-from itertools import permutations
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if max(M) < sum(M) - max(M):
-        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
-            print(M)
-            cnt += 1
-print(cnt)
-'''
-
-'''
-# четыре числа нельзя разбить на две пары чисел с равными суммами.
-if all(p[0] + p[1] != p[2] + p[3] for p in permutations(M)):
-
-# четыре числа можно разбить на две пары чисел с равными суммами.
-if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
-'''
-
-# https://education.yandex.ru/ege/task/3c10485a-aca0-427e-8464-c7669e3315f9
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(copied1) == 3:
-        if sum(copied1) / 3 <= sum(M) / 7:
-            cnt += 1
-print(cnt)
+n = 8
+print(convert(n, 2))  # 1000
+print(convert(n, 3))  # 22
+print(convert(n, 8))  # 10
+print(convert(n, 16))  # 8
+print(convert(10**8, 16))  # 5F5E100
+print(int('5F5E100', 16))  # 10**8
 '''
 
 
-# № 19117 (Уровень: Средний)
+# № 23364 Резервный день 19.06.25 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    flag = 0
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(copied1) == 3:
-        flag += 1
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > 0 and len(nechet) > 0:
-        if sum(chet) > sum(nechet):
-            flag += 1
-    if flag >= 1:
-        cnt += 1
-print(cnt)
+def f(x, b):
+    s = ''
+    while x > 0:
+        s = str(x % b) + s
+        x //= b
+    return s
+
+for n in range(1, 1000):
+    r = f(n, 3)
+    if n % 3 == 0:
+        r = '1' + r + '02'
+    else:
+        t = f((n % 3)*4, 3)
+        r = r + t
+    a = int(r, 3)
+    if a < 100:
+        print(n)
 '''
 
+
+# № 22272 (Уровень: Средний)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+
+def f(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+R = []
+for n in range(1, 10000):
+    s = f(n, 9)
+    if s[0] == '7':
+        s = s.replace('6', '*')
+        s = s.replace('3', '6')
+        s = s.replace('*', '3')
+        s = s + '34'
+    else:
+        s = '3' + s[1:] + '45'
+
+    r = int(s, 9)
+    if r < 2876:
+        R.append([r, n])
+
+print(max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -188,6 +154,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [9, 17]
+# ФИПИ = [5, 9, 17]
 # КЕГЭ = []
 # на следующем уроке:

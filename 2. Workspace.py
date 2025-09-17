@@ -1648,3 +1648,16 @@ for s in open('0. files/9.csv'):
 print(cnt)
 '''
 
+
+k = 0
+for s in open('files/9.csv'):
+    m = [int(x) for x in s.split(',')]
+    tr = [int(x) for x in m if m.count(x) >= 3]
+    ed = [int(x) for x in m if m.count(x) == 1]
+    if len(ed) > 0 and len(tr) >0:
+        srp = sum(tr) / len(tr)
+        sre = sum(ed) / len(ed)
+        if srp > sre:
+            k += 1
+print(k)
+
