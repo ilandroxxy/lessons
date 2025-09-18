@@ -7,131 +7,7 @@
 # region Урок: ********************************************************************
 
 
-'''
-s = 'abcde'
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(f'Первый элемент списка M: {M[0]}')
-print(f'Последний элемент списка M: {M[4]}')
-print(f'Последний элемент списка M: {M[-1]}')
-
-# Срезы - это способ взять фрагмент из списка
-
-# СРЕЗ[START : STOP-1]
-# СРЕЗ[START : STOP-1 : STEP]
-# range(START, STOP-1, STEP)
-
-print(s[2:4])  # 'cd'
-print(M[2:4])  # ['c', 'd'] - все элементы от 2 по 4 индекс (не включая конец)
-print(M[2:])  # ['c', 'd', 'e'] - все элементы справа от 2 индекса
-print(M[:4])  # ['a', 'b', 'c', 'd'] - все элементы до 4 индекса (не включая конец)
-
-print(M[2:])  # - все элементы кроме первых двух
-print(M[-3:])  # ['c', 'd', 'e'] - последние три элемента
-
-print(M[:])
-print(M[::])  # - все элементы без изменений
-
-print(M[::2])  # ['a', 'c', 'e'] - все элементы под четными индексами
-print(M[1::2])  # ['b', 'd'] - все элементы под нечетными индексами
-
-print(M[::-1])  # ['e', 'd', 'c', 'b', 'a'] - развернуть список в обратном порядке
-'''
-
-
-# Функции перевода в различные системы счисления
-'''
-n = 8
-
-# Функция перевода в двоичную систему счисления
-print(bin(n)[2:])  # 1000
-print(f'{n:b}')  # 1000
-
-# Функция перевода в восьмеричную систему счисления
-print(oct(n)[2:])  # 10
-print(f'{n:o}')  # 10
-
-# Функция перевода в шестнадцатеричную систему счисления
-print(hex(n)[2:])  # 8
-print(f'{n:x}')  # 8
-
-# Универсальный перевод для 5 номера:
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-
-print(convert(n, 2))  # 1000
-print(convert(n, 8))  # 10
-print(convert(n, 3))  # 22
-'''
-
-
-# № 23742 Демоверсия 2026 (Уровень: Базовый)
-'''
-for n in range(1, 10000):
-
-    # 1. Строится двоичная запись числа N.
-    s = bin(n)[2:]
-
-    # а) если число N делится на 3
-    if n % 3 == 0:
-
-        # то к этой записи дописываются её три последние двоичные цифры;
-        s = s + s[-3:]
-    else:
-        # то остаток от деления умножается на 3
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-
-    # 3. Результат переводится в десятичную систему и выводится на экран.
-    r = int(s, 2)
-
-    # Укажите минимальное число N, после обработки которого с помощью этого
-    # алгоритма получается число R, не меньшее 200
-
-    if r >= 200:
-        print(n)  # минимальное число N
-        break
-
-# Просто код:   
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-
-    if r >= 200:
-        print(n)  
-        break
-'''
-
-
-# № 23551 Пересдача 03.07.25 (Уровень: Базовый)
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:b}'
-    if n % 2 == 0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)
-    if r < 30:
-        R.append(n)
-print(max(R))
-'''
-
+# https://education.yandex.ru/ege/task/39bb599c-c811-49fe-84b7-be8dd035d167
 '''
 def convert(n, b):
     r = ''
@@ -140,20 +16,31 @@ def convert(n, b):
         n //= b
     return r
 
-R = []
-for n in range(1, 1000):
-    s = convert(n, 2)
-    if n % 2 == 0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s, 2)
-    if r < 30:
-        R.append(n)
-print(max(R))
-'''
+n = 5**23 + 25 ** 12
+s = convert(n, 5)
+print(s.count('0'))
 
-# № 23364 Резервный день 19.06.25 (Уровень: Базовый)
+# Вариант 2
+n = 5**23 + 25 ** 12
+s = []
+while n > 0:
+    s.append(n % 5)
+    n //= 5
+s = s[::-1]
+print(s.count(0))
+
+
+# Вариант 3
+n = 5**23 + 25 ** 12
+s = ''
+while n > 0:
+    s = str(n % 5) + s
+    n //= 5
+print(s.count('0'))
+'''
+from runpy import run_path
+
+# https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
 '''
 def convert(n, b):
     r = ''
@@ -162,87 +49,173 @@ def convert(n, b):
         n //= b
     return r
 
-R = []
-for n in range(1, 1000):
+for x in range(2030):
+    n = 3**100 - x
     s = convert(n, 3)
-    if n % 3 == 0:
-        s = '10' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r < 100:
-        R.append(n)
-print(max(R))
+    if s.count('0') == 5:
+        print(x)
 '''
 
 
-# № 23189 Основная волна 10.06.25 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/d90014d9-5105-4860-a4d3-f9cd62ad463e
 '''
-R = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
 
-    if r < 130:
-        R.append(n)
-print(max(R))
+for x in range(2030):
+    n = 7**91 + 7**160 - x
+    s = convert(n, 7)
+    if s.count('0') == 70:
+        print(x)
 '''
 
-
-# № 17859 Демоверсия 2025 (Уровень: Базовый)
+# https://education.yandex.ru/ege/task/68ca56c6-8e43-49bf-8ece-91cf0c76d3ba
 '''
-R = []
-for n in range(1, 10000):
-    k = bin(n)[2:]
-    if n % 2 == 0:
-        k = "10" + k
-    else:
-        k = "1" + k + "01"
-    r = int(k, 2)
-    if n <= 12:
-        R.append(r)
-print(max(R))
+print(bin(2**24 + 2**14 - 2**5)[2:].count('1'))
 '''
 
 
-# № 17668 Пересдача 04.07.24 (Уровень: Базовый)
-'''
-R = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if s.count('1') % 2 == 0:
-        s = s + '0'
-        s = '10' + s[2:]
-    else:
-        s = s + '1'
-        s = '11' + s[2:]
-    r = int(s, 2)
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alp[:2])  # ['0', '1']
+print(alp[:8])  # ['0', '1', '2', '3', '4', '5', '6', '7']
 
-    if n > 27:
-        R.append(r)
-print(min(R))
+
+# https://education.yandex.ru/ege/task/c87ec1c9-cbb1-4c23-b8ae-aae45260058c
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:19]:
+    A = int(f'98897{x}21', 19)
+    B = int(f'2{x}923', 19)
+    if (A + B) % 18 == 0:
+        print(x, (A + B) // 18)
 '''
 
-# № 17624 Основная волна 19.06.24 (Уровень: Базовый)
 
-R = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    for i in range(2):
-        # складываются все цифры двоичной записи числа N,
-        # и остаток от деления суммы на 2 дописывается
-        # в конец числа (справа)
-        s = s + str(s.count('1') % 2)
-    r = int(s, 2)
-    if r > 75:
-        R.append(r)
-print(min(R))  # 78
+# https://education.yandex.ru/ege/task/2269ff29-1320-4c26-b127-c149167e1c9a
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:15]:
+    A = int(f'9897{x}21', 15)
+    B = int(f'12{x}023', 15)
+    if (A + B) % 14 == 0:
+        print((A + B) // 14)
+'''
+
+# Егор
+# https://education.yandex.ru/ege/task/dd1ad283-40a2-4123-9328-5bb0cbcb8092
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:15]:
+    A = int(f'99658{x}29', 15)
+    B = int(f'102{x}023', 15)
+    if (A + B) % 14 == 0:
+        print((A + B) // 14)
+'''
+
+
+# https://education.yandex.ru/ege/task/038952ca-0ea6-4083-8831-34ab2aac8eba
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+n = 36**65 + 6**112 - 136
+s = convert(n, 6)
+print(s[-3:])
+'''
+
+
+# https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alp)
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+n = 625**90+125**120 - 5*25
+s = convert(n, 25)
+print(sum([int(x, 25) for x in s if x in alp[0::2]]))
+'''
+
+
+# https://education.yandex.ru/ege/task/6e6c2557-26e8-4b87-a6ff-96defe05f178
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+n = 5**20 + 5**10 - 5**13 - 5**3
+s = convert(n, 5)  # '44444440004444444000'
+print(s.count('4') * 4)
+'''
+
+# Сумма цифр числа
+'''
+n = 44444440004444444000
+
+summa0 = str(n).count('4') * 4
+print(summa0)
+
+summa1 = 0
+for x in str(n):
+    summa1 += int(x)
+print(summa1)
+
+summa2 = sum([int(x) for x in str(n)])
+print(summa2)
+
+summa3 = sum(map(int, str(n)))
+print(summa3)
+'''
+
+
+# https://education.yandex.ru/ege/task/730369b5-bb1f-4ec1-a50e-7a44f0b0ae09
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+for x in range(1, 10000):
+    n = 27**7 - 3**11 + 36 - x
+    s = convert(n, 3)
+    if sum(map(int, s)) == 22:
+        print(x)
+        break
+'''
+
+
+# № 13246 Открытый курс "Слово пацана" (Уровень: Средний)
+'''
+# ValueError: int() base must be >= 2 and <= 36, or 0
+
+alp = sorted('0123456789QWERTYUIOPSDFGHAJKLZXCVBNM')
+for p in range(10, 36+1):
+    for x in alp[:p]:
+        for y in alp[:p]:
+            if int(f'24{x}9', p) + int(f'{y}{x}{y}3', p) == int(f'{x}4{y}0', p):
+                print(int(x + y + y, p))
+'''
+
+
+
+
 
 
 # endregion Урок: *************************************************************
@@ -254,6 +227,6 @@ print(min(R))  # 78
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = []
+# ФИПИ = [2, 5, 6, 14]
 # КЕГЭ = []
 # на следующем уроке:

@@ -1723,3 +1723,98 @@ for i in range(5400001, 10**10):
                     break
 '''
 
+
+# todo обновить пост про библиотеки
+#  📌 Список полезных библиотек для успешной сдачи ЕГЭ по информатике! #tpy #useful
+#
+# 1⃣ Библиотека черепашки для решения 6 номера кодом:
+# import turtle as t
+#
+# t.tracer(0)
+#
+# t.fd(10)  # t.bk(10)
+# t.rt(90)  # t.lt(90)
+#
+# t.up()
+# t.down()
+#
+# x, y = 0, 0
+# t.goto(x, y)
+# t.dot(2, 'red')
+#
+# t.done()
+#
+# 2⃣ Библиотека itertools для решения 1, 8, 9, 12, 24 номеров кодом:
+# from itertools import product
+# from itertools import permutations
+#
+# combinations = list(product([1, 2, 3], repeat=2))
+# for combination in combinations:
+#     print(combination)
+#
+# perms = list(permutations("abc"))
+# for perm in perms:
+#     print(''.join(perm))
+#
+#
+# 3⃣ Библиотека ipaddress для решения нового 13 номера:
+# from ipaddress import *
+# net = ip_network('адрес узла/маска', 0)
+# print(net, net.netmask, net.num_addresses)
+#
+#
+# 4⃣ Две библиотеки для решения 16 номера:
+# Одна увеличивает глубину рекурсии:
+# import sys
+# sys.setrecursionlimit(10000)
+#
+#
+# Вторая ускоряет вычисления через использование кэширования:
+# from functools import *
+# @lru_cache(None)
+# def F(n):
+#
+#
+# 5⃣ Библиотека fnmatch для решения 25 номера с масками:
+# from fnmatch import fnmatch
+# if fnmatch('123', '*?3'):
+#     pass
+#
+#
+# 6⃣ Библиотека string хранит в себе много полезных элементов:
+# import string
+# alphabet = string.ascii_uppercase
+# print(alphabet)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
+#
+# print(string.punctuation)
+# # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+#
+#
+# 7⃣ Библиотека math хранит в себе много полезных математических функций:
+# import math as m
+# print(m.sqrt(16))
+# print(m.ceil(7/2))
+#
+#
+# 💻 Теперь у вас есть знания о необходимых библиотеках, чтобы успешно справиться с заданиями ЕГЭ по информатике! 🚀
+#
+# Поставьте котика 🥰😘 за оперативность 😅
+#
+# Информатика ЕГЭ | itpy (https://t.me/+d5pEzMQLDT1mYTYy) 🧑‍💻
+#  (https://t.me/+d5pEzMQLDT1mYTYy)Поддержать (https://boosty.to/informatika_kege_itpy/donate)  (https://boosty.to/informatika_kege_itpy/donate)автора: (https://boosty.to/informatika_kege_itpy/donate)  (https://boosty.to/informatika_kege_itpy/donate)boosty (https://boosty.to/informatika_kege_itpy/donate) 💵.to / informatika_kege_itpy / donate)boosty(https: // boosty.to / informatika_kege_itpy / donate) 💵
+
+
+# todo сделать разбор 14 номера https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alp)
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+n = 625**90+125**120 - 5*25
+s = convert(n, 25)
+print(sum([int(x, 25) for x in s if x in alp[0::2]]))
