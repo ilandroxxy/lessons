@@ -1616,6 +1616,10 @@ print(count)  # 6
 '''Убрать слова про абсолютную сумму'''
 
 
+# todo 6. https://stepik.org/lesson/1309455/step/10?unit=1324571
+'''Может быть заменить задачу?'''
+
+
 # todo Удалять срезом??
 '''
 n = int(input())
@@ -1805,7 +1809,7 @@ for i in range(5400001, 10**10):
 
 
 # todo сделать разбор 14 номера https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
-
+'''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 print(alp)
 def convert(n, b):
@@ -1818,3 +1822,5 @@ def convert(n, b):
 n = 625**90+125**120 - 5*25
 s = convert(n, 25)
 print(sum([int(x, 25) for x in s if x in alp[0::2]]))
+'''
+
