@@ -6,53 +6,39 @@
 # #
 # region Урок: ********************************************************************
 
+# № 18265 (Уровень: Средний)
+# alp = sorted('0123456789QWERTUIOPOASDFGHJKLZXCVBNM')
+# print(alp.index('T'))
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x or y) and (not(y == z)) and (not w)
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F = ((x or y)<=z) or (y == w) or z  #  23548
-                # F = y and (z == (w <= (x or z)))  # 20567
-                # F = (not(((not x) or y) and (not w)) or (not(z and (not(y and w)))))  # 19234
-                # F = (not((x == y) or (y == w) or ( w == z))) or (x and (not y))  # 13800
-                F = (((not x) and w) <= y) and (y <= (z and (not y)))  # 13799
-                if F == 1:
-                    print(x, y, z, w)
+for p in range(30, 36+1):
+    for s in range(10, 34+1):
+        A = int('R4', p-1)
+        B = int('B0', s+2)
+        C = int('T3NK4', p)
+        if A + B + C == 23593399:
+            print(p * s)#
 '''
 
 
-# F=((w→z)≡(x→¬y))∧(x∨z)
+# № 23934 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTUIOPOASDFGHJKLZXCVBNM')
+for p in range(7, 36+1):
+    A = int('2465123', p)
+    B = int('251341', p)
+    if (A + B) % 17 == 0:
+        print(p, (A + B) // 17)
+'''
 
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= z) == (x <= (not y))) and (x or z)
-                if F == 0:
-                    print(x, y, z, w, int(F))
-
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= z) == (x <= (not y))) and (x or z)
-                if F == 1:
-                    print(x, y, z, w, int(F))
-
+# № 23753 Демоверсия 2026 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTUIOPOASDFGHJKLZXCVBNM')
+for x in alp[:29]:
+    A = int(f'923{x}874', 29)
+    B = int(f'524{x}6152', 29)
+    if (A + B) % 28 == 0:
+        print(x, (A + B) // 28)
+'''
 # endregion Урок: *************************************************************
 # #
 # #
@@ -62,6 +48,6 @@ for x in 0, 1:
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 9, 17]
+# ФИПИ = [2, 9, 14, 17]
 # КЕГЭ = []
 # на следующем уроке:

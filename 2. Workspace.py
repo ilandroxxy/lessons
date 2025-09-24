@@ -1226,69 +1226,9 @@ print(len(set(R)))
 '''
 
 
-# todo сделать пост https://education.yandex.ru/ege/task/2f0244ec-e26c-4ebe-a8dd-7b32e94d30e4
-# Поиск чисел с полными квадратами
-'''
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-cnt = 0
-for x in range(10**7+1, 10**10):
-    # d = [j for j in divisors(x) if (j**0.5) == int(j**0.5)]
-    d = [j for j in divisors(x) if (j**0.5).is_integer()]
-    if len(d) == 3:
-        print(x, max(d))
-        cnt += 1
-        if cnt == 5:
-            break
-'''
-
-# todo Сделать разбор Задание 25 https://education.yandex.ru/ege/task/2135bad3-5844-4cbd-8a72-93751f24130f
-'''
-from fnmatch import *
-d = [14, 24, 34, 44, 54, 64, 74, 84, 94]
-for x in range(124, 10**10, 124):
-    if fnmatch(str(x), '1*28?64'):
-        D = [j for j in d if x % j == 0]
-        if len(D) == 5:
-            print(x, x // 124)
-'''
-# t.me/informatika_kege_itpy
 
 
 
-# todo сделать разбор Задание 13  https://education.yandex.ru/ege/task/c76b728d-6c5e-40c8-a212-acafbcdcbd0c
-'''
-from ipaddress import *
-net = ip_network('192.168.160.0/255.255.224.0', 0)
-# print(f'{mask:b}')  # 11111111111111111110000000000000
-mask = f'{net.netmask:b}'.count('1')
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b.count('1') == mask:
-        cnt += 1
-print(cnt)
-'''
-
-
-# todo Задание 13  https://education.yandex.ru/ege/task/8cabd46a-2193-441f-b07b-64a2bdf117a5
-# Отличная задача превого прототипа
-'''
-from ipaddress import *
-net = ip_network('95.112.224.0/255.255.255.128', 0)
-cnt = 0
-for ip in net:
-    b = f'{ip:b}'[24:]  # правый байт - последние 8 бит
-    if b == b[::-1]:
-        cnt += 1
-print(cnt)
-'''
 
 # mask:
 
@@ -1306,521 +1246,63 @@ print(cnt)
 # Правые два байта: mask[16:]
 
 
+# todo Тут складируем разборы задач:
+#  1. Cделать разбора № 18258 (Уровень: Сложный)
+#  2. Интересный 9 номер https://education.yandex.ru/ege/task/3c10485a-aca0-427e-8464-c7669e3315f9
 
-# Сделать разбор задачи с канала
+
+
+# todo Правки по Степик курсам
+#  1. Добавить примечение из математики https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
+#  2. Эта задача для строк https://stepik.org/lesson/1309453/step/9?unit=1324569
+#  3. Убрать insert https://stepik.org/lesson/1309452/step/6?unit=1324568
+#  4. Заменить номер 17 https://stepik.org/lesson/1038775/step/10?unit=1062778
+#  5. Убрать слова про абсолютную сумму https://stepik.org/lesson/1038775/step/12?unit=1062778
+#  6. Может быть заменить задачу? https://stepik.org/lesson/1309455/step/10?unit=1324571
+
+
+
+# todo сделать разбор https://education.yandex.ru/ege/task/1fba1cbc-57aa-4874-b06d-1b434166e30c
 '''
-def my_int(num, base):
-    return sum(x*base**i for i, x in enumerate(num[::-1]))
-
-
-for x in range(1, 39):
-    for y in range(1, 39):
-        A = my_int([5, 8, x, 7, 2, 3, y, 4, 9], 39)
-        B = my_int([y, x], 39)
-        if A % 38 == 0:
-            if (B ** 0.5).is_integer():
-                print(B)
-'''
-
-# Ответ: 50
-
-
-# todo сделать пост # 16 https://education.yandex.ru/ege/task/e6698118-3eea-44a7-9649-652cc0eb183a
-
-# RecursionError: maximum recursion depth exceeded
-'''
-import sys
-sys.setrecursionlimit(1000)
-
-def F(n):
-    if n <= 1:
-        return 0
-    if n > 1 and n % 6 == 0:
-        return n + F(n/6 - 2)
-    if n > 1 and n % 6 != 0:
-        return n + F(n + 6)
-
-
-for n in range(1000, 10000):
-    try:
-        if F(n) > 4242:
-            print(n)
-            break
-    except RecursionError:
-        continue
-'''
-
-
-# todo сделать разбор 7 https://education.yandex.ru/ege/task/2640303f-cc77-424f-989c-f142e11c46f6
-'''
-i = 24  # 2**24 - цветов
-i2 = 8  # 2**8 - прозрачности
-pixels = 1024 * 768
-# bit = pixels * (i + i2)
-bit = pixels * (24 + 8)
-print(bit / 2**13)
-'''
-# Ответ: 3072
-
-'''
-from itertools import *
-
-
-def f(a, b, c, d):
-    return ((a <= b) == c) or d
-
-
-for p in permutations('abcd'):
-    for q1, q2, q3, q4 in product([0, 1], repeat=4):
-        table = [(1, 0, 1, q1),
-                 (1, 0, q2, 1),
-                 (q3, q4, 1, 0)]
-        if len(set(table)) == len(table):
-            if [f(**dict(zip(p, r))) for r in table] == [0, 0, 0]:
-                print(p)
-
-
-
-from itertools import *
-
-def F(x, y, z, w):
-    return ((w <= y) <= x) or (not z)
-
-
-for a1, a2, a3, a4, a5, a6, a7 in product([0, 1], repeat=7):
-    table = [(a1, a2, 1, a3),
-             (a4, 0, a5, a6),
-             (a7, 1, 0, 0)]
-    if len(set(table)) != len(table):
-        for i in permutations('xyzw'):
-            if [F(**dict(zip(i, r))) for r in table] == [0, 0, 0]:
-                print(*i, sep='')
-
-# Ответ: zywx
-'''
-
-
-# todo сделать разбора № 18258 (Уровень: Сложный)
-
-
-# todo сделать подробный разбор
-'''
-from itertools import permutations
-
-table = '12 16 18 21 23 24 26 27 28 32 35 37 42 47 53 58 61 62 72 73 74 81 82 85'
-graph = 'АВ ВА АГ ГА ВГ ГВ ВЕ ЕВ ЕГ ГЕ ЕЖ ЖЕ ЖИ ИЖ ИД ДИ ИГ ГИ ГБ БГ БД ДБ ДГ ГД'
-
-for per in permutations('АБВГДЖИЕ'):
-    new_table = table
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print('1 2 3 4 5 6 7 8')
-        print(*per)
-
-
-Получаем две подходящие перестановки:
-
-1 2 3 4 5 6 7 8
-В Г И Б Ж А Д Е
-
-1 2 3 4 5 6 7 8
-Д Г Е А Ж Б В И
-
-Отсюда находим, что первая перестановка не подходит так как: ЕЖ(58) = 28, а БГ(42) = 20
-
-Берем вторую перестановку: ЕЖ(35) = 16, а БГ(62) = 26.
-Тогда ВГ(72) = 25, а ГБ(26) = 26 -> 25 + 26 = 51
-
-Ответ: 51'
-'''
-
-
-# todo Разбор на канал № 6093 /dev/inf 02.2023 (Уровень: Средний)
-'''
-def F(a, c):
-    global cnt
-    if c > 3:
-        return 0
-    else:
-        if a % 2 == 0:
-            cnt += 1
-    return F(a+1, c+1) + F(a+2, c+1) + F(a*3, c+1)
-
-
-cnt = 0
-F(4, 0)
-print(cnt)
-
-# Вариант 2
-def F(a, c):
-    if c > 3:
-        return 0
-    return (a % 2 == 0) + (F(a+1, c+1) + F(a+2, c+1) + F(a*3, c+1))
-
-cnt = F(4, 0)
-print(cnt)
-'''
-
-
-# todo Разобрать № 5838 (Уровень: Средний)
-'''
-def F(a, b, c):
-    if a > b:
-        return 0
-    elif a == b:
-        if len(c) % 2 != 0 and all(x == 'B' for x in c[1::2]):
-            return 1
-        else:
-            return 0
-
-    else:
-        return F(a+3, b, c+'A') + F(a+2, b, c+'B') + F(a*2, b, c+'C')
-
-
-print(F(1, 50, ''))
-
-# Вариант 2
-def F(a, b, c):
-    if a >= b:
-        return a == b and len(c) % 2 != 0 and all(x == 'B' for x in c[1::2])
-
-    return F(a+3, b, c+'A') + F(a+2, b, c+'B') + F(a*2, b, c+'C')
-
-
-print(F(1, 50, ''))
-'''
-
-
-# todo сделать разбор https://education.yandex.ru/ege/task/ebbc8b9f-d709-47ff-b8f4-2c2e99ccb13b
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    if (M[-1] ** 3) >= 2 * (M[0] * M[1] * M[2]):
-        if all(x > 10 for x in M):
-            cnt += 1
-print(cnt)
-'''
-
-
-# todo Сделать разбор 9 номер https://education.yandex.ru/ege/task/342217d2-3e89-4933-a422-940d9668bfa3
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(not_copied) == 3:
-        if sum(copied3) ** 2 > sum(not_copied) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
-
-# todo сделать разбор
-
-'''
-from fnmatch import *
-for x in range(124, 10**10, 124):
-    if fnmatch(str(x), '1*28?64'):
-        divisors = [x % j == 0 for j in (14, 24, 34, 44, 54, 64, 74, 84, 94)]
-        if sum(divisors) == 5:
-            print(x, x // 124)
-'''
-
-
-# todo Сделать разбор
-'''
-from ipaddress import *
-R = []
-for mask in range(0, 33):
-    net = ip_network(f'218.48.192.56/{mask}', 0)
-    if '218.48.192.0' in str(net):
-        if len(list(net.hosts())) >= 500:
-            R.append(str(net.netmask).split('.')[2])
-print(len(set(R)))
-'''
-
-
-# № 18482 (Уровень: Базовый)
-# № 18126 (Уровень: Базовый)
-
-# https://education.yandex.ru/ege/task/f21ffc71-18b2-48d5-a4b3-5286316264af
-'''
-def F(x, a1, a2):
-    P = 3 <= x <= 87
-    Q = 50 <= x <= 72
-    A = a1 <= x <= a2
-    return P and (not(A == Q)) or (not(Q or A))
-
-
-R = []
-M = [x / 10 for x in range(1 * 10, 100 * 10)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(max(R))  # 46.75 -> 46.8 -> 46.9 -> 47
-'''
-
-
-# todo сделать пост про простые числа
-'''
-# Нашли все простые числа
-print([x for x in range(2, 100) if len(divisors(x)) == 0])
-# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-
-# Нашли все составные числа
-print([x for x in range(2, 100) if len(divisors(x)) != 0])
-# [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99]
-'''
-
-
-# todo Пример кода КОНФЛИКТОМ ИМЕН
-'''
-count = 0
-# from itertools import *
-# from itertools import count, permutations
-from itertools import permutations
-for p in permutations('abc'):
-    word = ''.join(p)
-    print(word)
-    count += 1
-print(count)  # 6
-
-# abc
-# acb
-# bac
-# bca
-# cab
-# cba
-'''
-
-# Правки в Степик
-
-# todo 1. https://stepik.org/lesson/1309433/step/10?auth=login&unit=1324549
-'''Добавить примечение из математики '''
-
-# todo 2. https://stepik.org/lesson/1309453/step/9?unit=1324569
-'''Эта задача для строк'''
-
-# todo 3. https://stepik.org/lesson/1309452/step/6?unit=1324568
-''' Убрать insert'''
-
-
-# todo 4. https://stepik.org/lesson/1038775/step/10?unit=1062778
-'''Заменить номер 17'''
-
-# todo 5. https://stepik.org/lesson/1038775/step/12?unit=1062778
-'''Убрать слова про абсолютную сумму'''
-
-
-# todo 6. https://stepik.org/lesson/1309455/step/10?unit=1324571
-'''Может быть заменить задачу?'''
-
-
-# todo Удалять срезом??
-'''
-n = int(input())
-L = []
-for i in range(n):
-    a = int(input())
-    L.append(a)
-del L[::2]
-print(L)
-'''
-
-# todo интересный 9 номер https://education.yandex.ru/ege/task/3c10485a-aca0-427e-8464-c7669e3315f9
-
-
-# todo сделать разбор 9 номера
-#
-# https://education.yandex.ru/ege/task/5c54e314-516a-44fb-b41f-b06ffe3345af
-'''
-from itertools import permutations
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    # сумма чисел в строке чётна
-    if sum(M) % 2 == 0:
-        # максимальное число строки меньше суммы трёх оставшихся чисел
-        if max(M) < sum(M) - max(M):
-            # четыре числа строки можно разбить на две пары чисел с равными суммами
-            if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
-                cnt += 1
-print(cnt)
-'''
-
-
-# todo сделать разбор 5 номер № 22271 (Уровень: Средний)
-
-# (О. Лысенков) На вход алгоритма подаётся натуральное число N.
-# 1. Строится восьмеричная запись числа N.
-
-# 2. Далее эта запись обрабатывается по следующему правилу:
-# а) если восьмеричная запись начинается на 5,
-# то  все двойки в записи меняются на единицы, а все единицы меняются на  двойки
-# после к числу приписывается 11 слева;
-
-# б) если восьмеричная запись начинается не на 5,
-# то к записи справа приписывается 10, а первый разряд полученной записи заменяется на 2.
-
-# Укажите  максимальное число N, для которого результатом
-# работы алгоритма является наибольшее  число R, меньшее 1354.
-'''
-L = []
+M = []
 for n in range(1, 10000):
-    s = f'{n:o}'  # s = oct(n)[2:]
-    if s[0] == '5':
-        s = s.replace('2', '*')
-        s = s.replace('1', '2')
-        s = s.replace('*', '1')
-        s = '11' + s
+    s = f'{n:b}'
+    if n % 2 != 0:
+        s = '1' + s[:-2] + '10'
     else:
-        s = s + '10'
-        s = '2' + s[1:]  # а первый разряд полученной записи заменяется на 2.
-    r = int(s, 8)
-    if r < 1354:
-        L.append((r, n))
-print(max(L))  # (1352, 61)
+        s = '10' + s[2:] + '1'
+    r = int(s, 2)
+    if n >= 33:
+        M.append(r)
+print(min(M))
 '''
 
 
-# todo Сделать разбор по 25 номеру № 23282 Основная волна 11.06.25 (Уровень: Средний)
-
-# Пусть М - сумма минимального и максимального простых натуральных делителей
-# целого числа, не считая самого числа.
-# Напишите программу, которая перебирает целые числа, большие 5 400 000,
-# в порядке возрастания и ищет среди них такие, для которых М больше 60 000
-# и является палиндромом,
-
-# В ответе запишите в первом столбце
-# таблицы первые  пять найденных чисел в порядке возрастания,
-# а во втором столбце - соответствующие им значения М.
+# todo розбор 5 номера https://education.yandex.ru/ege/task/71189626-0f31-4380-b790-94a173acd59a
 '''
-def prime(x):
-    if x <= 1:
-        return False
-    for i in range(2, int(x**0.5)+1):
-        if x % i == 0:
-            return False
-    return True
-
-
-def d(x):
-    a=[]
-    for i in range(2, int(x**0.5)+1):
-        if x%i==0:
-            a+=[i, x//i]
-    return sorted(set(a))
-k=0
-for i in range(5400001, 10**10):
-    a=[j for j in d(i) if prime(j) == True]
-    if len(a)>0:
-        M=min(a)+max(a)
-        if M>60000:
-            if str(M)[::-1] == str(M):
-                print(i, M)
-                k += 1
-                if k==5:
-                    break
-'''
-
-
-# todo обновить пост про библиотеки
-#  📌 Список полезных библиотек для успешной сдачи ЕГЭ по информатике! #tpy #useful
-#
-# 1⃣ Библиотека черепашки для решения 6 номера кодом:
-# import turtle as t
-#
-# t.tracer(0)
-#
-# t.fd(10)  # t.bk(10)
-# t.rt(90)  # t.lt(90)
-#
-# t.up()
-# t.down()
-#
-# x, y = 0, 0
-# t.goto(x, y)
-# t.dot(2, 'red')
-#
-# t.done()
-#
-# 2⃣ Библиотека itertools для решения 1, 8, 9, 12, 24 номеров кодом:
-# from itertools import product
-# from itertools import permutations
-#
-# combinations = list(product([1, 2, 3], repeat=2))
-# for combination in combinations:
-#     print(combination)
-#
-# perms = list(permutations("abc"))
-# for perm in perms:
-#     print(''.join(perm))
-#
-#
-# 3⃣ Библиотека ipaddress для решения нового 13 номера:
-# from ipaddress import *
-# net = ip_network('адрес узла/маска', 0)
-# print(net, net.netmask, net.num_addresses)
-#
-#
-# 4⃣ Две библиотеки для решения 16 номера:
-# Одна увеличивает глубину рекурсии:
-# import sys
-# sys.setrecursionlimit(10000)
-#
-#
-# Вторая ускоряет вычисления через использование кэширования:
-# from functools import *
-# @lru_cache(None)
-# def F(n):
-#
-#
-# 5⃣ Библиотека fnmatch для решения 25 номера с масками:
-# from fnmatch import fnmatch
-# if fnmatch('123', '*?3'):
-#     pass
-#
-#
-# 6⃣ Библиотека string хранит в себе много полезных элементов:
-# import string
-# alphabet = string.ascii_uppercase
-# print(alphabet)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-#
-# print(string.punctuation)
-# # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-#
-#
-# 7⃣ Библиотека math хранит в себе много полезных математических функций:
-# import math as m
-# print(m.sqrt(16))
-# print(m.ceil(7/2))
-#
-#
-# 💻 Теперь у вас есть знания о необходимых библиотеках, чтобы успешно справиться с заданиями ЕГЭ по информатике! 🚀
-#
-# Поставьте котика 🥰😘 за оперативность 😅
-#
-# Информатика ЕГЭ | itpy (https://t.me/+d5pEzMQLDT1mYTYy) 🧑‍💻
-#  (https://t.me/+d5pEzMQLDT1mYTYy)Поддержать (https://boosty.to/informatika_kege_itpy/donate)  (https://boosty.to/informatika_kege_itpy/donate)автора: (https://boosty.to/informatika_kege_itpy/donate)  (https://boosty.to/informatika_kege_itpy/donate)boosty (https://boosty.to/informatika_kege_itpy/donate) 💵.to / informatika_kege_itpy / donate)boosty(https: // boosty.to / informatika_kege_itpy / donate) 💵
-
-
-# todo сделать разбор 14 номера https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alp)
 def convert(n, b):
     r = ''
     while n > 0:
-        r = alp[n % b] + r
+        r += str(n % b)
         n //= b
-    return r
+    return r[::-1]
 
-n = 625**90+125**120 - 5*25
-s = convert(n, 25)
-print(sum([int(x, 25) for x in s if x in alp[0::2]]))
+M = []
+for n in range(1, 10000):
+    s = convert(n, 7)
+    z = ''
+    for x in s:
+        if x in '13579':
+            z += str(int(x) + 1)
+        else:
+            z += x
+    summa = sum([int(x) for x in z])
+    # summa = sum(map(int, z))
+    z = convert(summa, 7) + z
+    if z[0] in '13579':
+        z = z[0] + z
+    r = int(z, 7)
+    if r > 2000:
+        M.append(r)
+print(min(M))
 '''
-

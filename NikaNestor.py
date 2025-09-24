@@ -34,45 +34,7 @@ print(k)
 # #
 # region Урок: ********************************************************************
 
-
-# 1. Системы счисления (перевод)
-# 2. Срезы строк (списков)
-# 3. Основы списков
-
-# Пару слов про срезы
 '''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(M[2:])  # ['c', 'd', 'e']
-print(M[-3:])  # ['c', 'd', 'e']
-print(M[:-2])  # 'a', 'b', 'c']
-'''
-
-# № 23742 Демоверсия 2026 (Уровень: Базовый)
-'''
-R = []
-for n in range(1, 10000):
-    s = bin(n)[2:]  # s = f'{n:b}'  # s = convert(n, 2)
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)
-    # ValueError: int() base must be >= 2 and <= 36, or 0
-    if r >= 200:
-        R.append(n)
-print(min(R))
-'''
-
-
-# Универсальная функция перевода в различные системы счисления
-'''
-from string import *
-alp = digits + ascii_uppercase  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-alp = '0123456789ABC...'
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
 def convert(n, b):
@@ -82,44 +44,19 @@ def convert(n, b):
         n //= b
     return r
 
-n = 8
-print(convert(n, 2))  # 1000
-print(convert(n, 3))  # 22
-print(convert(n, 8))  # 10
-print(convert(n, 16))  # 8
-print(convert(10**8, 16))  # 5F5E100
-print(int('5F5E100', 16))  # 10**8
+n = 3*3125**8 + 2*625**7 - 4*625**6 +3*125**5 - 2*25**4 - 2025
+s = convert(n, 25)
+print(s.count('0'))  # 10
+print(len(s) - s.count('0'))
 '''
 
 
-# № 23364 Резервный день 19.06.25 (Уровень: Базовый)
-'''
-def f(x, b):
-    s = ''
-    while x > 0:
-        s = str(x % b) + s
-        x //= b
-    return s
 
-for n in range(1, 1000):
-    r = f(n, 3)
-    if n % 3 == 0:
-        r = '1' + r + '02'
-    else:
-        t = f((n % 3)*4, 3)
-        r = r + t
-    a = int(r, 3)
-    if a < 100:
-        print(n)
-'''
-
-
-# № 22272 (Уровень: Средний)
+# № 23752 Демоверсия 2026 (Уровень: Базовый)
 '''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-
-def f(n, b):
+def convert(n, b):
     r = ''
     while n > 0:
         r = alp[n % b] + r
@@ -127,23 +64,128 @@ def f(n, b):
     return r
 
 
+n = 2 * 2187**2020 + 729**2021 - 2*243**2022 + 81**2023 - 2*27**2024 - 6561
+s = convert(n, 27)
+print(len([x for x in s if x > '9']))
+'''
+
+
+# № 17870 Демоверсия 2025 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
 R = []
-for n in range(1, 10000):
-    s = f(n, 9)
-    if s[0] == '7':
-        s = s.replace('6', '*')
-        s = s.replace('3', '6')
-        s = s.replace('*', '3')
-        s = s + '34'
-    else:
-        s = '3' + s[1:] + '45'
-
-    r = int(s, 9)
-    if r < 2876:
-        R.append([r, n])
-
+for x in range(1, 2030):
+    n = 7**170 + 7**100 - x
+    s = convert(n, 7)
+    if s.count('0') == 71:
+        R.append(x)
 print(max(R))
 '''
+
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+R = []
+for x in range(1, 3000):
+    n = 4**210 + 4**110 - x
+    s = convert(n, 4)
+    if s.count('0') == 105:
+        print(x)
+    R.append(s.count('0'))
+print(max(R))  # 105
+'''
+
+
+# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+'''
+R = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        R.append((A + B + C) // 20)
+print(min(R))
+'''
+
+
+# Тип 14 №48388
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:12]:
+    for y in alp[:12]:
+        A = int(f'{x}231{y}', 12)
+        B = int(f'78{x}98{y}', 14)
+        if (A + B) % 99 == 0:
+            print((A + B) // 99)
+'''
+
+
+# № 23935 (Уровень: Базовый)
+'''
+# alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# print(alp.index('H'))
+for p in range(18, 36+1):
+    A = int(f'22A12E', p)
+    B = int(f'2F1391', p)
+    C = int(f'1H05D0', p)
+    if (A  + B - C) % 19 == 0:
+        print(p, (A  + B - C) // 19)
+'''
+
+# № 13246 Открытый курс "Слово пацана" (Уровень: Средний)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for p in range(10, 36+1):
+    for x in alp[:p]:
+        for y in alp[:p]:
+            A = int(f'24{x}9', p)
+            B = int(y+x+y+'3', p)
+            C = int(f'{x}4{y}0', p)
+            if A + B == C:
+                print(int(x + y + y, p))
+'''
+
+
+# № 7702 (Уровень: Сложный)
+'''
+R = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for y in range(9, 17+1):
+    for x in alp[:y]:
+        A = int(f'5{x}{alp[y]}A', 18)
+        B = int(f'18{x}7', y)
+        R.append(A + B)
+print(len(set(R)))
+'''
+
+# Тип 9 №76677
+
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    avg = sum(M) / len(M)
+    zam = [x for x in M if x > avg]
+    if len([x for x in zam if x % 2 == 0]) > len([x for x in zam if x % 2 != 0]):
+        if sum([x for x in M if x % 2 == 0]) < sum([x for x in M if x % 2 != 0]):
+            cnt += 1
+print(cnt)
 
 # endregion Урок: *************************************************************
 # #
@@ -154,6 +196,6 @@ print(max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 9, 17]
+# ФИПИ = [5, 9, 14, 17]
 # КЕГЭ = []
 # на следующем уроке:
