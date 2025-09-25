@@ -7,215 +7,319 @@
 # region Урок: ********************************************************************
 
 
-# https://education.yandex.ru/ege/task/39bb599c-c811-49fe-84b7-be8dd035d167
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+# Три основных прототипа
+# 1. записаны в алфавитном порядке и пронумерованы.
+# 2. каждому сообщению соответствует своё кодовое слово
+# 3. Определите количество девятеричных пятизначных чисел
 
-n = 5**23 + 25 ** 12
-s = convert(n, 5)
-print(s.count('0'))
+
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
+'''
+n = 0
+s = sorted('СТРОКА')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                print(n)
+'''
+
+# № 23192 Основная волна 10.06.25 (Уровень: Базовый)
+'''
+n = 0
+s = sorted('ТЕОРИЯ')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if n % 2 != 0:
+                            if a not in 'РТЯ':
+                                if word.count('И') >= 2:
+                                    print(n)
 
 # Вариант 2
-n = 5**23 + 25 ** 12
-s = []
-while n > 0:
-    s.append(n % 5)
-    n //= 5
-s = s[::-1]
-print(s.count(0))
-
-
-# Вариант 3
-n = 5**23 + 25 ** 12
-s = ''
-while n > 0:
-    s = str(n % 5) + s
-    n //= 5
-print(s.count('0'))
-'''
-from runpy import run_path
-
-# https://education.yandex.ru/ege/task/1b5ee551-6d66-4c66-b1ae-8169874ee37b
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-for x in range(2030):
-    n = 3**100 - x
-    s = convert(n, 3)
-    if s.count('0') == 5:
-        print(x)
+n = 0
+from itertools import product
+for p in product(sorted('ТЕОРИЯ'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if word[0] not in 'РТЯ':
+            if word.count('И') >= 2:
+                print(n)
 '''
 
 
-# https://education.yandex.ru/ege/task/d90014d9-5105-4860-a4d3-f9cd62ad463e
+# Пример использования методов СТРОК (str) ''.join() и .split()
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+ip = '234.43.87.255'
+print(ip.split('.'))  # ['234', '43', '87', '255']
 
-for x in range(2030):
-    n = 7**91 + 7**160 - x
-    s = convert(n, 7)
-    if s.count('0') == 70:
-        print(x)
-'''
+ip = '234 43    87   255'
+print(ip.split(' '))  # ['234', '43', '', '', '', '87', '', '', '255']
 
-# https://education.yandex.ru/ege/task/68ca56c6-8e43-49bf-8ece-91cf0c76d3ba
-'''
-print(bin(2**24 + 2**14 - 2**5)[2:].count('1'))
+ip = '234 43    87   255'
+print(ip.split())  # ['234', '43', '87', '255']
+
+
+IP = ['234', '43', '87', '255']
+print(''.join(IP))  # 2344387255
+print(' '.join(IP))  # 234 43 87 255
+print('*'.join(IP))  # 234*43*87*255
+print('* *'.join(IP))  # 234* *43* *87* *255
 '''
 
 
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alp[:2])  # ['0', '1']
-print(alp[:8])  # ['0', '1', '2', '3', '4', '5', '6', '7']
-
-
-# https://education.yandex.ru/ege/task/c87ec1c9-cbb1-4c23-b8ae-aae45260058c
+# № 21407 Досрочная волна 2025 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        print(x, (A + B) // 18)
-'''
-
-
-# https://education.yandex.ru/ege/task/2269ff29-1320-4c26-b127-c149167e1c9a
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:15]:
-    A = int(f'9897{x}21', 15)
-    B = int(f'12{x}023', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
-'''
-
-# Егор
-# https://education.yandex.ru/ege/task/dd1ad283-40a2-4123-9328-5bb0cbcb8092
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:15]:
-    A = int(f'99658{x}29', 15)
-    B = int(f'102{x}023', 15)
-    if (A + B) % 14 == 0:
-        print((A + B) // 14)
+cnt = 0
+s = 'ДГИАШЭ'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if a not in 'ИАЭ':
+                        if e not in 'ДГШ':
+                            cnt += 1
+print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/038952ca-0ea6-4083-8831-34ab2aac8eba
+# № 18942 (Уровень: Базовый)
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-n = 36**65 + 6**112 - 136
-s = convert(n, 6)
-print(s[-3:])
-'''
-
-
-# https://education.yandex.ru/ege/task/fb0fcacf-ba6f-49bc-bf96-3eee0b9d6a01
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alp)
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-n = 625**90+125**120 - 5*25
-s = convert(n, 25)
-print(sum([int(x, 25) for x in s if x in alp[0::2]]))
+cnt = 0
+s = 'ДИОНСЙ'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        if (word.count('Д') > 0) + (word.count('Н') > 0) == 1:
+                            if 'ДД' not in word and 'НН' not in word:
+                                if 'ОО' not in word and 'ИИ' not in word:
+                                    if 'ЙЙ' not in word and 'СС' not in word:
+                                        cnt += 1
+print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/task/6e6c2557-26e8-4b87-a6ff-96defe05f178
+# № 17549 Основная волна 08.06.24 (Уровень: Базовый)   Иван
+
+# Все 5-буквенные слова, в составе которых могут быть только буквы Ф, О, К, У, С,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ККККК
+# 2. ККККО
+# 3. ККККС
+# 4. ККККУ
+# 5. ККККФ
+# …
+# Под каким номером в списке идёт последнее слово, которое не содержит букв Ф и содержит ровно две буквы У?
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-n = 5**20 + 5**10 - 5**13 - 5**3
-s = convert(n, 5)  # '44444440004444444000'
-print(s.count('4') * 4)
-'''
-
-# Сумма цифр числа
-'''
-n = 44444440004444444000
-
-summa0 = str(n).count('4') * 4
-print(summa0)
-
-summa1 = 0
-for x in str(n):
-    summa1 += int(x)
-print(summa1)
-
-summa2 = sum([int(x) for x in str(n)])
-print(summa2)
-
-summa3 = sum(map(int, str(n)))
-print(summa3)
+n = 0
+s = sorted('ФОКУС')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if 'Ф' not in word and word.count('У') == 2:
+                            print(n)
 '''
 
 
-# https://education.yandex.ru/ege/task/730369b5-bb1f-4ec1-a50e-7a44f0b0ae09
+# № 17671 Переcдача 04.07.24 (Уровень: Базовый)   Егор
+
+# Все пятибуквенные слова, в составе которых могут быть только русские буквы Л, А, Й, М,
+# записаны в алфавитном порядке и пронумерованы начиная с 1.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААЙ
+# 3. ААААЛ
+# 4. ААААМ
+# 5. АААЙА
+# …
+# Под каким номером в списке идёт последнее слово, которое не содержит ни одной буквы М,
+# ни одной буквы Л и не содержит букв Й стоящих рядом?
 '''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-for x in range(1, 10000):
-    n = 27**7 - 3**11 + 36 - x
-    s = convert(n, 3)
-    if sum(map(int, s)) == 22:
-        print(x)
-        break
+n = 0
+s = sorted('ЛАЙМ')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if 'Л' not in word:
+                        if word.count('М') == 0:
+                            if word.count('ЙЙ') == 0:  # 'ЙЙ' not in word
+                                print(n)
 '''
 
 
-# № 13246 Открытый курс "Слово пацана" (Уровень: Средний)
+# № 15320 Досрочная волна 2024 (Уровень: Базовый)
+
+# Все 5-буквенные слова, в составе которых могут быть только буквы П, А, Р, У, С, записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1.  ААААА
+# 2.  ААААП
+# 3.  ААААР
+# 4.  ААААС
+# 5.  ААААУ
+# 6.  АААПА
+# …
+# Под каким номером в списке идёт первое слово, которое содержит
+# не более одной буквы У и не содержит букв А, стоящих рядом?
 '''
-# ValueError: int() base must be >= 2 and <= 36, or 0
-
-alp = sorted('0123456789QWERTYUIOPSDFGHAJKLZXCVBNM')
-for p in range(10, 36+1):
-    for x in alp[:p]:
-        for y in alp[:p]:
-            if int(f'24{x}9', p) + int(f'{y}{x}{y}3', p) == int(f'{x}4{y}0', p):
-                print(int(x + y + y, p))
+n = 0
+s = sorted('ПАРУС')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if 'АА' not in word:
+                        if word.count("У") <= 1:
+                            print(n)
 '''
 
 
+# № 14410 (Уровень: Базовый)
+
+# (Л. Шастин) Все шестибуквенные слова, составленные из букв С, О, Л, Н, Ц, Е,
+# записаны в алфавитном порядке и пронумерованы.
+# 1. ЕЕЕЕЕЕ
+# 2. ЕЕЕЕЕЛ
+# 3. ЕЕЕЕЕН
+# 4. ЕЕЕЕЕО
+# 5. ЕЕЕЕЕС
+# 6. ЕЕЕЕЕЦ
+
+# Определите в этом списке количество слов с чётными номерами,
+# которые не начинаются с гласной буквы и при этом содержат в своей записи ровно две буквы Ц.
+'''
+n = 0
+cnt = 0
+s = sorted('СОЛНЦЕ')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if n % 2 == 0:
+                            if a not in 'ОЕ'and word.count('Ц') == 2:
+                                cnt += 1
+print(cnt)
+'''
 
 
+# № 23367 Резервный день 19.06.25 (Уровень: Базовый)
+# Сколько существует семеричных пятизначных чисел, содержащих
+# в своей записи ровно одну цифру 6 и не содержащих идущих подряд одинаковых цифр?
+'''
+cnt = 0
+s = '0123456'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        if num.count('6') == 1:
+                            # if '00' not in num and '11' not in num and ...
+                            if all(p not in num for p in '00 11 22 33 44 55 66'.split()):
+                                cnt += 1
+print(cnt)
+'''
+
+# № 21894 Открытый вариант 2025 (Уровень: Базовый)
+# Сколько существует десятичных четырёхзначных чисел,
+# в которых все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?
+'''
+cnt = 0
+s = '0123456789'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                num = a + b + c + d
+                if a != '0':
+                    if len(num) == len(set(num)):  #  которых все цифры различны
+                        for x in '02468':
+                            num = num.replace(x, '2')
+                        for x in '13579':
+                            num = num.replace(x, '1')
+                        if '11' not in num and '22' not in num:
+                            cnt += 1
+print(cnt)
+'''
+
+
+# № 20898 Апробация 05.03.25 (Уровень: Базовый)
+
+# Определите количество девятеричных пятизначных чисел,
+# в записи которых ровно одна цифра 0, при этом никакая нечётная цифра не стоит рядом с цифрой 0.
+'''
+cnt = 0
+s = '012345678'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != "0":
+                        if num.count('0') == 1:
+                            for x in '13579':
+                                num = num.replace(x, '1')
+                            if '10' not in num and '01' not in num:
+                                cnt += 1
+print(cnt)
+'''
+
+# № 17862 Демоверсия 2025 (Уровень: Базовый)
+
+# Определите количество 12-ричных пятизначных чисел, в записи которых ровно одна цифра 7
+# и не более трёх цифр с числовым значением, превышающим 8.
+
+cnt = 0
+s = '0123456789AB'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        if num.count('7') == 1:
+                            # if '00' not in num and '11' not in num and ...
+                            # if num.count('9') + num.count('A') + num.count('B') <= 3:
+                            if len([x for x in num if x > '8']) <= 3:
+                                cnt += 1
+print(cnt)
 
 
 # endregion Урок: *************************************************************
@@ -227,6 +331,6 @@ for p in range(10, 36+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 14]
+# ФИПИ = [2, 5, 6, 8, 14]
 # КЕГЭ = []
 # на следующем уроке:
