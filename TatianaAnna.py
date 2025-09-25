@@ -1,220 +1,206 @@
 # region Домашка: ******************************************************************
 
 
-# https://stepik.org/lesson/1038432/step/2?unit=1060804
-'''
-L = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-
-    for i in range(2):
-        if s.count('1') % 2 == 0:
-            s = s + '00'
-            s = '11' + s[2:]
-        else:
-            s = s + '11'
-            s = '10' + s[2:]
-
-    r = int(s, 2)
-    if n < 100:
-        L.append(r)
-print(max(L))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 23752 Демоверсия 2026 (Уровень: Базовый)
+# 23746 Демоверсия 2026 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-n = 2 * 2187**2020 + 729**2021 -2*243**2022 + 81**2023 - 2*27**2024 - 6561
-s = G(n, 27)
-print(len([x for x in s if x > '9']))
+n = 0
+s = sorted('СТРОКА')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                print(n)
 '''
 
-# № 19880 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-n = 15625**16 - 3125**3 * 25**19 + 625**4 - 2005
-s = G(n, 25)
-print(s.count('0'))  # Сколько значащих нулей содержится
-print(len(s) - s.count('0'))  # Сколько не нулевых чисел содержится
+n = 0
+from itertools import product
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                print(n)
 '''
 
 
-# № 23754 Демоверсия 2026 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
+ip = '34.54.234.122'
+print(ip.split('.'))  # ['34', '54', '234', '122']
 
+IP = ['34', '54', '234', '122']
+print('*'.join(IP))  # '34*54*234*122'
+'''
+
+
+# № 23554 Пересдача 03.07.25 (Уровень: Базовый)
+'''
 R = []
-for x in range(1, 3000):
-    n = 9 * 11**210 + 8*11**150 - x
-    s = G(n, 11)
-    if s.count('0') == 60:
-        R.append(x)
-print(max(R))
-'''
-
-
-# № 23560 Пересдача 03.07.25 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-R = []
-for x in range(1, 2400):
-    n = 7 * 9**210 + 6*9**110 - x
-    s = G(n, 9)
-    if s.count('0') == 100:
-        R.append(x)
-print(max(R))
-'''
-
-# Татьяна
-# № 23198 Основная волна 10.06.25 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-
-R = []
-for x in range(1, 3000):
-    n = 9 ** 150 + 9 ** 30 - x
-    s = G(n, 9)
-    if s.count('0') == 122:
-        R.append(x)
+n = 0
+from itertools import product
+for p in product(sorted('АЛГОРИТМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АГ':
+            if word.count('Р') >= 2:
+                R.append(n)
 print(min(R))
 '''
 
 
-# Анна
-# № 21900 Открытый вариант 2025 (Уровень: Базовый)
+# № 21407 Досрочная волна 2025 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+cnt = 0
+s = 'ДГИАШЭ'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if a not in 'ИАЭ':
+                        if e not in 'ДГШ':
+                            cnt += 1
+print(cnt)
 
-
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-
-R = []
-for x in range(1, 2300):
-    n = 7 ** 350 + 7 ** 150 - x
-    s = G(n, 7)
-    if s.count('0') == 200:
-        R.append(x)
-print(max(R))
-'''
-
-
-
-# № 23273 Основная волна 11.06.25 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f'923{x}874', 29)
-    B = int(f'524{x}6152', 29)
-    if (A + B) % 28 == 0:
-        print(x, (A + B) // 28)
+cnt = 0
+from itertools import product
+for p in product('ДГИАШЭ', repeat=5):
+    word = ''.join(p)
+    a, b, c, d, e = word
+    if a not in 'ИАЭ':
+        if e not in 'ДГШ':
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        print(x, (A + B + C) // 20)
-'''
-
-
-# Татьяна
-# № 17868 Демоверсия 2025 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-R = []
-for x in alp[:19]:
-    A = int(f'98897{x}21', 19)
-    B = int(f'2{x}923', 19)
-    if (A + B) % 18 == 0:
-        R.append((A + B) // 18)
-print(max(R))
-'''
-
-# Анна
-# № 19246 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-R = []
-for x in alp[:25]:
-    A = int(f'11353{x}12', 25)
-    B = int(f'135{x}21', 25)
-    if (A + B) % 24 == 0:
-        R.append((A + B) // 24)
-print(max(R))
-'''
-
-
-# Тип 14 №48391
-
-# Операнды арифметического выражения записаны в
-# системах счисления с основаниями 12 и 14:
 #
-# yAAx_12 +  x02y_14.
-#
-# В записи чисел переменными x и y обозначены
-# допустимые в данных системах счисления неизвестные
-# цифры. Определите значения x и y, при которых
-# значение данного арифметического выражения будет
-# наименьшим и кратно 80.
+# № 20898 Апробация 05.03.25 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:12]:
-    for y in alp[:12]:
-        A = int(f'{y}AA{x}', 12)
-        B = int(f'{x}02{y}', 14)
-        if (A + B) % 80 == 0:
-            print((A + B) // 80)
+cnt = 0
+s = '012345678'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        if num.count('0') == 1:
+                            for x in '1357':
+                                num = num.replace(x, '1')
+                            if '10' not in num and '01' not in num:
+                                cnt += 1
+print(cnt)
+'''
+
+
+# Под каким номером в списке идёт последнее слово, которое не начинается с буквы Я,
+# содержит не более одной буквы Ь и не содержит букв Я, стоящих рядом?
+'''
+L = []
+n = 0
+from itertools import product
+
+for p in product(sorted('ЯНВАРЬ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if word[0] not in 'Я':
+        if word.count('Ь') == 1:
+            if 'ЯЯ' not in word:
+                L.append(n)
+print(max(L))
+'''
+
+
+# № 18133 (Уровень: Базовый)  Татьяна
+# (В. Колчев) Все 5-буквенные слова, в составе которых могут быть только буквы К,О,Д,И,М,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ДДДДД
+# 2. ДДДДИ
+# 3. ДДДДК
+# 4. ДДДДМ
+# 5. ДДДДО
+
+# Под каким номером в списке идёт последнее слово, которое содержит
+# ровно две буквы М и не содержит букв М, стоящих рядом?
+'''
+L = []
+n = 0
+s = sorted('КОДИМ')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if word.count('M') == 2:
+                        if 'MM' not in word:
+                            L.append(n)
+print(max(L))
+'''
+
+
+# № 11292 (Уровень: Средний)
+# Сколько существует шестнадцатеричных пятизначных чисел, содержащих в своей
+# записи ровно две цифры 6, при этом никакая чётная цифра не стоит рядом с цифрой 6?
+cnt = 0
+s = '0123456789ABCDEF'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if a != '0':
+                        if num.count('6') == 2:
+                            for x in '0248ACE':
+                                num = num.replace(x, '*')
+                            if '*6' not in num and '6*' not in num and '66' not in num:
+                                cnt += 1
+print(cnt)
+
+
+
+
+# № 11291 (Уровень: Средний)
+# Сколько существует шестеричных семизначных чисел, содержащих в своей
+# записи ровно одну цифру 2, при этом никакая чётная цифра не стоит рядом с цифрой 2?
+'''
+cnt = 0
+s = '012345'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                         num = a + b + c + d + e + f + g
+                         if a != '0':
+                             if num.count('2') == 1:
+                                 for x in '04':
+                                     num = num.replace(x, '+')
+                                 if '+2' not in num and '2+' not in num and '22' not in num: 
+                                     cnt += 1
+print(cnt)
 '''
 
 # endregion Урок: *************************************************************

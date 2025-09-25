@@ -1259,7 +1259,7 @@ print(len(set(R)))
 #  4. Заменить номер 17 https://stepik.org/lesson/1038775/step/10?unit=1062778
 #  5. Убрать слова про абсолютную сумму https://stepik.org/lesson/1038775/step/12?unit=1062778
 #  6. Может быть заменить задачу? https://stepik.org/lesson/1309455/step/10?unit=1324571
-
+#  7. Убрать задачу 25 (поменять) https://stepik.org/lesson/1228669/step/4?unit=1242202
 
 
 # todo сделать разбор https://education.yandex.ru/ege/task/1fba1cbc-57aa-4874-b06d-1b434166e30c
@@ -1306,3 +1306,68 @@ for n in range(1, 10000):
         M.append(r)
 print(min(M))
 '''
+
+
+# Пару вступительных слов по системы счисления
+
+from string import *
+alp36 = digits + ascii_uppercase
+print(alp36)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+alp2 = alp36[:2]  # '01'
+alp8 = alp36[:8]  # '01234567'
+alp16 = alp36[:16]  # '0123456789ABCDEF'
+
+
+# Универсальная функция перевода в различные системы счисления
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLXZCVBNM')
+
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b]+ r
+        n //= b
+    return r
+
+
+n = 8
+
+# Перевод в двоичную систему:
+print(bin(n)[2:])  # 1000
+print(f'{n:b}')  # 1000
+print(convert(n, 2))  # 1000
+
+# Перевод из 2-й обратно в 10-ю:
+print(int('1000', 2))  # 8
+
+
+# Перевод в восьмеричную систему:
+print(oct(n)[2:])  # 10
+print(f'{n:o}')  # 10
+print(convert(n, 8))  # 10
+
+# Перевод из 8-й обратно в 10-ю:
+print(int('10', 8))  # 8
+
+
+# Перевод в шестнадцатеричную систему:
+print(hex(n)[2:])  # 8
+print(f'{n:x}')  # 8
+print(convert(n, 16))  # 8
+
+# Перевод из 16-й обратно в 10-ю:
+print(int('8', 16))  # 8
+
+
+# Перевод в троичную систему:
+print(convert(n, 3))  # 22
+print(int('22', 3))  # 8
+
+# Ограничение до 36 символьного алфавита
+'''
+print(int('234532', 37))
+# ValueError: int() base must be >= 2 and <= 36, or 0
+'''
+
+

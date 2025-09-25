@@ -1,30 +1,20 @@
 # region Домашка: ******************************************************************
 
-'''
-a = input()
-if a in ('Информатика', 'Программирование', 'ИКТ'):
-    print('Петя берёт с собой компьютер')
-else:
-    print('Петя берёт с собой тетрадь')
-'''
-from time import process_time_ns
 
-# Сочетание клавиш ctrl + alt + L
-'''
-a = input()
-if len(a) >= 10 or len(a) % 2 == 0:
-    print('ДА')
-else:
-    print('НЕТ')
-'''
-
+# https://stepik.org/lesson/1309435/step/12?unit=1324551
 '''
 a = int(input())
 b = int(input())
-if max(a, b) % min(a, b)== 0:
-    print('Делится')
-else:
-    print('Не делится')
+for x in range(a, b+1):
+    if x <= 1:
+        continue
+    flag = True
+    for j in range(2, x):
+        if x % j == 0:
+            flag = False
+            break
+    if flag == True:
+        print(x)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -33,210 +23,245 @@ else:
 # region Урок: ********************************************************************
 
 
-# Циклы for отвечает на запросы: "повтори n раз", "пробеги от А до В"
-
-# Цикл for вместе с функцией range()
+# Общие сведения про списки (list) в Python
 '''
-# range(0, STOP-1, 1)
-# range(START, STOP-1, 1)
-# range(START, STOP-1, STEP)
+# i   0    1   2    3     4
+L = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-for i in range(10):
-    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
+# 1. Могут хранить неограниченное кол-во данных
+# 2. Элементы списка могут принимать различные типы данных (в отличие от массивов)
+# 3. Каждый элемент списка имеет свой порядковый номер: индекс
+# 4. Индексы можно считать слева-направо начиная с 0 или справа-налево начиная с -1
+# 5. Через индексы мы можем изменять элементы списка (в отличие от строк и кортежей)
 
-for i in range(2, 10):
-    print(i, end=' ')  # 2 3 4 5 6 7 8 9
-print()
+print(f'Первый элемент списка L: {L[0]}')
+print(f'Последний элемент списка L: {L[-1]}')
 
-for i in range(2, 10, 2):
-    print(i, end=' ')  # 2 4 6 8
-print()
+# Поменяли местами первый и последний элементы
+L[0], L[-1] = L[-1], L[0]
 
-n = 10
-for i in range(2, n+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
+print(len(L))  # 5
 
-
-for i in range(10, -1, -1):
-    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1 0
-print()
-'''
-
-# Цикл for вместе с последовательностями
-'''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in M:
-    if x in 'ae':
-        print(x, end=' ')  # a e
-print()
-
-
-for i in range(len(M)):
+for i in range(len(L)):
     # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
+    print(L[i], end=' ')  # e b c d a
 print()
 
+for i in range(len(L)):
+    L[i] = L[i] * i
+print(L)  # ['', 'b', 'cc', 'ddd', 'aaaa']
 
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+
+A = [2, '2', 2.0, True, [1, 2, 3], (1, 2, 3), {1, 2, 3}, {'one':'один', 'two':'два'}]
+for x in A:
+    print(type(x), x)
+    # <class 'int'> 2
+    # <class 'str'> 2
+    # <class 'float'> 2.0
+    # <class 'bool'> True
+    # <class 'list'> [1, 2, 3]
+    # <class 'tuple'> (1, 2, 3)
+    # <class 'set'> {1, 2, 3}
+    # <class 'dict'> {'one': 'один', 'two': 'два'}
+
+
+# Создание матриц через вложенные списки:
+matrix = [[-1, 2, -5], [3, 4, 1], [0, 1, 2]]
+print(matrix[0][2])  # -5
 '''
 
 
-# Циклы while отвечает на запросы: "Пока условие верное - делай действие", "Бесконечные циклы"
-
+# Функции списков list()
 '''
-for i in range(2, 10+1, 2):
-    print(i, end=' ')  # 2 4 6 8 10
-print()
+T = (1, 2, 2, 3, 3, 3)
+A = list(T)
+print(type(A), A)  # <class 'list'> [1, 2, 2, 3, 3, 3]
 
-i = 2
-while i <= 10:
-    print(i, end=' ')  # 2 4 6 8 10
-    i += 2
-print()
-'''
+print(len(A))  # - Возвращает длину списка (кол-во элементов в нем)
+print(sum(A))  # - Возвращает сумму элементов списка
+print(max(A), min(A))  # - Возвращает максимальный и минимальный элементы списка
 
+# M = ['4', 5]
+# print(max(M))  # instances of 'int' and 'str'
 
-# Переводы в различные системы счисления
-'''
-n = 10000
+M = ['2', 'a', 'A']
+print(max(M))  # a
+print(min(M))  # 2
+print(sorted(M))  # ['2', 'A', 'a']
 
-# Перевод в двоичную систему счисления
-print(bin(n)[2:])  # 10011100010000
-print(f'{n:b}')  # 10011100010000
+print(sorted(A))  # [1, 2, 2, 3, 3, 3]
+print(sorted(A, reverse=True))  # [3, 3, 3, 2, 2, 1]
 
-# Перевод из двоичной в 10-ю
-print(int('10011100010000', 2))  # 10000
-# ValueError: int() base must be >= 2 and <= 36, or 0
+print(reversed(A))  # <list_reverseiterator object at 0x105033250>
+print(list(reversed(A)))  # [3, 3, 3, 2, 2, 1]
 
-
-
-# Перевод в восьмеричную систему счисления
-print(oct(n)[2:])  # 23420
-print(f'{n:o}')  # 23420
-
-# Перевод из восьмеричной в 10-ю
-print(int('23420', 8))  # 10000
-
-
-
-# Перевод в шестнадцатеричную систему счисления
-print(hex(n)[2:])  # 2710
-print(f'{n:x}')  # 2710
-
-# Перевод из шестнадцатеричной в 10-ю
-print(int('2710', 16))  # 10000
-'''
-
-'''
-n = 8
-b = 2
-r = ''
-while n > 0:
-    r = r + str(n % b)
-    n //= b
-print(r[::-1])  # 1000
-
-
-
-n = 8
-b = 2
-r = ''
-while n > 0:
-    r = str(n % b) + r
-    n //= b
-print(r)
-
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-x = convert(8, 2)
-print(x)  # 1000
-
-x = convert(8, 8)
-print(x)  # 10
-
-x = convert(10**6, 16)
-print(x)  # F4240
+print(set(A))  # {1, 2, 3} - Убирает копии элементов 
 '''
 
 
-# Бесконечный цикл и операторы: break, continue, exit()
+# Методы списков list() - тоже, что и функции, но только для списков
+
+# .APPEND()
+# Метод .append() используется для добавления элемента в конец списка. Пример:
 '''
-k = 0
-while True:
-    k += 1
-    if k % 2 != 0:
-        continue   # Прерывает итерацию (шаг) цикла
-    if k == 50_000:
-        exit()  # Прерывание всей программы
-    if k == 100_000:
-        break  # Прерывание цикла в котором сейчас находимся
-    print(k)
+my_list = [1, 2, 3]
+my_list.append(4)
+my_list.append(5)
+print(my_list)  # Вывод: [1, 2, 3, 4, 5]
+'''
+# Можно реализовать через конкатенацию (склеивание) списков:
+'''
+my_list = [1, 2, 3]
+my_list = [0] + my_list + [4, 5]
+print(my_list)  # Вывод: [0, 1, 2, 3, 4, 5]
+'''
 
-print('Продолжение программы')
+# .REVERSE()
+# Метод .reverse() изменяет порядок элементов в списке на обратный. Пример:
+'''
+my_list = [1, 2, 3, 4]
+my_list.reverse()
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+# Можно записать по другому через срез:
+'''
+my_list = [1, 2, 3, 4]
+my_list = my_list[::-1]
+print(my_list)  # Вывод: [4, 3, 2, 1]
 '''
 
 
-# Простая програмка переводов в различные системы счисления
+# .COUNT()
+# Метод .count() возвращает количество вхождений заданного элемента в список. Пример:
 '''
-from string import digits, ascii_uppercase
-
-alp = digits + ascii_uppercase  # '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-
-while True:
-    case = input('\n\n'
-                 'case 1: Перевод из 10-й в b-ю систему \n'
-                 'case 2: Перевод из b-й в 10-ю систему \n'
-                 'case 3: Перевод из b-й в k-ю систему \n'
-                 'case 0: Выход из программы. \n'
-                 'case: ')
-
-    if case == '1':
-        n = int(input('\nВведите число в 10-й системе: '))
-        b = int(input('Введите систему счисления: '))
-        r = convert(n, b)
-        print(f'Результат перевода числа {n} в {b}-ю систему: {r}')
-
-    elif case == '2':
-        b = int(input('\nВведите систему счисления: '))
-        r = input(f'Введите число в {b}-й системе: ')
-        n = int(r, b)
-        print(f'Результат перевода числа {r} из {b}-й системы в 10-ю: {n}')
-
-    elif case == '3':
-        pass
-
-    elif case == '0':
-        print('Спасибо, что пользовались нашей программой!')
-        exit()
-
-    else:
-        print('Я понимаю только команды: 0, 1, 2, 3')
+my_list = [1, 2, 2, 3, 4, 2, '2', '2']
+print(my_list.count(2))  # Вывод: 3
+print(my_list.count('2'))  # Вывод: 2
 '''
+
+# .REMOVE()
+# Метод .remove() удаляет первое вхождение указанного элемента из списка. Пример:
+'''
+my_list = [1, 2, 3, 2, 4]
+my_list.remove(2)  # Первая найденная двойка
+print(my_list)  # Вывод: [1, 3, 2, 4]
+
+
+# Удалили все 2 из списка 
+my_list = [1, 2, 3, 2, 4]
+while 2 in my_list:
+    my_list.remove(2)
+print(my_list)  # [1, 3, 4]
+'''
+# Можно удалить элемент через его индекс используя del:
+'''
+my_list = [1, 2, 3, 2, 4]
+del my_list[1]  # Индекс удаляемого элемента
+print(my_list)  # Вывод: [1, 3, 2, 4]
+'''
+
+# .INDEX()
+# Метод .index() возвращает индекс первого вхождения заданного элемента в списке. Пример:
+'''
+my_list = [1, 2, 3, 2, 4]
+print(my_list.index(2))  # Вывод: 1
+'''
+
+# .SORT()
+# Метод .sort() сортирует элементы списка по возрастанию (по умолчанию) или в обратном порядке, если передан аргумент reverse=True. Пример:
+'''
+my_list = [4, 1, 3, 2]
+my_list.sort()
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list.sort(reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+# Скажу честно я не любитель этого метода, считаю, что удобнее будет использовать функцию sorted():
+'''
+my_list = [4, 1, 3, 2]
+my_list = sorted(my_list)
+print(my_list)  # Вывод: [1, 2, 3, 4]
+
+my_list = sorted(my_list, reverse=True)
+print(my_list)  # Вывод: [4, 3, 2, 1]
+'''
+
+
+# Срезы списков и строк: СРЕЗ[START : STOP-1 : STEP]
+'''
+# i  01234
+s = 'abcde'
+print(s[2:4])  # cd
+
+# i   0    1   2    3     4
+L = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+# СРЕЗ[START : STOP-1 : STEP]
+
+print(L[2:4])  # ['c', 'd'] - Все элементы от 2 по 4 индекс (не включая конец)
+print(L[:4])  # ['a', 'b', 'c', 'd'] - Все элементы до 4 индекса (не включая конец)
+print(L[2:])  # ['c', 'd', 'e'] - Все элементы от 2 и до конца
+
+print(L[2:])  # - Все элементы кроме первых двух
+print(L[-2:])  # - Взять последние два элементы
+
+print(L[:])  # - Все элементы без ограничений
+print(L[::])  # ['a', 'b', 'c', 'd', 'e']
+
+print(L[::2])  # ['a', 'c', 'e'] - Все элементы с четными индексами
+print(L[1::2])  # ['b', 'd'] - Все элементы с нечетными индексами
+
+print(L[::-1])  # ['e', 'd', 'c', 'b', 'a' - Все элементы в обратном порядке
+
+# i   0    1   2    3     4
+L = ['a', 'b', 'c', 'd', 'e']
+del L[1::2]
+print(L)  # ['a', 'c', 'e']
+'''
+
+
+# Генераторы списков
+
+# Генераторы [что_кладем откуда_берем]
+# Генераторы [что_кладем откуда_берем при_каком_условии]
+
+M = [i for i in range(10)]
+# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+M = [i for i in range(10) if i % 2 == 0]
+# [0, 2, 4, 6, 8]
+
+M = [i**2 for i in range(10) if i % 2 == 0]
+# [0, 4, 16, 36, 64]
+
+# Генерируем список рандомной длины и рандомных значений
+from random import randint
+n = randint(10, 20)
+M = [randint(0, 100) for i in range(n)]
+print(M)  # [32, 75, 26, 98, 36, 14, 96, 26, 26, 14, 99, 99, 28, 73, 4]
+
+chet = [x for x in M if x % 2 == 0]
+print(chet)  # [32, 26, 98, 36, 14, 96, 26, 26, 14, 28, 4]
+nechet = [x for x in M if x % 2 != 0]
+print(nechet)  # [75, 99, 99, 73]
+
+copied2 = [x for x in M if M.count(x) == 2]
+print(copied2)  # [14, 14, 99, 99]
+copied1 = [x for x in M if M.count(x) == 1]
+print(copied1)  # [32, 75, 98, 36, 96, 28, 73, 4]
+
+A = [x for x in M if x % 10 == 6]
+print(A)  # [26, 36, 96, 26, 26]
+B = [x for x in A if len(str(x)) == 2]
+print(A)  # [26, 36, 96, 26, 26]
+
+
+M = [int(x) for x in open('0. files/17.txt')]
+print(M)
 
 # endregion Урок: *************************************************************
 # #
