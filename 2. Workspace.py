@@ -1260,7 +1260,8 @@ print(len(set(R)))
 #  5. Убрать слова про абсолютную сумму https://stepik.org/lesson/1038775/step/12?unit=1062778
 #  6. Может быть заменить задачу? https://stepik.org/lesson/1309455/step/10?unit=1324571
 #  7. Убрать задачу 25 (поменять) https://stepik.org/lesson/1228669/step/4?unit=1242202
-
+#  8. Убрать задачу с ''.join() https://stepik.org/lesson/1309453/step/9?unit=1324569
+#  9. Перенести задачу в строки https://stepik.org/lesson/1309453/step/10?unit=1324569
 
 # todo сделать разбор https://education.yandex.ru/ege/task/1fba1cbc-57aa-4874-b06d-1b434166e30c
 '''
@@ -1309,7 +1310,7 @@ print(min(M))
 
 
 # Пару вступительных слов по системы счисления
-
+'''
 from string import *
 alp36 = digits + ascii_uppercase
 print(alp36)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -1317,10 +1318,10 @@ print(alp36)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 alp2 = alp36[:2]  # '01'
 alp8 = alp36[:8]  # '01234567'
 alp16 = alp36[:16]  # '0123456789ABCDEF'
-
+'''
 
 # Универсальная функция перевода в различные системы счисления
-
+'''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLXZCVBNM')
 
 def convert(n, b):
@@ -1363,11 +1364,10 @@ print(int('8', 16))  # 8
 # Перевод в троичную систему:
 print(convert(n, 3))  # 22
 print(int('22', 3))  # 8
+'''
 
 # Ограничение до 36 символьного алфавита
 '''
 print(int('234532', 37))
 # ValueError: int() base must be >= 2 and <= 36, or 0
 '''
-
-

@@ -7,245 +7,214 @@
 # region Урок: ********************************************************************
 
 
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# 25 номер с масками
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
+# № 23764 Демоверсия 2026 (Уровень: Базовый)
+# Назовём маской числа последовательность цифр,
+# в которой также могут встречаться следующие символы:
+# – символ «?» означает ровно одну произвольную цифру;
+# – символ «*» означает любую последовательность цифр произвольной длины;
+# в том числе «*» может задавать и пустую последовательность.
 
-
-
-# № 10097 Демоверсия 2024 (Уровень: Базовый)
+# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
+# соответствующие маске 3?12?14*5, делящиеся на 1917 без остатка.
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# Вариант 1
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-    
-n = 3*3125**8 + 2*625**7 - 4*625**6 + 3*125**5 - 2*25**4 - 2024
-s = convert(n, 25)
-print(s.count('0'))
-'''
+from fnmatch import *
+for x in range(1917, 10**10, 1917):
+    if fnmatch(str(x), '3?12?14*5'):
+        print(x, x // 1917)
 
-# № 12246 ЕГКР 16.12.23 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-    
-n = 2*729**333  +2*243**334 -81**335 + 2*27**336 - 2*9**337 - 338
-s = convert(n, 9)
-print(len(s) - s.count('0'))
-'''
-
-
-# № 14343 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-    
-n = 5*343**2031 + 4*49**2142 - 3*7**111 + 7**222
-s = convert(n, 7)
-print(sum(map(int, s)))
-print(sum([int(x) for x in s]))
-'''
-
-
-# № 15327 Досрочная волна 2024 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-    
-n = 3*2187**2020 + 3*729**2021 - 2*81**2022 + 27**2023 -4*3**2024 - 2029
-s = convert(n, 27)
-print(len([x for x in s if x > '9']))
-'''
-
-
-# № 17555 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-for x in range(2030):
-    n = 7**91 + 7**160 - x
-    s = convert(n, 7)
-    if s.count('0') == 70:
-        print(x)
-'''
 
 # Вариант 2
+
+from re import *  # Библиотека для работы с регулярными выражениями
+for x in range(1917, 10**10, 1917):
+    if fullmatch('3[0-9]12[0-9]14[0-9]*5', str(x)):
+        print(x, x // 1917)
 '''
-for x in range(2030):
-    n = 7**91 + 7**160 - x
-    s = ''
-    while n > 0:
-        s = str(n % 7)
-        n //= 7
-    if s.count('0') == 70:
+
+
+# todo Разобрать № 7897 (Уровень: Базовый)
+# – символ «?» означает ровно одну произвольную нечётную цифру;
+# – символ «*» означает любое чётное число;
+# в том числе «*» может задавать и пустую последовательность.
+
+# Среди натуральных чисел, не превышающих 10**10,
+# найдите 5 наибольших чисел, соответствующих маске ?136*1,
+# делящихся на 11071 без остатка.
+'''
+from re import *
+for x in range(11071, 10**10, 11071):
+    if fullmatch(r'[13579]136[02468]*1', str(x)):
+        print(x, x // 11071)
+
+
+from fnmatch import *
+for x in range(11071, 10**10, 11071):
+    if fnmatch(str(x), '?136*1'):
+        if str(x)[-1] in '13579':
+            if str(x)[-2] in '02468':
+                print(x, x // 11071)
+'''
+'''
+from re import *
+for x in range(53191, 10**10, 53191):
+    if fullmatch(r'[2468]136[13579]*', str(x)):
         print(x)
 '''
 
 
-# № 20808 Апробация 05.03.25 (Уровень: Средний)
+# № 7689 (Уровень: Средний)
 '''
+from re import *
 R = []
-for x in range(1, 2030):
-    n = 7 ** 170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 73:
-        print(x)
-    R.append(s.count('0'))
-print(max(R))   # 73
-'''
-# [[73, 343], [73, 686], [73, 1029], [73, 1372], [73, 1715]]
-
-
-
-# № 23273 Основная волна 11.06.25 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f'463{x}7921', 29)
-    B = int(f'8241{x}153', 29)
-    if (A + B) % 28 == 0:
-        print(x, (A + B) // 28)
+for x in range(1323, 3*10**8, 1323):
+    if x % 780 == 0:
+        if fullmatch(r'[0-9]*[02468]32[0-9][0-9]', str(x)):
+            R.append([x, x//780])
+R.reverse()
+for x in R:
+    print(*x)
 '''
 
 
-# № 16261 Джобс 03.05.24 (Уровень: Базовый)
+# Универсальную функцию поиска делителей числа
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    for y in alp[:21]:
-        A = int(f'943697{x}21', 21)
-        B = int(f'2{y}9253', 21)
-        if (A - B) % 20 == 0:
-            print(alp.index() - int(y, 21), (A - B) // 20)
+def divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
 '''
 
 
-# https://inf-ege.sdamgia.ru/problem?id=48391
+# № 23763 Демоверсия 2026 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:12]:
-    for y in alp[:12]:
-        A = int(f'{y}AA{x}', 12)
-        B = int(f'{x}02{y}', 14)
-        if (A + B) % 80 == 0:
-            print((A + B) // 80)
+def divisors(x):
+    div = []
+    for j in range(2, int(x ** 0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(800_000+1, 10**10):
+    div = divisors(x)
+    if len(div) > 0:
+        M = min(div) + max(div)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# Илья
-# № 23273 Основная волна 11.06.25 (Уровень: Базовый)
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f'463{x}7921', 29)
-    B = int(f'8241{x}153', 29)
-    if (A + B) % 28 == 0:
-        print(x, (A + B) // 28)
-        # ОТВЕТ : 7567913105
+def divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+cnt = 0
+for x in range(500_000+1, 10**10):
+    div = divisors(x)
+    R = sum(div)
+    if R % 10 == 6:
+        print(x, R)
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
+'''
+def divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+cnt = 0
+for x in range(1_125_000+1, 10**10):
+    div = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
+    if len(div) > 0:
+        print(x, min(div))
+        cnt += 1
+        if cnt == 5:
+            break
 '''
 
 
 # Егор
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+# Пусть R - сумма различных натуральных делителей целого числа, не считая единицы и самого числа.
+# Напишите программу, которая перебирает целые числа, большие 500 000,
+# в порядке возрастания и ищет среди них такие, для которых R оканчивается на цифру 9.
+
+# В ответе запишите в первом столбце таблицы первые пять найденных чисел в порядке возрастания,
+# а во втором столбце - соответствующие им значения R.
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-M = []
-for x in alphabet[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        M.append((A + B + C) // 20)
-print(min(M))
+def divisors(x):
+    div = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+k = 0
+for x in range(500_000 + 1, 10 ** 10):
+    div = divisors(x)
+    R = sum(div)
+    if R % 10 == 9:
+        print(x, R)
+        k += 1
+        if k == 5:
+            break
 '''
-#72450445
 
 
-# Илья
-# № 23754 Демоверсия 2026 (Уровень: Базовый)
+# № 17879 Демоверсия 2025 (Уровень: Базовый)
+# Пусть M – сумма минимального и максимального натуральных делителей целого числа,
+# не считая единицы и самого числа. Если таких делителей у числа нет, то считаем значение M равным нулю.
+# Напишите программу, которая перебирает целые числа, бо́льшие 800 000,
+# в порядке возрастания и ищет среди них такие, для которых M оканчивается на 4.
+
+# В ответе запишите в первом столбце таблицы первые пять найденных чисел в порядке возрастания,
+# а во втором столбце – соответствующие им значения M.
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def Divisors(x):
+    div = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-
-for x in range(3000):
-    n = 9 * 11 ** 210 + 8 * 11 ** 150 - x
-    s = convert(n, 11)
-    if s.count('0') == 60:
-        print(x)
+cnt = 0
+for x in range(800_000+1, 10**10):
+    div = Divisors(x)
+    if len(div) > 0:
+        M = min(div) + max(div)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
-# ответ: 2992
-
-
-# Егор
-# № 23560 Пересдача 03.07.25 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-m = []
-for x in range(1,2400):
-    n = 7* 9**210 + 6 * 9**110 - x
-    s = convert(n,9)
-    if s.count('0')==100:
-        m.append(x)
-print(max(m))
-'''
-#2394 <----
-
-
-
-
-
-
-
 
 # endregion Урок: *************************************************************
 # #
@@ -256,6 +225,6 @@ print(max(m))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 14]
+# ФИПИ = [2, 5, 6, 8, 14, 25]
 # КЕГЭ = []
 # на следующем уроке:

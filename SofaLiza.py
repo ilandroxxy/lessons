@@ -1,254 +1,170 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1309431/step/10?unit=1324547
+# todo Почему неверный порядок операций
 '''
-a=int(input())
-b=int(input())
-P=2*(a+b)
-S=a*b
-print(f'Периметр прямоугольника: {P}')
-print(f'Площадь прямоугольника: {S}')
-'''
-
-
-# https://stepik.org/lesson/1309431/step/12?unit=1324547
-'''
-a = int(input())
-b = int(input())
-S = (a + b) ** 3
-V = (a - b) ** 3
-print('Куб суммы: ', S)
-print('Куб разности: ',V)
-'''
-
-# https://stepik.org/lesson/1309431/step/13?unit=1324547
-'''
-k = int(input())  # 3
-summa = k + k * 11 + k * 111
-print(f'Сумма чисел: {summa}')
-'''
-
-# https://stepik.org/lesson/1309432/step/4?unit=1324548
-'''
-a = int(input())
-if a % 2 == 0:
-    print("Чётное")
+a = (input())
+b = (input())
+c = (input())
+if ((b + c) <= a) and ((a + c) <= b) and ((a + b) <= c):
+    print("ДА")
 else:
-    print("Нечётное")
-'''
+    print("НЕТ")
 
 
-# https://stepik.org/lesson/1309432/step/6?unit=1324548
-'''
 a = int(input())
 b = int(input())
 c = int(input())
-summa = 0
-if (a % 7 == 0 and a % 49 != 0) or (a % 40 == 0):
-    summa += a
-if (b % 7 == 0 and b % 49 != 0) or (b % 40 == 0):
-    summa += b
-if (c % 7 == 0 and c % 49 != 0) or (c % 40 == 0):
-    summa += c
-print(summa)
+if a + b > c and a + c > b and b + c > a:
+    print('ДА')
+else:
+    print('НЕТ')
+
+
+
+a = int(input())
+b = int(input())
+c = int(input())
+if max(a, b, c) <= (a + b + c) - max(a, b, c):
+    print('ДА')
+else:
+    print('НЕТ')
 '''
 
-
+# Напишите программу, которая принимает два
+# целых числа a и b и выводит все целые числа от a до b включительно в порядке возрастания,
+# если a < b, или в порядке убывания в противном случае.
 '''
-n = 123
-print(n // 10)  # 12
-print(n % 10)  # 3
-
-print(n)  # 123
-
-n = n // 10
-print(n)  # 12
-
-
-m = int(input())
-if m % 2 == 0:
-    print('Кратно 2 | Делится на 2 | Четное')
+a = int(input())
+b = int(input())
+if a < b:
+    for a in range(a, b+1):
+        print(a)
+elif a > b:
+    for a in range(b, a-1, -1):
+        print (b)
 '''
 
+# Напишите программу, которая принимает
+# два натуральных числа a и b (a ≤ b) и
+# выводит все целые числа от a до b включительно,
+# удовлетворяющие хотя бы одному из условий:
+
+# число кратно 20
+# число кратно 7 и 14 одновременно
+# число оканчивается на 9.
 
 '''
 a = int(input())
-if a > 80:
-    print ('Почва пересыщена')
-elif 60 < a <= 80:
-    print ('Уровень влажности оптимален')
-elif 30 < a <= 60:
-    print ('Уровень влажности умеренный')
-else:
-    print ('Почва слишком сухая')
-'''
+b = int(input())
+
+for x in range(a, b+1):
+    if (x % 20 == 0) or (x % 7 == 0 and x % 14 == 0) or (x % 10 == 9):
+        print(x)
 
 '''
-a=int(input())
-b=int(input())
-c=int(input())
-if a==b==c:
-    print('Равносторонний')
-elif a==b or a==c or b==c:
-    print('Равнобедренный')
-else:
-    print('Разносторонний')
+
+# Про деление %
+'''
+n = 123
+print(n // 10)  # 12
+print(n % 10)  # 3 
+
+print(n % 10)  # Взятие последней цифры 
+
+if n % 10 == 5:  # Проверяем, что число оканчивается на 5
+    print('True')
+
+if n % 100 == 63:  # Проверяем, что число оканчивается на 63
+    print('True')
 '''
 
-# https://stepik.org/lesson/1309432/step/9?unit=1324548
-'''
-a=int(input())
-b=int(input())
-if max(a, b) % min(a, b) == 0:
-    print("Делится")
-else:
-    print("Не делится")
-    
+# Напишите программу, которая принимает натуральное число m
+# и вычисляет произведение всех его делителей.
 
-a=int(input())
-b=int(input())
-if a > b:
-    if a % b == 0:
-        print("Делится")
+'''
+m = int(input())  # m = 24  {1, 2, 3, 4, 6, 8, 12, 24}
+total = 1
+for j in range(1, m+1):
+    if m % j == 0:
+        total *= j
+print(total)
+'''
+
+# Дано натуральное число n.
+# Напишите программу, которая определяет его максимальную и минимальную цифры.
+'''
+n = int(input())  
+maxi = 0
+mini = 10**10
+while n > 0:
+    x = n % 10 
+
+    # if maxi < x:
+    #     maxi = x
+
+    maxi = max(maxi, x)
+
+    if mini > x:
+        mini = x
+
+    n //= 10
+print(maxi)
+print(mini)   
+'''
+
+# Дано натуральное число. Напишите программу, которая вычисляет:
+
+# сумму его цифр;
+# количество цифр в нем;
+# произведение его цифр;
+'''
+n = int(input())  
+summa = 0
+count = 0
+total = 1
+
+while n > 0:
+    x = n % 10 
+
+    summa += x
+    count += 1
+    total *= x
+
+    n //= 10
+
+print(summa)
+print(count)
+print(total)
+'''
+
+# Напишите программу, которая принимает список целых чисел
+# и подсчитывает количество четных и нечетных чисел, используя цикл.
+
+# В первой строке количество элементов в списке n.
+# Далее n строк по элементу в строке.
+'''
+n = int(input())
+cnt1 = 0
+cnt2 = 0
+for i in range(n):
+    x = int(input())
+    if x % 2 == 0:
+        cnt2 += 1 
     else:
-        print("Не делится")
-else:
-    if b % a == 0:
-        print("Делится")
-    else:
-        print("Не делится")
+        cnt1 += 1
+print(cnt2)
+print(cnt1)
 '''
 
-'''
-a=int(input())
-if a % 4 == 0 and a % 100 != 0:
-    print('Високосный')
-elif a % 400 == 0:
-    print('Обычный')
-else:
-    print('Обычный')
-'''
+n = int(input())
+for i in range(1, 10 + 1):
+    print(f'{n} * {i} = {n * i}')
 
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
-
-# Цикл for отвечает на запросы: "Повтори N раз", "Пробеги от А до В"
-
-# Работа цикла for с функцией range()
-'''
-# range(0, STOP-1, 1)
-# range(START, STOP-1, 1)
-# range(START, STOP-1, STEP)
-
-for i in range(10):  # 0 1 2 3 4 5 6 7 8 9
-    print(i, end=' ')
-print()
-
-for i in range(2, 10):  # 2 3 4 5 6 7 8 9
-    print(i, end=' ')
-print()
-
-for i in range(2, 10, 2):  # 2 4 6 8
-    print(i, end=' ')
-print()
-
-for i in range(3, 10, 3):  # 3 6 9
-    print(i, end=' ')
-print()
-
-for i in range(2, 10+1, 2):  # 2 4 6 8 10
-    print(i, end=' ')
-print()
-
-for i in range(10, 0, -1):  # 10 9 8 7 6 5 4 3 2 1
-    print(i, end=' ')
-print()
-'''
-
-# Работа цикла for через последовательности
-'''
-# i   0    1    2    3    4
-L = ['a', 'b', 'c', 'd', 'e']
-
-for x in L:
-    print(x, end=' ')  # a b c d e
-print()
-
-for x in L:
-    if x in 'ae':
-        print(x, end=' ')  # a e
-print()
-
-print(len(L))  # 5 - Кол-во элементов в списке
-
-for i in range(len(L)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(L[i], end=' ')  # a b c d e
-print()
-
-for i in range(len(L)):
-    L[i] = L[i] * i
-print(L)  # ['', 'b', 'cc', 'ddd', 'eeee']
-'''
-
-# Цикл while отвечает на запросы: "пока условие верное - делаем действие", "бесконечные циклы"
-'''
-for i in range(2, 10+1, 2):  # 2 4 6 8 10
-    print(i, end=' ')
-print()
-
-
-i = 2
-while i <= 10:
-    print(i, end=' ')
-    i += 2
-print()
-
-
-n = 8
-b = 2
-r = ''
-while n > 0:
-    r = str(n % b) + r
-    n = n // b
-print(r)
-
-
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n = n // b
-    return r
-
-print(convert(1000, 2))  # 1111101000
-print(convert(1000, 8))  # 1750
-print(convert(1000, 3))  # 1101001
-print(convert(1000, 5))  # 13000
-print(convert(1000, 16))  # 3E8
-print(convert(1000, 36))  # RS
-'''
-
-
-# Бесконечные циклы и операторы: break, continue, exit()
-'''
-k = 0
-while True:
-    k += 1
-    if k % 2 != 0:
-        continue  # Прерывает шаг (итерацию) цикла
-    if k == 100_000:
-        break  # Прерывает выполнение цикла в котором лежит
-    if k == 50_000:
-        exit()  # Прерывала полностью выполнение программы
-    print(k)
-
-print('Продолжение программы')
-'''
 
 
 # endregion Урок: *************************************************************
