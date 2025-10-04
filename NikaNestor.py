@@ -1,191 +1,296 @@
 # region Домашка: ******************************************************************
 
 
-# https://inf-ege.sdamgia.ru/problem?id=55592
-'''
-k = 0
-for n in range(14, 15):
-    r = bin(n)[2:]
-    for _ in range(3):
-        sctt = len([x for x in str(n) if x in '02468'])
-        snecht = len([x for x in str(n) if x not in '02468'])
-
-        if sctt > snecht:
-            r = r + '1'
-        elif snecht > sctt:
-            r = r + '0'
-        else:
-            if n % 2 == 0:
-                r = r + '0'
-            else:
-                r = r + '1'
-        n = int(r, 2)
-
-    ans = int(r, 2)
-    print(ans)
-    if 123_455 <= ans <= 987_654_321:
-        k += 1
-print(k)
-'''
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+
+
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from itertools import product, permutations
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
+# Всевозможные перестановки с повторением букв
+for p in product('abc', repeat=2):
+    word = ''.join(p)
+    print(p, word)
+    # ('a', 'a') aa
+    # ('a', 'b') ab
+    # ('a', 'c') ac
+    # ('b', 'a') ba
+    # ('b', 'b') bb
+    # ('b', 'c') bc
+    # ('c', 'a') ca
+    # ('c', 'b') cb
+    # ('c', 'c') cc
 
-n = 3*3125**8 + 2*625**7 - 4*625**6 +3*125**5 - 2*25**4 - 2025
-s = convert(n, 25)
-print(s.count('0'))  # 10
-print(len(s) - s.count('0'))
-'''
-
-
-
-# № 23752 Демоверсия 2026 (Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-
-n = 2 * 2187**2020 + 729**2021 - 2*243**2022 + 81**2023 - 2*27**2024 - 6561
-s = convert(n, 27)
-print(len([x for x in s if x > '9']))
+# Всевозможные перестановки без повторений букв
+for p in permutations('abc', 2):
+    word = ''.join(p)
+    print(p, word)
+    # ('a', 'b') ab
+    # ('a', 'c') ac
+    # ('b', 'a') ba
+    # ('b', 'c') bc
+    # ('c', 'a') ca
+    # ('c', 'b') cb
 '''
 
 
-# № 17870 Демоверсия 2025 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print('АЯ ЯА ОЯ ЯО АО ОА'.split())  # ['АЯ', 'ЯА', 'ОЯ', 'ЯО', 'АО', 'ОА']
+print('12.255.23.54'.split('.'))  # ['12', '255', '23', '54']
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-R = []
-for x in range(1, 2030):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 71:
-        R.append(x)
-print(max(R))
-'''
-
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
-
-R = []
-for x in range(1, 3000):
-    n = 4**210 + 4**110 - x
-    s = convert(n, 4)
-    if s.count('0') == 105:
-        print(x)
-    R.append(s.count('0'))
-print(max(R))  # 105
+print(' '.join(['АЯ', 'ЯА', 'ОЯ', 'ЯО', 'АО', 'ОА']))  # 'АЯ ЯА ОЯ ЯО АО ОА'
+print('.'.join(['12', '255', '23', '54']))  # '12.255.23.54'
 '''
 
 
-# № 21413 Досрочная волна 2025 (Уровень: Базовый)
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
 '''
-R = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        R.append((A + B + C) // 20)
-print(min(R))
+s = sorted('СТРОКА')
+RES = []
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                RES.append(n)
+print(max(RES))
+'''
+
+# Вариант 2
+'''
+from itertools import product
+RES = []
+n = 0
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
+print(max(RES))
+'''
+
+# Вариант 3
+'''
+from itertools import product
+RES = []
+for n, p in enumerate(product(sorted('СТРОКА'), repeat=5), 1):
+    word = ''.join(p)
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
+print(max(RES))
 '''
 
 
-# Тип 14 №48388
+# № 11298 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:12]:
-    for y in alp[:12]:
-        A = int(f'{x}231{y}', 12)
-        B = int(f'78{x}98{y}', 14)
-        if (A + B) % 99 == 0:
-            print((A + B) // 99)
-'''
-
-
-# № 23935 (Уровень: Базовый)
-'''
-# alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-# print(alp.index('H'))
-for p in range(18, 36+1):
-    A = int(f'22A12E', p)
-    B = int(f'2F1391', p)
-    C = int(f'1H05D0', p)
-    if (A  + B - C) % 19 == 0:
-        print(p, (A  + B - C) // 19)
-'''
-
-# № 13246 Открытый курс "Слово пацана" (Уровень: Средний)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(10, 36+1):
-    for x in alp[:p]:
-        for y in alp[:p]:
-            A = int(f'24{x}9', p)
-            B = int(y+x+y+'3', p)
-            C = int(f'{x}4{y}0', p)
-            if A + B == C:
-                print(int(x + y + y, p))
-'''
-
-
-# № 7702 (Уровень: Сложный)
-'''
-R = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for y in range(9, 17+1):
-    for x in alp[:y]:
-        A = int(f'5{x}{alp[y]}A', 18)
-        B = int(f'18{x}7', y)
-        R.append(A + B)
-print(len(set(R)))
-'''
-
-# Тип 9 №76677
-
+from itertools import product
 cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    avg = sum(M) / len(M)
-    zam = [x for x in M if x > avg]
-    if len([x for x in zam if x % 2 == 0]) > len([x for x in zam if x % 2 != 0]):
-        if sum([x for x in M if x % 2 == 0]) < sum([x for x in M if x % 2 != 0]):
+n = 0
+for p in product(sorted('АОЖПЮЗ'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] == 'А':
+            if word.count('З') >= 2:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 11295 (Уровень: Базовый)
+#
+# (М. Ишимов) Все 4-буквенные слова, составленные из букв Щ, Э, Д, С, Р,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ДДДД
+# 2. ДДДР
+# 3. ДДДС
+# 4. ДДДЩ
+# 5. ДДДЭ
+# 6. ДДРД
+# ...
+# Под каким номером стоит слово ЩДЩД?
+'''
+from itertools import product
+n = 0
+for p in product(sorted('ЩЭДСР'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if word == 'ЩДЩД':
+        print(n)
+'''
+
+
+# № 9849 (Уровень: Средний)
+# (В. Ген) Даша составляет 6-буквенные слова, содержащие в
+# себе только те заглавные буквы латинского алфавита, которые
+# содержатся в шестнадцатиричной системе счисления.
+# Сколько различных слов может составить Даша с учётом того,
+# что гласная не может стоять в начале и в конце слова?
+
+# alp36 = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# print(alp36[:16])  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+'''
+from itertools import product
+cnt = 0
+for p in product('ABCDEF', repeat=6):
+    word = ''.join(p)
+    a, b, c, d, e, f = word
+    if a not in 'AE' and f in 'BCDF':
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 8417 (Уровень: Базовый)
+#
+# Ярослав составляет коды из букв, входящих в слово ЯРОСЛАВ.
+# Код должен состоять из 5 букв, буквы в коде не должны повторяться,
+# согласных в коде должно быть больше, чем гласных,
+# две гласные буквы нельзя ставить рядом.
+# Сколько кодов может составить Ярослав?
+'''
+from itertools import permutations
+cnt = 0
+for p in permutations('ЯРОСЛАВ', r=5):
+    word = ''.join(p)
+    sogl = [x for x in word if x in 'РСЛВ']
+    glas = [x for x in word if x in 'ЯОА']
+    if len(sogl) > len(glas):
+        if all(x not in word for x in 'АЯ ЯА ОЯ ЯО АО ОА'.split()):
             cnt += 1
 print(cnt)
+'''
+
+
+# № 12917 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
+# Петя составляет слова путём перестановки букв в слове ПРОСТО.
+# Сколько он сможет составить слов, если запрещено ставить рядом две одинаковые буквы?
+'''
+from itertools import permutations
+RES = []
+for p in permutations('ПРОСТО'):
+    word = ''.join(p)
+    # if all(x not in word for x in 'ПП РР СС ТТ ОО'.split()):
+    if 'ОО' not in word:
+        RES.append(word)
+print(len(set(RES)))
+'''
+
+
+# № 10090 Демоверсия 2024 (Уровень: Базовый)
+# Сколько существует восьмеричных пятизначных чисел,
+# не содержащих в своей записи цифру 1, в которых все цифры различны
+# и никакие две чётные или две нечётные цифры не стоят рядом?
+'''
+from itertools import permutations
+cnt = 0
+for p in permutations('01234567', r=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if '1' not in num:
+            # if len(num) == len(set(num)):  # в которых все цифры различны
+            for x in '0246':
+                num = num.replace(x, '*')
+            for x in '1357':
+                num = num.replace(x, '+')
+            if '**' not in num and '++' not in num:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
+# Определите количество восьмеричных пятизначных чисел,
+# которые не начинаются с нечётных цифр, не оканчиваются
+# цифрами 2 или 6, а также содержат не более двух цифр 7.
+'''
+from itertools import product
+cnt = 0
+for p in product('01234567', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num[0] not in '1357':
+            if num[-1] not in '26':
+                if num.count('7') <= 2:
+                    cnt += 1
+print(cnt)
+'''
+
+
+
+# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
+# Сколько существует семизначных семеричных чисел,
+# которые содержат в своей записи ровно две чётные цифры?
+'''
+from itertools import product
+cnt = 0
+for p in product('0123456', repeat=7):
+    num = ''.join(p)
+    if num[0] != '0':
+        chet = [x for x in num if x in '0246']
+        if len(chet) == 2:
+            cnt += 1
+print(cnt)
+'''
+
+# № 12462 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
+
+# Сколько существует различных трёхзначных и пятизначных чисел,
+# записанных в шестнадцатеричной системе счисления,
+# в записи которых цифры следуют слева направо в строго убывающем порядке?
+
+'''
+from itertools import permutations
+
+cnt = 0
+for i in permutations('0123456789ABCDEF', r=3):
+    m3 = ''.join(i)
+    if list(m3) == sorted(m3)[::-1]:
+        cnt += 1
+
+for i in permutations('0123456789ABCDEF', r=5):
+    m5 = ''.join(i)
+    if list(m5) == sorted(m5)[::-1]:
+        cnt += 1
+
+print(cnt)
+'''
+
+
+# № 13094 (Уровень: Средний)
+# Сколько существует 9-значных девятеричных чисел,
+# в записи которых не встречается цифра 0, любые две соседние цифры
+# имеют разную чётность, и никакая цифра не повторяется больше 3 раз?
+
+from itertools import product
+k = 0
+for p in product('12345678', repeat=9):
+    s = ''.join(p)
+    if s[0] != '0':
+        copied = [x for x in s if s.count(x) <= 3]
+        if len(copied) == 9:
+            for x in '24568':
+                s = s.replace(x, '*')
+            for x in '1357':
+                s =  s.replace(x, '+')
+            if '**' not in s and '++' not in s:
+                k += 1
+                print(k)
 
 # endregion Урок: *************************************************************
 # #
@@ -196,6 +301,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 9, 14, 17]
+# ФИПИ = [5, 8, 9, 14, 17]
 # КЕГЭ = []
 # на следующем уроке:
