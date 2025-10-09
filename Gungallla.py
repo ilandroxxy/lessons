@@ -6,110 +6,183 @@
 # #
 # region Урок: ********************************************************************
 
-'''
-def F(a, b):
-    if a <= b or a == 7:
-        return a == b
-    h = [F(a - 1, b), F(a - 4, b), F(a // 3, b)]
-    return sum(h)
-
-print(F(19, 13) * F(13, 2))
-'''
-
-#  № 21905 Открытый вариант 2025 (Уровень: Базовый)
-# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
-
-# s - это кол-во камней в куче (то что ищем)
-# n - это шаг нашей игры
-
-# n = 1 - Петя первый ход
-# n = 2 - Ваня первый ход
-# n = 3 - Петя второй ход
-# n = 4 - Ваня второй ход
+# № 8506 Апробация 17.05 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 55 | 1 ≤ s ≤ 54
 '''
 def F(s, n):
-    if s >= 67:
+    if s >= 55:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s + 1, n-1), F(s + 4, n-1), F(s * 3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(1, 66+1) if F(s, n=2)])
-print([s for s in range(1, 66+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 66+1) if F(s, n=4) and not F(s, n=2)])
+print([s for s in range(1, 55) if F(s, n=2)])
+print([s for s in range(1, 55) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 55) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 23759 Демоверсия 2026 (Уровень: Базовый)
-# 1 куча: -3, -5, /4 (до меньшего) | s <= 30 | s ≥ 31
-'''
-from math import ceil, floor
-
-def F(s, n):
-    if s <= 30:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 3 , n-1), F(s - 5 , n-1), F(floor(s / 4) , n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(31, 1000) if F(s, n=2)])
-print([s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a=7 | 1 ≤ s ≤ 73
+# № 8594 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a * s >= 455 | a = 5 | 1 ≤ s ≤ 90
 '''
 def F(a, s, n):
-    if a + s >= 81 :
+    if a * s >= 455:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(a+1, s , n-1), F(a, s+1, n-1), F(a*2, s , n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(1, 73+1) if F(7, s, n=2)])
-print([s for s in range(1, 73+1) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 73+1) if F(7, s, n=4) and not F(7, s, n=2)])
+print([s for s in range(1, 91) if F(5, s, n=2)])
+print([s for s in range(1, 91) if F(5, s, n=3) and not F(5, s, n=1)])
+print([s for s in range(1, 91) if F(5, s, n=4) and not F(5, s, n=2)])
 '''
 
-
-# № 18268 (Уровень: Базовый)
-# 2 кучи: a-3, s-3, a/2, s/2 (в большее) | a+s <= 72 | a = 50 | s > 22
-
-from math import ceil
-def F(a, s, n):
-    if a + s <= 72:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-3, s , n-1), F(a, s-3, n-1), F(ceil(a / 2), s , n-1), F(a, ceil(s / 2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(23, 1000) if F(50, s, n=2)])
-print([s for s in range(23, 1000) if F(50, s, n=3) and not F(50, s, n=1)])
-print([s for s in range(23, 1000) if F(50, s, n=4) and not F(50, s, n=2)])
-
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
+# № 12928 (Уровень: Средний)
+# 1 куча: +1, *2 | s >= 21 | 1 ≤ s ≤ 20
 '''
 def F(s, n):
-    if s >= 128 :
+    if s >= 21:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s + 2 , n-1), F(s + 5 , n-1), F(s * 2 , n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+    h = [F(s+1, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-print([s for s in range(2, 127) if F(s, n=2)])
-print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
+print([s for s in range(1, 55) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 55) if F(s, n=4) and not F(s, n=2)])
+print([s for s in range(1, 55) if F(s, n=5) and not F(s, n=3) and not F(s, n=1)])
 '''
 
+# № 24103 В1Г2526
+'''
+from itertools import *
+n = 0
+for p in product(sorted('БУРАТИНО'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 1:
+        if word[0] not in 'УАИО':
+            if len(word) == len(set(word)):
+                print(n)
+'''
+
+# № 24100 В1Г2526
+'''
+def F(n, b):
+    a = ''
+    while n > 0:
+        a = str(n % b) + a
+        n = n//b
+    return a
+
+def F(n, b):
+    a = ''
+    while n > 0:
+        a += str(n % b)
+        n = n//b
+    return a[::-1]
+
+RES = []
+for n in range(1, 10000):
+    s = F(n, 3)
+    if n % 5 == 0:
+        s = s + s[-2:]
+    else:
+        s = s + F((n % 5) * 7, 3)
+    r = int(s, 3)
+    if r <= 273:
+        RES.append(n)
+print(max(RES))
+'''
+
+
+# 13
+'''
+from ipaddress import *
+net = ip_network('150.122.11.21/255.255.254.0', 0)
+for ip in net:
+    print(ip, f'{ip:b}'.count('1'))
+'''
+
+
+# № 24114 В1Г2526
+'''
+from sys import *  # Подключаем сразу все содержимое
+setrecursionlimit(100000)
+
+def F(n):
+    return G(n + 1)
+
+def G(n):regtryh
+    if n >= 30000:
+        return 3
+    if n < 30000:
+        return G(n + 3) + 7
+
+print(F(1500))
+'''
+
+#  Способы подключения библиотеки
+'''
+import math
+math.sqrt(16)
+
+import math as m
+m.sqrt(16)
+
+from math import sqrt, factorial
+sqrt(16)
+
+from math import *
+sqrt(16)
+factorial(5)
+'''
+
+# Пример конфликта имен
+'''
+count = 0
+from itertools import permutations
+for p in permutations('abc'):
+    count += 1
+    print(count, p)
+
+count = 0
+from itertools import *
+for p in permutations('abc'):
+    count += 1
+    print(count, p)
+'''
+
+
+# № 24115 В1Г2526
+# 1 куча: +2, +5, *3 | s >= 444 | 1 ⩽ s ⩽ 400
+'''
+def F(s, n):
+    if s >= 444:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 401) if F(s, n=2)])
+print([s for s in range(1, 401) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 401) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 24070
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    if len(M) == len(set(M)):
+        if max(M) + min(M) <= sum(M) - max(M) - min(M):
+            cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: *************************************************************
 # #
