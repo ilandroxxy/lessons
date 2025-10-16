@@ -6,221 +6,203 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 23752 Демоверсия 2026 (Уровень: Базовый)
-# Значение арифметического выражения
-# 2 * 2187 ** 2020 + 729**2021 -2*243**2022 + 81**2023 - 2*27**2024- 6561
-# записали в системе счисления с основанием 27.
-# Определите в 27-ричной записи числа количество цифр
-# с числовым значением, превышающим 9
+# from itertools import product, permutations
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+from itertools import product, permutations
 
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b  # n = n // b
-    return r
+for p in product('abc', repeat=2):
+    word = ''.join(p)
+    print(p, word)
+    # ('a', 'a') aa
+    # ('a', 'b') ab
+    # ('a', 'c') ac
+    # ('b', 'a') ba
+    # ('b', 'b') bb
+    # ('b', 'c') bc
+    # ('c', 'a') ca
+    # ('c', 'b') cb
+    # ('c', 'c') cc
 
-n = 2 * 2187 ** 2020 + 729**2021 -2*243**2022 + 81**2023 - 2*27**2024- 6561
-s = convert(n, 27)
-print(s.count('0'))  # кол-во значащих нулей
-print(s.count('2') + s.count('4'))  # кол-во 2 и 4 в числе
-print(len(s) - s.count('0'))  # кол-во ненулевых значений
-print(len([x for x in s if x > '9']))
+for p in permutations('abc', r=3):
+    word = ''.join(p)
+    print(p, word)
+    # ('a', 'b', 'c') abc
+    # ('a', 'c', 'b') acb
+    # ('b', 'a', 'c') bac
+    # ('b', 'c', 'a') bca
+    # ('c', 'a', 'b') cab
+    # ('c', 'b', 'a') cba
+'''
+from multiprocessing.pool import worker
+from os import confstr_names
+from time import process_time_ns
 
-# Определите сумму чётных цифр с числовым значением,
-# не превышающим 25, в записи этого числа.
-print(sum([int(x, 27) for x in s if x in alp[0::2] and x < 'P']))
-
-# Определите сумму цифр в записи этого числа.
-print(sum([int(x, 27) for x in s]))
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
+'''
+RES = []
+s = sorted('СТРОКА')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                RES.append(n)
+print(max(RES))
+'''
+# Вариант 2
+'''
+from itertools import product
+n = 0
+RES = []
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
+print(max(RES))
 '''
 
-
-# № 23754 Демоверсия 2026 (Уровень: Базовый)
-# Значение арифметического выражения 9*11**210 + 8*11**150 − x,
-# где x – целое положительное число, не превышающее 3000,
-# записали в 11-ричной системе счисления. Определите наибольшее
-# значение x, при котором в 11-ричной записи числа, являющегося
-# значением данного арифметического выражения, содержится ровно 60 нулей.
+# Вариант 3
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b  # n = n // b
-    return r
+from itertools import product
 
 RES = []
-for x in range(1, 3000+1):
-    n = 9*11**210 + 8*11**150 - x
-    s = convert(n, 11)
-    if s.count('0') == 60:
-        RES.append(x)
+for n, p in enumerate(product(sorted('СТРОКА'), repeat=5), 1):
+    word = ''.join(p)
+    print(n, word)
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
 print(max(RES))
 '''
 
 
-# № 21709 ЕГКР 19.04.25 (Уровень: Базовый)
-# Значение арифметического выражения 4**210 + 4**110 – x, где x – целое
-# положительное число, не превышающее 3000, записали в четверичной
-# системе счисления. Определите наименьшее значение x, при котором
-# в четверичной записи числа, являющегося значением данного арифметического
-# выражения, содержится наибольшее количество нулей.
+# № 18963 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b  # n = n // b
-    return r
-
-RES = []
-for x in range(1, 3000+1):
-    n = 4**210 + 4**110 - x
-    s = convert(n, 4)
-    if s.count('0') == 105:
-        print(x)
-    RES.append(s.count('0'))
-print(max(RES))
+from itertools import product
+cnt = 0
+for p in product('КОТБУС', repeat=8):
+    word = ''.join(p)
+    if 'КОТ' in word:
+        if word[0] not in 'ОУ':
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 23273 Основная волна 11.06.25 (Уровень: Базовый)
-# Операнды арифметического выражения записаны в системе счисления с основанием 29.
-# 463x7921_29 + 8241x153_29
-# В записи чисел переменной х обозначена неизвестная цифра из
-# алфавита 29-ричной системы счисления. Определите наименьшее
-# значение х, при котором значение данного арифметического выражения кратно 28.
-# Для найденного х вычислите частное от деления значения арифметического
-# выражения на 28 и укажите его в ответе в десятичной системе счисления.
-# Основание системы счисления указывать не нужно.
+# № 18942 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f'463{x}7921', 29)
-    B = int(f'8241{x}153', 29)
-    if (A + B) % 28 == 0:
-        print((A + B) // 28)
+from itertools import product
+cnt = 0
+for p in product('ДИОНСЙ', repeat=6):
+    word = ''.join(p)
+    if ('Д' in word) + ('Н' in word) == 1:
+        if all(p not in word for p in 'ДД ИИ ОО НН СС ЙЙ'.split()):
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 19246 ЕГКР 21.12.24 (Уровень: Базовый)
+# № 6479 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:25]:
-    A = int(f'11353{x}12', 25)
-    B = int(f'135{x}21', 25)
-    if (A + B) % 24 == 0:
-        print((A + B) // 24)
-'''
-
-
-# Федор 21413
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    s = int(f'82934{x}2', 21) + int(f'2924{x}{x}7', 21) + int(f'67564{x}8', 21)
-    if s%20 == 0:
-        print(s // 20)
+from itertools import permutations
+cnt = 0
+for p in permutations('КАРПЫ'):
+    word = ''.join(p)
+    # if len(word) == len(set(word)):
+    if 'АЫ' not in word and 'ЫА' not in word:
+        if 'Р' in word[1:-1]:
+            cnt += 1
+print(cnt)
 '''
 
 
-#
-# № 17870 Демоверсия 2025 (Уровень: Базовый)
+# № 6261 Danov2302 (Уровень: Средний)
+# (А.Богданов) Определите количество десятизначных чисел,
+# записанных в восьмеричной системе счисления,
+# в записи которых ровно пять цифр 7 и при этом
+# никакая нечетная цифра не стоит рядом с цифрой 7.
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b  # n = n // b
-    return r
-
-
-RES = []
-for x in range(1, 2030+1):
-    n = 7**170 + 7**100 - x
-    s = convert(n, 7)
-    if s.count('0') == 71:
-        RES.append(x)
-print(max(RES))
+from itertools import product
+cnt = 0
+for p in product('01234567', repeat=10):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('7') == 5:
+            for x in '135':
+                num = num.replace(x, '*')
+            if '*7' not in num and '7*' not in num and '77' not in num:
+                cnt += 1
+                print(cnt)
 '''
 
-
-# № 17677 Пересдача 04.07.24 (Уровень: Базовый)
+# № 6040 ФИПИ 04.02.23 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b  # n = n // b
-    return r
-
-RES=[]
-for x in range(2030,0,-1):
-    n = 6**260+6**160+6**60- x
-    s = convert(n, 6)
-    if s.count('0') == 202:
-        RES.append(x)
-print(max(RES))
+from itertools import product
+cnt = 0
+for p in product('0123456', repeat=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('6') == 1:
+            for x in '0246':
+                num = num.replace(x, '*')
+            for x in '135':
+                num = num.replace(x, '+')
+            if '**' not in num and '++' not in num:
+                cnt += 1
+print(cnt)
 '''
 
 
-# Тип 14 №48384
-# Операнды арифметического выражения записаны в системах
-# счисления с основаниями 9 и 11:
-# 88x4y_9 + 7x44y_11.
+# № 6015 ФИПИ 03.02.23 (Уровень: Базовый)
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:9]:
-    for y in alp[:9]:
-        A = int(f'88{x}4{y}', 9)
-        B = int(f'7{x}44{y}', 11)
-        if (A + B) % 61 == 0:
-            print((A + B) // 61)
-'''
-
-
-#
-# № 14344 (Уровень: Средний)
-'''
-for p in range(16, 36+1):
-    A = int('17496', p)
-    B = int('91F83', p)
-    C = int('D9543', p)
-    if (A + B + C) % 12 == 0:
-        print((A + B + C) // 12)
+from itertools import product
+cnt = 0
+for p in product('012345678', repeat=7):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('8') == 1:
+            if num[-1] not in '02468':
+                if num[0] not in '1357':
+                    cnt += 1
+print(cnt)
 '''
 
 
-# № 13246 Открытый курс "Слово пацана" (Уровень: Средний)
-# (М. Попков) В системе счисления с основанием p выполняется
-# равенство 24x9_p + yxy3_p = x4y0_p. Буквами x и y обозначены
-# некоторые цифры из алфавита системы счисления с основанием p.
-# Определите значение числа xyy_p и запишите это значение в
-# десятичной системе счисления.
+# 4696
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(10, 36+1):
-    for x in alp[:p]:
-        for y in alp[:p]:
-            A = int(f'24{x}9', p)
-            B = int(f'{y}{x}{y}3', p)
-            C = int(f'{x}4{y}0', p)
-            if A + B == C:
-                print(int(x + y+ y, p))
+from itertools import product
+otv = 0
+for p in product('01234567', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('6') == 1:
+            for i in '1357':
+                num = num.replace(i, '#')
+            if '#6' not in num and '6#' not in num:
+                otv += 1
+print(otv)
 '''
 
+# 4099
+'''
+from itertools import product
+n = 0
+for p in product(sorted('АБКЛУ'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if len(set(word)) == len(word):
+        print(n)
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -231,6 +213,6 @@ for p in range(10, 36+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5]
+# ФИПИ = [2, 5, 8, 14]
 # КЕГЭ = []
 # на следующем уроке:
