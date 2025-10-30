@@ -6,125 +6,101 @@
 # #
 # region Урок: ********************************************************************
 
-# https://stepik.org/lesson/1038709/step/15?unit=1062775
+
+# № 22437 (Уровень: Базовый)
+# 1 куча: +4, +7, *4 | s >= 471 | 1 ≤ s ≤ 470
+
+# s - кол-во камней, которое ищем
+# n - это шаг нашей игры
+
+# шаг 1: Петя 1
+# шаг 2: Ваня 1
+# шаг 3: Петя 2
+# шаг 4: Ваня 2
 '''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n == 1:
-        return 1
-    elif n > 1:
-        return n * F(n - 1)
-
-result = (2 * F(2024) + F(2023)) // F(2022)
-print(result)
-'''
-
-
-# № 23380 Резервный день 19.06.25 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Умножить на 2
-# Сколько существует программ, для которых при исходном числе 3
-# результатом является число 20, при этом траектория вычислений
-# содержит число 7 и не содержит 10?
-
-def F(a, b):
-    if a > b or a == 10:
+def F(s, n):
+    if s >= 471:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a*2, b)
+    h = [F(s+4, n-1), F(s+7, n-1), F(s*4, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(3, 7) * F(7, 20))
-
-
-# 22451
-# A. Прибавить 3
-# B. Прибавить 5
-# C. Возвести в квадрат
-# Сколько существует программ, для которых при исходном
-# числе 3 результатом является число 51, и при этом
-# траектория вычислений содержит число 16 и не содержит 27?
+print([s for s in range(1, 471) if F(s, n=2)])
+print([s for s in range(1, 471) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 471) if F(s, n=4) and not F(s, n=2)])
 '''
-def F(a, b):
-    if a > b or a == 27:
+
+
+# № 21905 Открытый вариант 2025 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
+'''
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+3, b) + F(a+5, b) + F(a**2, b)
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(3, 16) * F(16, 51))
+print([s for s in range(1, 67) if F(s, n=2)])
+print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
 '''
 
-# 23761
-# A. Вычесть 1
-# B. Вычесть 4
-# C. Найти целую часть от деления на 3
-# Программа для исполнителя – это последовательность команд.
-# Сколько существует программ, для которых при исходном числе 19 результатом является 2,
-# при этом траектория вычислений не содержит числа 7 и содержит 13?
+
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
 '''
-def F(a, b):
-    if a < b or a == 7:
+from math import floor, ceil
+
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-1, b) + F(a-4, b) + F(a//3, b)
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(19, 13)* F(13, 2))
+print([s for s in range(88, 1000) if F(s, n=2)])
+print([s for s in range(88, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(88, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
-# 23205
+# № 19635 (Уровень: Базовый)
+# 2 кучи: a-3 s-3, a / 2, s / 2 (вниз) | a + s <= 100 | a = 48 | s > 52
 '''
-def F(a, b):
-    if a < b or a == 13:
+from math import floor, ceil
+
+def F(a, s, n):
+    if a + s <= 100:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-1, b) + F(a-2, b) + F(a//3, b)
+    h = [F(a-3, s-3, n-1), F(floor(a/2), s, n-1), F(a, floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(19, 6) * F(6, 4))
+print([s for s in range(53, 1000) if F(48, s, n=2)])
+print([s for s in range(53, 1000) if F(48, s, n=3) and not F(48, s, n=1)])
+print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
 '''
 
 
-# 21907
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Умножить на 2
-# Сколько существует программ, для которых при исходном числе 3 результатом является число
-# 18, при этом траектория вычислений содержит число 14 и не содержит 8?
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+# 1 куча: +3, +6, *3 | s >= 132 | 1 <= s <= 131
 '''
-def F(a, b):
-    if a >= b or a == 8:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a*2, b)
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(3, 14) * F(14, 18))
+print([s for s in range(1, 132) if F(s, n=2)])
+print([s for s in range(1, 132) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 132) if F(s, n=4) and not F(s, n=2)])
 '''
-
-# 21716
-'''
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    return F(a+3, b) + F(a+7, b) + F(a*3, b)
-
-print(F(12, 40) * F(40, 72) * F(72, 89))
-'''
-
-def F(a, b):
-    if a <= b :
-        return a == b
-    return F(sum(map(int, str(a))), b) + F(a//2, b) + F(a-1, b)
-
-print(F(40, 25) * F(25, 10))
-
 
 
 # endregion Урок: *************************************************************
