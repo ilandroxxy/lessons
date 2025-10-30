@@ -7,122 +7,184 @@
 # region Урок: ********************************************************************
 
 
-# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
-# A. Прибавь 3
-# B. Прибавь 7
-# C. Умножь на 3
-# Сколько существует таких программ, которые исходное
-# число 12 преобразуют в 89, и при этом траектория вычислений
-# программы содержит числа 40 и 72 и не содержит 56?
-
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    h = [F(a+3, b), F(a+7, b), F(a*3, b)]
-    return sum(h)
-print(F(12, 40) * F(40, 72) * F(72, 89))
-
-
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: s+2, s+5, s*2 | s >= 128 | 1 < s < 127
+# № 23561 Пересдача 03.07.25 (Уровень: Базовый)
+# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуралиное число m».
+# Для какого наибольшего натурального числа А выражение ДЕЛ(х,128)→(¬ДЕЛ(х,А)→¬ДЕЛ(х,80))
+# истинно (т.е. принимает значение 1) при любом натуральном значении переменной х?
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+# Вариант 1
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
 
-print([s for s in range(2, 127) if F(s, n=2)])
-print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
-'''
+RES = []
+for A in range(1, 5000):
+    flag = True
+    for x in range(1, 10000):
+        if F(x, A) == False:
+            flag = False
+            break
+    if flag == True:
+        RES.append(A)
+print(max(RES))
 
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: s+1, s+4, s*2 | s >= 51 | 1 ≤ s ≤ 50
-'''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    # при любом ходе Пети Ваня может выиграть своим первым ходом
-    return any(h) if (n - 1) % 2 == 0 else all(h) 
-    
-    # Ваня выиграл своим первым ходом после неудачного первого хода Пети
-    """return any(h) if (n - 1) % 2 == 0 else any(h)"""
+# Вариант 2
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
 
-print([s for s in range(1, 50+1) if F(s, n=2)])
-print([s for s in range(1, 50+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 50+1) if F(s, n=4) and not F(s, n=2)])
+RES = []
+for A in range(1, 5000):
+    cnt = 0
+    for x in range(1, 10000):
+        if F(x, A) == True:
+            cnt += 1
+    if cnt == 9999:
+        RES.append(A)
+print(max(RES))
+
+# Вариант 3
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
+
+
+# Вариант 4
+print(max([A for A in range(1, 5000) if all(((x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))) for x in range(1, 10000))]))
 '''
 
 
-# floor - округление до меньшего
-# ceil - округление до большего
-
-# № 23278 Основная волна 11.06.25 (Уровень: Базовый)
-# 1 куча: s-3, s-8, s/3 (до меньшего) | s <= 16 | s ≥ 17
+# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
 '''
-from math import floor, ceil
-def F(s, n):
-    if s <= 16:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-8, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def F(x, y, A):
+    return (x < A) and (y < 3*A) or (2*x + y > 128)
 
-print([s for s in range(17, 1000) if F(s, n=2)])
-print([s for s in range(17, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(17, 1000) if F(s, n=4) and not F(s, n=2)])
+RES = []
+for A in range(1, 5000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        RES.append(A)
+print(min(RES))
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a = 7 | 1 ≤ s ≤ 73
+# № 21901 Открытый вариант 2025 (Уровень: Базовый)
 '''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def F(x, A):
+    return ((x & 52 != 0) and (x & 48 == 0)) <= (x & A != 0)
 
-print([s for s in range(1, 73+1) if F(7, s, n=2)])
-print([s for s in range(1, 73+1) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 73+1) if F(7, s, n=4) and not F(7, s, n=2)])
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(min(RES))
 '''
 
 
-# № 19635 (Уровень: Базовый)
-# 2 кучи: a - 3 и s - 3, a / 2, s / 2 (меньше) | a + s <= 100 | a = 48 | s > 52
+# № 20809 Апробация 05.03.25 (Уровень: Базовый)
+# Пусть на числовой прямой дан отрезок B = [60,80].
+# Для какого наибольшего натурального числа А логическое выражение
+# ДЕЛ(x,А) ∨ ((x∈B) → ¬ДЕЛ(x,22))
+# истинно (т.е. принимает значение 1) при любом целом положительном значении переменной х?
 '''
-from math import floor
-def F(a, s, n):
-    if a + s <= 100:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-3, s-3, n-1), F(floor(a / 2), s, n-1), F(a, floor(s / 2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def F(x, A):
+    B = 60 <= x <= 80
+    return (x % A == 0) or ((B) <= (x % 22 != 0))
 
-print([s for s in range(53, 1000) if F(48, s, n=2)])
-print([s for s in range(53, 1000) if F(48, s, n=3) and not F(48, s, n=1)])
-print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
 '''
+
+
+# № 21710 ЕГКР 19.04.25 (Уровень: Базовый)
+# На числовой прямой даны два отрезка: B = [36; 75] и C = [60; 110].
+# Укажите наименьшую возможную длину такого отрезка A, что логическое выражение
+# ¬(x∈A) → ((x∈B) ≡ (x∈C))
+#  истинно (т.е. принимает значение 1) при любом значении переменной х.
+'''
+def F(x, a1, a2):
+    B = 36 <= x <= 75
+    C = 60 <= x <= 110
+    A = a1 <= x <= a2
+    return (not A) <= (B == C)
+
+RES = []
+M = [x / 4 for x in range(20*4, 130*4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))
+'''
+
+# 20577
+'''
+def F(x, A):
+    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
+
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
+'''
+
+# 9247
+'''
+def F(x, y, A):
+    return (x - 3 * y < A) or (y > 400) or (x > 56)
+
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        RES.append(A)
+print(min(RES))
+'''
+
+# 17528
+'''
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+
+RES = []
+M = [x / 4 for x in range(10 * 4, 100 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))
+'''
+
+# 17871
+def F(x, a1, a2):
+    P = 15 <= x <= 40
+    Q = 21 <= x <= 63
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+
+RES = []
+M = [x / 4 for x in range(10 * 4, 100 * 4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))
 
 
 # endregion Урок: *************************************************************
@@ -134,6 +196,6 @@ print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: В идеале на выходные взять повторение всех номером
+# на следующем уроке:
