@@ -6,203 +6,203 @@
 # #
 # region Урок: ********************************************************************
 
-# from itertools import product, permutations
-'''
-from itertools import product, permutations
 
-for p in product('abc', repeat=2):
-    word = ''.join(p)
-    print(p, word)
-    # ('a', 'a') aa
-    # ('a', 'b') ab
-    # ('a', 'c') ac
-    # ('b', 'a') ba
-    # ('b', 'b') bb
-    # ('b', 'c') bc
-    # ('c', 'a') ca
-    # ('c', 'b') cb
-    # ('c', 'c') cc
+# № 23764 Демоверсия 2026 (Уровень: Базовый)
+# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
+# – символ «?» означает ровно одну произвольную цифру;
+# – символ «*» означает любую последовательность цифр произвольной длины;
+# в том числе «*» может задавать и пустую последовательность.
 
-for p in permutations('abc', r=3):
-    word = ''.join(p)
-    print(p, word)
-    # ('a', 'b', 'c') abc
-    # ('a', 'c', 'b') acb
-    # ('b', 'a', 'c') bac
-    # ('b', 'c', 'a') bca
-    # ('c', 'a', 'b') cab
-    # ('c', 'b', 'a') cba
+# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
+# соответствующие маске 3?12?14*5, делящиеся на 1917 без остатка.
+# В ответе запишите в первом столбце таблицы все найденные
+# числа в порядке возрастания, а во втором столбце – соответствующие им
+# результаты деления этих чисел на 1917.
 '''
-from multiprocessing.pool import worker
-from os import confstr_names
-from time import process_time_ns
+from fnmatch import *
+for x in range(1917, 10**10, 1917):
+    if fnmatch(str(x), '3?12?14*5'):
+        print(x, x // 1917)
 
-# № 23746 Демоверсия 2026 (Уровень: Базовый)
-'''
-RES = []
-s = sorted('СТРОКА')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if n % 2 == 0:
-                        if a not in 'АСТ':
-                            if word.count('О') == 2:
-                                RES.append(n)
-print(max(RES))
-'''
-# Вариант 2
-'''
-from itertools import product
-n = 0
-RES = []
-for p in product(sorted('СТРОКА'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] not in 'АСТ':
-            if word.count('О') == 2:
-                RES.append(n)
-print(max(RES))
-'''
-
-# Вариант 3
-'''
-from itertools import product
-
-RES = []
-for n, p in enumerate(product(sorted('СТРОКА'), repeat=5), 1):
-    word = ''.join(p)
-    print(n, word)
-    if n % 2 == 0:
-        if word[0] not in 'АСТ':
-            if word.count('О') == 2:
-                RES.append(n)
-print(max(RES))
+from re import *
+for x in range(1917, 10**10, 1917):
+    if fullmatch('3[0-9]12[0-9]14[0-9]*5', str(x)):
+        print(x, x // 1917)
 '''
 
 
-# № 18963 (Уровень: Базовый)
+# Функция поиска делителей числа
 '''
-from itertools import product
+import time
+start = time.time()
+
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(1_000_000_000))
+
+end = time.time()
+print(end - start)  # 17.994 - 0.0011
+'''
+
+
+
+# № 23763 Демоверсия 2026 (Уровень: Базовый)
+# Пусть M – сумма минимального и максимального натуральных делителей целого числа,
+# не считая единицы и самого числа. Если таких делителей у числа нет,
+# то значение M признаётся равным нулю.
+# Напишите программу, которая перебирает целые числа, бо́льшие 800 000,
+# в порядке возрастания и ищет среди них такие, для которых
+# M оканчивается на 4. В ответе запишите в первом столбце таблицы
+# первые пять найденных чисел в порядке возрастания,
+# а во втором столбце – соответствующие им значения M.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # 2 - не считая единицы и самого числа.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for p in product('КОТБУС', repeat=8):
-    word = ''.join(p)
-    if 'КОТ' in word:
-        if word[0] not in 'ОУ':
+for x in range(800_000+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
 
-# № 18942 (Уровень: Базовый)
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа,
+# бóльшие 1 125 000, в порядке возрастания и ищет среди них такие, у которых
+# есть натуральный делитель, оканчивающийся на цифру 7
+# и не равный ни самому числу, ни числу 7.
+# В ответе запишите в первой строке таблицы первые пять
+# найденных чисел в порядке возрастания,
+# а во втором столбце – наименьший делитель для каждого из них,
+# оканчивающийся цифрой 7, не равный ни самому числу, ни числу 7.
 '''
-from itertools import product
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for p in product('ДИОНСЙ', repeat=6):
-    word = ''.join(p)
-    if ('Д' in word) + ('Н' in word) == 1:
-        if all(p not in word for p in 'ДД ИИ ОО НН СС ЙЙ'.split()):
+for x in range(1_125_000+1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+# № 22430 (Уровень: Средний)
+# (Л. Шастин) Обозначим через M сумму двух минимальных
+# и двух максимальных простых делителей целого числа, не считая самого числа.
+# Если количество простых делителей у числа меньше 4,
+# то считаем значение M равным нулю. Напишите программу,
+# которая перебирает целые числа, большие 456 789,
+# в порядке возрастания и ищет среди них такие, для которых
+# значение M при делении на 114 даёт в остатке 39.
+# Выведите первые 5 найденных чисел в порядке возрастания,
+# справа от каждого числа запишите соответствующее значения M.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+
+cnt = 0
+for x in range(456_789+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) >= 4:
+        M = d[0] + d[1] + d[-2] + d[-1]
+        if M % 114 == 39:
+            print(x, M)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
 
-# № 6479 (Уровень: Базовый)
+# Проверка на простые числа:
 '''
-from itertools import permutations
+def prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+print([x for x in range(1, 100) if prime(x)])  # - простые числа
+print([x for x in range(1, 100) if not prime(x)])  # - составные числа
+
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+print([x for x in range(1, 100) if len(divisors(x)) == 0])  # - простые числа
+print([x for x in range(1, 100) if len(divisors(x)) != 0])  # - составные числа
+'''
+
+
+# № 23569 Пересдача 03.07.25 (Уровень: Средний)
+# Напишите программу, которая перебирает целые числа, большие 6 086 055,
+# в порядке возрастания и ищет среди них числа, представленные в виде
+# произведено двух простых множителей, не обязательно различных,
+# каждый из которых содержит в своей записи ровно одну цифру 6.
+# В ответе в первом столбце таблицы запишите первые 5 найденных
+# чисел в порядке возрастания, а во втором столбце -
+# для каждого из них соответствующий наибольший из найденных множителей.
+
+def prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            if prime(j) and prime(x // j):
+                d += [j, x // j]
+    return sorted(d)
+
 cnt = 0
-for p in permutations('КАРПЫ'):
-    word = ''.join(p)
-    # if len(word) == len(set(word)):
-    if 'АЫ' not in word and 'ЫА' not in word:
-        if 'Р' in word[1:-1]:
-            cnt += 1
-print(cnt)
-'''
+for x in range(6_086_055+1, 10**10):
+    d = [j for j in divisors(x) if str(j).count('6') == 1]
+    if len(d) >= 2:
+        print(x, max(d))
+        cnt += 1
+        if cnt == 5:
+            exit()
 
-
-# № 6261 Danov2302 (Уровень: Средний)
-# (А.Богданов) Определите количество десятизначных чисел,
-# записанных в восьмеричной системе счисления,
-# в записи которых ровно пять цифр 7 и при этом
-# никакая нечетная цифра не стоит рядом с цифрой 7.
-'''
-from itertools import product
-cnt = 0
-for p in product('01234567', repeat=10):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('7') == 5:
-            for x in '135':
-                num = num.replace(x, '*')
-            if '*7' not in num and '7*' not in num and '77' not in num:
-                cnt += 1
-                print(cnt)
-'''
-
-# № 6040 ФИПИ 04.02.23 (Уровень: Базовый)
-'''
-from itertools import product
-cnt = 0
-for p in product('0123456', repeat=6):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('6') == 1:
-            for x in '0246':
-                num = num.replace(x, '*')
-            for x in '135':
-                num = num.replace(x, '+')
-            if '**' not in num and '++' not in num:
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 6015 ФИПИ 03.02.23 (Уровень: Базовый)
-'''
-from itertools import product
-cnt = 0
-for p in product('012345678', repeat=7):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('8') == 1:
-            if num[-1] not in '02468':
-                if num[0] not in '1357':
-                    cnt += 1
-print(cnt)
-'''
-
-
-# 4696
-'''
-from itertools import product
-otv = 0
-for p in product('01234567', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('6') == 1:
-            for i in '1357':
-                num = num.replace(i, '#')
-            if '#6' not in num and '6#' not in num:
-                otv += 1
-print(otv)
-'''
-
-# 4099
-'''
-from itertools import product
-n = 0
-for p in product(sorted('АБКЛУ'), repeat=4):
-    word = ''.join(p)
-    n += 1
-    if len(set(word)) == len(word):
-        print(n)
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -213,6 +213,6 @@ for p in product(sorted('АБКЛУ'), repeat=4):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 14]
+# ФИПИ = [2, 5, 14, 8, 25]
 # КЕГЭ = []
 # на следующем уроке:

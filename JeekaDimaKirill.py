@@ -7,145 +7,92 @@
 # region Урок: ********************************************************************
 
 
-# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
-# Для какого наименьшего целого положительного числа А выражение
-# (x<A)∧(y<3A)∨(2x+y>128)
-# истинно (т.е. принимает значение 1) при любых целых положительных х и у?
+'''
+s = 'abc'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            cnt += 1
+            print(cnt, a, b, c)
+'''
+
+
+'''
+from itertools import product
+
+for p in product('abc', repeat=3):
+    word = ''.join(p)
+    print(p, word)
+'''
+
+'''
+from itertools import permutations
+for p in permutations('abc', r=3):
+    word = ''.join(p)
+    print(p, word)
+'''
+
+
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
 '''
 # Вариант 1
-def F(x, y, A):
-    return (x<A) and (y<3*A) or (2*x+y>128)
-
-for A in range(1, 1000):
-    flag = True
-    for x in range(1, 100):
-        for y in range(1, 100):  # 9801
-            if F(x, y, A) == False:
-                flag = False
-                break
-    if flag == True:
-        print(A)
-        break
-
+s = sorted('СТРОКА')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1  # n = n + 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                print(n)
+'''
 # Вариант 2
-def F(x, y, A):
-    return (x<A) and (y<3*A) or (2*x+y>128)
+'''
+RES = []
+from itertools import product
+n = 0
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    a, b, c, d, e = word
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
+print(max(RES))
+'''
 
-for A in range(1, 1000):
-    cnt = 0
-    for x in range(1, 100):
-        for y in range(1, 100):
-            if F(x, y, A) == True:
+
+# № 18042 (Уровень: Базовый)
+'''
+from itertools import product
+cnt = 0
+for p in product('ЛЮСТРА', repeat=5):
+    word = ''.join(p)
+    if word.count('Ю') <= 2:
+        if word[-1] not in 'ЛСТР':
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 17862 Демоверсия 2025 (Уровень: Базовый)
+'''
+from itertools import product
+cnt = 0
+for p in product('0123456789AB', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('7') == 1:
+            # if num.count('9') + num.count('A') + num.count('B') <= 3:
+            if len([x for x in num if x > '8']) <= 3:
                 cnt += 1
-    if cnt == 9801:
-        print(A)
-        break
-
-# Вариант 3
-
-def F(x, y, A):
-    return (x<A) and (y<3*A) or (2*x+y>128)
-
-RES = []
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        RES.append(A)
-print(min(RES))
-'''
-
-# Вариант 4
-'''
-print(min([A for A in range(1, 1000) if all( ((x<A) and (y<3*A) or (2*x+y>128)) for x in range(1, 100) for y in range(1, 100))]))
-'''
-
-
-# № 23561 Пересдача 03.07.25 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
-
-RES = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-'''
-
-
-# № 21901 Открытый вариант 2025 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((x & 52 != 0) and (x & 48 == 0)) <= (x & A != 0)
-
-RES = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(min(RES))
-'''
-
-# 23374
-# Для какого наименьшего целого положительного числа А выражение (x < A) ∧ (y < 3A) ∨ (2x + y > 128)
-# истинно (т.е. принимает значение 1) при любых целых положительных х и у?
-'''
-RES = []
-def F(x, y, A):
-    return (x < A) and (y < 3*A) or (2*x + y > 128)
-for A in range(1, 1000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        RES.append(A)
-print(min(RES))
-'''
-
-
-# 20577
-#(x & A ≠ 0) → ((x & 698 = 0) → (x & 321 ≠ 0))
-'''
-def F (x , A):
-    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
-
-RES = []
-for A in range(1, 5000):
-    if all(F(x, A) for x in range (1, 10000)):
-        RES.append(A)
-print (max(RES))
-'''
-
-
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
-'''
-def F(x, A):
-    B = 60 <= x <= 80
-    return (x % A == 0) or ((B) <= (x % 22 != 0))
-
-RES = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-'''
-
-
-# № 20905 Апробация 05.03.25 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 17 <= x <= 58
-    Q = 29 <= x <= 80
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
-
-RES = []
-M = [x / 4 for x in range(10 * 4, 90 * 4)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
-
-# 29.0 -> 29
-# 29.4 -> 30
-# 29.5 -> 29.75 -> 29.80 -> 30
+print(cnt)
 '''
 
 # endregion Урок: *************************************************************
@@ -157,6 +104,6 @@ print(min(RES))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 13, 14, 15]
+# ФИПИ = [2, 5, 6, 8, 13, 14]
 # КЕГЭ = []
-# на следующем уроке: 16, 23, 19-21, 25
+# на следующем уроке:

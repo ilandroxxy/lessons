@@ -7,122 +7,48 @@
 # region Урок: ********************************************************************
 
 
-# № 21716 ЕГКР 19.04.25 (Уровень: Базовый)
-# A. Прибавь 3
-# B. Прибавь 7
-# C. Умножь на 3
-# Сколько существует таких программ, которые исходное
-# число 12 преобразуют в 89, и при этом траектория вычислений
-# программы содержит числа 40 и 72 и не содержит 56?
-
-def F(a, b):
-    if a >= b or a == 56:
-        return a == b
-    h = [F(a+3, b), F(a+7, b), F(a*3, b)]
-    return sum(h)
-print(F(12, 40) * F(40, 72) * F(72, 89))
-
-
-
-# s - это кол-во камней в куче
-# n - это шаг нашей игры
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: s+2, s+5, s*2 | s >= 128 | 1 < s < 127
+# https://education.yandex.ru/ege/inf/task/d2c3cbfd-85f3-4d63-a34e-ad3278d25635
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(2, 127) if F(s, n=2)])
-print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    M = sorted(M)
+    if max(M) ** 2 > (M[0] * M[1] * M[2] * M[3]):
+        if M[-1] + M[-2] > 2 * (M[0] + M[1] + M[2]):
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: s+1, s+4, s*2 | s >= 51 | 1 ≤ s ≤ 50
+# https://education.yandex.ru/ege/inf/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    # при любом ходе Пети Ваня может выиграть своим первым ходом
-    return any(h) if (n - 1) % 2 == 0 else all(h) 
-    
-    # Ваня выиграл своим первым ходом после неудачного первого хода Пети
-    """return any(h) if (n - 1) % 2 == 0 else any(h)"""
-
-print([s for s in range(1, 50+1) if F(s, n=2)])
-print([s for s in range(1, 50+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 50+1) if F(s, n=4) and not F(s, n=2)])
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    # в строке только одно число повторяется трижды, остальные числа различны;
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied3 = [x for x in M if M.count(x) == 3]
+    if len(copied3) == 3 and len(copied1) == 3:
+        if 3 * (copied3[0] ** 2) > (copied1[0] ** 2 + copied1[1] ** 2 + copied1[2] ** 2):
+            cnt += 1
+print(cnt)
 '''
 
+# https://education.yandex.ru/ege/inf/task/9a4ed264-8f61-4713-91c3-37fceb735e15
 
-# floor - округление до меньшего
-# ceil - округление до большего
-
-# № 23278 Основная волна 11.06.25 (Уровень: Базовый)
-# 1 куча: s-3, s-8, s/3 (до меньшего) | s <= 16 | s ≥ 17
-'''
-from math import floor, ceil
-def F(s, n):
-    if s <= 16:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-8, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(17, 1000) if F(s, n=2)])
-print([s for s in range(17, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(17, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    flag = 0
+    if len(set(M)) == len(M):
+        flag += 1
+    if max(M) > (sum(M) - max(M)):
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a = 7 | 1 ≤ s ≤ 73
-'''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 73+1) if F(7, s, n=2)])
-print([s for s in range(1, 73+1) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 73+1) if F(7, s, n=4) and not F(7, s, n=2)])
-'''
-
-
-# № 19635 (Уровень: Базовый)
-# 2 кучи: a - 3 и s - 3, a / 2, s / 2 (меньше) | a + s <= 100 | a = 48 | s > 52
-'''
-from math import floor
-def F(a, s, n):
-    if a + s <= 100:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-3, s-3, n-1), F(floor(a / 2), s, n-1), F(a, floor(s / 2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(53, 1000) if F(48, s, n=2)])
-print([s for s in range(53, 1000) if F(48, s, n=3) and not F(48, s, n=1)])
-print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
-'''
 
 
 # endregion Урок: *************************************************************
@@ -134,6 +60,6 @@ print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 16, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: В идеале на выходные взять повторение всех номером
+# на следующем уроке: 9, 17, 24

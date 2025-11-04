@@ -7,173 +7,101 @@
 # region Урок: ********************************************************************
 
 
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
+# № 22437 (Уровень: Базовый)
+# 1 куча: +4, +7, *4 | s >= 471 | 1 ≤ s ≤ 470
+
+# s - кол-во камней, которое ищем
+# n - это шаг нашей игры
+
+# шаг 1: Петя 1
+# шаг 2: Ваня 1
+# шаг 3: Петя 2
+# шаг 4: Ваня 2
 '''
-def F(x, A):
-    B = 60 <= x <= 80  # (x ∈ B)
-    return (x % A == 0) or (B <= (x % 22 != 0))
+def F(s, n):
+    if s >= 471:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+4, n-1), F(s+7, n-1), F(s*4, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-
-# № 23755 Демоверсия 2026 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    P = 25 <= x <= 64
-    Q = 40 <= x <= 115
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
-
-RES = []
-M = [x / 4 for x in range(15 * 4, 130 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
+print([s for s in range(1, 471) if F(s, n=2)])
+print([s for s in range(1, 471) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 471) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 20961 (Уровень: Базовый)
-# (М. Попков) На числовой прямой даны два отрезка: P=[15;142] и Q=[38;167].
-# Укажите наименьшую возможную длину такого отрезка A, для которого логическое выражение
-# ¬((x∈Q)→((¬(x∈A)∧(x∈P))→¬(x∈Q)))
-# ложно (т.е. принимает значение 0) при любом значении переменной x.
-
+# № 21905 Открытый вариант 2025 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
 '''
-def F(x, a1, a2):
-    P = 15 <= x <= 142
-    Q = 38 <= x <= 167
-    A = a1 <= x <= a2
-    return P <= not((Q <= (A and P)) <= not(Q))
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-RES = []
-M = [x / 4 for x in range(5 * 4, 175 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) == False for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
-
+print([s for s in range(1, 67) if F(s, n=2)])
+print([s for s in range(1, 67) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 67) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 21902 Открытый вариант 2025 (Уровень: Базовый)
+# № 21418 Досрочная волна 2025 (Уровень: Базовый)
+# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
 '''
-def F(n):
-    if n >= 2025:
-        return n
-    if n < 2025:
-        return n * 2 + F(n + 2)
+from math import floor, ceil
 
-print(F(82) - F(81))
-'''
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-
-# № 21415 Досрочная волна 2025 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n <= 5:
-        return 1
-    if n > 5:
-        return n + F(n - 2)
-
-print(F(2126) - F(2122))
-# RecursionError: maximum recursion depth exceeded
+print([s for s in range(88, 1000) if F(s, n=2)])
+print([s for s in range(88, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(88, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
-
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+# № 19635 (Уровень: Базовый)
+# 2 кучи: a-3 s-3, a / 2, s / 2 (вниз) | a + s <= 100 | a = 48 | s > 52
 '''
-import sys
-sys.setrecursionlimit(10**8)
+from math import floor, ceil
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
+def F(a, s, n):
+    if a + s <= 100:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a-3, s-3, n-1), F(floor(a/2), s, n-1), F(a, floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print((F(2024) // 4 + F(2023)) // F(2022))
-
-# print((F(2024) / 4 + F(2023)) / F(2022))
-#           ~~~~~^~~
-# OverflowError: integer division result too large for a float
+print([s for s in range(53, 1000) if F(48, s, n=2)])
+print([s for s in range(53, 1000) if F(48, s, n=3) and not F(48, s, n=1)])
+print([s for s in range(53, 1000) if F(48, s, n=4) and not F(48, s, n=2)])
 '''
 
 
-# № 23756 Демоверсия 2026 (Уровень: Базовый)
+# № 19251 ЕГКР 21.12.24 (Уровень: Базовый)
+# 1 куча: +3, +6, *3 | s >= 132 | 1 <= s <= 131
 '''
-import sys
-sys.setrecursionlimit(10**8)
+def F(s, n):
+    if s >= 132:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+3, n-1), F(s+6, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-def F(n):
-    return 2 * (G(n - 3) + 8)
-
-def G(n):
-    if n < 10:
-        return 2 * n
-    if n >= 10:
-        return G(n - 2) + 1
-
-print(F(15548))
-'''
-
-# 23562
-'''
-import sys
-
-sys.setrecursionlimit(10 ** 8)
-
-def F(n):
-    return G(n - 1)
-
-def G(n):
-    if n <= 9:
-        return 3 * n
-    if n > 9:
-        return G(n - 2) + 1
-
-
-print(F(47995))
+print([s for s in range(1, 132) if F(s, n=2)])
+print([s for s in range(1, 132) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 132) if F(s, n=4) and not F(s, n=2)])
 '''
 
-
-# 23375
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    return G(n - 1) + G(n - 3)
-
-def G(n):
-    if n <= 9:
-        return 3 * n
-    if n > 9:
-        return G(n - 4) + 2
-
-print(F(42999))
-'''
-
-# 21979
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n < 110:
-        return n
-    if n >= 110:
-        return (n - 7) * F(n - 8)
-print((F(74914) - F(74898)) / (16 * F(74890)))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -184,6 +112,6 @@ print((F(74914) - F(74898)) / (16 * F(74890)))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 15]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 23]
 # КЕГЭ = []
-# на следующем уроке: 16, 23, 19-21
+# на следующем уроке: 19-21
