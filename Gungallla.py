@@ -6,95 +6,45 @@
 # #
 # region Урок: ********************************************************************
 
-# region Домашка: ******************************************************************
+from itertools import permutations
+print('1 2 3 4 5 6 7 8')
+table = '12 15 18 21 27 35 36 46 48 51 53 58 63 64 67 72 76 81 84 85'
+graph = 'HD DH HF FH HB BH DA AD AG GA AC CA GE EG GC CG CB BC EF FE'
+for per in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), per[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*per)
+        # 1 2 3 4 5 6 7 8
+        # G E B D C H F A
+        # G E D B A H F C
 
-
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
-
-# 23 23205
 '''
-def f(a, b):
-    if a < b or a==13:
-        return 0
-    elif a==b:
-        return 1
-    else:
-        return f(a-1, b) + f(a-2, b) + f(a//3, b)
-print(f(19, 6) * f(6, 4))
-
-
-def f(a, b):
-    if a <= b or a==13:
-        return a==b
-    return f(a-1, b) + f(a-2, b) + f(a//3, b)
-print(f(19, 6) * f(6, 4))
-'''
-
-
-# №5 23189
-'''
-b = []
-for n in range(10000):
-    s = f'{n:b}'
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        s = s + f'{(n % 3)*3:b}'
-    r = int(s, 2)
-    if r < 130:
-        b.append(n)
-print(max(b))
+from itertools import permutations
+print('1 2 3 4 5 6 7')
+table = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
+graph = 'AG GA AF FA GE EG EB BE BD DB DC CD BC CB CF FC GF FG'
+for p in permutations ('ABCDEFG'):
+    new_table=table
+    for i in range(1, 7+1):
+        new_table=new_table.replace(str(i), p[i-1])
+    if set(new_table.split())==set(graph.split()):
+        print(*p)
 '''
 
 
-# №2
-'''
-print("x y z w")
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (x <= y) and z and (not w)
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-
-# №6 23190
-'''
-import turtle as t
-t.lt(90)
-t.screensize(2000, 2000)
-t.tracer(0)
-size=30
-for i in range(2):
-    t.fd(3*size)
-    t.rt(90)
-    t.fd(20*size)
-    t.rt(90)
-t.up()
-t.bk(8*size)
-t.rt(90)
-t.fd(9*size)
-t.lt(90)
-t.down()
-for i in range(2):
-    t.fd(16*size)
-    t.rt(90)
-    t.fd(8*size)
-    t.rt(90)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x*size, y*size)
-        t.dot(3, 'purple')
-t.update()
-t.done()
-'''
-
+# № 23260 Основная волна 11.06.25 (Уровень: Базовый)
+from itertools import permutations
+print ('1 2 3 4 5 6 7 8')
+table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
+graph = 'AE EA EG GE GF FG FC CF CD DC DA AD AH HA HG GH HB BH BC CB BD DB'
+for p in permutations('ABCDEFGH'):
+    newt=table
+    for i in range(1, 8+1):
+        newt=newt.replace(str(i), p[i-1])
+    if set(newt.split())==set(graph.split()):
+        print(*p)
 
 # endregion Урок: *************************************************************
 # #
@@ -105,20 +55,6 @@ t.done()
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 19-21, 23, 25]
-# КЕГЭ  = []
-# на следующем уроке:
-
-
-# endregion Урок: *************************************************************
-# #
-# #
-# region Разобрать: *************************************************************
-
-
-# endregion Разобрать: *************************************************************
-# #
-# #
-# ФИПИ = [2, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 19-21, 23, 25]
+# ФИПИ = [1, 2, 4, 5, 6, 8, 9, 12, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:

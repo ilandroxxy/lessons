@@ -7,49 +7,150 @@
 # region Урок: ********************************************************************
 
 
-# https://education.yandex.ru/ege/inf/task/d2c3cbfd-85f3-4d63-a34e-ad3278d25635
+# Способ открытия файла для 17 номера
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    M = sorted(M)
-    if max(M) ** 2 > (M[0] * M[1] * M[2] * M[3]):
-        if M[-1] + M[-2] > 2 * (M[0] + M[1] + M[2]):
-            cnt += 1
-print(cnt)
+M = [int(x) for x in open('0. files/17.txt')]
 '''
 
-
-# https://education.yandex.ru/ege/inf/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
+# Рассмотрим три типа 17 номеров:
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    # в строке только одно число повторяется трижды, остальные числа различны;
-    copied1 = [x for x in M if M.count(x) == 1]
-    copied3 = [x for x in M if M.count(x) == 3]
-    if len(copied3) == 3 and len(copied1) == 3:
-        if 3 * (copied3[0] ** 2) > (copied1[0] ** 2 + copied1[1] ** 2 + copied1[2] ** 2):
-            cnt += 1
-print(cnt)
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
+
+# 1. Под парой подразумевается два идущих подряд элемента последовательности
+# 12 23 34 45
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
+
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
+# 123 234 345
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. Под парой подразумевается два различных элемента последовательности
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+
+
+# Начало любой программы 17 номера примерно:
+M = [int(x) for x in open('files/17.txt')]
+RES = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
 '''
 
-# https://education.yandex.ru/ege/inf/task/9a4ed264-8f61-4713-91c3-37fceb735e15
 
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    flag = 0
-    if len(set(M)) == len(M):
-        flag += 1
-    if max(M) > (sum(M) - max(M)):
-        flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
+# № 23201 Основная волна 10.06.25 (Уровень: Базовый)
+'''
+R = []
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3]
+B = [x for x in A if abs(x) % 10 == 7]
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y)  % min(B) == 0:
+            R.append(x + y)
+print(len(R), min(R))
+'''
 
 
+# № 22468 (Уровень: Базовый)
+'''
+R = []
+M = [int(x) for x in open('0. files/17.txt')]
+avg = sum(M) / len(M)
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
+    if abs(x + y) > avg:
+        R.append(x + y)
+print(len(R), abs(min(R)))
+'''
 
+
+# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 10 == 6]
+B = [x for x in A if x > 0]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 1:
+        if (x + y + z) <= min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 16 == min(M)) or (y % 16 == min(M)):
+        R.append(x + y)
+print(len(R), max(R))
+'''
+
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 55 == min(M)) or (y % 55 == min(M)):
+        R.append(x + y)
+print(len(R), min(R))
+'''
+
+
+# № 23376 Резервный день 19.06.25 (Уровень: Базовый)
+
+# В файле содержится последовательность целых чисел.
+# Её элементы могут принимать целые значения от -100 000 до 100 000 включительно.
+# Определите количество пар последовательности, в которых только один из элементов
+# является пятизначным числом, a квадрат суммы элементов пары превышает квадрат
+# максимального пятизначного элемента последовательности, оканчивающегося на 37.
+# В ответе запишите количество найденных пар, затем максимальную из сумм элементов
+# таких пар.
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5 ]
+B = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 37]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y) ** 2 > max(B)**2:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# № 23276 Основная волна 11.06.25 (Уровень: Базовый)
+# В файле содержится последовательность целых чисел.
+# Её элементы могут принимать целые значения от -100 000 до 100 000 включительно.
+# Определите количество троек элементов последовательности, в которых не более двух
+# из трёх элементов являются четырёхзначными числами, а сумма элементов тройки не
+# больше максимального элемента последовательности, оканчивающегося на 25.
+# В ответе запишите количество найденных троек чисел, затем максимальную из сумм
+# элементов таких троек.
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in M if abs(x) % 100 == 25]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) <= 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -60,6 +161,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 19-21, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке: 9, 17, 24
+# на следующем уроке:
