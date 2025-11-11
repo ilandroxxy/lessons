@@ -6,229 +6,207 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Прототипы 13 номера
-# 1. Есть узел и маска - надо найти адрес сети и кол-во айпи адресов
-# 1.1 Есть узел и маска - надо найти адрес сети и наибольший айпи адрес
-# 2. Есть узел и адрес сети - надо найти маску сети
-# 3. Есть два узла и надо найти маску сети
-
-
-# Адрес сети = Узел сети & Маска сети
-# for ip in Адрес сети - пробегаем айпи адреса сети
-# & - побитовая конъюнкция
+# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
 '''
-print(f'{14:b}')
-print(f'{5:b}')
+from fnmatch import *
+for x in range(7993, 10**10, 7993):
+    if fnmatch(str(x), '4*4736*1'):
+        print(x, x // 7993)
 
-print(14 & 5)  # 4
-'''
-
-# байт  1   1   1  1
-#      192.168.12.207       0 <= x <= 255
-# бит   8   8   8  8 = 32
-
-# Примерная схема работы с библиотекой
-'''
-from ipaddress import *
-Адрес сети = ip_network('Узел/Маска', 0)
-for ip in Адрес сети:
+from re import *
+for x in range(7993, 10**10, 7993):
+    if fullmatch('4[0-9]*4736[0-9]*1', str(x)):
+        print(x, x // 7993)
 '''
 
 
-# Маска сети имеет длину 32 бита и вид: 1111111....0000
-# 255.255.192.0
-# 11111111.11111111.11000000.00000000
-# mask = 18 (целое число - кол-во единиц)
-
-
-# Варианты маски сети:
-# [Единиц: 0, Нулей: 32] 000000....000
-# [Единиц: 1, Нулей: 31] 100000....000
-# [Единиц: 2, Нулей: 30] 110000....000
-# [Единиц: 3, Нулей: 29] 111000....000
-# [Единиц: 4, Нулей: 28] 111100....000
-# [Единиц: 5, Нулей: 27] 111110....000
-# ....
-# [Единиц: 31, Нулей: 1] 111111....110
-# [Единиц: 32, Нулей: 0] 111111....111
-
-# for mask in range(0, 32+1):
-#     print(mask)
-
-
-# № 16324 Открытый вариант 2024 (Уровень: Базовый)
-# Сеть задана IP-адресом 122.159.136.144
-# и сетевой маской 255.255.255.248.
-# Сколько в этой сети IP-адресов, для которых
-# количество единиц в двоичной записи IP-адреса кратно 4?
+# Универсальная функция поиска делителей числа
 '''
-from ipaddress import *
-net = ip_network('122.159.136.144/255.255.255.248', 0)
+import time
+start = time.time()
+
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(1_000_000_000))
+
+end = time.time()
+print(end - start)  # 19.590 -> 0.0007
+'''
+
+
+# Поиск простых чисел
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+print([x for x in range(1, 100) if len(divisors(x)) == 2])
+print([x for x in range(1, 100) if len(divisors(x)) > 2])
+
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+print([x for x in range(1, 100) if is_prime(x)])
+print([x for x in range(1, 100) if not is_prime(x)])
+'''
+
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):  
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 4 != 0:
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    R = sum(d)
+    if R % 10 == 6:
+        print(x, R)
         cnt += 1
-print(cnt)
-
-print(net.num_addresses)
+        if cnt == 5:
+            break
 '''
 
 
-# № 10579 (Уровень: Средний)
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('192.168.240.0/255.255.255.0', 0)
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') == s.count('0'):
+for x in range(1_125_000+1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
+    if len(d) > 0:
+        print(x, min(d))
         cnt += 1
-print(cnt)
+        if cnt == 5:
+            break
 '''
 
 
-# № 11662 (Уровень: Базовый)
-# Сеть задана IP-адресом 123.222.111.192
-# и маской сети 255.255.255.248.
-# Сколько в этой сети IP-адресов, для которых
-# сумма единиц в двоичной записи четвёртого
-# байта IP-адреса не делится без остатка на 3?
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('123.222.111.192/255.255.255.248', 0)
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s[24:].count('1') % 3 != 0:
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    R = sum(d)
+    if R % 10 == 9:
+        print(x, R)
         cnt += 1
-print(cnt)
-'''
-'''
-print(s)
-print(s[:8], s[8:16], s[16:24], s[24:])
-# 01111011110111100110111111000111
-# 01111011 11011110 01101111 11000111
+        if cnt == 5:
+            break
 '''
 
 
-
-
-# № 21412 Досрочная волна 2025 (Уровень: Базовый)
-# Адрес сети и широковещательный адрес не могут
-# быть использованы для адресации сетевых устройств.
-
-# Сеть задана IP-адресом одного из входящих в
-# неё узлов 143.168.72.213 и сетевой маской 255.255.255.240.
-# Определите наибольший IP-адрес данной сети,
-# который может быть присвоен компьютеру.
-# В ответе укажите найденный IP-адрес без разделителей.
+# № 23569 Пересдача 03.07.25 (Уровень: Средний)
 '''
-from ipaddress import *
-net = ip_network('143.168.72.213/255.255.255.240', 0)
-for ip in net:
-    print(ip)  # 143.168.72.222 -> 14316872222
-'''
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
 
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            if is_prime(j) and is_prime(x // j):
+                if str(j).count('6') == 1 and str(x // j).count('6') == 1:
+                    d += [j, x // j]
+    return sorted(d)
 
-# 15326
-'''
-from ipaddress import *
-net = ip_network('105.224.200.224/255.255.255.224', 0)
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 4 == 0:
+for x in range(6_086_055+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        print(x, max(d))
         cnt += 1
-print(cnt)
+        if cnt == 5:
+            break
 '''
 
 
-# 17709
+# № Демоверсия 2025 (Уровень: Базовый)
 '''
-from ipaddress import *
-net = ip_network('235.53.0.0/255.255.224.0', 0)
-s = 0
-for ip in net:
-    b = f'{ip:b}'
-    if (b.count('1') % 5 == 0) and (b[-3:] == '110'):
-        s += 1
-print(s)
-'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-
-# 14358
-'''
-from ipaddress import *
-net = ip_network('192.168.32.64/255.255.255.192', 0)
-s = 0
-for ip in net:
-    b = f'{ip:b}'
-    if b[-3:] == '101':
-        s += 1
-print(s)
-'''
-
-
-# № 17710 (Уровень: Базовый)
-'''
-from ipaddress import *
-net = ip_network('214.187.224.0/255.255.224.0')
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 6 != 0:
-        if s[-4:] == '1000':
+for x in range(800_000+1, 10**10):
+    d = divisors(x)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
 
-
-# № 12947 (Уровень: Базовый)
+# № 19778(Уровень: Средний)
 '''
-from ipaddress import *
-net = ip_network('203.111.195.0/255.255.240.0', 0)
+def divisors(x):
+    d = []
+    for j in range(1, int(x ** 0.5) + 1):  # не считая единицы и самого числа.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+def prime(x):
+    if x <= 1:
+        return False
+    for i in range(2, int(x ** 0.5) + 1):
+        if x % i == 0:
+            return False
+    return True
+
 cnt = 0
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('0') % 3 == 0:
-        if '111' in s and '000' in s:
+for i in range(9_500_000+1, 10**8):
+    p = [i for i in divisors(i) if prime(i)]
+    if len(p) > 0:
+        f = sum(p) // len(p)
+        if f != 0 and f % 813 == 0:
+            print(i, f)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
-
-
-# № 10150 (Уровень: Базовый)
-# Для узла с IP-адресом 145.192.94.230 адрес сети равен 145.192.80.0.
-# Чему равен третий слева байт маски?
-
-'''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'145.192.94.230/{mask}', 0)
-    if '145.192.80.0' in str(net):
-        print(net, net.netmask)  # 145.192.80.0/20 255.255.240.0
-'''
-
-
-# № 16260 Джобс 03.05.24 (Уровень: Средний)
-# Известно два узла с IP-адресами 123.20.103.136 и 123.20.103.151
-# принадлежат разным сетям с одинаковой маской.
-# Определите значение 4 байта маски в этих сетях.
-
-from ipaddress import *
-for mask in range(32+1):
-    net1 = ip_network(f'123.20.103.136/{mask}', 0)
-    net2 = ip_network(f'123.20.103.151/{mask}', 0)
-    if net1 != net2:
-        print(net1.netmask)
-        # 255.255.255.240
-        # 255.255.255.248
-        # 255.255.255.252
-        # 255.255.255.254
-        # 255.255.255.255
 
 
 # endregion Урок: *************************************************************
@@ -240,6 +218,6 @@ for mask in range(32+1):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [5, 13, 14]
+# ФИПИ = [5, 13, 14, 25]
 # КЕГЭ  = []
 # на следующем уроке:
