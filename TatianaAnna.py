@@ -1,156 +1,86 @@
 # region Домашка: ******************************************************************
 
+# https://stepik.org/lesson/1038775/step/2?unit=1062778
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range (len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# https://stepik.org/lesson/1038775/step/5?unit=1062778
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 7 == 0]
+B = [x for x in M if hex(x)[-2:] == '0f']
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y) % max(B) == 0:
+            R.append(x + y)
+print(len(R), max(R))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# Способ открытия файла для 17 номера
 '''
-M = [int(x) for x in open('0. files/17.txt')]
+from itertools import permutations
+print('1 2 3 4 5 6 7')
+table = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
+graph = 'AF FA AG GA FC CF FG GF GE EG EB BE BD DB BC CB DC CD'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7
+        # A F C G E D B
+        # D C F B E A G
 '''
+# ('G', 'F', 'E', 'D', 'C', 'B', 'A')
+# 12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76
+# GF GD FG FE FD EF EB EA DG DF DC CD CA BE BA AE AC AB
 
-# Рассмотрим три типа 17 номеров:
+
+
+# № 23260 Основная волна 11.06.25 (Уровень: Базовый)
 '''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности
-# 12 23 34 45
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
-# 123 234 345
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-
-
-# Начало любой программы 17 номера примерно:
-M = [int(x) for x in open('files/17.txt')]
-RES = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
+from itertools import permutations
+print('1 2 3 4 5 6 7 8')
+table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
+graph = 'AE AH AD EA HA DA EG GE GH HG GF FG FC CF CB BC CD DC DB BD BH HB'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
-
-# № 23201 Основная волна 10.06.25 (Уровень: Базовый)
+# № 23185 Основная волна 10.06.25 (Уровень: Базовый)
 '''
-R = []
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3]
-B = [x for x in A if abs(x) % 10 == 7]
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y)  % min(B) == 0:
-            R.append(x + y)
-print(len(R), min(R))
-'''
-
-
-# № 22468 (Уровень: Базовый)
-'''
-R = []
-M = [int(x) for x in open('0. files/17.txt')]
-avg = sum(M) / len(M)
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-    if abs(x + y) > avg:
-        R.append(x + y)
-print(len(R), abs(min(R)))
+from itertools import permutations
+print('1 2 3 4 5 6 7 8')
+table = '14 17 18 23 28 32 35 36 41 45 53 54 63 67 71 76 78 81 82 87'
+graph = 'AG GA AH HA GD DG GC CG DE ED EF FE FB BF FH HF HB BH BC CB'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
-
-# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 10 == 6]
-B = [x for x in A if x > 0]
-R = []
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 1:
-        if (x + y + z) <= min(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 16 == min(M)) or (y % 16 == min(M)):
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 55 == min(M)) or (y % 55 == min(M)):
-        R.append(x + y)
-print(len(R), min(R))
-'''
-
-
-# № 23376 Резервный день 19.06.25 (Уровень: Базовый)
-
-# В файле содержится последовательность целых чисел.
-# Её элементы могут принимать целые значения от -100 000 до 100 000 включительно.
-# Определите количество пар последовательности, в которых только один из элементов
-# является пятизначным числом, a квадрат суммы элементов пары превышает квадрат
-# максимального пятизначного элемента последовательности, оканчивающегося на 37.
-# В ответе запишите количество найденных пар, затем максимальную из сумм элементов
-# таких пар.
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5 ]
-B = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 37]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) ** 2 > max(B)**2:
-            R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# № 23276 Основная волна 11.06.25 (Уровень: Базовый)
-# В файле содержится последовательность целых чисел.
-# Её элементы могут принимать целые значения от -100 000 до 100 000 включительно.
-# Определите количество троек элементов последовательности, в которых не более двух
-# из трёх элементов являются четырёхзначными числами, а сумма элементов тройки не
-# больше максимального элемента последовательности, оканчивающегося на 25.
-# В ответе запишите количество найденных троек чисел, затем максимальную из сумм
-# элементов таких троек.
-'''
-M = [int(x) for x in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if abs(x) % 100 == 25]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) <= 2:
-        if (x + y + z) <= max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
 
 # endregion Урок: *************************************************************
 # #
@@ -161,6 +91,6 @@ print(len(R), max(R))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25]
+# ФИПИ = [1, 2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
