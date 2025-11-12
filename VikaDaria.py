@@ -7,189 +7,114 @@
 # #
 # region Урок: ********************************************************************
 
+# s - это кол-во камней в куче (будем искать - перебирать)
+# n - это шаг нашей игры
 
-# № 17562 Основная волна 08.06.24 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Прибавить 3
-# Сколько существует программ, которые преобразуют число 5 в число 11,
-# и при этом траектория вычислений содержит число 7?
+# n = 1: Петя 1
+# n = 2: Ваня 1
+# n = 3: Петя 2
+# n = 4: Ваня 2
+
+# № 21905 Открытый вариант 2025 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
 '''
-# Вариант 1
-def F(a, b):
-    if a > b:
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a+1, b) + F(a+2, b) + F(a+3, b)
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(5, 7) * F(7, 11))
-
-# Вариант 2
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a+3, b)
-
-print(F(5, 7) * F(7, 11))
+print(19, [s for s in range(1, 66+1) if F(s, n=2)])
+print(20, [s for s in range(1, 66+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 66+1) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 23761 Демоверсия 2026 (Уровень: Базовый)
-# A. Вычесть 1
-# B. Вычесть 4
-# C. Найти целую часть от деления на 3
-# Сколько существует программ, для которых при исходном
-# числе 19 результатом является 2, при этом траектория
-# вычислений не содержит числа 7 и содержит 13?
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
 '''
-def F(a, b):
-    if a < b or a == 7:
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a-1, b) + F(a-4, b) + F(a//3, b)
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(19, 13) * F(13, 2))
-
-
-def F(a, b):
-    if a <= b or a == 7:
-        return a == b
-    return F(a-1, b) + F(a-4, b) + F(a//3, b)
-
-print(F(19, 13) * F(13, 2))
+print(19, [s for s in range(2, 127) if F(s, n=2)])
+print(20, [s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 19883 (Уровень: Средний)
-# А. Вычесть 1
-# B. Найти целую часть квадратного корня
-# C. Отбросить последнюю цифру
-# Сколько существует программ, для которых при исходном
-# числе 602 результатом является число 7 и при этом траектория
-# вычислений не содержит число 24?
+# № 23759 Демоверсия 2026 (Уровень: Базовый)
+# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s >= 31
 '''
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a-1, b) + F(int(a**0.5), b) + F(a // 10, b)
+from math import floor, ceil
+def F(s, n):
+    if s <= 30:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(602, 7))
+print(19, [s for s in range(31, 1000) if F(s, n=2)])
+print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
-
-# № 19784 (Уровень: Базовый)
-# A. Вычти 2
-# B. Если число чётное, раздели на 2, иначе вычти 3
-# Сколько существует программ, которые преобразуют исходное
-# число 98 в число 1 и при этом траектория вычислений не содержит число 28?
+# № 20825 (Уровень: Базовый)
+# 2 кучи: a-5 s+2, a+2 s-5, a/2, s/2 вниз | a+s <= 69 | a = 35 | s > 50
 '''
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    h = [F(a-2, b)]
-    if a % 2 == 0:
-        h += [F(a // 2, b)]
-    else:
-        h += [F(a - 3, b)]
-    return sum(h)
+from math import floor
+def F(a, s, n):
+    if a+s <= 69:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(floor(a / 2), s, n-1), F(a, floor(s / 2), n-1), F(a-5, s+2, n-1), F(a+2, s-5, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(98, 1))
-
-
-def F(a, b):
-    if a <= b or a == 28:
-        return a == b
-    return F(a-2, b) + F(a // 2 if a % 2 == 0 else a - 3, b)
-
-print(F(98, 1))
+print(19, [s for s in range(51, 1000) if F(35, s, n=2)])
+print(20, [s for s in range(51, 1000) if F(35, s, n=3) and not F(35, s, n=1)])
+print(21, [s for s in range(51, 1000) if F(35, s, n=4) and not F(35, s, n=2)])
 '''
 
 
-# № 18491 (Уровень: Средний)
-# A. Прибавь 3
-# B. Прибавь максимальную цифру
-# Сколько существует программ, для которых при исходном
-# числе 10 результатом является число 41 и при этом траектория
-# вычислений содержит число 24?
+# 23203
 '''
-def F(a, b):
-    if a >= b:
-        return a == b
-    return F(a + 3, b) + F(a + max([int(x) for x in str(a)]), b)
+from math import floor
+def F(s, n):
+    if s <= 11:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3 , n-1), F(s - 7 , n-1), F(floor(s / 3) , n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-print(F(10, 24) * F(24, 41))
-'''
-
-
-# № 18267 (Уровень: Средний)
-# А. Прибавить 2
-# В. Прибавить 5
-# С. Возвести в квадрат
-# Сколько существует программ, для которых при исходном
-# числе 4 результатом является число 36, при этом
-# последняя в них команда — не C?
-'''
-def F(a, b, c):
-    if a >= b:
-        return a == b and c[-1] != 'C'
-    return F(a+2, b, c+'A') + F(a+5, b, c+'B') + F(a ** 2, b, c+'C')
-
-print(F(4, 36, ''))
-'''
-
-# № 18047 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b or a == 24:
-        return a == b
-    return F(a-2, b) + F(a-3, b) + F(a//4, b)
-
-print(F(36,13))
+print([s for s in range(12, 1000) if F(s, n=2)])
+print([s for s in range(12, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(12, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 17640 Основная волна 19.06.24 (Уровень: Базовый)
+# 20811
 '''
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a-2, b) + F(a//2, b)
-
-print(F(32,14) * F(14, 1))
-'''
-
-
-# № 17877 Демоверсия 2025 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b:
-        return a == b
-    else:
-        return F(a - 2, b)  + F(a // 2, b)
-print(F(38, 16) * F(16, 2))
-'''
-
-# № 17684 Пересдача 04.07.24 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a - 2, b) + F(a // 2, b)
-print(F(38, 10) * F(10, 2))
-'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n - 1), F(s + 4, n - 1), F(s * 2, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
 
-# № 7011 (Уровень: Средний)
-'''
-def f(a, b, c):
-    if a>=b or a==28:
-        return a==b and 'BACA' not in c
-    return f(a+2, b, c+'A') + f(a+3, b, c+'B') + f(a*2, b, c+'C')
-print(f(2, 40, ''))
+print([s for s in range(1, 50 + 1) if F(s, n=2)])
+print([s for s in range(1, 50 + 1) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 50 + 1) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
@@ -202,6 +127,6 @@ print(f(2, 40, ''))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 23, 25]
+# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 23, 19-21, 25]
 # КЕГЭ = []
-# на следующем уроке: 19-21
+# на следующем уроке:
