@@ -1,5 +1,16 @@
 # region Домашка: ******************************************************************
 
+# № 1933 (Уровень: Базовый)
+'''
+from itertools import permutations
+R = []
+for p in permutations('КЛАБХАУС', r=8):
+    word = ''.join(p)
+    if 'АА' not in word:
+        R.append(word)
+print(len(set(R)))
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,180 +18,185 @@
 # region Урок: ********************************************************************
 
 
-# № 23192 Основная волна 10.06.25 (Уровень: Базовый)
+# № 23764 Демоверсия 2026 (Уровень: Базовый)
+# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
+# – символ «?» означает ровно одну произвольную цифру;
+# – символ «*» означает любую последовательность цифр
+# произвольной длины; в том числе «*» может задавать и пустую последовательность.
+
+# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
+# соответствующие маске 3?12?14*5, делящиеся на 1917 без остатка.
+# В ответе запишите в первом столбце таблицы все найденные числа
+# в порядке возрастания, а во втором столбце – соответствующие им
+# результаты деления этих чисел на 1917.
 '''
-s = sorted('ТЕОРИЯ')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        word = a + b + c + d + e + f
-                        n += 1
-                        if n % 2 != 0:
-                            if a not in 'РТЯ':
-                                if word.count('И') >= 2:
-                                    print(n)
-
-from itertools import product
-n = 0
-for p in product(sorted('ТЕОРИЯ'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0:
-        if word[0] not in 'РТЯ':
-            if word.count('И') >= 2:
-                print(n)
+from fnmatch import *
+for x in range(1917, 10**10, 1917):
+    if fnmatch(str(x), '3?12?14*5'):
+        print(x, x // 1917)
 
 
-from itertools import product
-for n, p in enumerate(product(sorted('ТЕОРИЯ'), repeat=6), 1):
-    word = ''.join(p)
-    if n % 2 != 0:
-        if word[0] not in 'РТЯ':
-            if word.count('И') >= 2:
-                print(n)
-'''
-from zipfile import compressor_names
-
-'''
-from itertools import product, permutations
-
-for p in permutations('abc'):
-    word = ''.join(p)
-    print(p, word)
-    # ('a', 'b', 'c') abc
-    # ('a', 'c', 'b') acb
-    # ('b', 'a', 'c') bac
-    # ('b', 'c', 'a') bca
-    # ('c', 'a', 'b') cab
-    # ('c', 'b', 'a') cba
-
-for p in product('abc', repeat=2):
-    word = ''.join(p)
-    print(p, word)
-    # ('a', 'a') aa
-    # ('a', 'b') ab
-    # ('a', 'c') ac
-    # ('b', 'a') ba
-    # ('b', 'b') bb
-    # ('b', 'c') bc
-    # ('c', 'a') ca
-    # ('c', 'b') cb
-    # ('c', 'c') cc
+from re import *
+for x in range(1917, 10**10, 1917):
+    if fullmatch('3[0-9]12[0-9]14[0-9]*5', str(x)):
+        print(x, x // 1917)
 '''
 
 
-# № 22417 (Уровень: Базовый)
+# Универсальная функция поиска делителей числа:
 '''
-from itertools import product
-n = 0
+import time
+start = time.time()
+
+# Плохая функция поиска делителей (медленная)
+# def divisors(n):
+#     d = []
+#     for j in range(1, n+1):
+#         if n % j == 0:
+#             d.append(j)
+#     return d
+
+def divisors(n):
+    d = []
+    for j in range(1, int(n**0.5)+1):
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
+print(divisors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisors(16))  # [1, 2, 4, 8, 16]
+print(divisors(300_000_000))  #
+
+end = time.time()
+print(end - start)  # 5.52384 -> 0.0007
+'''
+
+
+# № 23763 Демоверсия 2026 (Уровень: Базовый)
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n**0.5)+1):  # не считая единицы и самого числа.
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
 cnt = 0
-for p in product(sorted('ЦИФЕРБЛАТ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0:
-        if word[0] not in 'ИЕА':
-            if word.count('Ц') == word.count('Ф'):
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 18042 (Уровень: Базовый)
-'''
-from itertools import product
-cnt = 0
-for p in product('ЛЮСТРА', repeat=5):
-    word = ''.join(p)
-    if word.count('Ю') <= 2:
-        if word[-1] not in 'ЛСТР':
+for n in range(800_000+1, 10**10):
+    d = divisors(n)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(n, M)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
 
-# № 17627 Основная волна 19.06.24 (Уровень: Базовый)
+# № 20144 (Уровень: Средний)
 '''
-from itertools import product
+def divisors(n):
+    d = []
+    for j in range(2, int(n**0.5)+1):  # не считая единицы и самого числа.
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
 cnt = 0
-for p in product('0123456789ABCDE', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('8') == 1:
-            if len([x for x in num if x > '9']) >= 2:
-                cnt += 1
-print(cnt)
-'''
-
-
-# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
-'''
-from itertools import product
-cnt = 0
-for p in product('01234567', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num[0] not in '1357':
-            if num[-1] not in '26':
-                if num.count('7') <= 2:
-                    cnt += 1
-print(cnt)
-'''
-
-
-# № 16319 Открытый вариант 2024 (Уровень: Базовый)
-'''
-from itertools import product
-n = 0
-for p in product(sorted('ПАРУС'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('У') <=1:
-        if 'AA' not in word:
-            print(n)
-'''
-
-
-# № 17549 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-from itertools import product
-n = 0
-for p in product(sorted('ФОКУС'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if 'Ф' not in word:
-        if word.count('У') == 2:
-            print(n)
-'''
-
-# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
-from itertools import product
-cnt= 0
-for p in product(sorted('0123456'), repeat=7):
-    word =''.join(p)
-    if word[0] != '0':
-        if len([x for x in word if x in '0246']) == 2:
+for n in range(3_333_337+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) >= 2:
+        R = max(d) - min(d)
+        if R > 1000 and R % 3 == 0:
+            print(n, R)
             cnt += 1
-print(cnt)
+            if cnt == 5:
+                break
 '''
 
 
-# № 12240 ЕГКР 16.12.23 (Уровень: Базовый)
+# № 19778 (Уровень: Средний)
 '''
-from itertools import product
+def divisors(n):
+    d = []
+    for j in range(2, int(n**0.5)+1):  # не считая единицы и самого числа.
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
 cnt = 0
-for p in product(sorted('012345678'), repeat=5):
-    word =''.join(p)
-    if word[0] != '0':
-        if word.count('5') == 1:
-            if all(p not in word for p in '00 11 22 33 44 55 66 77 88'.split()):
-                cnt += 1
-print(cnt)
+for n in range(9_500_000+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        F = int(sum(d) / len(d))
+        if F != 0 and F % 813 == 0:
+            print(n, F)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
+
+
+
+
+# № 21422 Досрочная волна 2025 (Уровень: Базовый)
+'''
+def divisors(n):
+    d = []
+    for j in range(1, int(n**0.5)+1):
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
+cnt = 0
+for n in range(1_125_000+1, 10**10):
+    d = [j for j in divisors(n) if j % 10 == 7 and j != 7 and j != n]
+    if len(d) > 0:
+        print(n, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
+# № 23382 Резервный день 19.06.25 (Уровень: Средний)
+'''
+def is_prime(n):
+    d = []
+    for j in range(1, int(n**0.5)+1):
+        if n % j == 0:
+            d.append(j)
+            d.append(n // j)
+    return sorted(set(d))
+
+
+def divisors(n):
+    d = []
+    for j in range(1, int(n**0.5)+1):
+        if n % j == 0:
+            if len(is_prime(j)) == 2 and len(is_prime(n // j)) == 2:
+                if str(j).count('2') == 1 and str(n // j).count('2') == 1:
+                    d.append(j)
+                    d.append(n // j)
+    return sorted(d)
+
+cnt = 0
+for n in range(6_651_220+1, 10**10):
+    d = divisors(n)
+    if len(d) >= 2:
+        print(n, max(d))
+        cnt += 1
+        if cnt == 5:
+            break
+'''
+
+
 
 
 # endregion Урок: *************************************************************
@@ -192,6 +208,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 14, 15, 16, 23, 19-21]
+# ФИПИ = [2, 5, 8, 14, 15, 16, 23, 19-21, 25]
 # КЕГЭ = []
 # на следующем уроке:

@@ -7,27 +7,8 @@
 # region Урок: ********************************************************************
 
 
+# № 23752 Демоверсия 2026 (Уровень: Базовый)
 '''
-n = 8
-
-# Перевод в двоичную систему счисления
-print(bin(n)[2:])  # 1000
-print(f'{n:b}')  # 1000
-print(int('1000', 2))  # 8
-
-# Перевод в восьмеричную систему счисления
-print(oct(n)[2:])  # 10
-print(f'{n:o}')  # 10
-print(int('10', 8))  # 8
-
-# Перевод в шестнадцатеричную систему счисления
-print(hex(n)[2:])  # 8
-print(f'{n:x}')  # 8
-print(int('8', 16))  # 8
-
-# ValueError: int() base must be >= 2 and <= 36, or 0
-
-
 def convert(n, b):
     alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
     r = ''
@@ -35,44 +16,18 @@ def convert(n, b):
         r += alp[n % b]
         n //= b
     return r[::-1]
+
+n = 2*2187**2020 + 729**2021 -2*243**2022 + 81**2023 -2*27**2024 - 6561
+s = convert(n, 27)
+print(s.count('0'))  # Сколько было значащих нулей
+print(s.count('0') + s.count('2'))  # Сколько было нулей и двоек
+print(len(s) - s.count('0'))  # Сколько ненулевых цифр?
+print(len(set(s)))  # Сколько различных цифр?
+print(len([x for x in s if x > '9']))
 '''
 
 
-# № 24886 (Уровень: Базовый)
-'''
-RES = []
-for n in range(1, 10000):
-    s = bin(n)[2:]  # s = f'{n:b}'
-    if n % 5 == 0:
-        s = s + '11'
-    else:
-        x = n // 5
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if n % 2 == 0 and r > 896:
-        RES.append(n)
-print(min(RES))
-'''
-
-
-# № 23742 Демоверсия 2026 (Уровень: Базовый)
-'''
-RES = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)
-    if r >= 200:
-        RES.append(n)
-print(min(RES))
-'''
-
-
-# № 23364 Резервный день 19.06.25 (Уровень: Базовый)
+# № 23754 Демоверсия 2026 (Уровень: Базовый)
 '''
 def convert(n, b):
     alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
@@ -83,55 +38,79 @@ def convert(n, b):
     return r[::-1]
 
 RES = []
-for n in range(1, 10000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r < 100:
-        RES.append(n)
+for x in range(1, 3000):
+    n = 9*11**210 + 8*11**150 - x
+    s = convert(n, 11)
+    if s.count('0') == 60:
+        RES.append(x)
 print(max(RES))
 '''
 
 
-# № 22456 (Уровень: Базовый)22456
+# № 23753 Демоверсия 2026 (Уровень: Базовый)
 '''
 RES = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if s.count('1') % 2 == 0:
-        s = '11' + s[2:] + "1"
-    else:
-        if s.count('0') < s.count('1'):
-            s = s + '0'
-        else:
-            s = s + '1'
-    r = int(s, 2)
-    if r >= 271:
-        RES.append(n)
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:29]:
+    A = int(f'923{x}874', 29)
+    B = int(f'524{x}6152', 29)
+    if (A + B) % 28 == 0:
+        RES.append((A + B) // 28)
+print(max(RES))
+'''
+
+
+# № 14345 (Уровень: Базовый)
+'''
+RES = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:14]:
+    A = int(f'4B3{x}1', 14)
+    B = int(f'5{x}F83', 16)
+    if (A + B) % 13 == 0:
+        RES.append((A + B) // 13)
 print(min(RES))
 '''
 
-# № 23189 Основная волна 10.06.25 (Уровень: Базовый)
+
+# № 8418 (Уровень: Средний)
 '''
-RES = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if r < 130:
-        RES.append(n)
-print(max(RES))
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for p in range(7, 36+1):
+    for x in alp[:p]:
+        for y in alp[:p]:
+            for z in alp[:p]:
+                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
+                    print(int(x + y + z, p))
 '''
 
-# № 21700 ЕГКР 19.04.25 (Уровень: Базовый)
+# 21413
+'''
+RES = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:21]:
+    A = int(f'82934{x}2', 21)
+    B = int(f'2924{x}{x}7', 21)
+    C = int(f'67564{x}8', 21)
+    if (A + B + C) % 20 == 0:
+        RES.append((A + B + C) // 20)
+print(min(RES))
+'''
+
+
+# 23273
+'''
+RES = []
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:29]:
+    A = int(f"463{x}7921", 29)
+    B = int(f"8241{x}153", 29)
+    if (A + B) % 28 == 0:
+        RES.append((A + B) // 28)
+print(min(RES))
+'''
+
+# 21413
 '''
 def convert(n, b):
     alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
@@ -142,35 +121,32 @@ def convert(n, b):
     return r[::-1]
 
 RES = []
-for n in range(1, 10000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        x = (n % 3) * 3
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r <= 150:
-        RES.append(n)
+for x in range(1, 2300):
+    n = 7 ** 350 + 7 ** 150 - x
+    s = convert(n, 7)
+    if s.count('0') == 200:
+        RES.append(x)
 print(max(RES))
 '''
 
 
-
-# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
+# 18122
 '''
+def convert(n, b):
+    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
 RES = []
-for n in range(1, 10000):
-    s=bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
-    r = int(s, 2)
-    if r >= 195:
-        RES.append(r)
-print(min(RES))
+for x in range(1, 5555):
+    n = 5 ** 150 + 5 ** 135 - x
+    s = convert(n, 5)
+    if s.count('4') == 134:
+        RES.append(x)
+print(max(RES))
 '''
 
 # endregion Урок: *************************************************************
@@ -182,6 +158,6 @@ print(min(RES))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5]
+# ФИПИ = [2, 4, 5, 14]
 # КЕГЭ = []
 # на следующем уроке:
