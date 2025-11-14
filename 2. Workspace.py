@@ -1438,6 +1438,20 @@ print(int('234532', 37))
 
 
 
+# todo Рассмотреть 9964 (даниил)
+'''
+from functools import *
+
+@lru_cache(None)
+def f(c, e, step):
+    if c >= e:
+        print(step)
+        return c == e and "CAC" in step
+    return f(c + 1, e, step+"A") + f(c * 3, e, step + "B") + f(c + 5, e, step + "C")
+
+
+print(f(3, 69, ""))
+'''
 
 
 

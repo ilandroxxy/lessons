@@ -7,154 +7,115 @@
 # #
 # region Урок: ********************************************************************
 
-# № 23561 Пересдача 03.07.25 (Уровень: Базовый)
-# Для какого наибольшего натурального числа А выражение
-# ДЕЛ(х,128) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,80))
-# истинно (т.е. принимает значение 1) при любом натуральном значении переменной х?
+# s - это кол-во камней в куче (будем искать - перебирать)
+# n - это шаг нашей игры
 
-# Вариант 1
+# n = 1: Петя 1
+# n = 2: Ваня 1
+# n = 3: Петя 2
+# n = 4: Ваня 2
+
+# № 21905 Открытый вариант 2025 (Уровень: Базовый)
+# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
 '''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
+def F(s, n):
+    if s >= 67:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-RES = []
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 10000):
-        if F(x, A) == False:
-            flag = False
-            break
-    if flag == True:
-        RES.append(A)
-print(max(RES))
-'''
-
-# Вариант 2
-'''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
-
-RES = []
-for A in range(1, 10000):
-    cnt = 0
-    for x in range(1, 10000):
-        if F(x, A) == True:
-            cnt += 1
-    if cnt == 9999:
-        RES.append(A)
-print(max(RES))
-'''
-
-# Вариант 3
-'''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
-
-RES = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-
-
-# Вариант 4
-print(max([A for A in range(1, 10000) if all( ((x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))) for x in range(1, 10000))]))
+print(19, [s for s in range(1, 66+1) if F(s, n=2)])
+print(20, [s for s in range(1, 66+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 66+1) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
-# Для какого наименьшего целого положительного числа А выражение
-# (x<A)∧(y<3A)∨(2x+y>128)
-# истинно (т.е. принимает значение 1) при любых целых положительных х и у?
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
 '''
-def F(x, y, A):
-    return (x < A) and (y < 3*A) or (2*x + y > 128)
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        print(A)
-        break
-'''
-
-
-# № 22433 (Уровень: Базовый)
-# (Л. Шастин) Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
-# Для какого наименьшего неотрицательного целого числа А логическое выражение
-# (x&117!=0)∧(x&91=0)→¬(x&А=0)
-# истинно (т.е. принимает значение 1) при любом неотрицательном целом значении переменной х?
-'''
-def F(x, A):
-    return ((x & 117 != 0) and (x & 91 == 0)) <= (x & A != 0)
-
-for A in range(0, 10000):
-    if all(F(x, A) for x in range(0, 10000)):
-        print(A)
-        break
+print(19, [s for s in range(2, 127) if F(s, n=2)])
+print(20, [s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
-#
-# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без
-# остатка на натуральное число m». Пусть на числовой прямой дан отрезок B = [60,80].
-# Для какого наибольшего натурального числа А логическое выражение
-# ДЕЛ(x,А)∨((x∈B)→¬ДЕЛ(x,22))
-# истинно (т.е. принимает значение 1) при любом целом положительном значении переменной х?
+# № 23759 Демоверсия 2026 (Уровень: Базовый)
+# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s >= 31
 '''
-def F(x, A):
-    B = 60 <= x <= 80
-    return (x % A == 0) or (B <= (x % 22 != 0))
+from math import floor, ceil
+def F(s, n):
+    if s <= 30:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-for A in range(10000, 0, -1):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
+print(19, [s for s in range(31, 1000) if F(s, n=2)])
+print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
-
-# № 20905 Апробация 05.03.25 (Уровень: Базовый)
-# На числовой прямой даны два отрезка: P = [17; 58] и Q = [29; 80].
-# Укажите наименьшую возможную длину такого отрезка A, что логическое выражение
-# (x∈P)→(((x∈Q)∧¬(x∈A))→¬(x∈P))
-#  истинно (т.е. принимает значение 1) при любом значении переменной х.
+# № 20825 (Уровень: Базовый)
+# 2 кучи: a-5 s+2, a+2 s-5, a/2, s/2 вниз | a+s <= 69 | a = 35 | s > 50
 '''
-def F(x, a1, a2):
-    P = 17 <= x <= 58
-    Q = 29 <= x <= 80
-    A = a1 <= x <= a2
-    return P <= ((Q and (not A)) <= (not P))
+from math import floor
+def F(a, s, n):
+    if a+s <= 69:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(floor(a / 2), s, n-1), F(a, floor(s / 2), n-1), F(a-5, s+2, n-1), F(a+2, s-5, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-RES = []
-M = [x for x in range(10, 100)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
+print(19, [s for s in range(51, 1000) if F(35, s, n=2)])
+print(20, [s for s in range(51, 1000) if F(35, s, n=3) and not F(35, s, n=1)])
+print(21, [s for s in range(51, 1000) if F(35, s, n=4) and not F(35, s, n=2)])
 '''
 
 
-# № 12469 (Уровень: Базовый)
-# На числовой прямой даны два отрезка: D = [7; 68] и C = [29; 100].
-# Укажите наименьшую возможную длину такого отрезка A, для которого логическое выражение
-# (x∈D)→((¬(x∈C)∧¬(x∈A))→¬(x∈D))
-# истинно (т.е. принимает значение 1) при любом значении переменной х.
+# 23203
+'''
+from math import floor
+def F(s, n):
+    if s <= 11:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3 , n-1), F(s - 7 , n-1), F(floor(s / 3) , n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return D <= (((not C) and (not A)) <= (not D))
-
-RES = []
-M = [x / 5 for x in range(1 * 5, 120 * 5)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))  # 21.75 -> 21.8 -> 21.9 -> 22
+print([s for s in range(12, 1000) if F(s, n=2)])
+print([s for s in range(12, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(12, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
 
 
+# 20811
+'''
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n - 1), F(s + 4, n - 1), F(s * 2, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+
+print([s for s in range(1, 50 + 1) if F(s, n=2)])
+print([s for s in range(1, 50 + 1) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 50 + 1) if F(s, n=4) and not F(s, n=2)])
+'''
 
 
 # endregion Урок: *************************************************************
@@ -166,6 +127,6 @@ print(min(RES))  # 21.75 -> 21.8 -> 21.9 -> 22
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 13, 14, 15, 25]
+# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 23, 19-21, 25]
 # КЕГЭ = []
-# на следующем уроке: 16, 23, 19-21
+# на следующем уроке:

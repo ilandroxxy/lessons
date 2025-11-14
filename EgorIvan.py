@@ -6,196 +6,114 @@
 # #
 # region Урок: ********************************************************************
 
-# № 21902 Открытый вариант 2025 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=n при n≥2025;
-# F(n)=n×2+F(n+2), если n<2025.
-# Чему равно значение выражения F(82)–F(81)?
 '''
-def F(n):
-    if n >= 2025:
-        return n
-    if n < 2025:
-        return n * 2 + F(n + 2)
+def F(a, b):
+    if a > b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        h = [F(a+1, b), F(a+2, b), F(a+3, b)]
+        return sum(h)
 
-print(F(82) - F(81))  # 1945
+print(F(5, 7) * F(7, 11))
+'''
+
+
+# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
+# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
+
+# s - это кол-во камней в изначальной куче
+# n - это шаг нашей игры
+# n = 1: Петя 1
+# n = 2: Ваня 1
+# n = 3: Петя 2
+# n = 4: Ваня 2
+'''
+def F(s, n):
+    if s >= 128:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(2, 127) if F(s, n=2)])
+print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 23759 Демоверсия 2026 (Уровень: Базовый)
+# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s ≥ 31
+'''
+from math import floor, ceil
+def F(s, n):
+    if s <= 30:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(31, 1000) if F(s, n=2)])
+print([s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
 #
-# № 21415 Досрочная волна 2025 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=1 при n≤5;
-# F(n)=n+F(n–2), если n>5.
-# Чему равно значение выражения F(2126)–F(2122)?
+# № 20907 Апробация 05.03.25 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a = 7 | 1 ≤ s ≤ 73
 '''
-import sys
-sys.setrecursionlimit(10**8)
+def F(a, s, n):
+    if a+s >= 81:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n - 1), F(a, s+1, n - 1), F(a*2, s, n - 1), F(a, s*2, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-def F(n):
-    if n <= 5:
-        return 1
-    if n > 5:
-        return n + F(n - 2)
 
-print(F(2126) - F(2122))  # 4250
-# RecursionError: maximum recursion depth exceeded
+print([s for s in range(1, 74) if F(7, s, n=2)])
+print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
+print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
 '''
 
 
-# № 23562 Пересдача 03.07.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n) и G(n), где n – целое число, задан следующими соотношениями:
-# F(n)=G(n−1);
-# G(n)=3×n, если n≤9.
-# G(n)=G(n−2)+1, если n>9.
-# Чему равно значение выражения F(47995)?
+# 20825
 '''
-import sys
-sys.setrecursionlimit(10**8)
+from math import floor
+def F(a, s, n):
+    if a+s <= 69:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a-5, s+2, n - 1), F(a+2, s-5, n - 1), F(floor(a/2), s, n - 1), F(a, floor(s/2), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
 
-def F(n):
-    return G(n-1)
 
-def G(n):
-    if n <= 9:
-        return 3 * n
-    if n > 9:
-        return G(n - 2) + 1
-
-print(F(47995))
-# RecursionError: maximum recursion depth exceeded
+print([s for s in range(51, 1000) if F(35, s, n=2)])
+print([s for s in range(51, 1000) if F(35, s, n=3) and not F(35, s, n=1)])
+print([s for s in range(51, 1000) if F(35, s, n=4) and not F(35, s, n=2)])
 '''
 
 
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – натуральное число, задан следующими соотношениями:
-# F(n)=1 при n=1;
-# F(n)=n×F(n−1), если n>1.
-# Чему равно значение выражения (F(2024)/4+F(2023))/F(2022)?
+# 20811
 '''
-import sys
-sys.setrecursionlimit(10**8)
+def F(s, n):
+    if s >= 51:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n-1), F(s + 4, n-1), F(s * 2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
 
-print((F(2024) // 4 + F(2023)) // F(2022))
-# print((F(2024) / 4 + F(2023)) / F(2022))
-#        ~~~~~~~~^~~
-# OverflowError: integer division result too large for a float
+print([s for s in range(1, 51) if F(s, n=2)])
+print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
 '''
-
-
-# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
-# (М. Попков) Снежная Королева создала волшебную функцию
-# F(n), которая помогает ей вычислять силу зимы. Эта функция определяется следующим образом:
-# F(n)=n−1, при n⩽3;
-# F(n)=F(n−2)+n/2−F(n−4), если n>3 и n чётно;
-# F(n)=F(n−1)×n+F(n−2), если n>3 и n нечётно, где n – целое неотрицательное число.
-# Королева решила узнать, насколько велика сила зимы в её королевстве.
-# Для этого вычислите значение выражения: F(4952)+2×F(4958)+F(4964).
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for i in range(5000):
-    F(i)
-
-print(F(4952)+2 * F(4958) + F(4964))
-'''
-
-
-# № 23375 Резервный день 19.06.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции F(n) и G(n), где
-# n – целое число, задан следующими соотношениями:
-# F(n)=G(n−1)+G(n−3);
-# G(n)=3×n, если n≤9.
-# G(n)=G(n−4)+2, если n>9.
-# Чему равно значение выражения F(42999)?
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    return G(n - 1) + G(n - 3)
-def G(n):
-    if n <= 9:
-        return 3 * n
-    if n > 9:
-        return G(n - 4)+2
-
-print(F(42999))
-'''
-
-
-# 23200
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=n при n<10;
-# F(n)=3n+F(n−3), если n≥10.
-# Чему равно значение выражения (F(6250)+2×F(6244))/F(6238)?
-# В ответе запишите целую часть полученного числа
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n < 10:
-        return n
-    if n >= 10:
-        return 3*n + F(n - 3)
-for i in range(7000):
-    F(i)
-print((F(6250) + 2 * F(6244)) // F(6238))
-'''
-
-
-# № 19597 (Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n < 15:
-        return 4
-    if n >= 15 and n % 3 == 0:
-        return F(2 * n/3)+n - 1
-    if n >= 15 and n % 3 != 0:
-        return F(n - 1)+3
-
-for n in range(1000):
-    if F(n) == 251:
-        print(n)
-'''
-
-
-# № 13299 Открытый курс "Слово пацана" (Уровень: Базовый)
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n <= 3:
-        return 1
-    if n > 3 and n % 3 == 0:
-        return F(n/3) + 4*n
-    if n > 3 and n % 3 != 0:
-        return n * n * n - 26
-
-for n in range(1000):
-    if F(n) < 300:
-        print(n)
-
 
 # # endregion Урок: *************************************************************
 # #
@@ -206,6 +124,6 @@ for n in range(1000):
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 16, 25]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 16, 19-21, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:

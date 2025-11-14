@@ -1,98 +1,132 @@
 # region Домашка: ******************************************************************
 
 
+# № 4465 Джобс 15.06.2022 (Уровень: Базовый)
+'''
+RES = []
+from itertools import product
+n = 0
+for p in product(sorted('ПЯТЬДНЕЙ'), repeat=4):
+    word = ''.join(p)
+    n += 1
+    if len(word) == len(set(word)):
+        if ('Я' not in word) and ('И' not in word):
+            RES.append(n)
+print(max(RES))
+'''
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
 
+# № 21902 Открытый вариант 2025 (Уровень: Базовый)
 '''
-s = 'abc'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            cnt += 1
-            print(cnt, a, b, c)
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
+
+print(F(82) - F(81))
 '''
 
 
+# № 21415 Досрочная волна 2025 (Уровень: Базовый)
 '''
-from itertools import product
+import sys
+sys.setrecursionlimit(10**8)
 
-for p in product('abc', repeat=3):
-    word = ''.join(p)
-    print(p, word)
-'''
+def F(n):
+    if n <= 5:
+        return 1
+    if n > 5:
+        return n + F(n - 2)
 
-'''
-from itertools import permutations
-for p in permutations('abc', r=3):
-    word = ''.join(p)
-    print(p, word)
-'''
+print(F(2126) - F(2122))
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
 
 
-# № 23746 Демоверсия 2026 (Уровень: Базовый)
-'''
-# Вариант 1
-s = sorted('СТРОКА')
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1  # n = n + 1
-                    if n % 2 == 0:
-                        if a not in 'АСТ':
-                            if word.count('О') == 2:
-                                print(n)
-'''
-# Вариант 2
-'''
-RES = []
-from itertools import product
-n = 0
-for p in product(sorted('СТРОКА'), repeat=5):
-    word = ''.join(p)
-    a, b, c, d, e = word
-    n += 1
-    if n % 2 == 0:
-        if word[0] not in 'АСТ':
-            if word.count('О') == 2:
-                RES.append(n)
-print(max(RES))
+# F(2126) = 2126 + F(2124)
+# F(2124) = 2124 + F(2122) - F(2122)
+print(2126 + 2124)
 '''
 
 
-# № 18042 (Уровень: Базовый)
+# № 20906 Апробация 05.03.25 (Уровень: Базовый)
 '''
-from itertools import product
-cnt = 0
-for p in product('ЛЮСТРА', repeat=5):
-    word = ''.join(p)
-    if word.count('Ю') <= 2:
-        if word[-1] not in 'ЛСТР':
-            cnt += 1
-print(cnt)
+import sys
+sys.setrecursionlimit(10**8)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
+
+print((F(2024) // 4 + F(2023)) // F(2022))
+'''
+# print((F(2024) / 4 + F(2023)) / F(2022))
+#            ~~~~^~~
+# OverflowError: integer division result too large for a float
+
+
+
+# № 23756 Демоверсия 2026 (Уровень: Базовый)
+'''
+import sys
+sys.setrecursionlimit(10**8)
+
+def F(n):
+    return 2 * (G(n - 3) + 8)
+
+def G(n):
+    if n < 10:
+        return 2 * n
+    if n >= 10:
+        return G(n - 2) + 1
+
+print(F(15548))
 '''
 
 
-# № 17862 Демоверсия 2025 (Уровень: Базовый)
+
+# № 13297 Открытый курс "Слово пацана" (Уровень: Базовый)
 '''
-from itertools import product
-cnt = 0
-for p in product('0123456789AB', repeat=5):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('7') == 1:
-            # if num.count('9') + num.count('A') + num.count('B') <= 3:
-            if len([x for x in num if x > '8']) <= 3:
-                cnt += 1
-print(cnt)
+def F(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 5 * F(n-1)+6 * G(n-1) - 3*n+8
+
+def G(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 6 * F(n - 1) + 5 * G(n - 1) + 3
+
+print(F(9) + G(9))
+'''
+
+
+# № 10718 (Уровень: Средний)
+'''
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return 2
+    if n > 2 and n % 2 == 0:
+        return 2 * F(n - 2) - F(n - 1) + 2
+    if n > 2 and n % 2 != 0:
+        return 2 * F(n - 1) + F(n - 2) - 2
+
+for n in range(200):
+    F(n)
+
+print(F(170))
 '''
 
 # endregion Урок: *************************************************************
@@ -104,6 +138,6 @@ print(cnt)
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 23, 19-21
