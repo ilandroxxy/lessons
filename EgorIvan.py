@@ -6,114 +6,176 @@
 # #
 # region Урок: ********************************************************************
 
+
+# № 21414 Досрочная волна 2025 (Уровень: Базовый)
+
+# Вариант 1
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        h = [F(a+1, b), F(a+2, b), F(a+3, b)]
-        return sum(h)
+def F(x, y, A):
+    return (5 < y) or (x > 32) or (x + 2*y < A)
 
-print(F(5, 7) * F(7, 11))
-'''
-
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
-
-# s - это кол-во камней в изначальной куче
-# n - это шаг нашей игры
-# n = 1: Петя 1
-# n = 2: Ваня 1
-# n = 3: Петя 2
-# n = 4: Ваня 2
-'''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(2, 127) if F(s, n=2)])
-print([s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
+RES = []
+for A in range(0, 5000):
+    flag = True
+    for x in range(0, 100):
+        for y in range(0, 100):
+            if F(x, y, A) == False:
+                flag = False
+                break
+    if flag == True:
+        RES.append(A)
+print(min(RES))
 '''
 
-
-# № 23759 Демоверсия 2026 (Уровень: Базовый)
-# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s ≥ 31
+# Вариант 2
 '''
-from math import floor, ceil
-def F(s, n):
-    if s <= 30:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def F(x, y, A):
+    return (5 < y) or (x > 32) or (x + 2*y < A)
 
-print([s for s in range(31, 1000) if F(s, n=2)])
-print([s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-#
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a = 7 | 1 ≤ s ≤ 73
-'''
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n - 1), F(a, s+1, n - 1), F(a*2, s, n - 1), F(a, s*2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-
-print([s for s in range(1, 74) if F(7, s, n=2)])
-print([s for s in range(1, 74) if F(7, s, n=3) and not F(7, s, n=1)])
-print([s for s in range(1, 74) if F(7, s, n=4) and not F(7, s, n=2)])
+RES = []
+for A in range(0, 5000):
+    cnt = 0
+    for x in range(0, 100):
+        for y in range(0, 100):
+            if F(x, y, A) == True:
+                cnt += 1
+    if cnt == 10000:
+        RES.append(A)
+print(min(RES))
 '''
 
-
-# 20825
+# Вариант 3
 '''
-from math import floor
-def F(a, s, n):
-    if a+s <= 69:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-5, s+2, n - 1), F(a+2, s-5, n - 1), F(floor(a/2), s, n - 1), F(a, floor(s/2), n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def F(x, y, A):
+    return (5 < y) or (x > 32) or (x + 2*y < A)
 
+RES = []
+for A in range(0, 5000):
+    if all(F(x, y, A) for x in range(0, 100) for y in range(0, 100)):
+        RES.append(A)
+print(min(RES))
+'''
 
-print([s for s in range(51, 1000) if F(35, s, n=2)])
-print([s for s in range(51, 1000) if F(35, s, n=3) and not F(35, s, n=1)])
-print([s for s in range(51, 1000) if F(35, s, n=4) and not F(35, s, n=2)])
+# № 20584 (Уровень: Базовый)
+'''
+def F(x, A):
+    return ((405 % x == 0) <= (81 % x == 0)) or (A - x > 162)
+
+RES=[]
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(min(RES))
+'''
+
+# № 20577 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
+
+RES=[]
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
 '''
 
 
-# 20811
+# № 20809 Апробация 05.03.25 (Уровень: Базовый)
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 1, n-1), F(s + 4, n-1), F(s * 2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+def F(x, A):
+    B = 60 <= x <= 80
+    return (x % A == 0) or ((B) <= (x % 22 != 0))
+
+RES=[]
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
+'''
 
 
-print([s for s in range(1, 51) if F(s, n=2)])
-print([s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+# 20823
 '''
+def F(x, A):
+    return (x & A == 0) <= ((x & 77 == 0) and (x & 44 == 0))
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1,10000)):
+        RES.append(A)
+print(min(RES))
+'''
+
+# 18266
+'''
+def F(x, A):
+    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
+
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, A) for x in range(1,10000)):
+        RES.append(A)
+print(min(RES))
+'''
+
+
+# 18140
+'''
+def F(x, y, A):
+    return (x - y >= 39) or (y <= x) or (y >= A - 20)
+
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        RES.append(A)
+print(max(RES))
+'''
+
+# № 18044 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    M = 32 <= x <= 68
+    N = 54 <= x <= 76
+    A = a1 <= x <= a2
+    return (not((M) or (N)) == (not A))
+
+RES=[]
+M = [x / 4 for x in range(20*4, 90*4)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))
+'''
+# 44.0 -> 44
+# 44.45 -> 44
+# 44.50 -> 45
+# 44.75 -> 45
+
+
+# 12469
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return (D) <= (((not C) and (not A)) <= (not D))
+
+RES=[]
+M = [x / 5 for x in range(5*5, 110*5)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))
+'''
+# 21.75 -> 22
+
 
 # # endregion Урок: *************************************************************
 # #
@@ -124,6 +186,6 @@ print([s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 16, 19-21, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 19-21, 23, 25]
 # КЕГЭ = []
 # на следующем уроке:
