@@ -6,6 +6,15 @@
 # #
 # region Урок: ********************************************************************
 
+M=[int(x) for x in open('0. files/17.txt')]
+a=[int(x) for x in M if abs(x)%6==0 and x<0 and len(str(abs(x)))==3]
+b=[]
+for i in range(len(M)-1):
+   x, y = M[i], M[i+1]
+   if (x<0)+(y<0)==1:
+       if (x+y)>max(a):
+           b.append(x**2+y**2)
+print(len(b), max(b))
 
 # endregion Урок: *************************************************************
 # #

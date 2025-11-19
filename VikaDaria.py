@@ -1,122 +1,126 @@
 # region Домашка: ******************************************************************
 
 
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# s - это кол-во камней в куче (будем искать - перебирать)
-# n - это шаг нашей игры
 
-# n = 1: Петя 1
-# n = 2: Ваня 1
-# n = 3: Петя 2
-# n = 4: Ваня 2
-
-# № 21905 Открытый вариант 2025 (Уровень: Базовый)
-# 1 куча: +1, +4, *3 | s >= 67 | 1 ≤ s ≤ 66
+# Чтение файла для 17 номера
 '''
-def F(s, n):
-    if s >= 67:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 66+1) if F(s, n=2)])
-print(20, [s for s in range(1, 66+1) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 66+1) if F(s, n=4) and not F(s, n=2)])
+M = [int(x) for x in open('0. files/17.txt')]
 '''
 
-
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
+# Три прототипа 17 номера:
 '''
-def F(s, n):
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
-print(19, [s for s in range(2, 127) if F(s, n=2)])
-print(20, [s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
-'''
+# 1. Под парой подразумеваются два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
+# 2. Под тройкой подразумеваются три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
 
-# № 23759 Демоверсия 2026 (Уровень: Базовый)
-# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s >= 31
-'''
-from math import floor, ceil
-def F(s, n):
-    if s <= 30:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(31, 1000) if F(s, n=2)])
-print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
+# 3. Под парой подразумеваются два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
 
-# № 20825 (Уровень: Базовый)
-# 2 кучи: a-5 s+2, a+2 s-5, a/2, s/2 вниз | a+s <= 69 | a = 35 | s > 50
+# № 24892 (Уровень: Базовый)
 '''
-from math import floor
-def F(a, s, n):
-    if a+s <= 69:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(floor(a / 2), s, n-1), F(a, floor(s / 2), n-1), F(a-5, s+2, n-1), F(a+2, s-5, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(51, 1000) if F(35, s, n=2)])
-print(20, [s for s in range(51, 1000) if F(35, s, n=3) and not F(35, s, n=1)])
-print(21, [s for s in range(51, 1000) if F(35, s, n=4) and not F(35, s, n=2)])
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if x < 0 and len(str(abs(x))) == 4 and abs(x) % 9 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x < 0) + (y < 0) == 1:
+        if (x + y) > max(A):
+            R.append(x**2 + y**2)
+print(len(R), min(R))
 '''
 
 
-# 23203
+# № 23563 Пересдача 03.07.25 (Уровень: Базовый)
 '''
-from math import floor
-def F(s, n):
-    if s <= 11:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 3 , n-1), F(s - 7 , n-1), F(floor(s / 3) , n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(12, 1000) if F(s, n=2)])
-print([s for s in range(12, 1000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(12, 1000) if F(s, n=4) and not F(s, n=2)])
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 35 == 0 and x > 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x != y:
+        if abs(x - y) % min(A) == 0:
+            R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# 20811
+# № 21990 (Уровень: Средний)
 '''
-def F(s, n):
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 1, n - 1), F(s + 4, n - 1), F(s * 2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print([s for s in range(1, 50 + 1) if F(s, n=2)])
-print([s for s in range(1, 50 + 1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 50 + 1) if F(s, n=4) and not F(s, n=2)])
+M = [int(x) for x in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    plus = [a for a in (x, y, z) if a > 0]
+    minus = [a for a in (x, y, z) if a < 0]
+    if abs(sum(minus)) <= sum(plus):
+        if abs(x * y * z) % 10 == max(M) % 10:
+            R.append(abs(x * y * z))
+print(len(R), max(R))
 '''
 
+# № 10004 (Уровень: Средний)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+R = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if (x in A) + (y in A) == 1:
+            if (abs(x + y) ** 0.5) == int((abs(x + y) ** 0.5)):
+                R.append(x + y)
+print(len(R), min(R))
+'''
+
+
+# № 23376 Резервный день 19.06.25 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+p = [x for x in M if len(str(abs(x))) == 5]
+c = [x for x in p if abs(x) % 100 == 37]
+R = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i + 1]
+    if (x in p) + (y in p) == 1:
+        if (x + y) ** 2 > max(c) ** 2:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+# 23276
+'''
+M = [int(x) for x in open('files/17_23276.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in M if  abs(x) % 100 == 25]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) <= 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
@@ -127,6 +131,6 @@ print([s for s in range(1, 50 + 1) if F(s, n=4) and not F(s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 23, 19-21, 25]
+# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 17, 23, 19-21, 25]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 9, 27
