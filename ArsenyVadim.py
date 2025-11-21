@@ -6,221 +6,185 @@
 # #
 # region Урок: ********************************************************************
 
-# № 23561 Пересдача 03.07.25 (Уровень: Базовый)
-
-# Вариант 1
+# № 21902 Открытый вариант 2025 (Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n), где n – целое число, задан следующими соотношениями:
+# F(n)=n при n≥2025;
+# F(n)=n×2+F(n+2), если n<2025.
+# Чему равно значение выражения  F(82)–F(81)?
 '''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
+def F(n):
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
 
-RES = []
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 10000):
-        if F(x, A) == False:
-            flag = False
-            break
-    if flag == True:
-        RES.append(A)
-print(max(RES))
-'''
-
-# Вариант 2
-'''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
-
-RES = []
-for A in range(1, 10000):
-    cnt = 0
-    for x in range(1, 10000):
-        if F(x, A) == True:
-            cnt += 1
-    if cnt == 9999:
-        RES.append(A)
-print(max(RES))
-'''
-
-# Вариант 3
-'''
-def F(x, A):
-    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
-
-RES = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
+print(F(82) - F(81))
 '''
 
 
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
+# № 21415 Досрочная волна 2025 (Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n), где n – целое число, задан следующими соотношениями:
+# F(n)=1 при n≤5;
+# F(n)=n+F(n–2), если n>5.
+# Чему равно значение выражения F(2126)–F(2122)?
 '''
-def F(x, A):
-    B = 60 <= x <= 80
-    return (x % A == 0) or ((B) <= (x % 22 != 0))
+import sys
+sys.setrecursionlimit(1063)
 
-RES = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
+def F(n):
+    if n <= 5:
+        return 1
+    if n > 5:
+        return n + F(n - 2)
+
+print(F(2126) - F(2122))
 '''
+#   [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
+
+# F(2126) = 2126 + F(2124)
+# F(2124) = 2124 + F(2122) - F(2122)
+# print(2126 + 2124)
 
 
-# № 20905 Апробация 05.03.25 (Уровень: Базовый)
+# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n), где n – натуральное число, задан следующими соотношениями:
+# F(n)=1 при n=1;
+# F(n)=n×F(n−1), если n>1.
+# Чему равно значение выражения (F(2024)/4+F(2023))/F(2022)?
 '''
-def F(x, A):
-    return (x & A == 0) <= ((x & 77 == 0) and (x & 44 == 0))
+from sys import *
+setrecursionlimit(10**8)
 
-RES = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(min(RES))
-'''
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n - 1)
 
-
-# № 21414 Досрочная волна 2025 (Уровень: Базовый)
-'''
-def F(x, y, A):
-    return (5 < y) or (x > 32) or (x + 2*y < A)
-
-RES = []
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        RES.append(A)
-print(min(RES))
-
-# Вариант 2
-print(min([A for A in range(1, 10000) if all(((5 < y) or (x > 32) or (x + 2*y < A)) for x in range(1, 100) for y in range(1, 100))]))
-'''
-
-# № 17748 (Уровень: Базовый)
-'''
-def f(x, y, A):
-    return ((x <= 19) or (y < 2 * x + A - 50) or (y > 17))
-
-RES = []
-for A in range(0, 5000):
-    flag = True
-    for x in range(100):
-        for y in range(100):
-            if f(x, y, A) == False:
-                flag = False
-                break
-    if flag == True:
-        RES.append(A)
-print(min(RES))
-'''
-'''
-def f(x, y, A):
-    return ((x <= 19) + (y < 2 * x + A - 50) + (y > 17))
-
-RES = []
-for A in range(0, 5000):
-    if all(f(x, y, A) for x in range(100) for y in range(100)):
-        RES.append(A)
-print(min(RES))
+print((F(2024) // 4 + F(2023)) // F(2022))
+#     print((F(2024) / 4 + F(2023)) / F(2022))
+#                ~~~~^~~
+# OverflowError: integer division result too large for a float
 '''
 
 
+# № 23562 Пересдача 03.07.25 (Уровень: Базовый)
+#
+# Алгоритм вычисления значения функции
+# F(n) и G(n), где n – целое число, задан следующими соотношениями:
+# F(n)=G(n−1);
+# G(n)=3×n, если n≤9.
+# G(n)=G(n−2)+1, если n>9.
+# Чему равно значение выражения F(47995)?
 '''
-# № 19247 ЕГКР 21.12.24 (Уровень: Базовый)
+import sys
+sys.setrecursionlimit(10**8)
 
-def F(x, y, A):
-    return(x - 3*y < A) or (y > 400) or (x > 56)
+def F(n):
+    return G(n - 1)
 
-RES=[]
-for A in range(1, 10000):
-    if all(F(x,y, A)for x in range(1,100) for y in range(1,100)):
-        RES.append(A)
-print(min(RES))
-'''
+def G(n):
+    if n <= 9:
+        return 3*n
+    if n > 9:
+        return G(n - 2) + 1
 
-
-# 16381
-'''
-RES = []
-def f(x, A):
-    return (x % A != 0) <= ((x % 28 == 0) <= (x % 49 != 0))
-for A in range(1, 5000):
-    if all(f(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-'''
-
-
-# № 17556 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-def F(x, A):
-    B = 70 <= x <= 90
-    return (x % A == 0) or ((B) <= (x % 22 != 0))
-
-RES = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-
-print(max(RES))
+print(F(47995))
 '''
 
 
-# № 17528 Основная волна 07.06.24 (Уровень: Базовый)
+# № 18931 Новогодний вариант 2025 (Уровень: Базовый)
+# (М. Попков) Снежная Королева создала волшебную функцию
+# F(n), которая помогает ей вычислять силу зимы. Эта функция определяется следующим образом:
+# F(n)=n−1, при n⩽3;
+# F(n)=F(n−2)+n/2−F(n−4), если n>3 и n чётно;
+# F(n)=F(n−1)×n+F(n−2), если n>3 и n нечётно,где n – целое неотрицательное число.
+# Королева решила узнать, насколько велика сила зимы в её королевстве.
+# Для этого вычислите значение выражения: F(4952)+2×F(4958)+F(4964).
 '''
-def F(x, a1, a2):
-    P = 15 <= x <= 40  # (x∈P)
-    Q = 21 <= x <= 63  # (x∈Q)
-    A = a1 <= x <= a2  # (x∈A)
-    return (P) <= (((Q) and (not A)) <= (not P))
+from functools import *
 
-RES = []
-M = [x / 4 for x in range(10 * 4, 80 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
-'''
-# 19.0 -> 19
-# 19.45 -> 19
-# 19.75 -> 20
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n - 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 2) + n/2 - F(n - 4)
+    if n > 3 and n % 2 != 0:
+        return F(n - 1) * n + F(n - 2)
 
+for n in range(5000):
+    F(n)
 
-# № 12469 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    D = 7 <= x <= 68  # (x∈P)
-    C = 29 <= x <= 100  # (x∈Q)
-    A = a1 <= x <= a2  # (x∈A)
-    return (D) <= (((not C) and (not A)) <= (not D))
-
-RES = []
-M = [x / 10 for x in range(1 * 10, 120 * 10)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))  # 21.75 -> 21.8 -> 21.9 -> 22
+print(F(4952) + 2*F(4958) + F(4964))
 '''
 
 
-# № 17528 Основная волна 07.06.24 (Уровень: Базовый)
+# № 18297 (Уровень: Базовый)
 '''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n < 10:
+        return (n - 1)
+    if n % 2 == 0:
+        return (3 * n - 1 + F(n - 3))
+    return (5 * n + 2 + F(n - 4))
+for n in range(4500):
+    F(n)
+print(F(4445) - F(4444))
+'''
 
-RES = []
-M = [x / 5 for x in range(10 * 5, 80 * 5)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
+
+# № 18123 (Уровень: Базовый)
 '''
+import sys
+sys.setrecursionlimit(10**8)
+def F(n):
+    if n >= 2010:
+        return n
+    return F(n + 3) + F(n + 2) + F(n + 1)
+print((F(2000) - 2 * (F(2002) + F(2003))) // F(2004))
+'''
+
+
+# № 13299 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+def F(n):
+    if n <= 3:
+        return 1
+    if n % 3 == 0:
+        return F(n // 3) + 4 * n
+    return n * n * n - 26
+
+for n in range(1000, 1, -1):
+    if F(n) < 300:
+        print(n)
+        break
+'''
+
+
+# № 12470 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
+
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return n
+    if n % 2 != 0:
+        return F(n-1) +  F(n-2) + 1
+    return sum([F(i) for i in range(1, n)])
+
+for i in range(50):
+    F(i)
+
+print(F(38))
+
+
 
 # endregion Урок: *************************************************************
 # #
@@ -231,6 +195,6 @@ print(min(RES))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 13, 14, 15, 25]
+# ФИПИ = [2, 5, 13, 14, 15, 16, 25]
 # КЕГЭ  = []
-# на следующем уроке: 16, 23, 19-21
+# на следующем уроке: 23, 19-21
