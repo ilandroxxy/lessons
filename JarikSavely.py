@@ -158,7 +158,7 @@ print(len(R), max(R))
 # элементов таких троек. В данной задаче под тройкой подразумевается
 # три идущих подряд элемента последовательности.
 
-M = [int(s) for s in open('0. files/17.txt')]
+M = [int(s) for s in open('t.me/17.txt')]
 A = [x for x in M if len(str(abs(x))) == 5]
 B = [x for x in M if abs(x) % 100 == 18]
 R = []

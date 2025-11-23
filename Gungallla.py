@@ -6,7 +6,7 @@
 # #
 # region Урок: ********************************************************************
 
-M=[int(x) for x in open('0. files/17.txt')]
+M=[int(x) for x in open('t.me/17.txt')]
 a=[int(x) for x in M if abs(x)%6==0 and x<0 and len(str(abs(x)))==3]
 b=[]
 for i in range(len(M)-1):
