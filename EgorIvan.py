@@ -1,5 +1,21 @@
 # region Домашка: ******************************************************************
 
+# № 6268 Danov2302 (Уровень: Средний)
+'''
+def F(x, a1, a2):
+    B = 23 <= x <= 37
+    C = 41 <= x <= 73
+    A = a1 <= x <= a2
+    return (not(((not B) <= (C)) <= (A)))
+
+R = []
+M = [x / 4 for x in range(10 * 4, 90 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) == False for x in M):
+            R.append(a2 - a1)
+print(min(R))
+'''
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,175 +23,88 @@
 # region Урок: ********************************************************************
 
 
-# № 21414 Досрочная волна 2025 (Уровень: Базовый)
-
-# Вариант 1
+# Способ открывать 17.txt файлы
 '''
-def F(x, y, A):
-    return (5 < y) or (x > 32) or (x + 2*y < A)
-
-RES = []
-for A in range(0, 5000):
-    flag = True
-    for x in range(0, 100):
-        for y in range(0, 100):
-            if F(x, y, A) == False:
-                flag = False
-                break
-    if flag == True:
-        RES.append(A)
-print(min(RES))
-'''
-
-# Вариант 2
-'''
-def F(x, y, A):
-    return (5 < y) or (x > 32) or (x + 2*y < A)
-
-RES = []
-for A in range(0, 5000):
-    cnt = 0
-    for x in range(0, 100):
-        for y in range(0, 100):
-            if F(x, y, A) == True:
-                cnt += 1
-    if cnt == 10000:
-        RES.append(A)
-print(min(RES))
-'''
-
-# Вариант 3
-'''
-def F(x, y, A):
-    return (5 < y) or (x > 32) or (x + 2*y < A)
-
-RES = []
-for A in range(0, 5000):
-    if all(F(x, y, A) for x in range(0, 100) for y in range(0, 100)):
-        RES.append(A)
-print(min(RES))
-'''
-
-# № 20584 (Уровень: Базовый)
-'''
-def F(x, A):
-    return ((405 % x == 0) <= (81 % x == 0)) or (A - x > 162)
-
-RES=[]
-for A in range(1, 5000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(min(RES))
-'''
-
-# № 20577 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
-
-RES=[]
-for A in range(1, 5000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-'''
-
-
-# № 20809 Апробация 05.03.25 (Уровень: Базовый)
-'''
-def F(x, A):
-    B = 60 <= x <= 80
-    return (x % A == 0) or ((B) <= (x % 22 != 0))
-
-RES=[]
-for A in range(1, 5000):
-    if all(F(x, A) for x in range(1, 10000)):
-        RES.append(A)
-print(max(RES))
-'''
-
-
-# 20823
-'''
-def F(x, A):
-    return (x & A == 0) <= ((x & 77 == 0) and (x & 44 == 0))
-
-RES = []
-for A in range(1, 5000):
-    if all(F(x, A) for x in range(1,10000)):
-        RES.append(A)
-print(min(RES))
-'''
-
-# 18266
-'''
-def F(x, A):
-    return (x & 57 == 0) or ((x & 23 == 0) <= (x & A != 0))
-
-
-RES = []
-for A in range(1, 5000):
-    if all(F(x, A) for x in range(1,10000)):
-        RES.append(A)
-print(min(RES))
-'''
-
-
-# 18140
-'''
-def F(x, y, A):
-    return (x - y >= 39) or (y <= x) or (y >= A - 20)
-
-
-RES = []
-for A in range(1, 5000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        RES.append(A)
-print(max(RES))
-'''
-
-# № 18044 (Уровень: Базовый)
-'''
-def F(x, a1, a2):
-    M = 32 <= x <= 68
-    N = 54 <= x <= 76
-    A = a1 <= x <= a2
-    return (not((M) or (N)) == (not A))
-
-RES=[]
-M = [x / 4 for x in range(20*4, 90*4)]
+M = [int(s) for s in open('files/17.txt')]
 print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
 '''
-# 44.0 -> 44
-# 44.45 -> 44
-# 44.50 -> 45
-# 44.75 -> 45
 
-
-# 12469
+# Три прототипа 17 номера:
 '''
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return (D) <= (((not C) and (not A)) <= (not D))
+#  i 0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
-RES=[]
-M = [x / 5 for x in range(5*5, 110*5)]
-print(M)
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
+# 1. Под парой подразумевается два идущих подряд элемента последовательности
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. Под парой подразумевается два различных элемента последовательности
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
 '''
-# 21.75 -> 22
 
+
+# № 24892 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if x < 0 and len(str(abs(x))) == 4 and abs(x) % 9 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x < 0) + (y < 0) == 1:
+        if (x + y) > max(A):
+            R.append(x**2 + y**2)
+print(len(R), min(R))
+'''
+
+
+# № 22468 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if abs(x + y) > sum(M) / len(M):
+        R.append(x + y)
+print(len(R), abs(min(R)))
+'''
+
+
+# № 22469 (Уровень: Средний)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if x % 2 != 0 and len(str(abs(x))) == 5]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (str(x)[-1] == str(sum(A))[-1]) + (abs(y) % 10 == abs(sum(A)) % 10) == 1:
+        R.append(x * y)
+print(len(R), max(R))
+'''
+
+
+# № 18582 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x < 0) + (y < 0) + (z < 0) >= 2:
+        if abs(x + y + z) % 10 == abs(min(M)) % 10:
+            R.append(abs(x + y + z))
+print(len(R), max(R))
+'''
 
 # # endregion Урок: *************************************************************
 # #
@@ -186,6 +115,6 @@ print(min(RES))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 19-21, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 9, 27
