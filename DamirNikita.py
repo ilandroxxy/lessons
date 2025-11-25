@@ -6,147 +6,184 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 23752 Демоверсия 2026 (Уровень: Базовый)
+# № 23561 Пересдача 03.07.25 (Уровень: Базовый)
+# Для какого наибольшего натурального числа А выражение
+# ДЕЛ(х,128) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,80))
+# истинно (т.е. принимает значение 1) при любом натуральном значении переменной х?
 '''
-def convert(n, b):
-    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alp[n % b]
-        n //= b
-    return r[::-1]
+import time
+start = time.time()
 
-n = 2*2187**2020 + 729**2021 -2*243**2022 + 81**2023 -2*27**2024 - 6561
-s = convert(n, 27)
-print(s.count('0'))  # Сколько было значащих нулей
-print(s.count('0') + s.count('2'))  # Сколько было нулей и двоек
-print(len(s) - s.count('0'))  # Сколько ненулевых цифр?
-print(len(set(s)))  # Сколько различных цифр?
-print(len([x for x in s if x > '9']))
-'''
-
-
-# № 23754 Демоверсия 2026 (Уровень: Базовый)
-'''
-def convert(n, b):
-    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alp[n % b]
-        n //= b
-    return r[::-1]
+# Вариант 1
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
 
 RES = []
-for x in range(1, 3000):
-    n = 9*11**210 + 8*11**150 - x
-    s = convert(n, 11)
-    if s.count('0') == 60:
-        RES.append(x)
+for A in range(1, 5000):
+    flag = True
+    for x in range(1, 10000):
+        if F(x, A) == False:
+            flag = False
+            break
+    if flag == True:
+        RES.append(A)
 print(max(RES))
-'''
 
 
-# № 23753 Демоверсия 2026 (Уровень: Базовый)
-'''
+# Вариант 2
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
+
 RES = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f'923{x}874', 29)
-    B = int(f'524{x}6152', 29)
-    if (A + B) % 28 == 0:
-        RES.append((A + B) // 28)
+for A in range(1, 5000):
+    cnt = 0
+    for x in range(1, 10000):
+        if F(x, A) == True:
+            cnt += 1
+    if cnt == 9999:
+        RES.append(A)
 print(max(RES))
-'''
 
+# Вариант 3
+def F(x, A):
+    return (x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))
 
-# № 14345 (Уровень: Базовый)
-'''
 RES = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:14]:
-    A = int(f'4B3{x}1', 14)
-    B = int(f'5{x}F83', 16)
-    if (A + B) % 13 == 0:
-        RES.append((A + B) // 13)
+for A in range(1, 5000):
+    if all(F(x, A) == True for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
+
+# Вариант 4
+print(max([A for A in range(1, 5000) if all(((x % 128 == 0) <= ((x % A != 0) <= (x % 80 != 0))) == True for x in range(1, 10000))]))
+
+end = time.time()
+print(end - start)
+'''
+
+
+# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
+# Для какого наименьшего целого положительного числа А выражение
+# (x<A) ∧ (y<3A) ∨ (2x+y>128)
+# истинно (т.е. принимает значение 1) при любых целых положительных х и у?
+'''
+def F(x, y, A):
+    return (x<A) and (y<3*A) or (2*x+y>128)
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        RES.append(A)
 print(min(RES))
 '''
 
 
-# № 8418 (Уровень: Средний)
+# № 22433 (Уровень: Базовый)
+# Для какого наименьшего неотрицательного целого числа А логическое выражение
+# (x&117=0) ∧ (x&91=0)→¬(x&А=0)
+# истинно (т.е. принимает значение 1) при любом неотрицательном целом значении переменной х?
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for p in range(7, 36+1):
-    for x in alp[:p]:
-        for y in alp[:p]:
-            for z in alp[:p]:
-                if int(f'{y}4{y}', p) + int(f'{y}65', p) == int(f'{x}{z}33', p):
-                    print(int(x + y + z, p))
-'''
+def F(x, A):
+    return ((x & 117 != 0) and (x & 91 == 0)) <= (x & A != 0)
 
-# 21413
-'''
 RES = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:21]:
-    A = int(f'82934{x}2', 21)
-    B = int(f'2924{x}{x}7', 21)
-    C = int(f'67564{x}8', 21)
-    if (A + B + C) % 20 == 0:
-        RES.append((A + B + C) // 20)
+for A in range(0, 5000):
+    if all(F(x, A) == True for x in range(0, 10000)):
+        RES.append(A)
 print(min(RES))
 '''
 
 
-# 23273
+#
+# № 19485 (Уровень: Базовый)
+# и пусть на числовой прямой дан отрезок B=[170;220]
+# Определите количество натуральных значений A, при которых формула ДЕЛ(x,A) ∨ ((x∈B) → ¬ДЕЛ(x,24))
+# тождественно истинна (т.е. принимает значение 1) при любом натуральном значении переменной x?
 '''
+def F(x, A):
+    B = 170 <= x <= 220
+    return (x % A == 0) or ((B) <= (x % 24 != 0))
+
 RES = []
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:29]:
-    A = int(f"463{x}7921", 29)
-    B = int(f"8241{x}153", 29)
-    if (A + B) % 28 == 0:
-        RES.append((A + B) // 28)
+for A in range(1, 5000):
+    if all(F(x, A) == True for x in range(1, 10000)):
+        RES.append(A)
+print(len(RES))
+'''
+
+
+# № 21710 ЕГКР 19.04.25 (Уровень: Базовый)
+# На числовой прямой даны два отрезка: B = [36; 75] и C = [60; 110].
+# Укажите наименьшую возможную длину такого отрезка A, что логическое выражение
+# ¬(x∈A)→((x∈B)≡(x∈C))
+#  истинно (т.е. принимает значение 1) при любом значении переменной х.
+'''
+def F(x, a1, a2):
+    B = 36 <= x <= 75
+    C = 60 <= x <= 110
+    A = a1 <= x <= a2
+    return (not A) <= ((B) == (C))
+
+RES = []
+M = [x / 4 for x in range(20 * 4, 120 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))  # 74.0
+'''
+
+
+# № 12469 (Уровень: Базовый)
+# На числовой прямой даны два отрезка: D = [7; 68] и C = [29; 100].
+# Укажите наименьшую возможную длину такого отрезка A, для которого логическое выражение
+# (x∈D)→((¬(x∈C)∧¬(x∈A))→¬(x∈D))
+# истинно (т.е. принимает значение 1) при любом значении переменной х.
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return (D) <= (((not C) and (not A)) <= (not D))
+
+RES = []
+M = [x / 10 for x in range(1 * 10, 120 * 10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+
+
+# № 11607 (Уровень: Средний)
+# Для какого наибольшего натурального числа А формула
+# (¬(ДЕЛ(x,263)→ДЕЛ(x,A)) ∧ ДЕЛ(x,71)
+# тождественно ложна (т.е. принимает значение 0) при любом натуральном значении переменной х?
+'''
+def F(x, A):
+    return (not((x % 263 == 0) <= (x % A == 0))) and (x % 71 == 0)
+
+RES = []
+for A in range(1, 20000):
+    if all(F(x, A) == False for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
+'''
+
+# № 11837 (Уровень: Базовый)
+# (Л. Шастин) Для какого наименьшего целого неотрицательного числа А формула
+# (x ** 2 + y ** 2 > 1024 - x) ∨ (y < -2x + A)
+# тождественно истинна, т.е. принимает значение 1 при любых целых неотрицательных x и y?
+'''
+def F(x, y, A):
+    return (x ** 2 + y ** 2 > 1024 - x) or (y < -2*x + A)
+
+RES = []
+for A in range(1, 5000):
+    if all(F(x, y, A) == True for x in range(1, 100) for y in range(1, 100)):
+        RES.append(A)
 print(min(RES))
-'''
-
-# 21413
-'''
-def convert(n, b):
-    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alp[n % b]
-        n //= b
-    return r[::-1]
-
-RES = []
-for x in range(1, 2300):
-    n = 7 ** 350 + 7 ** 150 - x
-    s = convert(n, 7)
-    if s.count('0') == 200:
-        RES.append(x)
-print(max(RES))
-'''
-
-
-# 18122
-'''
-def convert(n, b):
-    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r += alp[n % b]
-        n //= b
-    return r[::-1]
-
-RES = []
-for x in range(1, 5555):
-    n = 5 ** 150 + 5 ** 135 - x
-    s = convert(n, 5)
-    if s.count('4') == 134:
-        RES.append(x)
-print(max(RES))
 '''
 
 # endregion Урок: *************************************************************
@@ -158,6 +195,6 @@ print(max(RES))
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5, 14]
+# ФИПИ = [2, 4, 5, 14, 15]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 16, 23, 19-21
