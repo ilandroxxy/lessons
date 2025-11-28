@@ -7,62 +7,78 @@
 # region Урок: ********************************************************************
 
 
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
-# clustersA[0] - первый кластер
-# clustersA[1] - второй кластер
-
-for s in open('0. files/27_A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 2:
-        clustersA[0].append([x, y])
-    else:
-        clustersA[1].append([x, y])
-
-for s in open('0. files/27_B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if x < 10:
-        clustersB[0].append([x, y])
-    elif x > 20:
-        clustersB[1].append([x, y])
-    else:
-        clustersB[2].append([x, y])
-
-
-# Поиск расстояний между двумя точками
+# Номер 5
 '''
-def d(A, B):
-    x1, y1 = A
-    x2, y2 = B
-    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+RES = []
+for n in range(1, 10000):
+    s = f'{n:b}'
+    if n % 5 == 0:
+        s = s + '11'
+    else:
+        s = s + f'{(n // 5):b}'
+    r = int(s, 2)
+    if n % 2 == 0 and r > 896:
+        RES.append(n)
+print(min(RES))
+'''
+from runpy import run_path
 
-print(d([4, 5], [6, 7]))
-print(dist([4, 5], [6, 7]))
+# Номер 6
+'''
+# Посчитать площадь объединения фигур
+print(17 * 26 + 278 * 345 - 20 * 13)
+
+# Посчитать точки на площади объединения фигур
+print(18 * 27 + 279 * 346 - 21 * 14)
+
+import turtle as t
+t.tracer(0)
+t.screensize(5000, 5000)
+t.left(90)
+size = 15
+
+for i in range(7):
+    t.forward(17 * size)
+    t.right(90)
+    t.forward(26 * size)
+    t.right(90)
+t.up()
+t.forward(4 * size)
+t.right(90)
+t.forward(6 * size)
+t.left(90)
+t.down()
+for i in range(7):
+    t.forward(278 * size)
+    t.right(90)
+    t.forward(345 * size)
+    t.right(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 '''
 
-# Поиск центра кластера
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
 
+# Номер 13
+'''
+from ipaddress import *
+net = ip_network('127.204.113.250/255.255.254.0', 0)
+cnt = 0
+for ip in net:
+    print(ip)
+    cnt += 1
+    if cnt == 5:
+        break
 
-centersA = [center(cl) for cl in clustersA]
-pxA = sum([x for x, y in centersA]) / 2 * 10000
-pyA = sum([y for x, y in centersA]) / 2 * 10000
-print(int(pxA), int(pyA))
-
-centersB = [center(cl) for cl in clustersB]
-pxB = sum([x for x, y in centersB]) / 3 * 10000
-pyB = sum([y for x, y in centersB]) / 3 * 10000
-print(int(pxB), int(pyB))
+# 127.204.112.1
+print(127 + 204 + 112 + 1)
+'''
 
 # endregion Урок: *************************************************************
 # #
