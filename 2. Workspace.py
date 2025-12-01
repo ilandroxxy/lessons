@@ -1453,7 +1453,55 @@ def f(c, e, step):
 print(f(3, 69, ""))
 '''
 
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+for s in open('0. files/27_A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 10:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
+
+for s in open('0. files/27_B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if 0 < y < 10:
+        clustersB[0].append([x, y])
+    if 10 < y < 17:
+        clustersB[1].append([x, y])
+    if 17 < y < 25:
+        clustersB[2].append([x, y])
 
 
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+centersA = [center(cl) for cl in clustersA]
+print(centersA) # [3.1607053, 16.4167831]]
+
+print(len(clustersA[0])) # 137
+print(len(clustersA[1])) # 100
 
 
+pxA = 3.1607053 * 10000
+pyA = 16.4167831 * 10000
+print(int(abs(pxA)), int(abs(pyA)))
+
+centersB = [center(cl) for cl in clustersB]
+print(centersB)
+
+print(len(clustersB[0])) # 439
+print(len(clustersB[1])) # 37
+print(len(clustersB[2])) # 163
+
+qxB = (18.2993741 - 13.6639214) * 10000
+qyB = (16.3982575 - 6.5836442) * 10000
+print(int(abs(qxB)), int(abs(qyB)))
