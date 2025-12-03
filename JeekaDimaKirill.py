@@ -6,86 +6,51 @@
 # #
 # region Урок: ********************************************************************
 
-# Номер 23 (типовое решение)
+
+# № 23547 Пересдача 03.07.25 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        h = [F(a+1, b), F(a+2, b), F(a+3, b)]
-        return sum(h)
-
-print(F(5, 7) * F(7, 11))
-'''
-
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | s >= 51 | 1 ≤ s ≤ 50
-'''
-def F(s, n):
-    """
-    :param s: Кол-во камней в куче (будем перебирать и искать)
-    :param n: Это шаги нашей игры!!
-
-    n = 1: Первый ход Пети
-    n = 2: Первый ход Вани
-    n = 3: Второй ход Пети
-    n = 4: Второй ход Вани
-    """
-
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 51) if F(s, n=2)])
-print(20, [s for s in range(1, 51) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 51) if F(s, n=4) and not F(s, n=2)])
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
+graph = 'AF FA AG GA FC CF FG GF CB BC CD DC DB BD BE EB GE EG'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7
+        # A F C G E D B  2 + 5 = 7
+        # D C F B E A G  5 + 2 = 7
 '''
 
 
-# № 23759 Демоверсия 2026 (Уровень: Базовый)
-# 1 куча: -3, -5, /4 (вниз) | s <= 30 | s ≥ 31
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 30:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-5, n-1), F(floor(s/4), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+# № 23360 Резервный день 19.06.25 (Уровень: Базовый)
 
-print(19, [s for s in range(31, 1000) if F(s, n=2)])
-print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '13 14 15 24 26 27 31 34 41 42 43 45 46 47 51 54 57 62 64 72 74 75'
+graph = 'GA AG GF FG GE EG GC CG GB BG GD DG AF FA FE EF ED DE DC CD CB BC'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
-
-
-# № 18268 (Уровень: Базовый)
-# 2 кучи: a-3, s-3, a/2, s/2 (вверх) | a + s <= 72 | a = 50 | s > 22
-'''
-from math import ceil, floor
-def F(a, s, n):
-    if a + s <= 72:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-3, s, n-1), F(a, s-3, n-1), F(ceil(a / 2), s, n-1), F(a, ceil(s / 2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(23, 1000) if F(50, s, n=2)])
-print(20, [s for s in range(23, 1000) if F(50, s, n=3) and not F(50, s, n=1)])
-print(21, [s for s in range(23, 1000) if F(50, s, n=4) and not F(50, s, n=2)])
-'''
-
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+table = '13 14 16 23 24 28 31 32 41 42 43 45 46 47 51 54 57 62 64 72 74 75'
+graph = 'GA AG GF FE GE EG GC CG GB BG GD DG AF FA FE EF ED DE DC CD CB BC'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
 # endregion Урок: *************************************************************
 #
-# ФИПИ = [2, 5, 6, 8, 13, 14, 15, 16, 23, 19-21]
+# ФИПИ = [1, 2, 5, 6, 8, 13, 14, 15, 16, 23, 19-21]
 # КЕГЭ = []
 # на следующем уроке:
