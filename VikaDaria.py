@@ -1,182 +1,105 @@
 # region Домашка: ******************************************************************
 
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# https://education.yandex.ru/ege/inf/task/d88de653-d533-48d5-b4eb-2b1f629bfa77
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
+graph = 'BD DB BE EB BC CB CH HC HE EH HF FH DE ED DG GD GA AG GF FG AF FA'
+for p in permutations('ABCDEGHF'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7 8
+        # E H B D F A C G
+
+# AG + DE = 68 + 41 = 4 + 7 = 11
+
+
 '''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+    #   0    1    2    3    4    5    6    7
+    # ('F', 'H', 'G', 'E', 'D', 'A', 'C', 'B')
+    #   1    2    3    4    5    6    7    8
 
-for s in open('0. files/27A.txt'):
-     s = s.replace(',', '.')
-     x, y = [float(i) for i in s.split()]
-     if y > 2:
-         clustersA[0].append([x, y])
-     else:
-         clustersA[1].append([x, y])
-
-
-for s in open('0. files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if x < 10:
-        clustersB[0].append([x, y])
-    if x > 10 and x < 20:
-        clustersB[1].append([x, y])
-    if x > 20:
-        clustersB[2].append([x, y])
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-# Дальше решение аналитическое       x             y
-print(center(clustersA[0]))  # [1.262277635, 6.797635538]
-print(center(clustersA[1]))  # [3.981033369, -1.961127579]
-
-# pxA — среднее арифметическое абсцисс центров кластеров
-pxA = (1.262277635 + 3.981033369) / 2 * 10000
-print(int(abs(pxA)))  # 26216
-
-# pyA — среднее арифметическое ординат центров кластеров.
-pyA = (6.797635538 + -1.961127579) / 2 * 10000
-print(int(abs(pyA)))  # 24182
-
-
-print(center(clustersB[0]))  # [4.309073189, 6.615238685]
-print(center(clustersB[1]))  # [15.75501912, 13.34466476]
-print(center(clustersB[2]))  # [25.20349762, -0.833550091]
-
-
-# pxB — среднее арифметическое абсцисс центров кластеров
-pxB = (4.309073189 + 15.75501912 + 25.20349762) / 3 * 10000
-print(int(abs(pxB)))  # 150891
-
-# pyB — среднее арифметическое ординат центров кластеров.
-pyB = (6.615238685 + 13.34466476 + -0.833550091) / 3 * 10000
-print(int(abs(pyB)))  # 63754
+new_table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
+new_table = new_table.replace('1', 'F')
+new_table = new_table.replace('2', 'H')
+new_table = new_table.replace('3', 'G')
+new_table = new_table.replace('4', 'E')
+new_table = new_table.replace('5', 'D')
+new_table = new_table.replace('6', 'A')
+new_table = new_table.replace('7', 'C')
+new_table = new_table.replace('8', 'B')
+print(new_table)  # FH FG FE HF HD HC GF GE GC EF EG EB DH DA DB AD AB CH CG BE BD BA
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/3aac44db-1223-46e5-a03b-c0ebb6af2f8f
+# https://education.yandex.ru/ege/inf/task/3179b487-c412-4d3c-ae85-fbb2f27aebfc
 '''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '12 13 21 23 25 31 32 34 35 36 37 43 46 52 53 57 63 64 67 73 75 76'
+graph = 'АБ БА АВ ВА АГ ГА АД ДА АЕ ЕА АК КА БВ ВБ ВГ ГВ ГД ДГ ДЕ ЕД ЕК КЕ'
+for p in permutations('АБВГДЕК'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7
+        # Б В А К Г Е Д
+        # К Е А Б Д В Г
+'''
+# 1 2 3 4 5 6 7
+# Б В А К Г Е Д
 
-for s in open('0. files/27A.txt'):
-     s = s.replace(',', '.')
-     x, y = [float(i) for i in s.split()]
-     if y > 15:
-         clustersA[0].append([x, y])
-     else:
-         clustersA[1].append([x, y])
-
-
-for s in open('0. files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if 0 < y < 10:
-        clustersB[0].append([x, y])
-    if 10 < y < 21:
-        clustersB[1].append([x, y])
-    if 21 < y < 30:
-        clustersB[2].append([x, y])
+# ВГ + ДЕ = 25 + 76 = 6 + 13 = 19
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-# Дальше решение аналитическое
-
-# Для файла А определите координаты центра каждого кластера
-print(center(clustersA[0]))  # [6.9663606, 19.2156207]
-print(center(clustersA[1]))  # [3.9100466, 6.6396418]
-
-# pxA — максимальную из абсцисс центров кластеров
-pxA = 6.9663606 * 10000
-print(int(abs(pxA)))  # 69663
-
-# pyA — максимальную из ординат центров кластеров.
-pyA = 19.2156207 * 10000
-print(int(abs(pyA)))  # 192156
-
-
-# Для файла B определите координаты центра каждого кластера
-print(center(clustersB[0]))  # [12.2170442, 7.2915548]
-print(center(clustersB[1]))  # [8.4874654, 18.9031256]
-print(center(clustersB[2]))  # [12.1302947, 23.4222296]
-
-print(len(clustersB[0]))  # 397
-print(len(clustersB[1]))  # 131
-print(len(clustersB[2]))  # 75
-
-# qxB — разность абсцисс центров кластеров с минимальным и максимальным количеством точек
-qxB = (12.2170442 - 12.1302947) * 10000
-print(int(abs(qxB)))
-
-# qyB — разность ординат центров кластеров с минимальным и максимальным количеством точек.
-qyB = (23.4222296 - 7.2915548) * 10000
-print(int(abs(qyB)))
+'''
+print('1 2 3 4 5 6 7')
+from itertools import *
+t = '12 13 21 23 25 31 32 34 35 36 37 43 46 52 53 57 63 64 67 73 75 76'
+g = 'АБ БА АВ ВА АГ ГА АД ДА АЕ ЕА АК КА БВ ВБ ВГ ГВ ГД ДГ ДЕ ЕД ЕК КЕ'
+for p in permutations('АБВГДЕК'):
+    nt = t
+    for i in range(1, 7+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set(g.split()):
+        print(*p)
 '''
 
 
-# https://stepik.org/lesson/1400061/step/2?unit=1417014
-
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
-
-for s in open('0. files/27A.txt'):
-     s = s.replace(',', '.')
-     x, y = [float(i) for i in s.split()]
-     if y > 10:
-         clustersA[0].append([x, y])
-     else:
-         clustersA[1].append([x, y])
-
-
-for s in open('0. files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y < 10:
-        clustersB[0].append([x, y])
-    if 10 < y and x > 17:
-        clustersB[1].append([x, y])
-    if 10 < y and x < 17:
-        clustersB[2].append([x, y])
+print('1 2 3 4 5 6 7 8')
+from itertools import *
+table = '12 15 18 21 27 35 36 46 48 51 53 58 63 64 67 72 76 81 84 85'
+graph = 'HD DH HB BH HF FH DA AD AG GA AC CA GC CG GE EG EF FE BC CB'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+# 1 2 3 4 5 6 7 8
+# G E B D C H F A
+# GE + FH = 12 + 76 = 15 + 37 = 52
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-# Дальше решение аналитическое
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+table = '12 15 18 21 27 35 36 46 48 51 53 58 63 64 67 72 76 81 84 85'
+graph = 'AD AG AC BC BH CA CB CG DA DH EF EG FE FH GE GA GC HB HD HF'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
 
 
