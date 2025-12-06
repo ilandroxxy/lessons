@@ -1,147 +1,236 @@
 # region Домашка: ******************************************************************
 
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n >= 10000:
-        return 1
-    if n < 10000 and n % 2 == 0:
-        return F(n + 3) + 7
-    if n < 10000 and n % 2 != 0:
-        return F(n + 1) - 3
-
-print(F(50) - F(57))
-'''
-
-
-# https://stepik.org/lesson/1038709/step/14?unit=1062775
-"""
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return F(n - 1) + 3 * G(n-1)
-
-def G(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return F(n - 1) - 2 * G(n-1)
-
-
-# print(F(18))
-x = F(18)
-# x = 790171309
-
-print(sum([int(i) for i in str(x)]))
-'''
-print(sum(map(int, str(x))))
-
-summa = 0
-while x > 0:
-    summa += x % 10
-    x //= 10
-print(summa)
-'''
-"""
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 20801 Апробация 05.03.25 (Уровень: Базовый)
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
+# Все пятибуквенные слова, составленные из букв С, Т, Р, О, К, А,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААК
+# 3. ААААО
+# 4. ААААР
+# 5. ААААС
+# 6. ААААТ
+# ……
+# Определите, под каким номером в этом списке стоит последнее слово
+# с чётным номером, которое не начинается с букв А, С или Т
+# и при этом содержит в своей записи ровно две буквы О.
 '''
-print('1 2 3 4 5 6 7')
+RES = []
+n = 0
+s = sorted('СТРОКА')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                RES.append(n)
+print(max(RES))
+
+# Вариант 2
+
+n = 0
+RES = []
+from itertools import product
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    # a, b, c, d, e = word
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                RES.append(n)
+print(max(RES))
+'''
+
+'''
 from itertools import permutations
-table = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
-graph = 'DB BD DE ED EF FE EA AE AC CA CF FC CG GC FG GF GB BG'
-for p in permutations('ABCDEFG'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-        # 1 2 3 4 5 6 7
-        # B G E F A D C
-
-# CF - 74, AE - 53
-'''
-
-
-'''
-print('1 2 3 4 5 6 7')
-from itertools import *
-t = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
-g = 'DB BD DE ED EF FE EA AE AC CA CF FC CG GC FG GF GB BG'
-for p in permutations('ABCDEFG'):
-    nt = t
-    for i in range(1, 7+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(g.split()):
-        print(*p)
-        # 1 2 3 4 5 6 7
-        # B G E F A D C
-'''
-
-
-'''    
+for p in permutations('abc', r=3):
     print(p)
 
-    #   0    1    2    3    4    5    6 
-    # ('G', 'F', 'E', 'D', 'A', 'B', 'C')
-    #   1    2    3    4    5    6    7
 
-new_table = '12 16 21 24 27 34 35 36 42 43 47 53 57 61 63 72 74 75'
-new_table = new_table.replace('1', 'G')
-new_table = new_table.replace('2', 'F')
-new_table = new_table.replace('3', 'E')
-new_table = new_table.replace('4', 'D')
-new_table = new_table.replace('5', 'A')
-new_table = new_table.replace('6', 'B')
-new_table = new_table.replace('7', 'C')
-print(new_table)
-# GF GB FG FD FC ED EA EB DF DE DC AE AC BG BE CF CD CA
-# DB BD DE ED EF FE EA AE AC CA CF FC CG GC FG GF GB BG
+from itertools import product
+for p in product('abc', repeat=10):
+    print(p)
 '''
 
+
+# № 23554 Пересдача 03.07.25 (Уровень: Базовый)
+#
+# Все пятибуквенные слова, составленные из букв А, Л, Г, О, Р, И, Т, М,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААГ
+# 3. ААААИ
+# 4. ААААЛ
+# 5. AAAAM
+# 6. ААААО
+# 7. AAAAP
+# Определите, под каким номером в этом списке стоит первое слово
+# с чётным номером, которое не начинается с букв А или Г и при этом
+# содержит в своей записи не менее двух букв Р.
 '''
-print('1 2 3 4 5 6 7')
-from itertools import *
-t = '12 13 21 23 25 31 32 34 35 36 37 43 46 52 53 57 63 64 67 73 75 76'
-g = 'АБ БА АВ ВА АГ ГА АД ДА АЕ ЕА АК КА БВ ВБ ВГ ГВ ГД ДГ ДЕ ЕД ЕК КЕ'
-for p in permutations('АБВГДЕК'):
-    nt = t
-    for i in range(1, 7+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(g.split()):
-        print(*p)
+n = 0
+RES = []
+from itertools import product
+for p in product(sorted('АЛГОРИТМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АГ':
+            if word.count('Р') >= 2:
+                RES.append(n)
+print(min(RES))
 '''
 
-print('1 2 3 4 5 6 7')
+
+# № 21407 Досрочная волна 2025 (Уровень: Базовый)
+# Виктор составляет таблицу кодовых слов для передачи сообщений,
+# каждому сообщению соответствует своё кодовое слово.
+# В качестве кодовых слов Виктор использует 5-буквенные слова,
+# в которых могут быть только буквы Д, Г, И, А, Ш, Э, причём
+# слово не должно начинаться с гласной и не должно заканчиваться согласной.
+# Сколько различных кодовых слов может использовать Виктор?
+'''
+cnt = 0
+from itertools import product
+for p in product('ДГИАШЭ', repeat=5):
+    word = ''.join(p)
+    if word[0] not in 'ИАЭ' and word[-1] not in 'ДГШ':
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 5218 (Уровень: Базовый)
+# Василий составляет 6-буквенные слова из букв А, Р, Б, У, З.
+# Каждую букву можно использовать любое количество раз, при этом
+# слово содержит три буквы А, две из которых стоят рядом, а третья
+# отдельно от них. Сколько различных слов может составить Василий?
+'''
+cnt = 0
+from itertools import product
+for p in product('АРБУЗ', repeat=6):
+    word = ''.join(p)
+    if word.count('А') == 3:
+        if 'АА' in word and 'ААА' not in word:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 24888 (Уровень: Базовый)
+# Сколько существует шестнадцатеричных четырёхзначных чисел,
+# содержащих в своей записи ровно одну цифру 3, в которых
+# никакие две одинаковые цифры не стоят рядом?
+'''
+cnt = 0
+from itertools import product
+for p in product('0123456789ABCDEF', repeat=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('3') == 1:
+            # if '00' not in num and '11' not in num ...
+            if all(pair not in num for pair in '00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF'.split()):
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 22419 (Уровень: Базовый)
+# (Л. Шастин) Сколько существует тринадцатеричных семизначных чисел,
+# в которых все цифры различны и никакая нечётная цифра не стоит рядом с цифрой B?
+'''
+cnt = 0
 from itertools import permutations
-table = '21 31 12 32 52 13 23 43 53 63 73 34 64 25 35 75 36 46 76 37 57 67'
-graph = 'АБ БА АВ ВА АГ ГА АД ДА АЕ ЕА КА АК ВБ БВ ВГ ГВ ГД ДГ ДЕ ЕД ЕК КЕ'
-for p in permutations('АБВГДЕК'):
-    new_table = table
-    for i in range(1, 7 + 1):
-        new_table = new_table.replace(str(i), p[i - 1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
-        # 1 2 3 4 5 6 7
-        # Б В А К Г Е Д
+for p in permutations('0123456789ABC', r=7):
+    num = ''.join(p)
+    if num[0] != '0':
+        if all(pair not in num for pair in '1B B1 3B B3 5B B5 7B B7 9B B9'.split()):
+            cnt += 1
+print(cnt)
 
-# ВГ - 25, ДЕ - 76
+
+cnt = 0
+from itertools import permutations
+for p in permutations('0123456789ABC', r=7):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '13579':
+            num = num.replace(x, '*')
+        if '*B' not in num and 'B*' not in num:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 19753 (Уровень: Средний)
+# Сколько существует шестизначных десятичных чисел, делящихся на 4,
+# в которых каждая цифра может встречаться только один раз, при этом
+# никакие две чётные цифры не стоят рядом.
+'''
+cnt = 0
+from itertools import permutations
+for p in permutations('0123456789', r=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if int(num) % 4 == 0:
+            for x in '02468':
+                num = num.replace(x, '*')
+            if '**' not in num:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 19480 (Уровень: Средний)
+# (Л. Шастин) Леонид составляет коды перестановкой букв слова ПАРИЖАНКА.
+# При этом в этих кодах ровно один раз встречаются две идущие подряд гласные буквы.
+# Сколько различных кодов может составить Леонид?
+'''
+RES = []
+from itertools import permutations
+for p in permutations('ПАРИЖАНКА'):
+    word = ''.join(p)
+    slovo = word
+    word = word.replace('И', 'А')
+    if word.count('АА') == 1 and 'ААА' not in word:
+        RES.append(slovo)
+print(len(set(RES)))
+'''
+
+
+# № 17862 Демоверсия 2025 (Уровень: Базовый)
+# Определите количество 12-ричных пятизначных чисел, в записи которых
+# ровно одна цифра 7 и не более трёх цифр с числовым значением, превышающим 8.
+'''
+cnt = 0
+from itertools import product
+for p in product('0123456789AB', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('7') == 1:
+            # if num.count('9') + num.count('A') + num.count('B') <= 3:
+            if len([x for x in num if x > '8']) <= 3:
+                cnt += 1
+print(cnt)
+'''
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 13, 14, 15, 16, 19-21, 23]
+# ФИПИ = [1, 2, 5, 8, 13, 14, 15, 16, 19-21, 23]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: 25, 17, 9, 27
