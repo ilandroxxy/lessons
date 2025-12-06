@@ -6,82 +6,191 @@
 # #
 # region Урок: ********************************************************************
 
-
+# № 21703 ЕГКР 19.04.25 (Уровень: Базовый)
+# Все шестибуквенные слова, в составе которых могут быть только буквы П, О, Б, Е, Д, А,
+# записаны в алфавитном порядке и пронумерованы начиная с 1.
+# 1. AAAAAA
+# 2. АААААБ
+# 3. АААААД
+# 4. AAAAAE
+# Определите последний чётный номер слова, которое начинается с буквы О
+# и в котором каждая буква встречается ровно один раз.
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    h = [F(a+1, b), F(a+2, b), F(a+3, b)]
-    return sum(h)
-
-print(F(5, 7) * F(7, 11))
-'''
-from multiprocessing.pool import worker
-from wsgiref.simple_server import software_version
-
-# № 17638 Основная волна 19.06.24 (Уровень: Базовый)
-# 1 куча: +1, +3, *2 | s >= 39 | 1 ≤ s ≤ 38
-'''
-def F(s, n):
-    """
-    :param s: - это кол-во камней в куче, которое мы ищем
-    :param n: - это шаги нашей игры
-
-    n = 1: Петя первый ход
-    n = 2: Ваня первый ход
-    n = 3: Петя второй ход
-    n = 4: Ваня второй ход
-    """
-    if s >= 39:
-        return n % 2 == 0  # True/False
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+3, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 38+1) if F(s, n=2)])
-print(20, [s for s in range(1, 38+1) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 38+1) if F(s, n=4) and not F(s, n=2)])
-'''
+RES = []
+s = sorted('ПОБЕДА')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if n % 2 == 0:
+                            if a == 'О':
+                                if len(word) == len(set(word)):
+                                    RES.append(n)
+print(max(RES))
 
 
-# № 23278 Основная волна 11.06.25 (Уровень: Базовый)
-# 1 куча: -3, -8, /3 (вниз) | s <= 16 | s ≥ 17
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 16:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-8, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(17, 1000) if F(s, n=2)])
-print(20, [s for s in range(17, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(17, 1000) if F(s, n=4) and not F(s, n=2)])
+n = 0
+RES = []
+from itertools import product
+for p in product(sorted('ПОБЕДА'), repeat=6):
+    word = ''.join(p)
+    # a, b, c, d, e, f = word
+    n += 1
+    if n % 2 == 0:
+        if word[0] == 'О':
+            if len(word) == len(set(word)):
+                RES.append(n)
+print(max(RES))
 '''
 
 
-# № 22066 (Уровень: Базовый)
-# 2 кучи: a+3, s+3, a*2, s*2 | a+s >= 100 | a=17 | 1 ≤ s ≤ 82
+# № 21407 Досрочная волна 2025 (Уровень: Базовый)
+# Виктор составляет таблицу кодовых слов для передачи сообщений, каждому
+# сообщению соответствует своё кодовое слово. В качестве кодовых слов Виктор
+# использует 5-буквенные слова, в которых могут быть только буквы Д, Г, И, А, Ш, Э,
+# причём слово не должно начинаться с гласной и не должно заканчиваться согласной.
+# Сколько различных кодовых слов может использовать Виктор?
 '''
-def F(a, s, n):
-    if a+s >= 100:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+3, s, n-1), F(a, s+3, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+cnt = 0
+s = 'ДГИАШЭ'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    if a not in 'АИЭ' and e not in 'ДГШ':
+                        cnt += 1
+print(cnt)
 
-print(19, [s for s in range(1, 82+1) if F(17, s, n=2)])
-print(20, [s for s in range(1, 82+1) if F(17, s, n=3) and not F(17, s, n=1)])
-print(21, [s for s in range(1, 82+1) if F(17, s, n=4) and not F(17, s, n=2)])
+
+cnt = 0
+from itertools import product
+for p in product('ДГИАШЭ', repeat=5):
+    word = ''.join(p)
+    if word[0] not in 'АИЭ' and word[-1] not in 'ДГШ':
+        cnt += 1
+print(cnt)
 '''
 
 
+# № 19480 (Уровень: Средний)
+# (Л. Шастин) Леонид составляет коды перестановкой букв слова ПАРИЖАНКА.
+# При этом в этих кодах ровно один раз встречаются две идущие подряд
+# гласные буквы. Сколько различных кодов может составить Леонид?
+'''
+RES = []
+from itertools import permutations
+for p in permutations('ПАРИЖАНКА'):
+    word = ''.join(p)
+    slovo = word
+    word = word.replace('И', 'А')
+    if word.count('АА') == 1 and 'ААА' not in word:
+        RES.append(slovo)
+print(len(set(RES)))
+'''
+
+
+# № 21894 Открытый вариант 2025 (Уровень: Базовый)
+# Сколько существует десятичных четырёхзначных чисел,
+# в которых все цифры различны и никакие две чётные
+# или две нечётные цифры не стоят рядом?
+'''
+cnt = 0
+from itertools import permutations
+for p in permutations('0123456789', r=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468':
+            num = num.replace(x, '2')
+        for x in '13579':
+            num = num.replace(x, '1')
+        if '22' not in num and '11' not in num:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 21975 (Уровень: Базовый)
+#
+# (Л. Шастин) Сколько существует шестизначных чисел, записанных
+# в семнадцатеричной системе счисления, в которых все цифры различны
+# и никакие три чётные или три нечётные цифры не стоят рядом?
+'''
+cnt = 0
+from itertools import permutations
+for p in permutations('0123456789ABCDEFG', r=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468ACEG':
+            num = num.replace(x, '2')
+        for x in '13579BDF':
+            num = num.replace(x, '1')
+        if '111' not in num and '222' not in num:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 20898 Апробация 05.03.25 (Уровень: Базовый)
+# Определите количество девятеричных пятизначных чисел,
+# в записи которых ровно одна цифра 0, при этом никакая нечётная
+# цифра не стоит рядом с цифрой 0.
+'''
+cnt = 0
+from itertools import product
+for p in product('012345678', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('0') == 1:
+            for x in '1357':
+                num = num.replace(x, '1')
+            if '10' not in num and '01' not in num:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 17862 Демоверсия 2025 (Уровень: Базовый)
+# Определите количество 12-ричных пятизначных чисел,
+# в записи которых ровно одна цифра 7 и не более трёх цифр
+# с числовым значением, превышающим 8.
+'''
+cnt = 0
+from itertools import product
+for p in product('0123456789AB', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('7') == 1:
+            if len([x for x in num if x > '8']) <= 3:
+                cnt += 1
+print(cnt)
+'''
+
+
+# № 14413 (Уровень: Базовый)
+#
+# (Л. Шастин) Леонид составляет коды перестановкой букв слова СОРТИРОВКА.
+# При этом в кодах никакие три согласные или три гласные буквы не должны стоять рядом.
+# Сколько различных кодов может составить Леонид?
+
+RES = []
+from itertools import permutations
+for p in permutations('СОРТИРОВКА'):
+    word = ''.join(p)
+    slovo = word
+    for x in 'ОИА':
+        word = word.replace(x, '*')
+    for x in 'СРТВК':
+        word = word.replace(x, '+')
+    if '***' not in word and '+++' not in word:
+        RES.append(slovo)
+print(len(set(RES)))
 
 # endregion Урок: *************************************************************
 # #
@@ -92,6 +201,6 @@ print(21, [s for s in range(1, 82+1) if F(17, s, n=4) and not F(17, s, n=2)])
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 13, 14, 15, 16, 19-21, 23, 25]
+# ФИПИ = [2, 5, 8, 13, 14, 15, 16, 19-21, 23, 25]
 # КЕГЭ  = []
 # на следующем уроке:
