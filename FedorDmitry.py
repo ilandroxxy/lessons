@@ -6,78 +6,129 @@
 # #
 # region Урок: ********************************************************************
 
-
+# Открытие файла для 17 номера
 '''
-def F(a, b):
-    if a > b or a == 16:
-        return 0
-    elif a == b:
-        return 1
-    h = [F(a+1, b), F(a+2, b), F(a*3, b)]
-    return sum(h)
+with open('0. files/17.txt', mode='r') as file:
+    M = [int(s) for s in file]
 
-print(F(2, 9) * F(9, 18))
+M = [int(s) for s in open('0. files/17.txt')]
 '''
 
+# i  0  1  2  3  4
+M = [1, 2, 3, 4, 5]
 
-# № 20811 Апробация 05.03.25 (Уровень: Базовый)
-# 1 куча: +1, +4, *2 | s >= 51 | 1 <= s <= 50
+# 1. Под парой подразумевается два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+
+
+# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+
+# 3. Под парой подразумевается два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+
+
+
+# № 21903 Открытый вариант 2025 (Уровень: Базовый)
 '''
-def F(s, n):
-    """
-    :param s: это кол-во камней в куче (перебираем и будем искать)
-    :param n: это шаги нашей игры
-
-    n = 1: Петин первый шаг
-    n = 2: Ванин первый шаг
-    n = 3: Петин второй шаг
-    n = 4: Ванин второй шаг
-    """
-    if s >= 51:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 50+1) if F(s, n=2)])
-print(20, [s for s in range(1, 50+1) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 50+1) if F(s, n=4) and not F(s, n=2)])
-'''
-
-# № 23278 Основная волна 11.06.25 (Уровень: Базовый)
-# 1 куча: -3, -8, /3 (вниз) | s <= 16 | s >= 17
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 16:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-8, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(17, 1000) if F(s, n=2)])
-print(20, [s for s in range(17, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(17, 1000) if F(s, n=4) and not F(s, n=2)])
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if ((x > 0) and (y > 0) and (z > 0)) or ((x < 0) and (y < 0) and (z < 0)):
+        if max(x, y, z) * min(x, y, z) > min(A) ** 2:
+            R.append(max(x, y, z) * min(x, y, z))
+print(len(R), min(R))
 '''
 
-
-# № 23337 (Уровень: Средний)
-# 2 кучи: a-3 s-4, a-8 s/2 (вниз), a/2 s-10 (вверх) | a + s <= 200 | a = 110 | s ≥ 100
 '''
-from math import ceil, floor
-def F(a, s, n):
-    if a + s <= 200:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a-3, s-4, n-1), F(a-8, floor(s / 2), n-1), F(ceil(a / 2), s-10, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+print(123 % 10)  # 3
+print(-123 % 10)  # 7
 
-print(19, [s for s in range(100, 1000) if F(110, s, n=2)])
-print(20, [s for s in range(100, 1000) if F(110, s, n=3) and not F(110, s, n=1)])
-print(21, [s for s in range(100, 1000) if F(110, s, n=4) and not F(110, s, n=2)])
+print(123 % 100)  # 23
+print(-123 % 100)  # 77
+'''
+
+# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 10 == 6]
+B = [x for x in A if x > 0]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 1:
+        if (x + y + z) <= min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# № 18142 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 10 == 8]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 16 == min(A)) + (y % 16 == min(A)) == 1:
+        R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# № 16264 Джобс 03.05.24 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 2 and x % sum(map(int, str(x))) == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % min(A) == 0) + (y % min(A) == 0) >= 1:
+        R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# № 23905 (Уровень: Средний)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if abs(x) % 100 == 32]
+B = [x for x in M if len(set(str(x)[-2:])) == 1]
+cnt = 0
+for i in range(len(M)-3):
+    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
+    if (x > max(A)) + (y > max(A)) + (z > max(A)) + (w > max(A)) == 2:
+        if (x in B) + (y in B) + (z in B) + (w in B) == 1:
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/7a1920ba-8e25-4c9b-ad1f-4f12d81514ab
+'''
+z = [int(i) for i in open('0. files/17.txt')]
+A = [x for x in z if len(str(abs(x))) == 3 and str(x)[-1] == '7']
+R = []
+for i in range(len(z) - 1):
+    a, b = z[i], z[i + 1]
+    la = len(str(abs(a)))
+    lb = len(str(abs(b)))
+    if (la == 3) + (lb == 3) == 1:
+        if abs(a + b) % min(A) == 0:
+            R.append(a + b)
+print(len(R), min(R))
 '''
 
 
@@ -90,6 +141,6 @@ print(21, [s for s in range(100, 1000) if F(110, s, n=4) and not F(110, s, n=2)]
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 8, 14, 15, 16, 23, 19-21, 25]
+# ФИПИ = [2, 5, 8, 14, 15, 16, 17, 23, 19-21, 25]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: Из пробника глянуть 8, 17 номера
