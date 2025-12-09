@@ -6,81 +6,63 @@
 # #
 # region Урок: ********************************************************************
 
+
+
+# № 23260 Основная волна 11.06.25 (Уровень: Базовый)
 '''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    h = [F(a+1, b), F(a+2, b), F(a+3, b)]
-    return sum(h)
-
-print(F(5, 7) * F(7, 11))
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
+graph = 'DC CD DB BD DA AD BC CB BH HB HG GH HA AH AE EA EG GE GF FG FC CF'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7 8
+        # G A E H C F B D
 '''
 
-# № 21714 ЕГКР 19.04.25 (Уровень: Базовый)
-# 1 куча: +2, +5, *2 | s >= 128 | 1 < s < 127
-"""
-def F(s, n):
-    '''
-    :param s: - Это кол-во камней в куче (то, что будем искать)
-    :param n: - Это шаг нашей игры
-
-    n = 1: Петя первый шаг
-    n = 2: Ваня первый шаг
-    n = 3: Петя второй шаг
-    n = 4: Ваня второй шаг
-    '''
-    if s >= 128:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+5, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(2, 127) if F(s, n=2)])
-print(20, [s for s in range(2, 127) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(2, 127) if F(s, n=4) and not F(s, n=2)])
-"""
-
-
-# № 23565 Пересдача 03.07.25 (Уровень: Базовый)
-# 1 куча: -3, -8, /3 (вниз) | s <= 15 | s ≥ 16
 '''
-from math import ceil, floor
-def F(s, n):
-    if s <= 15:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3, n-1), F(s-8, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+    # i 0    1    2    3    4    5    6    7
+    # ('H', 'G', 'F', 'A', 'E', 'C', 'B', 'D')
+    #   1    2    3    4    5    6    7    8
 
-print(19, [s for s in range(16, 1000) if F(s, n=2)])
-print(20, [s for s in range(16, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(16, 1000) if F(s, n=4) and not F(s, n=2)])
+    new_table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
+    new_table = new_table.replace('1', 'H')
+    new_table = new_table.replace('2', 'G')
+    new_table = new_table.replace('3', 'F')
+    new_table = new_table.replace('4', 'A')
+    new_table = new_table.replace('5', 'E')
+    new_table = new_table.replace('6', 'C')
+    new_table = new_table.replace('7', 'B')
+    new_table = new_table.replace('8', 'D')
+    print(new_table)  # HF HA HC GF GA GD FH FG AH AG AB EC EB ED CH CE BA BE BD DG DE DB
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a+s >= 81 | a = 7 | 1 ≤ s ≤ 73
+# № 23360 Резервный день 19.06.25 (Уровень: Базовый)
 
-def F(a, s, n):
-    if a+s >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '13 14 15 24 26 27 31 34 41 42 43 45 46 47 51 54 57 62 64 72 74 75'
+graph = 'GA AG GF FG GE EG GD DG GC CG GB BG BC CB CD DC DE ED EF FE FA AF'
+for p in permutations('ABCDEFG'):
+    new_table = table
+    for i in range(1, 7+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7
+        # C F B G D A E
+        # F C A G E B D
 
-print(19, [s for s in range(1, 73+1) if F(7, s, n=2)])
-print(20, [s for s in range(1, 73+1) if F(7, s, n=3) and not F(7, s, n=1)])
-print(21, [s for s in range(1, 73+1) if F(7, s, n=4) and not F(7, s, n=2)])
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [2, 4, 5, 14, 15, 16, 23, 19-21]
+# ФИПИ = [1, 2, 4, 5, 14, 15, 16, 23, 19-21]
 # КЕГЭ = []
 # на следующем уроке:
