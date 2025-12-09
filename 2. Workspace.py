@@ -1453,3 +1453,104 @@ def f(c, e, step):
 print(f(3, 69, ""))
 '''
 
+# №2
+print('x y w z')
+for x in range(2):
+    for y in range(2):
+        for w in range(2):
+            for z in range(2):
+                F = (x <= (z == w)) + (not(y <= w))
+                if F == 0:
+                    print(x, y, z, w, F)
+
+
+# № 5
+def F(n, k):
+    s = ''
+    while n > 0:
+        s += str(n%k)
+        n = n // k
+    return s[::-1]
+for n in range(1, 10000):
+    b = F(n, 3)
+    if n % 3 == 0:
+        b = '1' + b + '02'
+    else:
+        b = b + str(F((n % 3) * 4, 3))
+    r = int(b, 3)
+    if r < 199:
+        print(n)
+
+
+# № 8
+from itertools import permutations
+S = []
+for x in permutations('0123456789ABCDEF', r=3):
+    num = ''.join(x)
+    cop = num
+    if num[0] != '0':
+        for x in ('02468ACE'):
+            num = num.replace(x, '2')
+        for x in ('13579BDF'):
+            num = num.replace(x, '1')
+        if '11' not in num and '22' not in num:
+            S.append(cop)
+print(len(S))
+
+
+# № 14
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:23]:
+    A = int(f'7{x}38596', 23)
+    B = int(f'14{x}36', 23)
+    C = int(f'61{x}7', 23)
+    if (A + B + C) % 22 == 0:
+        print((A + B + C) // 22)
+
+
+
+# № 15
+def F(x, y, A):
+    return (x + 2 * y> A) + (y < x) + (x < 30)
+H = [A for A in range(0, 1000) if all (F(x, y, A) for x in range(1, 100) for y in range(1, 100))]
+print(H)
+
+
+
+# № 16
+import sys
+sys.setrecursionlimit(10**8)
+def F(n):
+    if n < 3:
+        return 3
+    return 2 * n+ 5 + F(n - 2)
+print(F(3027)- F(3023))
+
+
+
+# № 23
+def F(a, b):
+    if a <= b or a == 7:
+        return a == b
+    return F(a - 1, b) + F(a - 3, b) + F(a // 2, b)
+print(F(19, 10) * F(10, 3))
+
+
+# № 19-21
+def F(s, n):
+    if s >= 111:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    H = [F(s + 1, n - 1), F(s + 3, n - 1), F(s * 4, n - 1)]
+    return any(H) if (n-1) % 2 == 0 else all(H)
+
+print([s for s in range (1, 109 + 1) if F(s, n = 2)])
+print([s for s in range (1, 109 + 1) if F(s, n = 3) and not (F(s, n = 1))])
+print([s for s in range (1, 109 + 1) if F(s, n = 4) and not (F(s, n = 2))])
+
+
+
+
+
+

@@ -7,90 +7,147 @@
 # region Урок: ********************************************************************
 
 
-# https://education.yandex.ru/ege/inf/task/7eeb5357-91a8-4e1a-b4ec-dafe92df2f09
+# № 20911 Апробация 05.03.25 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(copied1) == 3:
-        if (3 * (copied3[0] ** 2)) > (copied1[0] ** 2 + copied1[1] ** 2 + copied1[2] ** 2):
-            cnt += 1
-print(cnt)
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('0. files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 0:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
 
 
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    flag = 0
-    copied3 = [x for x in M if M.count(x) == 3]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(copied1) == 3:
-        flag += 1
-    if len(copied3) == 3 and len(copied1) == 3:
-        if (3 * (copied3[0] ** 2)) > (copied1[0] ** 2 + copied1[1] ** 2 + copied1[2] ** 2):
-            flag += 1
-    if flag == 2:
-        cnt += 1
-print(cnt)
-'''
+for s in open('0. files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 5:
+        clustersB[0].append([x, y])
+    if -5 < y < 5:
+        clustersB[1].append([x, y])
+    if y < -5:
+        clustersB[2].append([x, y])
 
-
-# https://education.yandex.ru/ege/inf/task/22cf7ea4-d582-409f-b6ab-8fe3b9fe4728
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied = [x for x in M if M.count(x) > 1]
-    if len(copied) > 0:
-        M = sorted(M)
-        if 2 * (min(M) ** 2) > (M[1] * M[2]):
-            cnt += 1
-print(cnt)
-'''
-
-
-# https://education.yandex.ru/ege/inf/task/9222d062-000f-4b29-80d0-86b20f9119d2
-'''
-n = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(copied1) == 4:
-        if copied2[0] >= sum(copied1) / 4:
-            print(n)
-            break
-'''
-
-
-# https://education.yandex.ru/ege/inf/task/f4fdf6fb-9ba6-4a16-b901-0b495310b132
-'''
-from itertools import permutations
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    if max(M) < sum(M) - max(M):
-        if any(P[0] + P[1] == P[2] + P[3] for P in permutations(M)):
-            cnt += 1
-print(cnt)
-'''
-
-
-
+# def d(A, B):
+#     x1, y1 = A
+#     x2, y2 = B
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+#
+# print(d([4, 5], [6, 7]))
+# print(dist([4, 5], [6, 7]))
 
 
 # # endregion Урок: *************************************************************
 # #
 # #
+
+
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+#                                   x              y
+print(center(clustersA[0]))  # [3.7046261187, 5.757797218]
+print(center(clustersA[1]))  # [2.0161619849, -3.6989345413]
+
+# PxA – среднее арифметическое абсцисс центров кластеров
+PxA = (3.7046261187 + 2.0161619849) / 2 * 10000
+
+# PyA – среднее арифметическое ординат центров кластеров.
+PyA = (5.757797218 + -3.6989345413) / 2 * 10000
+
+print(int(abs(PxA)), int(abs(PyA)))  # 28603 10294
+
+
+print(center(clustersB[0]))  # [10.6474896077, 9.7540330133]
+print(center(clustersB[1]))  # [3.6152550029, -0.0975921536]
+print(center(clustersB[2]))  # [4.1152564179, -13.0184433974]
+
+PxB = (10.6474896077 + 3.6152550029 + 4.1152564179) / 3 * 10000
+PyB = (9.7540330133 + -0.0975921536 + -13.0184433974) / 3 * 10000
+print(int(abs(PxB)), int(abs(PyB)))  # 61260 11206
+'''
+
+
+# № 23384 Резервный день 19.06.25 (Уровень: Базовый)
+
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('0. files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 10:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
+
+for s in open('0. files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if 0 < y < 15:
+        clustersB[0].append([x, y])
+    if 15 < y < 21:
+        clustersB[1].append([x, y])
+    if 21 < y < 30:
+        clustersB[2].append([x, y])
+
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+print(center(clustersA[0]))  # [7.0404312, 12.9983695]
+print(center(clustersA[1]))  # [3.9752601, 6.6649179]
+
+# PxA - сумму абсцисс центров кластеров
+PxA = (7.0404312 + 3.9752601) * 10000
+
+# PyA - сумму ординат центров кластеров
+PyA = (12.9983695 + 6.6649179) * 10000
+
+print(int(abs(PxA)), int(abs(PyA)))  # 110156 196632
+
+
+
+print(center(clustersB[0]))  # [23.0815601, 11.5546013]
+print(center(clustersB[1]))  # [13.2331173, 18.1812725]
+print(center(clustersB[2]))  # [13.1689743, 23.9396534]
+
+print(dist([23.0815601, 11.5546013], [0, 0]))  # 25.81215271634417
+print(dist([13.2331173, 18.1812725], [0, 0]))  # 22.487197762167156
+print(dist([13.1689743, 23.9396534], [0, 0]))  # 27.32268085357277
+
+# Q1 - минимальное расстояние от центра кластера до начала координат
+Q1 = 22.487197762167156 * 10000
+
+# Q2 - максимальное расстояние от центра кластера до начала координат.
+Q2 = 27.32268085357277 * 10000
+
+print(int(abs(Q1)), int(abs(Q2)))  # 224871 273226
+
+
+
 # region Разобрать: *************************************************************
 
 
 # endregion Разобрать: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25]
+# ФИПИ = [2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
 # КЕГЭ = []
-# на следующем уроке: 27
+# на следующем уроке:
