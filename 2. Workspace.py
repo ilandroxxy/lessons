@@ -1458,3 +1458,62 @@ print(f(3, 69, ""))
 
 # todo глянуть № 9370 Джобс 10.06.23 (Уровень: Сложный)
 
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('0. files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 10:
+        clustersA[0].append([x,y])
+    else:
+        clustersA[1].append([x,y])
+
+
+for s in open('0. files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 10:
+        clustersB[0].append([x,y])
+    if y > 10 and x < 17:
+        clustersB[1].append([x,y])
+    if y > 10 and x > 17:
+        clustersB[2].append([x,y])
+
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+print(center(clustersA[0])) # [15.5727314, 6.3556655]
+print(center(clustersA[1])) # [6.2393628, 7.915666]
+
+print(len(clustersA[0])) # 539
+print(len(clustersA[1])) # 235
+
+P1 = 6.2393628*10000
+P2 = 6.3556655*10000
+print(int(abs(P1)))
+print(int(abs(P2)))
+
+
+print(center(clustersB[0])) # [15.5727314, 6.3556655]
+print(center(clustersB[1])) # [6.2393628, 7.915666]
+print(center(clustersB[2])) # [6.2393628, 7.915666]
+
+print(len(clustersB[0])) # 539
+print(len(clustersB[1])) # 235
+print(len(clustersB[2])) # 235
+
+P1 = 6.2393628*10000
+P2 = 6.3556655*10000
+print(int(abs(P1)))
+print(int(abs(P2)))
+
+
+

@@ -6,141 +6,153 @@
 # #
 # region Урок: ********************************************************************
 
-# Открытие файла для 17 номера
+
+# № 23368 Резервный день 19.06.25 (Уровень: Базовый)
 '''
-with open('0. files/17.txt', mode='r') as file:
-    M = [int(s) for s in file]
-
-M = [int(s) for s in open('0. files/17.txt')]
-'''
-
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-
-
-
-# № 21903 Открытый вариант 2025 (Уровень: Базовый)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 100 == 15]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if ((x > 0) and (y > 0) and (z > 0)) or ((x < 0) and (y < 0) and (z < 0)):
-        if max(x, y, z) * min(x, y, z) > min(A) ** 2:
-            R.append(max(x, y, z) * min(x, y, z))
-print(len(R), min(R))
-'''
-
-'''
-print(123 % 10)  # 3
-print(-123 % 10)  # 7
-
-print(123 % 100)  # 23
-print(-123 % 100)  # 77
-'''
-
-# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 10 == 6]
-B = [x for x in A if x > 0]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 1:
-        if (x + y + z) <= min(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-
-# № 18142 (Уровень: Базовый)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if abs(x) % 10 == 8]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % 16 == min(A)) + (y % 16 == min(A)) == 1:
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# № 16264 Джобс 03.05.24 (Уровень: Базовый)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 2 and x % sum(map(int, str(x))) == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x % min(A) == 0) + (y % min(A) == 0) >= 1:
-        R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# № 23905 (Уровень: Средний)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if abs(x) % 100 == 32]
-B = [x for x in M if len(set(str(x)[-2:])) == 1]
 cnt = 0
-for i in range(len(M)-3):
-    x, y, z, w = M[i], M[i+1], M[i+2], M[i+3]
-    if (x > max(A)) + (y > max(A)) + (z > max(A)) + (w > max(A)) == 2:
-        if (x in B) + (y in B) + (z in B) + (w in B) == 1:
+n = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    if len(set(M)) == len(M):
+        # if 2 * (min(M) + max(M)) == 3 * (sum(M) - min(M) - max(M)):
+        M = sorted(M)
+        if 2 * (M[0] + M[-1]) == 3 * (M[1] + M[2] + M[3]):
+            print(f'Номера строки: {n}')
+            cnt += 1
+print(f'Кол-во строк: {cnt}')
+'''
+from subprocess import check_call
+
+# https://education.yandex.ru/ege/inf/task/96c09be1-da8c-4460-b91f-05f352ddaa78
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    flag = 0
+    if len(M) != len(set(M)):
+        flag += 1
+    nechet = [x for x in M if x % 2 != 0]
+    if len(nechet) == 3:
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/cecbe39b-e6f6-479b-b23b-b0261ac504fe
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied2 = [x for x in M if M.count(x) == 2]
+    if len(copied1) == 3 and len(copied2) == 4:
+        if sum(copied2) / 4 < sum(M) / 7:
             cnt += 1
 print(cnt)
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/7a1920ba-8e25-4c9b-ad1f-4f12d81514ab
+# https://education.yandex.ru/ege/inf/task/82c97d22-18da-44ce-aafa-9e25f9e55301
 '''
-z = [int(i) for i in open('0. files/17.txt')]
-A = [x for x in z if len(str(abs(x))) == 3 and str(x)[-1] == '7']
-R = []
-for i in range(len(z) - 1):
-    a, b = z[i], z[i + 1]
-    la = len(str(abs(a)))
-    lb = len(str(abs(b)))
-    if (la == 3) + (lb == 3) == 1:
-        if abs(a + b) % min(A) == 0:
-            R.append(a + b)
-print(len(R), min(R))
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied2 = [x for x in M if M.count(x) == 2]
+    if len(copied2) == 6:
+        a, b, c = sorted(set(M))
+        if c**2 == a**2 + b**2:
+            cnt += 1
+print(cnt)
 '''
+
+
+'''
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied3) == 3 and len(copied1) == 3:
+        if sum(copied3) ** 2 > sum(copied1)**2:
+            cnt += 1
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/679cf8d3-a852-4dc0-a42f-e8b4825ea271
+'''
+n = 0
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied3 = [x for x in M if M.count(x) == 3]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 2 and len(copied3) == 3 and len(copied1) == 3:
+        if copied3[0] > copied2[0]:
+            cnt += 1
+            print(n)
+print(cnt)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/0cee3383-2699-4e0d-a2f1-5f50a85ad086
+'''
+from itertools import permutations
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if max(M) < sum(M) - max(M):
+        if any(P[0] + P[1] == P[2] + P[3] for P in permutations(M)):
+            cnt += 1
+print(cnt)
+'''
+# for P in permutations([1, 2, 3, 4]):
+#     print(P)
+
+
+# https://education.yandex.ru/ege/inf/task/97f8b640-7a4b-4540-a62f-2c161e9507e0
+'''
+from math import prod
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if len(chet) >= 2 and len(nechet) >= 2:
+        if 3 * sum(nechet) > prod(chet):
+            cnt += 1
+print(cnt)
+'''
+
+# Все числа, содержащиеся в строке, больше 10
+'''
+M = [35, 34, 23, 123]
+# if M[0] > 10 and M[1] > 10 and M[2] > 10 and M[3] > 10:
+if all(p > 10 for p in M):
+    print(M)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/c51900be-b855-4ffb-97d5-8402bb52ffd8
+
+from itertools import permutations
+cnt = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if max(M) < sum(M) - max(M):
+        if all(P[0] + P[1] != P[2] + P[3] for P in permutations(M)):
+            cnt += 1
+print(cnt)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# region Разобрать: *************************************************************
-
-
-# endregion Разобрать: *************************************************************
-# #
-# #
-# ФИПИ = [2, 5, 8, 14, 15, 16, 17, 23, 19-21, 25]
+# ФИПИ = [2, 5, 8, 9, 14, 15, 16, 17, 23, 19-21, 25]
 # КЕГЭ = []
 # на следующем уроке: Из пробника глянуть 8, 17 номера
