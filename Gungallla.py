@@ -1,124 +1,165 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1228674/step/3?unit=1242207
-'''
-k=0
-for s in open('0. files/9_12463.csv'):
-    a=[int(x) for x in s.split(',')]
-    cop4=[x for x in a if a.count(x)==4]
-    cop2=[x for x in a if a.count(x)==2]
-    cop24=cop4+cop2
-    cop1=[x for x in a if a.count(x)==1]
-    if len(set(cop4))==1:
-        if len(set(cop2))==1:
-            if len(cop1)==3:
-                if sum(cop1)/3>=max(cop24):
-                    k+=1
-print(k)
-'''
-
-
-# https://stepik.org/lesson/1228674/step/6?unit=1242207
-'''
-from itertools import *
-summa = 0
-for s in open('0. files/9_11228.csv'):
-    a = sorted([int(x) for x in s.split(';')])
-    cop3 = [int(x) for x in a if a.count(x) == 3]
-    cop2 = [int(x) for x in a if a.count(x) == 2]
-    if len(set(cop3)) == 1 and len(set(cop2)) == 2:
-        if any((p[0] + p[1]) % 2 != 0 and (p[2] + p[3]) % 2 != 0 for p in permutations(a[:4])):
-            summa += sum(a)
-print(summa)
-'''
-
-
-# https://stepik.org/lesson/1228674/step/11?unit=1242207
-'''
-k = 0
-for s in open('0. files/9_9696.csv'):
-    a = [int(x) for x in s.split(';')]
-    cop2 = [int(x) for x in a if a.count(x) == 2]
-    cop1 = [int(x) for x in a if a.count(x) == 1]
-    if len(cop2) == 4:
-        a = sorted(cop2)
-        if a[0] < cop1[0] < a[-1]:
-            k += 1
-print(k)
-'''
-
-
-# https://stepik.org/lesson/1228674/step/13?unit=1242207
-'''
-from itertools import permutations
-k=0
-for s in open('0. files/9_9156.csv'):
-    a=[int(x) for x in s.split(';')]
-    if (max(a)+min(a))%3==0:
-        if any(abs(p[0] - p[1]) == abs(p[2] - p[3]) for p in permutations(a)):
-                k+=1
-print(k)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
+# 6
+'''
+import turtle as t
+t.left(90)
+t.screensize(2000, 2000)
+t.tracer(0)
+size= 40
+t.rt(90)
+for i in range(3):
+    t.rt(45)
+    t.fd(10*size)
+    t.rt(45)
+t.rt(315)
+t.fd(10*size)
+for i in range(2):
+    t.rt(90)
+    t.fd(10*size)
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x*size, y*size)
+        t.dot(2, 'purple')
+t.update()
+t.done()
+'''
+# print(7*14+6*13)
+
+
+# 8
+'''
+k=0
+from itertools import *
+for p in product('0123456789abcdef', repeat=3):
+    a=''.join(p)
+    if a[0] != '0':
+        cop1=[x for x in a if a.count(x)==1]
+        if len(cop1)==3:
+            for i in '02468ace':
+                a = a.replace(i, 'n')
+            for i in '13579bdf':
+                a = a.replace(i, 'm')
+            if 'nn' not in a and 'mm' not in a:
+                k+=1
+print(k)
+
+
+k=0
+from itertools import *
+for p in permutations('0123456789abcdef', r=3):
+    a=''.join(p)
+    if a[0] != '0':
+        for i in '02468ace':
+            a = a.replace(i, 'n')
+        for i in '13579bdf':
+            a = a.replace(i, 'm')
+        if 'nn' not in a and 'mm' not in a:
+            k+=1
+print(k)
+'''
+
+
+
+# 13
+'''
+a=[]
+from ipaddress import *
+for mask in range(1, 32):
+    net=ip_network(f'213.168.83.190/{mask}', 0)
+    print(net, mask, 32-mask, net.netmask)
+    if '213.168.64.0' in str(net):
+        a.append(32 - mask)
+print(max(a))
+'''
+
+
+# 14 нет
+'''
+alf= sorted('0123456789qwertyuiopasdfghjklzxcvbnm')
+for x in alf[:23]:
+    a=int(f'7{x}38596', 23)
+    b=int(f'14{x}36', 23)
+    c=int(f'61{x}7', 23)
+    d=a+b+c
+    if d%22==0:
+        print(x, d//22)
+'''
+
+
+
+# 17
+'''
+R = []
+a = [int(x) for x in open('0. files/17.txt')]
+b = [x for x in a if len(str(abs(x)))==4]
+c = [x for x in b if str(x)[-2:]=='39']
+for i in range(len(a)-1):
+    x, y = a[i], a[i+1]
+    if (x in b) + (y in b) == 1:
+        if (x+y)**2 <= max(c)**2:
+            R.append(x+y)
+print(len(R), max(R))
+'''
+
+
+
+
+
+
+
+'''27
 from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
-
-for s in open('0. files/27_А.txt'):
-    s = s.replace(',', '.')
+ca=[[],[]]
+cb=[[],[],[]]
+for s in open('27A.txt'):
+    s=s.replace(',', '.')
     x, y = [float(i) for i in s.split()]
-    if y < 2:
-        clustersA[0].append([x, y])
+    if x<0:
+        ca[0].append([x, y])
     else:
-        clustersA[1].append([x, y])
-
-for s in open('0. files/27_B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if x < 10:
-        clustersB[0].append([x, y])
-    if 10 < x < 21:
-        clustersB[1].append([x, y])
-    if x > 21:
-        clustersB[2].append([x, y])
-
-# def d(A, B):
-#     x1, y1 = A
-#     x2, y2 = B
-#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-#
-# print(d([4, 5], [6, 7]))
-# print(dist([4, 5], [6, 7]))
-
-
-
-def center(cl):
-    R = []
+        ca[1].append([x, y])
+for s in open('27B.txt'):
+    s=s.replace(',', '.')
+    if x<-4 and y>5:
+        cb[0].append([x, y])
+    if x<-4 and y<5:
+        cb[1].append([x, y])
+    if x>-4:
+        cb[2].append([x, y])
+def f(cl):
+    r=[]
     for p in cl:
-        summa = 0
+        summa=0
         for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+            summa+=dist(p, g)
+            r.append([summa, p])
+    return min(r)[1]
+
+centersa=[f(cl) for cl in ca]
+print('a:', centersa)
+pxa=(-2.8545062803277164+6.428377908701726)/2*1000
+pya=(-0.013407659019377058-8.612117644536346)/2*1000
+print(int(abs(pxa)), int(abs(pya)))
+
+centersb=[f(cl) for cl in cb]
+print('b:', centersb)
+pxb=()/3*1000
+pyb=()/3*1000
+print(int(abs(pxb)), int(abs(pyb)))
+
+1786 4312
+'''
 
 
-centersA = [center(cl) for cl in clustersA]
-print(centersA)  # [[3.981033369, -1.961127579], [1.262277635, 6.797635538]]
-pxA = (3.981033369 + 1.262277635) / 2 * 10000
-pyA = (-1.961127579 + 6.797635538) / 2 * 10000
-print(int(abs(pxA)), int(abs(pyA)))
-
-centersB = [center(cl) for cl in clustersB]
-print(centersB)  # [[4.309073189, 6.615238685], [15.75501912, 13.34466476], [25.20349762, -0.833550091]]
-pxB = (4.309073189 + 15.75501912 + 25.20349762) / 3 * 10000
-pyB = (6.615238685 + 13.34466476 + -0.833550091) / 3 * 10000
-print(int(abs(pxB)), int(abs(pyB)))
-
+# 8, 9, 13, 14, 17, 27
 
 # endregion Урок: *************************************************************
 # #
