@@ -6,80 +6,110 @@
 # #
 # region Урок: ********************************************************************
 
+# 5, 8, 9, 14, 17
 
-# № 20911 Апробация 05.03.25 (Уровень: Базовый)
+# 14
 '''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:23]:
+    A = int(f'7{x}38596', 23)
+    B = int(f'14{x}36', 23)
+    C = int(f'61{x}7', 23)
+    if (A + B + C) % 22 == 0:
+        print(x, (A + B + C) // 22)
+'''
 
-for s in open('0. files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 0:
-        clustersA[0].append([x, y])
+
+# 5
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
+
+R = []
+for n in range(1, 10000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
     else:
-        clustersA[1].append([x, y])
+        x = (n % 3) * 4
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r < 199:
+        R.append(n)
+print(max(R))
+'''
+
+# 8
+'''
+s = sorted('0123456789ABCDEF')
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            n = a + b + c
+            if len(n) == len(set(n)):
+                if a != '0':
+                    for x in '13579BDF':
+                        n = n.replace(x, '*')
+                    for x in '02468ACE':
+                        n = n.replace(x, '#')
+                    if '##' not in n and '**' not in n:
+                        cnt += 1
+print(cnt)
 
 
-for s in open('0. files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 5:
-        clustersB[0].append([x, y])
-    if -5 < y < 5:
-        clustersB[1].append([x, y])
-    if y < -5:
-        clustersB[2].append([x, y])
+cnt = 0
+from itertools import *
+for p in permutations('0123456789ABCDEF', r=3):
+    n = ''.join(p)
+    if n[0] != '0':
+        for x in '13579BDF':
+            n = n.replace(x, '*')
+        for x in '02468ACE':
+            n = n.replace(x, '#')
+        if '##' not in n and '**' not in n:
+            cnt += 1
+print(cnt)
+'''
 
-# def d(A, B):
-#     x1, y1 = A
-#     x2, y2 = B
-#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-#
-# print(d([4, 5], [6, 7]))
-# print(dist([4, 5], [6, 7]))
+# 9
+'''
+n = 0
+for s in open('0. files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    n += 1
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(copied1) == 3:
+        if M.count(max(M)) == 1:
+            print(n, sum(M))
+            break
+'''
 
-
-# # endregion Урок: *************************************************************
-# #
-# #
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-#                                   x              y
-print(center(clustersA[0]))  # [3.7046261187, 5.757797218]
-print(center(clustersA[1]))  # [2.0161619849, -3.6989345413]
-
-# PxA – среднее арифметическое абсцисс центров кластеров
-PxA = (3.7046261187 + 2.0161619849) / 2 * 10000
-
-# PyA – среднее арифметическое ординат центров кластеров.
-PyA = (5.757797218 + -3.6989345413) / 2 * 10000
-
-print(int(abs(PxA)), int(abs(PyA)))  # 28603 10294
-
-
-print(center(clustersB[0]))  # [10.6474896077, 9.7540330133]
-print(center(clustersB[1]))  # [3.6152550029, -0.0975921536]
-print(center(clustersB[2]))  # [4.1152564179, -13.0184433974]
-
-PxB = (10.6474896077 + 3.6152550029 + 4.1152564179) / 3 * 10000
-PyB = (9.7540330133 + -0.0975921536 + -13.0184433974) / 3 * 10000
-print(int(abs(PxB)), int(abs(PyB)))  # 61260 11206
+# 17
+'''
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in A if abs(x) % 100 == 39]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y) ** 2 <= max(B) ** 2:
+            R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# № 23384 Резервный день 19.06.25 (Уровень: Базовый)
 
+# № 25364 ЕГКР 13.12.25 (Уровень: Базовый)
+'''
 from math import dist
 clustersA = [[], []]
 clustersB = [[], [], []]
@@ -95,11 +125,11 @@ for s in open('0. files/27A.txt'):
 for s in open('0. files/27B.txt'):
     s = s.replace(',', '.')
     x, y = [float(i) for i in s.split()]
-    if 0 < y < 15:
+    if x > 22:
         clustersB[0].append([x, y])
-    if 15 < y < 21:
+    if y > 24:
         clustersB[1].append([x, y])
-    if 21 < y < 30:
+    if 16 < y < 24:
         clustersB[2].append([x, y])
 
 def center(cl):
@@ -111,41 +141,103 @@ def center(cl):
         R.append([summa, p])
     return min(R)[1]
 
-print(center(clustersA[0]))  # [7.0404312, 12.9983695]
-print(center(clustersA[1]))  # [3.9752601, 6.6649179]
 
-# PxA - сумму абсцисс центров кластеров
-PxA = (7.0404312 + 3.9752601) * 10000
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера, и
+# P2 - максимальное расстояние от этой же точки до центра кластера.
 
-# PyA - сумму ординат центров кластеров
-PyA = (12.9983695 + 6.6649179) * 10000
+print(center(clustersA[0]))  # [7.0391548, 12.3587258]
+print(center(clustersA[1]))  # [3.8471735, 6.1225014]
 
-print(int(abs(PxA)), int(abs(PyA)))  # 110156 196632
+print(dist([1.0, 1.0], [7.0391548, 12.3587258]))  # 12.864371049450831
+print(dist([1.0, 1.0], [3.8471735, 6.1225014]))  # 5.860581671822705
 
-
-
-print(center(clustersB[0]))  # [23.0815601, 11.5546013]
-print(center(clustersB[1]))  # [13.2331173, 18.1812725]
-print(center(clustersB[2]))  # [13.1689743, 23.9396534]
-
-print(dist([23.0815601, 11.5546013], [0, 0]))  # 25.81215271634417
-print(dist([13.2331173, 18.1812725], [0, 0]))  # 22.487197762167156
-print(dist([13.1689743, 23.9396534], [0, 0]))  # 27.32268085357277
-
-# Q1 - минимальное расстояние от центра кластера до начала координат
-Q1 = 22.487197762167156 * 10000
-
-# Q2 - максимальное расстояние от центра кластера до начала координат.
-Q2 = 27.32268085357277 * 10000
-
-print(int(abs(Q1)), int(abs(Q2)))  # 224871 273226
+P1 = 5.860581671822705 * 10000
+P2 = 12.864371049450831 * 10000
+print(int(P1), int(P2))
 
 
 
-# region Разобрать: *************************************************************
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# Q1 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 1,2 от центра кластера, и
+# Q2 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 0,75 от центра кластера.
+
+print(center(clustersB[0]))  # [26.6431823, 12.4121727]  (тут)
+print(center(clustersB[1]))  # [13.9823808, 26.4800432]
+print(center(clustersB[2]))  # [15.861917, 18.8540334]
+
+print(len(clustersB[0]))  # 451  (тут)
+print(len(clustersB[1]))  # 74
+print(len(clustersB[2]))  # 100
+
+def count_dot(cl, center, length):
+    cnt = 0
+    for p in cl:
+        if dist(p, center) <= length:
+            cnt += 1
+    return cnt
+
+Q1 = count_dot(clustersB[0], [26.6431823, 12.4121727], 1.2)  # 358
+Q2 = count_dot(clustersB[0], [26.6431823, 12.4121727], 0.75)  # 203
+print(Q1, Q2)  # 358 203
+'''
 
 
-# endregion Разобрать: *************************************************************
+# № 21929 (Уровень: Базовый)
+'''
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('0. files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 10:
+        clustersA[0].append([x,y])
+    else:
+        clustersA[1].append([x,y])
+
+
+for s in open('0. files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 10:
+        clustersB[0].append([x,y])
+    if y > 10 and x < 17:
+        clustersB[1].append([x,y])
+    if y > 10 and x > 17:
+        clustersB[2].append([x,y])
+
+
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+
+print(center(clustersA[0])) # [3.2865636, 16.3616946]
+print(center(clustersA[1])) # [5.7806753, 7.0666221]
+P1 = (3.2865636 + 5.7806753) / 2 * 10000
+P2 = (16.3616946 + 7.0666221) / 2 * 10000
+print(int(P1), int(P2))
+
+
+print(center(clustersB[0])) # [15.7780749, 6.1170037]
+print(center(clustersB[1])) # [14.4062605, 19.5187459]
+print(center(clustersB[2])) # [20.1133897, 17.3153227]
+P3 = (15.7780749 + 14.4062605 + 20.1133897) / 3 * 10000
+P4 = (6.1170037 + 19.5187459 + 17.3153227) / 3 * 10000
+print(int(abs(P3)), int(abs(P4)))
+'''
+
+
+# # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [2, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
