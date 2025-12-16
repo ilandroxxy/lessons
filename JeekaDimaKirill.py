@@ -1,56 +1,5 @@
 # region Домашка: ******************************************************************
 
-# Номер 8
-'''
-cnt = 0
-from itertools import permutations
-for p in permutations('0123456789ABCDEF', r=3):
-    num = ''.join(p)
-    if num[0] != '0':
-        chet = '02468ACE'
-        nechet = '13579BDF'
-        if (num[0] in chet and num[1] in nechet and num[2] in chet) or (num[0] in nechet and num[1] in chet and num[2] in nechet):
-            cnt += 1
-print(cnt)
-
-
-cnt = 0
-from itertools import permutations
-for p in permutations('0123456789ABCDEF', r=3):
-    num = ''.join(p)
-    if num[0] != '0':
-        for x in '02468ACE':
-            num = num.replace(x, '2')
-        for x in '13579BDF':
-            num = num.replace(x, '1')
-        if '11' not in num and '22' not in num:
-            cnt += 1
-print(cnt)
-'''
-
-
-# Номер 5
-'''
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r += str(n % b)
-        n //= b
-    return r[::-1]
-
-RES = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '02'
-    else:
-        x = (n % 3) * 4
-        s = s + convert(x, 3)
-    r = int(s, 3)
-    if r < 199:
-        RES.append(n)
-print(max(RES))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
@@ -65,105 +14,163 @@ print(max(RES))
 # 1 Гбайт - 1024 Мбайт - 2**30 байт - 2**33 бит
 
 
-# Три типа задач 11 номера
-# 1. sym, alp = byte
-# 2. sym, byte = alp
-# 3. alp, byte = sym
+# V = pixels * i - вес изображения (в бит)
+# i - бит выделено на один пиксель (глубина цвета)
+# colors = 2 ** i
 
 
-# Номер 11 (первый прототип - 1. sym, alp = byte)
+# https://education.yandex.ru/ege/inf/task/37dd91ce-1a3d-4d33-9370-445d9c44bb85
 '''
-sym = 10
-alp = 52   # alp <= 2**i
-
-# i - это кол-во бит выделяемых на один символ
-i = 6   #  2**6 = 64 >= alp
-
-bit = sym * i
-print(bit)  # 60 бит на один пароль
-
-print(bit / 8)  # 7.5 -> 8
-byte = 8  # 8 байт на один пароль
-
-print((byte * 65_536) / 2**10)
+pixels = 300 * 400
+i = 5
+V = pixels * i
+print(V)  # 600000
+print(V / 8)  # 75000
 '''
 
-
-# https://education.yandex.ru/ege/inf/task/30431c9e-dfcf-41dc-8b5d-1c0fd87fcb2e
-# (первый прототип - 1. sym, alp = byte)
+# https://education.yandex.ru/ege/inf/task/c750feb6-6609-485a-8bd0-c62b806727d3
+# Сколько секунд потребуется обычному модему, передающему сообщения
+# со скоростью 65536 бит/с, чтобы передать цветное растровое изображение
+# размером 1024 на 768 пикселей, при условии, что в палитре 24 цвета?
 '''
-sym = 31
-alp = 10 + 26
-i = 6  # 2**6 >= alp
+pixels = 1024 * 768
+colors = 24
+i = 5
+V = pixels * i  # бит
 
-bit = sym * i
-print(bit / 8)  # 23.25 -> 24
-byte = 24
-
-# user = byte + dop
-
-user = (12 * 2**10) / 128
-print(user - byte)  # 72
+U = 65536  # бит/с
+print(V / U)  # 60
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/a4132687-04dc-4ed6-85e0-76ebd94d668a
-# (второй прототип - 2. sym, byte = alp)
+# https://education.yandex.ru/ege/inf/task/957625ec-a644-4180-bcee-896315e53052
 '''
-sym = 197
+pixels = 2560 * 1440
+i = 30
+V = pixels * i
 
-byte = (25 * 2**20) / 178_080
-print(byte)  # 147.2057 -> 148 (отведено более 25 Мбайт памяти)
-bit = 148 * 8
 
-i = bit / sym
-print(i)  # 6.0101 -> 7 (отведено более 25 Мбайт памяти)
+pixels2 = 1920 * 1080
+i2 = 28
+V2 = pixels2 * i2
 
-print(f'Определите максимальную возможную мощность алфавита: {2**7}')
-print(f'Определите минимально возможную мощность алфавита: {2**6+1}')
-
-alp = 129  # i = 8
-
-alp = 128  # i = 7
-alp = 64  # i = 6
-
-alp = 65  # i = 7
+print((V - V2) * 130 / 2**13)
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/b7bccef2-d2fe-4064-8fcd-69ea6cd792c2
-# (второй прототип - 2. sym, byte = alp)
+
+# https://education.yandex.ru/ege/inf/task/935e9e59-a795-4e5b-bad5-013dfefb5a5a
 '''
-sym = 172
+pixels = 1280 * 1024
+V = 800 * 2**13
 
-byte = 54 * 2**20 / 356_984
-print(byte)  # 158.6152 -> 159 (потребовалось не менее 54 Мбайт памяти)
-bit = 159 * 8
+i = V / pixels
+print(i)  # 5.0 - цвета + четность - 4 + 1
 
-i = bit / sym
-print(i)  # 7.395 -> 8 (потребовалось не менее 54 Мбайт памяти)
-
-print(f'Определите максимальную возможную мощность алфавита: {2**8}')
-print(f'Определите минимально возможную мощность алфавита: {2**7+1}')
+print(2 ** 4)  # 16
 '''
 
-
-# https://education.yandex.ru/ege/inf/task/90b2bc03-59cf-406d-b7b5-e2bca0b8580a
-# (третий прототип - 3. alp, byte = sym)
+# https://education.yandex.ru/ege/inf/task/4e5be1a0-54c9-454c-819a-0f8b27b8c0e6
 '''
-alp = 10 + 27
-i = 6
-
-byte = 12 * 2**10 / 3548
-print(byte)  # 3.4633 -> 4 (необходимо более 12 Кбайт памяти)
-bit = 4 * 8
-
-sym = bit / i
-print(sym)  # 5.3333 -> 5
+pixels = 320 * 512
+V = 50 * 2**13
+V = (V / 100) * 155
+i = V / pixels
+print(i)  # 3.875 -> 4
 '''
+
+
+# https://education.yandex.ru/ege/inf/task/5b2df675-96d3-460d-b1ed-e3dfb6ed7c63
+'''
+pixels = 2560 * 1440
+pack = 2**33
+V = pack / 200
+i = V / pixels
+print(i)  # 11.6508
+print(2 ** 11)
+'''
+
+# V = a * b * c * t  (бит) - вес звукового файла
+# a - кол-во каналов: моно/стерео/квадра - 1/2/4
+# b - частота дискретизации: Гц
+# c - глубиной кодирования: бит
+# t - время звукозаписи: сек
+
+
+# https://education.yandex.ru/ege/inf/task/8172e3b1-0da6-40a8-96c1-c0a5c2131296
+'''
+a = 2
+b = 56000
+c = 16
+t = 2*60
+V = a * b * c * t  # бит
+print(V)
+
+U = 32000  # бит/с
+print(V / U)  # 6720
+
+
+a = 2
+b = 56000
+c = 16
+t = 2*60
+V2 = a * b/2 * c * t  # бит
+print(V2 / U)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/5b08e032-88b8-4cff-8b63-329f996e0472
+'''
+# V = a * b * c * t 
+
+t = 90
+b = 48000
+a = 2
+
+U = 1600  # бит/с
+T = 86400  # с
+V = U * T
+
+c = V / (a * b * t)
+print(c)  # 16
+
+# максимальное количество уровней громкости
+print(2**16)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/21c8d3fd-6a3a-4352-aaa3-fcfd629d1c75
+'''
+a = 2
+b = 192000
+c = 24
+t = 10 * 60
+V = a * b * c * t
+
+U = 12800  # бит/с
+T = 20  # с
+V_half = U * T
+
+print(V / V_half)
+'''
+
+
+# https://education.yandex.ru/ege/inf/task/8866b77f-df4a-4339-b500-dce62b0b720e
+'''
+pix = 1024*768
+i = 23
+v = pix*i
+
+
+pix1 = 800*600
+i1 = 22
+v1 = pix1 * i1
+print((v-v1)*100/2**13) #91893
+'''
+
 
 # endregion Урок: *************************************************************
 #
-# ФИПИ = [1, 2, 5, 6, 8, 11, 13, 14, 15, 16, 19-21, 23]
+# ФИПИ = [1, 2, 5, 6, 7, 8, 11, 13, 14, 15, 16, 19-21, 23]
 # КЕГЭ = []
-# на следующем уроке: + 10 минут, 7 номер, 17, 9, 27
+# на следующем уроке:  17, 9, 27
