@@ -1,69 +1,139 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038816/step/15?unit=1062780
+# https://stepik.org/lesson/1038775/step/2?unit=1062778
 '''
-def prime_at_divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+RES = []
+M = [int(s) for s in open('0. files/17.txt')]
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        if ((x + y) % 18 == 0) + ((x * y) % 18 == 0) == 1:
+            RES.append(x+y)
+print(len(RES), max(RES))
+'''
+from dis import code_info
 
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            if len(prime_at_divisors(j)) == 0 and len(prime_at_divisors(x // j)) == 0:
-                if str(j).count('6') == 1 and str(x // j).count('6') == 1:
-                    d += [j, x // j]
-    return sorted(d)
+# https://stepik.org/lesson/1038775/step/2?unit=1062778
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+A = [x for x in M if hex(x)[-2:] == '0f']
+A = [x for x in M if f'{x:x}'[-2:] == '0f']
+A = [x for x in M if f'{x:X}'[-2:] == '0F']
+print(A)
+'''
 
+
+# № 2491 (Уровень: Базовый)
+'''
+M = [int(s) for s in open('0. files/17.txt')]
+avg = sum(M) / len(M)
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x < avg) + (y < avg) + (z < avg) >= 1:
+        # if ('9' in str(x)) + (str(y).count('9') > 0) + ('9' in str(z)) == 3:
+        if all('9' in str(p) for p in (x, y, z)):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+# Ответ: 34517460
+
+
+# 5
+'''
+print('1 2 3 4 5 6 7')
+from itertools import *
+t = '13 14 16 24 25 31 36 41 42 45 52 54 57 61 63 67 75 76'
+g = 'FD DF DG GD GE EG EC CE CB BC BA AB AF FA AC CA DE ED'
+for p in permutations('ABCDEFG'):
+    nt = t
+    for i in range(1, 7+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set(g.split()):
+        print(*p)
+
+# 1 2 3 4 5 6 7
+# C G B E D A F
+# E B G C A D F
+'''
+# 1 4
+
+
+# 5
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+RES = []
+for n in range(1, 10000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
+    else:
+        x = (n % 3) * 4
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r < 199:
+        RES.append(n)
+print(max(RES))
+'''
+
+
+# 8
+'''
 cnt = 0
-for x in range(6_086_055+1, 10**10):
-    d = divisors(x)
-    if len(d) >= 2:
-        print(x, max(d))
-        cnt += 1
-        if cnt == 5:
-            break
+from itertools import *
+for p in permutations('0123456789ABCDEF', r=3):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in '02468ACE':
+            num = num.replace(x, '*')
+        for x in '13579BDF':
+            num = num.replace(x, '+')
+        if '**' not in num and '++' not in num:
+            cnt += 1
+print(cnt)
 '''
 
 
-# https://stepik.org/lesson/1038816/step/4?unit=1062780
+# 13
 '''
-def div(x):
-    d = []
-    for j in range(1, int(x ** 0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-for x in range(190201, 190260+1):
-    d = [j for j in div(x) if j % 2 == 0]
-    if len(d) == 4:
-        print(d[-1], d[-2])
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'213.168.83.190/{mask}', 0)
+    if '213.168.64.0' in str(net):
+        print(net, mask, 32 - mask, net.netmask)
 '''
 
 
-# https://stepik.org/lesson/1038816/step/5?unit=1062780
+# 17
+# в которых только один из элементов является четырёхзначным числом
+# квадрата максимального элемента последовательности,
+# являющегося четырёхзначным числом и оканчивающегося на 39
 '''
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):  # (отличный от 1 и самого числа)
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+M = [int(x) for x in open('0. files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in A if abs(x) % 100 == 39]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y) ** 2 <= max(B) ** 2:
+            R.append(x + y)
+print(len(R), max(R))
+'''
 
-cnt = 0
-for x in range(10**9+1, 10**10):
-    if str(x) == str(x)[::-1]:
-        d = divisors(x)
-        if len(d) > 0:
-            if max(d) % 7 == 0:
-                print(x, max(d))
-                cnt += 1
-                if cnt == 5:
-                    break
+# 25
+'''
+from fnmatch import *
+for x in range(2025, 10**8, 2025):
+    if fnmatch(str(x), '12*34?5'):
+        print(x, x // 2025)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -71,96 +141,30 @@ for x in range(10**9+1, 10**10):
 # #
 # region Урок: ********************************************************************
 
-
-
+# № 8954 (Уровень: Базовый)
 '''
-# Открыли и считали данные для 24 номера:
-s = open('0. files/24.txt').readline()
-
-# Открыли и считали данные для 9 номера:
-
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    
-# Открыли и считали данные для 27 номера:
-
-for s in open('0. files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-'''
-
-# Открыли и считали данные для 17 номера:
+RES = []
 M = [int(s) for s in open('0. files/17.txt')]
-
-
-# Три прототипа 17 номера:
-'''
-# i  0  1  2  3  4    
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности
-# 12 23 34 45
+A = [x for x in M if hex(x)[-2:] == '0f']
 for i in range(len(M)-1):
     x, y = M[i], M[i+1]
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
+    if (x % 7 == 0) + (y % 7 == 0) == 1:
+        if (x+y) % max(A) == 0:
+            RES.append(x + y)
+print(len(RES), max(RES))
 '''
 
-
 '''
-print(len(str(1234)))  # 4
-print(len(str(-1234)))  # 5
-print(len(str(abs(-1234))))  # 4
-
-print(123 % 100)  # 23
-print(-123 % 100)  # 77
-print(abs(-123) % 100)  # 23
-'''
-
-
-# № 25356 ЕГКР 13.12.25 (Уровень: Базовый)
-'''
+RES = []
 M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if abs(x) % 100 == 30]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 0:
-        if (x + y + z) > max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
+A = [x for x in M if hex(x)[-2:] == '0f']
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x % 7 == 0 and y % 7 != 0) or (x % 7 != 0 and y % 7 == 0):
+        if (x+y) % max(A) == 0:
+            RES.append(x + y)
+print(len(RES), max(RES))
 '''
-
-
-# № 19249 ЕГКР 21.12.24 (Уровень: Базовый)
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5 and abs(x) % 100 == 43]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) >= 1:
-        if (x**2 + y**2 + z**2) <= max(A) ** 2:
-            R.append(x**2 + y**2 + z**2)
-print(len(R), min(R))
-'''
-
-
-
-
 
 
 # endregion Урок: *************************************************************

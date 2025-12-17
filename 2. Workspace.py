@@ -1476,3 +1476,9 @@ for s in open('0. files/27A.txt'):
     s = s.replace(',', '.')
     x, y = [float(i) for i in s.split()]
 
+
+
+"""
+это блочный комментарий
+print("Hello, world!") - а тут использовать двойные уже нельзя
+"""
