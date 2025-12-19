@@ -6,109 +6,93 @@
 # #
 # region Урок: ********************************************************************
 
-# № 17684 Пересдача 04.07.24 (Уровень: Базовый)
-# A. Вычти 2
-# B. Найти целую часть от деления на 2
-# Сколько существует программ, для которых при исходном
-# числе 38 результатом является число 2 и при этом траектория
-# вычислений содержит число 10?
-'''
-def F(a, b):
-    if a == b:
-        return 1
-    if a < b:
-        return 0
-    h = [F(a-2, b), F(a//2, b)]
-    return sum(h)
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
 
-print(F(38, 10) * F(10, 2))
-'''
+# def d(A, B):
+#     x1, y1 = A
+#     x2, y2 = B
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+#
+# print(d([4, 5], [7, 8]))  # 4.24264
+# print(dist([4, 5], [7, 8]))  # 4.24264
 
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
 
-# № 22437 (Уровень: Базовый)
-# 1 куча: +4, +7, *4 | s >= 471 | 1 ≤ s ≤ 470
-'''
-def F(s, n):
-    """
-    :param s: - это кол-во камней, которое мы ищем (будем перебирать)
-    :param n: - это шаги нашей игры
+for s in open('0. files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 10:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
 
-    n = 1: Петя первый ход
-    n = 2: Ваня первый ход
-    n = 3: Петя второй ход
-    n = 4: Ваня второй ход
-    """
-    if s >= 471:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+4, n-1), F(s+7, n-1), F(s*4, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 470+1) if F(s, n=2)])
-print(20, [s for s in range(1, 470+1) if F(s, n=3) and not F(s, n=1) ])
-print(21, [s for s in range(1, 470+1) if F(s, n=4) and not F(s, n=2)])
-'''
+for s in open('0. files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if x > 20:
+        clustersB[0].append([x, y])
+    if x < 20 and y > 22:
+        clustersB[1].append([x, y])
+    if x < 20 and y < 22:
+        clustersB[2].append([x, y])
 
 
-# № 21418 Досрочная волна 2025 (Уровень: Базовый)
-# 1 куча: -2, /2 (вниз) | s <= 87 | s > 88
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 87:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(floor(s/2), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера, и
+# P2 - максимальное расстояние от этой же точки до центра кластера.
 
-print(19, [s for s in range(89, 1000) if F(s, n=2)])
-print(20, [s for s in range(89, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(89, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
+print(center(clustersA[0]))  # [7.0391548, 12.3587258]
+print(center(clustersA[1]))  # [3.8471735, 6.1225014]
 
+P1 = dist([1.0, 1.0], [3.8471735, 6.1225014])  # 5.860581671822705
+P2 = dist([1.0, 1.0], [7.0391548, 12.3587258])  # 12.864371049450831
 
-# № 22066 (Уровень: Базовый)
-# 2 кучи: a+3, s+3, a*2, s*2 | a+s >= 100 | a = 17 | 1 ≤ s ≤ 82
-'''
-def F(a, s, n):
-    if a+s >= 100:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+3, s, n-1), F(a, s+3, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 82+1) if F(17, s, n=2)])
-print(20, [s for s in range(1, 82+1) if F(17, s, n=3) and not F(17, s, n=1) ])
-print(21, [s for s in range(1, 82+1) if F(17, s, n=4) and not F(17, s, n=2)])
-'''
-
-
-# № 18268 (Уровень: Базовый)
-# 2 кучи : a-3, s-3 , a/3 , s/3 | a+s<=72 | a=50 | s > 22
-
-from math import ceil, floor
-def F (a,s,n):
-    if a+s<=72:
-        return n%2==0
-    if n==0:
-        return 0
-    h=[F(a-3,s,n-1),F(a,s-3,n-1),F(ceil(a/2),s,n-1),F(a,ceil(s/2),n-1)]
-    return any(h) if (n-1)%2==0 else any(h)
-
-print(19, [s for s in range(23,1000) if F(50,s,n=2)])
-print(20, [s for s in range(23,1000) if F(50,s,n=3) and not F(50,s,n=1)])
-print(21, [s for s in range(23,1000) if F(50,s,n=4) and not F(50,s,n=2)])
+# В ответе запишите четыре числа: в первой строке - сначала целую часть произведения
+# P1 × 10000, затем целую часть произведения P2 × 10 000;
+print(int(P1 * 10000), int(P2 * 10000))  # 58605 128643
 
 
 
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# Q1 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 1,2 от центра кластера, и
 
+# Q2 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 0,75 от центра кластера.
+
+print(center(clustersB[0]))  # [26.6431823, 12.4121727]
+print(center(clustersB[1]))  # [13.9823808, 26.4800432]
+print(center(clustersB[2]))  # [15.861917, 18.8540334]
+
+print(len(clustersB[0]))  # 451
+print(len(clustersB[1]))  # 74
+print(len(clustersB[2]))  # 100
+
+def F(cl, center, length):
+    cnt = 0
+    for p in cl:
+        if dist(center, p) <= length:
+            cnt += 1
+    return cnt
+
+Q1 = F(clustersB[0], [26.6431823, 12.4121727], 1.2)
+Q2 = F(clustersB[0], [26.6431823, 12.4121727], 0.75)
+
+# во второй строке - сначала Q1, затем Q2
+print(Q1, Q2)  # 358 203
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 14, 15, 16, 23, 19-21]
+# ФИПИ = [2, 5, 14, 15, 16, 23, 19-21, 27]
 # КЕГЭ = []
 # на следующем уроке:

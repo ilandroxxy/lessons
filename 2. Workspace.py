@@ -1478,7 +1478,44 @@ for s in open('0. files/27A.txt'):
 
 
 
-"""
-это блочный комментарий
-print("Hello, world!") - а тут использовать двойные уже нельзя
-"""
+def F(x, y, A):
+    return (78_125 != y + 4*x) or (A > x) and (A > y)
+
+for A in range(1, 10**10):
+    if all(F(x, 78_125 - 4*x, A) for x in range(1, 78_125 // 4)):
+        print(A)
+        break
+
+
+
+
+from functools import *
+
+def F(n):
+    if n >= 19:
+        return F(n - 4) + 3580
+    else:
+        return 6 * (G(n - 7) - 36)
+
+@lru_cache()
+def G(n):
+    if n >= 248045:
+        return n / 20 + 28
+    else:
+        return G(n + 9) - 4
+
+for i in range(248045, 0, -1):
+    G(i)
+
+print(F(673))
+
+
+
+
+# Алгоритм вычисления функций F(n) и G(n), где n - целое число, задан следующими соотношениями:
+# F(n) = F(n−4)+3580, если n ≥ 19;
+# F(n) = 6×(G(n−7)−36), если n < 19;
+#
+# G(n) = n/20+28, если n ≥ 248045;
+# G(n) = G(n+9)−4, если n < 248045.
+# Чему равно значение функции F(673)?
