@@ -1,6 +1,8 @@
 
 # region 1 номер
 
+# https://education.yandex.ru/ege/inf/task/f0d37846-6c0e-4eb6-9780-20af718e47b6
+
 # endregion 1 номер
 #
 #
