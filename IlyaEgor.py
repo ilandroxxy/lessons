@@ -6,128 +6,146 @@
 # #
 # region Урок: ********************************************************************
 
-
+#2
 '''
-def F(a,b):
-    if a < b or a == 36:
+print('x y z w')
+for x in 0,1:
+    for y in 0,1:
+        for z in 0,1:
+            for w in 0,1:
+                F = (x <= (z == w)) or (not(y <= w))
+                if F == 0:
+                    print(x, y, z, w)
+'''
+#6
+'''
+import turtle as t
+k = 30
+t.screensize(2000,2000)
+t.tracer(0)
+t.left(90)
+t.down()
+t.right(90)
+for i in range(3):
+    t.right(45)
+    t.forward(10*k)
+    t.right(45)
+t.right(315)
+t.forward(10*k)
+for j in range(2):
+    t.right(90)
+    t.forward(10*k)
+
+t.up()
+for x in range(-30,30):
+    for y in range(-30,30):
+        t.setpos(x*k, y*k)
+        t.dot(3, 'blue')
+t.update()
+t.done()
+'''
+#7
+'''
+a = 2
+b = 48000
+c = 24
+V = 288 * 2**23
+t = V/(a*b*c)
+print(t) # 1208007576
+print(t / 60) # 17
+'''
+#11
+'''
+i = 6
+sys = 10
+bit = sys * i
+byte = bit / 8
+print(byte) # 7.5 -> 8
+V = (65536 * 8) / 2** 10 
+print(V)
+'''
+#14
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:23]:
+    A = int(f'7{x}38596', 23)
+    B = int(f'14{x}36', 23)
+    C = int(f'61{x}7',23)
+    if (A + B + C) % 22 == 0:
+        print((A+ B + C) // 22)
+        break
+'''
+#15
+'''
+def F(x, y, A):
+    return (x + 2*y > A) or (y < x) or (x < 30)
+
+M = []
+for A in range(1,1000):
+    if all(F(x, y, A) for x in range(1,100) for y in range(1,100)):
+        M.append(A)
+print(max(M))
+'''
+#16
+'''
+import sys  
+sys.setrecursionlimit(10**8)
+def F(n):
+    if n < 3:
+        return 3
+    if n >= 3:
+        return 2*n + 5 + F(n - 2)
+
+print(F(3027) - F(3023))
+'''
+#19,20,21
+'''
+def F(s,n):
+    if s >= 111:
+        return n % 2 == 0
+    if n == 0:
         return 0
-    if a == b:
+    h = [F(s+1, n - 1), F(s + 3, n - 1), F(s*4,n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(1, 111) if not F(s,1) and F(s, 2)])
+print([s for s in range(1, 111) if not F(s,1) and F(s, 3)])
+print([s for s in range(1, 111) if not F(s,2) and F(s, 4)])
+'''
+# 23
+'''
+def F(a, b):
+    if (a < b) or (a == 7):
+        return 0
+    elif a == b:
         return 1
-    if a > b:
-        return F(a-3,b) + F(a-6,b) + F(a//2,b)
+    else:
+        return F(a - 1, b) + F(a - 3, b) + F(a // 2, b)
 
-print(F(86,53) * F(53,12))
+print(F(19, 10) * F(10, 3))
 '''
 
-
-# 25
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d.append(j)
-            d.append(x // j)
-    return sorted(set(d))
-
-cnt = 0
-for x in range(1_350_050+1, 10**10):
-    d = [j for j in divisors(x) if j != x and j != 11 and j % 100 == 11]
-    if len(d) > 0:
-        print(x, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
-'''
+# 6, 8, 13, 17, 25
 
 
-# len(str(2939)) == 4
-# len(str(-2939)) == 5
-# len(str(abs(-2939))) == 4
+# На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R
+# следующим образом.
+# 1. Строится троичная запись числа N.
+# 2. Далее эта запись обрабатывается по следующему правилу:
+# а) если число N делится на 3, то слева к нему приписывается «1», а справа «02»;
+# б) если число N на 3 не делится, то остаток от деления на 3 умножается на 4,
+# переводится в троичную запись и дописывается в конец числа.
+# Полученная таким образом запись является троичной записью искомого числа R.
+# 3. Результат переводится в десятичную систему и выводится на экран.
+# Например, для исходного числа 11 = 1023 результатом является число 102223 = 107,
+# а для исходного числа 12 = 1103 это число 1110023 = 353.
+# Укажите максимальное число N, после обработки которого с помощью этого алгоритма
+# получается число R, меньшее 199.
 
-# print(123 % 100)  # 23
-# print(-123 % 100)  # 77
-# print(abs(-123) % 100)  # 23
-
-# 17
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if abs(x) % 100 == 30 or str(x)[-2:] == '30']
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 0:
-        if (x + y + z) > max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-
-# 9
-'''
-cnt = 0
-for s in open('0. files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if M.count(max(M)) == 1:
-        copied3 = [x for x in M if M.count(x) == 3]
-        copied1 = [x for x in M if M.count(x) == 1]
-        if len(copied3) == 3 and len(copied1) == 4:
-            cnt += 1
-print(cnt)
-'''
-
-
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d.append(j)
-            d.append(x // j)
-    return sorted(set(d))
-
-print([x for x in range(100) if len(divisors(x)) == 2])
-
-
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d.append(j)
-            d.append(x // j)
-    return sorted(set(d))
-
-print([x for x in range(100) if len(divisors(x)) == 0])
-'''
-
-
-# № 24896 (Уровень: Базовый)
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d.append(j)
-            d.append(x // j)
-    return sorted(set(d))
-
-
-cnt = 0
-for x in range(1_475_000-1, 0, -1):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        S = sum(d)
-        if S != 0 and S < 42000 and S % 6 == 0:
-            print(x, S)
-            cnt += 1
-            if cnt == 5:
-                break
-
-
-
-
-
-
+# Определите сумму всех чисел в строке таблицы с наименьшим номером, для чисел
+# которой выполнены оба условия:
+# − в строке есть два числа, каждое из которых повторяется дважды, остальные три числа
+# − максимальное число строки не повторяется.
 
 # endregion Урок: *************************************************************
 # #

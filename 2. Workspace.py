@@ -1519,3 +1519,15 @@ print((5 + 5 + 5 + 5 + 5 + 0) / 6)
 # G(n) = n/20+28, если n ≥ 248045;
 # G(n) = G(n+9)−4, если n < 248045.
 # Чему равно значение функции F(673)?
+
+
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '13 14 16 24 25 31 36 41 42 45 52 53 57 61 63 67 75 76'
+graph = 'GD DG GE EG DE ED DF FD EC CE CB BC CA AC AB BA FA AF'
+for p in permutations('ABCDEFG'):
+    nt = table
+    for i in range(1, 7 + 1):
+        nt = nt.replace(str(i), p[i - 1])
+    if set(nt.split()) == set(graph.split()):
+        print(*p)
