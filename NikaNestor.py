@@ -6,24 +6,6 @@
 # #
 # region Урок: ********************************************************************
 
-print('1 2 3 4 5 6 7 8')
-from itertools import permutations
-table = '12 13 14 21 25 27 31 34 37 41 43 48 52 56 58 65 68 72 73 84 85 86'
-graph = 'BD DB BE EB BC CB CH HC EH HE ED DE DG GD GA AG GF FG HF FH AF FA'
-for p in permutations('ABCDEFGH'):
-    nt = table
-    for i in range(1, 8+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
-        # 1 2 3 4 5 6 7 8
-        # E H B D F A C G
-
-
-    # i 0    1    2    3    4    5    6    7
-    # ('H', 'G', 'F', 'E', 'D', 'B', 'A', 'C')
-    #   1    2    3    4    5    6    7    8
-
 
 # endregion Урок: *************************************************************
 # #
