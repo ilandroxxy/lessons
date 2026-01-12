@@ -1,133 +1,72 @@
 # region Домашка: ******************************************************************
 
 
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# № 21908 Открытый вариант 2025 (Уровень: Базовый)
-# Текстовый файл состоит из десятичных цифр и заглавных букв латинского алфавита.
-# Определите в этом файле последовательность идущих подряд символов, представляющих
-# собой запись максимального чётного 14-ричного числа.
-'''
-s = open('files/24.txt').readline()
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[14:]:
-    s = s.replace(x, ' ')
 
-maxi = 0
-for x in s.split():
-    if x[0] == '0':
-        x = x.replace('0', '', 1)
-    if maxi < len(x):
-        maxi = len(x)
-print(maxi)
-'''
+from math import dist
+clustersB = [[], [], []]
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if x > 10 and y > 17 and y < 30:
+        clustersB[0].append([x, y])
+    if 10 < x < 20 and y < 17:
+        clustersB[1].append([x, y])
+    if x > 20 and y < 17:
+        clustersB[2].append([x, y])
 
 
-# № 5139 /dev/inf 11.22 (Уровень: Средний)
-# (А. Рогов) Текстовый файл состоит из символов A, B, C, D, E, F и U.
-# Определите максимальное количество идущих подряд троек символов вида
-# согласная + гласная + согласная в прилагаемом файле.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('U', 'E').replace('E', 'A')
-for x in 'BCDF':
-    s = s.replace(x, 'B')
+def center(cl):
+    R = []
+    for p in cl:   # 5.6
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
 
-cnt = 2
-maxi = 0
-for i in range(len(s)-2):
-    if cnt == 2 and s[i] == 'A':
-        continue
-    if s[i:i+3] in ('BAB', 'ABA'):
+
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# Q1 - среднее арифметическое расстояний от центра кластера с минимальным количеством
+# точек до точек этого кластера, и Q2- среднее арифметическое расстояний от центра
+# кластера с максимальным количеством точек до точек этого кластера.
+# Нулевое расстояние от центра кластера до самого себя не учитывать.
+#
+# В ответе запишите четыре числа:
+# во второй строке - начала абсолютную величину целой части произведения
+# Q1 × 10000, затем абсолютную величину целой части произведения Q2× 10 000.
+
+print(center(clustersB[0]))  # [18.68018435, 19.56779858]
+print(center(clustersB[1]))  # [16.02610912, 13.02260516]
+print(center(clustersB[2]))  # [28.41855208, 8.279001906]
+
+print(len(clustersB[0]))  # 88
+print(len(clustersB[1]))  # 146
+print(len(clustersB[2]))  # 399
+
+def result(cl, center):
+    summa = 0
+    cnt = 0
+    for g in cl:
+        if g == center:
+            continue
+        summa += dist(center, g)
         cnt += 1
-        if maxi < cnt:
-            maxi = cnt
-    else:
-        cnt = 2
-print(maxi)
-print(maxi / 3)
-'''
-'''
-s = open('files/24.txt').readline()
-s = s.replace('U', 'E').replace('E', 'A')
-for x in 'BCDF':
-    s = s.replace(x, 'B')
+    return summa /cnt
 
-s = s.replace('BAB', '*')
-print(s)
-
-for x in 'AB':
-    s = s.replace(x, ' ')
-    
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 4710 Демоверсия 2023 (Уровень: Базовый)
-'''
-s = open('files/24.txt').readline()
-s = s.replace('O', 'A')
-for x in 'CDF':
-    s = s.replace(x, 'C')
-
-s = s.replace('CA', '*')
-for x in 'CA':
-    s = s.replace(x, ' ')
-
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 4643 (Уровень: Базовый)
-# (А. Калинин) Текстовый файл состоит из символов A, B и цифр 1, 2.
-# Определите максимальное количество идущих подряд троек символов
-# вида двузначное число + буква в прилагаемом файле.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('1', '2')
-s = s.replace('A', 'B')
-s = s.replace('22B', '*')
-for x in '2B':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 4627 Основная волна 2022 (Уровень: Базовый)
-# Текстовый файл состоит из символов N, O и P.
-# Определите максимальное количество подряд идущих последовательностей
-# символов NPO или PNO в прилагаемом файле. Искомая последовательность
-# должна состоять только из троек NPO, или только из троек PNO, или только
-# из троек NPO и PNO в произвольном порядке их следования.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('NPO', 'PNO').replace('PNO', '*')
-for x in 'NOP':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 4545 (Уровень: Базовый)  Татьяна
-# Текстовый файл содержит строку из заглавных латинских букв X, Y и Z,
-# всего не более чем из 106 символов. Определите максимальное количество
-# идущих подряд троек символов XYZ или ZYX.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('XYZ', '*')
-s = s.replace('ZYX', '.')
-for x in 'XYZ':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
+Q1 = result(clustersB[0], [18.68018435, 19.56779858])
+Q2 = result(clustersB[2], [28.41855208, 8.279001906])
+print(int(abs(Q1 * 10000)), int(abs(Q2 * 10000)))
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
-# КЕГЭ = []
+# КЕГЭ = [19-21]
 # на следующем уроке: 10, (26)
