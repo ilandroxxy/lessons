@@ -1,180 +1,130 @@
 # region Домашка: ******************************************************************
 
 
-# № 21718 ЕГКР 19.04.25 (Уровень: Базовый)
-# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-# - символ «?» означает ровно одну произвольную цифру;
-# - символ «*» означает любую последовательность произвольной длины; в том числе «*» может задавать и пустую последовательность.
-
-# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
-# соответствующие маске 4*4736*1, которые делятся на 7993 без остатка.
-'''
-from fnmatch import *
-for x in range(7993, 10**10, 7993):
-    if fnmatch(str(x), '4*4736*1'):
-        print(x)
-
-from re import *
-for x in range(7993, 10**10, 7993):
-    if fullmatch('4[0-9]*4736[02468]+1', str(x)):
-        print(x)
-'''
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 2419 (Уровень: Базовый)
-# В текстовом файле находится цепочка из символов латинского
-# алфавита A, B, C длиной не более 10**6 символов.
-# Найдите длину самой длинной подцепочки, состоящей из символов C
-
-# Вариант 1: ctrl + F
+# № 21908 Открытый вариант 2025 (Уровень: Базовый)
+# Текстовый файл состоит из десятичных цифр и заглавных букв латинского алфавита.
+# Определите в этом файле последовательность идущих подряд символов, представляющих
+# собой запись максимального чётного 14-ричного числа.
 '''
-s = open('0. files/24.txt').readline()
-print(s)
-'''
+s = open('files/24.txt').readline()
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[14:]:
+    s = s.replace(x, ' ')
 
-
-# Вариант 2: исследование пар символов
-'''
-s = open('0. files/24.txt').readline()
-cnt = 1
 maxi = 0
-for i in range(len(s)-1):
-    if s[i] == 'C' and s[i+1] == 'C':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
+for x in s.split():
+    if x[0] == '0':
+        x = x.replace('0', '', 1)
+    if maxi < len(x):
+        maxi = len(x)
 print(maxi)
 '''
 
-s = 'ABCBABCBACBCBABCBCCCCABCBABCCCCCCACBABCBCBCCCABCBABCBAS'
-#   C   C  C C   C CCCC  C   CCCCCC C   C C CCC  C   C  S
 
-# Вариант 3: Через замену
+# № 5139 /dev/inf 11.22 (Уровень: Средний)
+# (А. Рогов) Текстовый файл состоит из символов A, B, C, D, E, F и U.
+# Определите максимальное количество идущих подряд троек символов вида
+# согласная + гласная + согласная в прилагаемом файле.
 '''
-s = open('0. files/24.txt').readline()
-s = s.replace('A', 'B').replace('B', ' ')
-print(max([len(i) for i in s.split()]))
+s = open('files/24.txt').readline()
+s = s.replace('U', 'E').replace('E', 'A')
+for x in 'BCDF':
+    s = s.replace(x, 'B')
+
+cnt = 2
+maxi = 0
+for i in range(len(s)-2):
+    if cnt == 2 and s[i] == 'A':
+        continue
+    if s[i:i+3] in ('BAB', 'ABA'):
+        cnt += 1
+        if maxi < cnt:
+            maxi = cnt
+    else:
+        cnt = 2
+print(maxi)
+print(maxi / 3)
 '''
-
-# Вариант 4: import re
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-print(max([len(x.group(0)) for x in finditer(r'[C]+', s)]))
-'''
+s = open('files/24.txt').readline()
+s = s.replace('U', 'E').replace('E', 'A')
+for x in 'BCDF':
+    s = s.replace(x, 'B')
 
-'''
-s = 'ABCBABCBACBCBABCBCCCCABCBABCCCCCCACBABCBCBCCCABCBABCBAS'
-from re import *
-# print([x.group(0) for x in finditer(r'[C]+', s)])
-# ['C', 'C', 'C', 'C', 'C', 'CCCC', 'C', 'CCCCCC', 'C', 'C', 'C', 'CCC', 'C', 'C']
-longest = max([len(x.group(0)) for x in finditer(r'[C]+', s)])
-print(longest)
-'''
+s = s.replace('BAB', '*')
+print(s)
 
-
-# № 2420 (Уровень: Базовый)
-# В текстовом файле находится цепочка из символов латинского
-# алфавита A, B, C, D, E, F. Найдите длину самой длинной подцепочки,
-# состоящей из символов A, B, E, F (в произвольном порядке).
-'''
-# Вариант 1
-
-s = open('0. files/24.txt').readline()
-s = s.replace('D', 'C').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-
-# Вариант 2
-
-from re import *
-s = open('0. files/24.txt').readline()
-print(max([len(x.group(0)) for x in finditer(f'[ABEF]*', s)]))
-'''
-
-
-# № 2421 (Уровень: Базовый)
-# В текстовом файле находится цепочка из символов латинского
-# алфавита A, B, C, D, E, F. Найдите длину самой длинной подцепочки,
-# не содержащей символа D.
-
-# Вариант 1
-'''
-s = open('0. files/24.txt').readline()
-s = s.replace('D', ' ')
+for x in 'AB':
+    s = s.replace(x, ' ')
+    
 print(max([len(x) for x in s.split()]))
 '''
 
-# Вариант 2
-'''
-from re import *
-s = open('0. files/24.txt').readline()
-print(max([len(x.group(0)) for x in finditer(f'[ABCEF]*', s)]))
-'''
 
-# Вариант 3
+# № 4710 Демоверсия 2023 (Уровень: Базовый)
 '''
-s = open('0. files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != 'D' and s[i+1] != 'D':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
+s = open('files/24.txt').readline()
+s = s.replace('O', 'A')
+for x in 'CDF':
+    s = s.replace(x, 'C')
+
+s = s.replace('CA', '*')
+for x in 'CA':
+    s = s.replace(x, ' ')
+
+print(max([len(x) for x in s.split()]))
 '''
 
 
-# № 2425 (Уровень: Базовый)
-# В текстовом файле находится цепочка из символов латинского
-# алфавита A, B, C, D, E, F. Найдите максимальную длину
-# цепочки вида DBACDBACDBAC.... (состоящей из фрагментов DBAC, последний
-# фрагмент может быть неполным).
-
-# Вариант 1: ctrl + F
+# № 4643 (Уровень: Базовый)
+# (А. Калинин) Текстовый файл состоит из символов A, B и цифр 1, 2.
+# Определите максимальное количество идущих подряд троек символов
+# вида двузначное число + буква в прилагаемом файле.
 '''
-s = open('0. files/24.txt').readline()
-print(s)
-print(len('DBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBACDBA'))
-'''
-
-# Вариант 2
-'''
-s = open('0. files/24.txt').readline()
-cnt = 3
-maxi = 0
-for i in range(len(s)-3):
-    if s[i:i+4] in ('DBAC', 'BACD', 'ACDB', 'CDBA'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 3
-print(maxi)
+s = open('files/24.txt').readline()
+s = s.replace('1', '2')
+s = s.replace('A', 'B')
+s = s.replace('22B', '*')
+for x in '2B':
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
 '''
 
-# Вариант 3
+
+# № 4627 Основная волна 2022 (Уровень: Базовый)
+# Текстовый файл состоит из символов N, O и P.
+# Определите максимальное количество подряд идущих последовательностей
+# символов NPO или PNO в прилагаемом файле. Искомая последовательность
+# должна состоять только из троек NPO, или только из троек PNO, или только
+# из троек NPO и PNO в произвольном порядке их следования.
 '''
-from re import *
-s = open('0. files/24.txt').readline()
-print(max([len(x.group(0)) for x in finditer(f'(D(BACD)*(BAC|BA|B)?)', s)]))
+s = open('files/24.txt').readline()
+s = s.replace('NPO', 'PNO').replace('PNO', '*')
+for x in 'NOP':
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
 '''
 
-# D
-# DBAC
-# DBA
-# DB
-# DBACDBACDBACD
-# DBACD
-# DBACDBAC
-# DBACDBA
-# DBACDB
+
+# № 4545 (Уровень: Базовый)  Татьяна
+# Текстовый файл содержит строку из заглавных латинских букв X, Y и Z,
+# всего не более чем из 106 символов. Определите максимальное количество
+# идущих подряд троек символов XYZ или ZYX.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('XYZ', '*')
+s = s.replace('ZYX', '.')
+for x in 'XYZ':
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+
 # endregion Урок: *************************************************************
 # #
 # #
