@@ -6,137 +6,172 @@
 # #
 # region Урок: ********************************************************************
 
-# Способы открытия файла 17.txt
+# № 23555 Пересдача 03.07.25 (Уровень: Базовый)
 '''
-file = open('files/17.txt', mode='r')
-M = []
-for x in file:
-    M.append(int(x))
-print(M)
-file.close()
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied3 = [x for x in M if M.count(x) == 3]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied3) == 3 and len(copied2) == 2 and len(copied1) == 2:
+        if max(copied3 + copied2) > max(copied1):
+            cnt += 1
+print(cnt)
+'''
 
 
-with open('files/17.txt', mode='r') as file:
-    M = [int(x) for x in file]
+# № 23268 Основная волна 11.06.25 (Уровень: Базовый)
+'''
+n = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(copied1) == 3:
+        if sum(copied2) / 4 < max(copied1):
+            print(n)
+            break
+'''
+
+
+# № 23368 Резервный день 19.06.25 (Уровень: Базовый)
+'''
+n = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    if len(M) == len(set(M)):  # - в строке все числа различны;
+        if 2 * (min(M) + max(M)) == 3 * (sum(M) - max(M) - min(M)):
+            print(n)
+
+# Вариант 2
+
+n = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    n += 1
+    if len(M) == len(set(M)):  # - в строке все числа различны;
+        if 2 * (M[0] + M[-1]) == 3 * (M[1] + M[2] + M[3]):
+            print(n)
+'''
+
+
+# № 14661 Открытый курс "Слово пацана" (Уровень: Сложный)
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    chet = [x for x in M if x % 2 == 0]
+    nechet = [x for x in M if x % 2 != 0]
+    if len(chet) > 0 and len(nechet) > 0:
+        if len(chet) % 2 == 0 and len(nechet) % 2 != 0:
+            if max(chet) % 4 == 0:
+                cnt += 1
+print(cnt)
+'''
+
+
+'''
+from itertools import permutations
+M = [1, 2, 3, 4]
+for p in permutations(M):
+    print(p)
+    # (1, 2, 3, 4)
+    # (1, 2, 4, 3)
+    # (1, 3, 2, 4)
+    # (1, 3, 4, 2)
+    # (1, 4, 2, 3)
+    # (1, 4, 3, 2)
+    # (2, 1, 3, 4)
+    # (2, 1, 4, 3)
+    # .....
+'''
+
+# № 24344 (Уровень: Средний)
+'''
+from itertools import permutations
+n = 0
+summa = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(',')])
+    n += 1
+    if (min(M) + max(M)) ** 2 > (M[1] ** 3 + M[2] ** 3):
+        if all(p[0] + p[1] != p[2] + p[3] for p in permutations(M)):
+            summa += n
+print(summa)
+'''
+
+
+# № 20070(Уровень: Средний)
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    flag = 0
+    A = [x for x in M if len(str(x)) == 2]
+    if len(A) == len(M):
+        flag += 1
+    if all(x % 5 != 0 for x in M):
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
+'''
+
+# № 25348 (Уровень: Базовый)
+# Откройте файл электронной таблицы, содержащей в каждой строке семь целых чисел.
+# Определить количество строк таблицы, для которых выполнены оба условия:
+# - в строке одно число повторяется трижды, остальные числа различны;
+# - максимальное число строки не повторяется.
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copy3 = [x for x in M if M.count(x) == 3]
+    copy1 = [x for x in M if M.count(x) == 1]
+    if len(copy3) == 3 and len(copy1) == 4:
+        # if max(copy1) > max(copy3):
+        if M.count(max(M)) == 1:
+            cnt += 1
+print(cnt)
+'''
+
+
+# № 19117 (Уровень: Средний)
+# (В. Лашин) Откройте файл электронной таблицы, содержащей
+# в каждой строке пять натуральных чисел.
+# Определите количество строк таблицы, содержащих числа,
+# для которых выполнено хотя бы одно условие:
+
+# – В строке одно число повторяется дважды, остальные различны;
+# – Выполнены следующие два условия:
+#     1. Сумма чётных чисел строки больше суммы нечётных;
+#     2. В строке существуют как чётные числа, так и нечётные числа.
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    ch = [x for x in M if x % 2 == 0]
+    nch = [x for x in M if x % 2 != 0]
     print(M)
-# Здесь файл считается закрытым
-
-# Чтение файла для 17 номера
-M = [int(x) for x in open('files/17.txt')]
-print(M)
+    flag = 0
+    copy2 = [x for x in M if M.count(x) == 2]
+    copy1 = [x for x in M if M.count(x) == 1]
+    if len(copy2) == 2 and len(copy1) == 3:
+        flag += 1
+    if sum(ch) > sum(nch):
+        if len(ch) > 0 and len(nch) > 0:
+            flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
 '''
-
-
-# Три типа 17 номеров:
-'''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-
-# 1. Под парой подразумевается два идущих подряд элемента последовательности.
-# 12 23 34 45
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-
-# IndexError: list index out of range
-
-# 2. Под тройкой подразумевается три идущих подряд элемента последовательности.
-# 123 234 345
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-
-# 3. Под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-for i in range(len(M)):
-    for j in range(i+1, len(M)):
-        x, y = M[i], M[j]
-        print(f'{x}{y}', end=' ')
-    print()
-'''
-
-
-# № 25356 ЕГКР 13.12.25 (Уровень: Базовый)
-# В которых ни один из трёх элементов не является четырёхзначным числом
-# А сумма элементов тройки больше максимального элемента последовательности, оканчивающегося на 30.
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if abs(x) % 100 == 30]
-R = []
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 0:
-        if (x + y + z) > max(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-# 1. Выучить шаблоны для открытия и чтения файла
-# 2. Повторить генераторы списков
-# 3. Понять принцип работы условий () + () + () == 0/1/2/3
-
-
-# № 21712 ЕГКР 19.04.25 (Уровень: Базовый)
-# Ровно один элемент является четырёхзначным числом и оканчивается на 6
-# А сумма элементов тройки не больше минимального положительного элемента последовательности,
-# являющегося четырёхзначным числом, которое оканчивается на 6.
-'''
-M = [int(x) for x in open('files/17.txt')]  # 893748, -20492, 3456, 6546, -5456, -2346, -5, 235, 0
-A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 10 == 6]  # 3456, 6546, -5456, -2346
-B = [x for x in A if x > 0]  # 3456, 6546
-R = []
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 1:
-        if (x + y + z) <= min(B):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-
-
-# № 23201 Основная волна 10.06.25 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 3]
-B = [x for x in A if abs(x) % 10 == 7]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) % min(B) == 0:
-            R.append(x + y)
-print(len(R), min(R))
-'''
-
-
-# № 17558 Основная волна 08.06.24 (Уровень: Базовый)
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if abs(x) % 32 == 0]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-    if (x < 0) + (y < 0) >= 1:
-        if (x + y) < len(A):
-            R.append(x + y)
-print(len(R), max(R))
-'''
-
-
-# № 17530 Основная волна 07.06.24 (Уровень: Базовый)
-
-M = [int(x) for x in open('files/17.txt')]
-R = []
-for i in range(len(M) - 1):
-    x, y = M[i], M[i+1]
-    if (x % 55 == min(M)) or (y % 55 == min(M)):
-        R.append(x + y)
-print(len(R), min(R))
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 5, 7, 8, 11, 13, 14, 15, 16, 17, 19-21, 23, 25]
-# КЕГЭ  = []
-# на следующем уроке: 9, 27
+# ФИПИ = [1, 2, 5, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23, 25]
+# КЕГЭ = []
+# на следующем уроке: 27

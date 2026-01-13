@@ -1478,6 +1478,7 @@ for s in open('0. files/27A.txt'):
 '''
 
 
+'''
 def F(x, y, A):
     return (78_125 != y + 4*x) or (A > x) and (A > y)
 
@@ -1519,15 +1520,61 @@ print((5 + 5 + 5 + 5 + 5 + 0) / 6)
 # G(n) = n/20+28, если n ≥ 248045;
 # G(n) = G(n+9)−4, если n < 248045.
 # Чему равно значение функции F(673)?
+'''
 
 
-print('1 2 3 4 5 6 7')
-from itertools import permutations
-table = '13 14 16 24 25 31 36 41 42 45 52 53 57 61 63 67 75 76'
-graph = 'GD DG GE EG DE ED DF FD EC CE CB BC CA AC AB BA FA AF'
-for p in permutations('ABCDEFG'):
-    nt = table
-    for i in range(1, 7 + 1):
-        nt = nt.replace(str(i), p[i - 1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
+
+from math import dist
+clusterA = [[], []]
+clusterB = [[], [], []]
+
+# for s in open("files/27A.txt"):
+#     s = s.replace(",", ".")
+#     x, y = (float(i) for i in s.split())
+#     if y < 8:
+#         clusterA[0].append([x, y])
+#     if y > 14 and 0 <= x <= 10:
+#         clusterA[1].append([x, y])
+
+
+for i in open("files/27B.txt"):
+    i = i.replace(",", ".")
+    x, y = (float(i) for i in i.split())
+    if 16 < y < 22:
+        clusterB[0].append([x, y])
+    if 11 < y < 16:
+        clusterB[1].append([x, y])
+    if 0 < y < 11:
+        clusterB[2].append([x, y])
+
+
+def center(cl):
+    R = []
+    for p in cl:
+        summ = sum(dist(p, q) for q in cl)
+        R.append([summ, p])
+    return min(R)[1]
+
+
+# print(center(clusterA[0])) # [1.8967357, 6.201779273]
+# print(center(clusterA[1])) # [3.43093914, 17.76254855]
+
+# Px = 3.43093914 - 1.8967357
+# Py = 17.76254855 - 6.201779273
+# print((Px*10000), int(Py*10000))
+
+
+print(len(clusterB[0]))  # 88
+print(len(clusterB[2]))  # 399
+
+
+print(center(clusterB[0])) # [18.68018435, 19.56779858]
+print(center(clusterB[2])) # [28.41855208, 8.279001906]
+
+clusterB[0].remove(center(clusterB[0]))
+clusterB[2].remove(center(clusterB[2]))
+
+print((sum(dist([18.68018435, 19.56779858], q) for q in clusterB[0]) / 87)*10000)
+print((sum(dist([28.41855208, 8.279001906], q) for q in clusterB[2]) / 398)*10000)
+
+
