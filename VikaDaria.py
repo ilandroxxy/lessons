@@ -1,125 +1,169 @@
 # region Домашка: ******************************************************************
 
+# № 19157 (Уровень: Базовый)
+'''
+from fnmatch import *
+for x in range(6437, 10**10, 6437):
+    if fnmatch(str(x), '1?3*5*954'):
+        print(x)
+
+from re import *
+for x in range(6437, 10**10, 6437):
+    if fullmatch('1[0-9]3[0-9]*5[0-9]*954', str(x)):
+        print(x)
+'''
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Номер 16
+# Тип 24 №27691
+# Определите максимальное количество идущих подряд символов A.
 '''
-import sys
-sys.setrecursionlimit(10**8)
+# s = open('files/24.txt').readline()
+# B C A C AA BBB AAAA BBBBB CC BB AA CCCCC
 
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    if n < 19:
-        return 6 * (G(n - 7) - 36)
-
-def G(n):
-    if n >= 248045:
-        return n / 20 + 28
-    if n < 248045:
-        return G(n + 9) - 4
-
-print(F(673))
-'''
+# Вариант 1: ctrl + F - (поиск по выводу)
+s = open('files/24.txt').readline()
+# print(s)
+print(len('AAAAAAA'))
 
 
-# Номер 25
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d.append(j)
-            d.append(x // j)
-    return sorted(set(d))
-
-cnt = 0
-for x in range(1_350_050+1, 10**10):
-    d = [j for j in divisors(x) if j != 11 and j != x and j % 100 == 11]
-    if len(d) > 0:
-        print(x, min(d))
+# Вариант 2
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] == 'A' and s[i+1] == 'A':
         cnt += 1
-        if cnt == 5:
-            break
-'''
-
-
-# Номер 27
-'''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
-
-for s in open('0. files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 10:
-        clustersA[0].append([x, y])
+        maxi = max(maxi, cnt)
     else:
-        clustersA[1].append([x, y])
+        cnt = 1
+print(maxi)
 
 
-for s in open('0. files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y < 16:
-        clustersB[0].append([x, y])
-    if 16 < y < 23:
-        clustersB[1].append([x, y])
-    if y > 23:
-        clustersB[2].append([x, y])
+# Вариант 3
+s = open('files/24.txt').readline()
+s = s.replace('B', 'C').replace('C', ' ')
+print(max([len(x) for x in s.split()]))
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa=sum(dist(p, g) for g in cl)
-        R.append([summa,p])
-    return min(R)[1]
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера
-P1 = 5.860581671822705 * 10000
-print(dist([1.0, 1.0], [7.0391548, 12.3587258]))  # 12.864371049450831
-print(dist([1.0, 1.0], [3.8471735, 6.1225014]))  # 5.860581671822705
-P2 = 12.864371049450831 * 10000
-# P2 - максимальное расстояние от этой же точки до центра кластера.
-print(int(P1), int(P2))  # 58605 128643
-
-
-print(center(clustersB[0]))  # [26.6431823, 12.4121727]
-print(center(clustersB[1]))  # [15.861917, 18.8540334]
-print(center(clustersB[2]))  # [13.9823808, 26.4800432]
-
-print(len(clustersB[0]))  # 451
-print(len(clustersB[1]))  # 100
-print(len(clustersB[2]))  # 74
-
-# Q1 - в кластере с наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 1,2 от центра кластера
-# Q2 - в кластере с наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 0,75 от центра кластера.
-
-def proverka(cl, center, l):
-    cnt = 0
-    for p in cl:
-        if dist(p, center) <= l:
-            cnt += 1
-    return cnt
-
-Q1 = proverka(clustersB[0], [26.6431823, 12.4121727], 1.2)  # 358
-Q2 = proverka(clustersB[0], [26.6431823, 12.4121727], 0.75)  # 203
-
-print(Q1, Q2)  # 358 203
+# Вариант 4
+from re import *
+s = open('files/24.txt').readline()
+print([x.group(0) for x in finditer(r'[A]+', s)])
+print(max([len(x.group(0)) for x in finditer(r'[A]+', s)]))
 '''
+
+
+# Тип 24 №27695
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждые два соседних различны.
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] != s[i+1]:
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
+'''
+
+
+#  Определите максимальную длину цепочки вида **A   ABAB...
+#  (составленной из фрагментов AB, последний фрагмент может быть неполным).
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if cnt == 1 and s[i:i+2] == 'BA':
+        continue
+    if s[i:i+2] in ('AB', 'BA'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
+'''
+
+'''
+s = open('files/24.txt').readline()
+s = s.replace('AB', '**').replace('**A', '**+')
+s = s.replace('A', 'B').replace('B', 'C').replace('C', ' ')
+s = s.replace('+*', '+ *')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №27699
+# Определите максимальную длину цепочки вида LDRLDRLDR...
+# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
+'''
+s = open('files/24.txt').readline()
+cnt = 2
+maxi = 0
+for i in range(len(s)-1):
+    if cnt == 1 and s[i:i+3] in ('DRL', 'RLD'):
+        continue
+    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 2
+print(maxi)
+'''
+
+
+# Тип 24 №36037
+# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
+
+# AAAAAAXZZYBBBBBBBBB
+# AAAAAA    BBBBBBBBB
+# AAAAAAXZZ    ZZYBBBBBBBBB
+'''
+s = open('files/24.txt').readline()
+s = s.replace('XZZY', 'XZZ ZZY')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №37159
+# Найдите максимальную длину подстроки, в которой
+# символы a и d не стоят рядом.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('ad', 'a d').replace('da', 'd a')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №79737
+# Определите в этом файле последовательность идущих
+# подряд символов, представляющих собой запись
+# максимального чётного 14-ричного числа.
+# В ответе запишите количество символов
+# (значащих цифр в записи числа) в этой последовательности.
+
+s = open('files/24.txt').readline()
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[14:]:
+    s = s.replace(x, ' ')
+print(max([[len(x), x] for x in s.split()]))
+
+
+M = sorted([[len(x), x] for x in s.split()])
+for x in M:
+    print(*x)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 23, 19-21, 22, 25, 27]
+# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = []
 # на следующем уроке:
