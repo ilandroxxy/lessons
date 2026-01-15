@@ -1524,57 +1524,10 @@ print((5 + 5 + 5 + 5 + 5 + 0) / 6)
 
 
 
-from math import dist
-clusterA = [[], []]
-clusterB = [[], [], []]
 
-# for s in open("files/27A.txt"):
-#     s = s.replace(",", ".")
-#     x, y = (float(i) for i in s.split())
-#     if y < 8:
-#         clusterA[0].append([x, y])
-#     if y > 14 and 0 <= x <= 10:
-#         clusterA[1].append([x, y])
-
-
-for i in open("files/27B.txt"):
-    i = i.replace(",", ".")
-    x, y = (float(i) for i in i.split())
-    if 16 < y < 22:
-        clusterB[0].append([x, y])
-    if 11 < y < 16:
-        clusterB[1].append([x, y])
-    if 0 < y < 11:
-        clusterB[2].append([x, y])
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summ = sum(dist(p, q) for q in cl)
-        R.append([summ, p])
-    return min(R)[1]
-
-
-# print(center(clusterA[0])) # [1.8967357, 6.201779273]
-# print(center(clusterA[1])) # [3.43093914, 17.76254855]
-
-# Px = 3.43093914 - 1.8967357
-# Py = 17.76254855 - 6.201779273
-# print((Px*10000), int(Py*10000))
-
-
-print(len(clusterB[0]))  # 88
-print(len(clusterB[2]))  # 399
-
-
-print(center(clusterB[0])) # [18.68018435, 19.56779858]
-print(center(clusterB[2])) # [28.41855208, 8.279001906]
-
-clusterB[0].remove(center(clusterB[0]))
-clusterB[2].remove(center(clusterB[2]))
-
-print((sum(dist([18.68018435, 19.56779858], q) for q in clusterB[0]) / 87)*10000)
-print((sum(dist([28.41855208, 8.279001906], q) for q in clusterB[2]) / 398)*10000)
-
-
+summa = 9000 + 13500 + 1500 + 4500 + 16500
+print(f'Итог: {summa}')
+print(summa * 0.4)
+print(summa * 0.3)
+print(summa * 0.2)
+print(summa * 0.1)

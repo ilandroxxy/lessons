@@ -6,172 +6,94 @@
 # #
 # region Урок: ********************************************************************
 
-# № 23555 Пересдача 03.07.25 (Уровень: Базовый)
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(copied2) == 2 and len(copied1) == 2:
-        if max(copied3 + copied2) > max(copied1):
+
+# № 25364 (Уровень: Базовый)
+
+from math import dist
+from multiprocessing.forkserver import connect_to_new_process
+
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+# from math import dist
+# def d(A, B):
+#     x1, y1 = A
+#     x2, y2 = B
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+#
+# print(d([4, 5], [6, 7]))  # 2.8284
+# print(dist([4, 5], [6, 7]))  # 2.8284
+
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+        # print(summa, p)
+    return min(R)[1]
+
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 10:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 22:
+        clustersB[0].append([x, y])
+    if 15 < y < 22:
+        clustersB[1].append([x, y])
+    if y < 15:
+        clustersB[2].append([x, y])
+
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера,
+# и P2 - максимальное расстояние от этой же точки до центра кластера.
+
+print(center(clustersA[0]))  # [7.0391548, 12.3587258]
+print(center(clustersA[1]))  # [3.8471735, 6.1225014]
+
+P1 = dist([1.0, 1.0], [3.8471735, 6.1225014])  # 5.860581671822705
+P2 = dist([1.0, 1.0], [7.0391548, 12.3587258])  # 12.864371049450831
+print(int(P1 * 10000), int(P2 * 10000))
+
+
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# Q1 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 1,2 от центра кластера,
+#
+# и Q2 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 0,75 от центра кластера.
+
+print(center(clustersB[0]))  # [13.9823808, 26.4800432]
+print(center(clustersB[1]))  # [15.861917, 18.8540334]
+print(center(clustersB[2]))  # [26.6431823, 12.4121727]
+
+print(len(clustersB[0]))  # 74
+print(len(clustersB[1]))  # 100
+print(len(clustersB[2]))  # 451
+
+def result(cl, center, length):
+    cnt = 0
+    for p in cl:
+        if dist(p, center) <= length:
             cnt += 1
-print(cnt)
-'''
+    return cnt
 
 
-# № 23268 Основная волна 11.06.25 (Уровень: Базовый)
-'''
-n = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(copied1) == 3:
-        if sum(copied2) / 4 < max(copied1):
-            print(n)
-            break
-'''
-
-
-# № 23368 Резервный день 19.06.25 (Уровень: Базовый)
-'''
-n = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    if len(M) == len(set(M)):  # - в строке все числа различны;
-        if 2 * (min(M) + max(M)) == 3 * (sum(M) - max(M) - min(M)):
-            print(n)
-
-# Вариант 2
-
-n = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    n += 1
-    if len(M) == len(set(M)):  # - в строке все числа различны;
-        if 2 * (M[0] + M[-1]) == 3 * (M[1] + M[2] + M[3]):
-            print(n)
-'''
-
-
-# № 14661 Открытый курс "Слово пацана" (Уровень: Сложный)
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > 0 and len(nechet) > 0:
-        if len(chet) % 2 == 0 and len(nechet) % 2 != 0:
-            if max(chet) % 4 == 0:
-                cnt += 1
-print(cnt)
-'''
-
-
-'''
-from itertools import permutations
-M = [1, 2, 3, 4]
-for p in permutations(M):
-    print(p)
-    # (1, 2, 3, 4)
-    # (1, 2, 4, 3)
-    # (1, 3, 2, 4)
-    # (1, 3, 4, 2)
-    # (1, 4, 2, 3)
-    # (1, 4, 3, 2)
-    # (2, 1, 3, 4)
-    # (2, 1, 4, 3)
-    # .....
-'''
-
-# № 24344 (Уровень: Средний)
-'''
-from itertools import permutations
-n = 0
-summa = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(',')])
-    n += 1
-    if (min(M) + max(M)) ** 2 > (M[1] ** 3 + M[2] ** 3):
-        if all(p[0] + p[1] != p[2] + p[3] for p in permutations(M)):
-            summa += n
-print(summa)
-'''
-
-
-# № 20070(Уровень: Средний)
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    flag = 0
-    A = [x for x in M if len(str(x)) == 2]
-    if len(A) == len(M):
-        flag += 1
-    if all(x % 5 != 0 for x in M):
-        flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
-'''
-
-# № 25348 (Уровень: Базовый)
-# Откройте файл электронной таблицы, содержащей в каждой строке семь целых чисел.
-# Определить количество строк таблицы, для которых выполнены оба условия:
-# - в строке одно число повторяется трижды, остальные числа различны;
-# - максимальное число строки не повторяется.
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copy3 = [x for x in M if M.count(x) == 3]
-    copy1 = [x for x in M if M.count(x) == 1]
-    if len(copy3) == 3 and len(copy1) == 4:
-        # if max(copy1) > max(copy3):
-        if M.count(max(M)) == 1:
-            cnt += 1
-print(cnt)
-'''
-
-
-# № 19117 (Уровень: Средний)
-# (В. Лашин) Откройте файл электронной таблицы, содержащей
-# в каждой строке пять натуральных чисел.
-# Определите количество строк таблицы, содержащих числа,
-# для которых выполнено хотя бы одно условие:
-
-# – В строке одно число повторяется дважды, остальные различны;
-# – Выполнены следующие два условия:
-#     1. Сумма чётных чисел строки больше суммы нечётных;
-#     2. В строке существуют как чётные числа, так и нечётные числа.
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    ch = [x for x in M if x % 2 == 0]
-    nch = [x for x in M if x % 2 != 0]
-    print(M)
-    flag = 0
-    copy2 = [x for x in M if M.count(x) == 2]
-    copy1 = [x for x in M if M.count(x) == 1]
-    if len(copy2) == 2 and len(copy1) == 3:
-        flag += 1
-    if sum(ch) > sum(nch):
-        if len(ch) > 0 and len(nch) > 0:
-            flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
-'''
+Q1 = result(clustersB[2], [26.6431823, 12.4121727], 1.2)
+Q2 = result(clustersB[2], [26.6431823, 12.4121727], 0.75)
+print(Q1, Q2)
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 5, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23, 25]
+# ФИПИ = [1, 2, 5, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
 # КЕГЭ = []
-# на следующем уроке: 27
+# на следующем уроке: +20 минут к след. уроку
