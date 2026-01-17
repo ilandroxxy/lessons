@@ -1525,7 +1525,7 @@ print((5 + 5 + 5 + 5 + 5 + 0) / 6)
 
 
 
-summa = 9000 + 13500 + 1500 + 4500 + 16500
+summa = 23904
 print(f'Итог: {summa}')
 print(summa * 0.4)
 print(summa * 0.3)

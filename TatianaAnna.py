@@ -8,65 +8,72 @@
 # region Урок: ********************************************************************
 
 
-from math import dist
-clustersB = [[], [], []]
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if x > 10 and y > 17 and y < 30:
-        clustersB[0].append([x, y])
-    if 10 < x < 20 and y < 17:
-        clustersB[1].append([x, y])
-    if x > 20 and y < 17:
-        clustersB[2].append([x, y])
-
-
-def center(cl):
-    R = []
-    for p in cl:   # 5.6
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# Q1 - среднее арифметическое расстояний от центра кластера с минимальным количеством
-# точек до точек этого кластера, и Q2- среднее арифметическое расстояний от центра
-# кластера с максимальным количеством точек до точек этого кластера.
-# Нулевое расстояние от центра кластера до самого себя не учитывать.
-#
-# В ответе запишите четыре числа:
-# во второй строке - начала абсолютную величину целой части произведения
-# Q1 × 10000, затем абсолютную величину целой части произведения Q2× 10 000.
-
-print(center(clustersB[0]))  # [18.68018435, 19.56779858]
-print(center(clustersB[1]))  # [16.02610912, 13.02260516]
-print(center(clustersB[2]))  # [28.41855208, 8.279001906]
-
-print(len(clustersB[0]))  # 88
-print(len(clustersB[1]))  # 146
-print(len(clustersB[2]))  # 399
-
-def result(cl, center):
-    summa = 0
-    cnt = 0
-    for g in cl:
-        if g == center:
-            continue
-        summa += dist(center, g)
+# № 863 (Уровень: Базовый)
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s) - 1):
+    if s[i] != s[i+1]:
         cnt += 1
-    return summa /cnt
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
+'''
 
-Q1 = result(clustersB[0], [18.68018435, 19.56779858])
-Q2 = result(clustersB[2], [28.41855208, 8.279001906])
-print(int(abs(Q1 * 10000)), int(abs(Q2 * 10000)))
+
+# Тип 24 №37159
+# Найдите максимальную длину подстроки,
+# в которой символы a и d не стоят рядом.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('ad', 'a d').replace('da', 'd a')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №40740
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет ни одной буквы A и при этом не менее трёх букв E.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('A', ' ')
+print(max([len(x) for x in s.split() if x.count('E') >= 3]))
+'''
+
+
+# Тип 24 №45258
+# Искомая подпоследовательность должна состоять только из пар AB,
+# или только из пар CB, или только из пар AB и CB в произвольном
+# порядке следования этих пар.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('CB', '*').replace('AB', '*')
+for x in 'ABC':
+    s = s.replace(x, ' ')
+print(s)
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# Тип 24 №55820
+# Определите максимальное количество идущих подряд символов,
+# среди которых символы Q, R, S в различных комбинациях
+# (с учётом повторений) не стоят рядом.
+
+s = open('files/24.txt').readline()
+s = s.replace('Q', 'R').replace('R', 'S')
+while 'SS' in s:
+    s = s.replace('SS', 'S S')
+print(max([len(x) for x in s.split()]))
+
+
+# S SS SS SS S
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = [19-21]
-# на следующем уроке: 10, (26)
+# на следующем уроке: 10, (26)  + 10 минут

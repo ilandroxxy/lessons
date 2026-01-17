@@ -1,165 +1,201 @@
 # region Домашка: ******************************************************************
 
-# № 19157 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(6437, 10**10, 6437):
-    if fnmatch(str(x), '1?3*5*954'):
-        print(x)
-
-from re import *
-for x in range(6437, 10**10, 6437):
-    if fullmatch('1[0-9]3[0-9]*5[0-9]*954', str(x)):
-        print(x)
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-# Тип 24 №27691
-# Определите максимальное количество идущих подряд символов A.
+
+# № 5223 (Уровень: Базовый)
 '''
-# s = open('files/24.txt').readline()
-# B C A C AA BBB AAAA BBBBB CC BB AA CCCCC
-
-# Вариант 1: ctrl + F - (поиск по выводу)
+c = 1
+maxi = 0
+k = ''
 s = open('files/24.txt').readline()
-# print(s)
-print(len('AAAAAAA'))
+for i in range(len(s) - 1):
+    if s[i] + s[i + 1] != 'DD':
+        c += 1
+        k += s[i]
+        if 'FE' in k:
+            maxi = max(maxi, c)
+    else:
+        c = 1
+        k = ''
+print(maxi)
+'''
 
+'''
+maxi = 0
+k = '0'
+s = open('files/24.txt').readline()
+for i in range(len(s) - 1):
+    if s[i] + s[i + 1] != 'DD':
+        k += s[i]
+        if 'FE' in k:
+            maxi = max(maxi, len(k))
+    else:
+        k = '0'
+print(maxi)
+'''
+
+# LLONDDDBKTIACOQFJYMTS
+# LLOND DDBKTIACOQFJYMTS
+
+# LLONDDDDBKTIACOQFJYMTS
+# LLOND DD DBKTIACOQFJYMTS
+'''
+s = open('files/24.txt').readline()
+while 'DD' in s:
+    s = s.replace('DD', 'D D')
+
+print([x for x in s.split() if 'FE' in x])
+print(max([len(x) for x in s.split() if 'FE' in x]))
+'''
+
+
+# № 2426 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 символов 1, 2, 3, A, B, C.
+# Определите максимальное количество идущих подряд цифр.
+'''
+c = 0
+res = []
+s = open('files/24.txt').readline()
+for i in range(len(s)):
+    if s[i] in '123':
+        c += 1
+    else:
+        res.append(c)
+        c = 0
+print(max(res))
+
+
+c = 0
+maxi = 0
+s = open('files/24.txt').readline()
+for i in range(len(s)):
+    if s[i] in '123':
+        c += 1
+        maxi = max(maxi, c)
+    else:
+        c = 0
+print(max(res))
+
+
+c = 0
+maxi = 0
+s = open('files/24.txt').readline()
+for x in s:
+    if x in '123':
+        c += 1
+        maxi = max(maxi, c)
+    else:
+        c = 0
+print(max(res))
 
 # Вариант 2
 s = open('files/24.txt').readline()
-cnt = 1
+s = s.replace('A', 'B').replace('B', 'C').replace('C', ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+
+# КЕГЭ № 16388 ЕГКР 27.04.24 (Уровень: Базовый)
+# Текстовый файл состоит из символов K, L, M и N.
+# В прилагаемом файле определите максимальное количество символов
+# в непрерывной подпоследовательности, состоящей из идущих подряд
+# групп символов KLMN в указанном порядке, при этом в начале и
+# в конце искомой последовательности группа символов KLMN может
+# быть неполной.
+
+# i 0123456789
+#   KLMNKLMNKLMNKLMN
+'''
+c = 3
 maxi = 0
-for i in range(len(s)-1):
-    if s[i] == 'A' and s[i+1] == 'A':
-        cnt += 1
-        maxi = max(maxi, cnt)
+s = open('files/24.txt').readline()
+for i in range(len(s) - 3):
+    if (s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'KLMN'
+            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'MNKL'
+            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'NKLM'
+            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'LMNK'):
+        c += 1
     else:
-        cnt = 1
+        maxi = max(maxi, c)
+        c = 3
 print(maxi)
 
-
-# Вариант 3
+c = 3
+maxi = 0
 s = open('files/24.txt').readline()
-s = s.replace('B', 'C').replace('C', ' ')
+for i in range(len(s) - 3):
+    if s[i:i + 4] in ('KLMN', 'MNKL', 'NKLM', 'LMNK'):
+        c += 1
+    else:
+        maxi = max(maxi, c)
+        c = 3
+print(maxi)
+'''
+
+
+'''
+s = open('files/24.txt').readline()
+s = s.replace('KLMN', '****')
+for x in 'KLMN':
+    s = s.replace(x, ' ')
 print(max([len(x) for x in s.split()]))
+'''
 
-
-# Вариант 4
+# todo почему не хватает элементов
+'''
 from re import *
 s = open('files/24.txt').readline()
-print([x.group(0) for x in finditer(r'[A]+', s)])
-print(max([len(x.group(0)) for x in finditer(r'[A]+', s)]))
+print([x.group(0) for x in finditer('(N|MN|LMN)(KLMN)+(K|KL|KLM)', s)])
+print(max([len(x.group(0)) for x in finditer('(N|MN|LMN)(KLMN)+(K|KL|KLM)', s)]))
 '''
 
 
-# Тип 24 №27695
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
-'''
-s = open('files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-
-#  Определите максимальную длину цепочки вида **A   ABAB...
-#  (составленной из фрагментов AB, последний фрагмент может быть неполным).
+# № 13939 (Уровень: Средний)
+# (Д. Бахтиев) Текстовый файл состоит из цифр 0, 1, 2, 3, 4
+# и букв A, B, C, D, E.
+# Определите в прилагаемом файле количество подстрок, которые
+# могут представлять запись натурального числа в троичной системе
+# счисления без незначащих нулей.
 '''
 s = open('files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if cnt == 1 and s[i:i+2] == 'BA':
-        continue
-    if s[i:i+2] in ('AB', 'BA'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-
-'''
-s = open('files/24.txt').readline()
-s = s.replace('AB', '**').replace('**A', '**+')
-s = s.replace('A', 'B').replace('B', 'C').replace('C', ' ')
-s = s.replace('+*', '+ *')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №27699
-# Определите максимальную длину цепочки вида LDRLDRLDR...
-# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
-'''
-s = open('files/24.txt').readline()
-cnt = 2
-maxi = 0
-for i in range(len(s)-1):
-    if cnt == 1 and s[i:i+3] in ('DRL', 'RLD'):
-        continue
-    if s[i:i+3] in ('LDR', 'DRL', 'RLD'):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 2
-print(maxi)
-'''
-
-
-# Тип 24 №36037
-# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
-
-# AAAAAAXZZYBBBBBBBBB
-# AAAAAA    BBBBBBBBB
-# AAAAAAXZZ    ZZYBBBBBBBBB
-'''
-s = open('files/24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №37159
-# Найдите максимальную длину подстроки, в которой
-# символы a и d не стоят рядом.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('ad', 'a d').replace('da', 'd a')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Тип 24 №79737
-# Определите в этом файле последовательность идущих
-# подряд символов, представляющих собой запись
-# максимального чётного 14-ричного числа.
-# В ответе запишите количество символов
-# (значащих цифр в записи числа) в этой последовательности.
-
-s = open('files/24.txt').readline()
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[14:]:
+s = '444400122104444'
+for x in 'ABCDE34':
     s = s.replace(x, ' ')
-print(max([[len(x), x] for x in s.split()]))
+
+R = []
+for x in s.split():
+    while len(x) > 0 and x[0] == '0':
+        if x[0] == '0':
+            x = x[1:]
+    R.append(len(x))
+print(max(R))
+'''
 
 
-M = sorted([[len(x), x] for x in s.split()])
-for x in M:
-    print(*x)
+# № 10724 (Уровень: Базовый)
+# Определите в прилагаемом файле максимальное количество
+# идущих подряд символов, которые могут представлять запись
+# числа в шестнадцатеричной системе счисления.
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+s = open('files/24.txt').readline()
+for x in alp[16:]:
+    s = s.replace(x, ' ')
 
+R = []
+for x in s.split():
+    while len(x) > 0 and x[0] == '0':
+        if x[0] == '0':
+            x = x[1:]
+    R.append(len(x))
+print(max(R))
+'''
 
 # endregion Урок: *************************************************************
 # #
