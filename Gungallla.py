@@ -6,38 +6,65 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 25354 ЕГКР 13.12.25 (Уровень: Средний)
+# 8
 '''
-def f(x, y):
-    return (78125 != (y + 4 * x)) or (A > x) and (A > y)
-
-# 78125 = y + 4x
-# y = 78125 - 4x
-
-for A in range(1, 100000):
-    if all(f(x, 78125 - 4*x) for x in range(1, 78125 // 4)):
-        print(A)
-        break
-'''
-
-
-# № 25356 ЕГКР 13.12.25 (Уровень: Базовый)
-'''
-R = []
-a = [int(x) for x in open('0. files/17.txt')]
-c = [x for x in a if len(str(abs(x))) == 4]
-b = [x for x in a if str(abs(x))[-2:] == '30']
-for i in range(len(a) - 2):
-    x, y, z = a[i], a[i + 1], a[i + 2]
-    if len(str(x)) != 4 and len(str(y)) != 4 and len(str(z)) != 4:
-    if (x in c) + (y in c) + (z in c) == 0:
-        if x + y + z > max(b):
-            R .append(x + y + z)
-print(len(R ), max(R))
+n = 0
+b = []
+from itertools import *
+for p in product(sorted('гранит'), repeat=6):
+    a = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        # if a[0] != 'р' and a[0] != 'т':
+        if a[0] not in 'рт':
+            if a.count('т') == 1:
+                b.append(n)
+print(max(b))
 '''
 
 
+# 15
+'''
+def f(a1, a2, x):
+    P = 225 <= x <= 464
+    Q = 140 <= x <= 315
+    A = a1 <= x <= a2
+    return (P) <= (((Q) and (not A)) <= (not P))
+
+b = []
+M = [x / 4 for x in range(120 * 4, 500 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(f(a1, a2, x) for x in M):
+            b.append(a2 - a1)
+print(min(b))
+'''
+
+
+# 25
+'''
+def f(x):
+    d = []
+    for i in range(2, int(x ** 0.5) + 1):
+        if x % i == 0:
+            d += [i, x // i]
+    return sorted(set(d))
+
+print(f(24))  # [2, 12, 3, 8, 4, 6]
+
+k = 0
+for x in range(13_200_001, 10**10):
+    a = f(x)
+    b = [x for x in a if len(f(x)) == 0]
+    if len(b) >= 2:
+        M = max(b) + min(b)
+        if M > 30000:
+            if M % 100 == 55:
+                print(x, M)
+                k += 1
+                if k == 7:
+                    break
+'''
 
 
 
@@ -45,5 +72,5 @@ print(len(R ), max(R))
 # #
 # #
 # ФИПИ = [1, 2, 4, 5, 6, 8, 9, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25, 27]
-# КЕГЭ  = []
-# на следующем уроке:
+# КЕГЭ = []
+# на следующем уроке: 8, 10, 15, 25, 27
