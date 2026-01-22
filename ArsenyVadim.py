@@ -1,28 +1,34 @@
 # region Домашка: ******************************************************************
 
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
-
-# № 25364 (Уровень: Базовый)
-
+# № 25448 (Уровень: Базовый)
+'''
 from math import dist
-from multiprocessing.forkserver import connect_to_new_process
-
 clustersA = [[], []]
 clustersB = [[], [], []]
 
-# from math import dist
-# def d(A, B):
-#     x1, y1 = A
-#     x2, y2 = B
-#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-#
-# print(d([4, 5], [6, 7]))  # 2.8284
-# print(dist([4, 5], [6, 7]))  # 2.8284
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y < 10:
+        clustersA[0].append([x, y])
+    else:
+        if 0 < x < 5:
+            clustersA[1].append([x, y])
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if 0 < y < 11:
+        clustersB[0].append([x, y])
+    if 11 < y < 15:
+        clustersB[1].append([x, y])
+    if 15 < y < 25:
+        clustersB[2].append([x, y])
 
 def center(cl):
     R = []
@@ -31,66 +37,50 @@ def center(cl):
         for g in cl:
             summa += dist(p, g)
         R.append([summa, p])
-        # print(summa, p)
     return min(R)[1]
 
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 10:
-        clustersA[0].append([x, y])
-    else:
-        clustersA[1].append([x, y])
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 22:
-        clustersB[0].append([x, y])
-    if 15 < y < 22:
-        clustersB[1].append([x, y])
-    if y < 15:
-        clustersB[2].append([x, y])
-
 # Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера,
-# и P2 - максимальное расстояние от этой же точки до центра кластера.
+# Px - расстояние по оси абсцисс между центрами кластеров, и
+# Py - расстояние по оси ординат между центрами кластеров.
 
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
+print(center(clustersA[0]))  # [1.8967357, 6.201779273]
+print(center(clustersA[1]))  # [3.43093914, 17.76254855]
 
-P1 = dist([1.0, 1.0], [3.8471735, 6.1225014])  # 5.860581671822705
-P2 = dist([1.0, 1.0], [7.0391548, 12.3587258])  # 12.864371049450831
-print(int(P1 * 10000), int(P2 * 10000))
+PxA = (3.43093914 - 1.8967357) * 10000
+PyA = (17.76254855 - 6.201779273) * 10000
+print(int(abs(PxA)), int(abs(PyA)))
 
 
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# Q1 - в кластере с наибольшим количеством точек число таких точек,
-# которые находятся на расстоянии не более 1,2 от центра кластера,
-#
-# и Q2 - в кластере с наибольшим количеством точек число таких точек,
-# которые находятся на расстоянии не более 0,75 от центра кластера.
+# Для файла Б определите координаты центра каждого кластера,
+# затем найдите два числа:
+# Q1 - среднее арифметическое расстояний от центра кластера
+# с минимальным количеством точек до точек этого кластера, и
+# Q2 - среднее арифметическое расстояний от центра кластера
+# с максимальным количеством точек до точек этого кластера.
+# Нулевое расстояние от центра кластера до самого себя не учитывать.
 
-print(center(clustersB[0]))  # [13.9823808, 26.4800432]
-print(center(clustersB[1]))  # [15.861917, 18.8540334]
-print(center(clustersB[2]))  # [26.6431823, 12.4121727]
+print(center(clustersB[0]))  # [28.41855208, 8.279001906]
+print(center(clustersB[1]))  # [16.02610912, 13.02260516]
+print(center(clustersB[2]))  # [18.68018435, 19.56779858]
 
-print(len(clustersB[0]))  # 74
-print(len(clustersB[1]))  # 100
-print(len(clustersB[2]))  # 451
+print(len(clustersB[0]))  # 399
+print(len(clustersB[1]))  # 146
+print(len(clustersB[2]))  # 88
 
-def result(cl, center, length):
+def F(cl, cent):
+    summa = 0
     cnt = 0
     for p in cl:
-        if dist(p, center) <= length:
-            cnt += 1
-    return cnt
+        summa += dist(p, cent)
+        cnt += 1
+    return summa / cnt
 
-
-Q1 = result(clustersB[2], [26.6431823, 12.4121727], 1.2)
-Q2 = result(clustersB[2], [26.6431823, 12.4121727], 0.75)
-print(Q1, Q2)
-
+clustersB[2].remove([18.68018435, 19.56779858])
+Q1 = F(clustersB[2], [18.68018435, 19.56779858])
+clustersB[0].remove([28.41855208, 8.279001906])
+Q2 = F(clustersB[0], [28.41855208, 8.279001906])
+print(int(Q1 * 10000), int(Q2 * 10000))
+'''
 # endregion Урок: *************************************************************
 # #
 # #
