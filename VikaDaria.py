@@ -7,199 +7,162 @@
 # region Урок: ********************************************************************
 
 
-# № 5223 (Уровень: Базовый)
+# Зимний гроб
 '''
-c = 1
+A = []
+for s in open('files/9.csv'):
+    M = [str(int(x)) for x in s.split(';')]
+    A += M
+
 maxi = 0
-k = ''
+n = 0
+for x in set(A):
+    if A.count(x) > maxi:
+        maxi = A.count(x)
+        n = x
+print(maxi, n)
+print(n)
+
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+
+    flag = 0
+    copied = [x for x in M if M.count(x) > 1]
+
+    if sum(M) >= sum(copied) ** 2:
+        flag += 1
+
+    if len(M) == len(set(M)):
+        flag += 1
+
+    if int(n) in M:
+        flag += 1
+    if flag >= 1:
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 7094 OpenFIPI (Уровень: Базовый)
+# Текстовый файл состоит из символов A, C, D, F и U.
+# Определите максимальное количество идущих подряд пар символов вида согласная + гласная в прилагаемом файле.
+'''
 s = open('files/24.txt').readline()
-for i in range(len(s) - 1):
-    if s[i] + s[i + 1] != 'DD':
-        c += 1
-        k += s[i]
-        if 'FE' in k:
-            maxi = max(maxi, c)
+cnt = 0
+maxi = 0
+s = s.replace('D', 'F').replace('F', 'C').replace('C', '*')
+s = s.replace('A', 'U').replace('U', '#').replace('*#', '0')
+for p in s:
+    if p == '0':
+        cnt += 1
+        maxi = max(maxi, cnt)
     else:
-        c = 1
-        k = ''
+        cnt = 0
 print(maxi)
-'''
 
-'''
+
+s = open('files/24.txt').readline()
+cnt = 1
 maxi = 0
-k = '0'
-s = open('files/24.txt').readline()
-for i in range(len(s) - 1):
-    if s[i] + s[i + 1] != 'DD':
-        k += s[i]
-        if 'FE' in k:
-            maxi = max(maxi, len(k))
+for i in range(len(s)-1):
+    if cnt == 1 and (s[i] in 'AU' and s[i+1] in 'CDF'):
+        continue
+    if (s[i] in 'AU' and s[i+1] in 'CDF') or (s[i] in 'CDF' and s[i+1] in 'AU'):
+        cnt += 1
     else:
-        k = '0'
-print(maxi)
-'''
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi // 2)
 
-# LLONDDDBKTIACOQFJYMTS
-# LLOND DDBKTIACOQFJYMTS
 
-# LLONDDDDBKTIACOQFJYMTS
-# LLOND DD DBKTIACOQFJYMTS
-'''
 s = open('files/24.txt').readline()
-while 'DD' in s:
-    s = s.replace('DD', 'D D')
-
-print([x for x in s.split() if 'FE' in x])
-print(max([len(x) for x in s.split() if 'FE' in x]))
-'''
-
-
-# № 2426 (Уровень: Базовый)
-# Текстовый файл состоит не более чем из 106 символов 1, 2, 3, A, B, C.
-# Определите максимальное количество идущих подряд цифр.
-'''
-c = 0
-res = []
-s = open('files/24.txt').readline()
-for i in range(len(s)):
-    if s[i] in '123':
-        c += 1
-    else:
-        res.append(c)
-        c = 0
-print(max(res))
-
-
-c = 0
-maxi = 0
-s = open('files/24.txt').readline()
-for i in range(len(s)):
-    if s[i] in '123':
-        c += 1
-        maxi = max(maxi, c)
-    else:
-        c = 0
-print(max(res))
-
-
-c = 0
-maxi = 0
-s = open('files/24.txt').readline()
-for x in s:
-    if x in '123':
-        c += 1
-        maxi = max(maxi, c)
-    else:
-        c = 0
-print(max(res))
-
-# Вариант 2
-s = open('files/24.txt').readline()
-s = s.replace('A', 'B').replace('B', 'C').replace('C', ' ')
+s = s.replace('D', 'F').replace('F', 'C').replace('C', '*')
+s = s.replace('A', 'U').replace('U', '#').replace('*#', '0')
+s = s.replace('#', ' ').replace('*', ' ')
 print(max([len(x) for x in s.split()]))
 '''
 
 
-
-# КЕГЭ № 16388 ЕГКР 27.04.24 (Уровень: Базовый)
-# Текстовый файл состоит из символов K, L, M и N.
-# В прилагаемом файле определите максимальное количество символов
-# в непрерывной подпоследовательности, состоящей из идущих подряд
-# групп символов KLMN в указанном порядке, при этом в начале и
-# в конце искомой последовательности группа символов KLMN может
-# быть неполной.
-
-# i 0123456789
-#   KLMNKLMNKLMNKLMN
+# Тип 24 №47021
+# Определите количество групп из идущих подряд не менее 10 символов,
+# которые начинаются и заканчиваются буквой A и не содержат других
+# букв A (кроме первой и последней) и букв B.
 '''
-c = 3
+# A AxxxxxA AxxxA AxxxxxxxA A
+# AxxxxxA
+# AxxxA
+# AxxxxxxxA
+
+s = open('files/24.txt').readline()
+s = s.replace('A', 'A A')
+print(len([len(x) for x in s.split() if len(x) >= 10 and 'B' not in x]))
+'''
+
+
+# Тип 24 №40999
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет ни одной буквы E и при этом не менее трёх букв A.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('E', ' ')
+print(max([len(x) for x in s.split() if x.count('A') >= 3]))
+'''
+
+
+
+
+# Тип 24 №61370
+# Определите максимальное количество идущих подряд символов,
+# среди которых ровно по одному разу встречаются буквы A и B.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('A', 'A ').replace('B', 'B ')
+s = s.split()
 maxi = 0
-s = open('files/24.txt').readline()
-for i in range(len(s) - 3):
-    if (s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'KLMN'
-            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'MNKL'
-            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'NKLM'
-            or s[i] + s[i + 1] + s[i + 2] + s[i + 3] == 'LMNK'):
-        c += 1
-    else:
-        maxi = max(maxi, c)
-        c = 3
+for i in range(len(s)-2):
+    r = ''.join(s[i:i+3])[:-1]
+    if r.count('A') == 1 and r.count('B') == 1:
+        maxi = max(maxi, len(r))
 print(maxi)
+'''
 
-c = 3
+
+# Тип 24 №63040
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждая из букв A и B встречается не более двух раз.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('A', 'A ').replace('B', 'B ')
+s = s.split()
 maxi = 0
-s = open('files/24.txt').readline()
-for i in range(len(s) - 3):
-    if s[i:i + 4] in ('KLMN', 'MNKL', 'NKLM', 'LMNK'):
-        c += 1
-    else:
-        maxi = max(maxi, c)
-        c = 3
+for i in range(len(s)-4):
+    r = ''.join(s[i:i + 5])[:-1]
+    if r.count('A') == 2 and r.count('B') == 2:
+        maxi = max(maxi, len(r))
 print(maxi)
 '''
 
 
-'''
+# Тип 24 №51993
+# Определите длину самой длинной цепочки символов, которая начинается
+# и заканчивается буквой F, а между двумя последовательными
+# буквами F содержит не более двух букв A и произвольное количество других букв.
+
+# FxxxxFxxxxFxxxxFxxxxF
+# 'F' + xxAxAx'F'xxAxx'F'xxxx'F'xxAxAx + 'F' + xxAxxxAxxAxx+ 'F'
+# 'F' + xxAxAx'F'xxAxx'F'xxxx'F'xxAxAx + 'F'
+
 s = open('files/24.txt').readline()
-s = s.replace('KLMN', '****')
-for x in 'KLMN':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-# todo почему не хватает элементов
-'''
-from re import *
-s = open('files/24.txt').readline()
-print([x.group(0) for x in finditer('(N|MN|LMN)(KLMN)+(K|KL|KLM)', s)])
-print(max([len(x.group(0)) for x in finditer('(N|MN|LMN)(KLMN)+(K|KL|KLM)', s)]))
-'''
+s = s.split('F')
+r = 'F' + 'F'.join([x if x.count('A') <= 2 else '*' for x in s]) + 'F'
+print(max([len(x) for x in r.split('*')]))
 
 
-# № 13939 (Уровень: Средний)
-# (Д. Бахтиев) Текстовый файл состоит из цифр 0, 1, 2, 3, 4
-# и букв A, B, C, D, E.
-# Определите в прилагаемом файле количество подстрок, которые
-# могут представлять запись натурального числа в троичной системе
-# счисления без незначащих нулей.
-'''
-s = open('files/24.txt').readline()
-s = '444400122104444'
-for x in 'ABCDE34':
-    s = s.replace(x, ' ')
-
-R = []
-for x in s.split():
-    while len(x) > 0 and x[0] == '0':
-        if x[0] == '0':
-            x = x[1:]
-    R.append(len(x))
-print(max(R))
-'''
-
-
-# № 10724 (Уровень: Базовый)
-# Определите в прилагаемом файле максимальное количество
-# идущих подряд символов, которые могут представлять запись
-# числа в шестнадцатеричной системе счисления.
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-s = open('files/24.txt').readline()
-for x in alp[16:]:
-    s = s.replace(x, ' ')
-
-R = []
-for x in s.split():
-    while len(x) > 0 and x[0] == '0':
-        if x[0] == '0':
-            x = x[1:]
-    R.append(len(x))
-print(max(R))
-'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: Разбирать задачи по типу арифметика и символ X 80 раз (как 51993 решу егэ)
