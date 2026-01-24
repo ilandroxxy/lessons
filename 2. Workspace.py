@@ -1523,12 +1523,43 @@ print((5 + 5 + 5 + 5 + 5 + 0) / 6)
 '''
 
 
-print(bin(63)[2:])
-
-
+'''
 summa = 23904
 print(f'Итог: {summa}')
 print(summa * 0.4)
 print(summa * 0.3)
 print(summa * 0.2)
 print(summa * 0.1)
+'''
+
+
+
+
+
+# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
+
+F = [0] * 15000
+for n in range(1, 15000):
+    if n < 5:
+        F[n] = n
+    if n >= 5:
+        F[n] = 2 * n * F[n - 4]
+
+print((F[13766] - 9 * F[13762]) / F[13758])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

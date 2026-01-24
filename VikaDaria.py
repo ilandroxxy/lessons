@@ -7,158 +7,158 @@
 # region Урок: ********************************************************************
 
 
-# Зимний гроб
-'''
-A = []
-for s in open('files/9.csv'):
-    M = [str(int(x)) for x in s.split(';')]
-    A += M
 
+# Текстовый файл состоит из символов F, G, Q, R, S и W.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов, среди которых подстрока FSRQ встречается ровно 3 раза.
+
+s = 'SRQxxxxxxFSRQxxxxFSRQxxxxFSRQxxxxxFSR'
+
+# Текстовый файл состоит из символов F, G, Q, R, S и W.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов, среди которых подстрока Y встречается ровно 3 раза.
+'''
+s = 'xYxxxxxYxxxxxxYxxxxxxYxxxxYxxxxYxxxxxxYxxxxxxYxxxxxxYxxxxx'
+s = s.split('Y')
 maxi = 0
-n = 0
-for x in set(A):
-    if A.count(x) > maxi:
-        maxi = A.count(x)
-        n = x
-print(maxi, n)
-print(n)
-
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-
-    flag = 0
-    copied = [x for x in M if M.count(x) > 1]
-
-    if sum(M) >= sum(copied) ** 2:
-        flag += 1
-
-    if len(M) == len(set(M)):
-        flag += 1
-
-    if int(n) in M:
-        flag += 1
-    if flag >= 1:
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 7094 OpenFIPI (Уровень: Базовый)
-# Текстовый файл состоит из символов A, C, D, F и U.
-# Определите максимальное количество идущих подряд пар символов вида согласная + гласная в прилагаемом файле.
-'''
-s = open('files/24.txt').readline()
-cnt = 0
-maxi = 0
-s = s.replace('D', 'F').replace('F', 'C').replace('C', '*')
-s = s.replace('A', 'U').replace('U', '#').replace('*#', '0')
-for p in s:
-    if p == '0':
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 0
+for i in range(len(s)-3):
+    r = 'Y'.join(s[i:i+4])  # i i+1 i+2 i+3
+    maxi = max(maxi, len(r))
+    # if maxi < len(r):
+    #     maxi = len(r)
 print(maxi)
+'''
+
+# ['x', 'xxxxx', 'xxxxxx', 'xxxxxx', 'xxxx', 'xxxx', 'xxxxxx', 'xxxxxx', 'xxxxxx', 'xxxxx']
+# 'x', 'xxxxx', 'xxxxxx', 'xxxxxx' -> 'xYxxxxxYxxxxxxYxxxxxx'
+# 'xxxxx', 'xxxxxx', 'xxxxxx', 'xxxx' ->  'xxxxxYxxxxxxYxxxxxxYxxxx'
+# 'xxxxxx', 'xxxxxx', 'xxxx', 'xxxx' -> 'xxxxxxYxxxxxxYxxxxYxxxx'
 
 
+
+# № 19717 (Уровень: Средний)
+# (М. Попков) Текстовый файл состоит из символов A, E, G, I, L, M и R.
+# Определите в прилагаемом файле максимальное количество идущих
+# подряд символов (длину непрерывной подпоследовательности),
+# среди которых символ M встречается не более 278 раз.
+'''
 s = open('files/24.txt').readline()
-cnt = 1
+s = s.split('M')
 maxi = 0
+for i in range(len(s)-278):
+    r = 'M'.join(s[i:i+279])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# № 20909 Апробация 05.03.25 (Уровень: Средний)
+# Текстовый файл состоит из заглавных букв латинского
+# алфавита A, B, C, D, E и F.
+# Определите в прилагаемом файле максимальное количество
+# идущих подряд символов, среди которых пара AB (в указанном порядке)
+# встречается ровно 100 раз.
+'''
+s = open('files/24.txt').readline()
+s = s.split('AB')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'B' + 'AB'.join(s[i:i+101]) + 'A'
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
+# Текстовый файл состоит из символов F, G, Q, R, S и W.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов, среди которых подстрока FSRQ встречается ровно 80 раз.
+'''
+s = open('files/24.txt').readline()
+s = s.split('FSRQ')
+maxi = 0
+for i in range(len(s)-80):
+    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'  # i i+1 i+2 i+3
+    maxi = max(maxi, len(r))
+print(maxi)  # 2373 -> 2379
+'''
+
+
+
+# Текстовый файл состоит из символов F, G, Q, R, S и W.
+# Определите в прилагаемом файле минимальное количество идущих подряд
+# символов, среди которых подстрока Y встречается ровно 3 раза.
+'''
+s = 'xxxxYxxxxxYxxxxxxYxxxxxxYxxxxYxxxxYxxxxxxYxxxxxxYxxxxxxYxxxxx'
+s = s.split('Y')
+mini = 10**9
 for i in range(len(s)-1):
-    if cnt == 1 and (s[i] in 'AU' and s[i+1] in 'CDF'):
-        continue
-    if (s[i] in 'AU' and s[i+1] in 'CDF') or (s[i] in 'CDF' and s[i+1] in 'AU'):
-        cnt += 1
-    else:
-        maxi = max(maxi, cnt)
-        cnt = 1
-print(maxi // 2)
-
-
-s = open('files/24.txt').readline()
-s = s.replace('D', 'F').replace('F', 'C').replace('C', '*')
-s = s.replace('A', 'U').replace('U', '#').replace('*#', '0')
-s = s.replace('#', ' ').replace('*', ' ')
-print(max([len(x) for x in s.split()]))
+    r = 'Y' + 'Y'.join(s[i:i+2]) + 'Y'  # i Y i+1
+    print(len(r), r)
+    mini = min(mini, len(r))
+    # 12 YxxxxYxxxxxY
+    # 14 YxxxxxYxxxxxxY
+    # 15 YxxxxxxYxxxxxxY
+    # 13 YxxxxxxYxxxxY
+    # 11 YxxxxYxxxxY
+    # 13 YxxxxYxxxxxxY
+    # 15 YxxxxxxYxxxxxxY
+    # 15 YxxxxxxYxxxxxxY
+    # 14 YxxxxxxYxxxxxY
+print(mini)
 '''
 
-
-# Тип 24 №47021
-# Определите количество групп из идущих подряд не менее 10 символов,
-# которые начинаются и заканчиваются буквой A и не содержат других
-# букв A (кроме первой и последней) и букв B.
-'''
-# A AxxxxxA AxxxA AxxxxxxxA A
-# AxxxxxA
-# AxxxA
-# AxxxxxxxA
-
-s = open('files/24.txt').readline()
-s = s.replace('A', 'A A')
-print(len([len(x) for x in s.split() if len(x) >= 10 and 'B' not in x]))
-'''
-
-
-# Тип 24 №40999
-# Определите максимальное количество идущих подряд символов,
-# среди которых нет ни одной буквы E и при этом не менее трёх букв A.
+# № 21717 ЕГКР 19.04.25 (Уровень: Средний)
+#
+# Текстовый файл состоит из символов F, G, Q, R, S и W.
+# Определите в этом файле минимальное количество идущих подряд
+# символов, среди которых подстрока RSQ встречается ровно 130 раз,
+# при этом искомая последовательность не оканчивается символом Q.
 '''
 s = open('files/24.txt').readline()
-s = s.replace('E', ' ')
-print(max([len(x) for x in s.split() if x.count('A') >= 3]))
+s = s.split('RSQ')
+mini = 10**9
+for i in range(len(s)-128):
+    r = 'RSQ' + 'RSQ'.join(s[i:i+129]) + 'RSQ'
+    mini = min(mini, len(r))
+print(mini)
 '''
 
 
-
-
-# Тип 24 №61370
-# Определите максимальное количество идущих подряд символов,
-# среди которых ровно по одному разу встречаются буквы A и B.
+# № 21421 Досрочная волна 2025 (Уровень: Базовый)
+# Текстовый файл состоит из символов, обозначающих
+# десятичные цифры и заглавные буквы латинского алфавита.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов, которые могут представлять запись чётного числа
+# в двенадцатеричной системе счисления.
+# В этой записи отсутствуют незначащие (ведущие) нули.
 '''
+from re import *
 s = open('files/24.txt').readline()
-s = s.replace('A', 'A ').replace('B', 'B ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-2):
-    r = ''.join(s[i:i+3])[:-1]
-    if r.count('A') == 1 and r.count('B') == 1:
-        maxi = max(maxi, len(r))
-print(maxi)
+p = '[1-B][0-B]*[02468A]'
+M = [x.group(0) for x in finditer(p, s)]
+print(max([len(x) for x in M]))
 '''
 
 
-# Тип 24 №63040
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждая из букв A и B встречается не более двух раз.
-'''
+# № 20813 Апробация 05.03.25 (Уровень: Сложный)
+# Текстовый файл состоит из цифр 0, 7, 8, 9 и знаков
+# арифметических операций «-» и «*» (вычитание и умножение).
+
+# Определите максимальное количество символов в непрерывной
+# последовательности, которая является корректным арифметическим
+# выражением с целыми неотрицательными числами.
+# В этом выражении никакие два знака арифметических операций
+# не стоят рядом, в записи чисел отсутствуют незначащие (ведущие)
+# нули и число 0 не имеет знака.
+# В ответе укажите количество символов.
+
+from re import *
 s = open('files/24.txt').readline()
-s = s.replace('A', 'A ').replace('B', 'B ')
-s = s.split()
-maxi = 0
-for i in range(len(s)-4):
-    r = ''.join(s[i:i + 5])[:-1]
-    if r.count('A') == 2 and r.count('B') == 2:
-        maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-
-# Тип 24 №51993
-# Определите длину самой длинной цепочки символов, которая начинается
-# и заканчивается буквой F, а между двумя последовательными
-# буквами F содержит не более двух букв A и произвольное количество других букв.
-
-# FxxxxFxxxxFxxxxFxxxxF
-# 'F' + xxAxAx'F'xxAxx'F'xxxx'F'xxAxAx + 'F' + xxAxxxAxxAxx+ 'F'
-# 'F' + xxAxAx'F'xxAxx'F'xxxx'F'xxAxAx + 'F'
-
-s = open('files/24.txt').readline()
-s = s.split('F')
-r = 'F' + 'F'.join([x if x.count('A') <= 2 else '*' for x in s]) + 'F'
-print(max([len(x) for x in r.split('*')]))
-
-
+p = '[789][0789]*([-*][789][0789]*|[-*][0])*'
+M = [x.group(0) for x in finditer(p, s)]
+print(M)
+print(max([len(x) for x in M]))
 
 # endregion Урок: *************************************************************
 # #

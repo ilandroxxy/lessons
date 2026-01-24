@@ -1,46 +1,17 @@
 # region Домашка: ******************************************************************
 
-# Номер 5 Статград
-'''
-L = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 5 == 0:
-        s = s + '11'
-    else:
-        s = s + bin(n // 5)[2:]
-    r = int(s, 2)
-    if r >= 783:
-        if n % 2 != 0:
-            L.append(n)
-print(min(L))
-'''
 
-# Номер 5
-'''
-L = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    for i in range(3):
-        # summa = sum([int(x) for x in str(n)])
-        x = str(int(s, 2))
-        summa = sum(map(int, x))
-        if summa % 2 != 0:
-            s = s + '1'
-        else:
-            s = s + '0'
-    r = int(s, 2)
-    if r > 2054:
-        L.append(r)
-print(min(L))
-'''
-# 2057
+# endregion Домашка: ******************************************************************
+# #
+# #
+# region Урок: ********************************************************************
 
 
-# Номер 8 вариант статграда 1
+
+# Номер 8 Статград вариант 1
 '''
 cnt = 0
-s = sorted('0123456789ABCDE')
+s = '0123456789ABCDE'
 for a in s:
     for b in s:
         for c in s:
@@ -48,37 +19,65 @@ for a in s:
                 num = a + b + c + d
                 if a != '0':
                     if num.count('8') == 1:
-                        if num[0] != num[1] and num[1] != num[2] and num[2] != num[3]:
+                        if all(num[i] != num[i+1] for i in range(len(num)-1)):
                             cnt += 1
 print(cnt)
 
 
 cnt = 0
 from itertools import product
-for p in product(sorted('0123456789ABCDE'), repeat=4):
+for p in product('0123456789ABCDE', repeat=4):
     num = ''.join(p)
+    a , b, c, d = num
     if num[0] != '0':
         if num.count('8') == 1:
-            if num[0] != num[1] and num[1] != num[2] and num[2] != num[3]:
+            if all(num[i] != num[i+1] for i in range(len(num)-1)):
                 cnt += 1
 print(cnt)
 '''
 
-# https://education.yandex.ru/ege/inf/task/638ac2c9-defe-4ca9-971a-ee65a1774d31
-# На вход алгоритма подаётся натуральное число N.
-# Алгоритм строит по нему новое число R:
-#
-# Строится троичная запись числа N.
-# Далее эта запись обрабатывается так:
-# а) если сумма цифр в троичной записи числа чётная,
-# к этой записи справа дописывается 0, а затем два левых разряда заменяются на 2;
-# б) если сумма цифр в троичной записи числа нечётная,
-# к этой записи справа дописывается 1, а затем два левых разряда заменяются на 20.
-# Полученная таким образом запись — это троичная запись искомого числа R
-#
-# Укажите наименьшее число
-# N, после обработки которого с помощью этого алгоритма получается наименьшее значение
-# R, большее 75. В ответе запишите это число в десятичной системе счисления.
+
+# Номера 19-21 Статград вариант 1
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 505:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(floor(s/5), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h) # else any(h)
+
+print([s for s in range(506, 20000) if F(s, n=2)])
+print([s for s in range(506, 10000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(506, 10000) if F(s, n=4) and not F(s, n=2)])
+
+
+from math import ceil, floor
+def F(s, n):
+    if s <= 505:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(floor(s / 5), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h) # else any(h)
+
+print([s for s in range(506, 20000) if F(s, n=2)])
+print([s for s in range(506, 10000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(506, 10000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# Номер 13 Статград вариант 1
+'''
+from ipaddress import *
+net = ip_network('167.66.136.176/255.254.0.0', 0)
+for ip in net.hosts():
+    print(ip)
+    break
+'''
+
+# Номер 14 Статград вариант 1
 '''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 def convert(n, b):
@@ -88,66 +87,56 @@ def convert(n, b):
         n //= b
     return r
 
-L = []
-for n in range(1, 10000):
-    n3 = convert(n, 3)
-    summa = sum(map(int, n3))
-    if summa % 2 == 0:
-        n3 = '2' + n3[2:] + '0'
-    else:
-        n3 = '20' + n3[2:] + '1'
-    r = int(n3, 3)
-    if r > 75:
-        if r == 78:
-            L.append(n)
-print(min(L))  # r = 78
+R = []
+for x in range(1, 8410):
+    n = 29**293 + 29**271 - x
+    s = convert(n, 29)
+    R.append(s.count('0'))
+print(max(R))
 '''
 
-# https://education.yandex.ru/ege/inf/task/95a61fe5-2fa7-4a10-b302-d782a7aa5a97
-# Автомат получает на вход трёхзначное число.
-# По этому числу строится новое число по следующим правилам:
-#
-# Если количество сотен нечётное, то вычисляется модуль разности первой и последней цифры числа, иначе первая цифра делится на 2. Получившееся значение дописывается к исходному числу справа.
-# Перемножаются первая и вторая, а также третья и четвертая цифры полученного числа.
-# Два произведения записываются друг за другом в порядке неубывания.
-# Пример.
-# Исходное число: 582.
-# Модуль разности цифр: |5 – 2| = 3.
-# Новое число: 5823.
-# Произведение цифр: 5 * 8 = 40; 2 * 3 = 6.
-# Результат: 640.
-#
-# Укажите минимальное число, в результате обработки которого, автомат выдаст число 1012.
 
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+# Номер 23 Статград вариант 1
+'''
+def F(a, b):
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a*2, b) + F(a*3, b)
 
-L = []
-for n in range(100, 1000):
-    s = str(n)
-    if int(s[0]) % 2 != 0:
-        s = s + str(abs(int(s[0]) - int(s[-1])))
+print(F(6, 14) * F(14, 18) * F(18, 48))  # 24
+print(F(6, 14) * F(14, 48))  # 45
+print(F(6, 18) * F(18, 48))  # 48
 
-        a = int(s[0]) * int(s[1])
-        b = int(s[2]) * int(s[3])
+print((45 + 48) - 24)  # 69
+'''
 
-        if a > b:
-            s = str(b) + str(a)
-        else:
-            s = str(a) + str(b)
 
-        if s == '1012':
-            print(n)
+# Номер 9 Статград вариант 1
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if 2 <= M.count(min(M)) <= 3 and 5 <= len(copied1) <= 6:
+        if min(copied1) ** 2 + max(copied1) ** 2 <= (sum(copied1) - max(copied1) - min(copied1)) ** 2:
+            cnt += 1
+print(cnt)
+'''
 
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
+# Номер 17 Статград вариант 1
+
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if x < 0 and len(str(abs(x))) == 3 and abs(x) % 6 == 0]
+R = []
+for i in range(len(M) - 1):
+    x, y = M[i], M[i+1]
+    if (x < 0) + (y < 0) == 1:
+        if (x + y) > max(A):
+            R.append(x**2 + y**2)
+print(len(R), max(R))
 
 
 # endregion Урок: *************************************************************
