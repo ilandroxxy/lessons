@@ -1,30 +1,21 @@
 # region Домашка: ******************************************************************
 
-
-# endregion Домашка: ******************************************************************
-# #
-# #
-# region Урок: ********************************************************************
-
-
-# № 21932 (Уровень: Базовый)
-# https://stepik.org/lesson/1400061/step/2?unit=1417014
 '''
 from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+clustersA = [[],[]]
+clustersB = [[],[],[]]
 
 for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
+    s = s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
     if y > 10:
         clustersA[0].append([x, y])
     else:
         clustersA[1].append([x, y])
 
 for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
+    s =s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
     if y < 10:
         clustersB[0].append([x, y])
     if y > 10 and x < 17:
@@ -32,15 +23,6 @@ for s in open('files/27B.txt'):
     if y > 10 and x > 17:
         clustersB[2].append([x, y])
 
-# from math import dist
-# def d(A, B):
-#     x1, y1 = A
-#     x2, y2 = B
-#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-#
-# print(d([3, 4], [3, 6]))
-# print(dist([3, 4], [3, 6]))
-
 def center(cl):
     R = []
     for p in cl:
@@ -48,65 +30,54 @@ def center(cl):
         for g in cl:
             summa += dist(p, g)
         R.append([summa, p])
-    return min(R)[1]
+    return max(R)[1]
 
+print(center(clustersA[0]))  # [0.1663069, 16.1520663]
+print(center(clustersA[1]))  # [3.4435388, 6.1127361]
 
-# Для каждого файла определите координаты центра каждого кластера,
-# затем вычислите два числа:
-# Px – абсциссу центра кластера с наименьшим числом точек, и
-# Py – ординату центра кластера с наибольшим числом точек.
-
-# В ответе запишите четыре числа: в первой строке сначала целую часть произведения
-# Px×10000 затем целую часть произведения
-# Py×10000 для файла А, во второй строке – аналогичные данные для файла B.
-
-print(center(clustersA[0]))  # [3.2865636, 16.3616946]
-print(center(clustersA[1]))  # [5.7806753, 7.0666221]
+print(center(clustersB[0]))  # [18.1424701, 6.1934274]
+print(center(clustersB[1]))  # [14.747434, 21.5194643]
+print(center(clustersB[2]))  # [19.4524463, 14.961161]
 
 print(len(clustersA[0]))  # 100
 print(len(clustersA[1]))  # 137
-
-PxA = 3.2865636 * 10000
-PyA = 7.0666221 * 10000
-print(int(PxA), int(PyA))  # 32865 70666
-
-
-print(center(clustersB[0]))  # [15.7780749, 6.1170037]
-print(center(clustersB[1]))  # [14.4062605, 19.5187459]
-print(center(clustersB[2]))  # [20.1133897, 17.3153227]
 
 print(len(clustersB[0]))  # 439
 print(len(clustersB[1]))  # 98
 print(len(clustersB[2]))  # 102
 
-PxB = 14.4062605 * 10000
-PyB = 6.1170037 * 10000
-print(int(PxB), int(PyB))  # 144062 61170
+PxA = 0.1663069 * 10000
+PyA = 6.1127361 * 10000
+print(int(PxA), int(PyA))  # 1663 61127
+
+PxB = 14.747434 * 10000
+PyB = 6.1934274 * 10000
+print(int(PxB), int(PyB))  # 147474 61934
 '''
 
 
-# № 25364 (Уровень: Базовый) ЕГКР
-
+# № 21930 (Уровень: Базовый)
+'''
 from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+clustersA = [[],[]]
+clustersB = [[],[],[]]
 
 for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
+    s = s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
     if y > 10:
         clustersA[0].append([x, y])
     else:
         clustersA[1].append([x, y])
 
 for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 23:
+    s =s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
+    if y < 10:
         clustersB[0].append([x, y])
-    if y < 15:
+    if y > 10 and x < 17:
         clustersB[1].append([x, y])
-    if 15 < y < 23:
+    if y > 10 and x > 17:
         clustersB[2].append([x, y])
 
 def center(cl):
@@ -116,54 +87,89 @@ def center(cl):
         for g in cl:
             summa += dist(p, g)
         R.append([summa, p])
-    return min(R)[1]
-
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# P1 - минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера, и
-# P2 - максимальное расстояние от этой же точки до центра кластера.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-P1 = dist([1.0, 1.0], [3.8471735, 6.1225014])  # 5.860581671822705
-P2 = dist([1.0, 1.0], [7.0391548, 12.3587258])  # 12.864371049450831
-
-# В ответе запишите четыре числа: в первой строке - сначала целую часть произведения
-# P1 × 10000, затем целую часть произведения P2 × 10 000
-
-print(int(P1 * 10000), int(P2 * 10000))  # 58605 128643
+    return max(R) [1]
 
 
+# Вариант 1 для третьей части
 
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# Q1 - в кластере с наибольшим количеством точек число таких точек,
-# которые находятся на расстоянии не более 1,2 от центра кластера, и
-# Q2 - в кластере с наибольшим количеством точек число таких точек,
-# которые находятся на расстоянии не более 0,75 от центра кластера.
+print(center(clustersA[0]))  # [0.1663069, 16.1520663]
+print(center(clustersA[1]))  # [3.4435388, 6.1127361]
 
-print(center(clustersB[0]))  # [13.9823808, 26.4800432]
-print(center(clustersB[1]))  # [26.6431823, 12.4121727]
-print(center(clustersB[2]))  # [15.861917, 18.8540334]
+PxA = (0.1663069 + 3.4435388) / 2
+PyA = (16.1520663 + 6.1127361) / 2
+print(int(PxA * 10000), int(PyA * 10000))  # 18049 111324
 
-print(len(clustersB[0]))  # 74
-print(len(clustersB[1]))  # 451
-print(len(clustersB[2]))  # 100
 
-def F(cl, cent, length):
-    cnt = 0
-    for p in cl:
-        if dist(cent, p) <= length:
-            cnt += 1
-    return cnt
+# Вариант 2 для третьей части
+centersA = [center(cl) for cl in clustersA]
+print(centersA)  # [[0.1663069, 16.1520663], [3.4435388, 6.1127361]]
 
-Q1 = F(clustersB[1], [26.6431823, 12.4121727], 1.2)
-Q2 = F(clustersB[1], [26.6431823, 12.4121727], 0.75)
-print(Q1, Q2)  # 358 203
+PxA = sum([x for x, y in centersA]) / 2 * 10000
+PyA = sum([y for x, y in centersA]) / 2  * 10000
+print(int(PxA), int(PyA)) # 18049 111324
 
+
+
+print(center(clustersB[0]))  # [18.1424701, 6.1934274]
+print(center(clustersB[1]))  # [14.747434, 21.5194643]
+print(center(clustersB[2]))  # [19.4524463, 14.961161]
+
+PxB = (18.1424701 + 14.747434 + 19.4524463) / 3
+PyB = (6.1934274 + 21.5194643 + 14.961161) / 3
+print(int(PxB * 10000), int(PyB * 10000))  # 174474 142246
+'''
+
+# endregion Домашка: ******************************************************************
+# #
+# #
+# region Урок: ********************************************************************
+
+#  № 25345 (Уровень: Базовый)
+# Черепаха выполнила следующую программу:
+# Повтори 6 [Вперёд 33 Направо 90 Вперёд 20 Направо 90]
+# Поднять хвост
+# Вперёд 3 Направо 90 Вперёд 9 Налево 90
+# Опустить хвост
+# Повтори 6 [Вперёд 24 Направо 90 Вперёд 25 Направо 90]
+
+import turtle as t   # Даем короткое имя библиотеки
+t.tracer(0)  # Отключения анимации отрисовки
+t.screensize(5000, 5000)
+size = 20
+t.left(90)
+
+for i in range(6):
+    t.forward(33 * size)
+    t.right(90)
+    t.forward(20 * size)
+    t.right(90)
+
+t.up() # Поднять хвост
+t.forward(3 * size)
+t.right(90)
+t.forward(9 * size)
+t.left(90)
+t.down()  # # Опустить хвост
+
+for i in range(6):
+    t.fd(24 * size)
+    t.rt(90)
+    t.fd(25 * size)
+    t.rt(90)
+
+# Момент отрисовки точек
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()  # Для корректной работы t.tracer()
+t.done()  # Зафиксировать вывод отрисовки
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
+# ФИПИ = [1, 2, 3, 5, 6, 8, 9, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
 # КЕГЭ = []
 # на следующем уроке:

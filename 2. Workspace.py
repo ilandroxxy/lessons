@@ -1536,25 +1536,41 @@ print(summa * 0.1)
 
 
 
-# № 19248 ЕГКР 21.12.24 (Уровень: Базовый)
 
-F = [0] * 15000
-for n in range(1, 15000):
-    if n < 5:
-        F[n] = n
-    if n >= 5:
-        F[n] = 2 * n * F[n - 4]
+G = [0] * 250000
 
-print((F[13766] - 9 * F[13762]) / F[13758])
+for n in range(250000-1, 0, -1):
+    if n >= 248045:
+        G[n] = n / 20 + 28
+    if n < 248045:
+        G[n] = G[n + 9] - 4
+
+F = [0] * 1000
+for n in range(8 , 1000):
+    if n >= 19:
+        F[n] = F[n - 4] + 3580
+    if n < 19:
+        F[n] = 6 * (G[n - 7] - 36)
+
+print(F[673])
 
 
 
 
 
 
+# todo разбор https://education.yandex.ru/ege/inf/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
 
-
-
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    A = [x for x in M if abs(x) % 10 == 3]
+    if len(A) == 3:
+        L = [x for x in M if x > 0]
+        K = [x for x in M if x < 0]
+        if sum(L) ** 2 < sum(K) ** 2:
+            cnt += 1
+print(cnt)
 
 
 

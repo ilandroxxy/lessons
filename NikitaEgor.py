@@ -1,101 +1,114 @@
 # region Домашка: ******************************************************************
 
-# https://stepik.org/lesson/1038706/step/3?unit=1062774
+# № 23186 Основная волна 10.06.25 (Уровень: Базовый)
 '''
-def F(x, a1, a2):
-    P = 13 <= x <= 19
-    Q = 17 <= x <= 23
-    A = a1 <= x <= a2
-    return (not((not P) <= (Q))) <= ((A) <= ((not Q) <= (P)))
-
-R = []
-M = [x / 4 for x in range(5 * 4, 30 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(int(max(R)))  # 10.0 -> 10
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x <= y) and z and (not w)
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
-
-# Егор № 17528 Основная волна 07.06.24 (Уровень: Базовый)
-# https://stepik.org/lesson/1038706/step/13?unit=1062774
-# На числовой прямой даны два отрезка: P=[15;40] и Q=[21;63].
-# Укажите наименьшую возможную длину такого отрезка A, для которого логическое выражение
-# истинно (т.е. принимает значение 1) при любом значении переменной х.
-# (x∈P) → (((x∈Q) ∧ ¬(x∈A))→¬(x∈P))
-'''
-def F(x, a1, a2):
-    P = 15 <= x <= 40
-    Q = 21 <= x <= 63
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
-
-R = []
-M = [x / 4 for x in range(5 * 4, 80 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(int(min(R)))
-'''
+# (x or y) and (not(y == z)) and (not w)
+# ((x <= y) or (y == w)) and ((x or z) == w)
+# ((y <= x) and (z or w)) <= ((x and (not w)) or (y == z))
 
 
-# Никита № 2356 (Уровень: Базовый)
-# https://stepik.org/lesson/1038706/step/8?unit=1062774
-# На числовой прямой даны два отрезка: P = [10, 45] и Q = [35, 78].
-# Найдите наименьшую возможную длину отрезка A, при котором формула
-# (¬(x∈P)→(x∈Q))∧¬(x∈A)
-# тождественно ложна, то есть принимает значение 0 при любых x.
-'''
-def F(x, a1, a2):
-    P = 10 <= x <= 45
-    Q = 35 <= x <= 78
-    A = a1 <= x <= a2
-    return ((not P) <= (Q)) and (not A)
-
-R = []
-M = [x / 4 for x in range(5 * 4, 90 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(not F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(int(min(R)))
-'''
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: *************************************************************
 
+'''
+print('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
+graph = 'AG GA AF FA GF FG GE EG EB BE BC CB BD DB DC CD CF FC'
+for p in permutations('ABCDEFG'):
+    nt = table
+    for i in range(1, 7+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7
+        # A F C G E D B
+        # D C F B E A G
+'''
 
-# № 25341 (Уровень: Базовый)
-# F=(w≡z)∨¬(y→w)∨¬x
+
+# i 0    1    2    3    4    5    6
+# ('G', 'F', 'E', 'D', 'B', 'A', 'C')
+#   1    2    3    4    5    6    7
+
+nt = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
+nt = 'G2 G4 2G 23 24 32 36 37 4G 42 45 54 57 63 67 73 75 76'
+nt = 'GF G4 FG 23 F4 3F 36 37 4G 4F 45 54 57 63 67 73 75 76'
+nt = 'GF G4 FG 2E F4 EF E6 E7 4G 4F 45 54 57 6E 67 7E 75 76'
+
+
+
+# № 25340 (Уровень: Базовый)
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (w == z) or (not(y <= w)) or (not x)
-                if F == 0:
-                    print(x, y, z, w)
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+table = '13 16 18 23 24 31 32 36 42 47 56 57 61 63 65 74 75 78 81 87'
+graph = 'AC CA AD DA AG GA CG GC CB BC GE EG EF FE FH HF BH HB HD DH'
+for p in permutations('ABCDEFGH'):
+    nt = table
+    for i in range(1, 8+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set(graph.split()):
+        print(*p)
+'''
+
+# Никита № 23260 Основная волна 11.06.25 (Уровень: Базовый)
+'''
+print('1 2 3 4 5 6 7 8')
+from itertools import permutations
+
+table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
+graph = 'AD DA DB BD DC CD CF FC CB BC BH HB FG GF GE EG AH HA AE EA HG GH'
+for p in permutations('ABCDEGHF'):
+    nt = table
+    for i in range(1, 8 + 1):
+        nt = nt.replace(str(i), p[i - 1])
+    if set(nt.split()) == set(graph.split()):
+        print(*p)
 '''
 
 
-# № 23739 Демоверсия 2026 (Уровень: Базовый)
-# Миша заполнял таблицу истинности логической функции
-# F=(x∨y)∧¬(y≡z)∧¬w
+# № 20598 (Уровень: Базовый)
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x or y) and (not(y == z)) and (not w)
-                if F == 1:
-                    print(x, y, z, w)
+print ('1 2 3 4 5 6 7')
+from itertools import permutations
+table = '12 17 21 24 26 27 34 35 37 42 43 46 53 57 62 64 71 72 73 75'
+graph = 'АЕ ЕА ЕБ БЕ БЖ ЖБ ЖД ДЖ ДГ ГД ГВ ВГ ВА АВ ЕВ ВЕ ЕЖ ЖЕ ЖГ ГЖ'
+for p in permutations ('АБВГДЕЖ'):
+    nt = table
+    for i in range(1, 7+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set (graph.split()):
+        print(*p)
 '''
+
+# № 18308 (Уровень: Базовый)
+'''
+print('1 2 3 4 5 6 7 8 9')
+from itertools import permutations
+table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
+graph = 'AK KA KC CK KB BK BD DB CD DC DH HD DE ED EF FE FG GF GD DG HG GH'
+for p in permutations('ABCDEFGHK'):
+    nt = table
+    for i in range(1,9+1):
+        nt = nt.replace(str(i), p[i-1])
+    if set(nt.split()) == set(graph.split()):
+        print(*p)
+'''
+
 
 # endregion Урок: *************************************************************
 # #
