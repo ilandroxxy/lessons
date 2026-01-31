@@ -6,147 +6,275 @@
 # #
 # region Урок: ********************************************************************
 
-
 '''
-n = 234
-s = str(n)
-summa = 0
-for x in s:
-    summa += int(x)
-print(summa)
-
-
-print(sum([int(x) for x in str(n)]))
-
-print(sum(map(int, str(n))))
+from fnmatch import *
+for x in range(9601, 10**10, 9601):
+    if fnmatch(str(x), '19*105*9'):
+        print(x, x // 9601)
 '''
 
 
-# № 8585 (Уровень: Базовый)
+# № 20541(Уровень: Базовый)
 '''
-def F(a,b):
-    if a == b:
-        return 1
-    elif a < b:
-        return 0
-    else:
-        return F(a - sum(map(int, str(a))), b) + F(a // 2, b) + F(a-1, b)
-
-print(F(40, 25) * F(25, 10))
+from math import prod
+from fnmatch import *
+for x in range(4321, 10**9, 4321):
+    if fnmatch(str(x), '34*56?7'):
+        print(x, prod([int(i) for i in str(x)]))
 '''
 
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 25358 (Уровень: Базовый)
-# 1 куча: +2, +4, *2 | s >= 125 | 1 ≤ s ≤ 124
 '''
-def F(s, n):
-    if s >= 125:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 2, n - 1), F(s + 4, n - 1), F(s * 2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def divisors(x):
+    d = []
+    for j in range(1, x+1):
+        if x % j == 0:
+            d.append(j)
+    return d
 
-print(19, [s for s in range(1, 124+1) if F(s, n=2)])
-print(20, [s for s in range(1, 124+1) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 124+1) if F(s, n=4) and not F(s, n=2)])
+
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d.append(j)
+            d.append(x // j)
+    return sorted(set(d))
+
+print(divisors(24))  # [1, 2, 3, 4,     6, 8, 12, 24]
+
+print(divisors(1_000_000_000))
 '''
 
 
-# № 23565 Пересдача 03.07.25(Уровень: Базовый)
+# № 18620 (Уровень: Средний)
+# Пусть M (N) – сумма 2 наибольших различных натуральных
+# делителей натурального числа N, не считая самого числа и единицы.
+# Если у числа N меньше 2 таких делителей, то M (N) считается равным 0.
+# Найдите все такие числа N, что 112 500 000 ≤ N ≤ 112 550 000,
+# а десятичная запись числа M (N) заканчивается на 1214.
 '''
-from math import ceil, floor
-def F(s, n):
-    if s <= 15:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 3, n - 1), F(s - 8, n - 1), F(floor(s / 3), n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа и единицы.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-
-print(19, [s for s in range(16, 1000) if F(s, n=2)])
-print(20, [s for s in range(16, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(16, 1000) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-# № 23759 Демоверсия 2026(Уровень: Базовый)
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 30:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s - 3, n - 1), F(s - 5, n - 1), F(floor(s / 4), n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print(19, [s for s in range(31, 1000) if F(s, n=2)])
-print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
+for n in range(112_500_000, 112_550_000+1):
+    d = divisors(n)
+    if len(d) >= 2:
+        M = d[-1] + d[-2]
+        if M % 10000 == 1214:
+            print(n)
 '''
 
 
-# № 20907 Апробация 05.03.25 (Уровень: Базовый)
-# 2 кучи: s1+1, s2+1, s1*2, s2*2 | s1 + s2 >= 81 | s1 = 7 | 1 <= s <= 73
+#
+# № 18148 (Уровень: Базовый)
+# (В. Колчев) Пусть M – сумма минимального и максимального
+# натуральных делителей целого числа, не считая единицы и самого числа.
+# Если таких делителей у числа нет, то считаем значение M равным нулю.
+# Напишите программу, которая перебирает целые числа, бо́льшие 900 000,
+# в порядке возрастания и ищет среди них такие, для которых
+# M оканчивается на 46. В ответе запишите в первом столбце таблицы
+# первые пять найденных чисел в порядке возрастания, а
+# во втором столбце – соответствующие им значения M.
+# Количество строк в таблице для ответа избыточно
 '''
-def F(s1, s2, n):
-    if s1 + s2 >= 81:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s1+1, s2, n - 1), F(s1, s2+1, n - 1), F(s1*2, s2, n - 1), F(s1, s2*2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа и единицы.
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-
-print(19, [s for s in range(1, 73+1) if F(7, s, n=2)])
-print(20, [s for s in range(1, 73+1) if F(7, s, n=3) and not F(7, s, n=1)])
-print(21, [s for s in range(1, 73+1) if F(7, s, n=4) and not F(7, s, n=2)])
-'''
-
-
-# № 17532 Основная волна 07.06.24 (Уровень: Базовый)
-'''
-def F(s1, s2, n):
-    if s1 + s2 >= 65:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s1 + 1 , s2, n - 1), F(s1, s2 + 1, n - 1), F(s1 * 3 , s2, n - 1), F(s1, s2 * 3, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print(19, [s for s in range(1, 58+1) if F(6, s, n=2)])
-print(20, [s for s in range(1, 58+1) if F(6, s, n=3) and not F(6, s, n=1)])
-print(21, [s for s in range(1, 58+1) if F(6, s, n=4) and not F(6, s, n=2)])
+cnt = 0
+for n in range(900_000+1, 10**10):
+    d = divisors(n)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 100 == 46:
+            print(n, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-# № 18268 (Уровень: Базовый)
 
-from math import ceil, floor
-def F(s1, s2, n):
-    if s1 + s2 <= 72:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s1 - 3, s2, n - 1), F(s1, s2 - 3, n - 1), F(ceil(s1 / 2), s2, n - 1), F(s1, ceil(s2 / 2), n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+# № 20969 (Уровень: Базовый)
+'''
+from fnmatch import *
+for x in range(154682, 10**11, 154682):
+    if fnmatch(str(x), '*192?3*68'):
+        print(x, x // 154682)
+'''
 
 
-print(19, [s for s in range(23, 1000) if F(50, s, n=2)])
-print(20, [s for s in range(23, 1000) if F(50, s, n=3) and not F(50, s, n=1)])
-print(21, [s for s in range(23, 1000) if F(50, s, n=4) and not F(50, s, n=2)])
+# № 20814 Апробация 05.03.25 (Уровень: Базовый)
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+k = 0
+for n in range(500_001, 1000_000_000):
+    P = sum(divisors(n))
+    if P % 10 == 9:
+        print(n, P)
+        k += 1
+        if k == 5:
+            break
+'''
+
+
+# № 17879 Демоверсия 2025 (Уровень: Базовый)
+# Пусть M – сумма минимального и максимального натуральных делителей целого числа,
+# не считая единицы и самого числа. Если таких делителей у числа нет, то считаем значение M равным нулю.
+# Напишите программу, которая перебирает целые числа, бо́льшие 800 000,
+# в порядке возрастания и ищет среди них такие, для которых
+# M оканчивается на 4. В ответе запишите в первом столбце таблицы первые пять
+# найденных чисел в порядке возрастания, а во втором столбце – соответствующие им значения M.
+'''
+def divisers(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+for n in range(800_000+1, 10 ** 10):
+    d = divisers(n)
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(n, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 20144
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+for n in range(3_333_337+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        R = max(d) - min(d)
+        if R > 1000 and R % 3 == 0:
+            print(n, R)
+            cnt += 1
+            if cnt == 5:
+                break
+
+# Вариант 2
+
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+for n in range(3_333_337+1, 10**10):
+    d = [j for j in divisors(n) if is_prime(j) == True]
+    if len(d) > 0:
+        R = max(d) - min(d)
+        if R > 1000 and R % 3 == 0:
+            print(n, R)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 23569 Пересдача 03.07.25 (Уровень: Средний)
+'''
+def is_prime(x):
+    if x <= 1:
+        return False
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            return False
+    return True
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            if is_prime(j) and is_prime(x // j):
+                if str(j).count('6') == 1 and str(x // j).count('6') == 1:
+                    d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+for n in range(6_086_055+1, 10**10):
+    d = divisors(n)
+    if len(d) > 0:
+        print(n, max(d))
+        cnt += 1
+        if cnt == 5:
+            break
+
+'''
+
+
+
+# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# Пусть М - сумма минимального и максимального простых натуральных делителей
+# целого числа, не считая самого числа. Если таких делителей у числа нет,
+# то значение М считается равным нулю.
+# Напишите программу, которая перебирает целые числа, большие 5 400 000,
+# в порядке возрастания и ищет среди них такие, для которых М больше 60 000
+# и является палиндромом, т.е. одинаково читается слева направо и справа налево.
+# В ответе запишите в первом столбце
+# таблицы первые  пять найденных чисел в порядке возрастания,
+# а во втором столбце - соответствующие им значения М.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+for n in range(5_400_000+1, 10**10):
+    d = [j for j in divisors(n) if len (divisors(j))==0]
+    if len(d) >= 2:
+        R = max(d) + min(d)
+        if R > 60000 and str(R) == str(R)[::-1]:
+            print(n, R)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
 
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19-21, 23, 25, 27.1]
-# КЕГЭ = [5, 8, 14, 15, 16, 23, 19-21]
+# КЕГЭ = [5, 8, 14, 15, 16, 23, 19-21, 25]
 # на следующем уроке:
