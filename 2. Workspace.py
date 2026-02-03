@@ -1536,7 +1536,7 @@ print(summa * 0.1)
 
 
 
-
+'''
 G = [0] * 250000
 
 for n in range(250000-1, 0, -1):
@@ -1553,14 +1553,14 @@ for n in range(8 , 1000):
         F[n] = 6 * (G[n - 7] - 36)
 
 print(F[673])
-
+'''
 
 
 
 
 
 # todo разбор https://education.yandex.ru/ege/inf/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
-
+'''
 cnt = 0
 for s in open('files/9.csv'):
     M = [int(x) for x in s.split(',')]
@@ -1571,10 +1571,7 @@ for s in open('files/9.csv'):
         if sum(L) ** 2 < sum(K) ** 2:
             cnt += 1
 print(cnt)
-
-
-
-
+'''
 
 
 

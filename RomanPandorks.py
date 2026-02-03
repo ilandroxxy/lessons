@@ -270,11 +270,85 @@ for n in range(5_400_000+1, 10**10):
                 break
 '''
 
+'''
+s = sorted("ОДСАЦЛФЩ")
+r = []
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                word = a + b + c + d
+                n += 1
+                if n % 2 != 0:
+                    if a != "А" and d != 'А' and word.count("Л") >= 3:
+                        r.append(n)
+print(min(r))
+'''
+
+
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n >= 20:
+        return F(n - 4) + 4620
+    if n < 20:
+        return 8 * (G(n - 12) - 21)
+
+@lru_cache(None)
+def G(n):
+    if n >= 384_242:
+        return n / 4 + 18
+    if n < 384_242:
+        return 12 + G(n + 41)
+
+for n in range(400_000, 0, -1):
+    G(n)
+
+for n in range(1, 1000):
+    F(n)
+    
+print(F(913))
+'''
+
+
+
+from turtle import*
+screensize(10000, 10000)
+tracer(0)
+k = 20
+# Повтори 2 [Повтори 2 [Вперёд 180 Направо 120] Направо 120]
+# Направо 150 Вперёд 15 Направо 90 Вперёд 360 Направо 90 Вперёд 15
+# Направо 30 Вперёд 74
+for i in range(2):
+    for t in range(2):
+        forward(180*k)
+        right(120)
+    right(120)
+right(150)
+forward(15*k)
+right(90)
+forward(360*k)
+right(90)
+forward(15*k)
+right(30)
+forward(74*k)
+
+up()
+for x in range(-100, 100):
+    for y in range(-100, 100):
+        goto(x*k, y*k)
+        dot(3, "green")
+exitonclick()
+print(16*4)
+
 
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19-21, 23, 25, 27.1]
-# КЕГЭ = [5, 8, 14, 15, 16, 23, 19-21, 25]
+# КЕГЭ = [3, 5, 8, 14, 15, 16, 23, 19-21, 25]
 # на следующем уроке:
