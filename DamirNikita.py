@@ -64,7 +64,7 @@ print(cnt)
 
 
 # https://education.yandex.ru/ege/inf/task/dcf64491-b2a9-43d3-8307-3d9aad5e7fe4
-
+'''
 cnt = 0
 for s in open('files/9.csv'):
     M = [int(x) for x in s.split(';')]
@@ -75,6 +75,26 @@ for s in open('files/9.csv'):
         if len(chet) > len(nechet):
             cnt += 1
 print(cnt)
+'''
+
+
+# № 25348 (Уровень: Базовый)
+# Откройте файл электронной таблицы, содержащей в каждой строке семь целых чисел.
+# Определить количество строк таблицы, для которых выполнены оба условия:
+# - в строке одно число повторяется трижды, остальные числа различны;
+# - максимальное число строки не повторяется.
+# В ответе запишите только число.
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied1 =[x for x in M if M.count(x)==1]
+    copied3 =[x for x in M if M.count(x)==3]
+    if len(copied1)==4 and len(copied3)==3:
+        if max(M) in copied1:
+            cnt +=1
+print(cnt)
+'''
 
 
 # endregion Урок: *************************************************************
