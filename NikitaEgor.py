@@ -1,118 +1,238 @@
 # region Домашка: ******************************************************************
 
-# № 23186 Основная волна 10.06.25 (Уровень: Базовый)
-'''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x <= y) and z and (not w)
-                if F == 1:
-                    print(x, y, z, w)
-'''
-
-# (x or y) and (not(y == z)) and (not w)
-# ((x <= y) or (y == w)) and ((x or z) == w)
-# ((y <= x) and (z or w)) <= ((x and (not w)) or (y == z))
-
-
 
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: *************************************************************
 
+# Пару слов про itertools
 '''
-print('1 2 3 4 5 6 7')
-from itertools import permutations
-table = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
-graph = 'AG GA AF FA GF FG GE EG EB BE BC CB BD DB DC CD CF FC'
-for p in permutations('ABCDEFG'):
-    nt = table
-    for i in range(1, 7+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
-        # 1 2 3 4 5 6 7
-        # A F C G E D B
-        # D C F B E A G
+from itertools import permutations, product
+
+for p in permutations('ABC', r=3):
+    print(p)
+    # ('A', 'B', 'C')
+    # ('A', 'C', 'B')
+    # ('B', 'A', 'C')
+    # ('B', 'C', 'A')
+    # ('C', 'A', 'B')
+    # ('C', 'B', 'A')
+
+for p in product('ABC', repeat=3):
+    print(p)
+    # ('A', 'A', 'A')
+    # ('A', 'A', 'B')
+    # ('A', 'A', 'C')
+    # ('A', 'B', 'A')
+    # ('A', 'B', 'B')
+    # ('A', 'B', 'C')
+    # ('A', 'C', 'A')
+    # ('A', 'C', 'B')
+    # ('A', 'C', 'C')
+    # ('B', 'A', 'A')
+    # ('B', 'A', 'B')
+    # ('B', 'A', 'C')
+    # ('B', 'B', 'A')
+    # ('B', 'B', 'B')
+    # ('B', 'B', 'C')
+    # ('B', 'C', 'A')
+    # ('B', 'C', 'B')
+    # ('B', 'C', 'C')
+    # ('C', 'A', 'A')
+    # ('C', 'A', 'B')
+    # ('C', 'A', 'C')
+    # ('C', 'B', 'A')
+    # ('C', 'B', 'B')
+    # ('C', 'B', 'C')
+    # ('C', 'C', 'A')
+    # ('C', 'C', 'B')
+    # ('C', 'C', 'C')
 '''
 
-
-# i 0    1    2    3    4    5    6
-# ('G', 'F', 'E', 'D', 'B', 'A', 'C')
-#   1    2    3    4    5    6    7
-
-nt = '12 14 21 23 24 32 36 37 41 42 45 54 57 63 67 73 75 76'
-nt = 'G2 G4 2G 23 24 32 36 37 4G 42 45 54 57 63 67 73 75 76'
-nt = 'GF G4 FG 23 F4 3F 36 37 4G 4F 45 54 57 63 67 73 75 76'
-nt = 'GF G4 FG 2E F4 EF E6 E7 4G 4F 45 54 57 6E 67 7E 75 76'
-
-
-
-# № 25340 (Уровень: Базовый)
 '''
-print('1 2 3 4 5 6 7 8')
-from itertools import permutations
-table = '13 16 18 23 24 31 32 36 42 47 56 57 61 63 65 74 75 78 81 87'
-graph = 'AC CA AD DA AG GA CG GC CB BC GE EG EF FE FH HF BH HB HD DH'
-for p in permutations('ABCDEFGH'):
-    nt = table
-    for i in range(1, 8+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
-'''
-
-# Никита № 23260 Основная волна 11.06.25 (Уровень: Базовый)
-'''
-print('1 2 3 4 5 6 7 8')
-from itertools import permutations
-
-table = '13 14 16 23 24 28 31 32 41 42 47 56 57 58 61 65 74 75 78 82 85 87'
-graph = 'AD DA DB BD DC CD CF FC CB BC BH HB FG GF GE EG AH HA AE EA HG GH'
-for p in permutations('ABCDEGHF'):
-    nt = table
-    for i in range(1, 8 + 1):
-        nt = nt.replace(str(i), p[i - 1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
+M = ['324', '34', '23', '66']
+print(''.join(M))  # 324342366
+print('*'.join(M))  # 324*34*23*66
+print('  '.join(M))  # 324  34  23  66
+print('+++'.join(M))   #324+++34+++23+++66
 '''
 
 
-# № 20598 (Уровень: Базовый)
+# № 23746 Демоверсия 2026 (Уровень: Базовый)
+# Все пятибуквенные слова, составленные из букв С, Т, Р, О, К, А,
+# записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААК
+# 3. ААААО
+# 4. ААААР
+# 5. ААААС
+# 6. ААААТ
+# ……
+# Определите, под каким номером в этом списке стоит последнее
+# слово с чётным номером, которое не начинается с букв А, С или Т
+# и при этом содержит в своей записи ровно две буквы О.
 '''
-print ('1 2 3 4 5 6 7')
-from itertools import permutations
-table = '12 17 21 24 26 27 34 35 37 42 43 46 53 57 62 64 71 72 73 75'
-graph = 'АЕ ЕА ЕБ БЕ БЖ ЖБ ЖД ДЖ ДГ ГД ГВ ВГ ВА АВ ЕВ ВЕ ЕЖ ЖЕ ЖГ ГЖ'
-for p in permutations ('АБВГДЕЖ'):
-    nt = table
-    for i in range(1, 7+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set (graph.split()):
-        print(*p)
+R = []
+s = sorted('СТРОКА')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АСТ':
+                            if word.count('О') == 2:
+                                R.append(n)
+print(max(R))
+
+from itertools import product
+R = []
+n = 0
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АСТ':
+            if word.count('О') == 2:
+                R.append(n)
+print(max(R))
 '''
 
-# № 18308 (Уровень: Базовый)
+
+# № 23267 Основная волна 11.06.25 (Уровень: Базовый)
+# Все пятибуквенные слова, составленные из букв С, Т, Р, О, К, А, записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. AAAAA
+# 2. ААААК
+# 3. ААААО
+# 4. AAAAP
+# 5. AAAAC
+# 6. AAAAT
+# Определите, под каким номером этом списке стоит последнее слово с нечетным номером,
+# которые не начинается с букв А или Л и при этом содержит в своей записи ровно одну букву С.
 '''
-print('1 2 3 4 5 6 7 8 9')
-from itertools import permutations
-table = '14 15 24 28 29 34 35 41 42 43 47 49 51 53 56 65 74 78 82 87 92 94'
-graph = 'AK KA KC CK KB BK BD DB CD DC DH HD DE ED EF FE FG GF GD DG HG GH'
-for p in permutations('ABCDEFGHK'):
-    nt = table
-    for i in range(1,9+1):
-        nt = nt.replace(str(i), p[i-1])
-    if set(nt.split()) == set(graph.split()):
-        print(*p)
+R= []
+s = sorted('СТРОКА')
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    world = a + b + c + d + e
+                    n += 1
+                    if n % 2 != 0:
+                        if a not in 'АЛ':
+                            if world.count('С') == 1:
+                                R.append(n)
+print(max(R))
 '''
+'''
+from itertools import product
+R = []
+n = 0
+for p in product(sorted('СТРОКА'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 2:
+       if word[0] not in 'АЛ':
+           if word.count('С') == 1:
+                 R.append(n)
+print(max(R))
+'''
+
+
+# # № 21407 Досрочная волна 2025 (Уровень: Базовый)
+# # Виктор составляет таблицу кодовых слов для передачи сообщений, каждому сообщению
+# # соответствует своё кодовое слово. В качестве кодовых слов Виктор использует 5-буквенные слова,
+# # в которых могут быть только буквы Д, Г, И, А, Ш, Э,
+# # причём слово не должно начинаться с гласной и не должно заканчиваться согласной.
+# # Сколько различных кодовых слов может использовать Виктор?
+'''
+from itertools import product
+R = []
+cnt = 0
+for p in product('ДГИАШЭ', repeat=5):
+    word = ''.join(p)
+    if word[0] not in 'ИАЭ' and word[4] not in 'ДГШ':
+        cnt += 1
+print(cnt)
+'''
+
+
+
+# № 23554 Пересдача 03.07.25 (Уровень: Базовый)
+# Все пятибуквенные слова, составленные из букв А, Л, Г, О, Р, И, Т, М, записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААГ
+# 3. ААААИ
+# 4. ААААЛ
+# 5. AAAAM
+# 6. ААААО
+# 7. AAAAP
+# Определите, под каким номером в этом списке стоит первое слово с чётным номером,
+# которое не начинается с букв А или Г и при этом содержит в своей записи не менее двух букв Р.
+
+
+# Вариант 1
+'''
+R = []
+s = sorted('АЛГОРИТМ')
+n = 0
+for a in s:
+    for b in s:
+        for e in s:
+            for c in s:
+                for d in s:
+                    word = a + b + c + d + e
+                    n += 1
+                    if n % 2 == 0:
+                        if a not in 'АГ':
+                            if word.count('Р') >= 2:
+                                R.append(n)
+print(min(R))
+
+from itertools import product
+R = []
+n = 0
+for p in product(sorted('АЛГОРИТМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'АГ':
+           if word.count('Р') >= 2:
+               R.append(n)
+
+print(min(R))
+'''
+
+
+# № 9849 (Уровень: Средний)
+# (В. Ген) Даша составляет 6-буквенные слова, содержащие
+# в себе только те заглавные буквы латинского алфавита,
+# которые содержатся в шестнадцатиричной системе счисления.
+# Сколько различных слов может составить Даша с учётом того,
+# что гласная не может стоять в начале и в конце слова?
+
+from itertools import product
+cnt = 0
+for p in product('ABCDEF', repeat=6):
+    word = ''.join(p)
+    if word[0] not in 'AE':
+        if word[-1] not in 'AE':
+            cnt += 1
+print(cnt)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [2, 5, 14, 15, 16, 23, 19-21]
+# ФИПИ = [1, 2, 5, 8.1, 14, 15, 16, 23, 19-21]
 # КЕГЭ = []
-# на следующем уроке:
+# на следующем уроке: Смотрим задачи с цифрами
