@@ -5,97 +5,103 @@
 # #
 # #
 # region Урок: ********************************************************************
+'''
+# Пары
+M = [int(x) for x in open('files/17.txt')]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
 
-# https://education.yandex.ru/ege/inf/task/6e9942aa-9ba7-4271-a4fb-aaa4511870bb
-'''
-n = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    n += 1
-    if len(M) == len(set(M)):
-        if 2 * (max(M) + min(M)) == 3 * (sum(M) - min(M) - max(M)):
-            print(n)
-'''
-
-
-# https://education.yandex.ru/ege/inf/task/4a521e4c-c1ac-440a-8fb2-3aa0bc59172c
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    A = [x for x in M if abs(x) % 10 == 3]
-    if len(A) == 3:
-        L = [x for x in M if x > 0]
-        K = [x for x in M if x < 0]
-        if sum(L) ** 2 < sum(K) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
-# https://education.yandex.ru/ege/inf/task/342217d2-3e89-4933-a422-940d9668bfa3
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied3 = [x for x in M if M.count(x) == 3]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied3) == 3 and len(copied1) == 3:
-        if sum(copied3) ** 2 > sum(copied1) ** 2:
-            cnt += 1
-print(cnt)
+# Тройки
+M = [int(x) for x in open('files/17.txt')]
+R = []
+for i in range(len(M)-2):
+    x, y, z  = M[i], M[i+1], M[i+2]
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/96c09be1-da8c-4460-b91f-05f352ddaa78
+# № 17680 Пересдача 04.07.24 (Уровень: Базовый)
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    flag = 0
-    if len(M) != len(set(M)):
-        flag += 1
-    nechet = [x for x in M if x % 2 != 0]
-    if len(nechet) == 3:
-        flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if x > 0 and abs(x) % 41 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x != y:
+        if abs(x - y) % min(A) == 0:
+            R.append(x + y)
+print(len(R), max(R))
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/dcf64491-b2a9-43d3-8307-3d9aad5e7fe4
+# № 14952 (Уровень: Средний)
+# Определите количество троек элементов последовательности,
+# в которых не более одного из трёх элементов одновременно являются
+# четырёхзначными и чётными числами. А сумма элементов тройки
+# не больше максимального элемента последовательности, оканчивающегося на 121.
+# В ответе запишите количество найденных троек чисел, затем максимальную
+# из сумм элементов таких троек.
+# В данной задаче под тройкой подразумевается три идущих подряд
+# элемента последовательности.
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied1) == 6:
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(chet) > len(nechet):
-            cnt += 1
-print(cnt)
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if x % 2 == 0 and len(str(abs(x))) == 4]
+B = [x for x in M if abs(x) % 1000 == 121]
+R = []
+for i in range(len(M)-2):
+    x, y, z  = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) <= 1:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+# № 14260 (Уровень: Средний)
+# Определите количество троек элементов последовательности, в которых все числа являются трёхзначными,
+# а сумма элементов тройки больше минимального положительного элемента последовательности,
+# который является четырёхзначным числом и оканчивается на две одинаковые цифры.
+# В ответе запишите количество найденных троек чисел, затем максимальную из сумм элементов таких троек.
+# В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
+'''
+# i  0  1  2  3  4
+A = [1, 2, 3, 4, 5]
+# -i-5 -4 -3 -2 -1
+
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if x % 2 == 0 and len(str(abs(x))) == 3]
+B = [x for x in M if x > 0 and len(str(abs(x))) == 4 and str(x)[-1] == str(x)[-2]]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i + 1], M[i + 2]
+    if (x in A) + (y in A) + (z in A) == 3:
+        if (x + y + z) > min(B):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
 
 
-# № 25348 (Уровень: Базовый)
-# Откройте файл электронной таблицы, содержащей в каждой строке семь целых чисел.
-# Определить количество строк таблицы, для которых выполнены оба условия:
-# - в строке одно число повторяется трижды, остальные числа различны;
-# - максимальное число строки не повторяется.
-# В ответе запишите только число.
+# № 13088 (Уровень: Средний)
+# Назовём тройкой три идущих подряд элемента последовательности.
+# Определите количество троек, для которых выполняются следующие условия:
+# – ровно два числа в тройке четырёхзначные;
+# – хотя бы одно число в тройке делится на 5;
+# – сумма элементов тройки больше максимального элемента последовательности, запись
+# которого заканчивается на 17 (Гарантируется, что в последовательности есть хотя бы один элемент, запись которого заканчивается на 17.)
+# В ответе запишите два числа: сначала количество найденных троек, затем максимальную величину суммы элементов этих троек.
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied1 =[x for x in M if M.count(x)==1]
-    copied3 =[x for x in M if M.count(x)==3]
-    if len(copied1)==4 and len(copied3)==3:
-        if max(M) in copied1:
-            cnt +=1
-print(cnt)
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in M if abs(x) % 5 == 0]
+C = [x for x in M if abs(x) % 100 == 17]
+R = []
+for i in range(len(M)-2):
+    x, y, z  = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x in B) + (y in B) + (z in B) >= 1:
+            if (x + y + z) > max(C):
+                R.append(x + y + z)
+print(len(R), max(R))
 '''
-
 
 # endregion Урок: *************************************************************
 # #

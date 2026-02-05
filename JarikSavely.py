@@ -8,59 +8,79 @@
 # region Урок: ********************************************************************
 
 '''
-s = open('files/24.txt').readline()
-s = s.split('WWF')
-maxi = 0
-for i in range(len(s) - 120):
-    r = 'WF' + 'WWF'.join(s[i:i + 121]) + 'WW'
-    if 'WSFWW' not in r:
-        maxi = max(maxi, len(r))
-print(maxi)
+print(16 * 24 + 253 * 399 - 19 * 13)
+print(253 * 399 + 3 * 24 + 5 * 13)
+
+import turtle as t
+t.screensize(5000, 5000)
+t.tracer(0)  # Отключает анимацию отрисовки
+t.down()
+t.left(90)
+size = 20
+
+for i in range(7):
+    t.forward(15 * size)
+    t.right(90)
+    t.fd(23* size)
+    t.right(90)
+t.up()
+t.fd(3* size)
+t.rt(90)
+t.fd(5* size)
+t.lt(90)
+t.down()
+for i in range(7):
+    t.fd(252* size)
+    t.rt(90)
+    t.fd(398* size)
+    t.rt(90)
+# Тут рисуем точки:
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(2, 'red')
+t.update()
+t.done()
 '''
 
-
 '''
-from itertools import permutations
+from ipaddress import *
+net = ip_network('167.66.136.176/255.254.0.0', 0)
+for ip in net.hosts():
+    print(ip)
+    break
 
-table = '12 15 16 21 23 24 32 36 37 42 47 51 56 61 63 65 73 74'
-graph = 'AB BA AF FA FB BF FE EF BD DB ED DE EC CE DG GD CG GC'
-
-for per in permutations('ABCDEFG'):
-    new_table = table
-    for i in range(1, 7+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print('1 2 3 4 5 6 7')
-        print(*per)
-
-
-
-R = []
-for n in range(1 ,10000):
-    s = f'{n:b}'
-    if n%5 == 0:
-       s = s + '11'
-    else:
-        s = s + f'{n//5:b}'
-    r = int(s,2)
-    if n % 2 != 0 and r >= 783:
-        R.append(n)
-print(min(R))
+print(167 + 66 + 1)
 '''
 
-RES = []
-alp = sorted('0987654321QWERTYUIOPLKJHGFDSAZXCVBNM')
-def convert(n,b):
-    r = ''
-    while n > 0:
-        r += alp[n%b]
-        n //= b
-    return r[::-1]
-for x in range(1, 8410):
-    n = 29**293 + 29**271 - x
-    r = convert(n, 29)
-    RES.append(r.count('0'))
-print(max(RES))
+'''
+sym = 102
+# alp - ?
+# i - ?
+# bit - ?
+
+byte = 53 * 2**20 / 282_952
+# Байт на один серийный номер
+print(byte)  # 196.40973 -> 196 (отведено не более 53 Мбайт)
+bit = 196 * 8
+# bit = sym * i
+i = bit / sym
+print(i)  # 15.372 -> 15 (отведено не более 53 Мбайт)
+
+i = 15
+print(f'Максимальную мощность алфавита: {2 ** i}')
+print(f'Минимальную мощность алфавита: {2 ** 14 + 1}')
+
+
+alp = 128  # i = 7
+
+alp = 100  # i = 7 
+
+alp = 65  # i = 7
+alp = 64  # i = 6
+'''
+
 
 # endregion Урок: *************************************************************
 # #

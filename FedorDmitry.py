@@ -6,128 +6,177 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 23282 Основная волна 11.06.25 (Уровень: Средний)
-# Пусть М - сумма минимального и максимального простых натуральных делителей
-# целого числа, не считая самого числа. Если таких делителей у числа нет,
-# то значение М считается равным нулю.
-# Напишите программу, которая перебирает целые числа, большие 5 400 000,
-# в порядке возрастания и ищет среди них такие, для которых
-# М больше 60 000 и является палиндромом, т.е. одинаково читается слева
-# направо и справа налево. В ответе запишите в первом столбце
-# таблицы первые  пять найденных чисел в порядке возрастания,
-# а во втором столбце - соответствующие им значения М.
+# № 2419 (Уровень: Базовый)
+# В текстовом файле находится цепочка из символов латинского
+# алфавита A, B, C длиной не более 106 символов.
+# Найдите длину самой длинной подцепочки, состоящей из символов C
 '''
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):  # не считая самого числа (2 - исключил 1 и само число x)
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+# Вариант: ctrl + F
+s = open('files/24.txt').readline()
+print(s)
+print(len('CCCCCCCCCCC'))
 
-cnt = 0
-for x in range(5_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M > 60_000 and str(M) == str(M)[::-1]:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+# Вариант 2
 
-
-# № 23382 Резервный день 19.06.25 (Уровень: Средний)
-# Напишите программу, которая перебирает целые числа, большие 6 651 220,
-# в порядке возрастания и ищет среди них числа, представленные в виде произведения
-# ровно двух простых множителей, не обязательно различных, каждый из которых
-# содержит в своей записи ровно одну цифру 2.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
-# а во втором столбце - для каждого из чисел соответствующий им наибольший из найденных множителей.
-'''
-def is_prime(x):
-    if x <= 1:
-        return False
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            return False
-    return True
-
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            if is_prime(j) and is_prime(x // j):
-                if str(j).count('2') == 1 and str(x // j).count('2') == 1:
-                    d += [j, x // j]
-    return sorted(set(d))
-
-cnt = 0
-for x in range(6_651_220+1, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        print(x, max(d))
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    # if s[i] == 'C' and s[i+1] == 'C':
+    if s[i:i+2] == 'CC':
         cnt += 1
-        if cnt == 5:
-            break
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi)
+
+# Вариант 3
+
+s = open('files/24.txt').readline()
+s = s.replace('B', 'A').replace('A', ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+# Вариант 4
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[C]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
+
+'''
+# [wkiejrf] - только один символ из набора
+# [wkiejrf]* - набор любой длины в том числе пустой
+# [wkiejrf]+ - набор любой длины, но непустой
+# (www) - ищем конкретную последовательность именно этих символом 
+# (www)* - ищем последовательности именно этих символом (в том числе пустую)
+# (www)+ - ищем последовательности именно этих символом (но непустую)
+# | - или 
+'''
+
+# № 24895 (Уровень: Средний)
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[1-9]+([+*][1-9]+)*'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
 '''
 
 
-# № 26687 (Уровень: Средний)
-# (А. Комков) Напишите программу, которая перебирает целые числа, большие 89427150,
-# в порядке возрастания и ищет среди них те, которые можно представить
-# в виде произведения 8 простых множителей (не обязательно различных), при этом выполняются оба условия:
-# - среди простых множителей есть ровно две пары повторяющихся множителей, остальные множители различны.
-# - минимальный простой множитель не повторяется.
-# В ответе запишите первые 7 найденных чисел в порядке возрастания,
-# а через пробел  для каждого из них соответствующий наибольший из найденных множителей.
+# № 2420 (Уровень: Базовый)
+# В текстовом файле находится цепочка из символов
+# латинского алфавита A, B, C, D, E, F.
+# Найдите длину самой длинной подцепочки, состоящей из
+# символов A, B, E, F (в произвольном порядке).
 '''
-def is_prime(x):
-    if x <= 1:
-        return False
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            return False
-    return True
+from re import *
+s = open('files/24.txt').readline()
+pat = '[ABEF]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
 
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            if is_prime(j) and is_prime(x // j):
-                if str(j).count('2') == 1 and str(x // j).count('2') == 1:
-                    d += [j, x // j]
-    return sorted(set(d))
 
-# 2 * 4 * 2 * 4 *
+# № 2421 (Уровень: Базовый)
+# В текстовом файле находится цепочка из символов латинского алфавита A, B, C, D, E, F.
+# Найдите длину самой длинной подцепочки, не содержащей символа D
+'''
+s = open('files/24.txt').readline()
+s = s.replace('D', ' ')
+print(max([len(x) for x in s.split()]))
 
-cnt = 0
-for x in range(89427150+1, 10**10):
-    d = divisors(x)
-    if len(d) > 0:
-        print(x, max(d))
+s = open('files/24.txt').readline()
+print(max([len(x) for x in s.split('D')]))
+
+from re import *
+s = open('files/24.txt').readline()
+pat = '[ABCEF]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
+
+# № 2422 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 символов X, Y, Z.
+# Определите максимальное количество идущих подряд символов,
+# расположенных в алфавитном порядке (возможно с повторением символов).
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[X]+[Y]+[Z]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
+
+
+# № 2425 (Уровень: Базовый)
+# В текстовом файле находится цепочка из символов латинского
+# алфавита A, B, C, D, E, F. Найдите максимальную длину цепочки
+# вида DBACDBACDBAC.... (состоящей из фрагментов DBAC, последний
+# фрагмент может быть неполным).
+'''
+s = open('files/24.txt').readline()
+cnt = 3
+maxi = 0
+for i in range(len(s)-3):
+    if s[i:i+4] in ('DBAC', 'BACD', 'ACDB', 'CDBA'):
         cnt += 1
-        if cnt == 5:
-            break
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 3
+print(maxi)
+
+from re import *
+s = open('files/24.txt').readline()
+pat = '(DBAC)+(DBA|DB|D)'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
 '''
 
-from fnmatch import *
-from math import prod
 
-def prost(x):
-    if x <= 1:
-        return False
-    for i in range(2, int(x**0.5)+1):
-        if x % i == 0:
-            return False
-    return True
+# № 2426 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 символов 1, 2, 3, A, B, C.
+# Определите максимальное количество идущих подряд цифр.
+'''
+s = open('files/24.txt').readline()
+for x in "ABC":
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
 
-for i in range(1, 10**7):
-    if prost(i):
-        if fnmatch(str(i), '31*567?'):
-            print(i, prod([int(x) for x in str(i)]))
+from re import *
+s = open('files/24.txt').readline()
+pat = '[123]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
 
+
+# № 2478 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 символов и содержит
+# только заглавные латинские буквы и десятичные цифры.
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет трёх одинаковых подряд идущих символов.
+
+s = open('files/24.txt').readline()
+for x in '0123456789QWERTYUIOPASDFGHJKLZXCVBNM':
+    s = s.replace(3 * x, f'{2*x} {2*x}')
+print(max([len(x) for x in s.split()]))
+
+s = open('files/24.txt').readline()
+for x in '0123456789QWERTYUIOPASDFGHJKLZXCVBNM':
+    s = s.replace(3 * x, '** **')
+print(max([len(x) for x in s.split()]))
+
+# YYYewoirghjerXXX
+# YY YYewoirghjerXX XX
+
+
+s = open('files/24.txt').readline()
+for x in '0123456789QWERTYUIOPASDFGHJKLZXCVBNM':
+    s = s.replace(4 * x, '*** ***')
+print(max([len(x) for x in s.split()]))
 
 # endregion Урок: *************************************************************
 # #
