@@ -9,6 +9,7 @@
 Разборов там очень много 👉 https://t.me/+0z70ARRnvChlMTky
 
 '''
+import turtle
 from traceback import print_tb
 
 # endregion Работа над курсом
@@ -1583,3 +1584,10 @@ print(cnt)
 # | - или 
 '''
 
+
+
+from turtle import *
+
+turtle.forward(100)
+
+turtle.done()

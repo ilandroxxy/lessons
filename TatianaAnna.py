@@ -6,112 +6,101 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 6 ЕГКР 13.12.25 Вариант 2
+
+# ЕГКР 24 номер вариант 2
 '''
-print(34 * 16 + 21 * 25 - 12 * 21)
-
-import turtle as t
-t.tracer(0)
-t.left(90)
-t.screensize(10000, 10000)
-size = 20
-
-for i in range(8):
-    t.forward(33 * size)
-    t.right(90)
-    t.forward(15 * size)
-    t.right(90)
-t.penup()
-t.forward(5 * size)
-t.right(90)
-t.forward(4 * size)
-t.left(90)
-t.pendown()
-for i in range(8):
-    t.forward(20 * size)
-    t.right(90)
-    t.forward(24 * size)
-    t.right(90)
-t.penup()
-
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(size * x, size * y)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
-'''
-from asyncio.base_subprocess import ReadSubprocessPipeProto
-
-# Задание 7 ЕГКР 13.12.25 Вариант 2
-'''
-pixels = 1280 * 1024
-i = 14
-I = pixels * i # бит
-T = 200
-print((I * T) / 2**23)
+s = open('files/24.txt').readline()
+for x in '2468':
+    s = s.replace(x, '*')
+s = s.split('W')
+maxi = 0
+for i in range(len(s)-36):
+    r = 'W'.join(s[i:i+37])
+    if r.count('*') == 1:
+        i = r.index('W')
+        if r[i - 1] == '*':
+            maxi = max(maxi, len(r))
+print(maxi)
 '''
 
 
-# Задание 8 ЕГКР 13.12.25 Вариант 2
+# Задание 19-21
 '''
-L = []
-n = 0
+from math import ceil, floor
+def F(s, n):
+    if s <= 20:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s-2, n-1), F(s-4, n-1), F(floor(s/2), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(21, 1000) if F(s, n=2)])
+print([s for s in range(21, 1000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(21, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# Задание 17 Вариант 2 ЕГКР
+'''
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in M if abs(x) % 100 == 10]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 0:
+        if (x + y + z) > max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# Задание 9 Вариант 2 ЕГКР
+'''
 cnt = 0
-s = sorted('ГРАНИТ')
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        num = a + b + c + d + e + f
-                        n += 1
-                        if num.count('Т') == 1:
-                            if a not in 'РТ':
-                                if n % 2 == 0:
-                                    L.append(n)
-print(max(L))
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    print(M)
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied2 = [x for x in M if M.count(x) == 2]  # [5 5 7 7]
+    if len(copied2) == 4 and len(copied1) == 3:
+        # if M.count(max(M)) == 1:
+        if max(M) in copied1:
+            cnt += 1
+print(cnt)
+'''
+
+'''
+def F(a, b):
+    if a < b or a == 26 or a == 76:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-2, b) + F(a-4, b) + F(a//2, b)
+
+print(F(86, 39) * F(39, 14))
 '''
 
 
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-# Задание 15 ЕГКР 13.12.25 Вариант 2
-'''
-def F(x, a1, a2):
-    P = 225 <= x <= 464
-    Q = 140 <= x <= 315
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
-
-RES = []
-M = [x for x in range(120, 480)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            RES.append(a2 - a1)
-print(min(RES))
-'''
-
-
-def F(x, A):
-    y = 78_125 - 4 * x
-    return (A > x) and (A > 78_125 - 4 * x)
-
-for A in range(1, 100000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-        break
-
-
-
-for A in range(0, 100000):
-    if all(A > x and A > 78125 - 4 * x for x in range(1, 10000)):
-        print(A)
-        break
-
-
+cnt = 0
+for x in range(13200000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M % 100 == 55 and M > 30000:
+            print(x, M)
+            cnt += 1
+            if cnt == 7:
+                break
 
 # endregion Урок: *************************************************************
 # #
