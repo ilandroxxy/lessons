@@ -6,131 +6,142 @@
 # #
 # region Урок: ********************************************************************
 
-# все числа различны:
-
-# 1. if len(M) == len(set(M)):
-
-# 2. if len(set(M)) == 6:
-
-# 3. copied1 = [x for x in M if M.count(x) == 1]
-#    if len(copied1) == 6:
-
-
-# наибольшее число в строке больше суммы остальных чисел в этой строке:
-
-# 1. if max(M) > sum(M) - max(M):
-
-# 2. M = sorted(M)
-#    if M[-1] > M[0] + M[1] + M[2] + ...
-
-
-# https://education.yandex.ru/ege/inf/task/9a4ed264-8f61-4713-91c3-37fceb735e15
+# № 25354 ЕГКР 13.12.25 (Уровень: Средний)
 '''
-# Выполняются оба условия
+def F(x, y, A):
+    return (78125 != y + 4*x) or (A > x) and (A > y)
 
-# Вариант 1
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if len(M) == len(set(M)):
-        if max(M) > sum(M) - max(M):
-            cnt += 1
-print(cnt)
-
-# Вариант 2
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    flag = 0
-    if len(M) == len(set(M)):
-        flag += 1
-    if max(M) > sum(M) - max(M):
-        flag += 1
-    if flag == 2:
-        cnt += 1
-print(cnt)
-
-# Вариант 2
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if (len(M) == len(set(M))) + (max(M) > sum(M) - max(M)) == 2:
-        cnt += 1
-print(cnt)
-
-
-# Выполняется хотя бы одно условие
-
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    flag = 0
-    if len(M) == len(set(M)):
-        flag += 1
-    if max(M) > sum(M) - max(M):
-        flag += 1
-    if flag >= 1:
-        cnt += 1
-print(cnt)
-
-
-# Вариант 2
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if (len(M) == len(set(M))) + (max(M) > sum(M) - max(M)) >= 1:
-        cnt += 1
-print(cnt)
-
-
-# Выполняется только одно условие
-
-# Вариант 1
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    flag = 0
-    if len(M) == len(set(M)):
-        flag += 1
-    if max(M) > sum(M) - max(M):
-        flag += 1
-    if flag == 1:
-        cnt += 1
-print(cnt)
-
-# Вариант 2
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if (len(M) == len(set(M))) + (max(M) > sum(M) - max(M)) == 1:
-        cnt += 1
-print(cnt)
+for A in range(0, 100000):
+    if all(F(x, 78125 - 4*x, A) for x in range(1, 20000)):
+        print(A)
+        break
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/488973a9-be8d-4241-960a-1e41c8dbfe94
+# № 19255 ЕГКР 21.12.24 (Уровень: Базовый)
+# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
+# 1) символ «?» означает ровно одну произвольную цифру;
+# 2) символ «*» означает любую последовательность цифр произвольной длины; в том числе «*» может задавать и пустую последовательность.
+#
+# Среди натуральных чисел, не превышающих 10**10, найдите все числа,
+# соответствующие маске 54?1?3*7, делящиеся на 18579 без остатка.
+#
+# В ответе запишите в первом столбце таблицы все найденные числа в порядке возрастания,
+# а во втором столбце – соответствующие им результаты деления этих чисел на 18579.
 '''
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 4 and len(copied1) == 3:
-        if max(M) in copied1:
-            print(sum(M))
+from fnmatch import *
+for x in range(18579, 10**10, 18579):
+    if fnmatch(str(x), '54?1?3*7'):
+        print(x, x // 18579)
+
+from re import *
+for x in range(18579, 10**10, 18579):
+    if fullmatch('54[0-9]1[0-9]3[0-9]+7', str(x)):
+        print(x, x // 18579)
+'''
+
+
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d.append(j)
+            d.append(x // j)
+    return sorted(set(d))
+
+# [1, 2, 3, 4 | 24 // 4, 24 // 3, 24 // 2, 24 // 1]
+print(divisors(24))
+'''
+
+
+# № 25362 ЕГКР 13.12.25 (Уровень: Базовый)
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5) + 1):
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+for x in range(1350050+1, 10**10):
+    d = [j for j in divisors(x) if j % 100 == 11 and j != x and j != 11]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
             break
 '''
 
 
-# https://education.yandex.ru/ege/inf/task/37e02e25-78d7-4b93-9ef4-7a7a6b9281bd
+# № 26556 (Уровень: Базовый)
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5) + 1):  #  не считая самого числа
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+for x in range(5_700_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M > 70_000 and (M ** 0.5) == int(M ** 0.5):
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
 
 
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
+# № 23763 Демоверсия 2026 (Уровень: Базовый)
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5) + 1):  #  не считая самого числа
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
 
+cnt = 0
+for x in range(800_000+1, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 21980 (Уровень: Средний)
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5) + 1):  #  не считая самого числа
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+for x in range(750_000-1, -1, -1):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0 and j % 10 == 7]
+    if len(d) > 0:
+        F = int(sum(d) / len(d))
+        if F % 111 == 0:
+            print(x, F)
+            cnt += 1
+            if cnt == 5:
+                break
 
 
 # endregion Урок: *************************************************************
 #
-# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23]
+# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23, 25]
 # КЕГЭ = []
 # на следующем уроке: 12, 27

@@ -337,7 +337,7 @@ print(cnt)
 # https://education.yandex.ru/ege/inf/task/36638a59-7977-4a77-9f1a-361aca12356d
 
 k = 0
-for s in open('files/9.csv'):
+for s in open('t.me/files/9.csv'):
     M = [int(x) for x in s.split(',')]
     P = [x for x in M if M.count(x) == 1]
     if len(M) == len(P):
@@ -349,7 +349,7 @@ for s in open('files/9.csv'):
 print(k)
 
 k = 0
-for s in open('files/9.csv'):
+for s in open('t.me/files/9.csv'):
     M = [int(x) for x in s.split(',')]
     if len(M) == len(set(M)):
         if (max(M) + min(M)) / 2 > (sum(M) - min(M) - max(M)) / 2:

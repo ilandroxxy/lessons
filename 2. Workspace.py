@@ -1584,10 +1584,3 @@ print(cnt)
 # | - или 
 '''
 
-
-
-from turtle import *
-
-turtle.forward(100)
-
-turtle.done()
