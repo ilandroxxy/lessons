@@ -5,156 +5,120 @@
 # #
 # region Урок: ********************************************************************
 
-
-# Номер 7 Демоверсия 23.08.25 Вариант 1
+# Статград 23.10.25 вариант 1, номер 8
 '''
-pixels = 1024 * 768
-i = 30  # Сколько бит выделяется на один пиксель (2 ** i >= colors)
-I = pixels * i
+cnt = 0
+from itertools import *
+alp = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in product(alp[:15], repeat = 4):
+    k = 0
+    if x[0] != '0':
+        if x.count('8') == 1:
+            for i in range(len(x) - 1):
+                if x[i] != x[i + 1]:
+                    k += 1
+            if k == 3:
+                cnt += 1
+print(cnt)
 
-pixels2 = 800 * 600
-i2 = 28
-I2 = pixels2 * i2
 
-print((I - I2) * 100)
-print(((I - I2) * 100) / 2**13)  # 123937
-'''
-
-
-
-# Номер 11 Демоверсия 23.08.25 Вариант 1
-'''
-sym = 2783
-# alp - ?
-# i - ?
-# bit - ?
-
-byte = 11 * 2**30 / 3_845_627
-print(byte)  # 3071.322 -> 3072 (так как требуется не менее 11 Гбайт)
-bit = 3072 * 8
-
-# bit = sym * i
-i = bit / sym
-print(i)  # 8.8307 -> 9 (так как требуется не менее 11 Гбайт)
-
-i = 9
-print(f'Максимальная мощность алфавита: {2 ** 9}')
-print(f'Минимальная мощность алфавита: {2 ** 8+1}')
-
-alp = 129  # i = 8
-
-alp = 128  # i = 7
-
-alp = 100  # i = 7
-
-alp = 65   # i = 7
-
-alp = 64  # i = 6 
+cnt = 0
+from itertools import *
+alp = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in product(alp[:15], repeat = 4):
+    num = ''.join(x)
+    if num[0] != '0':
+        if num.count('8') == 1:
+            if all(p*2 not in num for p in alp[:15]):
+                cnt += 1
+print(cnt)
 '''
 
 
-# Номер 15 Демоверсия 23.08.25 Вариант 1
+# Статград 23.10.25 вариант 1, номер 23
 '''
-def F(x, a1, a2):
-    P = 25 <= x <= 64
-    Q = 40 <= x <= 115
-    A = a1 <= x <= a2
-    return (P) <= (((Q) and (not A)) <= (not P))
+def F(a, b):
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    return F(a * 3, b) + F(a * 2, b) + F(a + 1, b)
 
-R = []
-M = [x / 4 for x in range(20 * 4, 120 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))
+print(F(6, 14) *F(14,18) * F(18,48))  # 24
+print(F(6, 14) * F(14,48))  # 45
+print(F(6, 18) * F(18,48))  # 48
+print((48 + 45) - 24)  # 69
 '''
 
 
-# № 12469 (Уровень: Базовый)
+
+# Статград 23.10.25 вариант 1, номер 25
 '''
-def F(x, a1, a2):
-    D = 7 <= x <= 68  # x ∈ D
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return (D) <= (((not C) and (not A)) <= (not D))
+def pdr(n):
+    S = []
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            S.append(i)
+            S.append(n // i)
+    return sorted(set(S))
 
 
-R = []
-M = [x / 10 for x in range(5 * 10, 110 * 10)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-
-print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
-'''
-
-# Номер 27 Демоверсия 23.08.25 Вариант 1
-
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 10:
-        clustersA[0].append([x, y])
+def sl(n):
+    if len(pdr(n)) == 0:
+        return 1
     else:
-        clustersA[1].append([x, y])
+        return 0
 
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if 10 < y < 20:
-        clustersB[0].append([x, y])
-    if 20 < y < 30 and x > 18:
-        clustersB[1].append([x, y])
-    if 20 < y < 30 and x < 18:
-        clustersB[2].append([x, y])
+cnt = 0
+for n in range(1325000-1, 1, -1):
+    p = pdr(n)
+    b = [i for i in p if sl(i)]
+    if len(b) > 0:
+        if sum(b) <= 30000 and sum(b) % 5 == 0:
+            print(n)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+'''
+def pdr(n):
+    S = []
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            S.append(i)
+            S.append(n // i)
+    return sorted(set(S))
+
+cnt = 0
+for n in range(1325000-1, 1, -1):
+    b = [i for i in pdr(n) if len(pdr(i)) == 0]
+    if len(b) > 0:
+        if sum(b) <= 30000 and sum(b) % 5 == 0:
+            print(n)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+# Статград 23.10.25 вариант 1, номер 9
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    p = [x for x in M if x == min(M)]
+    copy1 = [x for x in M if M.count(x) == 1]
+    # if (2 <= len(p) <= 3) and (5 <= len(copy1) <= 6):
+    # if (len(p) == 2 and len(copy1) == 6) or (len(p) == 3 and len(copy1) == 5):
+    if len(p) in (2, 3) and len(copy1) in (5, 6):
+        if (copy1[0] ** 2 + copy1[-1] ** 2) <= (sum(copy1) - min(copy1) - max(copy1)) ** 2:
+            cnt += 1
+print(cnt)
+'''
 
 
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-Px = 3.8471735 * 10000
-Py = 6.1225014 * 10000
-print(int(abs(Px)), int(abs(Py)))  # 38471 61225
 
 
-print(center(clustersB[0]))  # [11.555522, 14.5042082]
-print(center(clustersB[1]))  # [21.3946551, 24.7510816]
-print(center(clustersB[2]))  # [14.6275088, 23.5024317]
-
-print(len(clustersB[0]))  # 407
-print(len(clustersB[1]))  # 100
-print(len(clustersB[2]))  # 113
-
-Q1 = dist([11.555522, 14.5042082], [21.3946551, 24.7510816])
-print(int(abs(Q1 * 10000)))  # 142058
-
-def F(cl, center):
-    R = []
-    for p in cl:
-        R.append(dist(center, p))
-    return max(R)
-
-print(F(clustersB[0], center(clustersB[0])))  # 2.5299751856733765
-print(F(clustersB[1], center(clustersB[1])))  # 2.235667728613032
-print(F(clustersB[2], center(clustersB[2])))  # 2.3038511238511417
-
-Q2 = 2.5299751856733765 * 10000
-print(int(abs(Q2)))  # 25299
 
 # endregion Урок: *************************************************************
 # #
