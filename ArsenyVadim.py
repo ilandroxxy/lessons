@@ -5,124 +5,114 @@
 # #
 # region Урок: ********************************************************************
 
-# Статград 23.10.25 вариант 1, номер 8
+
+# № 25345 ЕГКР 13.12.25 (Уровень: Базовый)
+# В начальный момент Черепаха находится в начале координат,
+# её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+
+# Черепаха выполнила следующую программу:
+# Повтори 6 [Вперёд 33 Направо 90 Вперёд 20 Направо 90]
+# Поднять хвост
+# Вперёд 3 Направо 90 Вперёд 9 Налево 90
+# Опустить хвост
+# Повтори 6 [Вперёд 24 Направо 90 Вперёд 25 Направо 90]
+
+# Определите, сколько точек с целочисленными координатами находится внутри пересечения фигур,
+# ограниченных заданными алгоритмом линиями. Точки на границах этого пересечения учитывать не следует.
 '''
-cnt = 0
-from itertools import *
-alp = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in product(alp[:15], repeat = 4):
-    k = 0
-    if x[0] != '0':
-        if x.count('8') == 1:
-            for i in range(len(x) - 1):
-                if x[i] != x[i + 1]:
-                    k += 1
-            if k == 3:
-                cnt += 1
-print(cnt)
+import turtle as t   # Подключение библиотеки с коротким именем t
+t.down()  # Опустить хвост
+t.left(90)  # Поворот головы влево на 90*
+t.tracer(0)  # Отключение анимации отрисовки (мгновенное рисовние)
+t.screensize(5000, 5000)  # Подключение ползунков масштабирования
+size = 30  # Переменная для масштабирования (любое имя)
 
 
-cnt = 0
-from itertools import *
-alp = sorted('1234567890QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in product(alp[:15], repeat = 4):
-    num = ''.join(x)
-    if num[0] != '0':
-        if num.count('8') == 1:
-            if all(p*2 not in num for p in alp[:15]):
-                cnt += 1
-print(cnt)
-'''
+# Реализовывать наш псевдокод
 
+# Повтори 6 [Вперёд 33 Направо 90 Вперёд 20 Направо 90]
+for i in range(6):
+    t.forward(33 * size)
+    t.right(90)
+    t.forward(20 * size)
+    t.right(90)
 
-# Статград 23.10.25 вариант 1, номер 23
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    if a == b:
-        return 1
-    return F(a * 3, b) + F(a * 2, b) + F(a + 1, b)
+# Поднять хвост
+t.up()
 
-print(F(6, 14) *F(14,18) * F(18,48))  # 24
-print(F(6, 14) * F(14,48))  # 45
-print(F(6, 18) * F(18,48))  # 48
-print((48 + 45) - 24)  # 69
-'''
+# Вперёд 3 Направо 90 Вперёд 9 Налево 90
+t.forward(3 * size)
+t.right(90)
+t.forward(9 * size)
+t.left(90)
 
+# Опустить хвост
+t.down()
 
+# Повтори 6 [Вперёд 24 Направо 90 Вперёд 25 Направо 90]
+for i in range(6):
+    t.fd(24 * size)
+    t.rt(90)
+    t.fd(25 * size)
+    t.rt(90)
 
-# Статград 23.10.25 вариант 1, номер 25
-'''
-def pdr(n):
-    S = []
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            S.append(i)
-            S.append(n // i)
-    return sorted(set(S))
+# Отрисовывать точки на холсте
+t.up()  # Поднять хвост
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(4, 'red')
 
-
-def sl(n):
-    if len(pdr(n)) == 0:
-        return 1
-    else:
-        return 0
-
-cnt = 0
-for n in range(1325000-1, 1, -1):
-    p = pdr(n)
-    b = [i for i in p if sl(i)]
-    if len(b) > 0:
-        if sum(b) <= 30000 and sum(b) % 5 == 0:
-            print(n)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-'''
-def pdr(n):
-    S = []
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            S.append(i)
-            S.append(n // i)
-    return sorted(set(S))
-
-cnt = 0
-for n in range(1325000-1, 1, -1):
-    b = [i for i in pdr(n) if len(pdr(i)) == 0]
-    if len(b) > 0:
-        if sum(b) <= 30000 and sum(b) % 5 == 0:
-            print(n)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-# Статград 23.10.25 вариант 1, номер 9
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    p = [x for x in M if x == min(M)]
-    copy1 = [x for x in M if M.count(x) == 1]
-    # if (2 <= len(p) <= 3) and (5 <= len(copy1) <= 6):
-    # if (len(p) == 2 and len(copy1) == 6) or (len(p) == 3 and len(copy1) == 5):
-    if len(p) in (2, 3) and len(copy1) in (5, 6):
-        if (copy1[0] ** 2 + copy1[-1] ** 2) <= (sum(copy1) - min(copy1) - max(copy1)) ** 2:
-            cnt += 1
-print(cnt)
+t.update()  # Для корректной работы t.tracer(0)
+t.done()  # В конце программы фиксируем окно отрисовки
 '''
 
 
+# Номер 6 Статград вариант 1 (23.10.25)
+
+
+print(16 * 24 + 253 * 399 - 13 * 19)  # 101084
+
+import turtle as t
+t.down()
+t.left(90)
+t.tracer(0)
+t.screensize(5000, 5000)
+size = 30
+
+# Реализовывать наш псевдокод
+for _ in range(7):
+    t.forward(15 * size)  # + 1
+    t.right(90)
+    t.forward(23 * size)  # + 1
+    t.right(90)
+t.up()
+t.forward(3 * size)
+t.right(90)
+t.forward(5 * size)
+t.left(90)
+t.down()
+for _ in range(7):
+    t.forward(252 * size)  # + 1
+    t.right(90)
+    t.forward(398 * size)  # + 1
+    t.right(90)
+
+# Отрисовывать точки на холсте
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(4, 'red')
+
+t.update()
+t.done()
 
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 4, 5, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 23, 25, 27]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25, 27]
 # КЕГЭ = []
 # на следующем уроке:

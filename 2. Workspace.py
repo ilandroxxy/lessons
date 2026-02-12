@@ -1480,16 +1480,6 @@ for s in open('0. files/27A.txt'):
 
 
 '''
-def F(x, y, A):
-    return (78_125 != y + 4*x) or (A > x) and (A > y)
-
-for A in range(1, 10**10):
-    if all(F(x, 78_125 - 4*x, A) for x in range(1, 78_125 // 4)):
-        print(A)
-        break
-
-
-
 
 from functools import *
 
@@ -1587,7 +1577,7 @@ print(cnt)
 
 
 
-
+'''
 from itertools import permutations
 table = '13 16 18 23 24 31 32 36 42 47 56 57 61 63 65 74 75 78 81 87'
 graph = 'HD DH HF FH HB BH BC CB FE EF DA AD EG GE GA AG GC CG AC CA'
@@ -1602,6 +1592,7 @@ for p in permutations('ABCDEFGH'):
         # 1 2 3 4 5 6 7 8
         # A E G F B C H D
         # C E G F D A H B
+'''
 
 # 32  47
 # GE  FH  -> 15 + 13 = 28
@@ -1635,6 +1626,22 @@ alp = 64  # i = 6
 
 
 
+def F(x, y, A):
+    return (78_125 != y + 4*x) or (A > x) and (A > y)
+
+for A in range(1, 10**10):
+    if all(F(x, 78_125 - 4*x, A) for x in range(1, 78_125 // 4)):
+        print(A)
+        break
+
+
+def F(x, y, A):
+    return (y < A) and (x < A) or (89_241 < 5 * y + x)
+
+for A in range(0, 100000):
+    if all(F(89_241 - 5*y, y, A) for y in range(0, 10000)):
+        print(A)
+        break
 
 
 
@@ -1642,36 +1649,7 @@ alp = 64  # i = 6
 
 
 
-from itertools import product
-res = []
-for p in product('0123456789ABCD', repeat=5):
-    word = ''.join(p)
-    if word[0] != '0':
-        flag = True
-        for i in range(len(word)-1):
-            x, y = p[i], p[i+1]
-            if (x not in '13579' and y not in 'ABCD') or (y not in '13579' and x not in 'ABCD'):
-                continue
-            else:
-                flag = False
-        if flag == True:
-            res.append(word)
-print(len(res))  # 213125
 
-
-cnt = 0
-from itertools import product
-for p in product('0123456789ABCD', repeat=5):
-    word = ''.join(p)
-    if word[0] != '0':
-        num = word
-        for x in 'ABCD':
-            num = num.replace(x, 'A')
-        for x in '13579':
-            num = num.replace(x, '1')
-        if 'A1' not in num and '1A' not in num:
-            cnt += 1
-print(cnt)
 
 
 

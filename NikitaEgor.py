@@ -6,76 +6,11 @@
 # #
 # region Урок: *************************************************************
 
-# Пару слов про itertools
-'''
-from itertools import permutations, product
 
-for p in permutations('ABC', r=3):
-    print(p)
-    # ('A', 'B', 'C')
-    # ('A', 'C', 'B')
-    # ('B', 'A', 'C')
-    # ('B', 'C', 'A')
-    # ('C', 'A', 'B')
-    # ('C', 'B', 'A')
-
-for p in product('ABC', repeat=3):
-    print(p)
-    # ('A', 'A', 'A')
-    # ('A', 'A', 'B')
-    # ('A', 'A', 'C')
-    # ('A', 'B', 'A')
-    # ('A', 'B', 'B')
-    # ('A', 'B', 'C')
-    # ('A', 'C', 'A')
-    # ('A', 'C', 'B')
-    # ('A', 'C', 'C')
-    # ('B', 'A', 'A')
-    # ('B', 'A', 'B')
-    # ('B', 'A', 'C')
-    # ('B', 'B', 'A')
-    # ('B', 'B', 'B')
-    # ('B', 'B', 'C')
-    # ('B', 'C', 'A')
-    # ('B', 'C', 'B')
-    # ('B', 'C', 'C')
-    # ('C', 'A', 'A')
-    # ('C', 'A', 'B')
-    # ('C', 'A', 'C')
-    # ('C', 'B', 'A')
-    # ('C', 'B', 'B')
-    # ('C', 'B', 'C')
-    # ('C', 'C', 'A')
-    # ('C', 'C', 'B')
-    # ('C', 'C', 'C')
+#  № 6901 (Уровень: Средний)
 '''
-
-'''
-M = ['324', '34', '23', '66']
-print(''.join(M))  # 324342366
-print('*'.join(M))  # 324*34*23*66
-print('  '.join(M))  # 324  34  23  66
-print('+++'.join(M))   #324+++34+++23+++66
-'''
-
-
-# № 23746 Демоверсия 2026 (Уровень: Базовый)
-# Все пятибуквенные слова, составленные из букв С, Т, Р, О, К, А,
-# записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. ААААА
-# 2. ААААК
-# 3. ААААО
-# 4. ААААР
-# 5. ААААС
-# 6. ААААТ
-# ……
-# Определите, под каким номером в этом списке стоит последнее
-# слово с чётным номером, которое не начинается с букв А, С или Т
-# и при этом содержит в своей записи ровно две буквы О.
-'''
-R = []
-s = sorted('СТРОКА')
+L = []
+s = sorted('БАРШ')
 n = 0
 for a in s:
     for b in s:
@@ -84,155 +19,193 @@ for a in s:
                 for e in s:
                     word = a + b + c + d + e
                     n += 1
-                    if n % 2 == 0:
-                        if a not in 'АСТ':
-                            if word.count('О') == 2:
-                                R.append(n)
-print(max(R))
+                    sogl = [x for x in word if x in 'БРШ']
+                    copied1 = [x for x in word if word.count(x) == 1]
+                    copied2 = [x for x in word if word.count(x) == 2]
+                    if len(sogl) <= 3:
+                        if len(copied2) == 2 and len(copied1) == 3:
+                            L.append(n)
+print(max(L))
+'''
 
-from itertools import product
+
+# № 5553 (Уровень: Средний)
+'''
 R = []
-n = 0
-for p in product(sorted('СТРОКА'), repeat=5):
+from itertools import permutations
+for p in permutations('СОТОЧКА'):
     word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] not in 'АСТ':
-            if word.count('О') == 2:
-                R.append(n)
-print(max(R))
+    if 'ОА' in word or 'АО' in word or 'ОО' in word:
+        R.append(word)
+print(len(set(R)))
 '''
 
 
-# № 23267 Основная волна 11.06.25 (Уровень: Базовый)
-# Все пятибуквенные слова, составленные из букв С, Т, Р, О, К, А, записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. AAAAA
-# 2. ААААК
-# 3. ААААО
-# 4. AAAAP
-# 5. AAAAC
-# 6. AAAAT
-# Определите, под каким номером этом списке стоит последнее слово с нечетным номером,
-# которые не начинается с букв А или Л и при этом содержит в своей записи ровно одну букву С.
+# № 13094 (Уровень: Средний)
+# Сколько существует 9-значных девятеричных чисел, в записи
+# которых не встречается цифра 0, любые две соседние цифры имеют
+# разную чётность, и никакая цифра не повторяется больше 3 раз?
 '''
-R= []
-s = sorted('СТРОКА')
-n = 0
+cnt = 0
+s = '12345678'
 for a in s:
     for b in s:
         for c in s:
             for d in s:
                 for e in s:
-                    world = a + b + c + d + e
-                    n += 1
-                    if n % 2 != 0:
-                        if a not in 'АЛ':
-                            if world.count('С') == 1:
-                                R.append(n)
-print(max(R))
-'''
-'''
-from itertools import product
-R = []
-n = 0
-for p in product(sorted('СТРОКА'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 2:
-       if word[0] not in 'АЛ':
-           if word.count('С') == 1:
-                 R.append(n)
-print(max(R))
+                    for f in s:
+                        for g in s:
+                            for h in s:
+                                for p in s:
+                                    num = a + b + c + d + e + f + g + h + p
+                                    copied = [x for x in num if num.count(x) <= 3]
+                                    if len(copied) == 9:
+                                        for x in '02468':
+                                            num = num.replace(x, '2')
+                                        for x in '1357':
+                                            num = num.replace(x, '1')
+                                        if '11' not in num and '22' not in num:
+                                            cnt += 1
+print(cnt)
 '''
 
-
-# # № 21407 Досрочная волна 2025 (Уровень: Базовый)
-# # Виктор составляет таблицу кодовых слов для передачи сообщений, каждому сообщению
-# # соответствует своё кодовое слово. В качестве кодовых слов Виктор использует 5-буквенные слова,
-# # в которых могут быть только буквы Д, Г, И, А, Ш, Э,
-# # причём слово не должно начинаться с гласной и не должно заканчиваться согласной.
-# # Сколько различных кодовых слов может использовать Виктор?
+# № 13094 (Уровень: Средний)
 '''
-from itertools import product
-R = []
 cnt = 0
-for p in product('ДГИАШЭ', repeat=5):
-    word = ''.join(p)
-    if word[0] not in 'ИАЭ' and word[4] not in 'ДГШ':
-        cnt += 1
+from itertools import product
+for p in product('12345678', repeat=9):
+    num = ''.join(p)
+    copied = [x for x in num if num.count(x) <= 3]
+    if len(copied) == 9:
+        for x in '02468':
+            num = num.replace(x, '2')
+        for x in '1357':
+            num = num.replace(x, '1')
+        if '11' not in num and '22' not in num:
+            cnt += 1
 print(cnt)
 '''
 
 
 
-# № 23554 Пересдача 03.07.25 (Уровень: Базовый)
-# Все пятибуквенные слова, составленные из букв А, Л, Г, О, Р, И, Т, М, записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. ААААА
-# 2. ААААГ
-# 3. ААААИ
-# 4. ААААЛ
-# 5. AAAAM
-# 6. ААААО
-# 7. AAAAP
-# Определите, под каким номером в этом списке стоит первое слово с чётным номером,
-# которое не начинается с букв А или Г и при этом содержит в своей записи не менее двух букв Р.
-
-
-# Вариант 1
+# № 17627 Основная волна 19.06.24 (Уровень: Базовый)
+# Определите количество 15-ричных пятизначных чисел, в записи которых ровно
+# одна цифра 8 и не менее двух цифр с числовым значением, превышающим 9.
 '''
-R = []
-s = sorted('АЛГОРИТМ')
-n = 0
+cnt = 0
+s = '0123456789ABCDE'
 for a in s:
     for b in s:
-        for e in s:
-            for c in s:
-                for d in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if n % 2 == 0:
-                        if a not in 'АГ':
-                            if word.count('Р') >= 2:
-                                R.append(n)
-print(min(R))
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0':
+                        if num.count('8') == 1:
+                            B = [x for x in num if x > '9']
+                            if len(B) >= 2:
+                                cnt += 1
+print(cnt)
 
+cnt = 0
 from itertools import product
-R = []
-n = 0
-for p in product(sorted('АЛГОРИТМ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] not in 'АГ':
-           if word.count('Р') >= 2:
-               R.append(n)
-
-print(min(R))
+for p in product('0123456789ABCDE', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('8') == 1:
+            B = [x for x in num if x > '9']
+            if len(B) >= 2:
+                cnt += 1
+print(cnt)
 '''
 
 
-# № 9849 (Уровень: Средний)
-# (В. Ген) Даша составляет 6-буквенные слова, содержащие
-# в себе только те заглавные буквы латинского алфавита,
-# которые содержатся в шестнадцатиричной системе счисления.
-# Сколько различных слов может составить Даша с учётом того,
-# что гласная не может стоять в начале и в конце слова?
 
-from itertools import product
+# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
+# Определите количество восьмеричных пятизначных чисел, которые
+# не начинаются с нечётных цифр, не оканчиваются цифрами 2 или 6,
+# а также содержат не более двух цифр 7.
+'''
 cnt = 0
-for p in product('ABCDEF', repeat=6):
-    word = ''.join(p)
-    if word[0] not in 'AE':
-        if word[-1] not in 'AE':
-            cnt += 1
+s = '01234567'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0':
+                        if num[0] not in '1357':
+                            if num.count('7') <= 2:
+                                if num[-1] not in '26':
+                                    cnt += 1
+print(cnt)
+'''
+
+
+# № 4613 Основная волна 2022 (Уровень: Базовый)
+# Определите количество пятизначных чисел, записанных в девятеричной
+# системе счисления, которые не начинаются с нечетных цифр,
+# не оканчиваются цифрами 1 или 8, а также содержат в своей записи
+# не более одной цифры 3.
+'''
+cnt = 0
+from itertools import product
+for p in product('012345678', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num[0] not in '1357':
+            if num.count('3') <= 1:
+                if num[-1] not in '18':
+                    cnt += 1
+print(cnt)
+'''
+
+
+# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
+# Сколько существует семизначных семеричных чисел, которые содержат
+# в своей записи ровно две чётные цифры?
+'''
+cnt = 0
+s = '0123456'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            num = a + b + c + d + e + f + g
+                            if num[0] != '0':
+                                chet = [x for x in num if x in '0246']
+                                if len(chet) == 2:
+                                # if num.count('0') + num.count('2') + num.count('4') + num.count('6') == 2:
+                                    cnt += 1
+print(cnt)
+'''
+
+
+# № 4588 Основная волна 2022 (Уровень: Базовый)
+# Определите количество пятизначных чисел, записанных в восьмеричной
+# системе счисления, в записи которых ровно одна цифра 6, при этом
+# никакая нечётная цифра не стоит рядом с цифрой 6.
+
+cnt = 0
+from itertools import product
+for p in product('01234567', repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('6') == 1:
+            for x in '1357':
+                num = num.replace(x, '1')
+            if '16' not in num and '61' not in num:
+                cnt += 1
 print(cnt)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 5, 8.1, 14, 15, 16, 23, 19-21]
+# ФИПИ = [1, 2, 5, 8, 14, 15, 16, 23, 19-21]
 # КЕГЭ = []
-# на следующем уроке: Смотрим задачи с цифрами
+# на следующем уроке:
