@@ -1584,3 +1584,122 @@ print(cnt)
 # | - или 
 '''
 
+
+
+
+
+from itertools import permutations
+table = '13 16 18 23 24 31 32 36 42 47 56 57 61 63 65 74 75 78 81 87'
+graph = 'HD DH HF FH HB BH BC CB FE EF DA AD EG GE GA AG GC CG AC CA'
+
+print('1 2 3 4 5 6 7 8')
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if sorted(new_table.split()) == sorted(graph.split()):
+        print(*p)
+        # 1 2 3 4 5 6 7 8
+        # A E G F B C H D
+        # C E G F D A H B
+
+# 32  47
+# GE  FH  -> 15 + 13 = 28
+
+    #   1    2    3    4    5    6    7    8
+    # ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+    # i 0    1    2    3    4    5    6    7
+
+    # 13 15 18 23 24 31 32 36 42 47 56 57 61 63 65 74 75 78 81 87
+    # A3 A5 A8 23 24 3A 32 36 42 47 56 57 6A 63 65 74 75 78 8A 87
+    # A3 A5 A8 B3 B4 3A 3B 36 4B 47 56 57 6A 63 65 74 75 78 8A 87
+    # AC A5 A8 BC B4 CA CB C6 4B 47 56 57 6A 6C 65 74 75 78 8A 87
+    # AC A5 A8 BC BD CA CB C6 DB D7 56 57 6A 6C 65 7D 75 78 8A 87
+    # AC AE A8 BC BD CA CB C6 DB D7 E6 E7 6A 6C 6E 7D 7E 78 8A 87
+    # AC AE A8 BC BD CA CB CF DB D7 EF E7 FA FC FE 7D 7E 78 8A 87
+    # AC AE A8 BC BD CA CB CF DB DG EF EG FA FC FE GD GE G8 8A 8G
+    # AC AE AH BC BD CA CB CF DB DG EF EG FA FC FE GD GE GH HA HG
+
+
+'''
+i = 7
+print(f'Максимально мощность алфавита: {2 ** 7}')  # 128
+alp = 128  # i = 7
+
+alp = 100  # i = 7
+
+print(f'Минимальная мощность алфавита: {2 ** 6 + 1}')  # 65
+alp = 65  # i = 7
+alp = 64  # i = 6
+'''
+
+
+
+
+
+
+
+
+
+
+from itertools import product
+res = []
+for p in product('0123456789ABCD', repeat=5):
+    word = ''.join(p)
+    if word[0] != '0':
+        flag = True
+        for i in range(len(word)-1):
+            x, y = p[i], p[i+1]
+            if (x not in '13579' and y not in 'ABCD') or (y not in '13579' and x not in 'ABCD'):
+                continue
+            else:
+                flag = False
+        if flag == True:
+            res.append(word)
+print(len(res))  # 213125
+
+
+cnt = 0
+from itertools import product
+for p in product('0123456789ABCD', repeat=5):
+    word = ''.join(p)
+    if word[0] != '0':
+        num = word
+        for x in 'ABCD':
+            num = num.replace(x, 'A')
+        for x in '13579':
+            num = num.replace(x, '1')
+        if 'A1' not in num and '1A' not in num:
+            cnt += 1
+print(cnt)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
