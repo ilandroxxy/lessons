@@ -1,178 +1,5 @@
 # region Домашка: ******************************************************************
 
-#2
-'''
-print('x y z w')
-for x in 0,1:
-    for y in 0,1:
-        for z in 0,1:
-            for w in 0,1:
-                F = ((not x) and z and (not y) and (not w)) or ((not x) and z and y and (not w)) or ((not x) and z and y and w)
-                if F == 1:
-                    print(x,y,z,w)
-#ответ: xywz
-'''
-#5
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n,b):
-    r = ''
-    while n > 0:
-        r = alphabet[n%b] + r
-        n //= b
-    return r
-
-for N in range(1,1000):
-    r = convert(N,2)
-    if N % 5 == 0:
-        r = r + '11'
-    else:
-        x = N // 5
-        r = r + convert(x,2)
-    R = int(r,2)
-    if R >= 783:
-        print(N)
-        break
-#ответ: 49
-'''
-#6
-'''
-import turtle as t
-k = 15
-t.screensize(-7000,7000)
-t.tracer(0)
-t.left(90)
-t.down()
-for i in range(7):
-    t.forward(15*k)
-    t.right(90)
-    t.forward(23*k)
-    t.right(90)
-t.up()
-t.forward(3*k)
-t.right(90)
-t.forward(5*k)
-t.left(90)
-t.down()
-for j in range(7):
-    t.forward(252*k)
-    t.right(90)
-    t.forward(398*k)
-    t.right(90)
-t.up()
-for x in range(-50,50):
-    for y in range(-50,50):
-        t.setpos(x*k,y*k)
-        t.dot(3,'red')
-t.update()
-t.done()
-#ответ: 101084
-'''
-#8
-'''
-from itertools import product
-cnt = 0
-for p in product('0123456789ABCDE', repeat =4):
-    num = ''.join(p)
-    if num.count('8') == 1 and num[0] != '0' and '00' not in num and '11' not in num and '22' not in num and '33' not in num and '44' not in num and '55' not in num and '66' not in num and '77' not in num and '99' not in num and 'AA' not in num and 'BB' not in num and 'CC' not in num and 'DD' not in num and 'EE' not in num:
-        cnt += 1
-print(cnt)
-# ответ: 9295
-'''
-#9
-'''
-cnt = 0
-for s in open('D:/Загрузки/9 (7).csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    copied1 = [x for x in M if M.count(x) == 1]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied3 = [x for x in M if M.count(x) == 3]
-    if (len(copied1) == 6 and len(copied2) == 1 and min(copied2) == 2) and len(copied1) == 5 and len(copied3) == 1 and min(copied3) == 3:
-        min(copied1)**2 + max(copied1)**2 <= sum(copied1)**2 - min(copied1)**2 - max(copied1)**2
-    cnt+=1
-print(cnt)
-# ответ: 24414
-'''
-#13
-'''
-from ipaddress import *
-net = ip_network('167.66.136.176/255.254.0.0',0)
-print(net[0])
-print((167+66+0+0)+1)
-# ответ: 234
-'''
-#14
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n,b):
-    s = ''
-    while n > 0:
-        s += alphabet[n%b]
-        n //= b
-    return s[::-1]
-
-M = []
-cnt = 0
-for x in range(1,8410+1):
-    n = 29**293 + 29**271 - x
-    s = convert(n,29)
-    if s.count('0') >= 1:
-        cnt += 1
-        M.append(cnt)
-print(max(M))
-'''
-#15
-'''
-for A in range(0,1000):
-    if all(((y > A) or (152 != 2*y + 3*x) or (A < x)) for x in range(1,100) for y in range(1,100)):
-        print(A)
-#ответ: 30
-'''
-#16
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n <= 10:
-        return 1
-    if n > 10:
-        return (n - 12) + F(n-21)
-print((F(224356) - F(224272)) / F(59))
-'''
-
-#19,20,21
-'''
-def F(s,n):
-    if s <= 505:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-3,n-1), F(s//5,n-1)]
-    return any(h) if (n-1) % 2 == 0 else any(h)
-
-
-print([s for s in range(1000000,506,-1) if not F(s,1) and F(s,2)])
-print([s for s in range(1000000,506,-1) if not F(s,1) and F(s,3)])
-print([s for s in range(1000000,506,-1) if not F(s,2) and F(s,4)])
-#ответ: 12649---2533 2534---2536
-'''
-
-#23
-'''def F(a,b):
-    if a > b:
-        return 0
-    if a == b:
-        return 1
-    if a < b:
-        return F(a+1,b) + F(a*2,b) + F(a*3,b)
-
-print(F(6,14) * F(14,18) * F(18,48))
-print(F(6,14) * F(14,48))
-print(F(6,18) * F(18,48))
-print(45+48-24)
-#ответ: 69
-'''
-# 14:20 10.02.2026
 
 # endregion Домашка: ******************************************************************
 # #
@@ -180,248 +7,184 @@ print(45+48-24)
 # region Урок: ********************************************************************
 
 
-# Вариант 1 Статград 23.10.25 Номер 6
+# № 3692 (Уровень: Базовый)
+# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
+# — символ «?» означает ровно одну произвольную цифру;
+# — символ «*» означает любую последовательность цифр произвольной длины;
+# в том числе «*» может задавать и пустую последовательность.
+#
+# Среди натуральных чисел, не превышающих 10**9, найдите все числа, соответствующие
+# маске 123*567? и делящиеся на 169 без остатка. В ответе запишите в первом столбце
+# таблицы все найденные числа в порядке возрастания, а во втором столбце — соответствующие
+# им частные от деления на 169.
 '''
-print(253 * 399 + 16 * 24 - 19 * 13)
-
-import turtle as t
-k = 15
-t.screensize(-7000,7000)
-t.tracer(0)
-t.left(90)
-t.down()
-for i in range(7):
-    t.forward(15*k)
-    t.right(90)
-    t.forward(23*k)
-    t.right(90)
-t.up()
-t.forward(3*k)
-t.right(90)
-t.forward(5*k)
-t.left(90)
-t.down()
-for j in range(7):
-    t.forward(252*k)
-    t.right(90)
-    t.forward(398*k)
-    t.right(90)
-t.up()
-for x in range(-50,50):
-    for y in range(-50,50):
-        t.setpos(x*k,y*k)
-        t.dot(3,'red')
-t.update()
-t.done()
+from fnmatch import *
+for x in range(169, 10**9, 169):
+    if fnmatch(str(x), '123*567?'):
+        print(x, x // 169)
 '''
-#ответ: 101084
 
-
-# Вариант 1 Статград 23.10.25 Номер 8
+#
+# № 7357 (Уровень: Средний)
+# (Л. Шастин) Назовём маской числа последовательность цифр,
+# в которой также могут встречаться следующие символы:
+# – символ «?» означает ровно одну произвольную чётную цифру;
+# – символ «*» означает любое нечётное число;
+# в том числе «*» может задавать и пустую последовательность.
+# Среди натуральных чисел, не превышающих 10**10, найдите 5 наибольших чисел,
+# соответствующих маске ?136*, делящихся на 53191 без остатка.
+#
+# В ответе запишите в первом столбце таблицы все найденные числа в порядке возрастания,
+# а во втором столбце – соответствующие им результаты деления этих чисел на 53191.
 '''
-from itertools import product
+from re import *
+for x in range(53191, 10**10, 53191):
+    if fullmatch('[2468]136[0-9]*[13579]', str(x)):
+        print(x, x // 53191)
+'''
+
+
+# № 26556 (Уровень: Базовый)
+# Пусть M – сумма минимального и максимального простых натуральных делителей
+# целого числа, не считая самого числа. Если таких делителей у числа нет,
+# то значение M считается равным нулю.
+#
+# Напишите программу, которая перебирает целые числа, бо́льшие 5 700 000,
+# в порядке возрастания и ищет среди них такие, для которых M больше 70 000
+# и является полным квадратом натурального числа.
+
+# В ответе запишите в первом столбце таблицы первые пять найденных чисел
+# в порядке возрастания, а во втором столбце – соответствующие им значения M.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа
+        if x % j == 0:
+            # d.append(j)
+            # d.append(x // j)
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for p in product('0123456789ABCDE', repeat =4):
-    num = ''.join(p)
-    if num.count('8') == 1:
-        if num[0] != '0':
-            # if '00' not in num and '11' not in num and '22' not in num and '33' not in num and '44' not in num and '55' not in num and '66' not in num and '77' not in num and '99' not in num and 'AA' not in num and 'BB' not in num and 'CC' not in num and 'DD' not in num and 'EE' not in num:
-            # if all(pair not in num for pair in '00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE'.split()):
-            # if all(x * 2 not in num for x in '0123456789ABCDE'):
-            if all(num[i] != num[i+1] for i in range(len(num)-1)):
-                cnt += 1
-print(cnt)
-'''
-# ответ: 9295
-
-
-# i  0  1  2  3   ?
-'''
-M = [1, 2, 3, 4]
-
-x, y = i, i+1
-x = 1, y = 2
-x = 3, y = 4
+for x in range(5_700_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M > 70000 and (M ** 0.5) == int(M ** 0.5):
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# Вариант 1 Статград 23.10.25 Номер 9
+# № 21909 Открытый вариант 2025 (Уровень: Базовый)
+
+# Пусть R – сумма всех различных натуральных делителей целого числа.
+# Напишите программу, которая перебирает целые числа, бо́льшие 500 000, в порядке возрастания и ищет среди них такие, для которых
+# значение R оканчивается на цифру 6. В ответе запишите в первом столбце таблицы
+# первые пять найденных чисел в порядке возрастания, а во втором столбце – пять соответствующих этим числам значений R.
+
 '''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for s in open('files/9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    copied1 = [x for x in M if M.count(x) == 1]
-    # if (min(M) in copied2 and len(copied1) == 6) or (min(M) in copied3 and len(copied1) == 5):
-    # if (M.count(min(M)) == 2 and len(copied1) == 6) or (M.count(min(M)) == 3 and len(copied1) == 5):
-    if (2 <= M.count(min(M)) <= 3) and (5 <= len(copied1) <= 6):
-        if min(copied1)**2 + max(copied1)**2 <= (sum(copied1) - min(copied1) - max(copied1)) ** 2:
-            cnt+=1
-print(cnt)
+for x in range(500_000+1, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        R = sum(d)
+        if R % 10 == 6:
+            print(x, R)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# Вариант 1 Статград 23.10.25 Номер 14
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n,b):
-    s = ''
-    while n > 0:
-        s += alphabet[n%b]
-        n //= b
-    return s[::-1]
+# № 17686 Пересдача 04.07.24 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 700 000, в порядке возрастания
+# и ищет среди них такие, у которых есть натуральный делитель, оканчивающийся на цифру 7 и не равный
+# ни самому числу, ни числу 7. Выведите первые пять найденных чисел и для каждого
+# -  соответствующий наименьший делитель, оканчивающийся на цифру 7, не равный ни самому числу, ни числу 7.
+# Формат вывода: для каждого из пяти найденных чисел в отдельной строке сначала выводится само
+# число, затем - значение наименьшего делителя, оканчивающегося на цифру 7, не равного ни самому числу, ни числу 7.
+# Строки выводятся в порядке возрастания найденных чисел.
+# Количество строк в таблице для ответа избыточно.
 
-R = []
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
-for x in range(1, 8410+1):
-    n = 29**293 + 29**271 - x
-    s = convert(n,29)
-    R.append(s.count('0'))
-print(max(R))
+for x in range(700_000+1, 10**10):
+    d = [j for j in divisors(x) if j % 10 == 7 and j != 7 and j != x]
+    if len(d) > 0:
+        print(x, min(d))
+        cnt += 1
+        if cnt == 5:
+            break
 '''
 
 
-# Вариант 1 Статград 23.10.25 Номер 15
+# № 23569 Пересдача 03.07.25 (Уровень: Средний)
+# Напишите программу, которая перебирает целые числа, большие 6 086 055,
+# в порядке возрастания и ищет среди них числа, представленные в виде произведено
+# двух простых множителей, не обязательно различных, каждый из которых содержит
+# в своей записи ровно одну цифру 6.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
+# возрастания, а во втором столбце - для каждого из них соответствующий
+# наибольший из найденных множителей.
+# Количество строк в таблице для ответа избыточно.
+
 '''
-for A in range(0,1000):
-    if all(((y > A) or (152 != 2*y + 3*x) or (A < x)) for x in range(1,100) for y in range(1,100)):
-        print(A)
-#ответ: 30
-'''
-# натуральные числа range(1, ...)
-# целые положительные range(1, ...)  - так как 0 не положительное число
-# целые неотрицательные range(0, ...)
-# целые числа (17, 27)
+def prime(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
 
-# Вариант 1 Статград 23.10.25 Номер 16
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n <= 10:
-        return n
-    if n > 10:
-        return (n - 12) + F(n-21)
-print((F(224356) - F(224272)) / F(59))
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            if len(prime(j)) == 0 and len(prime(x // j)) == 0:
+                if str(j).count('6') == 1 and str(x // j).count('6') == 1:
+                    d += [j, x // j]
+    return sorted(set(d))
 
-
-from functools import *
-@lru_cache(None)
-def F(n):
-    if n <= 10:
-        return n
-    if n > 10:
-        return (n - 12) + F(n - 21)
-
-for n in range(250000):
-    F(n)
-
-print((F(224356) - F(224272)) / F(59))
-'''
-
-
-
-# todo глянуть решение через массивы
-'''
-F = [0] * 250000
-
-for n in range(0, 250000):
-    if n <= 10:
-        F[n] = n
-    if n > 10:
-        F[n] = n - 12 + F[n - 21]
-
-print((F[224356] - F[224272]) / F[59])
+cnt = 0
+for x in range(6_086_055+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        print(x, max(d))
+        cnt += 1
+        if cnt == 5:
+            break
 '''
 
 
 
-'''
-from functools import *
 
 
-@lru_cache(None)
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    if n < 19:
-        return 6 * (G(n - 7) - 36)
 
 
-@lru_cache(None)
-def G(n):
-    if n >= 248045:
-        return (n / 20) + 28
-    if n < 248045:
-        return G(n + 9) - 4
 
-
-for n in range(250000, -1, -1):
-    G(n)
-
-for n in range(1000):
-    F(n)
-
-print(F(673))
-'''
-
-
-# Вариант 1 Статград 23.10.25 Номер 17
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if x < 0 and abs(x) % 6 == 0 and len(str(abs(x))) == 3]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x < 0) + (y < 0) == 1:
-        if (x + y) > max(A):
-            R.append(x ** 2 + y ** 2)
-print(len(R), max(R))
-'''
-
-
-# # Вариант 1 Статград 23.10.25 Номер 7
-'''
-a = 4
-b = 33000
-c = 37
-t = 41 * 60 + 33
-V_music = a * b * c * t
-
-# V_zagol = ?
-# V_all = V_music + V_zagol
-
-U = 363_956_352
-T = 307
-V_all = U * T
-
-V_zagol = V_all - V_music
-print(V_zagol / 30)  # бит
-print((V_zagol / 30) / 2**13)  # Кбайт
-'''
-
-# # Вариант 1 Статград 23.10.25 Номер 11
-sym = 102
-
-byte = 53 * 2**20 / 282952  # Вес в байт на один серийный номер
-print(byte)  # 196.4097 -> 196 (отведено не более 53 Мбайт)
-bit = 196 * 8
-i = bit / sym
-print(i)  # 15.37 -> 15 (отведено не более 53 Мбайт)
-
-i = 15
-print(f'Максимальная мощность алфавита: {2**15}')
-print(f'Минимальная мощность алфавита: {2**14 + 1}')
-
-
-alp = 129  # i = 8  минимальная
-alp = 128  # i = 7
-
-# 25 и 27
+# Идея сделать серию постов по основным функциям для ЕГЭ
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
-# КЕГЭ = []
-# на следующем уроке: 17, 25, 7, 11
+# КЕГЭ = [17, 25]
+# на следующем уроке: 7, 11, 12

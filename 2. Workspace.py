@@ -1625,7 +1625,7 @@ alp = 64  # i = 6
 '''
 
 
-
+'''
 def F(x, y, A):
     return (78_125 != y + 4*x) or (A > x) and (A > y)
 
@@ -1642,15 +1642,45 @@ for A in range(0, 100000):
     if all(F(89_241 - 5*y, y, A) for y in range(0, 10000)):
         print(A)
         break
+'''
 
 
 
 
+import turtle as t
+t.left(90)
+t.tracer(0)
+t.screensize(5000, 5000)
+size = 20
 
+t.right(180)
+for i in range(9):
+    t.forward(66 * size)
+    t.left(90)
+    t.forward(100 * size)
+    t.left(90)
 
+t.up()
+t.forward(27 * size)
+t.left(90)
+t.forward(41 * size)
+t.right(90)
+t.down()
 
+for i in range(9):
+    t.forward(120 * size)
+    t.right(90)
+    t.forward(99 * size)
+    t.right(90)
 
+t.up()
+for x in range(-50, 150):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
 
+t.update()
+t.done()
 
 
 
