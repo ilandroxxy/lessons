@@ -1647,42 +1647,32 @@ for A in range(0, 100000):
 
 
 
-import turtle as t
-t.left(90)
-t.tracer(0)
-t.screensize(5000, 5000)
-size = 20
+from string import *
+alphabet = digits + ascii_uppercase
+# alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 
-t.right(180)
-for i in range(9):
-    t.forward(66 * size)
-    t.left(90)
-    t.forward(100 * size)
-    t.left(90)
+def my_convert(num, base):
+    result = ''
+    while num > 0:
+        result += alphabet[num % base]
+        num //= base
+    return result[::-1]
 
-t.up()
-t.forward(27 * size)
-t.left(90)
-t.forward(41 * size)
-t.right(90)
-t.down()
+R = []
+for n in range(1, 10000):
+    s = my_convert(n, 3)
+    if n % 3 != 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 3) * 3
+        f = my_convert(x, 3)
+        s = s + f
+    r = int(s, 3)
+    if r > 150:
+        R.append(n)
+print(min(R))
 
-for i in range(9):
-    t.forward(120 * size)
-    t.right(90)
-    t.forward(99 * size)
-    t.right(90)
-
-t.up()
-for x in range(-50, 150):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
-
-
+# 220
 
 
 

@@ -8,232 +8,169 @@
 # region Урок: ********************************************************************
 
 
-# ЕГКР 13.12.25 Вариант 1 - Номер 7
+# Пробник номер 2, задача 14
 '''
-pixels = 1024 * 960
-colors = 16384
-
-i = 14 # 2 ** 14 >= 16384
-
-V_photo = pixels * i
-
-V_all = V_photo * 400
-
-print(V_all / 2 ** 23)  # бит
-'''
-from zoneinfo import reset_tzpath
-
-# 656.25 -> 656
-
-
-# ЕГКР 13.12.25 Вариант 1 - Номер 11
-'''
-sym = 105
-byte = 7 * 2 ** 20 /  65536
-print(byte) # 112.0
-bit = 112 * 8
-i = bit / sym
-print(i) #8.53333333333333
-i = 9
-print(f'Максимальную мощность алфавита: {2 ** 9}')
-print(f'Минимальная мощность алфавита: {2 ** 8 + 1}')
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:19]:
+    A = int(f'83{x}916', 19)
+    B = int(f'123{x}45', 19)
+    C = int(f'67{x}89', 19)
+    if (A + B + C) % 17 == 0:
+        print((A + B + C) // 17)
 '''
 
 
-# ЕГКР 13.12.25 Вариант 1 - Номер 13
+# Пробник номер 2, задача 8
 '''
-from ipaddress import *
-net = ip_network('190.202.83.62/255.255.252.0', 0)
-for ip in net:
-    print(ip, sum([int(x) for x in str(ip).split('.')]))
+n = 0
+s = sorted('СБОРНИК')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if word[0] != 'Р':
+                            if word.count('Б') == 2:
+                                if word.count('К') <= 1:
+                                    print(n)
 
-print(190 + 202 + 83 + 254)
-'''
-
-
-# ЕГКР 13.12.25 Вариант 1 - Номер 15
-'''
-def F(x, y, A):
-    return (78125 != y + 4 * x) or (A > x) and (A > y)
-
-# y = 78125 - 4 * x
-for A in range(0, 100000):
-    if all(F(x, 78125 - 4 * x, A) for x in range(1, 20000)):
-        print(A)
-        break
-'''
-# Натуральыне числа range(1, ....)
-# Целые положительные числа range(1, ....)
-# Целые неотрицательные числа range(0, ....)
-
-
-# ЕГКР 13.12.25 Вариант 1 - Номер 16
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    if n < 19:
-        return 6 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 248_045:
-        return n / 20 + 28
-    if n < 248_045:
-        return G(n + 9) - 4
-
-for n in range(250_000-1, -1, -1):
-    G(n)
-
-for n in range(1, 1000):
-    F(n)
-
-print(F(673))
-'''
-
-# Вариант 3
-'''
-G = [0] * 250000
-F = [0] * 1000
-
-for n in range(250_000-1, -1, -1):
-    if n >= 248_045:
-        G[n] = n / 20 + 28
-    if n < 248_045:
-        G[n] = G[n + 9] - 4
-
-for n in range(0, 1000):
-    if n >= 19:
-        F[n] = F[n - 4] + 3580
-    if n < 19:
-        F[n] = 6 * (G[n - 7] - 36)
-
-print(F[673])
+n = 0
+from itertools import product
+for p in product(sorted('СБОРНИК'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if word[0] != 'Р':
+        if word.count('Б') == 2:
+            if word.count('К') <= 1:
+                print(n)
 '''
 
 
-# Номер 7 задачи с музыкой
-
-# V_music = a * b * c * t (бит)
-# a - кол-во каналов (шт) моно/стерео/квадра - 1/2/4
-# b - частота дискретизации (Гц)
-# c - разрешение/глубина кодирования (бит)
-# t - время звукозаписи (сек)
-
-
-# https://education.yandex.ru/ege/inf/task/7407e7ee-2ca4-4372-b173-b39bffa2d1d9
+# Пробник номер 2, задача 9
 '''
-a = 2
-b = 44000
-c = 16
-t = 60
-V_music = a * b * c * t
-
-V_all = V_music * 32
-
-U = 1_802_240  # бит/с
-# T - ?
-
-# V = U * T
-# T = V / U
-T = V_all / U
-print(T)  # сек
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 4 and len(copied1) == 3:
+        if sum(copied2) / 4 < sum(copied1) / 3:
+            cnt += 1
+print(cnt)
 '''
 
 
-
-# Голосовое сообщение длительностью 180 секунд было закодировано
-# в формате квадро с разрешением 16 бит и частотой дискретизации 48000
-# измерений в секунду и передано по каналу связи. Производилось
-# сжатие данных. После сжатия размер аудиофайла уменьшился на 50%.
-# Пропускная способность канала связи равна 4800 бит/с.
-# Определите, сколько минут потребуется для передачи голосового
-# сообщения. В ответе запишите только целое число.
+# Пробник номер 2, задача 17
 '''
-a = 4
-b = 48000
-c = 16
-t = 180
-V_music = (a * b * c * t) * 0.5
-
-U = 4800  # бит/с
-T = V_music / U
-print(T / 60)
-'''
-
-# ----------------------------------------
-
-# ЕГКР 13.12.25 вариант 1 (https://disk.yandex.ru/i/lYw4X69j5TfdKg) Номер 25
-'''
-M = [int(s) for s in open('0. files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in M if abs(x) % 100 == 30]
+M = [int(s) for s in open('files/17.txt')]
 R = []
+B = [x for x in M if abs(x) % 100 == 29]
+A = [x for x in M if len(str(abs(x))) == 5]  
 for i in range(len(M)-2):
     x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 0:
-        if (x + y + z) > max(B):
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
             R.append(x + y + z)
 print(len(R), max(R))
 '''
+#2981 99379'''
 
 
-# ЕГКР 13.12.25 вариант 1 (https://disk.yandex.ru/i/lYw4X69j5TfdKg) Номер 25
+# Пробник номер 2, задача 25
 '''
-def divisors(n):
-    d = []
-    for j in range(1, int(n ** 0.5)+1):
-        if n % j == 0:
-            d.append(j)
-            d.append(n // j)  # n = 24 j = 4  24 // 4 = 6
-    return sorted(set(d))
+print(11 * 11 + 11 * 13 - 48)
 
-cnt = 0
-for n in range(1_350_050+1, 10**10):
-    d = [j for j in divisors(n) if j != n and j != 11 and j % 100 == 11]
-    if len(d) > 0:
-        print(n, min(d))
-        cnt += 1
-        if cnt == 5:
-            break
+import turtle as t
+t.tracer(0)
+t.screensize(5000, 5000)
+size = 20
+t.left(90)
+
+for i in range(4):
+    t.forward(10 * size)
+    t.right(270)
+
+t.up()
+t.forward(3 * size)
+t.right(270)
+t.forward(5 * size)
+t.right(90)
+t.down()
+
+for i in range(2):
+    t.forward(10 * size)
+    t.right(270)
+    t.forward(12 * size)
+    t.right(270)
+
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()  
+t.done()
 '''
 
 
-# https://stepik.org/lesson/1038609/step/5?unit=1062783
-'''
-pixels = 1280 * 1024
+# Пробник номер 2, задача 27
 
-U = 1_966_080   
-T = 280
-V_all = U * T
+from math import dist
+clustersA = [[],[]]
+clustersB = [[],[],[],[]]
 
-V_photo = V_all / 39
-print(V_photo)
+for s in open('files/27A.txt'):
+    s = s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
+    if y < -8:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
 
-i = V_photo / pixels
-print(i)  # 10.769 -> 10
+for s in open('files/27B.txt'):
+    s =s.replace(',','.')
+    x,y = [float(i) for i in s.split()]
+    if x > -2:
+        clustersB[0].append([x, y])
+    if -5 < x < -2:
+        clustersB[1].append([x, y])
+    if y > -5 and x < -6:
+        clustersB[2].append([x, y])
+    if y < -6:
+        clustersB[3].append([x, y])
 
-print(2 ** 10)
-'''
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return max(R) [1]
+
+print(center(clustersA[0]))
+print(center(clustersA[1]))
+
+print(len(clustersA[0]))
+print(len(clustersA[1]))
+
+print('-------------')
+
+print(center(clustersB[0]))
+print(center(clustersB[1]))
+print(center(clustersB[2]))
+print(center(clustersB[3]))
 
 
-# https://stepik.org/lesson/1038609/step/4?unit=1062783
-'''
-# V_music = a * b * c * t
-
-a = 2
-# b = ?
-c = 6
-t = 3 * 60 + 15
-
-V_music = 12 * 2**23  # Мбайт -> бит
-
-b = V_music / (a * c * t)
-print(b)  # 43018.50
-'''
+print(len(clustersB[0]))
+print(len(clustersB[1]))
+print(len(clustersB[2]))
+print(len(clustersB[3]))
 
 
 # endregion Урок: *************************************************************
@@ -241,4 +178,23 @@ print(b)  # 43018.50
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 19-21, 23, 25, 27]
 # КЕГЭ = []
-# на следующем уроке: Вариант ЕГКР добиваем 27 номер, Обсуждаем пробник
+# на следующем уроке: Вариант ЕГКР добиваем 27 номер: 8, 9, 17
+
+
+
+# Софья Пробник №2
+# Дата: #Пятница #27Февраля2026
+# ✅ Верно: 1, 2, 3, 5, 7, 8, 11, 13, 15, 16, 18, 19, 20, 21, 23, 25
+# ⛔️ Неверно: 4, 6, 9, 10, 12, 14, 17, 22, 24, 26, 27
+# ❔ Без ответа: Нет
+#
+# Итог: 16/29 первичных балла ~ 67 вторичных
+
+
+# Лиза Пробник №2
+# Дата: #Понедельник #02Марта2026
+# ✅ Верно: 1, 2, 3, 4, 5, 7, 11, 13, 15, 16, 18, 19, 20, 21, 23
+# ⛔️ Неверно: 6, 8, 9, 10, 12, 14, 17, 22, 24, 25, 26, 27
+# ❔ Без ответа: Нет
+#
+# Итог: 15/29 первичных балла ~ 65 вторичных
