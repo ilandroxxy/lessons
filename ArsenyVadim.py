@@ -5,8 +5,28 @@
 # #
 # region Урок: ********************************************************************
 
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                # F = ¬(x → z) ∨ (y ≡ w) ∨ y
+                F = (not(x <= z)) or (y == w) or y
+                if F == 0:
+                    print(x, y, z, w)
 
 
+# № 9733 Основная волна 19.06.23 (Уровень: Базовый)
+
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                # F = (x ∧ ¬y) ∨ (x ≡ z) ∨ w
+                F = (x and (not y)) or (x == z) or w
+                if F == 0:
+                    print(x, y, z, w)
 
 # endregion Урок: *************************************************************
 # #
