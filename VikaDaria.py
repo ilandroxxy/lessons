@@ -7,53 +7,89 @@
 # region Урок: ********************************************************************
 
 
-# Номер 15 Статград 16.12.25 вариант 1 (https://disk.yandex.ru/i/7gymEvqmFLHL8g)'
+# 23 номер Сатград Вариант 1 3.03.2026
 '''
-def F(x, a1, a2):
-    S = 212 <= x <= 314  # x ∈ S
-    T = 287 <= x <= 411
-    A = a1 <= x <= a2
-    return (not A) <= (T == S)
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        if str(a)[0] > str(a)[1]:
+            return F(int(str(a)[1] + str(a)[0]), b) + F(a - 2, b)
+        else:
+            return F(a - 2, b)
 
-R = []
-M = [x / 4 for x in range(200 * 4, 420 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))
+print(F(57, 13))
+
+
+def F(a, b):
+    if a <= b:
+        return a == b
+    else:
+        if str(a)[0] > str(a)[1]:
+            return F(int(str(a)[1] + str(a)[0]), b) + F(a - 2, b)
+        else:
+            return F(a - 2, b)
+
+print(F(57, 13))
+'''
+
+# a = 75  -> int('5' + '7')
+
+
+# 13 номер Сатград Вариант 1 3.03.2026
+'''
+from ipaddress import *
+for mask in range(1, 32+1):
+    # print('1' * mask + '0' * (32 - mask))
+    net = ip_network(f'212.145.124.210/{mask}', 0)
+    if '212.145.124.0' in str(net):
+        print(net, net.network_address, mask, net.netmask)
 '''
 
 
 
-# Составить список из 27 номер в порядке: от легкого к сложному
-# 19-21, 23, 16, 15, ...., 5, 8, 24, 26
+# 24 номер Сатград Вариант 1 3.03.2026
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[A-Z]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M if len(set(x)) == 26]))
+'''
 
 
+# Номер 24
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[678][0678]*([*-][678][0678]*)+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+
+maxi = 0
+for x in M:
+    x = x.replace('0-', '0 ').replace('0*', '0 ')
+    x = x.split()
+    for a in x:
+        if maxi < len(a):
+            maxi = len(a)
+            print(a)
+
+print(maxi)
+
+'788-7707067*766*70', '2423432'
+'''
 
 
-
-
-
-
-
-
-
-
-
-
-
-print(bin(2025)[2:])
-print(f'{2025:b}')  # 11111101001
-
-print(int('1111110100100', 2))  # 8100
-
-
-
-
-
-
-
+from re import *
+s = open('files/24.txt').readline()
+pat = '[678][0678]*[678]([*-][678][0678]*[678]|[*-][678][678]*)+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]))
 
 
 
@@ -62,6 +98,5 @@ print(int('1111110100100', 2))  # 8100
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = [6, 7, 9, 11, 25]
-# на следующем уроке:
-# 22, 24
-# Разбирать задачи 24 номера по типу арифметика и символ X 80 раз (как 51993 решу егэ)
+# на следующем уроке: Повторить 13, разбирать 24 import re
+
