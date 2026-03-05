@@ -5,28 +5,231 @@
 # #
 # region Урок: ********************************************************************
 
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F = ¬(x → z) ∨ (y ≡ w) ∨ y
-                F = (not(x <= z)) or (y == w) or y
-                if F == 0:
-                    print(x, y, z, w)
+
+# Номер 16
+
+# № 20906 Апробация 05.03.25 (Уровень: Базовый)
+# Алгоритм вычисления значения функции F(n), где n – натуральное число, задан следующими соотношениями:
+# F(n) = 1 при n=1;
+# F(n) = n × F(n−1), если n>1.
+# Чему равно значение выражения (F(2024) / 4 + F(2023)) / F(2022)?
+'''
+import sys
+sys.setrecursionlimit(10**8)
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n-1)
+
+print((F(2024) // 4 + F(2023)) // F(2022))
+'''
+
+# Вариант 2
+'''
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return n * F(n-1)
+
+for n in range(1, 2025):
+    F(n)
+
+print((F(2024) // 4 + F(2023)) // F(2022))
+'''
 
 
-# № 9733 Основная волна 19.06.23 (Уровень: Базовый)
+# № 23275 Основная волна 11.06.25 (Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n) и G(n), где n – целое число, задан следующими соотношениями:
+# F(n) = 2×(G(n−3)+8);
+# G(n) = 2×n, если n<10.
+# G(n) = G(n−2)+1, если n≥10.
+# Чему равно значение выражения F(15548)?
+'''
+import sys
+sys.setrecursionlimit(10**8)
+def F(n):
+    return 2 * (G(n - 3) + 8)
 
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                # F = (x ∧ ¬y) ∨ (x ≡ z) ∨ w
-                F = (x and (not y)) or (x == z) or w
-                if F == 0:
-                    print(x, y, z, w)
+def G(n):
+    if n < 10:
+        return 2 * n
+    if n >= 10:
+        return G(n - 2) + 1
+
+print(F(15548))
+'''
+
+# Вариант 2
+'''
+from functools import *
+@lru_cache(None)
+
+def F(n):
+    return 2 * (G(n - 3) + 8)
+
+def G(n):
+    if n < 10:
+        return 2 * n
+    if n >= 10:
+        return G(n - 2) + 1
+
+for n in range(1, 16000):
+    G(n)
+
+print(F(15548))
+'''
+
+
+
+# Номер 23
+
+# № 25360 ЕГКР 13.12.25 (Уровень: Базовый)
+#
+# Исполнитель преобразует число, записанное на экране. У исполнителя есть
+# три команды, которые обозначены латинскими буквами:
+# A. вычти 3
+# В. вычти 6
+# C. найди целую часть от деления на 2
+# Программа для исполнителя - это последовательность команд.
+# Сколько существует программ, для которых при исходном числе 86 результатом
+# является 12, при этом траектория вычислений содержит число 53 и не содержит 36?
+'''
+def F(a, b):
+    if a < b or a == 36:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a - 3, b) + F(a - 6, b) + F(a // 2, b)
+
+print(F(86, 53) * F(53, 12))
+'''
+
+
+# № 23380 Резервный день 19.06.25 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Умножить на 2
+# Сколько существует программ, для которых при исходном числе 3 результатом является число 20,
+# при этом траектория вычислений содержит число 7 и не содержит 10?
+'''
+def F(a, b):
+    if a > b or a == 10:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a + 1, b) + F(a + 2, b) + F(a * 2, b)
+
+print(F(3, 7) * F(7, 20))
+'''
+
+
+# № 27308 (Уровень: Средний)
+# A. Вычесть 3
+# B. Вычесть 5
+# C. Найти целую часть от деления на 3
+# Сколько существует программ, для которых при исходном числе 80 результатом является 3,
+# при этом траектория вычислений содержит хотя бы одно из чисел 18 или 38?
+'''
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a - 3, b) + F(a - 5, b) + F(a // 3, b)
+
+print(F(80, 18) * F(18, 3))  # 93660
+print(F(80, 38) * F(38, 3))  # 130593
+print(F(80, 38) * F(38, 18) * F(18, 3))  # 18102
+
+print(93660 + 130593 - 18102)
+'''
+
+
+
+
+
+# № 25358 ЕГКР 13.12.25 (Уровень: Базовый)
+'''
+def F(s, n):
+    if s >= 125:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 2 , n-1), F(s + 4 , n-1), F(s * 2 , n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(1, 124 +1) if F(s, n=2)])
+print([s for s in range(1, 124 +1) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 124 +1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+# № 18958 (Уровень: Базовый)
+'''
+def F(s, n):
+    if s >= 666:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 3 , n-1), F(s * 3 , n-1), F(s + s ** 2 , n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(1, 666) if F(s, n=2)])
+print([s for s in range(1, 666) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 666) if F(s, n=4) and not F(s, n=2)])
+'''
+
+# № 27631 Апробация 04.03.26 (Уровень: Базовый)
+# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 211 | a = 17 | 1 < s <= 193
+'''
+def F(a, s, n):
+    if a+s >= 211:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(2, 193 +1) if F(17, s, n=2)])
+print([s for s in range(2, 193 +1) if F(17, s, n=3) and not F(17, s, n=1)])
+print([s for s in range(2, 193 +1) if F(17, s, n=4) and not F(17, s, n=2)])
+'''
+'''
+from functools import *
+
+
+@lru_cache(None)
+def F(n):
+    if n == 1:
+        return n
+    if n > 1:
+        return n * F(n - 1)
+
+
+for n in range(2025):
+    F(n)
+
+print((F(2024) - 5 * F(2023)) // F(2022))
+'''
+
+
+def F(a,b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a- 1, b) + F(a // 2, b)
+print(F(40, 17) * F(17, 6))
+
 
 # endregion Урок: *************************************************************
 # #
