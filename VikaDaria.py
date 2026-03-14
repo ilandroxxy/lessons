@@ -6,97 +6,145 @@
 # #
 # region Урок: ********************************************************************
 
+# 3, 6, 7, 10
 
-# 23 номер Сатград Вариант 1 3.03.2026
+# 25
 '''
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        if str(a)[0] > str(a)[1]:
-            return F(int(str(a)[1] + str(a)[0]), b) + F(a - 2, b)
-        else:
-            return F(a - 2, b)
+from fnmatch import *
+for x in range(0, 10**8, 2023):
+    if fnmatch(str(x), '2*1?71'):
+        print(x, x // 2024)
 
-print(F(57, 13))
-
-
-def F(a, b):
-    if a <= b:
-        return a == b
-    else:
-        if str(a)[0] > str(a)[1]:
-            return F(int(str(a)[1] + str(a)[0]), b) + F(a - 2, b)
-        else:
-            return F(a - 2, b)
-
-print(F(57, 13))
-'''
-
-# a = 75  -> int('5' + '7')
-
-
-# 13 номер Сатград Вариант 1 3.03.2026
-'''
-from ipaddress import *
-for mask in range(1, 32+1):
-    # print('1' * mask + '0' * (32 - mask))
-    net = ip_network(f'212.145.124.210/{mask}', 0)
-    if '212.145.124.0' in str(net):
-        print(net, net.network_address, mask, net.netmask)
-'''
-
-
-
-# 24 номер Сатград Вариант 1 3.03.2026
-'''
 from re import *
-s = open('files/24.txt').readline()
-pat = '[A-Z]+'
-M = [x.group(0) for x in finditer(pat, s)]
-print(M)
-print(max([len(x) for x in M if len(set(x)) == 26]))
+for x in range(0, 10**8, 2023):
+    if fullmatch('2[0-9]*1[0-9]71', str(x)):
+        print(x, x // 2024)
 '''
 
 
-# Номер 24
+# 17
 '''
-from re import *
-s = open('files/24.txt').readline()
-pat = '[678][0678]*([*-][678][0678]*)+'
-M = [x.group(0) for x in finditer(pat, s)]
-print(M)
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 29]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
+
+# 9
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied2 = [x for x in M if M.count(x) == 2]
+    if len(copied2) == 4 and len(copied1) == 3:
+        if sum(copied2) / 4 < sum(copied1) / 3:
+            cnt += 1
+print(cnt)
+'''
+
+
+s = 'xxxxTxxxxxxTxxxxTxxTTxxxxTxxxxxxxxxTxxxxTxxxxxx'
+
+
+
+# Определите максимальное количество идущих подряд символов,
+# среди которых символ T встречается ровно 3 раз.
+'''
+s = 'xxxxTxxxxxxxxxTxxxxTxxxxxx'.split('T')
+print(s)  # ['xxxx', 'xxxxxxxxx', 'xxxx', 'xxxxxx']
+# r = 'T'.join(s[i:i+4])  # 'xxxxTxxxxxxxxxTxxxxTxxxxxx'
+'''
+
+s = 'xxxxTxxxxxxTxxxxTxxTTxxxxTxxxxxxxxxTxxxxTxxxxxx'
+# xxxxTxxxxxxTxxxxTxx 19
+# xxxxxxTxxxxTxxT 15
+# xxxxTxxTTxxxx 13
+# xxTTxxxxTxxxxxxxxx 18
+# TxxxxTxxxxxxxxxTxxxx 20
+# xxxxTxxxxxxxxxTxxxxTxxxxxx 26
+'''
+s = s.split('T')
 maxi = 0
-for x in M:
-    x = x.replace('0-', '0 ').replace('0*', '0 ')
-    x = x.split()
-    for a in x:
-        if maxi < len(a):
-            maxi = len(a)
-            print(a)
-
+for i in range(len(s) - 3):
+    r = 'T'.join(s[i:i + 4])
+    maxi = max(maxi, len(r))
 print(maxi)
+'''
 
-'788-7707067*766*70', '2423432'
+# Определите минимальное количество идущих подряд символов,
+# среди которых символ T встречается ровно 3 раз.
+'''
+s = 'TxxxxxxxxxTxxxxT'.split('T')
+print(s)  # ['xxxxxxxxx', 'xxxx']
+r = 'T' + 'T'.join(s[i:i+2]) + 'T'  # 'TxxxxxxxxxTxxxxT'
+'''
+
+s = 'xxxxTxxxxxxTxxxxTxxTTxxxxTxxxxxxxxxTxxxxTxxxxxx'
+# TxxxxTxxxxxxT 13
+# TxxxxxxTxxxxT 13
+# TxxxxTxxT 9
+# TxxTT 5
+# TTxxxxT 7
+# TxxxxTxxxxxxxxxT 16
+# TxxxxxxxxxTxxxxT 16
+# TxxxxTxxxxxxT 13
+'''
+s = s.split('T')
+mini = 10**8
+for i in range(len(s)-1):
+    r = 'T' + 'T'.join(s[i:i + 2]) + 'T'
+    mini = min(mini, len(r))
+print(mini)
 '''
 
 
-from re import *
+# 24
+
+# Текстовый файл содержит заглавные буквы латинского алфавита.
+# Определите минимальное количество идущих подряд символов, среди которых символ T
+# встречается ровно 210 раз.
+'''
 s = open('files/24.txt').readline()
-pat = '[678][0678]*[678]([*-][678][0678]*[678]|[*-][678][678]*)+'
-M = [x.group(0) for x in finditer(pat, s)]
-print(M)
-print(max([len(x) for x in M]))
-
-
+s = s.split('T')
+mini = 10**8
+for i in range(len(s)-208):
+    r = 'T' + 'T'.join(s[i:i + 209]) + 'T'
+    mini = min(mini, len(r))
+print(mini)
+'''
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
+# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = [6, 7, 9, 11, 25]
-# на следующем уроке: Повторить 13, разбирать 24 import re
+# на следующем уроке:
+
+
+# region 📖 Пробник (Вариант 2)
+
+# Студент #Дарья сдал ответы на пробник, вот результаты:
+# Дата: #Четверг #05Марта2026
+# ✅ Верно: 1, 2, 4, 5, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27
+# ⛔️ Неверно: 3, 6, 7, 10, 24, 26
+# ❔ Без ответа: Нет
+# Итог: 22/29 первичных балла ~ 83 вторичных
+
+
+# Студент #Маша сдал ответы на пробник, вот результаты:
+# Дата: #Четверг #05Марта2026
+# ✅ Верно: 1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 21, 23
+# ⛔️ Неверно: 10, 18
+# ❔ Без ответа: 9, 17, 22, 24, 25, 26, 27
+# Итог: 18/29 первичных балла ~ 72 вторичных
+
+# endregion 📖 Пробник (Вариант 2)
 
