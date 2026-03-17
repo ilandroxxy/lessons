@@ -6,102 +6,63 @@
 # #
 # region Урок: ********************************************************************
 
-# № 27620 Апробация 04.03.26 (Уровень: Базовый)
 '''
-n = 0
-from itertools import product
-for p in product(sorted('ЦИТРУС'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    if word.count('И') == 2:
-        if word.count('ЦЦ') == 0:
-            print(n)
-
-n = 0
-s = sorted('ЦИТРУС')
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if word.count('И') == 2:
-                        if word.count('ЦЦ') == 0:
-                            print(n)
-'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n,b):
+    r = ''
+    while n > 0:
+        r+=alp[n % b]
+        n//=b
+    return r[::-1]
 
 
-#
-# № 27625 Апробация 04.03.26 (Уровень: Базовый)
-'''
-cnt = 0
-from ipaddress import *
-net = ip_network('172.16.96.0/255.255.224.0', 0)
-for ip in net:
-    s = f'{ip:b}'
-    if s.count('1') % 2 == 0:
-        cnt += 1
-print(cnt)
-'''
-
-
-# № 21747 (Уровень: Базовый)
-# Для узла с IP адресом 84.23.84.23 адрес сети равен 84.23.84.0.
-# Чему равно наибольшее значение суммы третьего и четвёртого слева байтов маски?
-'''
-from ipaddress import *
-for mask in range(1, 32+1):
-    net = ip_network(f'84.23.84.23/{mask}', 0)
-    if '84.23.84.0' in str(net):
-        print(net, mask, 32 - mask, net.netmask)
-
-'''
-
-
-#
-# № 27627 Апробация 04.03.26 (Уровень: Базовый)
-'''
-def F(x, A):
-    return (x % 25 == 0) <= ((x % A != 0) <= (x % 60 != 0))
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-
-# Вариант 2
-'''
-R = []
-for A in range(1, 10000):
-    if all( ((x % 25 == 0) <= ((x % A != 0) <= (x % 60 != 0))) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
-
-# 12
-'''
-print(f'{800:b}')  # 1100100000
-print(int('1000100000', 2))  # 544
-'''
-
-
-# № 27617 Апробация 04.03.26 (Уровень: Базовый)
-
-
-for n in range(4, 1000):
-    # s = f'{n:b}'
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        # s = s + s[-3:]
-        # s += s[-3]
-        s = s + s[-3] + s[-2] + s[-1]
+RES = []
+for n in range(1,10000):
+    s = convert(n,3)
+    if n%3 ==0:
+        s = s + s[-3:]
     else:
         x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)
-    if 120 < r < 140:
-        print(n, r)
+        s = s + convert(x, 3)
+    r = int(s,3)
+    if r > 150:
+           RES.append(n)
+print(min(RES))
+'''
+
+'''
+def F(x, y, A):
+    return (x < A) or (3 * y + 2 * x > 120) or (A > y)
+
+RES = []
+for A in range(1, 10000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        RES.append(A)
+print(min(RES))
+'''
+
+
+'''
+RES = []
+def F(A,x):
+    return (x% 25 == 0)<= ((x% A != 0) <= (x % 60 != 0))
+
+for A in range(1,10000):
+    if all(F(A,x) for x in range (10000)):
+         RES.append(A)
+print(max(RES))
+'''
+
+
+RES=[]
+def F(x,A):
+    return (x % 128 == 0)<= ((x% A != 0) <= (x% 80!=0))
+for A in range(1,10000):
+    if all(F(x,A)for x in range(10000)):
+        RES.append(A)
+print(max(RES))
+
+
 
 # endregion Урок: *************************************************************
 # #

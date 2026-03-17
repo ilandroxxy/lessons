@@ -6,229 +6,209 @@
 # region Урок: ********************************************************************
 
 
-# Номер 16
-
-# № 20906 Апробация 05.03.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции F(n), где n – натуральное число, задан следующими соотношениями:
-# F(n) = 1 при n=1;
-# F(n) = n × F(n−1), если n>1.
-# Чему равно значение выражения (F(2024) / 4 + F(2023)) / F(2022)?
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n-1)
-
-print((F(2024) // 4 + F(2023)) // F(2022))
-'''
-
-# Вариант 2
-'''
-from functools import *
-@lru_cache(None)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n-1)
-
-for n in range(1, 2025):
-    F(n)
-
-print((F(2024) // 4 + F(2023)) // F(2022))
-'''
-
-
-# № 23275 Основная волна 11.06.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n) и G(n), где n – целое число, задан следующими соотношениями:
-# F(n) = 2×(G(n−3)+8);
-# G(n) = 2×n, если n<10.
-# G(n) = G(n−2)+1, если n≥10.
-# Чему равно значение выражения F(15548)?
-'''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    return 2 * (G(n - 3) + 8)
-
-def G(n):
-    if n < 10:
-        return 2 * n
-    if n >= 10:
-        return G(n - 2) + 1
-
-print(F(15548))
-'''
-
-# Вариант 2
-'''
-from functools import *
-@lru_cache(None)
-
-def F(n):
-    return 2 * (G(n - 3) + 8)
-
-def G(n):
-    if n < 10:
-        return 2 * n
-    if n >= 10:
-        return G(n - 2) + 1
-
-for n in range(1, 16000):
-    G(n)
-
-print(F(15548))
-'''
-
-
-
 # Номер 23
+# 1. Прибавь 8
+# 2. Умножь на 3
+# 3. Увеличь на разряд единиц
 
-# № 25360 ЕГКР 13.12.25 (Уровень: Базовый)
-#
-# Исполнитель преобразует число, записанное на экране. У исполнителя есть
-# три команды, которые обозначены латинскими буквами:
-# A. вычти 3
-# В. вычти 6
-# C. найди целую часть от деления на 2
-# Программа для исполнителя - это последовательность команд.
-# Сколько существует программ, для которых при исходном числе 86 результатом
-# является 12, при этом траектория вычислений содержит число 53 и не содержит 36?
+# Первая из них увеличивает число на экране на 8,
+# вторая увеличивает число на экране в 3 раза,
+# третья увеличивает число на экране на значение разряда единиц
+# (например число 12 увеличится на 2, а число 25 на 5).
+# Программа для исполнителя – это последовательность команд.
+
+# Сколько существует программ, для которых при исходном числе 4 результатом
+# является число 174, если известно, что нельзя повторять команду, сделанную на предыдущем шаге.
+
 '''
-def F(a, b):
-    if a < b or a == 36:
+def F(a, b, c):
+    if a >= b:
+        return a == b and '11' not in c and '22' not in c and '33' not in c
+    return F(a + 8, b, c+'1') + F(a * 3, b, c+'2') + F(a + (a % 10), b, c+'3')
+
+print(F(4, 174, ''))
+'''
+
+'''
+def f(a, b, c):
+    if a > b:
         return 0
-    elif a == b:
+    if a == b:
         return 1
+    h = []
+    if c != 1:
+        h += [f(a + 8, b, 1)]
+    if c != 2:
+        h += [f(a * 3, b, 2)]
+    if c != 3:
+        h += [f(a + (a % 10), b, 3)]
+    return sum(h)
+
+print(f(4, 174, 0))
+'''
+
+# № 5926 (Уровень: Средний)
+'''
+def F(a, b, c):
+    if b == 24:
+        return a == b and '11' not in c and '22' not in c and '33' not in c
+    return F(a + 1, b+1, c+'1') + F(a + 7, b+1, c+'2') + F(a * 4, b+1, c+'3')
+
+print(F(1, 0, ''))
+'''
+
+
+# 9
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copy2 = [x for x in M if M.count(x) == 2]
+    copy1 = [x for x in M if M.count(x) == 1]
+    if len(copy2) == 4 and len(copy1) == 3:
+        if (sum(copy2) / 4) < (sum(copy1) / 3):
+            cnt += 1
+print(cnt)
+'''
+
+
+# 17
+'''
+M = []
+S = []
+R = []
+for s in open('files/17.txt'):
+    M.append(int(s))
+for i in M:
+    if i % 100 == 29:
+        S.append(i)
+print(max(S))  # 99429
+cnt = 0
+for i in range(len(M) - 2):
+    if (len(str(abs(M[i]))) == 5) +  (len(str(abs(M[i + 1]))) == 5) + (len(str(abs(M[i + 2]))) == 5) == 2:
+        if M[i] + M[i + 1] + M[i + 2]<= 99429:
+            R.append(M[i] + M[i + 1] + M[i + 2])
+            cnt += 1
+print(cnt, max(R))
+
+
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 29]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+
+
+# Номер 25
+'''
+from re import *
+for x in range(0, 10**8, 2023):
+    if fullmatch('2[0-9]*1[0-9]71', str(x)):
+        print(x, x // 2023)
+'''
+
+
+# Номер 27
+'''
+from math import *
+
+clustersA = [[], []]
+clustersB = [[], [], [], []]
+
+def center(cl):
+    S = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        S.append([summa, p])
+    return (min(S)[1])
+
+
+
+# A) y = -4
+for s in open('files/27A.csv'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split(';')]
+    if y > -4:
+        clustersA[0].append([x, y])
     else:
-        return F(a - 3, b) + F(a - 6, b) + F(a // 2, b)
+        clustersA[1].append([x, y])
 
-print(F(86, 53) * F(53, 12))
-'''
-
-
-# № 23380 Резервный день 19.06.25 (Уровень: Базовый)
-# A. Прибавить 1
-# B. Прибавить 2
-# C. Умножить на 2
-# Сколько существует программ, для которых при исходном числе 3 результатом является число 20,
-# при этом траектория вычислений содержит число 7 и не содержит 10?
-'''
-def F(a, b):
-    if a > b or a == 10:
-        return 0
-    elif a == b:
-        return 1
+# B) 1. x = -6 2. x > -6 y < -6 3. x < -6 y > -6 y < -2 4. x > -6 y > -2
+for s in open('files/27B.csv'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split(';')]
+    if x < -6:
+        clustersB[0].append([x, y])
     else:
-        return F(a + 1, b) + F(a + 2, b) + F(a * 2, b)
+        if y < -6:
+            clustersB[1].append([x, y])
+        elif -6 < y < -2:
+            clustersB[2].append([x, y])
+        elif y > -2:
+            clustersB[3].append([x, y])
 
-print(F(3, 7) * F(7, 20))
+print(center(clustersA[0])) # [-8.20044973776254, 0.638981709687434]
+print(center(clustersA[1])) # [-10.9058807055978, -10.2047099777569]
+print(center(clustersB[0]))  # [-7.80262523553593, -6.10946094263275]
+print(center(clustersB[1]))  # [-3.5245365973449, -7.61967069886266]
+print(center(clustersB[2]))  # [-2.22718188693554, -3.79446965518536]
+print(center(clustersB[3]))  # [-2.00777686513898, -0.890289719710631]
+
+
+print((-8.20044973776254 + -10.9058807055978) / 2) # -9.553165221680171
+print((0.638981709687434 + -10.2047099777569) / 2) # -4.7828641340347335
+print((-7.80262523553593 + -3.5245365973449 + -2.22718188693554 + -2.00777686513898) / 4) # -7.781060292477674
+print((-6.10946094263275 + -7.61967069886266 + -3.79446965518536 + -0.890289719710631) / 4) # -9.2069455081957
+print(-9.553165221680171 * 10000, -4.7828641340347335 * 10000, -7.781060292477674 * 10000, -9.2069455081957 * 10000)
 '''
 
 
-# № 27308 (Уровень: Средний)
-# A. Вычесть 3
-# B. Вычесть 5
-# C. Найти целую часть от деления на 3
-# Сколько существует программ, для которых при исходном числе 80 результатом является 3,
-# при этом траектория вычислений содержит хотя бы одно из чисел 18 или 38?
-'''
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
+
+# № 2419 (Уровень: Базовый)
+# В текстовом файле находится цепочка из символов латинского алфавита A, B, C длиной не более 10**6 символов.
+# Найдите длину самой длинной подцепочки, состоящей из символов C
+
+# Вариант 1 - Решение через: ctrl + F
+s = open('files/24.txt').readline()
+print(s)
+print(len('CCCCCCCCCCC'))
+
+# Вариант 2 - Решение ака 17 номер
+
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    # if s[i] == 'C' and s[i+1] == 'C':
+    if s[i:i+2] == 'CC':
+        cnt += 1
     else:
-        return F(a - 3, b) + F(a - 5, b) + F(a // 3, b)
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi)
 
-print(F(80, 18) * F(18, 3))  # 93660
-print(F(80, 38) * F(38, 3))  # 130593
-print(F(80, 38) * F(38, 18) * F(18, 3))  # 18102
+# Вариант 3 - Решение через замену
 
-print(93660 + 130593 - 18102)
-'''
+s = open('files/24.txt').readline()
+s = s.replace('A', 'B').replace('B', ' ')
+print(max([len(x) for x in s.split()]))
 
+# Вариант 4 - Решение через import re
 
-
-
-
-# № 25358 ЕГКР 13.12.25 (Уровень: Базовый)
-'''
-def F(s, n):
-    if s >= 125:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 2 , n-1), F(s + 4 , n-1), F(s * 2 , n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 124 +1) if F(s, n=2)])
-print([s for s in range(1, 124 +1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 124 +1) if F(s, n=4) and not F(s, n=2)])
-'''
-
-# № 18958 (Уровень: Базовый)
-'''
-def F(s, n):
-    if s >= 666:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 3 , n-1), F(s * 3 , n-1), F(s + s ** 2 , n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 666) if F(s, n=2)])
-print([s for s in range(1, 666) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 666) if F(s, n=4) and not F(s, n=2)])
-'''
-
-# № 27631 Апробация 04.03.26 (Уровень: Базовый)
-# 2 кучи: a+1, s+1, a*2, s*2 | a + s >= 211 | a = 17 | 1 < s <= 193
-'''
-def F(a, s, n):
-    if a+s >= 211:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+1, s, n-1), F(a, s+1, n-1), F(a*2, s, n-1), F(a, s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(2, 193 +1) if F(17, s, n=2)])
-print([s for s in range(2, 193 +1) if F(17, s, n=3) and not F(17, s, n=1)])
-print([s for s in range(2, 193 +1) if F(17, s, n=4) and not F(17, s, n=2)])
-'''
-'''
-from functools import *
-
-
-@lru_cache(None)
-def F(n):
-    if n == 1:
-        return n
-    if n > 1:
-        return n * F(n - 1)
-
-
-for n in range(2025):
-    F(n)
-
-print((F(2024) - 5 * F(2023)) // F(2022))
-'''
-
-
-def F(a,b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a- 1, b) + F(a // 2, b)
-print(F(40, 17) * F(17, 6))
+from re import *
+s = open('files/24.txt').readline()
+pat = '(ABC)[C]*'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]))
 
 
 # endregion Урок: *************************************************************
@@ -237,3 +217,11 @@ print(F(40, 17) * F(17, 6))
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25, 27]
 # КЕГЭ = [11]
 # на следующем уроке: 7
+
+
+# Студент #Арсений
+# Дата: #Пятница #27Февраля2026
+# ✅ Верно: 1, 2, 4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 23
+# ⛔️ Неверно: 3, 9, 17, 22, 27
+# ❔ Без ответа: 6, 24, 25, 26
+# Итог: 19/29 первичных балла ~ 75 вторичных

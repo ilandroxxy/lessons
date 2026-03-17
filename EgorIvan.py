@@ -7,65 +7,120 @@
 # region Урок: ********************************************************************
 
 
-# № 27286 (Уровень: Базовый)
-# В файле электронной таблицы в каждой строке записаны
-# шесть целых чисел. Определите наименьшее повторяющееся число в
-# строке таблице с наибольшим номером, для которой выполнены оба условия:
-# – в строке одно число повторяется трижды, одно число дважды,
-# одно число не повторяется;
-# – неповторяющееся число не больше минимального из повторяющихся
-# чисел строки.
 '''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    copied1 = [x for x in M if M.count(x) == 1]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied3 = [x for x in M if M.count(x) == 3]
-    if len(copied3) == 3 and len(copied2) == 2 and len(copied1) == 1:
-        if copied1[0] <= min(copied2 + copied3):
-            print(M, abs(min(copied2 + copied3)))
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
 
-# [4, 4, 4]  + [5, 5] = [4, 4, 4, 5, 5]
-# min([4, 4, 4, 5, 5]) = 4
-'''
-
-
-# № 27285 (Уровень: Базовый)
-# В файле электронной таблицы в каждой строке записаны семь целых чисел.
-# Определите количество строк таблицы, для которых выполнены оба условия:
-# – в строке числа расположены в порядке возрастания;
-# – количество чётных чисел больше количества нечётных чисел.
-# В ответе запишите только число.
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if M == sorted(M) and len(M) == len(set(M)):
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(chet) > len(nechet):
-            cnt += 1
-print(cnt)
+R = []
+for n in range(1, 10000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = s + s[-3:]
+    else:
+        x = (n % 3) * 3
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r > 150:
+        R.append(n)
+print(min(R))
 '''
 
+'''
+def convert(n, b):
+    r = ''
+    while n:
+        r = str(n % b) + r
+        n //= b
+    return r
 
-# № 25348 ЕГКР 13.12.25 (Уровень: Базовый)
-# Откройте файл электронной таблицы, содержащей в каждой строке семь целых чисел.
-# Определить количество строк таблицы, для которых выполнены оба условия:
-# - в строке одно число повторяется трижды, остальные числа различны;
-# - максимальное число строки не повторяется.
-# В ответе запишите только число.
+print(convert(8, 2))
 
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied1 = [x for x in M if M.count(x) == 1]
-    copied3 = [x for x in M if M.count(x) == 3]
-    if len(copied3) == 3 and len(copied1) == 4:
-        if max(M) in copied1:
-            cnt += 1
-print(cnt)
+L = []
+for n in range(7, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s += s[-3] + s[-2] + s[-1]
+    else:
+        s = s + convert(((n % 3) * 3), 3)
+    r = int(s, 3)
+    if r > 150:
+        L.append(n)
+print(min(L))
+'''
+
+
+
+# 8
+'''
+n = 0
+L = []
+s = sorted('СБОРНИК')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        n += 1
+                        word = a + b + c + d + e + f
+                        if word[0] != 'Р' and word.count('Б') == 2 and (word.count('К') == 1 or word.count('К') == 0):
+                            L.append(n)
+print(max(L))
+'''
+
+# 15
+'''
+for a in range(1, 10000):
+    k = 1
+    for x in range(0, 100):
+        for y in range(0, 100):
+            if not ((x < a) or (3 * y + 2 * x > 120) or (a > y)):
+                k = 0
+    if k == 1:
+        print(a)
+        break
+
+
+
+def F(x, y, A):
+    return (x < A) or (3 * y + 2 * x > 120) or (A > y)
+
+for A in range(10000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        print(A)
+        break
+
+
+
+for A in range(10000):
+    if all( ((x < A) or (3 * y + 2 * x > 120) or (A > y)) for x in range(100) for y in range(100)):
+        print(A)
+        break
+'''
+
+
+# 17
+
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 29]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) <= max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+
+
+
+
+
 
 
 

@@ -6,57 +6,52 @@
 # #
 # region Урок: ********************************************************************
 
-# № 25354 ЕГКР 13.12.25 (Уровень: Средний)
+
+# 8
 '''
-def F(x, y, A):
-    return (78125 != y + 4*x) or (A > x) and (A > y)
-# 78125 != y + 4*x -> y != 78125 - 4*x
-
-for A in range(0, 100000):
-    if all(F(x, 78125 - 4*x, A) for x in range(1, 20000)):
-        print(A)
-        break
-'''
-
-
-# № 23265 Основная волна 11.06.25 (Уровень: Базовый)
-'''
-print(21 * 13 + 14 * 7 - 6 * 12)
-
-import turtle as t
-t.tracer(0)
-t.screensize(5000, 5000)
-t.left(90)
-size = 20
-
-# Тут будет псевдокод
-for i in range(2):
-    t.forward(20 * size)
-    t.left(270)
-    t.forward(12 * size)
-    t.right(90)
-t.up()
-t.forward(9 * size)
-t.right(90)
-t.forward(7 * size)
-t.left(90)
-t.down()
-for i in range(2):
-    t.forward(13 * size)
-    t.right(90)
-    t.forward(6 * size)
-    t.right(90)
-
-# Тут перебираем точки:
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-t.update()
-t.done()
+n = 0
+from itertools import*
+for i in product('бикнорс',  repeat = 6):
+    word = ''.join(i)
+    n += 1
+    if word[0] != 'р':
+        if word.count("б") == 2:
+            if word.count("к") <= 1:
+                print(word, n)
 '''
 
+
+# 17
+'''
+z = [int(i) for i in open('files/17.txt')]
+p = [i for i in z if len(str(abs(i))) == 5]
+d = [i for i in z if str(i)[-2:] == '29']
+s = []
+cnt = 0
+for i in range(len(z) - 2):
+    a, b, c = z[i], z[i+1], z[i+2]
+    if (a in p) + (b in p) + (c in p) == 2:
+        if a+b+c <= max(d):
+            s.append(a+b+c)
+print(len(s), max(s))
+'''
+
+
+# 24
+'''
+z = open('files/24.txt').readline()
+mini = 10**9
+z = z.split('T')
+for i in range(len(z)-208):
+    r = 'T' + 'T'.join(z[i:i+209]) + 'T'
+    mini = min(mini, len(r))
+print(mini)
+'''
+
+
+
+
+# ⛔️ Неверно: 6, 8, 10, 17, 22, 24, 27
 
 # endregion Урок: *************************************************************
 # #
@@ -64,6 +59,8 @@ t.done()
 # ФИПИ = [1, 2, 3, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25, 27]
 # КЕГЭ = []
 # на следующем уроке:
+
+
 
 # Федор
 # Легкие/Сложнее: 10 1 2 3 4 5 6 7 8 11 12 13 14 16 19 20 2117 18 22 23 25 27
