@@ -6,52 +6,75 @@
 # #
 # region Урок: ********************************************************************
 
-
-# 8
 '''
-n = 0
-from itertools import*
-for i in product('бикнорс',  repeat = 6):
-    word = ''.join(i)
-    n += 1
-    if word[0] != 'р':
-        if word.count("б") == 2:
-            if word.count("к") <= 1:
-                print(word, n)
-'''
+print('x y z w F ')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = y and (((not w) or z) == x)
+                if F == 0:
+                    print(x, y, z, w, int(F))
 
-
-# 17
-'''
-z = [int(i) for i in open('files/17.txt')]
-p = [i for i in z if len(str(abs(i))) == 5]
-d = [i for i in z if str(i)[-2:] == '29']
-s = []
-cnt = 0
-for i in range(len(z) - 2):
-    a, b, c = z[i], z[i+1], z[i+2]
-    if (a in p) + (b in p) + (c in p) == 2:
-        if a+b+c <= max(d):
-            s.append(a+b+c)
-print(len(s), max(s))
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = y and (((not w) or z) == x)
+                if F == 1:
+                    print(x, y, z, w, int(F))
 '''
 
-
-# 24
+# 12
 '''
-z = open('files/24.txt').readline()
-mini = 10**9
-z = z.split('T')
-for i in range(len(z)-208):
-    r = 'T' + 'T'.join(z[i:i+209]) + 'T'
-    mini = min(mini, len(r))
-print(mini)
+print(301 * 7)  # 2107
+
+print(100000 - 2107)
+
+print(97893 / 8)
+
+# 12236
+
+
+print((301 * 7 + 12236 * 8 + 3))
+print((301 * 7 + 12236 * 8 + 3) + (301 + 12236 + 1))
 '''
 
 
 
+def prime(x):
+    if x <= 1:
+        return False
+    for i in range(2, int(x**0.5)+1):
+        if x % i == 0:
+            return False
+    return True
 
-# ⛔️ Неверно: 6, 8, 10, 17, 22, 24, 27
+
+def d(x):
+    a = []
+    for i in range(2, int(x ** 0.5) + 1):
+        if x % i == 0:
+            if prime(i) and prime(x // i):
+                if str(i).count('2') == 1 and str(x // i).count('2') == 1:
+                    a += [i, x // i]
+    return sorted(set(a))
+
+k=0
+for i in range(5400001, 10**10):
+    a = d(i)
+    if len(a)>0:
+        M=min(a)+max(a)
+        if M>60000:
+            if str(M)[::-1] == str(M):
+                print(i, M)
+                k += 1
+                if k==5:
+                    break
+
+
+
+
 
 # endregion Урок: *************************************************************
 # #

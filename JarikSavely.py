@@ -6,61 +6,6 @@
 # #
 # region Урок: ********************************************************************
 
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n,b):
-    r = ''
-    while n > 0:
-        r+=alp[n % b]
-        n//=b
-    return r[::-1]
-
-
-RES = []
-for n in range(1,10000):
-    s = convert(n,3)
-    if n%3 ==0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + convert(x, 3)
-    r = int(s,3)
-    if r > 150:
-           RES.append(n)
-print(min(RES))
-'''
-
-'''
-def F(x, y, A):
-    return (x < A) or (3 * y + 2 * x > 120) or (A > y)
-
-RES = []
-for A in range(1, 10000):
-    if all(F(x, y, A) for x in range(100) for y in range(100)):
-        RES.append(A)
-print(min(RES))
-'''
-
-
-'''
-RES = []
-def F(A,x):
-    return (x% 25 == 0)<= ((x% A != 0) <= (x % 60 != 0))
-
-for A in range(1,10000):
-    if all(F(A,x) for x in range (10000)):
-         RES.append(A)
-print(max(RES))
-'''
-
-
-RES=[]
-def F(x,A):
-    return (x % 128 == 0)<= ((x% A != 0) <= (x% 80!=0))
-for A in range(1,10000):
-    if all(F(x,A)for x in range(10000)):
-        RES.append(A)
-print(max(RES))
 
 
 
