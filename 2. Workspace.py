@@ -1696,15 +1696,21 @@ for A in range(0, 100000):
 
 
 
-
-def F(x, y, A):
-    return (x < A) or (3*y + 2*x > 120) or (A > x)
-
-for A in range(0, 10000):
-    if all(F(x, y, A) for x in range(0, 100) for y in range(100)):
-        print(A)
-        break
-
+s = sorted("СБОРНИК")
+r = []
+n = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        word = a + b + c + d + e + f
+                        n += 1
+                        if a != "Р":
+                            if word.count("Б") == 2:
+                                if word.count("K") <= 1:
+                                    print(n)
 
 
 
