@@ -6,67 +6,47 @@
 # #
 # region Урок: ********************************************************************
 
-# 17
+#
+# № 27623 Апробация 04.03.26 (Уровень: Базовый)
+
+alp = 10 + 26 + 8164
+# print(alp, 2**14)
+i = 14  # 2 ** 14 >= alp
+
+byte = 156 * 2**10 / 835
+print(byte)  # 191.3101 -> 192
+bit = 192 * 8
+
+
+# bit = sym * i
+sym = bit / i
+print(sym)
+
+
+# № 27766 Апробация 04.03.26 (Уровень: Базовый)
 '''
-M = [int(s) for s in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if abs(x)%100 == 29]
-R = []
-for i in range(len(M)-2):
-    x,y,z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x+y+z) <= max(B):
-            R.append(x+y+z)
-print(len(R), max(R))
+alp = 10 + 26 + 34
+print(alp, 2**7)
+i = 7  # 2 ** 7 >= alp
+
+byte = 305 * 2**10 / 1142
+print(byte)  # 273.485 -> 274
+bit = 274 * 8
+
+
+# bit = sym * i
+sym = bit / i
+print(sym)  # 313.14
 '''
-#Answer: 2089 99343
-
-
-# 25
-'''
-from fnmatch import *
-for x in range(0, 10**8, 2023):
-    if fnmatch(str(x), '2*1?71'):
-        print(x, x // 2023)
-
-from re import *
-for x in range(0, 10**8, 2023):
-    if fullmatch('2[0-9]*1[0-9]71', str(x)):
-        print(x, x // 2023)
-'''
-
-# 8
-'''
-n = 0
-from itertools import product
-for p in product(sorted('СБОРНИК'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if word[0] != 'Р':
-        if word.count('Б') == 2:
-            if word.count('К') <= 1:
-                print(n)
-'''
-
-
-# 9
-
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied1) == 3 and len(copied2) == 4:
-        if sum(copied2) / 4 < sum(copied1) / 3:
-            cnt += 1
-print(cnt)
-
+# i = 7
+# 2 ** 7 = 128
+# 2**6+1 = 65
 
 # endregion Урок: *************************************************************
 #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 25, 27]
 # КЕГЭ = []
-# на следующем уроке: 22, 24, 26
+# на следующем уроке: 4, 22, 24, 26
 
 
 # region 📖 Пробник (Вариант 2)
