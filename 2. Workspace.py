@@ -1693,30 +1693,38 @@ for A in range(0, 100000):
 
 
 
+'''
+s = open('files/24.txt').readline()
+cnt = 3
+maxi = 0
 
+for i in range(0, len(s)-3, 2):
+    x, y, z, w = s[i:i+4]
+    if int(x + y) < int(z + w):
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 3
 
+for i in range(1, len(s)-3, 2):
+    x, y, z, w = s[i:i+4]
+    if int(x + y) < int(z + w):
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 3
+print(maxi)
+'''
 
-s = sorted("СБОРНИК")
-r = []
-n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        word = a + b + c + d + e + f
-                        n += 1
-                        if a != "Р":
-                            if word.count("Б") == 2:
-                                if word.count("K") <= 1:
-                                    print(n)
-
-
-
-
-
-
+from re import *
+M = []
+s = open('files/24.txt').readline()
+for i in range(1, 200):
+    pat = str(i)
+    for j in range(i+1, 200):
+        pat += str(j)
+        M += [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
 
 
 

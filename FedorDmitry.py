@@ -6,74 +6,104 @@
 # #
 # region Урок: ********************************************************************
 
+
+# № 27619 Апробация 04.03.26 (Уровень: Базовый)
 '''
-print('x y z w F ')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = y and (((not w) or z) == x)
-                if F == 0:
-                    print(x, y, z, w, int(F))
+pixels = 1280 * 720
+# Файл оригинального изображения больше сжатого на 35%.
+# При сжатии объём файла уменьшается на 15 %.
+I = 590 * 2**13  # бит (100%) -> 135%
+I = (I / 100) * 135  # (135%)
 
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = y and (((not w) or z) == x)
-                if F == 1:
-                    print(x, y, z, w, int(F))
-'''
+i = I / pixels
+print(i)  # 7.08
 
-# 12
-'''
-print(301 * 7)  # 2107
-
-print(100000 - 2107)
-
-print(97893 / 8)
-
-# 12236
-
-
-print((301 * 7 + 12236 * 8 + 3))
-print((301 * 7 + 12236 * 8 + 3) + (301 + 12236 + 1))
+print(2 ** 5)
 '''
 
 
+# № 10105 Демоверсия 2024 (Уровень: Средний)
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле максимальное количество идущих подряд
+# символов (длину непрерывной подпоследовательности), среди которых
+# символ T встречается ровно 100 раз.
+# Для выполнения этого задания следует написать программу.
+'''
+s = open('files/24.txt').readline()
+s = s.split('T')
+R = []
+for i in range(len(s)-100):
+    r = 'T'.join(s[i:i+101])
+    R.append(len(r))
+print(max(R))
+'''
 
-def prime(x):
-    if x <= 1:
-        return False
-    for i in range(2, int(x**0.5)+1):
-        if x % i == 0:
-            return False
-    return True
+# № 24745
+# (Л. Шастин) Текстовый файл состоит из символов R и L.
+# Назовем два одинаковых идущих подряд символа «плохой» подстрокой.
+# Определите максимальную длину непрерывной последовательности символов,
+# содержащей ровно 100000 «плохих» подстрок.
+# Искомая последовательность может начинаться как с символа R, так и с символа L.
+'''
+s = open('files/24.txt').readline()
+s = s.replace('LL', 'RR')
+print(s)
+s = s.split('RR')
+R = []
+for i in range(len(s)-100000):
+    r = 'RR'.join(s[i:i+100001])
+    R.append(len(r))
+print(max(R))
+'''
 
 
-def d(x):
-    a = []
-    for i in range(2, int(x ** 0.5) + 1):
-        if x % i == 0:
-            if prime(i) and prime(x // i):
-                if str(i).count('2') == 1 and str(x // i).count('2') == 1:
-                    a += [i, x // i]
-    return sorted(set(a))
+# Номер 11 Апробавия В2
+'''
+alp = 10 + 26 + 34
+# print(alp, 2**7)
+i = 7
 
-k=0
-for i in range(5400001, 10**10):
-    a = d(i)
-    if len(a)>0:
-        M=min(a)+max(a)
-        if M>60000:
-            if str(M)[::-1] == str(M):
-                print(i, M)
-                k += 1
-                if k==5:
-                    break
+byte = 305 * 2**10 / 1142
+print(byte)  # 273.485 -> 274
+bit = 274 * 8
+
+# bit = sym * i
+sym = bit / i
+print(sym)  # 313.1428 -> 313
+'''
+
+# Номер 17
+'''
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in A if abs(x) % 100 == 43]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) >= 1:
+        if (x + y) ** 2 < max(B) ** 2:
+            R.append((x + y) ** 2)
+'''
 
 
+# Номер 24
+'''
+s = open('files/24.txt').readline()
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[12:]:
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
 
+
+from re import *
+s = open('files/24.txt').readline()
+pat = '[1-B]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(max([len(x) for x in M]))
+'''
+
+
+#
 
 
 # endregion Урок: *************************************************************
