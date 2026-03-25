@@ -1716,21 +1716,18 @@ for i in range(1, len(s)-3, 2):
 print(maxi)
 '''
 
-from re import *
-M = []
-s = open('files/24.txt').readline()
-for i in range(1, 200):
-    pat = str(i)
-    for j in range(i+1, 200):
-        pat += str(j)
-        M += [x.group(0) for x in finditer(pat, s)]
-print(max([len(x) for x in M]))
 
 
 
 
 
 
+goal = 500_000
+hour = 20 * 4
+print(goal / hour)
+
+# Если цена часа выше 3500 руб, то надо дробить на группы
 
 
+print(20 * 4 * 4000)
 

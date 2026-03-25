@@ -6,30 +6,56 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 7333 Вариант от ChatGPT (Уровень: Базовый)
 '''
-p = 1024 * 1024
-I = 2 * 2 ** 23
-i = I / p
-print(i)  # 16.0  4 12
-print(2 ** 12)
-'''
-
-
-# № 5247 (Уровень: Базовый)
-'''
-p = 4044 * 1028
-i_colors = 16
-I = 16 * 2 ** 23
-
-i = I / p
-print(i)  # 32.2853
-
-
-print(2 ** 16)
+for n in range(1, 1000):
+    s=f'{n:b}'
+    if n%3==0:
+        s=s+s[-2:]
+    else:
+        s=s+f'{(3*(n%3)):b}'
+    r=int(s, 2)
+    if 120<r<150:
+        print(r, n)
+        # 142 17
+        # 122 30
+        # 127 31
+        # 133 33
+        # 139 34
+        # 144 36
 '''
 
+
+'''
+from turtle import *
+left(90)
+screensize(2000, 2000)
+tracer(0)
+size=10
+for i in range(2):
+    fd(3*size)
+    lt(90)
+    bk(10*size)
+    lt(90)
+up()
+bk(10*size)
+rt(90)
+fd(8*size)
+lt(90)
+down()
+for i in range(2):
+    fd(16*size)
+    rt(90)
+    fd(8*size)
+    rt(90)
+up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        goto(x*size, y*size)
+        dot(3, 'purple')
+update()
+done()
+print(2*3)
+'''
 
 # endregion Урок: *************************************************************
 # #

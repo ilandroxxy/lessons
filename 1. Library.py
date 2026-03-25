@@ -205,6 +205,24 @@ print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
 #
 # region 19-21 номер
 
+# Задача № 7380 Сборник Полякова
+'''
+def F(s, n):
+    if 20 <= s <= 26:
+        return n % 2 == 0
+    if s > 26:
+        return n % 2 != 0
+    if n == 0:
+        return 0
+    h = [F(s + 4, n-1), F(s * 2, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
+
+print([s for s in range(1, 19+1) if F(s, n=2)])
+print([s for s in range(1, 19+1) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(1, 19+1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
 # endregion 19-21 номер
 #
 #
