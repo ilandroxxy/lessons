@@ -294,6 +294,15 @@ for i in range(len(s)-80):
     R.append(len(r))
 print(max(R))
 '''
+
+from re import *
+s=open('files/24.txt').readline()
+p='(AB|AC)+'
+a=[x.group(0) for x in finditer(p, s)]
+print(max([len(x)//2 for x in a]))
+
+
+
 # endregion Урок: *************************************************************
 # #
 # #

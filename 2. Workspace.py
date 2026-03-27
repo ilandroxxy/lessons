@@ -1716,18 +1716,42 @@ for i in range(1, len(s)-3, 2):
 print(maxi)
 '''
 
+print("Welcome to the Python Online Editor!")
+print("Build something amazing.")
+
+import sys
+
+sys.setrecursionlimit(10000)
 
 
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n - 1)
 
 
+print((F(2024) // 16 - F(2023)) / F(2022))
 
 
-goal = 500_000
-hour = 20 * 4
-print(goal / hour)
-
-# Если цена часа выше 3500 руб, то надо дробить на группы
+# Ответ: 1019592
 
 
-print(20 * 4 * 4000)
+def Divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(326496, 649632 + 1):
+    d = Divisors(x)
+    chet = [a for a in d if a % 2 == 0]
+    nechet = [a for a in d if a % 2 != 0]
+    if len(chet) == len(nechet):
+        if len(chet) >= 70 and len(nechet) >= 70:
+            print(x, min([a for a in d if a > 1000]))
+
+# Ответ: 315
 

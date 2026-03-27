@@ -7,54 +7,44 @@
 # region Урок: ********************************************************************
 
 '''
-print('1 2 3 4 5 6')
-from itertools import permutations
-table = '13 16 24 25 26 31 34 35 42 43 46 52 53 61 62 64'
-graph = 'AD DA BD DB AC CA AF FA FE EF EC CE EB BE BC CB'
-for p in permutations('ABCDEF'):
-    new_table = table
-    for i in range(1, 6+1):
-        new_table = new_table.replace(str(i), p[i-1])
-    if set(new_table.split()) == set(graph.split()):
-        print(*p)
+print('x y z w')
+for x in 0,1:
+    for y in 0,1:
+        for z in 0,1:
+            for w in 0,1:
+                F = (not z) and (w or x) and (not(x ==y))
+                if F == 1:
+                    print(x,y,z,w)
 '''
 
+
+# Вариант ЕГКР ЕГКР 13.12.25 вариант 2
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((not z) and y and x and (not w)) or ((not z) and y and (not x) and (not w)) or (z and y and x and (not w))
-                if F == 1:
-                    print(x, y, z, w)
-'''
-'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+# print(convert(8, 2))  # 1000
+
+RES = []
 for n in range(1, 10000):
-    s = f'{n:b}'
+    s = convert(n, 3)
     if n % 3 == 0:
         s = s + s[-2:]
     else:
-        x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)
-    if 125 <= r <= 130:
-        print(r, n)
-'''
-
-'''
-RES = []
-for n in range(1, 10000):
-    s = f'{n:b}'
-    if n % 2 ==0:
-        s = '10' + s
-    else:
-        s = '1' + s + '01'
-    r = int(s,2)
-    if n > 18:
+        # summa = sum(map(int, s))
+        summa = sum([int(x) for x in s])
+        x = summa * 3
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r > 155 and r % 2 == 0:
         RES.append(r)
 print(min(RES))
 '''
+
 
 # endregion Урок: *************************************************************
 # #
