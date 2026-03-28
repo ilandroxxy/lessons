@@ -5,303 +5,174 @@
 # #
 # #
 # region Урок: ********************************************************************
-'''
-print(eval('746159+279*53+2758421387+9+1925*7559465184*793997536'))
-
-# 26491
-from re import*
-R = []
-s = open('files/24.txt').readline()
-pat='[1-9][0-9]*([+*][1-9][0-9]*)*'
-m=[x.group(0) for x in finditer(pat, s)]
-for b in m:
-    if eval(b) % 2 == 0:
-        print(b)
-        R.append(len(b))
-print(max(R))
-
-'''
-# порядок действий определяется по правилам математики
-# 43+73323929*294869798*4+4448479+936*1+525996+883824*97*57722*3*9
-# 43*73323929*294869798*4*4448479*936*1+525996+883824+97+57722+3
 
 
 
-# Номер 6 (статград)
-'''
-import turtle as t
-t.screensize(5000, 5000)
-t.left(90)
-size = 3
-
-for i in range(2):
-    for i in range(2):
-        t.forward(180 * size)
-        t.right(120)
-    t.right(120)
-
-t.right(150)
-t.forward(15 * size)
-t.right(90)
-t.forward(360 * size)
-t.right(90)
-t.forward(15 * size)
-t.right(30)
-t.forward(74 * size)
-
-t.done()
-'''
-
-
-# 19-21
-
-# Игра завершается, когда количество камней в куче становится не менее 20.
-'''
-def F(s, n):
-    if s >= 20:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 4, n-1), F(s * 2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 19+1) if F(s, n=2)])
-print([s for s in range(1, 19+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 19+1) if F(s, n=4) and not F(s, n=2)])
-'''
-# Игра завершается, когда количество камней в куче становится не менее 125.
-# Победителем считается игрок, сделавший последний ход
-
-
-
-# Игра завершается, когда количество камней в куче становится не менее 20.
-# Если при этом в куче оказалось не более 26 камней, то победителем считается 
-# игрок, сделавший последний ход.
-
-# В противном случае победителем становится его противник
-
-# Задача № 7380 Сборник Полякова
-'''
-def F(s, n):
-    if 20 <= s <= 26:
-        return n % 2 == 0
-    if s > 26:
-        return n % 2 != 0
-    if n == 0:
-        return 0
-    h = [F(s + 4, n-1), F(s * 2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)  # else any(h)
-
-print([s for s in range(1, 19+1) if F(s, n=2)])
-print([s for s in range(1, 19+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 19+1) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-
-# № 2419 (Уровень: Базовый)
-# В текстовом файле находится цепочка из символов латинского алфавита A, B, C длиной
-# не более 106 символов. Найдите длину самой длинной подцепочки, состоящей из символов C
+# № 11813 (Уровень: Базовый)
 '''
 s = open('files/24.txt').readline()
-s = s.replace('B', ' ').replace('A', ' ')
-print(max([len(x) for x in s.split()]))
-'''
+for x in 'AEYUIO':
+    s = s.replace(x, '*')
+for x in 'QWRTPSDFGHJKLZXCVBNM':
+    s = s.replace(x, '+')
+while '**' in s or '++' in s:
+    s = s.replace('**', '* *').replace('++', '+ +')
 
+print(max(len(x) for x in s.split()))
 
-# № 1975 Демоверсия 2022 (Уровень: Базовый)
-# Текстовый файл состоит из символов P, Q, R и S.
-# Определите максимальное количество идущих подряд символов в прилагаемом файле,
-# среди которых нет идущих подряд символов P.
-'''
+# Вариант 2
 s = open('files/24.txt').readline()
-s = s.replace('PP', 'P P')
-print(max([len(x) for x in s.split()]))
+print(len(s))
+for x in s:
+    if x in 'AEYUIO':
+        s = s.replace(x, '*')
+    else:
+        s = s.replace(x, '+')
+
+while '**' in s or '++' in s:
+    s = s.replace('**', '* *').replace('++', '+ +')
+
+print(max(len(x) for x in s.split()))
 '''
 
 
-# № 2426 (Уровень: Базовый)
-# Текстовый файл состоит не более чем из 106 символов 1, 2, 3, A, B, C.
-# Определите максимальное количество идущих подряд цифр.
+
+# № 21 Демоверсия 2021 (Уровень: Базовый)
+# Определите максимальное количество идущих подряд символов,
+# среди которых каждые два соседних различны.
 '''
+# Вариант 1
 s = open('files/24.txt').readline()
-for x in 'ABC':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
+while 'XX' in s or 'YY' in s or 'ZZ' in s:
+    # for x in 'XX YY ZZ'.split():
+    for x in 'XYZ':
+        s = s.replace(2*x, f'{x} {x}')
+print(max(len(x) for x in s.split()))
 '''
 
-# № 2942 Апробация 19.02.2022 (Уровень: Базовый)
-# Текстовый файл состоит из символов А, В и С.
-# Определите максимальное количество идущих подряд пар символов АВ или АС в прилагаемом файле.
+# Вариант 2
 '''
-s = open('files/24.txt').readline()
-s = s.replace('AB', '*').replace('AC', '+')
-for x in 'ABC':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 1302 Открытый вариант КЕГЭ (Уровень: Базовый)
-# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
-# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
-'''
-
-# № 5237 (Уровень: Средний)
-# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
-# Определите максимальное количество идущих подряд символов, среди которых
-# нет символов Z, а остальные символы чередуются.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('Z', ' ')
-while 'XX' in s or 'YY' in s:
-    s = s.replace('XX', 'X X').replace('YY', 'Y Y')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# № 14642 Открытый курс "Слово пацана" (Уровень: Базовый)
-# (М. Попков) Файл с текстом состоит не более чем из 106 символов D, E, F.
-# Определите максимальное количество идущих подряд символов, среди которых
-# символ F встречается не более одного раза.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('F', 'F ')
-s = s.split()
-R = []
-for i in range(len(s)-1):
-    r = ''.join(s[i:i+2])[:-1]
-    R.append(len(r))
-print(max(R))
-'''
-# EDDEDEDFEEDDDEDE[F]
-
-
-# № 2251 (Уровень: Базовый)
-# Текстовый файл содержит только заглавные буквы латинского алфавита(ABC…Z).
-# Определите максимальное количество идущих подряд символов, среди которых не более двух букв D.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('D', 'D ')
-s = s.split()
-R = []
-for i in range(len(s)-2):
-    # r = (s[i] + s[i+1] + s[i+2])[:-1]
-    r = ''.join(s[i:i+3])[:-1]
-    R.append(len(r))
-print(max(R))
-'''
-
-# № 13085 (Уровень: Средний)
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите максимальное количество идущих подряд символов, среди которых ровно
-# по одному разу встречаются буквы X и Y.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('X', 'X ').replace('Y', 'Y ')
-s = s.split()
-R = []
-for i in range(len(s)-2):
-    r = ''.join(s[i:i+3])[:-1]
-    if r.count('X') == 1 and r.count('Y') == 1:
-        R.append(len(r))
-print(max(R))
-'''
-
-# № 13100 (Уровень: Средний)
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите максимальное количество идущих подряд символов, среди которых каждая
-# из букв C и D встречается не более двух раз.
-'''
-s = open('files/24.txt').readline()
-s = s.replace('C', 'C ').replace('D', 'D ')
-s = s.split()
-R = []
-for i in range(len(s)-4):
-    r = ''.join(s[i:i+5])[:-1]
-    if r.count('D') == 2 and r.count('C') == 2:
-        R.append(len(r))
-print(max(R))
-'''
-# xxxxCxxxxCxxxxDxxxDxxxxx[D]
-
-
-# № 10105 Демоверсия 2024 (Уровень: Средний)
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле максимальное количество идущих подряд
-# символов (длину непрерывной подпоследовательности), среди которых
-# символ T встречается ровно 100 раз.
-# Для выполнения этого задания следует написать программу.
-'''
-s = open('files/24.txt').readline()
-s = s.split('T')
-R = []
-for i in range(len(s)-100):
-    r = 'T'.join(s[i:i+101])
-    R.append(len(r))
-print(max(R))
-'''
-
-# № 13715 (Уровень: Средний)
-# Текстовый файл состоит из символов A, B, C, D и E.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов,
-# среди которых комбинация символов AB встречается ровно 50 раз.
-'''
-s = open('files/24.txt').readline()
-s = s.split('AB')
-R = []
-for i in range(len(s)-50):
-    r = 'B' + 'AB'.join(s[i:i+51]) + 'A'
-    R.append(len(r))
-print(max(R))
-'''
-# xxxABxxxxABxxxxABxxxxABxxxABxxxxABxxxxx
-# xxx  xxxx  xxxx  xxxx  xxx  xxxx  xxxxx
-
-# A BxxxABxxxxABxxxxABxxxxA B
-
-# № 27634 Апробация 04.03.26 (Уровень: Базовый)
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле минимальное количество идущих подряд
-# символов (длину непрерывной подпоследовательности), среди которых
-# символ Z встречается не менее 270 раз.
-# Для выполнения этого задания следует написать. программу.
-'''
-s = open('files/24.txt').readline()
-s = s.split('Z')
-R = []
-for i in range(len(s)-268):
-    r = 'Z' + 'Z'.join(s[i:i+269]) + 'Z'
-    R.append(len(r))
-print(min(R))
-'''
-# xxxZxxxxZxxxxxZxxxxxZxxxxxZxxxxxx
-
-# № 19254 ЕГКР 21.12.24 (Уровень: Базовый)
-# Текстовый файл состоит из символов F, G, Q, R, S и W.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов,
-# среди которых подстрока FSRQ встречается ровно 80 раз.
-'''
-s = open('files/24.txt').readline()
-s = s.split('FSRQ')
-R = []
-for i in range(len(s)-80):
-    r = 'SRQ' + 'FSRQ'.join(s[i:i+81]) + 'FSR'
-    R.append(len(r))
-print(max(R))
-'''
-
 from re import *
-s=open('files/24.txt').readline()
-p='(AB|AC)+'
-a=[x.group(0) for x in finditer(p, s)]
-print(max([len(x)//2 for x in a]))
+s = open('files/24.txt').readline()
+pat = '(XY|XZ|YX|ZX)*'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]))
+'''
+
+# Вариант 3
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] != s[i+1]:
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi)
+'''
+# s = 'XYXYXYXYXYYY
 
 
+
+
+# № 66 Джобс 31.08.2020 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 латинских символов К, О, Т.
+# Определите максимальное количество подряд идущих комбинаций КОТ.
+'''
+s = open('files/24.txt').readline()
+print(s)
+cnt = 2
+maxi = 0
+for i in range(len(s)-2):
+    if s[i:i+3] in ('KOT', 'OTK', 'TKO'):
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 2
+print(maxi / 3)
+'''
+
+
+
+
+# № 1273 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 1200000 символов,
+# которые являются прописными буквами латинского алфавита.
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет подстроки XYZ.
+'''
+s = open('files/24.txt').readline()
+cnt = 2
+maxi = 0
+for i in range(len(s)-2):
+    if s[i:i+3] == 'XYZ':
+        maxi = max(maxi, cnt)
+        cnt = 2
+    else:
+        cnt += 1
+print(maxi)
+'''
+
+
+
+
+
+# № 1428 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 1200000 символов, которые являются прописными
+# буквами латинского алфавита. Определите максимальное количество идущих подряд символов,
+# среди которых нет подстроки XY и подстроки XZ.
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i:i+2] in ('XY', 'XZ'):
+        maxi = max(maxi, cnt)
+        cnt = 1
+    else:
+        cnt += 1
+print(maxi)
+'''
+
+
+# № 2422 (Уровень: Базовый)
+# Текстовый файл состоит не более чем из 106 символов X, Y, Z.
+# Определите максимальное количество идущих подряд символов, расположенных
+# в алфавитном порядке (возможно с повторением символов).
+
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i]!=s[i+1]:
+        if s[i]=='Z':
+            maxi = max(maxi, cnt)
+            cnt = 1
+        elif s[i]=='X':
+            cnt+=1
+        elif s[i]=='Y' and s[i+1]=='Z':
+            cnt += 1
+        else:
+            maxi = max(maxi, cnt)
+            cnt = 1
+    else:
+        cnt += 1
+print(maxi)
+
+
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s) - 1):
+    if s[i] <= s[i+1]:  # сортировать буквы можно (сравнивать их)
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi)
 
 # endregion Урок: *************************************************************
 # #

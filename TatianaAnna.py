@@ -6,120 +6,149 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 5
 '''
-L = []
-for n in range(1, 10000):
-    s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-3:]
-    else:
-        x = (n % 3) * 3
-        s = s + bin(x)[2:]
+print(7 * 17 + 1 * 16 - 1 * 6)
+print(8 * 18 + 2 * 17 - 2 * 7)
 
-    r = int(s, 2)
-    if 125 <= r <= 135:
-        print(r, n)
-'''
+# Задание 6
+import turtle as t
+t.tracer(0)
+t.left(90)
+t.screensize(5000, 5000)
+size = 20
 
-# Задание 7
-'''
-pixels = 192 * 960
-I = 90 * 2**13  # бит - сжатое изображение (85%)
-I = (I / 85) * 100  # (100%)
-# I = pixels * i
-i = I / pixels
-print(i)  # 4.705 -> 4
-# colors = 2 ** i
-print(2 ** 4)  # 16
-'''
+for i in range(2):
+    t.forward(1 * size)
+    t.left(270)
+    t.forward(16 * size)
+    t.right(90)
 
-# Задание 9
-'''
-n = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    n += 1
-    # copied1 = [x for x in M if M.count(x) == 1]
-    # if len(copied1) == 5:
-    # if len(set(M)) == 5:
-    if len(set(M)) == len(M):
-        if max(M) - min(M) == sum(M) - max(M) - min(M):
-            print(n)
-            break
+t.up()
+t.backward(4 * size)
+t.right(90)
+t.forward(10 * size)
+t.left(90)
+
+t.down()
+
+for i in range(2):
+    t.forward(17 * size)
+    t.right(90)
+    t.forward(7 * size)
+    t.right(90)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(size * x, size * y)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 '''
 
-# Задание 15
+# Задание 17 Не правильно
 '''
-def F(x, A):
-    return (x % 25 == 0) <= ((x % A != 0) <= (x % 60 != 0))
-
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-
-
-# Вариант 2
-for A in range(1, 10000):
-    if all( ((x % 25 == 0) <= ((x % A != 0) <= (x % 60 != 0))) for x in range(1, 10000)):
-        print(A)
-'''
-
-# Задание 17
-'''
-M = [int(s) for s in open('files/17.txt')]
+M = [int(x) for x in open('files/17.txt')]
 A = [x for x in M if len(str(abs(x))) == 4]
 B = [x for x in A if abs(x) % 100 == 43]
 R = []
-for i in range(len(M)-1):
+for i in range(len(M) - 1):
     x, y = M[i], M[i+1]
     if (x in A) + (y in A) >= 1:
-        if ((x + y) ** 2) < max(B) ** 2:
+        if (x + y) ** 2 < (max(B)) ** 2:
             R.append((x + y) ** 2)
 print(len(R), max(R))
 '''
 
 
-# Задание 24
+# todo глянуть Задание 27
 '''
-# Определите в прилагаемом файле МИНИМАЛЬНОЕ количество идущих
-# подряд символов (длину непрерывной подпоследовательности), среди
-# которых символ Z встречается не менее 270 раз.
-s = open('files/24.txt').readline()
-s = s.split('Z')
-RES = []
-for i in range(len(s)-268):
-    r = 'Z' + 'Z'.join(s[i:i+269]) + 'Z'
-    RES.append(len(r))
-print(min(RES))
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(x) for x in s.split()]
+    if 5 < y < 15:
+        clustersA[0].append([x, y])
+    if 15 < y < 25:
+        clustersA[1].append([x, y])
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(x) for x in s.split()]
+    if 25 < x < 35 and 13 < y < 18:
+        clustersB[0].append([x, y])
+    if 18 < x < 23 and 14 < y < 20:
+        clustersB[1].append([x, y])
+    if 15 < x < 21 and 25 < y < 31:
+        clustersB[2].append([x, y])
 
 
-# Определите в прилагаемом файле МАКСИМАЛЬНОЕ количество идущих
-# подряд символов (длину непрерывной подпоследовательности), среди
-# которых символ Z встречается не менее 270 раз.
-s = open('files/24.txt').readline()
-s = s.split('Z')
-RES = []
-for i in range(len(s)-270):
-    r = 'Z'.join(s[i:i+271])
-    RES.append(len(r))
-print(max(RES))
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+            R.append([summa, p])
+    return min(R)[1]
+
+centersA = [center(cl) for cl in clustersA]
+print(centersA) # [[6.412136, 10.106562], [8.82346, 21.840848]]
+print(len(clustersA[0])) # 301
+print(len(clustersA[1])) # 344 - максимальное количество точек
+
+# print(dist([1.0, 1.5], [6.412136, 10.106562]))
+A2 = dist([1.0, 1.5], centersA[0]) + dist([1.0, 1.5], centersA[1])
+print(int(A2 * 10000))
+
+
+centersB = [center(cl) for cl in clustersB]
+print(centersB) # [[28.939202, 14.512709], [20.757817, 15.787054], [18.749613, 28.956072]]
+print(len(clustersB[0])) # 148
+print(len(clustersB[1])) # 200
+print(len(clustersB[2])) # 902
+
+
+def B1(cl, center, lenght):
+    cnt = 0
+    for p in cl:
+        if p == center:
+            continue
+        if dist(center, p) <= lenght:
+            cnt += 1
+    return cnt
+
+print(B1(clustersB[1], centersB[1], 1.2) )  # Ответ: 38
+
+
+def B2(cl, center):
+    R = []
+    for p in cl:
+        if p == center:
+            continue
+        R.append(dist(p, center))
+    return min(R)
+
+print(int(B2(clustersB[2], centersB[2]) * 10000))  # Ответ: 1116
 '''
 
+# Для файла A определите координаты центра каждого кластера, затем
+# найдите два числа: A1 — максимальное количество точек в кластере и A2 —
+# сумму расстояний от центров кластеров до точки с координатами (1,0; 1,5).
 
-print(bin(415)[2:])
-print(int('1111111001100000', 2))
-
-
-print(bin(992)[2:])
-print(int('1111101011', 2))
+# 344	294354
+# 152	528
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
 # КЕГЭ = [11, 19-21]
-# на следующем уроке: 10, (26)
+# на следующем уроке: (26)
 
 
 # region 📖 Пробник (Вариант 2)
