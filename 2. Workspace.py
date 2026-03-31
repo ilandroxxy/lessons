@@ -1716,42 +1716,87 @@ for i in range(1, len(s)-3, 2):
 print(maxi)
 '''
 
-print("Welcome to the Python Online Editor!")
-print("Build something amazing.")
-
-import sys
-
-sys.setrecursionlimit(10000)
 
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
+# todo глянуть Задание 27
+'''
+from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
+
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(x) for x in s.split()]
+    if 5 < y < 15:
+        clustersA[0].append([x, y])
+    if 15 < y < 25:
+        clustersA[1].append([x, y])
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(x) for x in s.split()]
+    if 25 < x < 35 and 13 < y < 18:
+        clustersB[0].append([x, y])
+    if 18 < x < 23 and 14 < y < 20:
+        clustersB[1].append([x, y])
+    if 15 < x < 21 and 25 < y < 31:
+        clustersB[2].append([x, y])
 
 
-print((F(2024) // 16 - F(2023)) / F(2022))
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+            R.append([summa, p])
+    return min(R)[1]
+
+centersA = [center(cl) for cl in clustersA]
+print(centersA) # [[6.412136, 10.106562], [8.82346, 21.840848]]
+print(len(clustersA[0])) # 301
+print(len(clustersA[1])) # 344 - максимальное количество точек
+
+# print(dist([1.0, 1.5], [6.412136, 10.106562]))
+A2 = dist([1.0, 1.5], centersA[0]) + dist([1.0, 1.5], centersA[1])
+print(int(A2 * 10000))
 
 
-# Ответ: 1019592
+centersB = [center(cl) for cl in clustersB]
+print(centersB) # [[28.939202, 14.512709], [20.757817, 15.787054], [18.749613, 28.956072]]
+print(len(clustersB[0])) # 148
+print(len(clustersB[1])) # 200
+print(len(clustersB[2])) # 902
 
 
-def Divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
+def B1(cl, center, lenght):
+    cnt = 0
+    for p in cl:
+        if p == center:
+            continue
+        if dist(center, p) <= lenght:
+            cnt += 1
+    return cnt
+
+print(B1(clustersB[1], centersB[1], 1.2) )  # Ответ: 38
 
 
-for x in range(326496, 649632 + 1):
-    d = Divisors(x)
-    chet = [a for a in d if a % 2 == 0]
-    nechet = [a for a in d if a % 2 != 0]
-    if len(chet) == len(nechet):
-        if len(chet) >= 70 and len(nechet) >= 70:
-            print(x, min([a for a in d if a > 1000]))
+def B2(cl, center):
+    R = []
+    for p in cl:
+        if p == center:
+            continue
+        R.append(dist(p, center))
+    return min(R)
 
-# Ответ: 315
+print(int(B2(clustersB[2], centersB[2]) * 10000))  # Ответ: 1116
+'''
+
+# Для файла A определите координаты центра каждого кластера, затем
+# найдите два числа: A1 — максимальное количество точек в кластере и A2 —
+# сумму расстояний от центров кластеров до точки с координатами (1,0; 1,5).
+
+# 344	294354
+# 152	528
+
 
