@@ -418,6 +418,48 @@ kbyte = n / 2 ** 10
 print(kbyte)
 '''
 
+
+'''
+cnt = 0
+for s in open('files/9.txt'):
+    M = [int(x) for x in s.split()]
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied3 = [x for x in M if M.count(x) == 3]
+    if len(copied3) == 3 and len(copied1) == 3:
+        if sum(copied3)**2 > sum(copied1)**2:
+             cnt += 1
+print(cnt)
+
+'''
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied4 = [x for x in M if M.count(x) == 4]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied1) == 3:
+        if len(copied2) == 2:
+            if len(copied4) == 4:
+                if sum(copied1)/len(copied1) >= max(copied4 + copied2):
+                    cnt += 1
+                    print(cnt)
+'''
+
+
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if len(M) != len(set(M)):
+        if M.count(min(M)) == 1:
+            copied = [x for x in M if M.count(x) > 1]
+            if min(M) + max(M) < sum(copied):
+                cnt += 1
+print(cnt)
+
+
+
+
 # endregion Урок: *************************************************************
 # #
 # #
