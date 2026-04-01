@@ -1820,7 +1820,7 @@ for A in range(0, 100000):
 # Для какого наименьшего целого неотрицательного числа А логическое выражение
 # (x * y < A) or (x < 7 * y) or (343 < x)
 # истинно (т.е. принимает значение 1) при любых целых положительных х и у?
-
+'''
 def F(x, y, A):
     return (x * y < A) or (x < 7 * y) or (343 < x)
 
@@ -1828,7 +1828,7 @@ for A in range(0, 100000):
     if all(F(7*y, y, A) for y in range(1, 10000)):
         print(A)
         break
-
+'''
 # Ответ: 16808
 
 
@@ -1836,7 +1836,7 @@ for A in range(0, 100000):
 # Для какого наименьшего целого неотрицательного числа А логическое выражение
 # (y < A) and (x < A) or (89241 < 5*y + x)
 # истинно (т.е. принимает значение 1) при любых целых положительных х и у?
-
+'''
 def F(x, y, A):
     return (y < A) and (x < A) or (89241 < 5*y + x)
 
@@ -1844,7 +1844,7 @@ for A in range(0, 100000):
     if all(F(89241 - 5*y, y, A) for y in range(1, 89241 // 5)):
         print(A)
         break
-
+'''
 # Ответ: 89237
 
 
@@ -1879,10 +1879,12 @@ for A in range(0, 100000):
 '''
 
 
-def F(a, b, c):
-    if a <= b:
-        # print(a == b, c)
-        return a == b and 'AAA' not in c and 'BBB' not in c
-    return F(a - 2, b, c+'A') + F(a // 2 if a % 2 == 0 else a - 7, b, c+'B')
+def F(a, b):
+    if a >= b:
+        return a == b
+    if a == 7:
+        return F(a + 2, b) + F(a * 2, b)
+    else:
+        return F(a + 2, b) + F(a + 5, b) + F(a * 2, b)
 
-print(F(40, 1, ''))
+print(F(7, 35))
