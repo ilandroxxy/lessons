@@ -6,144 +6,85 @@
 # #
 # region Урок: ********************************************************************
 
-# Задание 6 Статград 23.10.25 вариант 1
-'''
-import turtle as t
-t.tracer(0)
-t.left(90)
-t.screensize(5000, 5000)
-size = 40
 
-for i in range(7):
-    t.forward(15*size)
-    t.right(90)
-    t.forward(23 * size)
-    t.right(90)
-t.up()
-t.forward(3 * size)
-t.right(90)
-t.forward(5 * size)
-t.right(90)
-t.down()
-for i in range(7):
-    t.forward(252*size)
-    t.right(90)
-    t.forward(398 * size)
-    t.right(90)
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
+# Задание 19-21 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
 
-t.update()
-t.done()
-'''
-
-# Задание 8 Статград 23.10.25 вариант 1
-'''
-cnt = 0
-alp = '0123456789ABCDE'
-for a in alp:
-    for b in alp:
-        for c in alp:
-            for d in alp:
-                word = a + b + c + d
-                if word[0] != '0':
-                    if word.count('8') == 1:
-                        # if word[0] != word[1] and word[1] != word[2] and word[2] != word[3]:
-                        if all(p*2 not in word for p in '0123456789ABCDE'):
-                            cnt += 1
-print(cnt)
-'''
-
-
-# Задание 9 Статград 23.10.25 вариант 1
-'''
-cnt = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if 2 <= M.count(min(M)) <= 3 and 5 <= len(copied1) <= 6:
-        if min(copied1) ** 2 + max(copied1) ** 2 <= (sum(copied1) - max(copied1) - min(copied1)) ** 2:
-            cnt += 1
-print(cnt)
-'''
-
-# M = [1, 2, 3, 4, 5]
-# max(M)  # 5
-# min(M)  # 1
-# sum(M)  # 1+2+3+4+5
-# sum(M) - min(M) - max(M)  # 2+3+4
-
-
-
-# Задание 17 Статград 23.10.25 вариант 1
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if x < 0]
-B = [x for x in A if len(str(abs(x))) == 3 and abs(x) % 6 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) > max(B):
-            R.append(x**2 + y**2)
-print(len(R), max(R))
-'''
-# сумма квадратов x ** 2 + y ** 2
-# квадрат суммы (x + y) ** 2
-
-
-# Задание 19-21 Статград 23.10.25 вариант 1
 '''
 from math import ceil, floor
 def F(s, n):
-    if s <= 505:
+    if s <= 537:
         return n % 2 == 0
     if n == 0:
         return 0
-    h = [F(s-3, n-1), F(floor(s/5), n-1)]
+    h = [F(s-4, n-1), F(floor(s/5), n-1)]
     return any(h) if (n - 1) % 2 == 0 else any(h)
 
-print([s for s in range(505, 100000) if F(s, n=2)]) # 2532 Не правильно
-# print([s for s in range(505, 100000) if F(s, n=3) and not F(s, n=1)]) # 2533, 2534
-# print([s for s in range(505, 100000) if F(s, n=4) and not F(s, n=2)]) # 2536
+print(max([s for s in range(538, 100000) if F(s, n=2)])) # 2693 не совпал
+print([s for s in range(538, 10000) if F(s, n=3) and not F(s, n=1)]) # 2694 2695
+print([s for s in range(538, 10000) if F(s, n=4) and not F(s, n=2)]) # 2698
+'''
+from traceback import print_tb
+
+# Задание 17 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
+
+'''
+R = []
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 9 == 0 and x < 0]
+for i in range(len(M)-1):
+    x, y = M[i], M[i-1]
+    if (x < 0) + (y < 0) == 1:
+        if (x + y) > max(A):
+            R.append(x**2 + y**2)
+print(len(R), min(R))
 '''
 
 
-# Задание 27 Статград 23.10.25 вариант 1
-"""
+# Задание 7 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
+'''
+a = 2
+b = 56000
+c = 15
+t = 27*60 + 27
+I = a * b * c * t
+# Общий вес всего альбома в бит
+
+count = 28
+# dop - ?
+
+U = 367_217_732  # бит/с
+T = 332
+I_all = U * T
+
+print(((I_all - I) / 28) / 2**13)
+# 519449.8422 -> 519449 (В ответе запишите только целое число.)
+'''
+
+
+# Задание 27 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
+'''
 from math import dist
-clustersA = [[], []]
+clustersA =[[], []]
 clustersB = [[], [], []]
 
 for s in open('files/27A.txt'):
     s = s.replace(',', '.')
-    x, y = [float(x) for x in s.split()]
-    if x < 50:
+    x, y = [float(i) for i in s.split()]
+    if y < 90:
         clustersA[0].append([x, y])
     else:
         clustersA[1].append([x, y])
 
+
 for s in open('files/27B.txt'):
     s = s.replace(',', '.')
-    x, y = [float(x) for x in s.split()]
-    if 22 < x < 30 and 25 < y < 32:
+    x, y = [float(i) for i in s.split()]
+    if 22 < x < 30 and 24 < y < 32:
         clustersB[0].append([x, y])
-    if 20 < x < 27 and 34 < y < 41:
+    if 20 < x < 28 and 33 < y < 41:
         clustersB[1].append([x, y])
-    if 19 < x < 26 and 43 < y < 50:
+    if 19 < x < 26 and 42 < y < 50:
         clustersB[2].append([x, y])
-
-# Проверка, что класетры не пустые:
-'''
-print(clustersA[0])
-print(clustersA[1])
-print(clustersB[0])
-print(clustersB[1])
-print(clustersB[2])
-'''
 
 def center(cl):
     R = []
@@ -152,96 +93,84 @@ def center(cl):
         for g in cl:
             summa += dist(p, g)
             R.append([summa, p])
-    return max(R)[1]
+    return min(R)[1]
 
-print(center(clustersA[0]))  # [16.99841482246666, 95.6727515672738]
-print(center(clustersA[1]))  # [63.94062638636294, 87.77751031781972]
+# Для файла А определите координаты центра каждого кластера, затем
+# вычислите два числа: P1 – сумма абсциссы и ординаты центра кластера
+# с наименьшим количеством точек, и P2 – сумма абсциссы и ординаты центра
+# кластера с наибольшим количеством точек.
 
-print(len(clustersA[0]))  # 102
-print(len(clustersA[1]))  # 113
+print(center(clustersA[0]))  # [67.45768597787117, 84.9125033245346]
+print(center(clustersA[1]))  # [18.292400236282887, 95.72553132584521]
 
-P1 = 16.99841482246666 + 95.6727515672738
-P2 = 63.94062638636294 + 87.77751031781972
+print(len(clustersA[0]))  # 113
+print(len(clustersA[1]))  # 102
+
+P1 = 18.292400236282887 + 95.72553132584521
+P2 = 67.45768597787117 + 84.9125033245346
+
+print(int(P1 * 10000), int(P2 * 10000))  # 1140179 1523701
+
+# Вариант 2
+CA_0 = center(clustersA[0])
+CA_1 = center(clustersA[1])
+if len(clustersA[0]) < len(clustersA[1]):
+    P1 = sum(CA_0)
+    P2 = sum(CA_1)
+else:
+    P1 = sum(CA_1)
+    P2 = sum(CA_0)
 print(int(P1 * 10000), int(P2 * 10000))
 
 
-print(center(clustersB[0]))  # [23.329917580199655, 26.41328219493777]
-print(center(clustersB[1]))  # [22.1707588150025, 39.65891347675987]
-print(center(clustersB[2]))  # [21.38834573144159, 48.899310705252915]
+# Для файла Б определите координаты центра каждого кластера, затем
+# вычислите два числа: Qx – абсциссу наиболее отдалённого центра кластера
+# от начала координат, и Qy – ординату ближайшего центра кластера к началу
+# координат.
 
-print(dist(center(clustersB[0]), [0, 0]))  # 35.24126176243305
-print(dist(center(clustersB[1]), [0, 0]))  # 45.43536028898788
-print(dist(center(clustersB[2]), [0, 0]))  # 53.37231417670156
+print(center(clustersB[0]))  # [27.076197499885254, 26.453819388436255]
+print(center(clustersB[1]))  # [21.71746862058927, 37.42511852914926]
+print(center(clustersB[2]))  # [20.46221682747454, 44.66104487492894]
 
-Qx = 21.38834573144159
-Qy = 26.41328219493777
-print(int(Qx * 10000), int(Qy * 10000))  # 213883 264132
-"""
+print(dist([27.076197499885254, 26.453819388436255], [0, 0]))  # 37.853996239350984
+print(dist([21.71746862058927, 37.42511852914926], [0, 0]))  # 43.26994268781911
+print(dist([20.46221682747454, 44.66104487492894], [0, 0]))  # 49.12546434197848
 
-
-# № 27275 (Уровень: Базовый)
-# На вход алгоритма подается натуральное число N. Алгоритм строит по нему новое число R следующим образом:
-# 1. Строится троичная запись числа N.
-# 2. Далее эта запись обрабатывается по следующему правилу:
-#   а) если число N делится на 3, то к этой записи справа дописываются цифры 21, а слева – цифра 1;
-#   б) если число N на 3 не делится, то остаток от деления числа N на 3 умножается на 5,
-#   переводится в троичную систему счисления и дописывается в конец числа.
-# Полученная таким образом запись является троичной записью искомого числа R.
-# Укажите максимальное нечётное число N, после обработки которого с помощью этого
-# алгоритма получается число R, не превышающее 1130.
-'''
-def G(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
-
-
-L = []
-for n in range(1, 100000):
-    s = G(n, 3)
-    if n % 3 == 0:
-        s = '1' + s + '21'
-    else:
-        x = (n % 3) * 5
-        s = s + G(x, 3)
-
-    r = int(s, 3)
-    if r <= 1130 and n % 2 != 0:
-        L.append(n)
-print(max(L))
+Qx = 20.46221682747454
+Qy = 26.453819388436255
+print(int(Qx * 10000), int(Qy * 10000))  # 204622 264538
 '''
 
-# № 27276 (Уровень: Базовый)
-# На вход алгоритма подается натуральное число N. Алгоритм строит по нему новое число R следующим образом:
-# 1. Строится троичная запись числа N.
-# 2. Далее эта запись обрабатывается по следующему правилу:
-#   а) если число N делится на 3, то к этой записи справа дописываются две её последние цифры,
-#   а слева – цифра 1;
-#   б) если число N на 3 не делится, то сумма цифр троичной записи умножается на 5,
-#   переводится в троичную систему счисления и дописывается в конец числа.
-# Полученная таким образом запись является троичной записью искомого числа R.
-# Укажите число R, ближайшее к числу 1000, которое может быть получено в результате работы алгоритма.
 
-L = []
-def convert(n, b):
-    r = ''
-    while n > 0:
-        r = str(n % b) + r
-        n //= b
-    return r
+# Задание 25 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
+# Пусть S – сумма всех простых натуральных делителей целого числа, не
+# считая самого числа. Если таких делителей у числа нет, то считаем значение
+# S равным нулю.
+# Напишите программу, которая перебирает целые числа, меньшие 1 475 000,
+# в порядке убывания и ищет среди них такие, для которых значение S не равно
+# нулю, не больше 42 000 и кратно 6 В ответе запишите первые пять найденных
+# чисел в порядке убывания.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-for n in range(1, 1000):
-    n3 = convert(n, 3)
-    if n % 3 == 0:
-        n3 = '1' + n3 + n3[-2:]
-    else:
-        n3 = n3 + convert((sum([int(x) for x in n3]) * 5), 3)
-    r = int(n3, 3)
-    if 995 < r < 1005:
-        print(r)
-
+cnt = 0
+for x in range(1475000-1, -1, -1):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        S = sum(d)
+        if S % 6 == 0:
+            if S <= 42000:
+                if S != 0:
+                    print(x)
+                    cnt += 1
+                    if cnt == 5:
+                        break
+'''
 
 # endregion Урок: *************************************************************
 # #
