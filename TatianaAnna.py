@@ -7,176 +7,68 @@
 # region Урок: ********************************************************************
 
 
-# Задание 19-21 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
-
-'''
-from math import ceil, floor
-def F(s, n):
-    if s <= 537:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-4, n-1), F(floor(s/5), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print(max([s for s in range(538, 100000) if F(s, n=2)])) # 2693 не совпал
-print([s for s in range(538, 10000) if F(s, n=3) and not F(s, n=1)]) # 2694 2695
-print([s for s in range(538, 10000) if F(s, n=4) and not F(s, n=2)]) # 2698
-'''
-from traceback import print_tb
-
-# Задание 17 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
-
+# Тип 25 № 36880 🌶
 '''
 R = []
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4 and abs(x) % 9 == 0 and x < 0]
-for i in range(len(M)-1):
-    x, y = M[i], M[i-1]
-    if (x < 0) + (y < 0) == 1:
-        if (x + y) > max(A):
-            R.append(x**2 + y**2)
-print(len(R), min(R))
+for n in range(1, 20, 2):
+    for m in range(0, 30, 2):
+        N = 2**m * 3**n
+        if 400_000_000 <= N <= 600_000_000:
+            R.append(N)
+R = sorted(R)
+for x in R:
+    print(x)
 '''
 
 
-# Задание 7 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
+
+# https://stepik.org/lesson/1228668/step/4?unit=1242201
 '''
-a = 2
-b = 56000
-c = 15
-t = 27*60 + 27
-I = a * b * c * t
-# Общий вес всего альбома в бит
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = r + str(n % b)
+        n //= b
+    return r[::-1]
 
-count = 28
-# dop - ?
 
-U = 367_217_732  # бит/с
-T = 332
-I_all = U * T
-
-print(((I_all - I) / 28) / 2**13)
-# 519449.8422 -> 519449 (В ответе запишите только целое число.)
+L = []
+for n in range(1, 1000):
+    s = convert(n, 4)
+    if (len(s) % 2) == 0:
+        s = s[:(len(s) // 2)] + '0' + s[(len(s) // 2):]
+    r = int(s, 4)
+    if r <= 180:
+        L.append(n)
+print(max(L))
 '''
 
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = r + str(n % b)
+        n //= b
+    return r[::-1]
 
-# Задание 27 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
-'''
-from math import dist
-clustersA =[[], []]
-clustersB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y < 90:
-        clustersA[0].append([x, y])
+L = []
+for n in range(1, 10000):
+    s = convert(n, 7)
+    if s.count('2') % 2 == 0:
+        s = s + '555'
     else:
-        clustersA[1].append([x, y])
+        s = '1' + s
+    r = int(s, 7)
+    if r < 3799:
+        L.append(n)
+print(max(L))
 
 
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if 22 < x < 30 and 24 < y < 32:
-        clustersB[0].append([x, y])
-    if 20 < x < 28 and 33 < y < 41:
-        clustersB[1].append([x, y])
-    if 19 < x < 26 and 42 < y < 50:
-        clustersB[2].append([x, y])
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-            R.append([summa, p])
-    return min(R)[1]
-
-# Для файла А определите координаты центра каждого кластера, затем
-# вычислите два числа: P1 – сумма абсциссы и ординаты центра кластера
-# с наименьшим количеством точек, и P2 – сумма абсциссы и ординаты центра
-# кластера с наибольшим количеством точек.
-
-print(center(clustersA[0]))  # [67.45768597787117, 84.9125033245346]
-print(center(clustersA[1]))  # [18.292400236282887, 95.72553132584521]
-
-print(len(clustersA[0]))  # 113
-print(len(clustersA[1]))  # 102
-
-P1 = 18.292400236282887 + 95.72553132584521
-P2 = 67.45768597787117 + 84.9125033245346
-
-print(int(P1 * 10000), int(P2 * 10000))  # 1140179 1523701
-
-# Вариант 2
-CA_0 = center(clustersA[0])
-CA_1 = center(clustersA[1])
-if len(clustersA[0]) < len(clustersA[1]):
-    P1 = sum(CA_0)
-    P2 = sum(CA_1)
-else:
-    P1 = sum(CA_1)
-    P2 = sum(CA_0)
-print(int(P1 * 10000), int(P2 * 10000))
-
-
-# Для файла Б определите координаты центра каждого кластера, затем
-# вычислите два числа: Qx – абсциссу наиболее отдалённого центра кластера
-# от начала координат, и Qy – ординату ближайшего центра кластера к началу
-# координат.
-
-print(center(clustersB[0]))  # [27.076197499885254, 26.453819388436255]
-print(center(clustersB[1]))  # [21.71746862058927, 37.42511852914926]
-print(center(clustersB[2]))  # [20.46221682747454, 44.66104487492894]
-
-print(dist([27.076197499885254, 26.453819388436255], [0, 0]))  # 37.853996239350984
-print(dist([21.71746862058927, 37.42511852914926], [0, 0]))  # 43.26994268781911
-print(dist([20.46221682747454, 44.66104487492894], [0, 0]))  # 49.12546434197848
-
-Qx = 20.46221682747454
-Qy = 26.453819388436255
-print(int(Qx * 10000), int(Qy * 10000))  # 204622 264538
-'''
-
-
-# Задание 25 Статград 23.10.25 вариант 2 (https://disk.yandex.ru/i/6Z6cTKKeb8lQNQ)
-# Пусть S – сумма всех простых натуральных делителей целого числа, не
-# считая самого числа. Если таких делителей у числа нет, то считаем значение
-# S равным нулю.
-# Напишите программу, которая перебирает целые числа, меньшие 1 475 000,
-# в порядке убывания и ищет среди них такие, для которых значение S не равно
-# нулю, не больше 42 000 и кратно 6 В ответе запишите первые пять найденных
-# чисел в порядке убывания.
-'''
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-cnt = 0
-for x in range(1475000-1, -1, -1):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        S = sum(d)
-        if S % 6 == 0:
-            if S <= 42000:
-                if S != 0:
-                    print(x)
-                    cnt += 1
-                    if cnt == 5:
-                        break
-'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
-# КЕГЭ = [11, 19-21]
+# КЕГЭ = [5, 11, 19-21, 25]
 # на следующем уроке: (26)
 
 

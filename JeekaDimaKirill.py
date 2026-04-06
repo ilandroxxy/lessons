@@ -6,41 +6,15 @@
 # #
 # region Урок: ********************************************************************
 
-#
-# № 27623 Апробация 04.03.26 (Уровень: Базовый)
-
-alp = 10 + 26 + 8164
-# print(alp, 2**14)
-i = 14  # 2 ** 14 >= alp
-
-byte = 156 * 2**10 / 835
-print(byte)  # 191.3101 -> 192
-bit = 192 * 8
-
-
-# bit = sym * i
-sym = bit / i
-print(sym)
-
-
-# № 27766 Апробация 04.03.26 (Уровень: Базовый)
-'''
-alp = 10 + 26 + 34
-print(alp, 2**7)
-i = 7  # 2 ** 7 >= alp
-
-byte = 305 * 2**10 / 1142
-print(byte)  # 273.485 -> 274
-bit = 274 * 8
-
-
-# bit = sym * i
-sym = bit / i
-print(sym)  # 313.14
-'''
-# i = 7
-# 2 ** 7 = 128
-# 2**6+1 = 65
+cnt = 0
+for s in open("files/9.csv"):
+    M = [int(x) for x in s.split(",")]
+    copied1 = [x for x in M if x % 2 == 0]
+    copied2 = [x for x in M if x % 2 != 0]
+    if M == sorted(M):
+        if len(copied1) > len(copied2):
+            cnt += 1
+print (cnt)
 
 # endregion Урок: *************************************************************
 #
