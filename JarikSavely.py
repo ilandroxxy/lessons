@@ -7,16 +7,24 @@
 # region Урок: ********************************************************************
 
 
-from functools import *
-@lru_cache(None)
-def F(n):
-    if (n**0.5).is_integer():
-        return (n ** 0.5)
-    else:
-        return F(n + 1) + 1
-for n in range(5100,-1,-1):
-    F(n)
-print(F(4850)+F(5000))
+def divisors(x):
+    d = []
+    for g in range (1,int(x**0.5)+1):
+        if x % g == 0:
+            d.append(g)
+            d.append(x//g)
+    return sorted(set(d))
+
+print(divisors(24))
+cnt = 0
+for x in range (1125000+1,10**10):
+    d= [i for i in divisors(x) if i  % 10 == 7 and i != 7 and i != x]
+    if len(d) > 0:
+        print(x,min(d))
+        cnt += 1
+        if cnt == 5:
+            break
+
 
 # endregion Урок: *************************************************************
 # #
