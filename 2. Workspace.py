@@ -11,6 +11,7 @@
 '''
 import turtle
 from traceback import print_tb
+from zoneinfo import reset_tzpath
 
 # endregion Работа над курсом
 
@@ -1878,24 +1879,40 @@ for A in range(0, 100000):
         break
 '''
 
+'''
+Обратите внимание, что сервис должен подстроиться под ваш локальный часовой пояс ☝️
+После записи сервис предложит перейти и запустить Телеграм и написать мне, сделайте это 🙏
+
+Не забывайте заглядывать в мой ТГК: Информатика ЕГЭ | itpy 🧑‍💻
+Там всё, что нужно для подготовки: новости, разборы, видео, шпаргалки и теория 📚
+
+Материалы, которые помогут вам подготовиться к ЕГЭ:
+📌 Бесплатный Python-курс с нуля
+📌 Шпаргалка по всем заданиям ЕГЭ
+📌 Сборник задач для практики
+📌 Официальные варианты ЕГЭ 2026
 
 
-# № 24984 (Уровень: Базовый)
+👾 Ссылка на видеовстречи в zoom (https://clc.li/ilandroxxy-zoom)
 
-# (В. Лашин) Сколько существует шестнадцатиричных пятизначных чисел, в которых каждая цифра встречается
-# не более двух раз и при этом хотя бы одна из цифр является квадратом натурального числа?
+s/venv/bin/python3 /Users/ilandroxxy/PycharmProjects/lessons/2. Workspace.py 
+Traceback (most recent call last):
+  File "/Users/ilandroxxy/PycharmProjects/lessons/2. Workspace.py", line 1912, in <module>
+    print((f[257487] / 683 + f[257477] / 67) / f[257472])
+           ~~~~~~~~~~^~~~~
+OverflowError: integer division result too large for a float
 
-s = sorted("0123456789ABCDEF")
-cnt = 0
-for a in s:
-    for b in s:
-       for c in s:
-           for d in s:
-               for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != "0":
-                        if all(num.count(p) <= 2 for p in "0123456789ABCDEF"):
-                            if any(int(int(p, 16) ** 0.5) in (1, 4, 9) for p in num):
 
-                                cnt += 1
-print(cnt) # 623430
+С условиями и правилами проведения уроков ознакомился(лась) и согласен(на): https://clc.li/ilandroxxy-rules
+
+'''
+
+
+f = {}
+for n in range(260000):
+    if n < 10:
+        f[n] = 3
+    else:
+        f[n] = (n + 4) * f[n - 5]
+
+print((f[257487] / 683 + f[257477] / 67) / f[257472])
