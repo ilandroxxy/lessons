@@ -1,5 +1,5 @@
 # region Домашка: ******************************************************************
-from runpy import run_path
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,292 +7,286 @@ from runpy import run_path
 # region Урок: ********************************************************************
 
 
-# № 27780 Апробация 04.03.26 (Уровень: Базовый)
 '''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+from functools import *
 
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 15:
-        clustersA[0].append([x, y])
-    else:
-        clustersA[1].append([x, y])
+@lru_cache(None)
+def F(n):
+    if n >= 14:
+        return n * F(n - 1)
+    if n < 14:
+        return 8 * G(n - 3)
 
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 23:
-        clustersB[0].append([x, y])
-    else:
-        if x < 25:
-            clustersB[1].append([x, y])
-        if x > 25:
-            clustersB[2].append([x, y])
+@lru_cache(None)
+def G(n):
+    if n < 31:
+        return 4
+    if n >= 31:
+        return n / 2 * G(n - 2)
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+for n in range(0, 650000):
+    G(n)
+
+for n in range(0, 330000):
+    F(n)
+
+print(F(320726) / G(641450))
+'''
 
 
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 - максимальное количество точек в кластере и A2 - cумму расстояний от центров
-# кластеров до точки с координатами (1,0; 1,5).
+# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# Пусть М - сумма минимального и максимального простых натуральных делителей целого
+# числа, не считая самого числа. Если таких делителей у числа нет, то значение М считается равным нулю.
+# Напишите программу, которая перебирает целые числа, большие 5 400 000, в порядке
+# возрастания и ищет среди них такие, для которых М больше 60 000 и является палиндромом,
+# т.е. одинаково читается слева направо и справа налево. В ответе запишите в первом столбце
+# таблицы первые  пять найденных чисел в порядке возрастания, а во втором столбце - соответствующие им значения М.
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
 
-print(center(clustersA[0]))  # [8.815578, 20.944823]
-print(center(clustersA[1]))  # [6.017217, 8.334924]
-
-print(len(clustersA[0]))  # 344
-print(len(clustersA[1]))  # 301
-
-A1 = 344
-A2 = dist([8.815578, 20.944823], [1.0, 1.5]) + dist([6.017217, 8.334924], [1.0, 1.5])
-
-print(A1, int(A2 * 10000))  # 344 294354
-
-
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 - число точек, находящихся на расстоянии не более 1,2 от центра, не включая центр,
-# в кластере со средним количеством точек, и
-# B2 - минимальное расстояние от центра кластера с наибольшим количеством
-# точек до другой точки этого кластера.
-
-print(center(clustersB[0]))  # [17.885872, 28.168004]
-print(center(clustersB[1]))  # [20.226519, 17.396702]
-print(center(clustersB[2]))  # [27.979159, 15.559524]
-
-print(len(clustersB[0]))  # 902
-print(len(clustersB[1]))  # 200
-print(len(clustersB[2]))  # 148
-
-
-def B1(cl, cent, length):
-    cnt = 0
-    for p in cl:
-        if p == cent:
-            continue
-        if dist(p, cent) <= length:
+cnt = 0
+for n in range(5_400_000+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M > 60000 and str(M) == str(M)[::-1]:
+            print(n, M)
             cnt += 1
-    return cnt
-
-print(B1(clustersB[1], [20.226519, 17.396702], 1.2))  # 152
-
-def B2(cl, cent):
-    R = []
-    for p in cl:
-        if p == cent:
-            continue
-        R.append(dist(p, cent))
-    return min(R)
-
-print(int(B2(clustersB[0], [17.885872, 28.168004]) * 10000))  # 528
+            if cnt == 5:
+                break
 '''
 
 
-# № 27593 (Уровень: Базовый)
+# № 23382 Резервный день 19.06.25 (Уровень: Средний)
+# Напишите программу, которая перебирает целые числа,
+# большие 6 651 220, в порядке возрастания и ищет среди них числа,
+# представленные в виде произведения ровно двух простых множителей,
+# не обязательно различных, каждый из которых содержит в своей записи ровно одну цифру 2.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел
+# в порядке возрастания, а во втором столбце - для каждого из чисел
+# соответствующий им наибольший из найденных множителей.
 '''
-from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
 
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 10:
-        clustersA[0].append([x, y])
-    else:
-        clustersA[1].append([x, y])
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if  18 < x < 26:
-        clustersB[0].append([x, y])
-    else:
-        if 12 < x < 18 and 20 < y < 30:
-            clustersB[1].append([x, y])
-        if 6 < x < 16 and 10 < y < 20:
-            clustersB[2].append([x, y])
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-# Для файла А определите координаты центров каждого кластера, затем найдите два числа:
-# Px - минимальное расстояние между центром кластера и точкой (5,5; 9,1), и
-# Py - расстояние между этой же точкой и серединой отрезка, соединяющего центры кластеров.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-print(dist([7.0391548, 12.3587258], [5.5, 9.1]))  # 3.6039272104120923
-print(dist([3.8471735, 6.1225014], [5.5, 9.1]))  # 3.405485773293468
-
-Px = int(3.405485773293468 * 10000)
-
-
-xc = (7.0391548 + 3.8471735) / 2
-yc = (12.3587258 + 6.1225014) / 2
-
-Py = int(dist([xc, yc], [5.5, 9.1]) * 10000)
-
-print(Px, Py)
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# Q1 - количество точек всех кластеров, находящихся на расстоянии не более 10 от центра
-# кластера с наибольшим количеством точек (включая сам центр), и
-# Q2 - количество точек всех кластеров, находящихся на расстоянии более 5 от центра кластера
-# с наименьшим количеством точек. Гарантируется, что во всех кластерах количество точек различно.
-
-print(center(clustersB[0]))  # [21.3946551, 24.7510816]
-print(center(clustersB[1]))  # [14.6275088, 23.5024317]
-print(center(clustersB[2]))  # [11.555522, 14.5042082]
-
-print(len(clustersB[0]))  # 100
-print(len(clustersB[1]))  # 113
-print(len(clustersB[2]))  # 407
-
-def Q1(cent, cl0, cl1, cl2, length):
-    cnt = 0
-    for p in cl0 + cl1 + cl2:
-        if dist(p, cent) <= length:
+cnt = 0
+from itertools import product
+for n in range(6_651_220+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        if any(p[0] * p[1] == n and str(p[0]).count('2') == 1 and str(p[1]).count('2') == 1 for p in product(d, repeat=2)):
+            print(n, max(d))
             cnt += 1
-    return cnt
-
-print(Q1([11.555522, 14.5042082], clustersB[0], clustersB[1], clustersB[2], 10))  # 492
-
-
-def Q2(cent, cl0, cl1, cl2, length):
-    cnt = 0
-    for p in cl0 + cl1 + cl2:
-        if dist(p, cent) > length:
-            cnt += 1
-    return cnt
-
-print(Q2([21.3946551, 24.7510816], clustersB[0], clustersB[1], clustersB[2], 5))  # 520
+            if cnt == 5:
+                break
 '''
 
+# № 28711 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 2 400 000,
+# в порядке возрастания и ищет среди них числа, представимые в виде произведения
+# ровно трёх различных простых множителей, каждый из которых содержит в своей записи
+# хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел в порядке возрастания,
+# справа от каждого числа запишите его наибольший простой делитель.
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
 
-
-from math import dist
-clustersA = [[], []]
-param_A = [[], []]
-
-
-clustersB = [[], [], []]
-param_B = [[], [], []]
-for s in open('files/27_A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 10:
-        clustersA[0].append([x, y])
-        param_A[0].append(z)
+def res(x):
+    if str(x).count('4') + str(x).count('7') >= 1:
+        return True
     else:
-        clustersA[1].append([x, y])
-        param_A[1].append(z)
+        return False
 
-for s in open('files/27_B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 23:
-        clustersB[0].append([x, y])
-        param_B[0].append(z)
-    if y < 23 and x < 20:
-        clustersB[1].append([x, y])
-        param_B[1].append(z)
-    if y < 23 and x > 20:
-        clustersB[2].append([x, y])
-        param_B[2].append(z)
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-print(len(clustersA[0]))  # 92
-print(len(clustersA[1]))  # 131
-
-def A1(cl, cent, par):
-    R = []
-    for i in range(len(cl)):
-        if 'Y' in par[i] and 'III' in par[i]:
-            R.append(dist(cent, cl[i]))
-    return min(R)
-
-print(int(A1(clustersA[0], [7.0391548, 12.3587258], param_A[0]) * 10000))  # 4940
-
-def A2(cl, cent, par):
-    R = []
-    for i in range(len(cl)):
-        if 'Y' in par[i] and 'III' in par[i]:
-            R.append(dist(cent, cl[i]))
-    return max(R)
-
-print(int(A2(clustersA[0], [7.0391548, 12.3587258], param_A[0]) * 10000))
-
-
-
-
-
-
-
-print(center(clustersB[0]))  # [13.9823808, 26.4800432]
-print(center(clustersB[1]))  # [15.861917, 18.8540334]
-print(center(clustersB[2]))  # [26.6431823, 12.4121727]
-
-def yellow(cl, par):
-    R = []
-    for i in range(len(cl)):
-        if 'Z' in par[i] and 'IV' in par[i]:
-            R.append(cl[i])
-    return R
-
+cnt = 0
 from itertools import permutations
-R = []
-for p in permutations(yellow(clustersB[2], param_B[2]), 2):
-    R.append(dist(p[0], p[1]))
-B1 = int(min(R) * 10000)
-print(B1)  # 1825
-
-
-def count_yellow(cl, par):
-    cnt = 0
-    for i in range(len(cl)):
-        if 'Z' in par[i] and 'IV' in par[i]:
+for n in range(2_400_000+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in permutations(d, r=3)):
+            print(n, max(d))
             cnt += 1
-    return cnt
+            if cnt == 5:
+                break
+'''
 
-print(count_yellow(clustersB[0], param_B[0]))  # 1
-print(count_yellow(clustersB[1], param_B[1]))  # 3
-print(count_yellow(clustersB[2], param_B[2]))  # 10
 
-B2 = dist([13.9823808, 26.4800432], [26.6431823, 12.4121727])
-print(int(B2 * 10000))  # 189261
+# № 23569 Пересдача 03.07.25 (Уровень: Средний)
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n**0.5)+1):
+        if n%j == 0:
+            d += [j, n//j]
+    return sorted(set(d))
+
+cnt = 0
+from itertools import product
+for n in range(6_086_055, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        if any(p[0] * p[1] == n and str(p[0]).count('6') == 1 and str(p[1]).count('6') == 1 for p in product(d, repeat=2)):
+            print(n, max(d))
+            cnt +=1
+            if cnt == 5:
+                break
+'''
+
+
+# № 24166 (Уровень: Средний)
+# (Е. Ширшев) Напишите программу, которая перебирает целые числа, большие 7 305 678,
+# в порядке возрастания и ищет среди них числа, представленные в виде произведения
+# ровно четырех простых множителей, не обязательно различных, сумма которых является числом палиндромом.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
+# а во втором столбце - для каждого из чисел соответствующую ему сумму множителей.
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
+
+def pal(x):
+    if str(x)==str(x)[::-1]:
+        return True
+    else:
+        return False
+
+cnt = 0
+from itertools import product
+for n in range(7305679+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        for p in product(d, repeat=4):
+            if p[0] * p[1] * p[2] * p[3] == n and pal(p[0]+p[1]+p[2]+p[3]):
+                print(n, p[0]+p[1]+p[2]+p[3])
+                cnt += 1
+                break
+        if cnt == 5:
+            break
+'''
+
+
+#
+# № 28710 (Уровень: Базовый)
+'''
+def divisors(n):
+    m = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            m += [j, n // j]
+    return sorted(set(m))
+
+
+def res(x):
+    if '3' in str(x) and '5' in str(x):
+        return True
+    else:
+        return False
+
+cnt = 0
+from itertools import product
+for n in range(4_080_000 + 1, 10 ** 10):
+    m = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(m) > 0:
+        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(m, repeat=3)):
+            print(n, max(m))
+            cnt += 1
+            if cnt == 5:
+                break
+
+'''
+
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
+
+def res(x):
+    if str(x).count('3') >= 1 and str(x).count('5') >= 1:
+        return True
+    else:
+        return False
+
+cnt = 0
+from itertools import product
+for n in range(4_080_000+1, 10**10):
+    d = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(d, repeat=3)):
+            print(n, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 28709 (Уровень: Базовый)
+'''
+def divisors(n):
+    m = []
+    for j in range(2, int(n ** 0.5)+1):
+        if n % j == 0:
+            m += [j, n // j]
+    return sorted(set(m))
+
+
+def res(x):
+    if str(x).count('3')>=1 or str(x).count('4')>=1:
+        return True
+    else:
+        return False
+
+
+cnt = 0
+from itertools import product
+for n in range(6_300_000 + 1, 10 ** 10):
+    m = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(m)>0:
+        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(m, repeat=3)):
+            print(n, max(m))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 26685 (Уровень: Средний)
+#  (К. Багдасарян) Напишите программу, которая перебирает целые числа, большие 2 700 000,
+#  в порядке возрастания и ищет среди них числа, оканчивающиеся на 34, представленные
+#  в виде произведения простых множителей, среди которых найдется число, повторяющееся
+#  не менее 5 раз. В ответе запишите в первом столбце таблицы первые пять найденных
+#  чисел в порядке возрастания, а во втором столбце – наименьший сомножитель, который повторяется не менее 5 раз.
+'''
+def divisors(n):
+    d = []
+    for j in range(2, int(n ** 0.5) + 1):
+        if n % j == 0:
+            d += [j, n // j]
+    return sorted(set(d))
+
+c = 0
+for n in range(2700001, 10 ** 10):
+    if n % 100 == 34:
+        d = len([j for j in divisors(n) if len(divisors(j)) == 0])
+        if len(d)>1:
+'''
 
 
 # endregion Урок: *************************************************************
