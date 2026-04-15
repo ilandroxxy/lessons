@@ -1908,11 +1908,32 @@ OverflowError: integer division result too large for a float
 '''
 
 
-f = {}
-for n in range(260000):
-    if n < 10:
-        f[n] = 3
-    else:
-        f[n] = (n + 4) * f[n - 5]
 
-print((f[257487] / 683 + f[257477] / 67) / f[257472])
+def F(a, b):
+    if a < b or a == 48:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a - 1, b) + F(a // 2, b) + F(a // 3, b)
+
+print(F(106, 61) * F(61, 6))  # 575
+
+
+def F(a, b):
+    if a < b or a == 61:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a - 1, b) + F(a // 2, b) + F(a // 3, b)
+
+print(F(106, 48) * F(48, 6))  # 3553
+
+print(3553 + 575)  # 4128
+
+
+# при этом траектория вычислений содержит ровно одно из чисел 48 или 61
+# (но не оба одновременно)
+
+# при этом траектория вычислений содержит 18 или 30
