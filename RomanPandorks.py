@@ -6,130 +6,109 @@
 # #
 # region Урок: ********************************************************************
 
-# № 24984 (Уровень: Базовый)
-
-# (В. Лашин) Сколько существует шестнадцатиричных пятизначных чисел, в которых каждая цифра встречается
-# не более двух раз и при этом хотя бы одна из цифр является квадратом натурального числа?
 '''
-s = sorted("0123456789ABCDEF")
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = w <= ((z <= y) and x)
+                if F == 0:
+                    print(x, y, z, w, int(F))
+
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = w <= ((z <= y) and x)
+                if F == 1:
+                    print(x, y, z, w, int(F))
+'''
+
+
+# Номер 5
+'''
+RES = []
+for n in range(1, 10000):
+    n2 = f'{n:b}'
+    if sum(map(int, n2)) % 2 == 0:
+        n2 = '1' + n2[2:] + '0'
+    else:
+        n2 = '11' + n2[2:] + '1'
+    r = int(n2, 2)
+    if r < 744:
+        RES.append([r, n])
+print(max(RES))
+'''
+
+# Номер 8
+'''
 cnt = 0
-for a in s:
-    for b in s:
-       for c in s:
-           for d in s:
-               for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != "0":
-                        if all(num.count(p) <= 2 for p in "0123456789ABCDEF"):
-                            if any(int(int(p, 16) ** 0.5) in (4, 9) for p in "0123456789ABCDEF"):
-                                print(num)
-                                cnt += 1
-print(cnt) # 948150
+from itertools import product
+for p in product('0123456789ABCDEF', repeat=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('D') == 1:
+            for x in '13579BF':
+                num = num.replace(x, '*')
+            if '*D' not in num and 'D*' not in num:
+                cnt += 1
+                print(num)
+print(cnt)
 '''
 
 
-
-
-# № 27620 Апробация 04.03.26 (Уровень: Базовый)
-
-# Все пятибуквенные слова, в составе которых могут быть только русские буквы Ц, И, Т, Р, У, С,
-# записаны в алфавитном порядке и пронумерованы.
-# Ниже приведено начало списка.
-# 1. ИИИИИ
-# 2. ИИИИР
-# 3. ИИИИС
-# 4. ИИИИТ
-# 5. ИИИИУ
-# 6. ИИИИЦ
-# 7. ИИИРИ
-# ...
-# Под каким номером в списке идёт последнее слово, которое содержит
-# ровно две буквы И и не содержит букв Ц, стоящих рядом?
-'''	
-s = sorted("ЦИТРУС")
+# Номер 9
+'''
 n = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    n += 1
-                    if word.count("И") == 2:
-                        if word.count("ЦЦ") == 0:
-                            print(n)
-
-'''
-# № 21407 Досрочная волна 2025 (Уровень: Базовый)
-# Виктор составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово.
-# В качестве кодовых слов Виктор использует 5-буквенные слова, в которых могут быть только буквы Д, Г, И, А, Ш, Э,
-# причём слово не должно начинаться с гласной и не должно заканчиваться согласной. Сколько различных кодовых
-# слов может использовать Виктор?
-'''
-s = sorted("ДГИАШЭ")
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if word[0] not in "ИАЭ":
-                        if word[-1] not in "ДГШ":
-                            cnt += 1
-print(cnt)
-
+summa = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied4 = [x for x in M if M.count(x) == 4]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied4) == 4 and len(copied1) == 3:
+        if M == sorted(M):
+            summa += n
+print(summa)
 '''
 
 
-# № 20898 Апробация 05.03.25 (Уровень: Базовый)
-
-# Определите количество девятеричных пятизначных чисел, в записи которых ровно
-# одна цифра 0, при этом никакая нечётная цифра не стоит рядом с цифрой 0.
+# Номер 13
 '''
-s = sorted("012345678")
-cnt = 0
-for a in s:
-    for b in s:
-       for c in s:
-           for d in s:
-               for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count("0") == 1:
-                            for i in '1357':
-                               num = num.replace(i, '*')
-                            if num.count("0*") == 0:
-                                if num.count("*0") == 0:
-                                    cnt += 1
-print(cnt) # 5120
+from ipaddress import *
+net = ip_network('134.80.0.0/255.240.0.0', 0)
+R = []
+for ip in net:
+    ip2 = f'{ip:b}'
+    if ip2.count('1') == ip2.count('0'):
+        summa = sum([int(x) for x in str(ip).split('.')])
+        R.append(summa)
+print(max(R))
 '''
 
-# # № 21894 Открытый вариант 2025 (Уровень: Базовый)
+M = [int(s)for s in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) ==4]
+B = [x for x in A if abs(x)% 100 == 43]
+print(B)
+R = []
+for i in range(len(M)-1):
+    x, y = M[i],M[i+1]
+    if (x in A)+(y in A) >=1:
+        if (x+y)**2 < (max(B))**2:
+            R.append((x+y)**2)
+print(len(R),max(R))
 
-# Сколько существует десятичных четырёхзначных чисел, в которых все цифры различны и никакие
-# две чётные или две нечётные цифры не стоят рядом?
-'''
-s = sorted("0123456789")
-cnt = 0
-for a in s:
-    for b in s:
-       for c in s:
-           for d in s:
-               num = a + b + c + d
-               if num[0] != "0":
-                   if len(num) == len(set(num)):
-                       for i in "02468":
-                           num = num.replace(i, "*")
-                       for t in "13579":
-                           num = num.replace(t, "$")
-                       if num.count("**") == 0:
-                           if num.count("$$") == 0:
-                               cnt += 1
-print(cnt)
-'''
-
-
+M = [int(x) for x in open('files/17.txt')]
+R = []
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in A if abs(x) % 100 == 43]
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x in A) + (y in A) >= 1:
+        if (x + y) ** 2 < max(B) ** 2:
+            R.append((x + y) ** 2)
+print(len(R), max(R))
 
 
 

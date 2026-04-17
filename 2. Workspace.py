@@ -1907,30 +1907,16 @@ OverflowError: integer division result too large for a float
 
 '''
 
-
-
-def F(a, b):
-    if a < b or a == 48:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a - 1, b) + F(a // 2, b) + F(a // 3, b)
-
-print(F(106, 61) * F(61, 6))  # 575
-
-
-def F(a, b):
-    if a < b or a == 61:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a - 1, b) + F(a // 2, b) + F(a // 3, b)
-
-print(F(106, 48) * F(48, 6))  # 3553
-
-print(3553 + 575)  # 4128
+R = []
+M = [int(x) for x in open('files/17.txt')]
+A = [x for x in M if x < 0]
+B = [x for x in M if x < 0 and len(str(x)) == 4 and x % 9 == 0]
+for i in range(len(M) -1):
+    x,y = M[i], M[i+1]
+    if (x in A) + (y in A) == 1:
+        if (x + y) > max(B):
+            R.append((x+y)**2)
+print(len(R), min(R))
 
 
 # при этом траектория вычислений содержит ровно одно из чисел 48 или 61

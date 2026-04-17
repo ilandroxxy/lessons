@@ -6,60 +6,24 @@
 # region Урок: ********************************************************************
 
 
-# 22, 18, 17, 7
+def dell(n):
+    S = []
+    for x in range(2, int(n ** 0.5) + 1):
+        if n % x == 0:
+            S.append(x)
+            S.append(n // x)
+    return sorted(set(S))
 
-
-# 7 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
-'''
-t = 180
-v = 24000
-i = 8
-y = 2
-S = t * v * i * y  # бит
-
-print(S / 48000)  # 1440.0
-'''
-
-
-# 17 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
-'''
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in A if abs(x) % 100 == 43]
-S = []
-for i in range(len(M)- 1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) >= 1:
-        if (x + y) ** 2 < max(B) ** 2:
-            S.append((x + y) ** 2)
-print(len(S), max(S))
-'''
-
-
-# F(257487) = (257487 + 4) * F(257482)
-# F(257482) = (257482 + 4) * F(257477)
-# F(257477) = (257477 + 4) * F(257472)
-'''
-print((257487 + 4) * (257482 + 4) * (257477 + 4) / 683)
-print((257477 + 4) / 67)
-print(24994252792782 + 3843)
-'''
-
-
-# 16
-'''
-from functools import *
-@lru_cache(None)
-def F(n):
-    if n < 10:
-        return 3
-    return (n + 4) * F(n - 5)
-M = [257487, 257477, 257472]
-for n in range(1, 260000):
-    F(n)
-
-print((F(257487) / 683 + F(257477) / 67) / F(257472))
-'''
+k = 0
+for x in range(32500280, 10**10):
+    P = [t for t in dell(x) if len(dell(t)) == 0]
+    if len(P) > 0:
+        S = sum(P)
+        if S != 0 and S % 145 == 0:
+            print(x, S)
+            k += 1
+            if k == 7:
+                break
 
 # endregion Урок: *************************************************************
 # #
