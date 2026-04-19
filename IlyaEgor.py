@@ -8,137 +8,173 @@
 # region Урок: ********************************************************************
 
 
-# Номер 16 Досрочная волна 07.04.26 вариант 1 (https://disk.yandex.ru/i/vSKwP7fEAs4V0g)
+# Номер 14
 '''
-# F(n) = (n + 4) * F(n - 5)
-# F(257487) = (257487 + 4) * F(257482)
-# F(257482) = (257482 + 4) * F(257477)
-# F(257477) = (257477 + 4) * F(257472) / F(257472)
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:23]:
+    A = int(f'761{x}035', 23)
+    B = int(f'338{x}932', 23)
+    if (A + B) % 22 == 0:
+        print((A + B) // 22)
+'''
+from os import dup
 
-# F(257477) = (257477 + 4) * F(257472) / F(257472)
+# Номер 7
+'''
+a = 2
+b = 20000
+c = 32
+t = 35 * 60 + 50
+I = a * b * c * t
 
-print(((257487 + 4) * (257482 + 4) * (257477 + 4)) / 683)  # 24994252792782
-print((257477 + 4) / 67)  # 3843
-print(24994252792782 + 3843)  # 24994252796625 (ответ)
+I_all = 339 * 2**23
+print(((I_all - I) / 13) / 2**13)  # 861.4230
+'''
+# 861 Кбайт
+
+
+# Номер 11
+'''
+sym = 65
+
+byte = 9 * 2**20 / 131072
+print(byte)  # 72.0
+bit = 72 * 8
+
+# bit = sym * i
+i = bit / sym
+print(i)  # 8.8615 -> 8  (отведено менее 9 Мбайт)
+
+i = 8
+print(2 ** 8)  # maxi - 256
+print(2 ** 7 + 1)  # mini - 129
+
+alp = 256  # i = 8
+
+alp = 200  # i = 8
+
+alp = 129  # i = 8
+alp = 128  # i = 7
+'''
+
+# Номер 8
+'''
+from itertools import product
+n = 0
+for p in product(sorted('СИМВОЛ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if word[0] not in 'ОС':
+            if word.count('В') == 1:
+                if word.count('C') <= 1:
+                    print(n)
+'''
+
+'''
+print(bin(2027)[2:])  # 11111101011
+print(int('1111110101111', 2))  # 8111
 '''
 
 
-# Номер 27 Досрочная волна 07.04.26 вариант 1 (https://disk.yandex.ru/i/vSKwP7fEAs4V0g)
+# № 17536 Основная волна 07.06.24 (Уровень: Средний)
+# Пусть М — сумма минимального и максимального натуральных делителей
+# целого числа, не считая единицы и самого числа. Если таких делителей
+# у числа нет, то значение М считается равным нулю.
+# Напишите программу, которая перебирает целые числа, большие 800 000,
+# в порядке возрастания и ищет среди них такие, для которых значение
+# М оканчивается на 4. В ответе запишите в первом столбце таблицы первые
+# пять найденных чисел в порядке возрастания, а во втором столбце - соответствующие им значения M.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-from itertools import permutations
-from math import dist
-clustersA = [[], []]
-paramsA = [[], []]
-
-clustersB = [[], [], []]
-paramsB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 10:
-        clustersA[0].append([x, y])
-        paramsA[0].append(z)
-    else:
-        clustersA[1].append([x, y])
-        paramsA[1].append(z)
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 23:
-        clustersB[0].append([x, y])
-        paramsB[0].append(z)
-    else:
-        if x < 20:
-            clustersB[1].append([x, y])
-            paramsB[1].append(z)
-        if x > 20:
-            clustersB[2].append([x, y])
-            paramsB[2].append(z)
+cnt = 0
+for x in range(800_000+1, 10**10):
+    d = divisors(x)
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M % 10 == 4:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# Пусть М - сумма минимального и максимального простых натуральных делителей
+# целого числа, не считая самого числа. Если таких делителей у числа нет, то
+# значение М считается равным нулю.
+# Напишите программу, которая перебирает целые числа, большие 5 400 000, в
+# порядке возрастания и ищет среди них такие, для которых М больше 60 000 и
+# является палиндромом, т.е. одинаково читается слева направо и справа налево.
+# В ответе запишите в первом столбце
+# таблицы первые  пять найденных чисел в порядке возрастания, а во втором
+# столбце - соответствующие им значения М.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-# Для файла А определите координаты центра каждого кластера, затем
-# на йдите два числа: A1 – минимальное расстояние от центра кластера с
-# наименьшим количеством точек до красного гиганта, и A2 – максимальное
-# расстояние от центра кластера с наименьшим количеством точек до
-# красного гиганта.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-print(len(clustersA[0]))  # 92
-print(len(clustersA[1]))  # 131
-
-def A1(cl, par, cent):
-    R = []
-    for i in range(len(cl)):
-        if 'Y' in par[i] and 'III' in par[i]:
-            R.append(dist(cent, cl[i]))
-    return min(R)
-
-A1 = A1(clustersA[0], paramsA[0], center(clustersA[0]))
-print(int(A1 * 10000))  # 4940
-
-
-def A2(cl, par, cent):
-    R = []
-    for i in range(len(cl)):
-        if 'Y' in par[i] and 'III' in par[i]:
-            R.append(dist(cent, cl[i]))
-    return max(R)
-
-A2 = A2(clustersA[0], paramsA[0], center(clustersA[0]))
-print(int(A2 * 10000))  # ....
+cnt = 0
+for x in range(5_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M > 60000 and str(M) == str(M)[::-1]:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+'''
 
 
+# № 23382 Резервный день 19.06.25 (Уровень: Средний)
+# Напишите программу, которая перебирает целые числа, большие 6 651 220,
+# в порядке возрастания и ищет среди них числа, представленные в виде
+# произведения ровно двух простых множителей, не обязательно различных,
+# каждый из которых содержит в своей записи ровно одну цифру 2.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел
+# в порядке возрастания, а во втором столбце - для каждого из чисел
+# соответствующий им наибольший из найденных множителей.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 – минимальное расстояние между двумя различными жёлтыми сверхгигантами, расположенными в одном и том же кластере
-# B2 – расстояние между центрами кластеров с минимальным и максимальным количеством жёлтых сверхгигантов.
+def F(x):
+    return str(x).count('2') == 1
 
-print(center(clustersB[0]))  # [13.9823808, 26.4800432]
-print(center(clustersB[1]))  # [15.861917, 18.8540334]
-print(center(clustersB[2]))  # [26.6431823, 12.4121727]
+cnt = 0
+from itertools import product
+for x in range(6_651_220+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        if any(p[0] * p[1] == x and F(p[0]) and F(p[1]) for p in product(d, repeat=2)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
 
-def B1(cl, par):
-    M = []
-    for i in range(len(cl)):
-        if 'Z' in par[i] and 'I' in par[i] and 'II' not in par[i] and 'V' not in par[i]:
-            M.append(cl[i])
-    R = []
-    for p in permutations(M, 2):
-        R.append(dist(p[0], p[1]))
-    return min(R)
 
-print(B1(clustersB[0], paramsB[0]))  # 3  - 0.1962774882347201
-# print(B1(clustersB[1], paramsB[1]))  # 1
-print(B1(clustersB[2], paramsB[2]))  # 9 - 0.10354459340095963
-
-B1 = B1(clustersB[2], paramsB[2])
-print(int(B1 * 10000))  # 1035
-
-# B2 – расстояние между центрами кластеров с минимальным и максимальным количеством жёлтых сверхгигантов.
-
-B2 = dist(center(clustersB[1]), center(clustersB[2]))
-print(int(B2 * 10000))  # 125591
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
+# ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25]
 # КЕГЭ = [9, 13]
 # на следующем уроке: 17, 25, 7, 11
 

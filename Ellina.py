@@ -7,112 +7,216 @@
 # region Урок: ********************************************************************
 
 
-# Задание 13 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
+# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# Пусть М - сумма минимального и максимального простых натуральных делителей целого числа,
+# не считая самого числа. Если таких делителей у числа нет, то значение М считается равным нулю.
+# Напишите программу, которая перебирает целые числа, большие 5 400 000, в порядке
+# возрастания и ищет среди них такие, для которых М больше 60 000 и является палиндромом,
+# т.е. одинаково читается слева направо и справа налево. В ответе запишите в первом столбце
+# таблицы первые пять найденных чисел в порядке возрастания, а во втором столбце -
+# соответствующие им значения М.
 '''
-from ipaddress import*
-cnt=0
-net=ip_network('172.16.160.0/255.255.240.0',0)
-for ip in net:
-   if f'{ip:b}'.count('1') % 2 == 0:
-       cnt+=1
-print(cnt)
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):  # не считая самого числа
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-ip = 8
-print(f'{ip:b}')  # 1000
-print(f'{ip}:b')  # 8:b
-print('f{ip}:b')  # f{ip}:b
-'''
-
-# Задание 15 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
-'''
-def F(x, A):
-    return (x % 21 == 0) <= ((x % A != 0) <= (x % 77 != 0))
-
-for A in range(10000, 1, -1):
-    if all(F(x, A) for x in range(1000000)):
-        print(A)
-        break
-
-for a in range(10000, 1, -1):
-    if all(  ((x % 21 == 0) <= ((x % a != 0) <= (x % 77 != 0))) for x in range(1000000)):
-        print(a)
-        break
+cnt = 0
+for x in range(5_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) >= 2:
+        M = min(d) + max(d)
+        if M > 60000 and str(M) == str(M)[::-1]:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# Задание 17 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
+# № 23382 Резервный день 19.06.25 (Уровень: Средний)
+# Напишите программу, которая перебирает целые числа, большие 6 651 220,
+# в порядке возрастания и ищет среди них числа, представленные в виде
+# произведения ровно двух простых множителей, не обязательно различных,
+# каждый из которых содержит в своей записи ровно одну цифру 2.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
+# возрастания, а во втором столбце - для каждого из чисел соответствующий
+# им наибольший из найденных множителей.
 '''
-m=[int(x) for x in open('files/17.txt')]
-max43=(max([x for x in m if 999<abs(x)<10000 and abs(x)%100==43]))**2
-R = []
-def f(n):
-   if 999<abs(n)<10000: return 1
-   else: return 0
+def divisors(x):
+    d = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-for i in range(len(m)-1):
-   a1=m[i]
-   a2=m[i+1]
-   a=(a1+a2)**2
-   if (f(a1)+f(a2))!=0 and a<max43:
-       R.append(a)
-print(len(R), max(R))
+def F(x):
+    return str(x).count('2') == 1
 
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if 999 < abs(x) < 10000]
-B = [x for x in A if abs(x) % 100 == 43]
-R = []
-for i in range(len(m)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) >= 1:
-        if (x + y) ** 2 < max(B) ** 2:
-            R.append((x + y) ** 2)
-print(len(R), max(R))
-'''
-
-
-
-# Задание 19-21 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
-# 2 кучи: a+1, b+1, a*2, b*2 | a + b >= 207 | a = 17 | 1 < b <= 189
-'''
-def f(a, s, m):
-    if (a + s) >= 207:
-        return m % 2 == 0
-    if m == 0:
-        return 0
-    h = [f(a + 1, s, m - 1), f(a, s + 1, m - 1), f(a * 2, s, m - 1), f(a, s * 2, m - 1)]
-    return any(h) if (m - 1) % 2 == 0 else all(h)
-    return any(h) if (m - 1) % 2 == 0 else any(h)
-
-
-print([s for s in range(2, 190) if f(17, s, 2)])
-print([s for s in range(2, 190) if f(17, s, 3) and not f(17, s, 1)])
-print([s for s in range(2, 190) if f(17, s, 4) and not f(17, s, 2)])
+cnt = 0
+from itertools import product, permutations
+for x in range(6_651_220+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2]
+    if len(d) > 0:
+        if any(p[0] * p[1] == x and F(p[0]) and F(p[1]) for p in product(d, repeat=2)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# Задание 16 Апробация 04.03.26 вариант 2 (https://disk.yandex.ru/i/olGf9MsK09aN4g)
+# № 28711 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 2 400 000, в порядке возрастания
+# и ищет среди них числа, представимые в виде произведения ровно трёх различных простых множителей,
+# каждый из которых содержит в своей записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять
+# чисел в порядке возрастания, справа от каждого числа запишите его наибольший простой делитель.
 '''
-# F(257487) = (257487 + 4) * F(257482)
-# F(257482) = (257482 + 4) * F(257477)
-# F(257477) = (257477 + 4) + F(257472) / F(257472)
+def divisors(x):
+    d = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-print(((257487 + 4) * (257482 + 4) * (257477 + 4)) / 683)
-print((257477 + 4) / 67)
-print(24994252792782 + 3843)
+def F(x):
+    return str(x).count('4') + str(x).count('7') >= 1
+
+cnt = 0
+from itertools import product, permutations
+for x in range(2_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in permutations(d, r=3)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
 
-# № 28761 Досрочная волна 2026 (Уровень: Средний)
+# № 28710 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 3 600 000,
+# в порядке возрастания и ищет среди них числа, представимые в виде произведения
+# ровно трёх простых множителей, необязательно различных, каждый из которых
+# содержит в своей записи одновременно цифры 3 и 5. В ответе запишите
+# первые пять чисел в порядке возрастания, справа от каждого числа запишите
+# его наибольший простой делитель.
+
 '''
-M = [int(x) for x in open('files/17.txt')]
-B = [x for x in M if abs(x) % 23 == 0]
-R = []
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x%min(B)==0) + (y% min(B)==0) >= 1:
-        R.append(x+y)
-print(len(R), max(R))
+def divisors(x):
+    d = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+def F(x):
+    return str(x).count('3')!=0 and str(x).count('5')!=0
+
+cnt = 0
+from itertools import product, permutations
+for x in range(4081470+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in product(d, repeat=3)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
 '''
+
+
+# № 26536 (Уровень: Средний)
+# (В. Лашин)  Напишите программу, которая перебирает целые числа, большие 3 502 100,
+# в порядке возрастания и ищет среди них числа, представленные в виде произведения 4
+# простых множителей, не обязательно различных, и при этом хотя бы один из множителей
+# является двузначным палиндромом, т.е. одинаково читается слева направо и справа налево,
+# и состоит из двух цифр.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
+# а во втором столбце - для каждого из них соответствующий наибольший из множителей этого числа.
+# Количество строк в таблице для ответа избыточно.
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+def F(x):
+    return str(x)==str(x)[::-1] and len(str(x)) == 2
+
+cnt = 0
+from itertools import product, permutations
+for x in range(3502100+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] * p[3] == x and (F(p[0]) or F(p[1]) or F(p[2]) or F(p[3])) for p in product(d, repeat=4)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+# import sys
+# sys.setrecursionlimit(10**8)
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n >= 21:
+        return F(n - 8) + 1095
+    if n < 21:
+        return 10 * (G(n - 7) - 36)
+
+@lru_cache(None)
+def G(n):
+    if n >= 22560:
+        return n / 23 + 33
+    if n < 22560:
+        return G(n + 11) - 4
+
+for n in range(22600-1, -1, -1):
+    G(n)
+
+for n in range(0, 600):
+    F(n)
+
+print(F(548))
+'''
+
+
+# № 25355 ЕГКР 13.12.25 (Уровень: Базовый)
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n >= 19:
+        return F(n - 4) + 3580
+    if n < 19:
+        return 6 * (G(n - 7) - 36)
+
+@lru_cache(None)
+def G(n):
+    if n >= 248045:
+        return n / 20 + 28
+    if n < 248045:
+        return G(n + 9) - 4
+
+for n in range(250000-1, -1, -1):
+    G(n)
+
+for n in range(0, 700):
+    F(n)
+
+print(F(673))
+'''
+
 
 # endregion Урок: *************************************************************
 # #

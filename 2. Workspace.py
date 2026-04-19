@@ -1907,19 +1907,16 @@ OverflowError: integer division result too large for a float
 
 '''
 
-R = []
+
 M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if x < 0]
-B = [x for x in M if x < 0 and len(str(x)) == 4 and x % 9 == 0]
-for i in range(len(M) -1):
-    x,y = M[i], M[i+1]
+R = []
+A = [x for x in M if len(str(abs(x))) == 4]
+B = [x for x in A if abs(x) % 1000 == 127]
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
     if (x in A) + (y in A) == 1:
-        if (x + y) > max(B):
-            R.append((x+y)**2)
-print(len(R), min(R))
+        if (x + y) ** 2 < max(B) ** 2:
+            R.append((x + y) ** 2)
+print(len(R), max(R))
 
-
-# при этом траектория вычислений содержит ровно одно из чисел 48 или 61
-# (но не оба одновременно)
-
-# при этом траектория вычислений содержит 18 или 30
+# 579 82810000
