@@ -1908,15 +1908,10 @@ OverflowError: integer division result too large for a float
 '''
 
 
-M = [int(x) for x in open('files/17.txt')]
-R = []
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in A if abs(x) % 1000 == 127]
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) == 1:
-        if (x + y) ** 2 < max(B) ** 2:
-            R.append((x + y) ** 2)
-print(len(R), max(R))
 
-# 579 82810000
+
+
+
+
+
+

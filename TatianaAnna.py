@@ -7,114 +7,22 @@
 # region Урок: ********************************************************************
 
 
-# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# № 27636 Апробация 04.03.26 (Уровень: Базовый)
 '''
-def divisors(x):
-    d = []
-    for j in range(2, int(x ** 0.5)+1):
-        if x % j == 0:
-            d += [j, x//j]
-    return sorted(set(d))
-
-cnt = 0
-for x in range(5_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M > 60000 and str(M) == str(M)[::-1]:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-from codecs import backslashreplace_errors
-
-
-# № 23207 Основная волна 10.06.25 (Уровень: Средний)
-'''
-def divisors(x):
-    d = []
-    for j in range(2, int(x ** 0.5)+1):
-        if x % j == 0:
-            d += [j, x//j]
-    return sorted(set(d))
-
-def F(x):
-    return str(x).count('5') == 1
-
-cnt = 0
-from itertools import product
-for x in range(1_324_727+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] == x and F(p[0]) and F(p[1]) for p in product(d, repeat=2)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
+file = open('files/26.txt')
+S, N = [int(x) for x in file.readline().split()]
+M = sorted([int(x) for x in file.readlines()])
+R = []
+for x in M:
+    R.append(x)
+    if sum(R) > S:
+        del R[-1]
+        break
+print(N - len(R))
+print(sum(M) - sum(R))
 '''
 
 
-# № 28710 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 3 600 000, в порядке возрастания
-# и ищет среди них числа, представимые в виде произведения ровно трёх простых множителей, необязательно
-# различных, каждый из которых содержит в своей записи одновременно цифры 3 и 5. В ответе запишите
-# первые пять чисел в порядке возрастания, справа от каждого числа запишите его наибольший простой делитель.
-'''
-def divisors(x):
-    d = []
-    for j in range(2, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-def F(x):
-    return '3' in str(x) and '5' in str(x)  # содержит в своей записи одновременно цифры 3 и 5
-    # return str(x).count('3') + str(x).count('5') >= 1  # хотя бы одну цифру 3 или 5
-
-cnt = 0
-from itertools import product
-for x in range(4_080_000 + 1, 10 ** 10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in product(d, repeat=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-
-# № 28711 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 2 400 000, в порядке возрастания
-# и ищет среди них числа, представимые в виде произведения ровно трёх различных простых множителей,
-# каждый из которых содержит в своей записи хотя бы одну цифру 4 или 7. В ответе запишите первые
-# пять чисел в порядке возрастания, справа от каждого числа запишите его наибольший простой делитель.
-
-
-def divisors(x):
-    d = []
-    for j in range(2, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-# содержит в своей записи хотя бы одну цифру 4 или 7
-def F(x):
-    # return str(x).count('4') >= 1 or str(x).count('7') >= 1
-    # return str(x).count('4') + str(x).count('7') >= 1
-    return (str(x).count('4') >= 1) + (str(x).count('7') >= 1) >= 1
-
-cnt = 0
-from itertools import permutations
-for x in range(2_400_000 + 1, 10 ** 10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in permutations(d, r=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
 
 # endregion Урок: *************************************************************
 # #
