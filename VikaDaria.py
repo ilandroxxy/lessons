@@ -7,235 +7,6 @@
 # region Урок: ********************************************************************
 
 
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 14:
-        return n * F(n - 1)
-    if n < 14:
-        return 8 * G(n - 3)
-
-@lru_cache(None)
-def G(n):
-    if n < 31:
-        return 4
-    if n >= 31:
-        return n / 2 * G(n - 2)
-
-for n in range(0, 650000):
-    G(n)
-
-for n in range(0, 330000):
-    F(n)
-
-print(F(320726) / G(641450))
-'''
-
-
-# № 23282 Основная волна 11.06.25 (Уровень: Средний)
-# Пусть М - сумма минимального и максимального простых натуральных делителей целого
-# числа, не считая самого числа. Если таких делителей у числа нет, то значение М считается равным нулю.
-# Напишите программу, которая перебирает целые числа, большие 5 400 000, в порядке
-# возрастания и ищет среди них такие, для которых М больше 60 000 и является палиндромом,
-# т.е. одинаково читается слева направо и справа налево. В ответе запишите в первом столбце
-# таблицы первые  пять найденных чисел в порядке возрастания, а во втором столбце - соответствующие им значения М.
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
-
-cnt = 0
-for n in range(5_400_000+1, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M > 60000 and str(M) == str(M)[::-1]:
-            print(n, M)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-
-# № 23382 Резервный день 19.06.25 (Уровень: Средний)
-# Напишите программу, которая перебирает целые числа,
-# большие 6 651 220, в порядке возрастания и ищет среди них числа,
-# представленные в виде произведения ровно двух простых множителей,
-# не обязательно различных, каждый из которых содержит в своей записи ровно одну цифру 2.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел
-# в порядке возрастания, а во втором столбце - для каждого из чисел
-# соответствующий им наибольший из найденных множителей.
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
-
-cnt = 0
-from itertools import product
-for n in range(6_651_220+1, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] == n and str(p[0]).count('2') == 1 and str(p[1]).count('2') == 1 for p in product(d, repeat=2)):
-            print(n, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-# № 28711 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 2 400 000,
-# в порядке возрастания и ищет среди них числа, представимые в виде произведения
-# ровно трёх различных простых множителей, каждый из которых содержит в своей записи
-# хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел в порядке возрастания,
-# справа от каждого числа запишите его наибольший простой делитель.
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
-
-def res(x):
-    if str(x).count('4') + str(x).count('7') >= 1:
-        return True
-    else:
-        return False
-
-cnt = 0
-from itertools import permutations
-for n in range(2_400_000+1, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in permutations(d, r=3)):
-            print(n, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-
-# № 23569 Пересдача 03.07.25 (Уровень: Средний)
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n**0.5)+1):
-        if n%j == 0:
-            d += [j, n//j]
-    return sorted(set(d))
-
-cnt = 0
-from itertools import product
-for n in range(6_086_055, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] == n and str(p[0]).count('6') == 1 and str(p[1]).count('6') == 1 for p in product(d, repeat=2)):
-            print(n, max(d))
-            cnt +=1
-            if cnt == 5:
-                break
-'''
-
-
-# № 24166 (Уровень: Средний)
-# (Е. Ширшев) Напишите программу, которая перебирает целые числа, большие 7 305 678,
-# в порядке возрастания и ищет среди них числа, представленные в виде произведения
-# ровно четырех простых множителей, не обязательно различных, сумма которых является числом палиндромом.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
-# а во втором столбце - для каждого из чисел соответствующую ему сумму множителей.
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
-
-def pal(x):
-    if str(x)==str(x)[::-1]:
-        return True
-    else:
-        return False
-
-cnt = 0
-from itertools import product
-for n in range(7305679+1, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        for p in product(d, repeat=4):
-            if p[0] * p[1] * p[2] * p[3] == n and pal(p[0]+p[1]+p[2]+p[3]):
-                print(n, p[0]+p[1]+p[2]+p[3])
-                cnt += 1
-                break
-        if cnt == 5:
-            break
-'''
-
-
-#
-# № 28710 (Уровень: Базовый)
-'''
-def divisors(n):
-    m = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            m += [j, n // j]
-    return sorted(set(m))
-
-
-def res(x):
-    if '3' in str(x) and '5' in str(x):
-        return True
-    else:
-        return False
-
-cnt = 0
-from itertools import product
-for n in range(4_080_000 + 1, 10 ** 10):
-    m = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(m) > 0:
-        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(m, repeat=3)):
-            print(n, max(m))
-            cnt += 1
-            if cnt == 5:
-                break
-
-'''
-
-'''
-def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
-
-def res(x):
-    if str(x).count('3') >= 1 and str(x).count('5') >= 1:
-        return True
-    else:
-        return False
-
-cnt = 0
-from itertools import product
-for n in range(4_080_000+1, 10**10):
-    d = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(d, repeat=3)):
-            print(n, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
 
 # № 28709 (Уровень: Базовый)
 '''
@@ -246,20 +17,12 @@ def divisors(n):
             m += [j, n // j]
     return sorted(set(m))
 
-
-def res(x):
-    if str(x).count('3')>=1 or str(x).count('4')>=1:
-        return True
-    else:
-        return False
-
-
 cnt = 0
 from itertools import product
 for n in range(6_300_000 + 1, 10 ** 10):
-    m = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(m)>0:
-        if any(p[0] * p[1] * p[2] == n and res(p[0]) and res(p[1]) and res(p[2]) for p in product(m, repeat=3)):
+    m = [j for j in divisors(n) if len(divisors(j)) == 0 if str(j).count('3') >= 1 or str(j).count('4') >= 1]
+    if len(m) > 0:
+        if any(p[0] * p[1] * p[2] == n for p in product(m, repeat=3)):
             print(n, max(m))
             cnt += 1
             if cnt == 5:
@@ -267,34 +30,139 @@ for n in range(6_300_000 + 1, 10 ** 10):
 '''
 
 
-# № 26685 (Уровень: Средний)
-#  (К. Багдасарян) Напишите программу, которая перебирает целые числа, большие 2 700 000,
-#  в порядке возрастания и ищет среди них числа, оканчивающиеся на 34, представленные
-#  в виде произведения простых множителей, среди которых найдется число, повторяющееся
-#  не менее 5 раз. В ответе запишите в первом столбце таблицы первые пять найденных
-#  чисел в порядке возрастания, а во втором столбце – наименьший сомножитель, который повторяется не менее 5 раз.
+# № 24166 (Уровень: Средний)
+# (Е. Ширшев) Напишите программу, которая перебирает целые числа, большие 7 305 678,
+# в порядке возрастания и ищет среди них числа, представленные в виде произведения
+# ровно четырех простых множителей, не обязательно различных, сумма которых является числом палиндромом.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
+# возрастания, а во втором столбце - для каждого из чисел соответствующую ему сумму множителей.
 '''
 def divisors(n):
-    d = []
-    for j in range(2, int(n ** 0.5) + 1):
+    m = []
+    for j in range(2, int(n ** 0.5)+1):
         if n % j == 0:
-            d += [j, n // j]
-    return sorted(set(d))
+            m += [j, n // j]
+    return sorted(set(m))
 
-c = 0
-for n in range(2700001, 10 ** 10):
-    if n % 100 == 34:
-        d = len([j for j in divisors(n) if len(divisors(j)) == 0])
-        if len(d)>1:
+cnt = 0
+from math import prod
+from itertools import product
+for n in range(7_305_678 + 1, 10 ** 10):
+    m = [j for j in divisors(n) if len(divisors(j)) == 0]
+    if len(m) > 0:
+        for p in product(m, repeat=4):
+            if prod(p) == n and str(sum(p)) == str(sum(p))[::-1]:
+                print(n, sum(p))
+                cnt += 1
+                break
+        if cnt == 5:
+            break
 '''
+
+
+# № 2934 Апробация 19.02.2022 (Уровень: Базовый)
+# Значение арифметического выражения: 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
+#  записали в системе счисления с основанием 64. Сколько значащих нулей содержится в этой записи?
+'''
+n = 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
+cnt = 0
+while n > 0:
+    if n % 64 == 0:
+        cnt += 1
+    n //= 64
+print(cnt)
+'''
+# print(int('89357', 40))
+# ValueError: int() base must be >= 2 and <= 36, or 0
+'''
+def convert(n, b):
+    r = []
+    while n > 0:
+        r.append(n % b)
+        n //= b
+    return r[::-1]
+
+n = 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
+print(convert(n, 64).count(0))
+'''
+
+
+# № 4937 (Уровень: Средний)
+# Операнды арифметического выражения записаны в системе счисления с основанием 80.
+# 3x75_80 + 14x0_80
+# В записи чисел переменной x обозначена неизвестная цифра из алфавита 80-ричной
+# системы счисления. Определите наибольшее значение x, при котором значение
+# данного арифметического выражения кратно 17. Для найденного значения x вычислите
+# частное от деления значения арифметического выражения на 17 и укажите его в ответе
+# в десятичной системе счисления.
+'''
+def my_int(L, b):
+    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
+
+for x in range(0, 80):
+    A = my_int([3, x, 7, 5], 80)
+    B = my_int([1, 4, x, 0], 80)
+    if (A + B) % 17 == 0:
+        print((A + B) // 17)
+'''
+
+'''
+def my_convert(n, b):
+    r = []
+    while n > 0:
+        r.append(n % b)
+        n //= b
+    return r[::-1]
+
+def my_int(L, b):
+    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
+
+r = my_convert(8, 2)
+print(r)  # [1, 0, 0, 0]
+print(my_int(r, 2))  # 8
+'''
+
+
+# № 28936 ЕГКР 18.04.26 (Уровень: Базовый)
+# Для какого наименьшего целого неотрицательного числа А выражение
+# (x⋅y < A) ∨ (5⋅x < y) ∨ (486 ≤ x)
+# истинно (т.е. принимает значение 1) при любых целых неотрицательных х и у?
+'''
+def F(x, y, A):
+    return (x * y < A) or (5 * x < y) or (486 <= x)
+
+for A in range(1000000, 2000000):
+    if all(F(x, 5*x, A) for x in range(0, 486 * 5)):
+        print(A)
+        break
+'''
+
+
+file = open('files/26.txt')
+S, N = [int(x) for x in file.readline().split()]
+M = sorted([int(x) for x in file.readlines()])
+
+R = []
+for x in M:
+    if sum(R) < S:
+        R.append(x)
+    else:
+        del R[-1]
+        print(N - len(R))
+        print(sum(M) - sum(R))
+        break
+
+
+
+
 
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24.1, 25, 27]
-# КЕГЭ = [6, 7, 9, 11, 16, 25]
-# на следующем уроке:
+# КЕГЭ = [6, 7, 9, 11, 14, 16, 25]
+# на следующем уроке:  15 номера руками
 
 
 # region 📖 Пробник (Вариант 2)
