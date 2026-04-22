@@ -1909,8 +1909,78 @@ OverflowError: integer division result too large for a float
 
 
 
+# ⛔️ Неверно: 6, 11, 12, 14, 18, 21
+'''
+1. 17
+2. wxyz
+3. 1164
+4. 16
+5. 11
+6. 165   801
+7. 10
+8. 
+9.
+10. 10
+11. 14  12
+12. 111  583
+13. 2
+14. 729927743  729929407
+15. 17
+16. 8102
+17. 720 87094
+18. 2569 1101  2407 1101
+19. 45
+20. 4044
+21. 394345  3943
+22. 18
+23. 200
+24.
+25.54648 9
+     5064048 834
+     5974848 984
+     50604048 8334
+     51514848 8484
+     53184648 8759
+     54854448 9034
+     56524248 9309
+     58194048 9584
+     59104848 9734
+26.
+27.
+'''
+
+import turtle as t
+t.tracer(0)
+t.screensize(5000, 5000)
+size = 20
+t.left(90)
+
+for i in range(4):
+    t.forward(20 * size)
+    t.right(270)
+
+t.up()
+t.forward(6 * size)
+t.right(270)
+t.forward(10 * size)
+t.right(90)
+t.down()
 
 
+for i in range(2):
+    t.forward(20 * size)
+    t.right(270)
+    t.forward(24 * size)
+    t.right(270)
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * size, y * size)
+        t.dot(3, 'red')
+
+t.update()
+t.done()
 
 
 

@@ -5,110 +5,117 @@
 # #
 # #
 # region Урок: ********************************************************************
-
 '''
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = w <= ((z <= y) and x)
-                if F == 0:
-                    print(x, y, z, w, int(F))
-
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = w <= ((z <= y) and x)
-                if F == 1:
-                    print(x, y, z, w, int(F))
+print(bin(150)[2:])
+print(int('10110100', 2))
 '''
 
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x ** 0.5) + 1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
 
-# Номер 5
-'''
-RES = []
-for n in range(1, 10000):
-    n2 = f'{n:b}'
-    if sum(map(int, n2)) % 2 == 0:
-        n2 = '1' + n2[2:] + '0'
-    else:
-        n2 = '11' + n2[2:] + '1'
-    r = int(n2, 2)
-    if r < 744:
-        RES.append([r, n])
-print(max(RES))
+
+cnt = 0
+for x in range(5_400_000, 10 ** 10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = d[-1] + d[0]
+        if M > 60000 and str(M) == str(M)[::-1]:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
 '''
 
-# Номер 8
+
+
+# № 28944 ЕГКР 18.04.26 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 8 996 452, в порядке возрастания
+# и ищет среди них числа, представленные в виде произведения ровно двух простых множителей,
+# не обязательно различных, каждый из которых содержит в своей записи ровно две цифры 3.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
+# а во втором столбце - для каждого из чисел соответствующий им наибольший из найденных множителей.
 '''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
 cnt = 0
 from itertools import product
-for p in product('0123456789ABCDEF', repeat=4):
-    num = ''.join(p)
-    if num[0] != '0':
-        if num.count('D') == 1:
-            for x in '13579BF':
-                num = num.replace(x, '*')
-            if '*D' not in num and 'D*' not in num:
+for x in range(8_996_452, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2 and str(j).count("3") == 2]  # каждый из которых содержит в своей записи ровно две цифры
+    if len(d) > 0:
+        if any(p[0] * p[1] == x for p in product(d, repeat=2)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+
+# № 28711 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 2 400 000,
+# в порядке возрастания и ищет среди них числа, представимые в виде произведения
+# ровно трёх различных простых множителей, каждый из которых содержит в своей
+# записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел в порядке
+# возрастания, справа от каждого числа запишите его наибольший простой делитель.
+'''
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+from itertools import permutations
+for x in range(2_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2 and str(j).count("4") + str(j).count('7') >= 1]
+    if len(d) > 0:
+        if any(p[0] * p[1] * p[2] == x for p in permutations(d, r=3)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
+'''
+
+
+# № 24166 (Уровень: Средний)
+# (Е. Ширшев) Напишите программу, которая перебирает целые числа, большие 7 305 678,
+# в порядке возрастания и ищет среди них числа, представленные в виде произведения
+# ровно четырех простых множителей, не обязательно различных, сумма которых является числом палиндромом.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
+# возрастания, а во втором столбце - для каждого из чисел соответствующую ему сумму множителей.
+
+
+def divisors(x):
+    d = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x // j]
+    return sorted(set(d))
+
+cnt = 0
+from itertools import product
+for x in range(7_305_678+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 2 ]
+    if len(d) > 0:
+        for p in product(d, repeat=4):
+            if p[0] * p[1] * p[2] * p[3] == x and str(sum(p)) == str(sum(p))[::-1]:
+                print(x, sum(p))
                 cnt += 1
-                print(num)
-print(cnt)
-'''
+                break
+        if cnt == 5:
+            break
 
-
-# Номер 9
-'''
-n = 0
-summa = 0
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    n += 1
-    copied4 = [x for x in M if M.count(x) == 4]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied4) == 4 and len(copied1) == 3:
-        if M == sorted(M):
-            summa += n
-print(summa)
-'''
-
-
-# Номер 13
-'''
-from ipaddress import *
-net = ip_network('134.80.0.0/255.240.0.0', 0)
-R = []
-for ip in net:
-    ip2 = f'{ip:b}'
-    if ip2.count('1') == ip2.count('0'):
-        summa = sum([int(x) for x in str(ip).split('.')])
-        R.append(summa)
-print(max(R))
-'''
-
-M = [int(s)for s in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) ==4]
-B = [x for x in A if abs(x)% 100 == 43]
-print(B)
-R = []
-for i in range(len(M)-1):
-    x, y = M[i],M[i+1]
-    if (x in A)+(y in A) >=1:
-        if (x+y)**2 < (max(B))**2:
-            R.append((x+y)**2)
-print(len(R),max(R))
-
-M = [int(x) for x in open('files/17.txt')]
-R = []
-A = [x for x in M if len(str(abs(x))) == 4]
-B = [x for x in A if abs(x) % 100 == 43]
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A) + (y in A) >= 1:
-        if (x + y) ** 2 < max(B) ** 2:
-            R.append((x + y) ** 2)
-print(len(R), max(R))
 
 
 

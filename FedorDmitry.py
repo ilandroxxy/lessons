@@ -6,193 +6,193 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 27780 Апробация 04.03.26 (Уровень: Базовый)
-
-"""
-from math import dist
+# № 28937 ЕГКР 18.04.26 (Уровень: Базовый)
 '''
-def d(A, B):
-    x1, y1 = A
-    x2, y2 = B
-    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+from functools import *
+
+@lru_cache(None)
+def G(n):
+    if n >= 22560:
+        return n / 23 + 33
+    if n < 22560:
+        return G(n + 11) - 4
+
+@lru_cache(None)
+def F(n):
+    if n >= 21:
+        return F(n - 8) + 1095
+    if n < 21:
+        return 10 * (G(n - 7) - 36)
+
+for n in range(22600-1, -1, -1):
+    G(n)
+
+for n in range(0, 550):
+    F(n)
+
+print(F(548))
 '''
 
-print(dist([3, 4], [0, 0]))  # 5.0
+# № 27076 (Уровень: Средний)
+'''
+from functools import *
 
-clustersA = [[], []]
-clustersB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 15:
-        clustersA[0].append([x, y])
+@lru_cache(maxsize=None)
+def f(n):
+    if n < 43:
+        return g(n+4)
     else:
-        clustersA[1].append([x, y])
+        return 2*f(n-2) - f(n-4) + 2
 
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if y > 22:
-        clustersB[0].append([x, y])
-    if y < 22 and x < 25:
-        clustersB[1].append([x, y])
-    if y < 22 and x > 25:
-        clustersB[2].append([x, y])
+@lru_cache(maxsize=None)
+def g(n):
+    if n < 11240:
+        return g(n+3) + 2
+    else:
+        return q(n)
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+@lru_cache(maxsize=None)
+def q(n):
+    if n < 21:
+        return n+4
+    else:
+        return q(n-4) + 2
 
+for i in range(0, 12000):
+    q(i)
 
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 - максимальное количество точек в кластере и
-# A2 - cумму расстояний от центров кластеров до точки с координатами (1,0; 1,5).
+for i in range(12000-1, -1, -1):
+    g(i)
 
-print(center(clustersA[0]))  # [8.815578, 20.944823]
-print(center(clustersA[1]))  # [6.017217, 8.334924]
+for i in range(0, 2030):
+    f(i)
 
-print(len(clustersA[0]))  # 344
-print(len(clustersA[1]))  # 301
-
-A1 = 344
-
-A2 = dist([8.815578, 20.944823], [1.0, 1.5]) + dist([6.017217, 8.334924], [1.0, 1.5])
-print(A1, int(A2 * 10000))  # 344 294354
+print(f(2026))
+'''
 
 
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 - число точек, находящихся на расстоянии не более 1,2 от центра, не включая центр,
-# в кластере со средним количеством точек, и
+# F(n) = (n + 4) * F(n - 7)
+# F(157163) = (157163 + 4) * F(157156)
+# F(157156) = (157156 + 4) * F(157149)
+# F(157149) = (157149 + 4) * F(157142) / F(157142)
+'''
+half1 = ((157163 + 4) * (157156 + 4) * (157149 + 4)) / 234
+half2 = (157149 + 4) / 533
+print(half1 + half2)
+'''
 
 
-print(center(clustersB[0]))  # [17.885872, 28.168004]
-print(center(clustersB[1]))  # [20.226519, 17.396702]
-print(center(clustersB[2]))  # [27.979159, 15.559524]
 
-print(len(clustersB[0]))  # 902
-print(len(clustersB[1]))  # 200
-print(len(clustersB[2]))  # 148
-
-def B1(cl, center, length):
-    cnt = 0
-    for p in cl:
-        if p == center:
-            continue
-        if dist(p, center) <= length:
+# № 28755 Досрочная волна 2026 (Уровень: Базовый)
+# – четыре числа нельзя разбирать на две пары с равными суммами.
+'''
+cnt = 0
+from itertools import permutations
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    if max(M) < sum(M) - max(M):
+        if all(P[0] + P[1] != P[2] + P[3] for P in permutations(M, r=4)):
             cnt += 1
-    return cnt
-
-B1 = B1(clustersB[1], center(clustersB[1]), 1.2)
-
-
-# B2 - минимальное расстояние от центра кластера с наибольшим количеством точек до другой
-# точки этого кластера.
-
-def B2(cl, center):
-    R = []
-    for p in cl:
-        if p == center:
-            continue
-        R.append(dist(p, center))
-    return min(R)
-
-B2 = B2(clustersB[0], center(clustersB[0]))
-print(B1, int(B2 * 10000))  # 152 528
-"""
-
-
-# № 28766 Досрочная волна 2026 (Уровень: Базовый)
+print(cnt)
 '''
-from math import dist
-
-clustersA = [[], []]
-paramsA = [[], []]
-
-clustersB = [[], [], []]
-paramsB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 10:
-        clustersA[0].append([x, y])
-        paramsA[0].append(z)
-    else:
-        clustersA[1].append([x, y])
-        paramsA[1].append([x, y])
 
 
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()[:-1]]
-    z = s.split()[-1]
-    if y > 22:
-        clustersB[0].append([x, y])
-        paramsB[0].append(z)
-    if y < 22 and x < 20:
-        clustersB[1].append([x, y])
-        paramsB[1].append(z)
-    if y < 22 and x > 20:
-        clustersB[2].append([x, y])
-        paramsB[2].append(z)
-
-
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
-
-
-
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 – минимальное расстояние от центра кластера с наименьшим количеством точек до красного гиганта, и
-# A2 – максимальное расстояние от центра кластера с наименьшим количеством точек до красного гиганта.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-print(len(clustersA[0]))  # 92
-print(len(clustersA[1]))  # 131
-
-def A1(cl, center, param):
-    R = []
-    for i in range(len(cl)):
-        if 'Y' in param[i] and 'III' in param[i]:
-            R.append(dist(center, cl[i]))
-    return min(R)
-
-A1 = A1(clustersA[0], center(clustersA[0]), paramsA[0])
-print(int(A1 * 10000))  # 4940
-
-
-
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 – минимальное расстояние между двумя различными жёлтыми сверхгигантами, расположенными в одном и том же кластере, и
-# B2 – расстояние между центрами кластеров с минимальным и максимальным количеством жёлтых сверхгигантов.
-
-print(center(clustersB[0]))  # [13.9823808, 26.4800432]
-print(center(clustersB[1]))  # [15.861917, 18.8540334]
-print(center(clustersB[2]))  # [26.6431823, 12.4121727]
+# № 23282 Основная волна 11.06.25 (Уровень: Средний)
 '''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):  # не считая самого числа
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+for x in range(5_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        M = min(d) + max(d)
+        if M > 60000 and str(M) == str(M)[::-1]:
+            print(x, M)
+            cnt += 1
+            if cnt == 5:
+                break
+
+'''
+
+
+
+# № 28944 ЕГКР 18.04.26 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 8 996 452,
+# в порядке возрастания и ищет среди них числа, представленные в виде
+# произведения ровно двух простых множителей, не обязательно различных,
+# каждый из которых содержит в своей записи ровно две цифры 3.
+# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в
+# порядке возрастания, а во втором столбце - для каждого из чисел
+# соответствующий им наибольший из найденных множителей.
+'''
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+from itertools import product
+for x in range(8_996_452+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0 and str(j).count('3') == 2]
+    if len(d) > 0:
+        for P in product(d, repeat=2):
+            if P[0] * P[1] == x:
+                print(x, max(P))
+                cnt += 1
+                break
+        if cnt == 5:
+            break
+'''
+# [2, 3, 13, 23, 5021]
+# 2 3
+# 2 2
+# 3 3
+# 2 13
+# 2 13
+# 23 2
+# 23 3
+# 23 13
+# ...
+
+
+# № 28711 (Уровень: Базовый)
+# Напишите программу, которая перебирает целые числа, большие 2 400 000,
+# в порядке возрастания и ищет среди них числа, представимые в виде произведения
+# ровно трёх различных простых множителей, каждый из которых содержит в своей
+# записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел
+# в порядке возрастания, справа от каждого числа запишите его
+# наибольший простой делитель.
+
+def divisors(x):
+    d = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            d += [j, x//j]
+    return sorted(set(d))
+
+cnt = 0
+from itertools import permutations
+for x in range(2_400_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0 and str(j).count('4') + str(j).count('7') >= 1]
+    if len(d) > 0:
+        if any(P[0] * P[1] * P[2] == x for P in permutations(d, r=3)):
+            print(x, max(d))
+            cnt += 1
+            if cnt == 5:
+                break
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25, 27]
-# КЕГЭ = [8, 15, 23]
+# КЕГЭ = [8, 15, 16, 23, 25]
 # на следующем уроке:
 
 
