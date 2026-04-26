@@ -7,22 +7,60 @@
 # region Урок: ********************************************************************
 
 
-# № 27636 Апробация 04.03.26 (Уровень: Базовый)
 '''
-file = open('files/26.txt')
-S, N = [int(x) for x in file.readline().split()]
-M = sorted([int(x) for x in file.readlines()])
-R = []
-for x in M:
-    R.append(x)
-    if sum(R) > S:
-        del R[-1]
-        break
-print(N - len(R))
-print(sum(M) - sum(R))
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied2 = [x for x in M if M.count(x) == 2]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if len(copied2) == 2 and len(copied1) == 4:
+        if sum(copied2) / len(copied1) <= sum(copied2) / len(copied2):
+            cnt += 1
+print(cnt)
+'''
+
+# № 24347 (Уровень: Средний)
+# (А. Ходарин) Откройте файл электронной таблицы, содержащей в каждой строке шесть натуральных чисел.
+# Определите количество строк таблицы, содержащих числа, для которых выполнено ровно одно из условий:
+# – максимальное число строки не повторяется;
+# – в строке первое и последнее числа не совпадают ни с минимальным, ни с максимальным числами строки;
+# – произведение трёх наибольших чисел строки кратно минимальному числу.
+'''
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    flag = 0
+    if M.count(max(M)) == 1:
+        flag += 1
+    if M[0] != max(M) and M[0] != min(M) and M[-1] != max(M) and M[-1] != min(M):
+        flag += 1
+    s = sorted(M)
+    if (s[-1] * s[-2] * s[-3]) % s[0] == 0:
+        flag += 1
+    if flag == 1:
+        cnt += 1
+print(cnt)
 '''
 
 
+# № 24889 (Уровень: Средний)
+
+# Откройте файл электронной таблицы, содержащей в каждой строке восемь натуральных чисел.
+# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
+# – в строке максимальное число встречается три или четыре раза, остальные числа без повторений;
+# – сумма минимального и максимального из неповторяющихся чисел не больше суммы других неповторяющихся.
+
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    copied1 = [x for x in M if M.count(x) == 1]
+    if M.count(max(M)) + len(copied1) == 8:
+
+        if 3 <= M.count(max(M)) <= 4:
+
+            if max(copied1) + min(copied1) <= sum(copied1) - max(copied1) - min(copied1):
+                cnt += 1
+print(cnt)
 
 # endregion Урок: *************************************************************
 # #

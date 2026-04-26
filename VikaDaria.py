@@ -7,155 +7,102 @@
 # region Урок: ********************************************************************
 
 
+# № 29081 (Уровень: Средний)
 
-# № 28709 (Уровень: Базовый)
-'''
-def divisors(n):
-    m = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            m += [j, n // j]
-    return sorted(set(m))
+from math import dist
 
-cnt = 0
-from itertools import product
-for n in range(6_300_000 + 1, 10 ** 10):
-    m = [j for j in divisors(n) if len(divisors(j)) == 0 if str(j).count('3') >= 1 or str(j).count('4') >= 1]
-    if len(m) > 0:
-        if any(p[0] * p[1] * p[2] == n for p in product(m, repeat=3)):
-            print(n, max(m))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+clustersA = [[], []]
+paramsA = [[], []]
 
+clustersB = [[], [], []]
+paramsB = [[], [], []]
 
-# № 24166 (Уровень: Средний)
-# (Е. Ширшев) Напишите программу, которая перебирает целые числа, большие 7 305 678,
-# в порядке возрастания и ищет среди них числа, представленные в виде произведения
-# ровно четырех простых множителей, не обязательно различных, сумма которых является числом палиндромом.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
-# возрастания, а во втором столбце - для каждого из чисел соответствующую ему сумму множителей.
-'''
-def divisors(n):
-    m = []
-    for j in range(2, int(n ** 0.5)+1):
-        if n % j == 0:
-            m += [j, n // j]
-    return sorted(set(m))
-
-cnt = 0
-from math import prod
-from itertools import product
-for n in range(7_305_678 + 1, 10 ** 10):
-    m = [j for j in divisors(n) if len(divisors(j)) == 0]
-    if len(m) > 0:
-        for p in product(m, repeat=4):
-            if prod(p) == n and str(sum(p)) == str(sum(p))[::-1]:
-                print(n, sum(p))
-                cnt += 1
-                break
-        if cnt == 5:
-            break
-'''
-
-
-# № 2934 Апробация 19.02.2022 (Уровень: Базовый)
-# Значение арифметического выражения: 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
-#  записали в системе счисления с основанием 64. Сколько значащих нулей содержится в этой записи?
-'''
-n = 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
-cnt = 0
-while n > 0:
-    if n % 64 == 0:
-        cnt += 1
-    n //= 64
-print(cnt)
-'''
-# print(int('89357', 40))
-# ValueError: int() base must be >= 2 and <= 36, or 0
-'''
-def convert(n, b):
-    r = []
-    while n > 0:
-        r.append(n % b)
-        n //= b
-    return r[::-1]
-
-n = 6*512**180 + 7*64**181 + 3*8**184 + 5*8**125 - 65
-print(convert(n, 64).count(0))
-'''
-
-
-# № 4937 (Уровень: Средний)
-# Операнды арифметического выражения записаны в системе счисления с основанием 80.
-# 3x75_80 + 14x0_80
-# В записи чисел переменной x обозначена неизвестная цифра из алфавита 80-ричной
-# системы счисления. Определите наибольшее значение x, при котором значение
-# данного арифметического выражения кратно 17. Для найденного значения x вычислите
-# частное от деления значения арифметического выражения на 17 и укажите его в ответе
-# в десятичной системе счисления.
-'''
-def my_int(L, b):
-    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
-
-for x in range(0, 80):
-    A = my_int([3, x, 7, 5], 80)
-    B = my_int([1, 4, x, 0], 80)
-    if (A + B) % 17 == 0:
-        print((A + B) // 17)
-'''
-
-'''
-def my_convert(n, b):
-    r = []
-    while n > 0:
-        r.append(n % b)
-        n //= b
-    return r[::-1]
-
-def my_int(L, b):
-    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
-
-r = my_convert(8, 2)
-print(r)  # [1, 0, 0, 0]
-print(my_int(r, 2))  # 8
-'''
-
-
-# № 28936 ЕГКР 18.04.26 (Уровень: Базовый)
-# Для какого наименьшего целого неотрицательного числа А выражение
-# (x⋅y < A) ∨ (5⋅x < y) ∨ (486 ≤ x)
-# истинно (т.е. принимает значение 1) при любых целых неотрицательных х и у?
-'''
-def F(x, y, A):
-    return (x * y < A) or (5 * x < y) or (486 <= x)
-
-for A in range(1000000, 2000000):
-    if all(F(x, 5*x, A) for x in range(0, 486 * 5)):
-        print(A)
-        break
-'''
-
-
-file = open('files/26.txt')
-S, N = [int(x) for x in file.readline().split()]
-M = sorted([int(x) for x in file.readlines()])
-
-R = []
-for x in M:
-    if sum(R) < S:
-        R.append(x)
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 10:
+        clustersA[0].append([x, y])
+        paramsA[0].append(z)
     else:
-        del R[-1]
-        print(N - len(R))
-        print(sum(M) - sum(R))
-        break
+        clustersA[1].append([x, y])
+        paramsA[1].append(z)
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 23:
+        clustersB[0].append([x, y])
+        paramsB[0].append(z)
+    if y < 23 and x < 20:
+        clustersB[1].append([x, y])
+        paramsB[1].append(z)
+    if y < 23 and x > 20:
+        clustersB[2].append([x, y])
+        paramsB[2].append(z)
 
 
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
 
 
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# A1 – минимальное расстояние от центра кластера до квазара из этого же кластера, и
+# A2 – максимальное расстояние от центра кластера до квазара из этого же кластера.
 
+print(center(clustersA[0]))  # [7.0391548, 12.3587258]
+print(center(clustersA[1]))  # [3.8471735, 6.1225014]
+
+def A(cl, cent, parm):
+    R = []
+    for i in range(len(cl)):
+        if 'VII' in parm[i] and 'VIII' not in parm[i]:
+            R.append(dist(cent, cl[i]))
+    return R
+
+R1 = A(clustersA[1], center(clustersA[1]), paramsA[1])
+R2 = A(clustersA[0], center(clustersA[0]), paramsA[0])
+
+A1 = min(R1 + R2) * 10000
+A2 = max(R1 + R2) * 10000
+print(int(A1), int(A2))  # 1495 16955
+
+
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# B1 – минимальное расстояние между двумя звёздами светимостью не менее 8,
+# расположенными в различных кластерах, и
+# B2 – cреднее расстояние между двумя различными звёздами светимостью не менее 8,
+# расположенными в одном кластере.
+
+def B(cl, parm):
+    R = []
+    for i in range(len(cl)):
+        if parm[i][1] >= '8':
+            R.append(cl[i])
+    return R
+
+k0 = B(clustersB[0], paramsB[0])
+k1 = B(clustersB[1], paramsB[1])
+k2 = B(clustersB[2], paramsB[2])
+
+from itertools import permutations
+r = [dist(p[0], p[1]) for p in permutations(k0 + k1 + k2, r=2) if not(p[0] in k0 and p[1] in k0) and not(p[0] in k1 and p[1] in k1) and not(p[0] in k2 and p[1] in k2)]
+B1 = int(min(r) * 10000)
+
+
+r0 = [dist(p[0],p[1]) for p in permutations(k0, r=2) if p[0] != p[1]]
+r1 = [dist(p[0],p[1]) for p in permutations(k1, r=2) if p[0] != p[1]]
+r2 = [dist(p[0],p[1]) for p in permutations(k2, r=2) if p[0] != p[1]]
+
+B2 = int( sum(r0 + r1 + r2) / len(r0 + r1 + r2) * 10000)
+print(B1, B2)
 
 # endregion Урок: *************************************************************
 # #

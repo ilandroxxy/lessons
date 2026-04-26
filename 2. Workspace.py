@@ -1949,39 +1949,15 @@ OverflowError: integer division result too large for a float
 27.
 '''
 
-import turtle as t
-t.tracer(0)
-t.screensize(5000, 5000)
-size = 20
-t.left(90)
-
-for i in range(4):
-    t.forward(20 * size)
-    t.right(270)
-
-t.up()
-t.forward(6 * size)
-t.right(270)
-t.forward(10 * size)
-t.right(90)
-t.down()
 
 
-for i in range(2):
-    t.forward(20 * size)
-    t.right(270)
-    t.forward(24 * size)
-    t.right(270)
-
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * size, y * size)
-        t.dot(3, 'red')
-
-t.update()
-t.done()
 
 
+L = [2, 1, 4, 3, 10, 6, 7, 12, 8, 14, 15, 19-21, 11, 13, 16, 18, 5, 13, 9, 17, 23, 22, 25, 24, 26, 27 ]
+print(len(set(L)))  # 25
+
+
+M = [1, 2, 4, 18, 19, 20, 21, 6, 5, 8, 12, 15, 23, 17, 14, 11, 9, 10, 16, 7, 13, 25, 3, 22, 27, 24, 26 ]
+print(len(set(M)))
 
 

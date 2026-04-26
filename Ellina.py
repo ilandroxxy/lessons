@@ -7,216 +7,153 @@
 # region Урок: ********************************************************************
 
 
-# № 23282 Основная волна 11.06.25 (Уровень: Средний)
-# Пусть М - сумма минимального и максимального простых натуральных делителей целого числа,
-# не считая самого числа. Если таких делителей у числа нет, то значение М считается равным нулю.
-# Напишите программу, которая перебирает целые числа, большие 5 400 000, в порядке
-# возрастания и ищет среди них такие, для которых М больше 60 000 и является палиндромом,
-# т.е. одинаково читается слева направо и справа налево. В ответе запишите в первом столбце
-# таблицы первые пять найденных чисел в порядке возрастания, а во втором столбце -
-# соответствующие им значения М.
-'''
-def divisors(x):
-    d = []
-    for j in range(2, int(x ** 0.5) + 1):  # не считая самого числа
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+# № 28766 Досрочная волна 2026 (Уровень: Базовый)
 
-cnt = 0
-for x in range(5_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) >= 2:
-        M = min(d) + max(d)
-        if M > 60000 and str(M) == str(M)[::-1]:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+from math import dist
+cla = [[], []]
+para = [[], []]
 
+clb = [[], [], []]
+parb = [[], [], []]
 
-# № 23382 Резервный день 19.06.25 (Уровень: Средний)
-# Напишите программу, которая перебирает целые числа, большие 6 651 220,
-# в порядке возрастания и ищет среди них числа, представленные в виде
-# произведения ровно двух простых множителей, не обязательно различных,
-# каждый из которых содержит в своей записи ровно одну цифру 2.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке
-# возрастания, а во втором столбце - для каждого из чисел соответствующий
-# им наибольший из найденных множителей.
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+for i in open('files/27A.txt'):
+    i = i.replace(',', '.')
+    x, y, z = [x for x in i.split()]
+    x, y = float(x), float(y)
+    if y > 10:
+        cla[0].append([x, y])
+        para[0].append(z)
+    else:
+        cla[1].append([x, y])
+        para[1].append(z)
 
-def F(x):
-    return str(x).count('2') == 1
+for i in open('files/27B.txt'):
+    i = i.replace(',', '.')
+    x, y, z = [x for x in i.split()]
+    x, y = float(x), float(y)
+    if y > 22:
+        clb[0].append([x, y])
+        parb[0].append(z)
+    if y < 22 and x < 20:
+        clb[1].append([x, y])
+        parb[1].append(z)
+    if y < 22 and x > 20:
+        clb[2].append([x, y])
+        parb[2].append(z)
 
-cnt = 0
-from itertools import product, permutations
-for x in range(6_651_220+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] == x and F(p[0]) and F(p[1]) for p in product(d, repeat=2)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+def center(cl):
+    r = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        r.append([summa, p])
+    return min(r)[1]
+
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# A1 – минимальное расстояние от центра кластера с наименьшим количеством точек до красного гиганта, и
+# A2 – максимальное расстояние от центра кластера с наименьшим количеством точек до красного гиганта.
+
+print(len(cla[0]))  # 92
+print(len(cla[1]))  # 131
+
+def A(cl, cent, par):
+    R = []
+    for i in range(len(cl)):
+        if 'Y' in par[i] and 'III' in par[i]:
+            R.append(dist(cent, cl[i]))
+    return R
 
 
-# № 28711 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 2 400 000, в порядке возрастания
-# и ищет среди них числа, представимые в виде произведения ровно трёх различных простых множителей,
-# каждый из которых содержит в своей записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять
-# чисел в порядке возрастания, справа от каждого числа запишите его наибольший простой делитель.
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-def F(x):
-    return str(x).count('4') + str(x).count('7') >= 1
-
-cnt = 0
-from itertools import product, permutations
-for x in range(2_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in permutations(d, r=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+A1 = min(A(cla[0], center(cla[0]), para[0]))
+A2 = max(A(cla[0], center(cla[0]), para[0]))
+print(int(A1 * 10000), int(A2 * 10000))  # 4940 4940
 
 
-# № 28710 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 3 600 000,
-# в порядке возрастания и ищет среди них числа, представимые в виде произведения
-# ровно трёх простых множителей, необязательно различных, каждый из которых
-# содержит в своей записи одновременно цифры 3 и 5. В ответе запишите
-# первые пять чисел в порядке возрастания, справа от каждого числа запишите
-# его наибольший простой делитель.
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# B1 – минимальное расстояние между двумя различными жёлтыми сверхгигантами, расположенными в одном и том же кластере, и
+# B2 – расстояние между центрами кластеров с минимальным и максимальным количеством жёлтых сверхгигантов.
+
+def B(cl, par):
+    R = []
+    for i in range(len(cl)):
+        if 'Z' in par[i] and 'I' in par[i] and 'II' not in par[i] and 'V' not in par[i]:
+            R.append(cl[i])
+    return R
+
+
+from itertools import permutations
+r0 = min(dist(p[0], p[1]) for p in permutations(B(clb[0], parb[0]), r=2))
+r2 = min(dist(p[0], p[1]) for p in permutations(B(clb[2], parb[2]), r=2))
+B1 = min(r0, r2)
+
+print(len(B(clb[0], parb[0])))  # 3
+print(len(B(clb[1], parb[1])))  # 1
+print(len(B(clb[2], parb[2])))  # 9
+
+B2 = dist(center(clb[1]), center(clb[2]))
+print(int(B1 * 10000), int(B2 * 10000))  # 1035 125591
+
+
+
+
 
 '''
-def divisors(x):
-    d = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+cla = [[], []]
+clb = [[], [], []]
+for i in open('files/27A.txt'):
+    i = i.replace(',', '.')
+    x, y = [float(x) for x in i.split()]
+    if x > 0:
+        cla[0].append([x, y])
+    else:
+        cla[1].append([x, y])
 
-def F(x):
-    return str(x).count('3')!=0 and str(x).count('5')!=0
+for i in open('files/27B.txt'):
+    i = i.replace(',', '.')
+    x, y = [float(x) for x in i.split()]
+    if y > -4:
+        clb[0].append([x, y])
+    elif y < -4 and x > -3:
+        clb[1].append([x, y])
+    else:
+        clb[2].append([x, y])
 
-cnt = 0
-from itertools import product, permutations
-for x in range(4081470+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == x and F(p[0]) and F(p[1]) and F(p[2]) for p in product(d, repeat=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
+def d(A, B):
+    x1, y1 = A
+    x2, y2 = B
+    return abs(x2 - x1) + abs(y2 - y1)
+
+def center(cl):
+    r = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += d(p, g)
+        r.append([summa, p])
+    return min(r)[1]
+
+
+# Для каждого файла определите координаты центра каждого кластера,
+# затем вычислите два числа: Px − среднее арифметическое абсцисс столиц
+# районов, и Py − среднее арифметическое ординат столиц районов.
+
+
+print(center(cla[0]), center(cla[1]))
+
+A1 = (1.1418865969470884 + -7.416790730200546) / 2 * 10000
+A2 = (4.375102181201649 + 0.6379249752247481) / 2 * 10000
+print(int(A1), int(A2))
+
+print(center(clb[0]), center(clb[1]), center(clb[2]))
+
+
+# -30712
+# 23820
+#
+# -31599
+# -49340
 '''
-
-
-# № 26536 (Уровень: Средний)
-# (В. Лашин)  Напишите программу, которая перебирает целые числа, большие 3 502 100,
-# в порядке возрастания и ищет среди них числа, представленные в виде произведения 4
-# простых множителей, не обязательно различных, и при этом хотя бы один из множителей
-# является двузначным палиндромом, т.е. одинаково читается слева направо и справа налево,
-# и состоит из двух цифр.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в порядке возрастания,
-# а во втором столбце - для каждого из них соответствующий наибольший из множителей этого числа.
-# Количество строк в таблице для ответа избыточно.
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-def F(x):
-    return str(x)==str(x)[::-1] and len(str(x)) == 2
-
-cnt = 0
-from itertools import product, permutations
-for x in range(3502100+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] * p[3] == x and (F(p[0]) or F(p[1]) or F(p[2]) or F(p[3])) for p in product(d, repeat=4)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-
-# import sys
-# sys.setrecursionlimit(10**8)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 21:
-        return F(n - 8) + 1095
-    if n < 21:
-        return 10 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 22560:
-        return n / 23 + 33
-    if n < 22560:
-        return G(n + 11) - 4
-
-for n in range(22600-1, -1, -1):
-    G(n)
-
-for n in range(0, 600):
-    F(n)
-
-print(F(548))
-'''
-
-
-# № 25355 ЕГКР 13.12.25 (Уровень: Базовый)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    if n < 19:
-        return 6 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 248045:
-        return n / 20 + 28
-    if n < 248045:
-        return G(n + 9) - 4
-
-for n in range(250000-1, -1, -1):
-    G(n)
-
-for n in range(0, 700):
-    F(n)
-
-print(F(673))
-'''
-
 
 # endregion Урок: *************************************************************
 # #
