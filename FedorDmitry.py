@@ -6,187 +6,116 @@
 # #
 # region Урок: ********************************************************************
 
-# № 28937 ЕГКР 18.04.26 (Уровень: Базовый)
 '''
-from functools import *
+from itertools import*
+otv = []
+for i in product('012345678', repeat = 5):
+    s = ''.join(i)
+    if s[0] != '0':
+        if s.count('3') == 2:
+            for x in '1357':
+                s = s.replace(x, '*')
+            if '2*' not in s and '*2' not in s:
+                otv.append(s)
+print(len(otv))
 
-@lru_cache(None)
-def G(n):
-    if n >= 22560:
-        return n / 23 + 33
-    if n < 22560:
-        return G(n + 11) - 4
-
-@lru_cache(None)
-def F(n):
-    if n >= 21:
-        return F(n - 8) + 1095
-    if n < 21:
-        return 10 * (G(n - 7) - 36)
-
-for n in range(22600-1, -1, -1):
-    G(n)
-
-for n in range(0, 550):
-    F(n)
-
-print(F(548))
-'''
-
-# № 27076 (Уровень: Средний)
-'''
-from functools import *
-
-@lru_cache(maxsize=None)
-def f(n):
-    if n < 43:
-        return g(n+4)
-    else:
-        return 2*f(n-2) - f(n-4) + 2
-
-@lru_cache(maxsize=None)
-def g(n):
-    if n < 11240:
-        return g(n+3) + 2
-    else:
-        return q(n)
-
-@lru_cache(maxsize=None)
-def q(n):
-    if n < 21:
-        return n+4
-    else:
-        return q(n-4) + 2
-
-for i in range(0, 12000):
-    q(i)
-
-for i in range(12000-1, -1, -1):
-    g(i)
-
-for i in range(0, 2030):
-    f(i)
-
-print(f(2026))
-'''
+from itertools import product
+cnt=0
+for i in product("012345678",repeat=5):
+    i= ''.join(i)
+    if i[0] != '0' and i.count('3')==2:
+        i=i.replace('1','3')
+        i=i.replace('5', '3')
+        i=i.replace('7', '3')
+        if i.count('32')==0 and i.count('23')==0 :
+            cnt+=1
+print(cnt)
 
 
-# F(n) = (n + 4) * F(n - 7)
-# F(157163) = (157163 + 4) * F(157156)
-# F(157156) = (157156 + 4) * F(157149)
-# F(157149) = (157149 + 4) * F(157142) / F(157142)
-'''
-half1 = ((157163 + 4) * (157156 + 4) * (157149 + 4)) / 234
-half2 = (157149 + 4) / 533
-print(half1 + half2)
-'''
-
-
-
-# № 28755 Досрочная волна 2026 (Уровень: Базовый)
-# – четыре числа нельзя разбирать на две пары с равными суммами.
-'''
+from itertools import*
 cnt = 0
-from itertools import permutations
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(',')]
-    if max(M) < sum(M) - max(M):
-        if all(P[0] + P[1] != P[2] + P[3] for P in permutations(M, r=4)):
-            cnt += 1
+for i in product('012345678', repeat = 5):
+    s = ''.join(i)
+    if s[0] != '0':
+        if s.count('3') == 2:
+            if all(pair not in s for pair in '23 32 21 12 52 25 27 72'.split()):
+                cnt += 1
 print(cnt)
 '''
 
 
-# № 23282 Основная волна 11.06.25 (Уровень: Средний)
+# Номер 13
+# Для узла с IP-адресом 195.23.86.50, адрес сети равен 195.23.80.0.
+# Для скольких различных значений маски это возможно?
 '''
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):  # не считая самого числа
-        if x % j == 0:
-            d += [j, x//j]
-    return sorted(set(d))
+from ipaddress import *
+for mask in range(1, 32+1):
+    net = ip_network(f'195.23.86.50/{mask}', 0)
+    if '195.23.80.0' in str(net):
+        print(net, net.netmask)
 
-cnt = 0
-for x in range(5_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        M = min(d) + max(d)
-        if M > 60000 and str(M) == str(M)[::-1]:
-            print(x, M)
-            cnt += 1
-            if cnt == 5:
-                break
 
+# № 18955 (Уровень: Средний)
+# Два узла, находящиеся в одной сети, имеют IP-адреса 200.154.190.12 и 200.154.184.0.
+# Укажите наибольшее возможное количество единиц в маске этой сети
+
+from ipaddress import *
+for mask in range(1, 32+1):
+    net1 = ip_network(f'200.154.190.12/{mask}', 0)
+    net2 = ip_network(f'200.154.184.0/{mask}', 0)
+    if net1 == net2:
+        print(mask, 32-mask)
 '''
 
 
+def G(S, h):
+    if S >= 184:
+        return 1
+    elif S < 184 and h > 1:
+        return 0
+    if h % 2 == 0:
+        return G(S + 1, h + 1) * G(S + 5, h + 1) * G(S * 4, h + 1)
+    else:
+        return G(S + 1, h + 1) + G(S + 5, h + 1) + G(S * 4, h + 1)
 
-# № 28944 ЕГКР 18.04.26 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 8 996 452,
-# в порядке возрастания и ищет среди них числа, представленные в виде
-# произведения ровно двух простых множителей, не обязательно различных,
-# каждый из которых содержит в своей записи ровно две цифры 3.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в
-# порядке возрастания, а во втором столбце - для каждого из чисел
-# соответствующий им наибольший из найденных множителей.
+
+for S in range(1, 184):
+    if G(S, 0):
+        print(S)
+        break
+
 '''
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x//j]
-    return sorted(set(d))
+def F(s, h):
+    if s >= 184:
+        return h % 2 == 0
+    if h == 0:
+        return 0
+    M = [F(s + 1, h - 1), F(s + 5, h - 1), F(s * 4, h - 1)]
+    return any(M) if (h - 1) % 2 == 0 else all(M)
+    return any(M) if (h - 1) % 2 == 0 else any(M)
 
-cnt = 0
-from itertools import product
-for x in range(8_996_452+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0 and str(j).count('3') == 2]
-    if len(d) > 0:
-        for P in product(d, repeat=2):
-            if P[0] * P[1] == x:
-                print(x, max(P))
-                cnt += 1
-                break
-        if cnt == 5:
-            break
+print([s for s in range(1, 184) if F(s, h=2)])
+print([s for s in range(1, 184) if F(s, h=3) and not F(s, h=1)])
+print([s for s in range(1, 184) if F(s, h=4) and not F(s, h=2)])
 '''
-# [2, 3, 13, 23, 5021]
-# 2 3
-# 2 2
-# 3 3
-# 2 13
-# 2 13
-# 23 2
-# 23 3
-# 23 13
-# ...
+
+# № 28704 (Уровень: Базовый)
+'''
+def F(a, s, h):
+    if a * s >= 516:
+        return h % 2 == 0
+    if h == 0:
+        return 0
+    M = [F(a + 3, s, h - 1), F(a, s + 3, h - 1), F(a + 13, s, h - 1), F(a, s + 13, h - 1)]
+    return any(M) if (h - 1) % 2 == 0 else all(M)
+    return any(M) if (h - 1) % 2 == 0 else any(M)
+
+print(len([s for s in range(1, 74) if F(7, s, h=2)]))
+print(sorted([s for s in range(1, 74) if F(7, s, h=3) and not F(7, s, h=1)])[:2])
+print(max([s for s in range(1, 74) if F(7, s, h=4) and not F(7, s, h=2)]))
+'''
 
 
-# № 28711 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 2 400 000,
-# в порядке возрастания и ищет среди них числа, представимые в виде произведения
-# ровно трёх различных простых множителей, каждый из которых содержит в своей
-# записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел
-# в порядке возрастания, справа от каждого числа запишите его
-# наибольший простой делитель.
-
-def divisors(x):
-    d = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x//j]
-    return sorted(set(d))
-
-cnt = 0
-from itertools import permutations
-for x in range(2_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0 and str(j).count('4') + str(j).count('7') >= 1]
-    if len(d) > 0:
-        if any(P[0] * P[1] * P[2] == x for P in permutations(d, r=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
 
 # endregion Урок: *************************************************************
 # #

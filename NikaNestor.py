@@ -6,190 +6,113 @@
 # #
 # region Урок: ********************************************************************
 
+# № 29080 (Уровень: Средний)
 
-# № 2934 Апробация 19.02.2022 (Уровень: Базовый)
-# Значение арифметического выражения записали в системе счисления с основанием 64.
-# Сколько значащих нулей содержится в этой записи?
-'''
-n = 6 * 512 ** 180 + 7 * 64 ** 181 + 3 * 8 ** 184 + 5 * 8 ** 125 - 65
-cnt = 0
-while n > 0:
-    if n % 64 == 0:
-        cnt += 1
-    n //= 64
-print(cnt)
+from math import dist
+clustersA = [[], []]
+parmasA = [[], []]
 
+clustersB = [[], [], []]
+paramsB = [[], [], []]
 
-# Вариант 2
-def convert(n, b):
-    r = []
-    while n > 0:
-        r.append(n % b)
-        n //= b
-    return r[::-1]
-
-n = 6 * 512 ** 180 + 7 * 64 ** 181 + 3 * 8 ** 184 + 5 * 8 ** 125 - 65
-print(convert(n, 64).count(0))
-'''
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 10:
+        clustersA[0].append([x, y])
+        parmasA[0].append(z)
+    else:
+        clustersA[1].append([x, y])
+        parmasA[1].append(z)
 
 
-# № 4937 (Уровень: Средний)
-# Операнды арифметического выражения записаны в системе счисления с основанием 80.
-# В записи чисел переменной x обозначена неизвестная цифра
-# из алфавита 80-ричной системы счисления. Определите наибольшее значение
-# x, при котором значение данного арифметического выражения кратно 17.
-# Для найденного значения x вычислите частное от деления значения арифметического
-# выражения на 17 и укажите его в ответе в десятичной системе счисления.
-'''
-def my_int(L, b):
-    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
-
-for x in range(0, 80):
-    A = my_int([3, x, 7, 5], 80)
-    B = my_int([1, 4, x, 0], 80)
-    if (A + B) % 17 == 0:
-        print((A + B) // 17)
-'''
+for s in open('files/27B.txt'):
+    cnt = 0
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 23:
+        clustersB[0].append([x, y])
+        paramsB[0].append(z)
+    if y < 23 and y > 15:
+        clustersB[1].append([x, y])
+        paramsB[1].append(z)
+    if y < 23 and y < 15:
+        clustersB[2].append([x, y])
+        paramsB[2].append(z)
 
 
-# Универсальные функции перевода в любую систему счисления и обратно через списик*
-'''
-def convert(n, b):
-    r = []
-    while n > 0:
-        r.append(n % b)
-        n //= b
-    return r[::-1]
-
-def my_int(L, b):
-    return sum([x * b ** n for n, x in enumerate(L[::-1], 0)])
-
-r = convert(8, 2)
-print(r)  # [1, 0, 0, 0]
-print(my_int(r, 2))  # 8
-'''
-
-'''
-def prost(x):
-    return x > 1 and all(x % i != 0 for i in range(2, int(x**0.5)+1))
-
-print(prost(7))
-print(prost(8))
-print([x for x in range(1, 100) if prost(x)])
-'''
-
-# № 28944 ЕГКР 18.04.26 (Уровень: Базовый)
-# Напишите программу, которая перебирает целые числа, большие 8 996 452,
-# в порядке возрастания и ищет среди них числа, представленные в виде произведения
-# ровно двух простых множителей, не обязательно различных, каждый из которых
-# содержит в своей записи ровно две цифры 3.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел в
-# порядке возрастания, а во втором столбце - для каждого из чисел соответствующий
-# им наибольший из найденных множителей.
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-cnt = 0
-from itertools import product
-for x in range(8_996_452+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2 and str(j).count('3') == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] == x for p in product(d, repeat=2)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
-# Вариант 2
-'''
-def prost(x):
-    return x > 1 and all(x % i != 0 for i in range(2, int(x**0.5)+1))
-
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
-
-cnt = 0
-from itertools import product
-for x in range(8_996_452+1, 10**10):
-    d = [j for j in divisors(x) if prost(j) and str(j).count('3') == 2]
-    if len(d) > 0:
-        if any(p[0] * p[1] == x for p in product(d, repeat=2)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
 
 
-#
-# № 28711 (Уровень: Базовый)
-#
-# Напишите программу, которая перебирает целые числа, большие 2 400 000,
-# в порядке возрастания и ищет среди них числа, представимые в виде произведения
-# ровно трёх различных простых множителей, каждый из которых содержит в своей
-# записи хотя бы одну цифру 4 или 7. В ответе запишите первые пять чисел
-# в порядке возрастания, справа от каждого числа запишите его наибольший простой делитель.
-'''
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# A1 – наибольшее расстояние от центра кластера с наименьшим количеством точек до синей звезды светимости 3, и
+# A2 – наибольшее расстояние от центра кластера с наибольшим количеством точек до синей звезды светимости 3.
 
-cnt = 0
-from itertools import permutations
-for x in range(2_400_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2 and str(j).count('4') + str(j).count('7') >= 1]
-    if len(d) > 0:
-        if any(p[0] * p[1] * p[2] == x for p in permutations(d, r=3)):
-            print(x, max(d))
-            cnt += 1
-            if cnt == 5:
-                break
-'''
+print(center(clustersA[0]))  # [7.0391548, 12.3587258]
+print(center(clustersA[1]))  # [3.8471735, 6.1225014]
+
+print(len(clustersA[0]))  # 92
+print(len(parmasA[0]))
+print(len(clustersA[1]))  # 131
+
+def A(cl, cent, parm):
+    R = []
+    for i in range(len(cl)):
+        if 'L3' in parm[i]:
+            R.append(dist(cent, cl[i]))
+    return R
+
+A1 = max(A(clustersA[0] + clustersA[1], center(clustersA[0]), parmasA[0] + parmasA[1]))
+A2 = max(A(clustersA[0] + clustersA[1], center(clustersA[1]), parmasA[0] + parmasA[1]))
+print(int(A1 * 10000), int(A2 * 10000))  # 1641 4058
 
 
-# № 24166 (Уровень: Средний)
-# (Е. Ширшев) Напишите программу, которая перебирает целые числа,
-# большие 7 305 678, в порядке возрастания и ищет среди них числа,
-# представленные в виде произведения ровно четырех простых множителей,
-# не обязательно различных, сумма которых является числом палиндромом.
-# В ответе в первом столбце таблицы запишите первые 5 найденных чисел
-# в порядке возрастания, а во втором столбце - для каждого из чисел
-# соответствующую ему сумму множителей.
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# B1 – расстояние между центрами кластером с наименьшим и наибольшим количеством синих звёзд, и
+# B2 – максимальное расстояние между двумя синими звёздами, находящихся в различных кластерах.
 
-def divisors(x):
-    d = []
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            d += [j, x // j]
-    return sorted(set(d))
+def B(cl, param):
+    R = []
+    for i in range(len(cl)):
+        if 'L' in param[i]:
+            R.append(cl[i])
+    return R
 
-def F(summa):
-    return str(summa) == str(summa)[::-1]
+print(len(B(clustersB[0], paramsB[0])))  # 8
+print(len(B(clustersB[1], paramsB[1])))  # 14
+print(len(B(clustersB[2], paramsB[2])))  # 77
 
-cnt = 0
-from itertools import product
-for x in range(7_305_678+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 2]
-    if len(d) > 0:
-        for p in product(d, repeat=4):
-            if p[0] * p[1] * p[2] * p[3] == x and F(p[0] + p[1] + p[2] + p[3]):
-                print(x, p[0] + p[1] + p[2] + p[3])
-                cnt += 1
-                break
-        if cnt == 5:
-            break
+print(paramsB[2])
+
+
+
+B1 = dist(center(clustersB[0]), center(clustersB[2]))
+
+R = []
+for p in B(clustersB[0], paramsB[0]):
+    for g in B(clustersB[1], paramsB[1]):
+        R.append(dist(p, g))
+
+for p in B(clustersB[0], paramsB[0]):
+    for g in B(clustersB[2], paramsB[2]):
+        R.append(dist(p, g))
+
+for p in B(clustersB[2], paramsB[2]):
+    for g in B(clustersB[1], paramsB[1]):
+        R.append(dist(p, g))
+
+B2 = max(R)
+print(int(B2 * 10000))
+
 
 
 # endregion Урок: *************************************************************
