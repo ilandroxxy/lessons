@@ -7,102 +7,19 @@
 # region Урок: ********************************************************************
 
 
-# № 29081 (Уровень: Средний)
+def f(x, y):
+    if x >= y or x == 28 or x == 36:
+        return x == y
+    return f(x + 5, y) + f(x + 1, y) + f(x * 3, y)
 
-from math import dist
+ans1 = f(2, 18) * f(18, 49)
+ans2 = f(2, 30) * f(30, 49)
+ans3 = f(2, 18) * f(18, 30) * f(30, 49)
 
-clustersA = [[], []]
-paramsA = [[], []]
-
-clustersB = [[], [], []]
-paramsB = [[], [], []]
-
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y > 10:
-        clustersA[0].append([x, y])
-        paramsA[0].append(z)
-    else:
-        clustersA[1].append([x, y])
-        paramsA[1].append(z)
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y > 23:
-        clustersB[0].append([x, y])
-        paramsB[0].append(z)
-    if y < 23 and x < 20:
-        clustersB[1].append([x, y])
-        paramsB[1].append(z)
-    if y < 23 and x > 20:
-        clustersB[2].append([x, y])
-        paramsB[2].append(z)
+print(ans1 + ans2 - ans3)
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
 
-
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 – минимальное расстояние от центра кластера до квазара из этого же кластера, и
-# A2 – максимальное расстояние от центра кластера до квазара из этого же кластера.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-def A(cl, cent, parm):
-    R = []
-    for i in range(len(cl)):
-        if 'VII' in parm[i] and 'VIII' not in parm[i]:
-            R.append(dist(cent, cl[i]))
-    return R
-
-R1 = A(clustersA[1], center(clustersA[1]), paramsA[1])
-R2 = A(clustersA[0], center(clustersA[0]), paramsA[0])
-
-A1 = min(R1 + R2) * 10000
-A2 = max(R1 + R2) * 10000
-print(int(A1), int(A2))  # 1495 16955
-
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 – минимальное расстояние между двумя звёздами светимостью не менее 8,
-# расположенными в различных кластерах, и
-# B2 – cреднее расстояние между двумя различными звёздами светимостью не менее 8,
-# расположенными в одном кластере.
-
-def B(cl, parm):
-    R = []
-    for i in range(len(cl)):
-        if parm[i][1] >= '8':
-            R.append(cl[i])
-    return R
-
-k0 = B(clustersB[0], paramsB[0])
-k1 = B(clustersB[1], paramsB[1])
-k2 = B(clustersB[2], paramsB[2])
-
-from itertools import permutations
-r = [dist(p[0], p[1]) for p in permutations(k0 + k1 + k2, r=2) if not(p[0] in k0 and p[1] in k0) and not(p[0] in k1 and p[1] in k1) and not(p[0] in k2 and p[1] in k2)]
-B1 = int(min(r) * 10000)
-
-
-r0 = [dist(p[0],p[1]) for p in permutations(k0, r=2) if p[0] != p[1]]
-r1 = [dist(p[0],p[1]) for p in permutations(k1, r=2) if p[0] != p[1]]
-r2 = [dist(p[0],p[1]) for p in permutations(k2, r=2) if p[0] != p[1]]
-
-B2 = int( sum(r0 + r1 + r2) / len(r0 + r1 + r2) * 10000)
-print(B1, B2)
 
 # endregion Урок: *************************************************************
 # #

@@ -7,147 +7,149 @@
 # #
 # region Урок: ********************************************************************
 
-# НОМЕР 11
-'''
-sym = 15
-alp = 12
-i = 4  # alp <= 2 ** i
-
-bit = sym * i
-print( bit / 8) # 7.5 => 8
-byte = 8
-
-user = 400 / 20
-# user = byte + dop
-dop = user - byte
-print(dop)
-'''
-# ответ: 12
 
 
-# НОМЕР 9
-'''
-cnt = 0
-for i in open('files/9.csv'):
-    M = [int(x) for x in i.split(';')]
-    # В строке есть только 2 равных числа, остальные 4 различны
-    copied2 = [x for x in M if M.count(x) == 2]
-    copied1 = [x for x in M if M.count(x) == 1]
-    if len(copied2) == 2 and len(copied1) == 4:
-        # Среднее арифметическое повторяющихся чисел меньше среднего арифметического остальных.
-        if sum(copied2) / 2 < sum(copied1) / 4:
-            cnt += 1
-print(cnt)
-'''
-
-# НОМЕР 8
-# Сколько существует девятеричных пятизначных чисел,
-# которые содержат в своей записи ровно две цифры 3,
-# в которых нечетная цифра не стоит рядом с цифрой 2?
+# Статград номер 8
 '''
 cnt = 0
 from itertools import product
-for p in product('0123456789', repeat=5):
+for p in product ('0123456789ABCDEF', repeat = 4):
     num = ''.join(p)
     if num[0] != '0':
-        if int(num) % 4 == 0:
-            for x in '02468':
+        if num.count('D') == 1:
+            if all(pair not in num for pair in '1D D1 3D D3 5D D5 7D D7 9D D9 BD DB FD DF'.split()):
+                cnt += 1
+print(cnt)
+
+
+cnt = 0
+from itertools import product
+for p in product('0123456789ABCDEF', repeat=4):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('D') == 1:
+            for x in '13579BF':
                 num = num.replace(x, '*')
-            if '**' not in num:
+            if '*D' not in num and 'D*' not in num:
                 cnt += 1
 print(cnt)
 '''
 
 
-# НОМЕР 16
+# Статград номер 9
 '''
-import sys
-sys.setrecursionlimit(10**8)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n - 1 + F(n - 1)
-print(F(2028)-F(2024))
-'''
-
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n - 1 + F(n - 1)
-
-for n in range(0, 2050):
-    F(n)
-
-print(F(2028)-F(2024))
-'''
-
-'''
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n - 1 + F(n - 1)
-
-print(F(2028)-F(2024))
-'''
-# F(n) = n - 1 + F(n - 1)  при n > 1
-# F(2028) = 2028 - 1 + F(2027)
-# F(2027) = 2027 - 1 + F(2026)
-# F(2026) = 2026 - 1 + F(2025)
-# F(2025) = 2025 - 1 + F(2024) - F(2024)
-'''
-print(2027 + 2026 + 2025 + 2024)
+n = 0
+R = []
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split()] 
+    n += 1 
+    copied4 = [x for x in M if M.count(x) == 4] 
+    copied1 = [x for x in M if M.count(x) == 1] 
+    if len(copied1) == 3 and len(copied4) == 4:
+        if M == sorted(M, reverse=True):
+            R.append(n)
+print(sum(R))
 '''
 
 
+# Статград номер 19-21
+'''
+from math import ceil, floor
+def F(s,n):
+    if s <= 20007:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 2, n - 1), F(s - 7, n - 1), F(floor(s/3), n - 1)]
+    return any(h) if (n - 1) % 2  == 0 else all(h)
+print(19, [s for s in range(20007+1, 1000000) if F(s, n = 2)])
+print(20, [s for s in range(20007+1, 1000000) if F(s, n = 3) and not F(s, n =1)])
+print(21, [s for s in range(20007+1, 1000000) if F(s, n = 4) and not F(s, n =2)])
+'''
+
+
+# № 28760 Досрочная волна 2026 (Уровень: Базовый)
 '''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-print(alp[:24])
-s = open('files/24.txt').readline()
-for x in alp[24:]:
-    s = s.replace(x, ' ')
-print(max(len(x) for x in s.split() if x[0] != '0'))
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
+n = 2*2187**567 + 729**566 - 2*243**565 + 81 ** 564 - 2*27**563 - 6561
+n27 = convert(n, 27)
+print(len([x for x in n27 if x in alp[0::2] and x > '9']))
+
+# print(int('345', 40))
+# ValueError: int() base must be >= 2 and <= 36, or 0
 
 
-from re import *
-s = open('files/24.txt').readline()
-pat = '[1-N][0-N]*'
-M = [x.group(0) for x in finditer(pat, s)]
-print(max(len(x) for x in M))
+n = 2*2187**567 + 729**566 - 2*243**565 + 81 ** 564 - 2*27**563 - 6561
+b = 27
+cnt = 0
+while n > 0:
+    ostat = n % b
+
+    if ostat % 2 == 0 and ostat > 9:
+        cnt += 1
+
+    n //= b
+print(cnt)
 '''
 
 
-# Определите количество троек элементов последовательности,
-# в которых из трёх элементов тройки пятизначными числами
-# являются только два, а сумма элементов тройки не больше
-# максимального элемента последовательности, оканчивающегося на 22.
-# В ответе запишите кол-во найденных троек чисел, затем максимальную
-# из сумм элементов таких троек. Под тройкой подразумевается три
-# идущих подряд элемента последовательности.
+# № 27626 Апробация 04.03.26 (Уровень: Базовый)
 
-RES = []
-M = [int(x) for x in open('files/17.txt')]
-A = [x for x in M if len(str(abs(x))) == 5]
-B = [x for x in M if abs(x) % 100 == 22]
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if (x in A) + (y in A) + (z in A) == 2:
-        if (x + y + z) <= max(B):
-            RES.append(x + y + z)
-print(len(RES), max(RES))
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
+R = []
+for x in range(1, 2030):
+    n = 6**2030 + 6**100 - x
+    n6 = convert(n, 6)
+    R.append(n6.count('0'))
+print(min(R))
+
+
+b = 6
+R = []
+for x in range(1, 2030):
+    n = 6**2030 + 6**100 - x
+    cnt = 0
+    while n > 0:
+        ostat = n % b
+        if ostat == 0:
+            cnt += 1
+        n //= b
+    R.append(cnt)
+print(min(R))
+
+
+
+# № 28935 ЕГКР 18.04.26 (Уровень: Базовый)
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alp[:23]:
+    A = int(f'761{x}035', 23)
+    B = int(f'338{x}932', 23)
+    if (A + B) % 22 == 0:
+        print((A + B) // 22)
+'''
+
 
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19-21, 22, 23, 25, 27]
+# ФИПИ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 25, 27]
 # КЕГЭ = [6, 7, 10, 11, 12, 17]
 # на следующем уроке: 9 17 24 27 26
 
