@@ -6,117 +6,54 @@
 # #
 # region Урок: ********************************************************************
 
+#27
+'''from math import dist
+clustersA = [[], []]
+clustersB = [[], [], []]
 
-# № 10150 (Уровень: Базовый)
-# Для узла с IP-адресом 145.192.94.230 адрес сети равен 145.192.80.0.
-# Чему равен третий слева байт маски?
-'''
-from ipaddress import *
-for mask in range(1, 32+1):
-    # print('1' * mask + '0' * (32 - mask))
-    net = ip_network(f'145.192.94.230/{mask}', 0)
-    if '145.192.80.0' in str(net):
-        print(net, mask, net.netmask)  # 255.255.240.0
-'''
-
-
-# № 24971 (Уровень: Средний)
-# Сеть задана IP-адресом одного из входящих в неё узлов 111.222.0.124 и сетевой маской 255.255.224.0.
-# Найдите в данной сети наибольший IP-адрес, у которого произведение
-# количества нулей и количества единиц в двоичной записи IP-адреса явялется нечётным числом.
-# В ответе укажите сумму числовых значений октетов найденного IP-адреса.
-'''
-from ipaddress import *
-net = ip_network(f'111.222.0.124/255.255.224.0', 0)
-for ip in net:
-    ip_2 = f'{ip:b}'
-    if ip_2.count('0') * ip_2.count('1') % 2 != 0:
-        print(ip)
-
-# 111.222.31.255
-
-print(111 + 222 + 31 + 255)
-'''
+for s in open('file/27A.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if x > 0:
+        clustersA[0].append([x, y])
+    else:
+        clustersA[1].append([x, y])
 
 
-# № 16260 Джобс 03.05.24 (Уровень: Средний)
-# Известно два узла с IP-адресами 123.20.103.136 и 123.20.103.151 принадлежат разным сетям с одинаковой маской.
-# Определите значение 4 байта маски в этих сетях.
-'''
-from ipaddress import *
-for mask in range(1, 32 + 1):
-    net_1 = ip_network(f'123.20.103.136/{mask}', 0)
-    net_2 = ip_network(f'123.20.103.151/{mask}', 0)
-    if net_1 != net_2:
-        print(net_1.netmask)
-'''
+for s in open('file/'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if -2 < y < 2 and -6 < x < -3:
+        clustersB[0].append([x, y])
+    if -2 < x < 1 and -8 < y < -4:
+        clustersB[1].append([x, y])
+    if -6 < x < -3 and -10 < y < -6:
+        clustersB[2].append([x, y])
 
+print(clustersA[0])
+print(clustersA[1])
+print(clustersB[0])
+print(clustersB[1])
+print(clustersB[2])
 
-# Сеть, в которой содержится узел с IP-адресом 203.111.195.0, задана маской сети 255.255.240.0.
-# Сколько в этой сети IP-адресов, в двоичной записи которых количество нулей кратно трём, а также
-# содержатся три подряд идущие единицы и три подряд идущих нуля одновременно?
-'''
-from ipaddress import *
-cnt = 0
-net = ip_network(f'203.111.195.0/255.255.240.0', 0)
-for ip in net:
-    ip_2 = f'{ip:b}'
-    if ip_2.count('0') % 3 == 0:
-        if '111' in ip_2 and '000' in ip_2:
-            cnt += 1
-print(cnt)
-'''
+def center(cl):
+    R = []
+    for p in cl:
+        sums = 0
+        for q in cl:
+            sums += dist(p, q)
+        R.append((sums, p))
+    return min(R)[1]
 
+centersB = [center(clustersB[0]), center(clustersB[1]), center(clustersB[2])]
 
-# № 23374 Резервный день 19.06.25 (Уровень: Базовый)
+sizesB = [len(clustersB[0]), len(clustersB[1]), len(clustersB[2])]
+min_idx = sizesB.index(min(sizesB))
+max_idx = sizesB.index(max(sizesB))
+Q1 = centersB[min_idx][1]
+Q2 = centersB[max_idx][1]
 
-# Для какого наименьшего целого положительного числа А выражение
-# (x<A)∧(y<3A)∨(2x+y>128)
-# истинно (т.е. принимает значение 1) при любых целых положительных х и у?
-'''
-def F(x, y, A):
-    return (x < A) and (y < A*3) or (x*2 + y > 128)
-
-L = []
-for A in range(1, 5000):
-    if all(F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        L.append(A)
-print(min(L))
-'''
-
-
-# № 22434 (Уровень: Базовый)
-# (Л. Шастин) Для какого наименьшего целого неотрицательного числа A формула
-# (x **2 ⩽136)∨(y<4x+A−70)∨(2y>51)
-# тождественно истинна, т.е. принимает значение 1 при любых целых неотрицательных x и y?
-'''
-def F(A, x, y):
-    return (x ** 2 <= 136) or (y < 4 * x + A - 70) or (2 * y > 51)
-
-
-RES = []
-for A in range(1, 1000):
-    if all(F(A, x, y) for x in range(1, 100) for y in range(1, 100)):
-        RES.append(A)
-print(min(RES))
-'''
-
-
-
-# № 23200 Основная волна 10.06.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=n при n<10;
-# F(n)=3n+F(n−3), если n≥10.
-# Чему равно значение выражения (F(6250)+2 × F(6244))/F(6238)?
-
-# F(n) = 3n + F(n−3), если n≥10.
-# F(6250) = 18750 + F(6247)
-# F(6247) = 18741 + F(6244)
-# F(6244) = 18732 + F(6241)
-# F(6241) = 18723 + F(6238)
-print(18750 + 18741 + 18732 + 18723 + 2 * (18732 + 18723))
-
+print(abs(int(Q1 * 10000)), abs(int(Q2 * 10000)))'''
 
 
 # endregion Урок: *************************************************************
