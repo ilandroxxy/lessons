@@ -6,54 +6,75 @@
 # #
 # region Урок: ********************************************************************
 
-#27
-'''from math import dist
-clustersA = [[], []]
-clustersB = [[], [], []]
+'''
+s = '11001100'
+s = s.replace(s[0], '2')
+s = s.replace(s[1], '2')
+print(s)  # 22002200
 
-for s in open('file/27A.txt'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if x > 0:
-        clustersA[0].append([x, y])
+s = '11001100'
+s = '22' + s[2:]
+print(s)  # 22001100
+'''
+
+'''
+L = []
+for n in range(1, 10000):
+    s = bin(n)[2:]
+    if s.count('1') % 2 == 0:
+        s = '10' + s[2:] + '0'
     else:
-        clustersA[1].append([x, y])
+        s = '11' + s[2:] + '1'
+    r = int(s, 2)
+    if r <= 19:
+        L.append(n)
+print(max(L))
+'''
+
+'''
+R = []
+M = [int(s) for s in open('files/17 (1).txt')]
+A = [x for x in M if len(str(abs(x))) == 5]
+B = [x for x in M if abs(x) % 100 == 22]
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x in A) + (y in A) + (z in A) == 2:
+        if (x + y + z) < max(B):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
 
 
-for s in open('file/'):
-    s = s.replace(',', '.')
-    x, y = [float(i) for i in s.split()]
-    if -2 < y < 2 and -6 < x < -3:
-        clustersB[0].append([x, y])
-    if -2 < x < 1 and -8 < y < -4:
-        clustersB[1].append([x, y])
-    if -6 < x < -3 and -10 < y < -6:
-        clustersB[2].append([x, y])
 
-print(clustersA[0])
-print(clustersA[1])
-print(clustersB[0])
-print(clustersB[1])
-print(clustersB[2])
+# № 21990 (Уровень: Средний)
+# (Л. Шастин) В файле содержится последовательность целых чисел. Элементы последовательности могут принимать
+# целые значения от -100 000 до 100 000 включительно. Определите количество троек элементов последовательности,
+# в которых модуль суммы отрицательных чисел не больше суммы положительных, а произведение элементов тройки
+# оканчивается на ту же цифру, что и максимальный элемент в последовательности. Если в тройке отсутствуют
+# положительные или отрицательные числа, то сумма чисел соответствующего знака считается равной нулю.
+# В ответе запишите количество найденных троек чисел, затем максимальное значение из модулей произведений
+# элементов таких троек. В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
+'''
+R = []
+M = [int(s) for s in open('files/17.txt')]
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if abs(sum(i for i in [x, y, z] if i < 0)) <= sum(i for i in [x, y, z] if i > 0):
+        if abs(x * y * z) % 10 == abs(max(M)) % 10:
+            R.append(abs(x * y * z))
+print(len(R), max(R))
+'''
 
-def center(cl):
-    R = []
-    for p in cl:
-        sums = 0
-        for q in cl:
-            sums += dist(p, q)
-        R.append((sums, p))
-    return min(R)[1]
-
-centersB = [center(clustersB[0]), center(clustersB[1]), center(clustersB[2])]
-
-sizesB = [len(clustersB[0]), len(clustersB[1]), len(clustersB[2])]
-min_idx = sizesB.index(min(sizesB))
-max_idx = sizesB.index(max(sizesB))
-Q1 = centersB[min_idx][1]
-Q2 = centersB[max_idx][1]
-
-print(abs(int(Q1 * 10000)), abs(int(Q2 * 10000)))'''
+R = []
+M = [int(s) for s in open('files/17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3]
+B = [x for x in A if abs(x) % 100 == 15]
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x > 0 and y > 0 and z > 0) or (x < 0 and y < 0 and z < 0):
+        if (min(x, y, z) * max(x, y, z)) > min(B) ** 2:
+            R.append(min(x, y, z) * max(x, y, z))
+print(len(R), min(R))
 
 
 # endregion Урок: *************************************************************
