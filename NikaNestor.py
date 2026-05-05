@@ -6,112 +6,137 @@
 # #
 # region Урок: ********************************************************************
 
-# № 29080 (Уровень: Средний)
 
-from math import dist
-clustersA = [[], []]
-parmasA = [[], []]
+# № 16333 Открытый вариант 2024 (Уровень: Базовый)
+'''
+s = open('files/24.txt').readline()
+for x in 'QRW':
+    s = s.replace(x, 'a')
+for x in '124':
+    s = s.replace(x, 'b')
+while 'aa' in s or 'bb' in s:
+    s = s.replace('aa', 'a a').replace('bb', 'b b')
+print(max([len(x) for x in s.split()]))
 
-clustersB = [[], [], []]
-paramsB = [[], [], []]
+s = open('files/24.txt').readline()
+s = s.replace('Q', 'a').replace('R', 'a').replace('W', 'a')
+s = s.replace('1', 'b').replace('2', 'b').replace('4', 'b')
+while 'aa' in s or 'bb' in s:
+    s = s.replace('aa', 'a a').replace('bb', 'b b')
+s = s.split()
+m = [len(x) for x in s]
+print(max(m))
+'''
 
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y > 10:
-        clustersA[0].append([x, y])
-        parmasA[0].append(z)
+
+
+# № 15339 Досрочная волна 2024 (Уровень: Средний)
+'''
+s = open('files/24.txt').readline()
+for x in 'ABC':
+    s = s.replace(x, '*')
+for x in '6789':
+    s = s.replace(x, '+')
+
+while '**' in s or '++' in s:
+    s = s.replace('**', '* *').replace('++', '+ +')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# № 2942 Апробация 19.02.2022 (Уровень: Базовый)
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '((AB)|(AC))+'
+# pat = '[(AC)|(AB)]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]) / 2)
+'''
+
+'''
+s = open('files/24.txt').readline()
+s = s.replace('AB', '*').replace('AC', '*')
+for x in 'ABC':
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i:i+2] in ('AB', 'BA', 'AC', 'CA'):
+        if cnt == 1:
+            if s[i:i+2] in ('BA', 'CA'):
+                continue
+        cnt += 1
+        maxi = max(cnt, maxi)
     else:
-        clustersA[1].append([x, y])
-        parmasA[1].append(z)
+        cnt = 1
+print(maxi / 2)
+'''
 
 
-for s in open('files/27B.txt'):
-    cnt = 0
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y > 23:
-        clustersB[0].append([x, y])
-        paramsB[0].append(z)
-    if y < 23 and y > 15:
-        clustersB[1].append([x, y])
-        paramsB[1].append(z)
-    if y < 23 and y < 15:
-        clustersB[2].append([x, y])
-        paramsB[2].append(z)
+# № 1302 Открытый вариант КЕГЭ (Уровень: Базовый)
+'''
+s = open('files/24.txt').readline()
+s = s.replace('XZZY', 'XZZ ZZY')
+print(max([len(x) for x in s.split()]))
 
 
-def center(cl):
-    R = []
-    for p in cl:
-        summa = 0
-        for g in cl:
-            summa += dist(p, g)
-        R.append([summa, p])
-    return min(R)[1]
+s = open('files/24.txt').readline()
+cnt = 3
+maxi = 0
+for i in range(len(s)-3):
+    if s[i:i+4] == 'XZZY':
+        cnt = 3
+    else:
+        cnt += 1
+        maxi = max(cnt, maxi)
+print(maxi)
+'''
 
+# максимальное количество идущих подряд символов,
+# среди которых пара символов BC встречается ровно 3 раза.
 
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 – наибольшее расстояние от центра кластера с наименьшим количеством точек до синей звезды светимости 3, и
-# A2 – наибольшее расстояние от центра кластера с наибольшим количеством точек до синей звезды светимости 3.
-
-print(center(clustersA[0]))  # [7.0391548, 12.3587258]
-print(center(clustersA[1]))  # [3.8471735, 6.1225014]
-
-print(len(clustersA[0]))  # 92
-print(len(parmasA[0]))
-print(len(clustersA[1]))  # 131
-
-def A(cl, cent, parm):
-    R = []
-    for i in range(len(cl)):
-        if 'L3' in parm[i]:
-            R.append(dist(cent, cl[i]))
-    return R
-
-A1 = max(A(clustersA[0] + clustersA[1], center(clustersA[0]), parmasA[0] + parmasA[1]))
-A2 = max(A(clustersA[0] + clustersA[1], center(clustersA[1]), parmasA[0] + parmasA[1]))
-print(int(A1 * 10000), int(A2 * 10000))  # 1641 4058
-
-
-# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 – расстояние между центрами кластером с наименьшим и наибольшим количеством синих звёзд, и
-# B2 – максимальное расстояние между двумя синими звёздами, находящихся в различных кластерах.
-
-def B(cl, param):
-    R = []
-    for i in range(len(cl)):
-        if 'L' in param[i]:
-            R.append(cl[i])
-    return R
-
-print(len(B(clustersB[0], paramsB[0])))  # 8
-print(len(B(clustersB[1], paramsB[1])))  # 14
-print(len(B(clustersB[2], paramsB[2])))  # 77
-
-print(paramsB[2])
-
-
-
-B1 = dist(center(clustersB[0]), center(clustersB[2]))
-
+s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
+# ['xxxx', 'xxxx', 'xxxxx', 'xxxx', 'xxxxxxxxxx', 'xxxxx', 'xxxxxx']
+s = s.split('BC')
 R = []
-for p in B(clustersB[0], paramsB[0]):
-    for g in B(clustersB[1], paramsB[1]):
-        R.append(dist(p, g))
+for i in range(len(s)-3):
+    r = 'C' + 'BC'.join(s[i:i+4]) + 'B'
+    R.append(len(r))
+print(max(R))
 
-for p in B(clustersB[0], paramsB[0]):
-    for g in B(clustersB[2], paramsB[2]):
-        R.append(dist(p, g))
+# минимальное количество идущих подряд символов,
+# среди которых пара символов BC встречается ровно 3 раза.
 
-for p in B(clustersB[2], paramsB[2]):
-    for g in B(clustersB[1], paramsB[1]):
-        R.append(dist(p, g))
+s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
+s = s.split('BC')
+R = []
+for i in range(len(s) - 1):
+    r = 'BC' + 'BC'.join(s[i:i+2]) + 'BC'
+    R.append(len(r))
+print(max(R))
 
-B2 = max(R)
-print(int(B2 * 10000))
+
+# Пара содержится ровное кол-во раз
+
+s = open('files/24.txt').readline()
+s = s.split('BC')
+maxi = 0
+for i in range(len(s)-190):
+    r = 'C' + 'BC'.join(s[i:i+191]) + 'B'
+    maxi = max(maxi, len(r))
+print(maxi)
+
+
+
+
+# № 28710 (Уровень: Базовый)
 
 
 

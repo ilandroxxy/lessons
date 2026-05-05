@@ -6,122 +6,58 @@
 # #
 # region Урок: ********************************************************************
 
+# - в строке все числа расположены в порядке возрастания;   1 2 2 3 3 4
+# - в строке все числа расположены в строгом порядке возрастания; 1 2 3 4 5 6
+
+# № 28930 ЕГКР 18.04.26 (Уровень: Базовый)
+# Откройте файл электронной таблицы, содержащей в каждой строке пять целых чисел.
+# Определите количество строк таблицы, для которых выполнены оба условия:
+# - в строке все числа расположены в порядке возрастания;
+# - сумма минимального и максимального чисел строки не больше суммы оставшихся трёх её чисел.
+# В ответе запишите только число.
 '''
-from itertools import*
-otv = []
-for i in product('012345678', repeat = 5):
-    s = ''.join(i)
-    if s[0] != '0':
-        if s.count('3') == 2:
-            for x in '1357':
-                s = s.replace(x, '*')
-            if '2*' not in s and '*2' not in s:
-                otv.append(s)
-print(len(otv))
-
-from itertools import product
-cnt=0
-for i in product("012345678",repeat=5):
-    i= ''.join(i)
-    if i[0] != '0' and i.count('3')==2:
-        i=i.replace('1','3')
-        i=i.replace('5', '3')
-        i=i.replace('7', '3')
-        if i.count('32')==0 and i.count('23')==0 :
-            cnt+=1
-print(cnt)
-
-
-from itertools import*
 cnt = 0
-for i in product('012345678', repeat = 5):
-    s = ''.join(i)
-    if s[0] != '0':
-        if s.count('3') == 2:
-            if all(pair not in s for pair in '23 32 21 12 52 25 27 72'.split()):
-                cnt += 1
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    if M == sorted(M) and len(M) == len(set(M)):
+        if min(M) + max(M) <= sum(M) - max(M) - min(M):
+            cnt += 1
 print(cnt)
 '''
 
 
-# Номер 13
-# Для узла с IP-адресом 195.23.86.50, адрес сети равен 195.23.80.0.
-# Для скольких различных значений маски это возможно?
+# № 22547(Уровень: Средний)
 '''
-from ipaddress import *
-for mask in range(1, 32+1):
-    net = ip_network(f'195.23.86.50/{mask}', 0)
-    if '195.23.80.0' in str(net):
-        print(net, net.netmask)
-
-
-# № 18955 (Уровень: Средний)
-# Два узла, находящиеся в одной сети, имеют IP-адреса 200.154.190.12 и 200.154.184.0.
-# Укажите наибольшее возможное количество единиц в маске этой сети
-
-from ipaddress import *
-for mask in range(1, 32+1):
-    net1 = ip_network(f'200.154.190.12/{mask}', 0)
-    net2 = ip_network(f'200.154.184.0/{mask}', 0)
-    if net1 == net2:
-        print(mask, 32-mask)
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    if M == sorted(M) and len(M) == len(set(M)):
+        if len([x for x in M if x % 2 == 0]) == len([x for x in M if x % 2 != 0]):
+            print(sum(M))
 '''
 
+# № 27285 (Уровень: Базовый)
+# В файле электронной таблицы в каждой строке записаны семь целых чисел.
+# Определите количество строк таблицы, для которых выполнены оба условия:
+# – в строке числа расположены в порядке неубывания;
+# – количество чётных чисел больше количества нечётных чисел.
 
-def G(S, h):
-    if S >= 184:
-        return 1
-    elif S < 184 and h > 1:
-        return 0
-    if h % 2 == 0:
-        return G(S + 1, h + 1) * G(S + 5, h + 1) * G(S * 4, h + 1)
-    else:
-        return G(S + 1, h + 1) + G(S + 5, h + 1) + G(S * 4, h + 1)
+cnt = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(',')]
+    if M == sorted(M):
+        if len([x for x in M if x % 2 == 0]) > len([x for x in M if x % 2 != 0]):
+            cnt += 1
+print(cnt)
 
-
-for S in range(1, 184):
-    if G(S, 0):
-        print(S)
-        break
-
-'''
-def F(s, h):
-    if s >= 184:
-        return h % 2 == 0
-    if h == 0:
-        return 0
-    M = [F(s + 1, h - 1), F(s + 5, h - 1), F(s * 4, h - 1)]
-    return any(M) if (h - 1) % 2 == 0 else all(M)
-    return any(M) if (h - 1) % 2 == 0 else any(M)
-
-print([s for s in range(1, 184) if F(s, h=2)])
-print([s for s in range(1, 184) if F(s, h=3) and not F(s, h=1)])
-print([s for s in range(1, 184) if F(s, h=4) and not F(s, h=2)])
-'''
-
-# № 28704 (Уровень: Базовый)
-'''
-def F(a, s, h):
-    if a * s >= 516:
-        return h % 2 == 0
-    if h == 0:
-        return 0
-    M = [F(a + 3, s, h - 1), F(a, s + 3, h - 1), F(a + 13, s, h - 1), F(a, s + 13, h - 1)]
-    return any(M) if (h - 1) % 2 == 0 else all(M)
-    return any(M) if (h - 1) % 2 == 0 else any(M)
-
-print(len([s for s in range(1, 74) if F(7, s, h=2)]))
-print(sorted([s for s in range(1, 74) if F(7, s, h=3) and not F(7, s, h=1)])[:2])
-print(max([s for s in range(1, 74) if F(7, s, h=4) and not F(7, s, h=2)]))
-'''
-
+# – в строке числа расположены в порядке неубывания; (элементы могут повторяться)
+# - в строке все числа расположены в порядке возрастания; (не могут повторяться)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [1, 2, 3, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25, 27]
-# КЕГЭ = [8, 15, 16, 23, 25]
+# КЕГЭ = [8, 9, 15, 16, 23, 25]
 # на следующем уроке:
 
 
