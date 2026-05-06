@@ -7,7 +7,42 @@
 # region Урок: ********************************************************************
 
 
+# № 11780 (Уровень: Базовый)
+'''
+from ipaddress import *
+R = []
+net = ip_network('185.8.0.0/255.255.128.0', 0)
+for ip in net:
+    ip2 = f'{ip:b}'
+    R.append(ip2.count('1'))
+print(max(R))
+'''
 
+
+# № 10773 (Уровень: Базовый)
+
+# 133.57.64.130 = 1 байт 1 байт 1 байт 1 байт
+# 1 байт = 8 бит ->   8  8  8  8  бит  -> 32 бит
+'''
+from ipaddress import *
+cnt = 0
+for mask in range(0, 32+1):
+    net = ip_network(f'133.57.64.130/{mask}', 0)
+    if '133.57.64.0' in str(net):
+        print(net, net.netmask)
+        cnt += 1
+print(cnt)
+'''
+
+
+# № 23372 Резервный день 19.06.25 (Уровень: Базовый)
+'''
+from ipaddress import *
+R = []
+net = ip_network('185.8.0.0/255.255.128.0', 0)
+for ip in net:
+    print(ip)
+'''
 
 
 # endregion Урок: *************************************************************

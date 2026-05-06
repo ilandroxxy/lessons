@@ -1951,34 +1951,32 @@ OverflowError: integer division result too large for a float
 
 
 
+from re import *
+s = open("files/24.txt").readline().replace("20", "##")
+pat = "(((##)[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY])"
+M = [x.group(1) for x in finditer(pat, s)]
+print(min([len(x) for x in M]))
 
 
-# № 23200 Основная волна 10.06.25 (Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n) = n при n<10;
-# F(n) = 3n+F(n−3), если n≥10.
-# Чему равно значение выражения (F(6250) + 2 × F(6244)) / F(6238)?
 
-# F(n) = 3n + F(n−3), если n≥10.
-# F(6250) = 6250 * 3 + F(6247)
-# F(6247) = 6247 * 3 + F(6244)
-# F(6244) = 6244 * 3 + F(6241)
-# F(6241) = 6241 * 3 + F(6238)
-print((6250 * 3 + 6247 * 3 + 6244 * 3 + 6241 * 3) + 2 * (6244 * 3 + 6241 * 3))
+s = open('files/24.txt').readline()
+for i in 'AUIOYE':
+    s = s.replace(i, 'A')
+s = s.split('20')
+R = []
+for i in range(len(s)-24):
+    r = '20' + '20'.join(s[i:i+25]) + '20'
+    # if r[-3] == 'A' and r.count('A') == 1:
+    if r.count('A') == 0:
+        R.append(len(r))
+print(min(R))
 
 
-from functools import *
+from re import *
+s = open("files/24.txt").readline().replace("20", "@")
+pat = "(?=((@[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY]))"
+M = [x.group(1) for x in finditer(pat, s)]
+print(min([len(x) + 26 for x in M]))
 
-@lru_cache(None)
-def F(n):
-    if n < 10: return n
-    return 3*n + F(n - 3)
 
-for i in range(10, 6250):
-    F(i)
-
-print(F(6250), 2 * F(6244), F(6238))
-print((19540597 + 39006212) // 19465651)
-print((F(6250) + 2 * F(6244)) // F(6238))
 
