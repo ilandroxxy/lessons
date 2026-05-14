@@ -1951,32 +1951,155 @@ OverflowError: integer division result too large for a float
 
 
 
-from re import *
-s = open("files/24.txt").readline().replace("20", "##")
-pat = "(((##)[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY])"
-M = [x.group(1) for x in finditer(pat, s)]
-print(min([len(x) for x in M]))
 
 
 
-s = open('files/24.txt').readline()
-for i in 'AUIOYE':
-    s = s.replace(i, 'A')
-s = s.split('20')
-R = []
-for i in range(len(s)-24):
-    r = '20' + '20'.join(s[i:i+25]) + '20'
-    # if r[-3] == 'A' and r.count('A') == 1:
-    if r.count('A') == 0:
-        R.append(len(r))
-print(min(R))
 
 
-from re import *
-s = open("files/24.txt").readline().replace("20", "@")
-pat = "(?=((@[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY]))"
-M = [x.group(1) for x in finditer(pat, s)]
-print(min([len(x) + 26 for x in M]))
+# ЕГЭ: 1, 2, 4, 13, 11, 7, 14, 15, 6, 5, 8
+#      1, 2, 3, 10, 8,  6, 11, 12, 5, 4, 7
+
+'''
+sym = 64
+alp = 26 * 2  # alp = 2 ** i
+i = 6  # 2**6 >= alp
+# i - это кол-во бит на один символ
+
+bit = sym * i  # кол-во бит на один пароль
+print(bit / 8)
+byte = 48  # кол-во байт на один пароль (всегда округялется вверх)
+
+byte = byte + 64
+print((byte * 768) / 2**10)
+'''
+'''
+# sym - ?
+alp = 10 + 52 + 964  # 1026
+i = 11
+
+byte = 1.5 * 2**20 / 3000
+print(byte)  # 524.288
+bit = 524 * 8
+
+# bit = sym * i
+sym = bit / i
+print(sym)  # 381.09090
+'''
+
+'''
+pixels = 3614 * 4972
+colors = 2**16
+i = 16
+I = pixels * i  # вес одной фотки в бит
+
+pack = 8 * 2**33 / I
+print(pack)  # 239
+
+print(4096 / 239)  # 17.1380 -> 18
+print(4096 - 239 * 17)  # 33
+'''
+
+
+
+
+
+
+
+'''
+# i  0123456
+s = '2893712'
+print(s[4])  # '7'
+
+print(s[::2])  #'2972'
+'''
+
+
+'''
+from itertools import permutations
+print('1 2 3 4 5 6 7 8')  # тут 
+graph = 'АБ БА АГ ГА АВ ВА ВЕ ЕВ ЕГ ГЕ ЕЖ ЖЕ ЖИ ИЖ ЖД ДЖ ДИ ИД ДГ ГД ГБ БГ'   # тут 
+table = '14 17 23 24 25 32 37 41 42 46 47 52 56 58 64 65 68 71 73 74 85 86'   # тут 
+for p in permutations('АБВГДЕЖИ'):   # тут 
+    new_table = table
+    for i in range(1, 8+1):   # тут 
+        new_table = new_table.replace(str(i), p[i-1])
+    if sorted(new_table.split()) == sorted(graph.split()):
+        print(*p)
+'''
+
+
+
+'''
+ip = '123.123.43.32'
+print(ip.split('.'))  # ['123', '123', '43', '32']
+'''
+
+
+'''
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((not x) and y and z and (not w)) or ((not x) and y and (not z) and (not w)) or (x and y and z and (not w))
+                if F == 1:
+                    print(x, y, z, w)
+
+'''
+
+'''
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+print(M[0])  # - первый элемент
+print(M[-1]) # - последний элемент
+
+
+from ipaddress import *
+net = ip_network('79.128.86.0/255.255.224.0', 0)
+cnt = 0
+for ip in net:
+    ip2 = f'{ip:b}'
+    if ip2.count('1') % 7 != 0:
+        # if ip2[-3] == '1' and ip[-2] == '0'  and ip[-1] == '0':
+        if ip2[-3:] == '100':
+            cnt += 1
+print(cnt)
+'''
+
+
+
+
+'''
+print(f'{192:b}.{168:b}.{112:b}.{140:b}')
+print(f'{255:b}.{255:b}.{255:b}.{224:b}')
+
+# 1 and 1 == 1, иначе 0
+
+# 11000000.10101000.01110000.10001100
+# 11111111.11111111.11111111.11100000
+# 11000000.10101000.01110000.10000000
+
+# 12
+
+print(f'{140:b}')
+print(f'{255-224:b}')  # 255 - 224 это обратная маска
+
+# 10001100
+# 00011111
+# 00001100
+
+print(int('1100', 2))  # 12
+'''
+
+print(f'{72:b}')  # 1001000
+# 001001000 - добиваем до 9 битов.
+# Делаем инверсию: 110110111
+
+
+
+
 
 
 

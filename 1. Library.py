@@ -184,6 +184,19 @@ print(min(R))  # 21.8 -> 21.75 -> 21.9 -> 22
 '''
 
 
+# https://education.yandex.ru/ege/inf/task/5ed718bc-b630-46ba-b08b-581549fab275
+# todo Интересная задачка с скобками
+def F(x, A):
+    return ((x & 103 == 0) and (x & 94 != 0)) <= (x & A != 0)
+
+
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+        break
+
+
+
 # endregion 15 номер
 #
 #

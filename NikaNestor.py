@@ -7,136 +7,105 @@
 # region Урок: ********************************************************************
 
 
-# № 16333 Открытый вариант 2024 (Уровень: Базовый)
-'''
-s = open('files/24.txt').readline()
-for x in 'QRW':
-    s = s.replace(x, 'a')
-for x in '124':
-    s = s.replace(x, 'b')
-while 'aa' in s or 'bb' in s:
-    s = s.replace('aa', 'a a').replace('bb', 'b b')
-print(max([len(x) for x in s.split()]))
-
-s = open('files/24.txt').readline()
-s = s.replace('Q', 'a').replace('R', 'a').replace('W', 'a')
-s = s.replace('1', 'b').replace('2', 'b').replace('4', 'b')
-while 'aa' in s or 'bb' in s:
-    s = s.replace('aa', 'a a').replace('bb', 'b b')
-s = s.split()
-m = [len(x) for x in s]
-print(max(m))
-'''
 
 
+# № 29081 (Уровень: Средний)
 
-# № 15339 Досрочная волна 2024 (Уровень: Средний)
+from itertools import permutations
+from math import dist
 '''
-s = open('files/24.txt').readline()
-for x in 'ABC':
-    s = s.replace(x, '*')
-for x in '6789':
-    s = s.replace(x, '+')
-
-while '**' in s or '++' in s:
-    s = s.replace('**', '* *').replace('++', '+ +')
-print(max([len(x) for x in s.split()]))
+cA = [[], []]
+pA = [[], []]
 '''
 
+cB = [[], [], []]
+pB = [[], [], []]
 
-# № 2942 Апробация 19.02.2022 (Уровень: Базовый)
-'''
-from re import *
-s = open('files/24.txt').readline()
-pat = '((AB)|(AC))+'
-# pat = '[(AC)|(AB)]+'
-M = [x.group(0) for x in finditer(pat, s)]
-print(M)
-print(max([len(x) for x in M]) / 2)
-'''
-
-'''
-s = open('files/24.txt').readline()
-s = s.replace('AB', '*').replace('AC', '*')
-for x in 'ABC':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
 
 '''
-s = open('files/24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i:i+2] in ('AB', 'BA', 'AC', 'CA'):
-        if cnt == 1:
-            if s[i:i+2] in ('BA', 'CA'):
-                continue
-        cnt += 1
-        maxi = max(cnt, maxi)
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 10:
+        cA[0].append([x, y])
+        pA[0].append(z)
     else:
-        cnt = 1
-print(maxi / 2)
+        cA[1].append([x, y])
+        pA[1].append(z)
+'''
+# Проверка, длиный должны совпасть:
+# print(len(cA[0]), len(pA[0]))
+# print(len(cA[1]), len(pA[1]))
+
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y < 15:
+        cB[0].append([x, y])
+        pB[0].append(z)
+    if y < 23 and y > 15:
+        cB[1].append([x, y])
+        pB[1].append(z)
+    if y > 23:
+        cB[2].append([x, y])
+        pB[2].append(z)
+# Проверка, длиный должны совпасть:
+# print(len(cB[0]), len(pB[0]))
+# print(len(cB[1]), len(pB[1]))
+# print(len(cB[2]), len(pB[2]))
+
+
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
+# A1 – минимальное расстояние от центра кластера до белого карлика из этого же кластера, и
+# A2 – максимальное расстояние от центра кластера до белого карлика из этого же кластера.
+'''
+def A(cl, p, cent):
+    R = []
+    for i in range(len(cl)):
+        if 'VII' in p[i] and 'III' not in p[i]:
+            R.append(dist(cl[i], cent))
+    return R
+
+R1 = A(cA[0], pA[0], center(cA[0])) 
+R2 = A(cA[1], pA[1], center(cA[1]))
+A1 = min(R1 + R2)
+A2 = max(R1 + R2)
+print(int(A1 * 10000), int(A2 * 10000))  # 1495 16955
 '''
 
 
-# № 1302 Открытый вариант КЕГЭ (Уровень: Базовый)
-'''
-s = open('files/24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# B1 – минимальное расстояние между двумя звёздами с подклассом не менее 8,
+# расположенными в различных кластерах, и
+# B2 – cреднее расстояние между двумя различными звёздами с подклассом не менее 8,
+# расположенными в одном кластере.
 
+def B(cl, p):
+    R = []
+    for i in range(len(cl)):
+        if p[i][1] in '89':
+            R.append(cl[i])
+    M = []
+    for x in permutations(R, r=2):
+        M.append(dist(x[0], x[1]))
+    return M
 
-s = open('files/24.txt').readline()
-cnt = 3
-maxi = 0
-for i in range(len(s)-3):
-    if s[i:i+4] == 'XZZY':
-        cnt = 3
-    else:
-        cnt += 1
-        maxi = max(cnt, maxi)
-print(maxi)
-'''
+R1 = B(cB[0], pB[0])
+R2 = B(cB[1], pB[1])
+R3 = B(cB[2], pB[2])
+print(int(sum(R1 + R2 + R2) / len(R1 + R2 + R2) * 10000))
 
-# максимальное количество идущих подряд символов,
-# среди которых пара символов BC встречается ровно 3 раза.
-
-s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
-# ['xxxx', 'xxxx', 'xxxxx', 'xxxx', 'xxxxxxxxxx', 'xxxxx', 'xxxxxx']
-s = s.split('BC')
-R = []
-for i in range(len(s)-3):
-    r = 'C' + 'BC'.join(s[i:i+4]) + 'B'
-    R.append(len(r))
-print(max(R))
-
-# минимальное количество идущих подряд символов,
-# среди которых пара символов BC встречается ровно 3 раза.
-
-s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
-s = s.split('BC')
-R = []
-for i in range(len(s) - 1):
-    r = 'BC' + 'BC'.join(s[i:i+2]) + 'BC'
-    R.append(len(r))
-print(max(R))
-
-
-# Пара содержится ровное кол-во раз
-
-s = open('files/24.txt').readline()
-s = s.split('BC')
-maxi = 0
-for i in range(len(s)-190):
-    r = 'C' + 'BC'.join(s[i:i+191]) + 'B'
-    maxi = max(maxi, len(r))
-print(maxi)
-
-
-
-
-# № 28710 (Уровень: Базовый)
 
 
 
