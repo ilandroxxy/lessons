@@ -6,43 +6,83 @@
 # #
 # region Урок: ********************************************************************
 
-
-# № 11780 (Уровень: Базовый)
+# максимальное количество идущих подряд символов,
+# среди которых пара символов BC встречается ровно 3 раза.
 '''
-from ipaddress import *
+s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
+# ['xxxx', 'xxxx', 'xxxxx', 'xxxx', 'xxxxxxxxxx', 'xxxxx', 'xxxxxx']
+s = s.split('BC')
 R = []
-net = ip_network('185.8.0.0/255.255.128.0', 0)
-for ip in net:
-    ip2 = f'{ip:b}'
-    R.append(ip2.count('1'))
+for i in range(len(s)-3):
+    r = 'C' + 'BC'.join(s[i:i+4]) + 'B'
+    R.append(len(r))
+print(max(R))
+'''
+
+# минимальное количество идущих подряд символов,
+# среди которых пара символов BC встречается ровно 3 раза.
+'''
+s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
+s = s.split('BC')
+R = []
+for i in range(len(s) - 1):
+    r = 'BC' + 'BC'.join(s[i:i+2]) + 'BC'
+    R.append(len(r))
 print(max(R))
 '''
 
 
-# № 10773 (Уровень: Базовый)
-
-# 133.57.64.130 = 1 байт 1 байт 1 байт 1 байт
-# 1 байт = 8 бит ->   8  8  8  8  бит  -> 32 бит
+# № 27634 Апробация 04.03.26 (Уровень: Базовый)
 '''
-from ipaddress import *
-cnt = 0
-for mask in range(0, 32+1):
-    net = ip_network(f'133.57.64.130/{mask}', 0)
-    if '133.57.64.0' in str(net):
-        print(net, net.netmask)
-        cnt += 1
-print(cnt)
+s = open('files/24.txt').readline()
+s = s.split('Z')
+mini = 10 ** 10
+for i in range(len(s)-268):
+    r = 'Z' + 'Z'.join(s[i:i + 269]) + 'Z'
+    mini = min(mini, len(r))
+print(mini)
 '''
 
 
-# № 23372 Резервный день 19.06.25 (Уровень: Базовый)
+# № 28943 ЕГКР 18.04.26 (Уровень: Базовый)
 '''
-from ipaddress import *
-R = []
-net = ip_network('185.8.0.0/255.255.128.0', 0)
-for ip in net:
-    print(ip)
+s = open('24_28943.txt').readline()
+for x in 'AEYUIO':
+    s = s.replace(x, '-')
+mini = 10 ** 10
+r = ''
+for i in range(len(s)):
+    r += s[i]
+    if r.count('-') == 1 and r[-1] == '-':
+        while r.count('20') >= 26:
+            if r.count('20') == 26:
+                mini = min(mini, len(r))
+            r = r[1:]
+        r = ''
+print(mini)#Answer: 58
 '''
+
+'''
+s = open('files/24.txt').readline()
+for x in 'AEIOUY':
+    s = s.replace(x, 'A')
+s = s.split('20')
+mini = 10**10
+for i in range(len(s)-24):
+    r = '20' + '20'.join(s[i:i+25]) + '20'
+    if r.count('A') == 1 and r[-3] == 'A':
+        mini = min(mini, len(r))
+print(mini)
+
+
+from re import *
+s = open("files/24.txt").readline().replace("20", "##")
+pat = "(((##)[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY])"
+M = [x.group(1) for x in finditer(pat, s)]
+print(min([len(x) for x in M]))
+'''
+
+
 
 
 # endregion Урок: *************************************************************

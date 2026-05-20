@@ -7,51 +7,109 @@
 # region Урок: ********************************************************************
 
 
-# № 28926 ЕГКР 18.04.26 (Уровень: Базовый)
-'''
-M = []
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(n,b):
-    s = ''
-    while n > 0:
-        s = alphabet[n % b] + s
-        n //= b
-    return s
+# № 29357 Открытый вариант 2026 (Уровень: Средний)
+
+from math import dist
+from itertools import permutations
+
+cA = [[], []]
+pA = [[], []]
+
+cB = [[], [], []]
+pB = [[], [], []]
+
+for s in open('files/27A.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y > 15:
+        cA[0].append([x, y])
+        pA[0].append(z)
+    else:
+        cA[1].append([x, y])
+        pA[1].append(z)
 
 
-for N in range(1,10000):
-    s = convert(N,3)
-    if N % 3 == 0:
-        s = s + s[-2:]
-    if N % 3 != 0:
-        x = sum([int(x) for x in s])
-        z = x * 2
-        s = s + convert(z,3)
-    R = int(s,3)
-    if R % 2 != 0 and R > 520:
-        M.append(R)
-print(min(M))
-'''
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y, z = [i for i in s.split()]
+    x, y = float(x), float(y)
+    if y < 30:
+        cB[0].append([x, y])
+        pB[0].append(z)
+    elif x > 16:
+        cB[1].append([x, y])
+        pB[1].append(z)
+    else:
+        cB[2].append([x, y])
+        pB[2].append(z)
 
 
 
-# № 20569 (Уровень: Базовый)
+# Будем называть центром кластера точку этого кластера,
+# сумма расстояний от которой до всех остальных точек
+# кластера минимальна.
 
-print('x y z w F')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= z) == (x <= (not y))) and (x or z)
-                if F == 0:
-                    print(x, y, z, w, int(F))
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = ((w <= z) == (x <= (not y))) and (x or z)
-                if F == 1:
-                    print(x, y, z, w, int(F))
+def center(cl):
+    R = []
+    for p in cl:
+        summa = 0
+        for g in cl:
+            summa += dist(p, g)
+        R.append([summa, p])
+    return min(R)[1]
+
+
+# Для файла А определите координаты центра каждого кластера, затем найдите два числа
+# Ax и Ay – абсциссу и ординату красного гиганта, ближайшего к центру кластера,
+# который содержит наименьшее количество точек.
+
+# print(len(cA[0]), len(cA[1]))  # 121 114
+
+def A(cl, p, cent):
+    R = []
+    for i in range(len(cl)):
+        if 'M' in p[i] and 'III' in p[i]:
+            R.append([dist(cl[i], cent), cl[i]])
+    return min(R)[1]
+
+
+Ax, Ay = A(cA[1], pA[1], center(cA[1]))
+print(int(Ax * 10000), int(Ay * 10000))
+
+
+# Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
+# B1 – расстояние между центрами кластеров
+# с наименьшим и наибольшим количеством оранжевых гигантов, и
+# B2 – наибольшее расстояние между жёлтыми карликами одного кластера.
+
+def B1(cl, p, cent):
+    R = []
+    for i in range(len(cl)):
+        if 'K' in p[i] and 'III' in p[i]:
+            R.append(cl[i])
+    return R
+
+# print(len(B1(cB[0], pB[0], center(cB[0]))))  # 87
+# print(len(B1(cB[1], pB[1], center(cB[1]))))  # 25
+# print(len(B1(cB[2], pB[2], center(cB[2]))))  # 28
+
+B1 = dist(center(cB[0]), center(cB[1]))
+
+def B2(cl, p):
+    R = []
+    for i in range(len(cl)):
+        if 'G' in p[i] and 'V' in p[i] and 'I' not in p[i]:
+            R.append(cl[i])
+    M = []
+    for x in permutations(R, r=2):
+        M.append(dist(x[0], x[1]))
+    return max(M)
+
+
+B2 = max(B2(cB[0], pB[0]), B2(cB[1], pB[1]), B2(cB[2], pB[2]))
+print(int(B1 * 10000), int(B2 * 10000))
+
 
 # endregion Урок: *************************************************************
 # #
