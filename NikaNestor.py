@@ -7,19 +7,19 @@
 # region Урок: ********************************************************************
 
 
-
-
-# № 29081 (Уровень: Средний)
-
-from itertools import permutations
+'''
 from math import dist
-'''
-cA = [[], []]
-pA = [[], []]
-'''
-
 cB = [[], [], []]
-pB = [[], [], []]
+
+for s in open('files/27B.txt'):
+    s = s.replace(',', '.')
+    x, y = [float(i) for i in s.split()]
+    if y > 23:
+        cB[0].append([x, y])
+    if 15 < y < 23:
+        cB[1].append([x, y])
+    if y < 15:
+        cB[2].append([x, y])
 
 def center(cl):
     R = []
@@ -30,82 +30,62 @@ def center(cl):
         R.append([summa, p])
     return min(R)[1]
 
-'''
-for s in open('files/27A.txt'):
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y > 10:
-        cA[0].append([x, y])
-        pA[0].append(z)
-    else:
-        cA[1].append([x, y])
-        pA[1].append(z)
-'''
-# Проверка, длиный должны совпасть:
-# print(len(cA[0]), len(pA[0]))
-# print(len(cA[1]), len(pA[1]))
-
-
-for s in open('files/27B.txt'):
-    s = s.replace(',', '.')
-    x, y, z = [i for i in s.split()]
-    x, y = float(x), float(y)
-    if y < 15:
-        cB[0].append([x, y])
-        pB[0].append(z)
-    if y < 23 and y > 15:
-        cB[1].append([x, y])
-        pB[1].append(z)
-    if y > 23:
-        cB[2].append([x, y])
-        pB[2].append(z)
-# Проверка, длиный должны совпасть:
-# print(len(cB[0]), len(pB[0]))
-# print(len(cB[1]), len(pB[1]))
-# print(len(cB[2]), len(pB[2]))
-
-
-# Для файла А определите координаты центра каждого кластера, затем найдите два числа:
-# A1 – минимальное расстояние от центра кластера до белого карлика из этого же кластера, и
-# A2 – максимальное расстояние от центра кластера до белого карлика из этого же кластера.
-'''
-def A(cl, p, cent):
-    R = []
-    for i in range(len(cl)):
-        if 'VII' in p[i] and 'III' not in p[i]:
-            R.append(dist(cl[i], cent))
-    return R
-
-R1 = A(cA[0], pA[0], center(cA[0])) 
-R2 = A(cA[1], pA[1], center(cA[1]))
-A1 = min(R1 + R2)
-A2 = max(R1 + R2)
-print(int(A1 * 10000), int(A2 * 10000))  # 1495 16955
-'''
+print(len(cB[0]))  # 74
+print(len(cB[1]))  # 100
+print(len(cB[2]))  # 451
 
 
 # Для файла Б определите координаты центра каждого кластера, затем найдите два числа:
-# B1 – минимальное расстояние между двумя звёздами с подклассом не менее 8,
-# расположенными в различных кластерах, и
-# B2 – cреднее расстояние между двумя различными звёздами с подклассом не менее 8,
-# расположенными в одном кластере.
+# Q1 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 1,2 от центра кластера, и
 
-def B(cl, p):
+# Q2 - в кластере с наибольшим количеством точек число таких точек,
+# которые находятся на расстоянии не более 0,75 от центра кластера.
+
+def Q(cl, cent, legth):
+    cnt = 0
+    for p in cl:
+        if dist(p, cent) <= legth:
+            cnt += 1
+    return cnt
+
+Q1 = Q(cB[2], center(cB[2]), 1.2)
+Q2 = Q(cB[2], center(cB[2]), 0.75)
+
+print(Q1, Q2)  # 358 203
+
+
+
+def diametr(cl):
     R = []
     for i in range(len(cl)):
-        if p[i][1] in '89':
-            R.append(cl[i])
-    M = []
-    for x in permutations(R, r=2):
-        M.append(dist(x[0], x[1]))
-    return M
+        for j in range(i+1, len(cl)):
+            R.append(dist(cl[i], cl[j]))
+    return max(R)
 
-R1 = B(cB[0], pB[0])
-R2 = B(cB[1], pB[1])
-R3 = B(cB[2], pB[2])
-print(int(sum(R1 + R2 + R2) / len(R1 + R2 + R2) * 10000))
+print(cB[0])
+print(diametr(cB[0]))
+'''
 
+
+
+# Администратор/Грузоперевозки: =ЕСЛИ(B2<$E$1;1;"")
+# Задачи: 24 2944 1275 1395 27636 1304 1207 788 225
+
+# Коржи/Коробки: =ЕСЛИ(B1-A2>=8;A2;B1)
+# Задачи: 27779 21910 16335 21424 15341 7096 4712 4604
+
+# Магазин
+# Задачи:
+
+# Распределение мест  =ЕСЛИ(И(A2=A1;B2-B1=3);B2-2;"")
+# Задачи: 1868, 2613, 7274, 3664, 3586, 3230
+
+# Очередь в кассу
+# Задачи:
+
+# Организация сортировки
+# Задачи:
 
 
 
