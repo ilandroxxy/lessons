@@ -7,146 +7,51 @@
 # #
 # region Урок: ********************************************************************
 
-# № 28929 ЕГКР 18.04.26 (Уровень: Базовый)
 
-# Все пятибуквенные слова, составленные из букв С, И, М, В, О, Л, записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. BBBBB
-# 2. ВВВВИ
-# 3. ВВВВЛ
-# 4. ВВВВМ
-# 5. ВВВВО
-# 6. ВВВВС
-# Определите, под каким номером в этом списке стоит последнее слово с нечётным номером,
-# которое не начинается с букв О или С и при этом содержит в своей записи ровно одну букву В
-# и не более одной буквы С.
-# Примечание. Слово - последовательность идущих подряд букв, не обязательно осмысленная.
+# № 29333 Открытый вариант 2026 (Уровень: Базовый)
+# Определите, какова протяжённость дороги из пункта В в пункт Д.
+# В ответе запишите целое число – так, как оно указано в таблице.
 '''
-s = sorted('СИМВОЛ')
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + c + e
-                    cnt += 1
-                    if a not in 'ОС':
-                        if word.count('В') == 1:
-                            if word.count('С') <= 1:
-                                if cnt % 2 != 0:
-                                    print(cnt)
-'''
-
-# № 27763 Апробация 04.03.26 (Уровень: Базовый)
-# Определите, сколько пятизначных чисел, записанных в семеричной системе счисления,
-# содержат ровно одну цифру 0 и не более двух цифр 1.
-'''
-s = '0123456'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if word.count('0') == 1:
-                        if word.count('1') <= 2:
-                            if a != '0':
-                                cnt += 1
-print(cnt)
+print('1 2 3 4 5 6 7')
+from itertools import *
+table = '12 17 21 25 26 27 36 37 45 52 54 56 62 63 65 67 71 72 73 76'
+graph = 'АБ БА БВ ВБ БД ДБ ВД ДВ ВГ ГВ ВЕ ЕВ ДЕ ЕД ДК КД ЕК КЕ ГЕ ЕГ'
+for p in permutations('АБВГДЕК'):
+    new_table = table
+    for i in range(1, 7 + 1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
 
-# № 27281 (Уровень: Базовый)
-# Сколько существует чисел, тринадцатеричная запись которых содержит пять цифр, причём среди них
-# ровно одна цифра 0 и никакие две одинаковые цифры не стоят рядом?
+# № 29951 Апробация 14.05.26 (Уровень: Базовый)
 '''
-s = '0123456789abc'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if word.count('0') == 1:
-                        if a != '0':
-                            if '11' not in word and '22' not in word and '33' not in word and '44' not in word and '55' not in word and '66' not in word and '77' not in word and '88' not in word and '99' not in word and 'aa' not in word and 'bb' not in word and 'cc' not in word:
-                                cnt += 1
-print(cnt)
+print('1 2 3 4 5 6 7 8')
+from itertools import *
+table = '15 16 17 23 24 28 32 37 38 42 47 51 56 58 61 65 71 73 74 82 83 85'
+graph = 'BA AB BH HB AH HA HF FH AE EA EG GE FG GF GC CG EC CE FD DF DC CD'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8 + 1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 '''
 
 
-# № 21894 Открытый вариант 2025 (Уровень: Базовый)
+# № 28922 ЕГКР 18.04.26 (Уровень: Базовый)
 
-# Сколько существует десятичных четырёхзначных чисел, в которых все цифры различны
-# и никакие две чётные или две нечётные цифры не стоят рядом?
-'''
-s = '0123456789'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                word = a + b + c + d
-                if a != '0':
-                    if len(word) == len(set(word)):
-                        for x in '02468':
-                            word = word.replace(x, '2')
-                        for x in '13579':
-                            word = word.replace(x, '1')
-                        if '11' not in word and '22' not in word:
-                            cnt += 1
-print(cnt)
-'''
-
-# № 20898 Апробация 05.03.25 (Уровень: Базовый)
-
-# Определите количество девятеричных пятизначных чисел, в записи которых ровно одна цифра 0,
-# при этом никакая нечётная цифра не стоит рядом с цифрой 0.
-'''
-s = '012345678'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if a != '0':
-                        if word.count('0') == 1:
-                            for x in '1357':
-                                word = word.replace(x, '1')
-                            if '10' not in word and '01' not in word:
-                                cnt += 1
-print(cnt)
-'''
-
-
-#
-# № 17521 Основная волна 07.06.24 (Уровень: Базовый)
-# Определите количество восьмеричных пятизначных чисел,
-# которые не начинаются с нечётных цифр, не оканчиваются цифрами 2 или 6,
-# а также содержат не более двух цифр 7.
-
-s = '01234567'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    word = a + b + c + d + e
-                    if a != '0':
-                        if word.count('7') <= 2:
-                            if e not in '26':
-                                for x in '1357':
-                                    word = word.replace(x, '1')
-                                if a != '1':
-                                    cnt += 1
-
-print(cnt)
+print('1 2 3 4 5 6 7 8')
+from itertools import *
+table = '14 17 24 25 28 36 37 41 42 45 52 54 56 63 65 71 73 78 82 87'
+graph = 'AB BA AH HA BD DB BG GB GC CG DC CD DF FE HF FH FE EF EG GE'
+for p in permutations('ABCDEFGH'):
+    new_table = table
+    for i in range(1, 8 + 1):
+        new_table = new_table.replace(str(i), p[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print(*p)
 
 
 # endregion Урок: *************************************************************

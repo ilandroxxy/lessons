@@ -7,120 +7,79 @@
 # region Урок: *************************************************************
 
 
-# Узел сети
-# Маска сети
-# Адрес сети = Узел сети & Маска сети
-# for ip in Адрес сети - айпи адреса сити
-'''
-# 255.255.192.0
-print(f'{255:b}.{255:b}.{192:b}.{0:b}')
-# 11111111.11111111.11000000.00000000
-
-for mask in range(0, 32+1):
-    print('1' * mask + '0' * (32 - mask))
-    print(f'{mask} - кол-во единиц, {32 - mask} - кол-во нулей - в двоичной записи \n')
-'''
+#  ¬x       |    (not x)
+#  x ∧ y    |    x and y
+# ¬(x ∧ y)  |  (not(x and y))
+#  x ∨ y    |    x or y
+#  x → y    |    x <= y
+#  x ≡ y    |    x == y
 
 
-# № 11765 (Уровень: Базовый)
-# Для узла с IP-адресом 130.140.241.137 адрес сети равен 130.140.240.0.
-# Каково наибольшее возможное количество единиц в двоичной записи маски?
+# № 29953 Апробация 14.05.26 (Уровень: Базовый)
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'130.140.241.137/{mask}', 0)
-    if '130.140.240.0' in str(net):
-        print(net, mask)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (not((x <= w) <= (w == z))) and y
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-
-# № 11770 (Уровень: Базовый)
-# Для узла с IP-адресом 251.211.38.240 адрес сети равен 251.211.38.0.
-# Для скольких различных значений маски это возможно?
+# 29334
+# F=((z→x)→(x≡y))∨¬w
 '''
-from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'251.211.38.240/{mask}', 0)
-    if '251.211.38.0' in str(net):
-        print(net, mask)
-'''
-
-
-
-
-# № 11771 (Уровень: Базовый)
-# Для узла с IP-адресом 121.74.179.135 адрес сети равен 121.74.179.128.
-# Чему равно наибольшее количество возможных адресов в этой сети?
-'''
-from ipaddress import *
-for mask in range(33):
-    net=ip_network(f'121.74.179.135/{mask}',0)
-    if '121.74.179.128' in str(net):
-        print(net.num_addresses)
-'''
-
-# № 20220 (Уровень: Базовый)
-# Для узла с IP-адресом 111.233.75.16 адрес сети равен 111.233.75.0.
-# Чему равно наибольшее количество возможных адресов в этой сети?
-'''
-from ipaddress import*
-for mask in range(33):
-    net=ip_network(f'111.233.75.16/{mask}',0)
-    if '111.233.75.0' in str(net):
-        print(net.num_addresses)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((z<=x)<=(x==y)) or (not w)  # +
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
 
-# № 18159 (Уровень: Базовый)
-# Для узла с IP-адресом 205.154.212.20 адрес сети равен 205.154.192.0.
-# Чему равно наибольшее возможное значение третьего слева байта маски?
+# № 25341 ЕГКР 13.12.25 (Уровень: Базовый)
+# F=(w≡z)∨¬(y→w)∨¬x
 '''
-from ipaddress import*
-for mask in range(33):
-    net = ip_network(f'205.154.212.20/{mask}',0)
-    if '205.154.192.0' in str(net):
-        print(net.netmask)
-        # 255.255.192.0
-        # 255.255.224.0
-'''
-
-# № 14360 (Уровень: Базовый)
-# Для узла с IP-адресом 153.202.16.37 адрес сети равен 153.202.16.32.
-# Определите наибольшее возможное значение суммы последних двух байтов маски.
-'''
-from ipaddress import*
-for mask in range(33):
-    net = ip_network(f'153.202.16.37/{mask}',0)
-    if '153.202.16.32' in str(net):
-        print(net.netmask)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (w == z) or (not(y <= w)) or (not x)  # +
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
 
-# https://stepik.org/lesson/1038700/step/8?unit=1062785
-# Для узла с IP-адресом 111.91.200.28 адрес сети равен 111.91.192.0
-# Найдите наименьшее возможное количество нулей в двоичной записи маски подсети.
+# 28923
+#F=(x∧¬z∧¬w)∨(x∧¬z∧y)
 '''
-from ipaddress import*
-for mask in range(33):
-    net = ip_network(f'111.91.200.28/{mask}',0)
-    if '111.91.192.0' in str(net):
-        print(32 - mask)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (x and (not z) and (not w)) or (x and (not z) and y)  # +
+                if F == 1:
+                    print(x, y, z, w)
 '''
 
 
-
-from itertools import permutations
-t = '12 14 17 21 24 28 34 36 37 41 42 43 56 58 63 65 68 71 73 82 85 86'
-g = 'AC CA AH HA AE EA ED DE EG GE DG GD GF FG FC CF FB BF BH HB CH HC'
-for per in permutations('ABCDEFGH'):
-    new_table = t
-    for i in range(1, 8+1):
-        new_table = new_table.replace(str(i), per[i-1])
-    if set(new_table.split())== set(g.split()):
-        print(*per)
-
-
+# #28750
+#F=(w≡z)∨¬(y→w)∨¬x
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = (w==z) or (not(y<=w)) or (not x)  # +
+                if F == 0:
+                    print(x, y, z, w)
 
 
 # endregion Урок: *************************************************************

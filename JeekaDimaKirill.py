@@ -6,83 +6,23 @@
 # #
 # region Урок: ********************************************************************
 
-# максимальное количество идущих подряд символов,
-# среди которых пара символов BC встречается ровно 3 раза.
-'''
-s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
-# ['xxxx', 'xxxx', 'xxxxx', 'xxxx', 'xxxxxxxxxx', 'xxxxx', 'xxxxxx']
-s = s.split('BC')
-R = []
-for i in range(len(s)-3):
-    r = 'C' + 'BC'.join(s[i:i+4]) + 'B'
-    R.append(len(r))
-print(max(R))
-'''
+# Администратор/Грузоперевозки: =ЕСЛИ(B2<$E$1;1;"")
+# Задачи: 24 2944 1275 1395 27636 1304 1207 788 225
 
-# минимальное количество идущих подряд символов,
-# среди которых пара символов BC встречается ровно 3 раза.
-'''
-s = 'xxxxBCxxxxBCxxxxxBCxxxxBCxxxxxxxxxxBCxxxxxBCxxxxxx'
-s = s.split('BC')
-R = []
-for i in range(len(s) - 1):
-    r = 'BC' + 'BC'.join(s[i:i+2]) + 'BC'
-    R.append(len(r))
-print(max(R))
-'''
+# Коржи/Коробки: =ЕСЛИ(B1-A2>=8;A2;B1)
+# Задачи: 27779 21910 16335 21424 7096 4712 4604
 
+# Магазин
+# Задачи: 2614, 954, 507, 17643
 
-# № 27634 Апробация 04.03.26 (Уровень: Базовый)
-'''
-s = open('files/24.txt').readline()
-s = s.split('Z')
-mini = 10 ** 10
-for i in range(len(s)-268):
-    r = 'Z' + 'Z'.join(s[i:i + 269]) + 'Z'
-    mini = min(mini, len(r))
-print(mini)
-'''
+# Распределение мест  =ЕСЛИ(И(A2=A1;B2-B1=3);B2-2;"")
+# Задачи: 1868, 2613, 7274, 3664, 3586, 3230, 4205
 
+# Очередь в кассу
+# Задачи: 6759  4629
 
-# № 28943 ЕГКР 18.04.26 (Уровень: Базовый)
-'''
-s = open('24_28943.txt').readline()
-for x in 'AEYUIO':
-    s = s.replace(x, '-')
-mini = 10 ** 10
-r = ''
-for i in range(len(s)):
-    r += s[i]
-    if r.count('-') == 1 and r[-1] == '-':
-        while r.count('20') >= 26:
-            if r.count('20') == 26:
-                mini = min(mini, len(r))
-            r = r[1:]
-        r = ''
-print(mini)#Answer: 58
-'''
-
-'''
-s = open('files/24.txt').readline()
-for x in 'AEIOUY':
-    s = s.replace(x, 'A')
-s = s.split('20')
-mini = 10**10
-for i in range(len(s)-24):
-    r = '20' + '20'.join(s[i:i+25]) + '20'
-    if r.count('A') == 1 and r[-3] == 'A':
-        mini = min(mini, len(r))
-print(mini)
-
-
-from re import *
-s = open("files/24.txt").readline().replace("20", "##")
-pat = "(((##)[0123456789BCDFGHJKLMNPQRSTVWXY]*){26}[AEIOUY])"
-M = [x.group(1) for x in finditer(pat, s)]
-print(min([len(x) for x in M]))
-'''
-
-
+# Организация сортировки
+# Задачи:
 
 
 # endregion Урок: *************************************************************
