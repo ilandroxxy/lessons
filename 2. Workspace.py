@@ -10,6 +10,7 @@
 
 '''
 import turtle
+from os.path import split
 from traceback import print_tb
 from zoneinfo import reset_tzpath
 
@@ -2208,22 +2209,550 @@ for n in range(4, 10000):
 # минимально возможное целое число байт. Все символы идентификаторов кодируются одинаковым
 # и минимально возможным количеством бит.
 
-# Определите объём памяти (в Кбайт), необходимый для хранения 21 504 идентификаторов.
-# В ответе запишите только целое число — количество Кбайт.
+
+
+
+
+# 6, 12, 19-21, 18, 24, 25
+
 '''
-sym = 11
-alp = 9540
-i = 14  # из alp
+from functools import lru_cache
 
-bit = sym * i
-print(bit / 8)
-byte = 20
+TARGET = 73
 
-print((byte * 21504) / 2 ** 10)
+
+@lru_cache(None)
+def game(s):
+    if s >= TARGET: return 0
+    moves = [s + 1, s * 2]
+
+    win_moves = [game(next_s) for next_s in moves if game(next_s) % 2 != 0]
+    if win_moves: return min(win_moves) + 1
+    return max([game(next_s) for next_s in moves]) + 1
+
+
+print("Ответ 19:", [s for s in range(1, 73) if game(s) == 2])
 '''
 
-alp = 17 + 10
-i = 5
 
-byte = 31 * 2 ** 20 / 7_564_230
-print(byte)  # 4.297311
+
+# № 29353 Открытый вариант 2026 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Умножить на 2
+# C. Умножить на 3
+# Сколько существует программ, для которых при исходном числе 2 результатом
+# является 39 и при этом траектория вычислений не содержит числа 14?
+'''
+def F(a, b):
+    if a >= b or a == 14:
+        return a == b
+    return F(a+1, b) + F(a*2, b) + F(a*3, b)
+
+print(F(2, 39))
+
+
+def F(a, b):
+    if a > b or a == 14:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        h = [F(a+1, b), F(a*2, b), F(a*3, b)]
+        return sum(h)
+
+print(F(2, 39))
+'''
+
+# № 28940 ЕГКР 18.04.26 (Уровень: Базовый)
+# 1 куча: +1, +5, *3 | s >= 124 | 1 <= s <= 123
+
+# s - это кол-во камней в куче, которое мы ищем
+
+# n - это шаг нашей игры
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+'''
+def F(s, n):
+    if s >= 124:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n - 1), F(s + 5, n - 1), F(s * 3, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(1, 123+1) if F(s, n=2)])
+print(20, [s for s in range(1, 123+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 25358 ЕГКР 13.12.25 (Уровень: Базовый)
+# 1 куча: +2, +4, *2 | s >= 125 | 1 <= x <= 124
+'''
+def F(s, n):
+    if s >= 125:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 2, n - 1), F(s + 4, n - 1), F(s * 2, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(1, 124+1) if F(s, n=2)])
+print(20, [s for s in range(1, 124+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 124+1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+# № 23759 Демоверсия 2026 (Уровень: Базовый)
+# 1 куча: -3, -5, /4 меньшего | s <= 30 | s >= 31
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 30:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(s - 5, n - 1), F(floor(s / 4), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(31, 1000) if F(s, n=2)])
+print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# T = ((2,2), (5,9), (7,-12), (5,5), (2,12), (-10,-13), (-11,11), (1,4), (2, 6))  # tuple (кортеж)
+
+'''
+L = [(2,2), (5,9), (7,-12), (5,5), (2,12), (-10,-13), (-11,11), (1,4), (2, 6)]  # list (список)
+
+cnt = 0
+for p in L:
+    s, k = p
+    # s = int(input())
+    # k = int(input())
+    if s < 5 or k < 5:
+        print("ДА")
+        cnt += 1
+    else:
+        print("НЕТ")
+print(cnt)
+'''
+
+'''
+L = [(13, 2), (11, 12), (-12, 12), (2, -2), (-10, -10), (6, -5), (2, 8), (9, 10), (1, 13)]
+
+for A in range(-20, 20):
+    cnt = 0
+    for p in L:
+        s, t = p
+        if (s > A) or t > 12:
+            # print("YES")
+            cnt += 1
+        else:
+            # print("NO")
+            pass
+    if cnt == 4:
+        print(A)
+        break
+'''
+
+
+
+
+# Напишите программу, которая в последовательности целых чисел определяет
+# количество нечетных чисел, кратных 3. Программа получает на вход целые
+# числа, количество введенных чисел неизвестно, последовательность чисел
+# заканчивается числом 0 (0—признак окончания ввода, не входит в последовательность).
+# Количество чисел не превышает 1000. Введенные числа по модулю не превышают 30 000.
+# Программа должна вывести два числа: длину последовательности (завершающий 0 не учитывается)
+# и количество нечетных чисел, кратных 3.
+'''
+print(123 % 10)  # 3
+print(123 % 100)  # 23
+
+print(-123 % 10)  # 7
+print(-123 % 100)  # 7
+
+n = 7
+print(n % 4 == 3)  # True
+print(-n % 4 == 3)  # False
+
+A = int(input())
+cnt = 0
+k = 0
+while A != 0:
+    k += 1
+    if abs(A) % 3 == 0 and abs(A) % 2 != 0:
+        cnt += 1
+    A = int(input())
+
+print(k, cnt)
+'''
+
+'''
+name = input('Введите имя: ')
+print(f'Привет, {name}')
+'''
+
+'''
+s = '3324234'
+print(s[0])  # 3
+print(s[-1])  # 4
+print(s[2:5])  # 242
+
+
+n = 8
+print(bin(n)[2:])  # 1000 - двоичная система
+print(oct(n)[2:])  # 10 - восмеричная система
+print(hex(n)[2:])  # 8 - шестнадцатеричная система
+
+print(f'{n:b}')  # 1000 - двоичная система
+print(f'{n:o}')  # 10 - восмеричная система
+print(f'{n:x}')  # 8 - шестнадцатеричная система
+
+
+# Встроенная функция для перевода в 10-ную систему
+print(int('1000', 2))  # 8
+print(int('10', 8))  # 8
+print(int('8', 16))  # 8
+print(int('1000', 3))  # 8
+print(int('1000', 5))  # 8
+# ValueError: int() base must be >= 2 and <= 36, or 0
+'''
+
+'''
+n = 10**8
+print(hex(n)[2:].upper())  # 5F5E100
+print(f'{n:X}')  # 5F5E100
+print(f'{n:x}')  # 5f5e100
+
+
+A = int(input())
+cnt = 0
+while A != 0:
+    A16 = f'{A:X}'
+    if len(A16) == 3:
+        if A16[-1] == 'C':
+            cnt += 1
+    A = int(input())
+print(cnt)
+'''
+
+'''
+summa = 0
+n = int(input())
+for _ in range(n):
+    x = int(input())
+    if x % 7 == 1:
+        summa += x
+print(summa)
+'''
+'''
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += alp[n % b]
+        n //= b
+    return r[::-1]
+
+n = 10**8
+print(hex(n)[2:].upper())  # 5F5E100
+print(f'{n:X}')  # 5F5E100
+print(f'{n:x}')  # 5f5e100
+print(convert(n, 16))  # 5F5E100
+
+summa = 0
+n = int(input())
+for _ in range(n):
+    x = int(input())
+    x7 = convert(x, 7)
+    if x7[-1] == '1':
+        summa += x
+print(summa)
+'''
+
+# Екатеренбург
+# Бердск
+# Томск
+# Омск
+# Барнаул
+# Иркутск
+# Карсноярск
+
+
+
+# 23, 22, 19-21, 18, 16, 15, 14, 13, 12, 11, 10, 7, 6, 4, 3, 2, 1
+
+
+# № 29974 Апробация 14.05.26 (Уровень: Базовый)
+# 1 куча: -3, -7, /4 до меньшего | s <= 15 | s > 15
+
+# s - это кол-во камней в куче, то есть то, что мы ищем
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 15:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(s - 7, n - 1), F(floor(s / 4), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(16, 1000) if F(s, n=2)])
+print(20, [s for s in range(16, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(16, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+# 1 куча: -3, -7, /4 до меньшего | s <= 15 | s > 15
+
+
+# № 28940 ЕГКР 18.04.26 (Уровень: Базовый)
+# 1 куча: +1, +5, *3 | s >= 124 | 1 <= s <= 123
+'''
+def F(s, n):
+    if s >= 124:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n - 1), F(s + 5, n - 1), F(s * 3, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(1, 123+1) if F(s, n=2)])
+print(20, [s for s in range(1, 123+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+# № 29351 Открытый вариант 2026 (Уровень: Базовый)
+# 2 кучи: a+4, s+4, a*3, s*3 | a + s >= 154 | a = 11 | 1 <= s <= 142
+'''
+def F(a, s, n):
+    if a + s >= 154:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a+4, s, n - 1), F(a, s+4, n - 1), F(a*3, s, n - 1), F(a, s*3, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s for s in range(1, 142+1) if F(11, s, n=2)])
+print(20, [s for s in range(1, 142+1) if F(11, s, n=3) and not F(11, s, n=1)])
+print(21, [s for s in range(1, 142+1) if F(11, s, n=4) and not F(11, s, n=2)])
+'''
+
+
+
+# № 9778 Основная волна 20.06.23 (Уровень: Средний)
+'''
+n = 0
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    n += 1
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied2 = [x for x in M if M.count(x) == 2]
+    if len(copied2) == 2 and len(copied1) == 4:
+        if copied2[0] >= sum(copied1) / len(copied1):
+            print(n)
+            break
+'''
+
+
+
+
+
+
+# x - ?
+'''
+alp = 510 + 10
+i = 10
+
+# bit = x * i
+
+
+byte = 9379 * 2**20 / 18_982_657
+print(byte)  # 518.08312 -> 519
+
+bit = 519 * 8
+
+x = bit / i
+print(x)  # 415.2
+'''
+
+
+'''
+i = 9
+print(2 ** 9)  # - максимальная мощность при i = 9
+
+print(2 ** 8 + 1)  # - минимальная мощность при i = 9
+
+
+alp = 256  # i = 8  # - максимальная мощность при i = 8
+
+alp = 200  # i = 8
+
+alp = 129 # i = 8  # - минимальная мощность при i = 8
+alp = 128  # i = 7
+'''
+
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return D <= (((not C) and (not A)) <= (not D))
+
+R = []
+M = [x / 10 for x in range(5 * 10, 120 * 10)]
+print(M)
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+
+'''
+def F(x, a1, a2):
+    D = 290 <= x <= 575
+    C = 130 <= x <= 480
+    B = 32 <= x <= 425
+    A = a1 <= x <= a2
+    return (C <= ((not D))) and A and ((not B))
+
+R = []
+M = [x / 4 for x in range(30 * 4, 600 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(not F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+
+
+'''
+from math import ceil, floor
+def F(s, k):
+    if s <= 15:
+        return k % 2 == 0
+    if k == 0:
+        return 0
+    q = [F(s - 3, k-1), F(s - 7, k-1), F(floor(s / 4), k-1)]
+    return any(q) if (k-1) % 2 == 0 else all(q)
+
+
+print([s for s in range(16, 1000) if F(s, 2)])
+print([s for s in range(16, 1000) if F(s, 3) and not F(s, 1)])
+print([s for s in range(16, 1000) if F(s, 4) and not F(s, 2)])
+'''
+
+
+
+# № 31227 Резерв 22.06.26 (Уровень: Базовый)
+# 2 кучи: a-3, s-3, a/3, s/3 | a + s <= 53 | a = 19 | s >= 35
+'''
+from math import ceil, floor
+def F(a, s, k):
+    if a + s <= 53:
+        return k % 2 == 0
+    if k == 0:
+        return 0
+    q = [F(a-3, s, k-1), F(a, s-3, k-1), F(a // 3, s, k-1), F(a, s // 3, k-1)]
+    return any(q) if (k-1) % 2 == 0 else all(q)
+    return any(q) if (k-1) % 2 == 0 else any(q)
+
+print([s for s in range(35, 1000) if F(19, s, 2)])
+print([s for s in range(35, 1000) if F(19, s, 3) and not F(19, s, 1)])
+print([s for s in range(35, 1000) if F(19, s, 4) and not F(19, s, 2)])
+'''
+
+# Вариант номер 1: ака 17 номер
+'''
+s = open('files/24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if s[i] not in 'AE' and s[i+1] not in 'AE':
+        cnt += 1
+    else:
+        maxi = max(maxi, cnt)
+        cnt = 1
+print(maxi)
+
+# Вариант номер 2: через замены .replace() и .split() разбиение
+
+s = open('files/24.txt').readline()
+s = s.replace('A', ' ').replace('E', ' ')
+print(max([len(x) for x in s.split()]))
+
+
+# Вариант номер 3:
+
+from re import *
+s = open('files/24.txt').readline()
+pat = '[0-9BCDF]+'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]))
+'''
+
+
+# № 17563 Основная волна 08.06.24 (Уровень: Сложный)
+'''
+from re import *
+s = open('files/24.txt').readline()
+pat = '[789][0789]*([-*]([789][0789]*|[0]))*'
+M = [x.group(0) for x in finditer(pat, s)]
+print(M)
+print(max([len(x) for x in M]))
+'''
+
+# '709*9*8-8'
+# '709*9*0-8'
+
+
+
+
+
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div.append(j)
+            div.append(x // j)
+    return sorted(set(div))
+
+print(divisors(24))
+
+# 9 = 3 * 3
+cnt = 0
+from itertools import product
+for x in range(800_000+1, 10**10):
+    d = [j for j in divisors(x) if len(divisors(j)) == 0]
+    if len(d) > 0:
+        #        3  *   3  == 9
+        if any(p[0] * p[1] == x for p in product(d, repeat=2)):
+            M = min(d) + max(d)
+            if M % 10 == 4:
+                print(x, M)
+                cnt += 1
+                if cnt == 5:
+                    break
+
+# for p in product('123', repeat=5):
+#     print(p)
+
+# for p in permutations('123', r=3):
+#     print(p)

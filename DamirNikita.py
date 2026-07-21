@@ -6,21 +6,11 @@
 # #
 # region Урок: ********************************************************************
 
-# № 29337 Открытый вариант 2026 (Уровень: Базовый)
-
-for n in range(1, 10000):
-    # n2 = bin(n)[2:]
-    n2 = f'{n:b}'
-    summa = sum(map(int, n2))
-    if summa % 2 == 0:
-        n2 = '10' + n2[2:] + '0'
-    else:
-        n2 = '11' + n2[2:] + '1'
-    r = int(n2, 2)
-    if r <= 19:
-        print(n)
 
 
+from itertools import permutations
+table = '12 15 18 21 27 35 36 46 48 51 53 58 63 64 67 72 76 81 84 85'
+graph = 'AD DA AG GA AC CA GE EG EF FE FH HF HB BH HD DH'
 
 
 
