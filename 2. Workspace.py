@@ -2756,3 +2756,45 @@ for x in range(800_000+1, 10**10):
 
 # for p in permutations('123', r=3):
 #     print(p)
+
+
+
+k = 0
+while True:
+    k += 5  # k = k + 1
+    if k == 100_000:
+        break
+    print(k)
+
+'''
+n = 0
+while n < 10:
+    n += 1
+    print(n)
+
+print('Продолжение программы')
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
