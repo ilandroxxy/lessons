@@ -1,89 +1,39 @@
 
-# int(), str(), float()
+# Команды математической логики на python
+# ¬x         |    (not x)
+# x ∧ y      |    x and y
+# x ∨ y      |    x or y
+# x → y      |    x <= y
+# x ≡ y      |    x == y
+
+
+# ¬(x ∧ y)                  |   (not(x and y))
+# (w ≡ z) ∧ y               |   (w == z) and y
+# ¬(x → w)                  |   (not(x <= w))
+# ((z → x) → (x ≡ y)) ∨ ¬w  |  ((z <= x) <= (x == y)) or (not w)
+
+
+# № 31499 Демоверсия 2027(Уровень: Базовый)
 '''
-n = int(input())
-n = str(n)
-print(max(n))
-print(min(n))
-'''
-
-
-# print(min(23,432,4 ,3245,34,543,5))
-
-# https://stepik.org/lesson/1309434/step/8?unit=1324550
-'''
-n = int(input())
-maxi, mini = 0, 10**8
-while n > 0:
-    ostat = n % 10
-
-    if ostat > maxi:
-        maxi = ostat
-
-    mini = min(mini, ostat)
-
-    n //= 10
-print(maxi)
-print(mini)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((x == (not y)) <= (not(w <= x))) or (not z)
+                if F == 0:
+                    print(x, y, z, w)
 '''
 
+
+# № 31109 Основная волна 18.06.26(Уровень: Базовый)
 '''
-n = int(input())  # 897236
-cnt2 = 0
-cnt1 = 0
-while n > 0:
-    x = n % 10
-
-    if x % 2 == 0:
-        cnt2 += 1
-    else:
-        cnt1 += 1
-
-    n //= 10
-
-print(cnt2)
-print(cnt1)
+print('x y z w')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = ((w == (not x)) <= (not(z <= w))) or (not y)
+                if F == 0:
+                    print(x, y, z, w)
 '''
-
-# https://stepik.org/lesson/1309434/step/10?unit=1324550
-'''
-n = int(input())
-cnt1, cnt2 = 0, 0
-for i in range(n):
-    x = int(input())
-    if x % 2 == 0:
-        cnt2 += 1
-    else:
-        cnt1 += 1
-print(cnt2)
-print(cnt1)
-'''
-
-# https://stepik.org/lesson/1309435/step/10?unit=1324551
-'''
-summa = 0
-n = int(input())  # 220000004
-for j in range(1, n+1):
-    if n % j == 0:
-        summa += j
-print(summa)
-'''
-
-'''
-a = int(input())
-b = int(input())
-for n in range(a, b+1):
-    cnt = 0
-    for j in range(1, n+1):
-        if n % j == 0:
-            cnt += 1
-    if cnt == 2:
-        print(n)
-'''
-
-# -2 -1 0 1 2 3 4 - целые числа
-# 1 2 3 4 5 6 7 8 - натуральные
-# 2 3 5 7 11 13 - простые числа
-
-
-# https://stepik.org/lesson/1309434/step/10?unit=1324550

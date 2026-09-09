@@ -2724,77 +2724,77 @@ print(max([len(x) for x in M]))
 
 
 
+# a = 2
+# b = 16000
+# c = 16
+# t = 54
+# I = a * b * c * t
+#
+#
+# a2 = 2
+# b2 = 48000
+# c2 = 16
+# t2 = 54
+# I2 = a2 * b2 * c2 * t2
+#
+# print(I2 / I)
 
 
-def divisors(x):
-    div = []
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            div.append(j)
-            div.append(x // j)
-    return sorted(set(div))
+# def F(x, y, A):
+#     return (x * y < A) or (6 * x < y) or (59 <= x)
+#
+# for A in range(0, 30000):
+#     if all(F(x, y, A) for x in range(0, 100) for y in range(0, 400)):
+#         print(A)
+#         break
 
-print(divisors(24))
 
-# 9 = 3 * 3
+# Требование «для любого» означает, что в указанной области не должно
+# существовать ни одного набора значений, на котором выражение ложно.
+# Поэтому выделим только те значения, где остальные части формулы не
+# гарантируют истину. Третья часть может быть ложна только при 0 ≤ x < 59;
+# вторая — только при 0 ≤ y ≤ 6x. На этой конечной области нужно
+# обеспечить x · y < A. Максимальное произведение достигается при x = 58,
+# y = 348 и равно 58 · 348 = 20184. Поэтому минимальное целое A равно 20185.
+#
+# Ответ: 20185.
+
+'''
+from functools import *
+@lru_cache(None)
+
+def F(n):
+    if n == 1:
+        return 9
+    if n == 2:
+        return 1
+    if n == 3:
+        return 5
+    if n > 3 and n % 2 == 0:
+        return F(n - 1) + F(n / 2) + 2 * n + 3
+    if n > 3 and n % 2 != 0:
+        return F(n - 2) + 2 * F(n - 3) + 2 * n + 3
+
 cnt = 0
-from itertools import product
-for x in range(800_000+1, 10**10):
-    d = [j for j in divisors(x) if len(divisors(j)) == 0]
-    if len(d) > 0:
-        #        3  *   3  == 9
-        if any(p[0] * p[1] == x for p in product(d, repeat=2)):
-            M = min(d) + max(d)
-            if M % 10 == 4:
-                print(x, M)
-                cnt += 1
-                if cnt == 5:
-                    break
-
-# for p in product('123', repeat=5):
-#     print(p)
-
-# for p in permutations('123', r=3):
-#     print(p)
+for n in range(1, 1557+1):
+    if F(n) % 17 == 0:
+        cnt += 1
+print(cnt)
 
 
 
-k = 0
-while True:
-    k += 5  # k = k + 1
-    if k == 100_000:
-        break
-    print(k)
 
+m, last = 17, 1557
+f = [0, 9, 1, 5]
+f += [0] * (last - 3)
+for n in range(4, last + 1):
+    if n % 2 == 0:
+        f[n] = (f[n-1] + f[n//2] + 2*n + 3) % m
+    else:
+        f[n] = (f[n-2] + 2*f[n-3] + 2*n + 3) % m
+answer = sum(f[n] == 0 for n in range(1, last + 1))
+print(answer)
 '''
-n = 0
-while n < 10:
-    n += 1
-    print(n)
-
-print('Продолжение программы')
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
