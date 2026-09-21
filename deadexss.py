@@ -1,193 +1,149 @@
 
 
 
-print(4 + 4)
 
-a = 4
-b = 4
-print(a + b)
 
-# - это однострочный комментарий
-
+# Напишите программу, которая запрашивает у пользователя
+# три числа и выводит следующие арифметические операции:
+# разность первого и второго чисел, сумму первого и третьего числа,
+# остаток от деления первого числа на второе. Результаты каждой
+# операции должны быть выведены на экран, каждое на отдельной строке.
 '''
-# - это многострочный комментарий 
-'''
-
-
-# Типы данных переменных
-'''
-a = 5  # int (integer) - целочисленные значения
-print(4 + 4, type(4 + 4))  # 8 <class 'int'>
-
-b = 5.0  # float (число с плавающей точкой) - вещественное значение
-print(4 / 2, type(4 / 2))  # 2.0 <class 'float'>
-
-c = '5'  # str (string) - строковый тип данных для храения текста и символов
-print(a, c)  # 5 5
-print(a * 4, c * 4)  # 20 5555
-print('Hello ' * 4)  # Hello Hello Hello Hello - если строку умножать на целое число, то она дублируется
-
-c1 = 'Hello, '
-c2 = 'world!'
-c = c1 + c2
-print(c)  # Hello, world! - операция конкатенации строк (склеивание)
-
-# print('45345' + 4)
-# TypeError: can only concatenate str (not "int") to str
-
-d1 = True  # bool (Boolean) - основый Булевой алгебры / Математической логики
-d0 = False
-print(4 < 10)  # True
-print(4 > 10)  # False
+a = int(input())
+b = int(input())
+c = int(input())
+print(a - b)
+print(a + c)
+print(a % b)
 '''
 
-
-# Типы данных коллекций / последовательностей
 '''
-M = [1, 2, 2, 3, 3, 3]  # массивов в Pyrhon нет!
-
-
-L = [1, 2, 2, 3, 3, 3]  # list (список)
-# 1. Могут хранить неограниченное кол-во элементов
-# 2. Элементы могут иметь различные типы данных (в отличе от массивов)
-# 3. Каждый элемент имеет свой порядковый номер - индекс
-# 4. Индексы могут считаться слева-направо начиная с 0 или справа-налево начиная с -1
-# 5. Элементы списка можно изменять через индексы
-
-# i   0    1    2    3    4
-N = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(f'Первый элемент списка N: {N[0]}')
-print(f'Последний элемент списка N: {N[4]}')
-print(f'Последний элемент списка N: {N[-1]}')
-
-A = [2, '2', 2.5, True, [1, 2, 3]]
-for x in A:
-    print(type(x), x)
-    # <class 'int'> 2
-    # <class 'str'> 2
-    # <class 'float'> 2.5
-    # <class 'bool'> True
-    # <class 'list'> [1, 2, 3]
-
-N[0], N[-1] = N[-1], N[0]
-print(N)  # ['e', 'b', 'c', 'd', 'a']
-
-N[0], N[-1] = 'A', 'E'
-print(N)  # ['A', 'b', 'c', 'd', 'E']
-
-
-T = (1, 2, 2, 3, 3, 3)  # tuple (кортеж)
-# 1. Незльзя именять элементы, а в остальном идентичный спискам
-
-S = {1, 2, 2, 3, 3, 3}  # set (множество)
-# 1. Не могут хранить копии элементов
-print(S)  # {1, 2, 3}
+a = int(input())
+V = a * a * a
+S = 6 * a ** 2
+print(V)
+print(S)
 '''
 
 
 
-# Конвертация типов данных
+# Как подключаются библиотеки
 '''
-a = 5
-print(type(a), a)  # <class 'int'> 5
-
-a = str(a)
-print(type(a), a)  # <class 'str'> 5
-
-a = float(a)
-print(type(a), a)  # <class 'float'> 5.0
-
-a = int(a)
-print(type(a), a)  # <class 'int'> 5
+import math
+print(math.sqrt(16))  # 4.0
+print(math.factorial(5))
+print(math.prod([1, 2, 3, 4]))
 
 
-# s = '548ju3.7 9'
-# s = int(s)
-# print(type(s), s)
-# ValueError: invalid literal for int() with base 10: '548ju3.7 9'
+import math as m  # Подключение библиотеки с кортким именем (меняем название библиотеки)
+print(m.sqrt(16))
+print(m.factorial(5))
 
 
+from math import sqrt, factorial, prod  # Подключили только необходимые функции из библиотеки
+print(sqrt(16))
+print(factorial(5))
 
-A = [1, 2, 2, 3, 3, 3]
-print(type(A), A)  # <class 'list'> [1, 2, 2, 3, 3, 3]
 
-A = tuple(A)
-print(type(A), A)  # <class 'tuple'> (1, 2, 2, 3, 3, 3)
-
-A = set(A)
-print(type(A), A)  # <class 'set'> {1, 2, 3}
-
-A = list(A)
-print(type(A), A)  # <class 'list'> [1, 2, 3]
+from math import *  # Подключение сразу всего содержимого библиотеки
+print(sqrt(16))
+print(factorial(5))
+print(prod([1, 2, 3, 4, 5]))
 '''
 
 
-# Ввод данных с клавиатуры
+# 🔥 Очень полезные библиотеки Python для ЕГЭ по информатике #tpy
+
+# 🐢  turtle -- для графики (№6)
 '''
-name = input('Введите имя пользователя: ')
-print(f'Пользователя зовут: {name}')
-
-age = int(input('Введите возраст пользователя: '))
-print(f'Возраст пользователя: {age}')
-'''
-
-
-# Пример работы и использования f-строк
-'''
-name = input('Введите имя пользователя: ')
-weather = 'облачно'
-temperature = int(input('Введите температуру воздуха: '))
-# Привет, name! Сегодня weather, а температура temperature градусов.
-
-print('Привет, ', name, '! Сегодня ', weather, ', а температура ', temperature, ' градусов.')
-print(f'Привет, {name}! Сегодня {weather}, а температура {temperature} градусов.')
+from turtle import *
+tracer(0)
+fd(100)
+rt(90)
+goto(50, 30)
+dot(5, 'red')
+done()
 '''
 
 
-# Базовая арифметика в Python
+# 🔄 itertools -- для комбинаторики (№1, 8, 9, 12, 24)
+# Для этого модуля лучше импортировать только нужные функции, чтобы код оставался понятным.
+'''
+from itertools import product, permutations
 
-a, b = 7, 2
+for combo in product([1, 2, 3], repeat=2):
+    print(combo)
+    # (1, 1)
+    # (1, 2)
+    # (1, 3)
+    # (2, 1)
+    # (2, 2)
+    # (2, 3)
+    # (3, 1)
+    # (3, 2)
+    # (3, 3)
 
-print(f'{a} + {b} = {a + b} \n'  # \n - перехд на новую строку 
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b}')
-
-print()  # В каждой функции print() есть переход на новую строку \n
-
-print(f'{a} / {b} = {a / b}')  # 3.5 - обыкновенное вещественное деление (результат всегда float)
-print(f'{a} // {b} = {a // b}')  # 3 - взятие только целой части от деления
-print(f'{a} % {b} = {a % b}') # 1 - взятие остатка от деления
-
-
-n = 123
-print(n // 10)  # 12
-print(n % 10)  # 3 - взятие последней цифры
-print(n % 100)  # 23 - взятие двух последних цифр
-
-
-print(n % 2 == 0)  # - проверка, что число делится на 2
-print(n % 2 != 0)  # - проверка, что число не делится на 2
-print(n % 2 == 1)  # - проверка, что число не делится на 2
-
-m = 2378
-print(m % 10)  # 8
-
-
-# Вовзедение степеней и взятие корней
-
-print(2 ** 5)  # 32
-print(2 ** 4)  # 16
-print(2 ** 3)  # 8
-
-print(16 ** (1 / 2))  # 4.0
-print(27 ** (1 / 3))  # 3.0
+for perm in permutations('abc'):
+    print(''.join(perm))
+    # abc
+    # acb
+    # bac
+    # bca
+    # cab
+    # cba
+'''
 
 
-# На след. уроке проговорить теорию множеств, условные операторы, библиотеки
+# 🌐  ipaddress -- для сетей (№13)
+'''
+from ipaddress import ip_network
+
+net = ip_network('192.168.1.64/26', strict=False)
+print(net, net.netmask, net.num_addresses)
+'''
 
 
+# 🤔 sys + functools -- для рекурсии (№16)
+'''
+from sys import setrecursionlimit
+setrecursionlimit(10000)
+
+from functools import lru_cache
+
+@lru_cache(None)
+def F(n):
+    if n <= 3:
+        return n
+    return F(n - 1) + F(n - 3)
+'''
+
+
+# 🎭  fnmatch -- для поиска по маске (№25)
+'''
+from fnmatch import fnmatch
+
+if fnmatch('12345', '12?45'):
+    print('Подходит')
+'''
+
+
+# 🔤 string -- готовые алфавиты
+'''
+from string import ascii_uppercase, digits, punctuation
+
+print(ascii_uppercase)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
+print(digits)           # 0123456789
+print(punctuation)      # !"#$%&'()*+,-./:;<=>?@[|}~
+'''
+
+#  🔣  math -- математические функции
+'''
+from math import *
+
+print(sqrt(225))    # 15.0
+print(ceil(7 / 2))  # 4
+print(factorial(5)) # 120
+'''
 
 
 
