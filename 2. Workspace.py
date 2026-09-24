@@ -2866,6 +2866,48 @@ L = [1, 2.0, '4', [1, 2, 3]]
 
 
 
+#
+# № 29974 Апробация 14.05.26(Уровень: Базовый)
+# 1 куча: -3  -7  /4 (меньшего) | s <= 15 | s > 15
+
+# s - кол-во камней в куче
+# n - это шаг нашей игры
+
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+
+from math import floor, ceil
+def F(s, n):
+    if s <= 15:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n-1), F(s - 7, n-1), F(floor(s / 4), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print(19, [s for s in range(16, 1000) if F(s, n=2)])
+print(20, [s for s in range(16, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(16, 1000) if F(s, n=4) and not F(s, n=2)])
+
+
+
+# № 28940 ЕГКР 18.04.26(Уровень: Базовый)
+# 1 куча: +1, +5, *3 | s >= 124 | 1 <= s <= 123
+
+def F(s, n):
+    if s >= 124:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 1, n-1), F(s + 5, n-1), F(s * 3, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print(19, [s for s in range(1, 123+1) if F(s, n=2)])
+print(20, [s for s in range(1, 123+1) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
+
 
 
 
