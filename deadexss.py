@@ -3,151 +3,98 @@
 
 
 
-# Напишите программу, которая запрашивает у пользователя
-# три числа и выводит следующие арифметические операции:
-# разность первого и второго чисел, сумму первого и третьего числа,
-# остаток от деления первого числа на второе. Результаты каждой
-# операции должны быть выведены на экран, каждое на отдельной строке.
+# Условные операторы: if, elif, else
 '''
-a = int(input())
-b = int(input())
-c = int(input())
-print(a - b)
-print(a + c)
-print(a % b)
+n = int(input('n: '))
+if n > 0:  # если
+    print('Положительное число')
+elif n == 0:  # иначе если
+    print('Равно нулю')
+else:  # иначе
+    print('Отрицательное число')
 '''
 
 '''
-a = int(input())
-V = a * a * a
-S = 6 * a ** 2
-print(V)
-print(S)
+# x = int(input('x: '))
+# y = int(input('y: '))
+x, y = 5, 6
+
+if x > 0 and y > 0:
+    print('Первая четверть')
+elif x < 0 and y > 0:
+    print('Вторая четверть')
+elif x < 0 and y < 0:
+    print('Третья четверть')
+elif x > 0 and y < 0:
+    print('Четвертая четверть')
+else:
+    print('Число лежит на осях')
+print('Конец выполнения программы')
 '''
 
 
-
-# Как подключаются библиотеки
+# Логические связки: and, or, not, in, not in, ==, !=
 '''
-import math
-print(math.sqrt(16))  # 4.0
-print(math.factorial(5))
-print(math.prod([1, 2, 3, 4]))
+print(4 == 4)  # True
+print(4 != 4)  # False
+
+print(4 == 10)  # False
+print(4 != 10)  # True
+
+print(72 % 2 == 0)  # True - число делится на 2
+print(73 % 2 == 0)  # False - число не делится на 2
 
 
-import math as m  # Подключение библиотеки с кортким именем (меняем название библиотеки)
-print(m.sqrt(16))
-print(m.factorial(5))
+print(True + True + False + True)  # 3
+
+a, b, c = 4, 5, 6
+
+if a > 0 and b > 0 and c > 0:
+    print('AND - все условия выполняются')
+if a > 0 or b > 0 or c > 0:
+    print('OR - хотя бы одно условие выполняется')
+
+if (a > 0) + (b > 0) + (c > 0) == 3:
+    print('все условия выполняются')
+if (a > 0) + (b > 0) + (c > 0) == 1:
+    print('Выполняется только одно из условий')
+if (a > 0) + (b > 0) + (c > 0) >= 1:
+    print('хотя бы одно условие выполняется')
+if (a > 0) + (b > 0) + (c > 0) <= 2:
+    print('Не более двух выполняется')
 
 
-from math import sqrt, factorial, prod  # Подключили только необходимые функции из библиотеки
-print(sqrt(16))
-print(factorial(5))
+flag = True
+print(not flag)  # False
+print(not(not flag))  # True
 
 
-from math import *  # Подключение сразу всего содержимого библиотеки
-print(sqrt(16))
-print(factorial(5))
-print(prod([1, 2, 3, 4, 5]))
+s = '334sf165sf561e2'
+for x in s:
+    print(x, end=' ')  # 3 3 4 s f 1 6 5 s f 5 6 1 e 2
+print()
+
+for x in s:
+    if x in '0123456789':
+        print(x, end=' ')  # 3 3 4 1 6 5 5 6 1 2
+print()
+
+
+for x in s:
+    if x not in '0123456789':
+        print(x, end=' ')  # s f s f e
+print()
+
+
+s = '3209482390'
+print([x for x in s])  # ['3', '2', '0', '9', '4', '8', '2', '3', '9', '0']
+# print(sum([x for x in s]))  # TypeError: unsupported operand type(s) for +: 'int' and 'str'
+print([int(x) for x in s])   # [3, 2, 0, 9, 4, 8, 2, 3, 9, 0]
+print(sum([int(x) for x in s]))  # 40
+
+
+s = '320f94s8w23f90'
+# print(sum([int(x) for x in s]))  # ValueError: invalid literal for int() with base 10: 'f'
+print(sum([int(x) for x in s if x in '0123456789']))  # 40
 '''
-
-
-# 🔥 Очень полезные библиотеки Python для ЕГЭ по информатике #tpy
-
-# 🐢  turtle -- для графики (№6)
-'''
-from turtle import *
-tracer(0)
-fd(100)
-rt(90)
-goto(50, 30)
-dot(5, 'red')
-done()
-'''
-
-
-# 🔄 itertools -- для комбинаторики (№1, 8, 9, 12, 24)
-# Для этого модуля лучше импортировать только нужные функции, чтобы код оставался понятным.
-'''
-from itertools import product, permutations
-
-for combo in product([1, 2, 3], repeat=2):
-    print(combo)
-    # (1, 1)
-    # (1, 2)
-    # (1, 3)
-    # (2, 1)
-    # (2, 2)
-    # (2, 3)
-    # (3, 1)
-    # (3, 2)
-    # (3, 3)
-
-for perm in permutations('abc'):
-    print(''.join(perm))
-    # abc
-    # acb
-    # bac
-    # bca
-    # cab
-    # cba
-'''
-
-
-# 🌐  ipaddress -- для сетей (№13)
-'''
-from ipaddress import ip_network
-
-net = ip_network('192.168.1.64/26', strict=False)
-print(net, net.netmask, net.num_addresses)
-'''
-
-
-# 🤔 sys + functools -- для рекурсии (№16)
-'''
-from sys import setrecursionlimit
-setrecursionlimit(10000)
-
-from functools import lru_cache
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n
-    return F(n - 1) + F(n - 3)
-'''
-
-
-# 🎭  fnmatch -- для поиска по маске (№25)
-'''
-from fnmatch import fnmatch
-
-if fnmatch('12345', '12?45'):
-    print('Подходит')
-'''
-
-
-# 🔤 string -- готовые алфавиты
-'''
-from string import ascii_uppercase, digits, punctuation
-
-print(ascii_uppercase)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-print(digits)           # 0123456789
-print(punctuation)      # !"#$%&'()*+,-./:;<=>?@[|}~
-'''
-
-#  🔣  math -- математические функции
-'''
-from math import *
-
-print(sqrt(225))    # 15.0
-print(ceil(7 / 2))  # 4
-print(factorial(5)) # 120
-'''
-
-
-
-
-
-
 

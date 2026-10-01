@@ -1,170 +1,137 @@
 
 
 
-# Типы данных переменных
+# Условные операторы: if, elif, else (ветвление)
 '''
-a = 5  # int (integer) - целочисленные значения
-print(type(a))  # <class 'int'>
+n = int(input('n: '))
+if n > 0:  # если
+    print('Число положительное')
+elif n < 0:  # иначе если
+    print('Число отрицательное')
+else:  # иначе
+    print('Число равно нулю')
+   '''
+from tkinter import image_names
 
-
-b = 5.0  # float (число с плавающей точкой) - вещественные значения (дроби)
-print(4 / 2, type(4 / 2))  # 2.0 <class 'float'>
-
-
-c = '5'  # str (string) - строковый тип данных для хранения текста и символов
-
-print(a, c)  # 5 5
-print(a * 4, c * 4)  # 20 5555
-print('Hello ' * 4)  # Hello Hello Hello Hello  - при умножении строки на число - строка дублируется
-
-c1 = 'Hello, '
-c2 = 'world!'
-c = c1 + c2
-print(c)  # Hello, world! - операция конкатенаиции строк (склеивание)
-
-n = '7' + '2' * 10
-print(n)  # 72222222222
-
-
-d1 = True  # bool (Boolean) - Основы Булевой алгберы / математическая логика
-d0 = False
-print(4 <= 10)  # True
-print(4 == 10)  # False
 '''
-
-
-# Типы данных коллекций / последовательностей
-'''
-L = [1, 2, 2, 3, 3, 3]  # list (список)
-# 1. Могут хранить неограниченное кол-во элементов
-# 2. Элементы могут быть в различных типах данных (в отличие от массивов)
-# 3. Каждый элемент имеет свой порядковый номер - индекс
-# 4. Индексы можно считать слева-направо начиная с 0 или справа-налево начиная с - 1
-# 5. Элементы списка можно изменять через индексы (в отличие от кортежей и множеств)
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-M[0], M[-1] = M[-1], M[0]
-print(M)  # ['e', 'b', 'c', 'd', 'a']
-
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(f'Первый элемент списка М: {M[0]}')
-print(f'Последний элемент списка М: {M[4]}')
-print(f'Последний элемент списка М: {M[-1]}')
-
-M = [2, '2', 2.0, True, [1, 2, 3]]
-for x in M:
-    print(type(x), x)
-    # <class 'int'> 2
-    # <class 'str'> 2
-    # <class 'float'> 2.0
-    # <class 'bool'> True
-    # <class 'list'> [1, 2, 3]
-
-T = (1, 2, 2, 3, 3, 3)  # tuple (кортеж)
-# 1. Изменять элементы кортежа нельзя
-
-S = {1, 2, 2, 3, 3, 3}  # set (множество)
-# 1. Не могут хранить копии элементов, то есть одинаковые элементы удаляются
-print(S)  # {1, 2, 3}
-'''
-
-
-# Конвертация типов данных
-'''
-a = 5
-print(type(a), a)  # <class 'int'> 5
-
-a = str(a)
-print(type(a), a)  # <class 'str'> 5
-
-a = float(a)
-print(type(a), a)  # <class 'float'> 5.0
-
-a = int(a)
-print(type(a), a)  # <class 'int'> 5
-# ValueError: invalid literal for int() with base 10: '24ощушкпоукшщоп   >?<>><'
-
-
-A = [1, 2, 2, 3, 3, 3]
-print(type(A), A)  # <class 'list'> [1, 2, 2, 3, 3, 3]
-
-A = tuple(A)
-print(type(A), A)  # <class 'tuple'> (1, 2, 2, 3, 3, 3)
-
-A = set(A)
-print(type(A), A)  # <class 'set'> {1, 2, 3}
-
-A = list(A)
-print(type(A), A)  # <class 'list'> [1, 2, 3]
-'''
-
-
-
-# Ввод данных с клавиатуры input()
-'''
-age = int(input('Введите возраст: '))
-print(age, type(age))
-
-name = input('Введите имя: ')  # - позволяет ввести строку текста с клавиатуры
-print(f'Имя пользователя: {name}')
-'''
-
-
-# Использование f-строки
-'''
-user = input('Введите имя: ')
-print('Привет, ', user, '!')
-print('Привет, ' + user + '!')
-print('Привет, {}!'.format(user))
-
-print(f'Привет, {user}!')
-'''
-
-
-# Базовая арифметика
-'''
-a, b = 7, 2
-
-print(f'{a} + {b} = {a + b} \n'  # \n - это символ переход на новую строку
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b}')
-
-print()  # В каждой функции print() есть переход на новую строку
-
-print(f'{a} / {b} = {a / b}')  # 3.5 - обыкновенное вещественное деление (всегда float)
-print(f'{a} // {b} = {a // b}')  # 3 - взятие только целой части от деления (всегда int)
-print(f'{a} % {b} = {a % b}')  # 1 - взятие остатка от деления (всегда int)
-
-
-n = 123
-print(n // 10)  # 12
-print(n % 10)  # 3
-
-print(n // 100)  # 1
-print(n % 100)  # 23
-
-print(n % 1000)  # 123
-
-
-if n % 2 == 0:
-    print('Делится на 2 | Кратно 2 | Четное')
+# x = int(input('x: '))
+# y = int(input('y: '))
+x, y = -5, -5
+if x > 0 and y > 0:
+    print('Первая четверть')
+elif x < 0 and y < 0:
+    print('Третья четверть')
+elif x < 0 and y > 0:
+    print('Вторя четверть')
+elif x > 0 and y < 0:
+    print('Четвертая четверть')
 else:
-    print('НЕ Делится на 2 | НЕ Кратно 2 | НЕЧетное')
+    print('Лежит на осях')
+print('Конец программы')
+'''
 
 
-print(2 ** 3)  # 8
-print(2 ** 4)  # 16
-print(2 ** 5)  # 32
 
-print(16 ** (1 / 2))  # 4.0
+# Логические связки: and, or, not, in, not in, ==, !=
+'''
+a, b, c = 5, 6, 5
+
+print(a == c)  # True
+print(a == b)  # False
+
+print(a != b)  # True
+print(a != c)  # False
+
+print(72 % 2 == 0)  # True
+print(73 % 2 == 0)  # False
+
+if a > 0 and b > 0 and c > 0:
+    print('AND - выполняются все условия')
+if a > 0 or b > 0 or c > 0:
+    print('OR - выполняется хотя бы одно из условий')
+
+print(b > 0)  # True
+print(True + True + False + True)  # 3
+
+if (a > 0) + (b > 0) + (c > 0) == 1:
+    print("Только одно условие выполняется")
+if (a > 0) + (b > 0) + (c > 0) == 3:
+    print('Выполняются все условия')
+if (a > 0) + (b > 0) + (c > 0) >= 1:
+    print('Выполняется хотя бы одно из условий')
+if (a > 0) + (b > 0) + (c > 0) <= 2:
+    print('Выполняется не больше двух условий')
+
+
+flag = True
+print(not flag)  # False
+print(not(not flag))  # True
+
+
+s = '2iu34hj23ui4h2'
+
+for x in s:
+    print(x, end=' ')  # 2 i u 3 4 h j 2 3 u i 4 h 2
+print()
+
+for x in s:
+    if x in '0123456789':
+        print(x, end=' ')  # 2 3 4 2 3 4 2
+print()
+
+for x in s:
+    if x not in '0123456789':
+        print(x, end=' ')  # i u h j u i h
+print()
+
+
+
+s = '43290384092'
+print(sum([int(x) for x in s]))  # 44
+
+s = '43sd2903few8409wte2'
+# print(sum([int(x) for x in s]))  # ValueError: invalid literal for int() with base 10: 's'
+print(sum([int(x) for x in s if x in '0123456789']))  # 44
+'''
+
+
+print(f'Квадратный корень от числа 16: {16 ** (1/2)}')
 
 import math
-print(math.sqrt(16))  # 4.0
+print(f'Квадратный корень от числа 16: {math.sqrt(16)}')
+
+
+# Способы подключения библиотек
 '''
+# Вариант 1
+import math
+print(math.pi)
+print(math.sqrt(16))
+
+
+# Вариант 2
+import math as m  # Подключение библиотеки через короткое имя
+print(m.pi)
+print(m.sqrt(16))
+
+
+# Вариант 3
+from math import sqrt, pi, factorial  # Подключил опредленные функции из библиотеки
+print(pi)
+print(sqrt(16))
+
+
+# Вариант 4
+from math import *  # Подключение сразу всего содержимого
+print(pi)
+print(sqrt(16))
+print(factorial(5))
+'''
+
+
+
+
+
+
+
+
