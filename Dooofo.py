@@ -1,184 +1,198 @@
 
 
-# - однострочный комментарий
+
+# Условные оператры if, elif, else (ветвление)
 
 '''
-- многострочный комментарий
-'''
-from sowle32 import age
-
-# name = 'Александра'
-# age = 17
-
-
-# Типы данных переменных
-'''
-a = 5  # int (integer) - целочисленные значения
-print(type(a))  # <class 'int'>
-
-b = 5.0  # float (число с плавающей точкой) - вещественные значения (дроби)
-print(4 / 2, type(4 / 2))  # 2.0 <class 'float'>
-
-c = '5'  # str (string) - строковый тип данных для хранения текста и символов
-print(a, c)  # 5 5
-print(a * 4, c * 4)  # 20 5555
-
-print('Hello ' * 4)  # Hello Hello Hello Hello - если строку умножить на целое число, то она дублируется
-
-c1 = 'Hello, '
-c2 = 'world!'
-c = c1 + c2
-print(c)  # Hello, world! - операция конкатенации строк (склеивание)
-# TypeError: can only concatenate str (not "int") to str
-
-
-n = '7' + '2' * 10
-print(n)  # 72222222222
-
-d1 = True  # bool (Boolean) - элементы Булевой алгебры (основы математической логики)
-d0 = False
-print(4 < 10)  # True
-print(4 == 10)  # False
+n = int(input('n: '))
+if n > 0:  # если
+    print('Число положительное')
+elif n < 0:  # иначе если
+    print('Число отрицательное')
+else:  # иначе
+    print('Число равно 0')
 '''
 
 
-# Типы данных коллекций / последовательностей
+# x = int(input('x: '))
+# y = int(input('y: '))
 '''
-L = [1, 2, 2, 3, 3, 3]  # list (списки)
-# 1. Могут хранить неограниченное кол-во элементов
-# 2. Могут хранить элементы различных типов данных (в отличие от массивов)
-# 3. Каждый элемент списка имеет свой порядковый номер - индекс
-# 4. Индексы могут считаться слева-направо начиная 0 и справа-налево начиная с -1
-# 5. Элементы списка можно изменять через индексы (в отличие от кортежей и множеств)
+x, y = -5, -5
+if x > 0 and y > 0:
+    print('Первая четверть')
+elif x < 0 and y < 0:
+    print('Третья четверть')
+elif x < 0 and y > 0:
+    print('Вторая четверть')
+elif x > 0 and y < 0:
+    print('Четвертая четверть')
+else:
+    print('Лежит на осях')
+print('Конец программы')
+'''
 
-# i   0    1    2    3    4
+
+# Логические связки: and, or, not, in, not in, ==, !=
+'''
+a, b, c = 5, 6, 5
+
+print(a == c)  # True
+print(a != c)  # False
+
+print(True + True + False + True)  #
+
+if a > 0 and b > 0 and c > 0:
+    print('AND - выполняются все описанные условия')
+if a > 0 or b > 0 or c > 0:
+    print('OR - хотя бы одно условие выполняется')
+
+
+if (a > 0) + (b > 0) + (c > 0) == 3:
+    print('Выполняются все описанные условия')
+if (a > 0) + (b > 0) + (c > 0) >= 1:
+    print('Xотя бы одно условие выполняется')
+if (a > 0) + (b > 0) + (c > 0) == 1:
+    print('Только одно условие')
+if (a > 0) + (b > 0) + (c > 0) <= 2:
+    print('Не более двух условий')
+
+
+flag = True
+print(not flag)  # False
+print(not( not flag))  # True
+
+
+s = '2r5f356rf23r65432'
+for x in s:
+    print(x, end=' ')  # 2 r 5 f 3 5 6 r f 2 3 r 6 5 4 3 2
+print()
+
+for x in s:
+    if x in '0123456789':
+        print(x, end=' ')  # 2 5 3 5 6 2 3 6 5 4 3 2
+print()
+
+for x in s:
+    if x not in '0123456789':
+        print(x, end=' ')  # r f r f r
+print()
+
+
+s = '23409878239847'
+summa = 0
+for x in s:
+    summa += int(x)
+print(summa)  # 74
+
+
+print(sum([int(x) for x in s]))  # 74
+
+
+s = '234fsdf098782f398wef47'
+# print(sum([int(x) for x in s]))  # ValueError: invalid literal for int() with base 10: 'f'
+
+
+s = '234fsdf098782f398wef47'
+print(sum([int(x) for x in s if x in '0123456789']))  # 74
+'''
+
+
+'''
 M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-M[0], M[-1] = M[-1], M[0]
-print(M)  # ['e', 'b', 'c', 'd', 'a']
-
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(f'Первый элемент списка M: {M[0]}')
-print(f'Последний элемент списка M: {M[4]}')
-print(f'Последний элемент списка M: {M[-1]}')
-
-
-M = [2, '2', 2.0, True, [1, 2, 3]]
 for x in M:
-    print(type(x), x)
-    # <class 'int'> 2
-    # <class 'str'> 2
-    # <class 'float'> 2.0
-    # <class 'bool'> True
-    # <class 'list'> [1, 2, 3]
+    print(x, end=' ')  # a b c d e
+print()
 
-T = (1, 2, 2, 3, 3, 3)  # tuple (кортеж)
-# 1. Нельзя изменять элементы кортежа
 
-S = {1, 2, 2, 3, 3, 3}  # set (множества)
-# 1. Не могут хранить копии элементов (то есть копии удаляются)
-print(S)  # {1, 2, 3}
+M = ['a', 'b', 'c', 'd', 'e']
+for i in range(len(M)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
 
-# D = {'один': 'one', 'два': 'two'}  # dist (словарь)
+M = ['a', 'b', 'c', 'd', 'e']
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+'''
+
+# Функции списков
+'''
+M = [1, 2, 2, 3, 3, 3]
+print(set(M))  # - Убирает копии
+print(len(M))
+print(sum(M))
+print(max(M), min(M))
+print(sorted(M))  # [1, 2, 2, 3, 3, 3]
+print(sorted(M, reverse=True))  # [3, 3, 3, 2, 2, 1]
+print(sorted(M)[::-1])  # [3, 3, 3, 2, 2, 1]
+'''
+
+# Методы списков
+'''
+M = [1, 2, 2, 3, 3, 3, '3']
+
+M.append(5)
+M.append(6)
+print(M)  # [1, 2, 2, 3, 3, 3, '3', 5, 6]
+
+
+M = [1, 2, 2, 3, 3, 3, '3']
+M = [0] + M + [5, 6]
+print(M)  # M = [0, 1, 2, 2, 3, 3, 3, '3']
+
+print(M.count('3'))  # 1
+print(M.count(3))  # 3
 '''
 
 
-# Конвертация типов данных
+# Срезы списковы
 '''
-a = 5
-print(type(a), a)  # <class 'int'> 5
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-a = str(a)
-print(type(a), a)  # <class 'str'> 5
+print(M[0])  # 'a'
 
-a = float(a)
-print(type(a), a)  # <class 'float'> 5.0
+print(M[1:3])  # ['b', 'c']
+print(M[1:])  # ['b', 'c', 'd', 'e']
+print(M[:3])  # ['a', 'b', 'c']
 
-a = int(a)
-print(type(a), a)  # <class 'int'> 5
+print(M[1: -1])  # ['b', 'c', 'd']
 
+print(M[:])  # ['a', 'b', 'c', 'd', 'e']
+print(M[::])  # ['a', 'b', 'c', 'd', 'e']
 
-A = [1, 2, 2, 3, 3, 3]
-print(type(A), A)  # <class 'list'> [1, 2, 2, 3, 3, 3]
+print(M[::2])  # ['a', 'c', 'e']
+print(M[1::2]) # ['b', 'd']
 
-A = tuple(A)
-print(type(A), A)  # <class 'tuple'> (1, 2, 2, 3, 3, 3)
-
-A = set(A)
-print(type(A), A)  # <class 'set'> {1, 2, 3}
-
-A = list(A)
-print(type(A), A)  # <class 'list'> [1, 2, 3]
+print(M[::-1])  # ['e', 'd', 'c', 'b', 'a']
 '''
 
 
-# Ввод данных с клавиатуры
+
+# Генераторы списков
 '''
-age = int(input('Введите возраст: '))
-print(age, type(age))
-
-name = input('Введите имя: ')  # - позволяет ввести данные с клавиатуры (str)
-print(f'Имя пользователя: {name}')
-'''
-
-# f - строки
-'''
-name = input('Введите имя: ')
-weather = 'облачно'
-temperature = 24
-# Привет, name! Сегодня weather, а температура temperature градусов!
-
-print('Привет, ', name, '! Сегодня ', weather, ', а температура ', temperature, ' градусов!')
-print('Привет, ' + name + '! Сегодня ' + weather + ', а температура ' + str(temperature) + ' градусов!')
-print('Привет, {}! Сегодня {}, а температура {} градусов!'.format(name, weather, temperature))
-
-print(f'Привет, {name}! Сегодня {weather}, а температура {temperature} градусов!')
+print([x for x in range(10)])  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print([x ** 2 for x in range(4, 10)])  # [16, 25, 36, 49, 64, 81]
+print([x ** 2 for x in range(10) if x % 2 == 0])  # [0, 4, 16, 36, 64]
 '''
 
 
-# Базовая арифметика
-'''
-a, b = 7, 2
+# https://stepik.org/lesson/1038670/step/5?unit=1062777
 
-print(f'{a} + {b} = {a + b} \n'  # \n - это переход на новую строку
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b} ')
-
-print()  # - в каждой функции print() есть переход на новую строку \n
-
-print(f'{a} / {b} = {a / b}')  # 3.5 - обыкновенное вещественное деление (результат float)
-print(f'{a} // {b} = {a // b}')  # 3 - взятие только целой части от деления (результат int)
-print(f'{a} % {b} = {a % b}')  # 1 - взятие остатка от деления (результат int)
+for s in open('files/9.csv'):
+    M = [int(x) for x in s.split(';')]
+    copied1 = [x for x in M if M.count(x) == 1]
+    copied3 = [x for x in M if M.count(x) == 3]
+    if len(copied3) == 3 and len(copied1) == 4:
+        if sum(copied1) / 4 <= copied3[0]:
+            print(sum(M))
 
 
-n = 4123
-
-print(n // 10)  # 412
-print(n % 10)  # 3
-
-print(n // 100)  # 41
-print(n % 100)  # 23
-
-print(n % 1000)  # 123
-
-if n % 2 == 0:
-    print('Число четное | Число делится на 2 | Число кратно 2')
-if n % 2 != 0:
-    print('Число не делится ... ')
 
 
-print(2 ** 3)  # 8
-print(2 ** 4)  # 16
-print(2 ** 5)  # 32
 
 
-print(16 ** (1 / 2))  # 4.0
 
-import math
-print(math.sqrt(16))  # 4.0
-'''
 
