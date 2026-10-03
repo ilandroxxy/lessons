@@ -2911,4 +2911,3 @@ print(21, [s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
 
 
 
-
