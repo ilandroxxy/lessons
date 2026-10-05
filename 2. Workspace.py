@@ -2807,7 +2807,7 @@ print(answer)
 # и минимально возможное целое число байт. При этом используется посимвольное кодирование идентификаторов,
 # все символы кодируются одинаковым и минимально возможным количеством бит. Определите объём памяти (в Мбайт),
 # необходимый для хранения 262 144 идентификаторов.
-
+'''
 sym = 317
 alp = 10 + 4090  # alp = 2 ** i
 # print(2 ** 13, alp)
@@ -2818,7 +2818,7 @@ print(bit / 8)  # 515.125 -> 516  # - кол-во байт на пароль
 byte = 516
 
 print((byte * 262_144) / 2**20)
-
+'''
 
 # • 1 байт = 2³ бит
 # • 1 Кбайт = 2¹⁰ байт = 2¹³ бит
@@ -2833,7 +2833,7 @@ print((byte * 262_144) / 2**20)
 
 
 
-
+'''
 print()
 
 s = '34789'
@@ -2851,7 +2851,7 @@ T = (1, 2, 3, 4)
 S = {1, 2, 2, 3, 3}
 print(S)  # {1, 2, 3}
 L = [1, 2.0, '4', [1, 2, 3]]
-
+'''
 
 # N = {1, 2, 3, ..., + inf}
 # Z = {-inf, .., -1, 0, 1, 2, 3, ..., + inf}
@@ -2877,7 +2877,7 @@ L = [1, 2.0, '4', [1, 2, 3]]
 # n = 2: Ваня первый ход
 # n = 3: Петя второй ход
 # n = 4: Ваня второй ход
-
+'''
 from math import floor, ceil
 def F(s, n):
     if s <= 15:
@@ -2907,6 +2907,133 @@ def F(s, n):
 print(19, [s for s in range(1, 123+1) if F(s, n=2)])
 print(20, [s for s in range(1, 123+1) if F(s, n=3) and not F(s, n=1)])
 print(21, [s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+# № 22437 (Уровень: Базовый)
+# 1 куча: +4, +7, *4 | s >= 471 | 1 ≤ s ≤ 470
+'''
+def F(s, n):
+    if s >= 471:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s + 4, n-1), F(s + 7, n-1), F(s * 4, n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print(19, len([s for s in range(1, 470+1) if F(s, n=2)]))
+print(20, [s for s in range(1, 470+1) if F(s, n=3) and not F(s, n=1)])
+print(21, sum([s for s in range(1, 470+1) if F(s, n=4) and not F(s, n=2)]))
+
+s = '1232134'
+l = len(s)
+print(l)  # 7
+'''
+
+
+
+
+
+
+
+'''
+n = 1000
+print(bin(n)[2:])  # 1111101000
+print(oct(n)[2:])  # 1750
+print(hex(n)[2:])  # 3e8
+
+
+# n - число которое мы будем переводить
+# b - система счисления в которую будем переводить
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+
+n = 10**8
+n16 = convert(n, 16)
+print(n16)  # 515514100 -> 5F5E100
+
+n2 = convert(n, 2)
+print(n2)  # 1000
+
+n5 = convert(n, 5)
+print(n5)
+
+
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alp[:2])  # ['0', '1']
+print(alp[:8])  # ['0', '1', '2', '3', '4', '5', '6', '7']
+
+print(alp[0::2])  # ['0', '2', '4', '6', '8', 'A', 'C', 'E', 'G', 'I', 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Y']
+print(alp[1::2])  # ['1', '3', '5', '7', '9', 'B', 'D', 'F', 'H', 'J', 'L', 'N', 'P', 'R', 'T', 'V', 'X', 'Z']
+'''
+
+
+
+# № 28760 Досрочная волна 2026(Уровень: Базовый)
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+n = 2 * 2187 ** 567 + 729 ** 566 - 2 * 243 ** 565 + 81 ** 564 - 2 * 27 ** 563 - 6561
+n27 = convert(n, 27)
+print(n27.count('0'))  # Сколько нулей содержит эта запись
+print(len(n27) - n27.count('0'))  # Сколько не нулевых значений содержит эта запись
+print(len([x for x in n27 if x in alp[0::2]]))  # Количество цифр с чётным числовым значением
+print(len([x for x in n27 if x in alp[0::2] and x > '9']))  # Количество цифр с чётным числовым значением, превышающим 9
+
+
+
+
+# № 16380 ЕГКР 27.04.24(Уровень: Базовый)
+
+
+alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = alp[n % b] + r
+        n //= b
+    return r
+
+n = 4 * 3125 ** 2019 + 3 * 625 ** 2020 - 2 * 125 ** 2021 + 25 ** 2022 - 4 * 5 ** 2023 - 2024
+n25 = convert(n, 25)
+print(len([x for x in n25 if x > 'A']))
+print(len([x for x in n25 if x > alp[10]]))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
