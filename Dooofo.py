@@ -1,193 +1,170 @@
 
 
 
-# Условные оператры if, elif, else (ветвление)
 
+
+# № 29353 Открытый вариант 2026(Уровень: Базовый)
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+# A. Прибавить 1
+# B. Умножить на 2
+# C. Умножить на 3
+
+# Сколько существует программ, для которых при исходном числе 2 результатом
+# является 39 и при этом траектория вычислений не содержит числа 14?
 '''
-n = int(input('n: '))
-if n > 0:  # если
-    print('Число положительное')
-elif n < 0:  # иначе если
-    print('Число отрицательное')
-else:  # иначе
-    print('Число равно 0')
-'''
+def F(a, b):
+    if a > b or a == 14:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a + 1, b) + F(a * 2, b) + F(a * 3, b)
+
+print(F(2, 39))
 
 
-# x = int(input('x: '))
-# y = int(input('y: '))
-'''
-x, y = -5, -5
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Лежит на осях')
-print('Конец программы')
-'''
+# Вариант 2
 
+def F(a, b):
+    if a >= b or a == 14:
+        return a == b
+    return F(a + 1, b) + F(a * 2, b) + F(a * 3, b)
 
-# Логические связки: and, or, not, in, not in, ==, !=
-'''
-a, b, c = 5, 6, 5
-
-print(a == c)  # True
-print(a != c)  # False
-
-print(True + True + False + True)  #
-
-if a > 0 and b > 0 and c > 0:
-    print('AND - выполняются все описанные условия')
-if a > 0 or b > 0 or c > 0:
-    print('OR - хотя бы одно условие выполняется')
-
-
-if (a > 0) + (b > 0) + (c > 0) == 3:
-    print('Выполняются все описанные условия')
-if (a > 0) + (b > 0) + (c > 0) >= 1:
-    print('Xотя бы одно условие выполняется')
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Только одно условие')
-if (a > 0) + (b > 0) + (c > 0) <= 2:
-    print('Не более двух условий')
-
-
-flag = True
-print(not flag)  # False
-print(not( not flag))  # True
-
-
-s = '2r5f356rf23r65432'
-for x in s:
-    print(x, end=' ')  # 2 r 5 f 3 5 6 r f 2 3 r 6 5 4 3 2
-print()
-
-for x in s:
-    if x in '0123456789':
-        print(x, end=' ')  # 2 5 3 5 6 2 3 6 5 4 3 2
-print()
-
-for x in s:
-    if x not in '0123456789':
-        print(x, end=' ')  # r f r f r
-print()
-
-
-s = '23409878239847'
-summa = 0
-for x in s:
-    summa += int(x)
-print(summa)  # 74
-
-
-print(sum([int(x) for x in s]))  # 74
-
-
-s = '234fsdf098782f398wef47'
-# print(sum([int(x) for x in s]))  # ValueError: invalid literal for int() with base 10: 'f'
-
-
-s = '234fsdf098782f398wef47'
-print(sum([int(x) for x in s if x in '0123456789']))  # 74
-'''
-
-
-'''
-M = ['a', 'b', 'c', 'd', 'e']
-for x in M:
-    print(x, end=' ')  # a b c d e
-print()
-
-
-M = ['a', 'b', 'c', 'd', 'e']
-for i in range(len(M)):
-    # print(i, end=' ')  # 0 1 2 3 4
-    print(M[i], end=' ')  # a b c d e
-print()
-
-M = ['a', 'b', 'c', 'd', 'e']
-for i in range(len(M)):
-    M[i] = M[i] * i
-print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
-'''
-
-# Функции списков
-'''
-M = [1, 2, 2, 3, 3, 3]
-print(set(M))  # - Убирает копии
-print(len(M))
-print(sum(M))
-print(max(M), min(M))
-print(sorted(M))  # [1, 2, 2, 3, 3, 3]
-print(sorted(M, reverse=True))  # [3, 3, 3, 2, 2, 1]
-print(sorted(M)[::-1])  # [3, 3, 3, 2, 2, 1]
-'''
-
-# Методы списков
-'''
-M = [1, 2, 2, 3, 3, 3, '3']
-
-M.append(5)
-M.append(6)
-print(M)  # [1, 2, 2, 3, 3, 3, '3', 5, 6]
-
-
-M = [1, 2, 2, 3, 3, 3, '3']
-M = [0] + M + [5, 6]
-print(M)  # M = [0, 1, 2, 2, 3, 3, 3, '3']
-
-print(M.count('3'))  # 1
-print(M.count(3))  # 3
-'''
-
-
-# Срезы списковы
-'''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# -i -5   -4   -3   -2   -1
-
-print(M[0])  # 'a'
-
-print(M[1:3])  # ['b', 'c']
-print(M[1:])  # ['b', 'c', 'd', 'e']
-print(M[:3])  # ['a', 'b', 'c']
-
-print(M[1: -1])  # ['b', 'c', 'd']
-
-print(M[:])  # ['a', 'b', 'c', 'd', 'e']
-print(M[::])  # ['a', 'b', 'c', 'd', 'e']
-
-print(M[::2])  # ['a', 'c', 'e']
-print(M[1::2]) # ['b', 'd']
-
-print(M[::-1])  # ['e', 'd', 'c', 'b', 'a']
+print(F(2, 39))
 '''
 
 
 
-# Генераторы списков
+# № 28942 ЕГКР 18.04.26(Уровень: Базовый)
+# У исполнителя есть три команды, которые обозначены латинскими буквами:
+# A. Вычти 3
+# B. Вычти 8
+# C. Найди целую часть от деления на 2
+
+# Сколько существует программ, для которых при исходном
+# числе 76 результатом является число 12, и при этом траектория
+# вычислений содержит число 41 и не содержит 73?
 '''
-print([x for x in range(10)])  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-print([x ** 2 for x in range(4, 10)])  # [16, 25, 36, 49, 64, 81]
-print([x ** 2 for x in range(10) if x % 2 == 0])  # [0, 4, 16, 36, 64]
+def F(a, b):
+    if a < b or a == 73:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        h = [F(a - 3, b), F(a - 8, b), F(a // 2, b)]
+        return sum(h)
+
+print(F(76, 41) * F(41, 12))
 '''
 
 
-# https://stepik.org/lesson/1038670/step/5?unit=1062777
+# № 23759 Демоверсия 2026(Уровень: Базовый)
+# 1 куча: s-3, s-5, s / 4 (до маньшего) | s <= 30 | s >= 31
+'''
+from math import floor, ceil
+def F(s, n):
+    if s <= 30:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(s - 5, n - 1), F(floor(s / 4), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
 
-for s in open('files/9.csv'):
-    M = [int(x) for x in s.split(';')]
-    copied1 = [x for x in M if M.count(x) == 1]
-    copied3 = [x for x in M if M.count(x) == 3]
-    if len(copied3) == 3 and len(copied1) == 4:
-        if sum(copied1) / 4 <= copied3[0]:
-            print(sum(M))
+print(19, [s for s in range(31, 1000) if F(s, n=2)])
+print(20, [s for s in range(31, 1000) if F(s, n=3) and not F(s, n=1)])
+print(21, [s for s in range(31, 1000) if F(s, n=4) and not F(s, n=2)])
+'''
+
+# № 22437 (Уровень: Базовый)
+# (Л. Шастин). Два игрока, Петя и Ваня, играют в следующую игру.
+# Перед игроками лежит куча камней.
+# - добавить в кучу 4 камня;
+# - добавить в кучу 7 камней;
+# - увеличить количество камней в куче в 4 раза.
+
+# Победителем считается игрок, сделавший последний ход,
+# т.е. первым получивший кучу из 471 или более камней.
+# В начальный момент в куче было S камней; 1 ≤ S ≤ 470.
+
+
+# 1 куча: +4, +7, *4 \ s >= 471 \ s < 471
+'''
+def F(s, n):
+    if s >= 471:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s+4,n-1), F(s+7, n-1), F(s*4, n-1)]
+    return any(h) if (n-1) % 2 == 0 else all(h)
+
+print(19, [s for s in range(1, 470+1) if F(s, n = 2)])
+print(20, [s for s in range(1, 470+1) if F(s, n = 3) and not F(s, n=1)])
+print(21, [s for s in range(1, 470+1) if F(s, n = 4) and not F(s, n=2)])
+'''
+
+
+#
+# № 22066 (Уровень: Базовый)
+# 2 кучи: s1+3, s2+3, s1*2, s2*2 | s1 + s2 >= 100 | s1 = 17  | 1 <= s2 <= 82
+'''
+def F(s1, s2, n):
+    if s1 + s2 >= 100:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s1+3, s2, n -1 ), F(s1, s2+3, n -1 ), F(s1 * 2, s2, n -1 ), F(s1, s2 * 2, n -1 )]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(19, [s2 for s2 in range(1, 82+1) if F(17, s2, n=2)])
+print(19, [s2 for s2 in range(1, 82+1) if F(17, s2, n=3) and not F(17, s2, n=1)])
+print(19, [s2 for s2 in range(1, 82+1) if F(17, s2, n=4) and not F(17, s2, n=2)])
+'''
+
+
+# № 31516 Демоверсия 2027(Уровень: Базовый)
+# Два игрока, Петя и Ваня, играют в следующую игру.
+# Перед игроками лежат две кучи камней. Игроки ходят по очереди,
+# первый ход делает Петя. За один ход игрок может:
+# – добавить в одну из куч (по своему выбору) 4 камня;
+# – увеличить количество камней в одной из куч (по своему выбору) в 2 раза.
+
+
+# Победителем считается игрок, сделавший последний ход,
+# то есть первым получивший такую игровую позицию, при которой
+# в двух кучах суммарно 133 камня или больше.
+
+# В начальный момент в первой куче было 17 камней,
+# во второй куче – S камней; 1 ≤ S ≤ 115.
+
+# Известно, что Ваня выиграл своим первым ходом.
+# Укажите минимальное значение S, при котором такая ситуация возможна.
+
+def F(s1, s2, n):
+    if s1 + s2 >= 133:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s1 + 4, s2, n - 1), F(s1, s2 + 4, n - 1), F(s1 * 2, s2, n - 1), F(s1, s2 * 2, n - 1)]
+    # return any(h) if (n-1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+
+print(19, [s2 for s2 in range(1, 116) if F(17, s2, n=2)])
+print(20, [s2 for s2 in range(1, 116) if F(17, s2, n=3) and not F(17, s2, n=1)])
+print(21, [s2 for s2 in range(1, 116) if F(17, s2, n=4) and not F(17, s2, n=2)])
+
+
+
+
+
+
+
+
+
+
+
 
 
 
