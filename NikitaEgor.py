@@ -1,6 +1,5 @@
 # region Домашка: ******************************************************************
-
-
+from turtledemo.round_dance import stop
 
 # endregion Домашка: ******************************************************************
 # #
@@ -8,96 +7,58 @@
 # region Урок: *************************************************************
 
 
-# Через срезы мы можем брать четные/нечетные элементы и брать системы счисления меньше чем 36
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')  # 36
-print(alp)  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-print(alp[15])  # F
-print(alp[:2])  # ['0', '1']
-print(alp[:8])  # ['0', '1', '2', '3', '4', '5', '6', '7']
-print(alp[0::2])  # ['0', '2', '4', '6', '8', 'A', 'C', 'E', 'G', 'I', 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Y']
-print(alp[1::2])  # ['1', '3', '5', '7', '9', 'B', 'D', 'F', 'H', 'J', 'L', 'N', 'P', 'R', 'T', 'V', 'X', 'Z']
-
-x = 5
-print(f'27x98876')  # 27x98876
-print(f'27{x}98876')  # 27598876
-'''
-from statistics import kde_random
-
-# №31511 Демоверсия 2027(Уровень: Базовый)
+# № 48393 (Уровень: Базовый)
 '''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:22]:
-    A = int(f'27{x}98876', 22)
-    B = int(f'26{x}51', 22)
-    C = int(f'711{x}5', 22)
-    if (A + B + C) % 21 == 0:
-        print(x, (A + B + C) // 21)
-        # 3 276296118
-        # A 278014164
-        # H 279732210
-'''
-
-
-
-# № 31222 Резерв 22.06.26(Уровень: Базовый)
-'''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:19]:
-    A = int(f'76{x}79645', 19)
-    B = int(f'35{x}42', 19)
-    C = int(f'332{x}6', 19)
-    if (A + B + C) % 18 == 0:
-        print((A + B + C) // 18)
-        # 363399516
-        # 364225009
-        # 365050502
-        # 365875995
+for x in alp[:8]:
+    for y in alp[:8]:
+        A = int(f'{y}04{x}5', 11)
+        B = int(f'253{x}{y}', 8)
 '''
 
 
 
 
-# № 19359 (Уровень: Базовый)
-# (О. Лысенков) Операнды арифметического выражения записаны в системе
-# счисления с основанием 22.
-# A23xAC0_22 + GBx21670_22
 
-# В записи чисел переменной x обозначена неизвестная цифра из
-# алфавита 22-ричной системы счисления. Определите наибольшее
-# значение x, при котором значение данного арифметического выражения
-# кратно 21.
-# Для найденного x вычислите частное от деления значения арифметического
-# выражения на 22 и укажите его в ответе в десятичной системе счисления.
-''''''
-
-
+# https://stepik.org/lesson/1038709/step/10?unit=1062775
 '''
-def convert(n, b):
-    alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    r = ''
-    while n > 0:
-        r = alp[n % b] + r
-        n //= b
-    return r
+import sys
+sys.setrecursionlimit(10**8)
 
-n = 100000000
-b = 16
-print(convert(n, b))  # 5F5E100
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n - 1)
 
-print(int('5F5E100', 16))  # 100000000
-# ValueError: int() base must be >= 2 and <= 36, or 0
+print((F(2024) // 16 - F(2023)) // F(2022))
 '''
 
 
 
-# № 31513 Демоверсия 2027(Уровень: Базовый)
+'''
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n - 1)
+    
+for n in range(0, 3000, 1):
+    F(n)
 
-# Вариант 1
-'''import sys
-sys.setrecursionlimit(10**8)'''
 
-# Вариант 2
+
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * n * F(n + 1)
+
+for n in range(3000-1, -1, -1):
+    F(n)
+'''
+
+# https://stepik.org/lesson/1038709/step/10?unit=1062775
 '''
 from functools import *
 
@@ -106,57 +67,138 @@ def F(n):
     if n == 1:
         return 1
     if n > 1:
-        return n * F(n - 1)
+        return 2 * n * F(n - 1)
 
-for n in range(3100):
+for n in range(0, 3000, 1):
     F(n)
 
-print((F(3038) + 5 * F(3037)) // F(3036))
+print((F(2024) // 16 - F(2023)) // F(2022))
 '''
-#   [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
 
-
-
-# № 29970 Апробация 14.05.26(Уровень: Базовый)
+# № 21902 Открытый вариант 2025(Уровень: Базовый)
 '''
 from functools import *
 
 @lru_cache(None)
 def F(n):
-    return 3 * G(n - 3) + 7
+    if n >= 2025:
+        return n
+    if n < 2025:
+        return n * 2 + F(n + 2)
+
+for n in range(100-1, -1, -1):
+    F(n)
+
+print(F(82) - F(81))
+'''
+
+
+#
+# № 21711 ЕГКР 19.04.25(Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n), где n – целое число, задан следующими соотношениями:
+# F(n)=n при n<20;
+# F(n)=(n−6)×F(n–7), если n≥20.
+# Чему равно значение выражения (F(47872)−290×F(47865))/F(47858)?
+'''
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n < 20:
+        return n
+    if n >= 20:
+        return (n - 6) * F(n - 7)
+
+for n in range(0, 50000, 1):
+    F(n)
+
+print((F(47872) - 290 * F(47865)) // F(47858))
+'''
+
+
+# № 18123 (Уровень: Базовый)
+# (Д. Бахтиев) Алгоритм вычисления значения функции
+# F(n), где n – натуральное число, задан следующими соотношениями:
+# F(n)=n, при  n≥2010;
+# F(n)=F(n+3)+F(n+2)+F(n+1), если n<2010
+# Чему равно значения выражения (F(2000)−2⋅(F(2002)+F(2003))) / F(2004)?
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n >= 2010:
+        return n
+    if n < 2010:
+        return F(n + 3) + F(n + 2) + F(n + 1)
+
+for n in range(3000 - 1, -1, -1):
+    F(n)
+
+print((F(2000) - 2 * (F(2002) + F(2003))) // F(2004))
+'''
+
+
+# № 25355 ЕГКР 13.12.25(Уровень: Базовый)
+# Алгоритм вычисления функций
+# F(n) и G(n), где n - целое число, задан следующими соотношениями:
+# F(n)=F(n−4)+3580, если n≥19;
+# F(n)=6×(G(n−7)−36), если n<19;
+# G(n)=n/20+28, если n≥248045;
+# G(n)=G(n+9)−4, если n<248045.
+# Чему равно значение функции F(673)?
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n >= 19:
+        return F(n - 4) + 3580
+    else:
+        return 6 * (G(n - 7) - 36)
 
 @lru_cache(None)
 def G(n):
-    if n <= 20:
-        return n + 2
-    if n > 20:
-        return G(n - 3) + 1
+    if n >= 248045:
+        return n / 20 + 28
+    else:
+        return G(n + 9) - 4
 
-for n in range(38000):
+for n in range(250_000-1, -1, -1):
     G(n)
 
-print(F(37811))
+for n in range(1000):
+    F(n)
+
+print(F(673))
 '''
 
 
+# № 25397 (Уровень: Средний)
 
-# № 27771 Апробация 04.03.26(Уровень: Базовый)
-'''
 from functools import *
 
 @lru_cache(None)
 def F(n):
-    if n== 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
+    if n > 40:
+        return F(n - 4) + 3020
+    else:
+        return 3 * (G(n - 2) - 15)
 
-for n in range(2025):
+@lru_cache(None)
+def G(n):
+    if n >= 301_208:
+        return 10 * n + 50
+    else:
+        return G(n + 7) - 21
+
+for n in range(302_000-1, -1, -1):
+    G(n)
+
+for n in range(2050):
     F(n)
-    
-print((F(2024) - 2 * F(2023)) / F(2022))
-'''
+
+print(F(2026))
 
 
 
@@ -164,7 +206,7 @@ print((F(2024) - 2 * F(2023)) / F(2022))
 # #
 # #
 # 2027
-# ФИПИ = [1, 5, 14]
+# ФИПИ = [1, 5, 14, 16]
 # КЕГЭ = []
 #
 # 2026

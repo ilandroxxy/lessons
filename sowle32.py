@@ -2,127 +2,170 @@
 
 
 
-# Условные операторы if, elif, else (ветвление)
+# Цикл for отвечает на запросы: "Повтори N раз", "Пробеги от числа А до числа В"
+
+# Цикл for работает с функцией range()
 '''
-n = int(input('n: '))
-if n > 0:  # if - если
-    print('Число положительное')
-elif n < 0:  # elif - иначе если
-    print('Число отрицательное')
-else:  # else - иначе
-    print('Число равно 0')
-'''
+# range(0, STOP-1, 1)
+# range(START, STOP-1, 1)
+# range(START, STOP-1, STEP)
 
-'''
-# x = int(input('x: '))
-# y = int(input('y: '))
-x, y = 5, 0
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Число лежит на осях')
-print('Программа закончила работу')
-'''
-
-
-# Логические связки: and, or, not, in, not in, ==, !=
-'''
-a, b, c = 5, 8, 5
-print(a == c)  # True
-print(a == b)  # False
-
-print(a != c)  # False
-print(a != b)  # True
-
-# = - присваивание значения переменной
-# == - сравнение двух значений
-
-print(True + True + False + True)  # 3   (1 + 1 + 0 + 1)
-
-if a > 0:
-    if b > 0:
-        if c > 0:
-            print('AND - все условия выполняются')
-
-if a > 0 and b > 0 and c > 0:
-    print('AND - все условия выполняются')
-
-if a > 0 or b > 0 or c > 0:
-    print('OR - хотя бы одно условие выполняется')
-
-if (a > 0) + (b > 0) + (c > 0) == 3:
-    print('Все условия выполнялись')
-if (a > 0) + (b > 0) + (c > 0) == 1:
-    print('Выполняется только одно условие')
-if (a > 0) + (b > 0) + (c > 0) >= 1:
-    print('Хотя бы одно условие выполняется')
-if (a > 0) + (b > 0) + (c > 0) <= 2:
-    print('Не более двух условий выполняется')
-
-
-flag = True
-print(not flag)  # False
-print(not(not flag))  # True
-
-s = '34d2rt3df4r32df4rt'
-for x in s:
-    print(x, end=' ')  # 3 4 d 2 r t 3 d f 4 r 3 2 d f 4 r t
+for i in range(10):
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
 print()
 
+for i in range(2, 10):
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10+1):
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9 10
+print()
+
+for i in range(2, 10+1, 2):
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(1, 10+1, 2):
+    print(i, end=' ')  # 1 3 5 7 9
+print()
+
+for i in range(10, 0):
+    print(i, end=' ')  #
+print()
+
+for i in range(10, 0-1, -1):
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1 0
+print()
+'''
+
+# Или цикл for работает с последовательностями
+'''
+s = 'abcde'
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
+
+L = ['a', 'b', 'c', 'd', 'e']
+for x in L:
+    print(x, end=' ')  # a b c d e
+print()
+
+s = 'u32h4j2u3hj423ui42'
+for x in s:
+    print(x, end=' ')  # u 3 2 h 4 j 2 u 3 h j 4 2 3 u i 4 2
+print()
+
+s = 'u32h4j2u3hj423ui42'
 for x in s:
     if x in '0123456789':
-        print(x, end=' ')  # 3 4 2 3 4 3 2 4
+        print(x, end=' ')  # 3 2 4 2 3 4 2 3 4 2
 print()
 
+s = 'u32h4j2u3hj423ui42'
 for x in s:
-    if x not in '0123456789':
-        print(x, end=' ')  # d r t d f r d f r t
+    if x in '02468':
+        print(x, end=' ')  # 2 4 2 4 2 4 2
 print()
 
 
-# Поиск суммы цифр строки
 
-s = '2345897249738'
-summa = 0
+
+# i   0    1    2    3    4
+L = ['a', 'b', 'c', 'd', 'e']
+
+print(len(L))  # 5 - Возвращает кол-во элементов
+
+for i in range(len(L)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(L[i], end=' ')  # a b c d e
+print()
+
+for i in range(len(L)):
+    L[i] = L[i] * i
+print(L)  # ['', 'b', 'cc', 'ddd', 'eeee']
+
+
+
+# i   0    1    2    3    4
+L = ['a', 'b', 'c', 'd', 'e']
+for i in range(len(L)):
+    if i % 2 == 0:
+        L[i] = L[i] * i
+    else:
+        L[i] = L[i] * 3
+print(L)  # ['', 'bbb', 'cc', 'ddd', 'eeee']
+
+
+s = 'u32h4j2u3hj423ui42'
 for x in s:
-    # summa += int(x)
-    summa = summa + int(x)
-print(summa)  # 71
+    if x in '02468':
+        print(x, end=' ')  # 2 4 2 4 2 4 2
+print()
 
-# s = '23egrg4589erg724erg9738'
-# summa = 0
-# for x in s:
-#     summa += int(x)
-# print(summa)  # ValueError: invalid literal for int() with base 10: 'e'
-
-s = '23egrg4589erg724erg9738'
-summa = 0
-for x in s:
-    if x in '0123456789':
-        summa += int(x)
-print(summa)  # 71
+s = 'u32h4j2u3hj423ui42'
+for i in range(len(s)):
+    if s[i] in '02468':
+        print(s[i], end=' ')  # 2 4 2 4 2 4 2
+print()
 '''
 
-# https://stepik.org/lesson/1309432/step/6?unit=1324548
 
-a = int(input())
-b = int(input())
-c = int(input())
-summa = 0
-if (a % 7 == 0 and a % 49 != 0) or a % 40 == 0:
-    summa += a
-if (b % 7 == 0 and b % 49 != 0) or b % 40 == 0:
-    summa += b
-if (c % 7 == 0 and c % 49 != 0) or c % 40 == 0:
-    summa += c
-print(summa)
+# Цикл while отвечает на запросы: "Пока условие верно - делать действие", "Бесконечные циклы"
+'''
+for i in range(2, 10+1, 2):
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
 
-# На следующем уроке, обговорить циклы и работу с библиотеками 
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10 
+    i = i + 2
+print()
+'''
+
+
+
+# Бесконечные циклы и операторы break, continue и exit()
+'''
+password = 'qwerty'
+pas = input('Введите пароль: ')
+while True:
+    if pas == password:
+        print('Пароль верный.')
+        break
+    else:
+        pas = input('Пароль неверный, повторите попытку: ')
+
+print('Добро пожаловать!')
+'''
+
+FirstName = 'ilya'
+first_name = 'ilya'
+
+
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # прерывает итеррацию цикла (шаг)
+    if k == 100_000:
+        break   # прерывает выполнение цикла
+    if k == 50_000:
+        exit()  # прерывает выполнение программы
+    print(k)
+
+
+print('Выход из цикла')
+
+
+
+
+
+
+
+
+
+
 
