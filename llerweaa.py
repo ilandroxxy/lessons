@@ -3,155 +3,178 @@
 
 
 
-
-# - это однострочный комментарий
-
-"""
-- это многострочный комментарий
-"""
-
-
-# x = 5  # - переменная это удобный способо взаимодействия с данными
-#
-# name = 'Илья'
-# age = 24
-# print(f'Имя пользователя: {name}, а возраст: {age}')
-
-
-# Типы данных переменных
+# Условные операторы if, elif, else (ветвление)
 '''
-a = 5  # int (integer) - целочисленные значения
-print(a, type(a))  # 5 <class 'int'>
-
-
-b = 5.0  # float (число с плавающей точкой) - вещественные значения (дроби)
-print(4 / 2, type(4 / 2))  # 2.0 <class 'float'>
-
-
-c = '5'  # str (string) - это стороковый тип данных для хранения текста и символов
-print(a, c)  # 5 5
-print(a * 4, c * 4)  # 20 5555
-
-print('Hello ' * 4)  # Hello Hello Hello Hello - при умножении строки на целое число строка дублируется
-
-c1 = 'Hello, '
-c2 = 'world!'
-c = c1 + c2  # - операция конкатенации строк (склеивание)
-print(c)  # Hello, world!
-
-print('7' + '3' * 5)  # 733333
-
-print('4' * 3 + '3' + '6' * 2)  # 444366
-
-
-d1 = True  # bool (Boolean) - основы Булевой алгебры | математическая логика
-d0 = False
-print(4 < 10)  # True
-print(4 == 10)  # False 
-print(4 != 4)  # False 
-
-# = - присваивание данных к новой переменной 
-# == - сравниваю два значения (равны ли)
-# != - сравниваю два значения (не равны ли)
-'''
-
-
-# Конвертация типов данных
-'''
-a = 5
-print(type(a), a)  # <class 'int'> 5
-
-a = str(a)
-print(type(a), a)  # <class 'str'> 5
-
-a = float(a)
-print(type(a), a)  # <class 'float'> 5.0
-
-a = int(a)
-print(type(a), a)  # <class 'int'> 5
-'''
-
-
-# Ввод данных с клавиатуры input()
-'''
-name = input('Введите имя: ')
-age = int(input('Введите возраст: '))
-# ValueError: invalid literal for int() with base 10: 'гушкрпушкгрп'
-# ValueError: invalid literal for int() with base 10: '5.0'
-if age >= 18:
-    print(f'Имя пользователя: {name}, а возраст: {age} - доступ открыт.')
-else:
-    print(f'Имя пользователя: {name}, а возраст: {age} - доступ закрыт.')
-'''
-
-
-# Работа с f-строкой
-'''
-# Имя пользователя: name, а возраст: age - доступ открыт.
-
-name = input('Введите имя: ')
-age = int(input('Введите возраст: '))
-
-print('Имя пользователя: ', name, ', а возраст: ', age, ' - доступ открыт.')
-print('Имя пользователя: ' + name + ', а возраст: ' + str(age) + ' - доступ открыт.')
-print('Имя пользователя: {}, а возраст: {} - доступ открыт.'.format(name, age))
-
-print(f'Имя пользователя: {name}, а возраст: {age} - доступ открыт.')  # python >= 3.9
-'''
-
-
-
-# Базовая арифметика
-'''
-a, b = 7, 2
-
-print(f'{a} + {b} = {a + b} \n'
-      f'{a} - {b} = {a - b} \n'
-      f'{a} * {b} = {a * b}')
-
-print()  # В каждой функции print() есть переход на новую строку /n
-
-
-# Три вида деления в программировании:
-
-a, b = 7, 2
-print(f'{a} / {b} = {a / b}')  # 3.5 - обыкновенное вещественное деление (результат float)
-print(f'{a} // {b} = {a // b}')  # 3 - взятие только целой части от деления (результат int)
-print(f'{a} % {b} = {a % b}')  # 1 - взятие остатка от деления (результат int)
-
-
-n = 435
-print(n / 10)  # 43.5
-print(n // 10)  # 43
-print(n % 10)  # 5 - берет последнюю цифру
-
-print(n // 100)  # 4
-print(n % 100)  # 35 - берет две последние цифры
-
+n = int(input('n: '))
+if n > 0:  # если
+    print('Число положительное')
+elif n < 0:  # иначе если
+    print('Число отрицательное')
+else:  # иначе
+    print('Число равно 0')
 
 n = int(input('n: '))
-if n % 2 == 0:
-    print('Четное | Делится на 2 | Кратно 2')
-if n % 2 != 0:
-    print('Нечетное | Не делится на 2 | Не кратно 2')
-
-if n % 5 == 0:
-    print('Число делитсян на 5 | кратно 5')
-
-
-
-print(f'Возведем число 2 в степень 5: {2 ** 5}')  # 32
-
-print(f'Взять квадратный корень от числа 16: {16 ** (1/2)}')
-print(f'Взять кубический корень от числа 26: {27 ** (1/3)}')
+if n > 0:  # если
+    print('Число положительное')
+if n < 0:  # иначе если
+    print('Число отрицательное')
+if n == 0:  # иначе
+    print('Число равно 0')
 '''
 
 
+'''
+# x = int(input('x: '))
+# y = int(input('y: '))
+x, y = -5, 0
+if x > 0 and y > 0:
+    print('Первая четверть')
+elif x < 0 and y < 0:
+    print('Третья четверть')
+elif x < 0 and y > 0:
+    print('Вторая четверть')
+elif x > 0 and y < 0:
+    print('Четвертая четверть')
+else:
+    print('Лежит на осях')
+print('Конец условия')
+'''
 
-# Напишите программу, которая запрашивает у пользователя три числа и выводит следующие
-# арифметические операции: разность первого и второго чисел, сумму первого и третьего
-# числа, остаток от деления первого числа на второе.
-# Результаты каждой операции должны быть выведены на экран, каждое на отдельной строке.
+
+# Логические связки: and, or, not, in, not in, ==, !=
+"""
+a, b, c = 4, 5, 4
+
+print(a == c)  # True
+print(a == b)  # False
+
+print(a != c)  # False
+
+if a > 0 and b > 0 and c > 0:
+    print('and - Все условия верные')
+if a > 0 or b > 0 or c > 0:
+    print('or - Хотя бы одно условие верное')
+
+print(True + True + False + True)  # 3
+
+if (a > 0) + (b > 0) + (c > 0) == 3:
+    print('Все условия верные')
+if (a > 0) + (b > 0) + (c > 0) == 1:
+    print('Только одно условие выполняется')
+if (a > 0) + (b > 0) + (c > 0) >= 1:
+    print('Хотя бы одно условие выполняется')
+if (a > 0) + (b > 0) + (c > 0) <= 2:
+    print('Не более двух выполняются')
+
+
+flag = True
+print(not flag)  # False
+print(not(not flag))  # True
+
+s = '3kj45h3kjh5'
+for x in s:
+    print(x, end=' ')  # 3 k j 4 5 h 3 k j h 5
+print()
+
+for x in s:
+    if x in '0123456789':
+        print(x, end=' ')  # 3 4 5 3 5
+print()
+
+for x in s:
+    if x not in '0123456789':
+        print(x, end=' ')  # k j h k j h
+print()
+
+
+summa = 0
+s = '34535'
+for x in s:
+    summa += int(x)
+print(summa)  # 20
+
+'''
+summa = 0
+s = '3kj45h3kjh5'
+for x in s:
+    summa += int(x)  # ValueError: invalid literal for int() with base 10: 'k'
+print(summa)  # 20
+'''
+
+summa = 0
+s = '3kj45h3kjh5'
+for x in s:
+    if x in '0123456789':
+        summa += int(x)  
+print(summa)  # 20
+"""
+
+'''
+n = int(input())
+# n = 53489
+a = n // 10000
+b = (n // 1000) % 10
+c = (n // 100) % 10
+d = (n // 10) % 10
+e = n % 10
+print(a + b + c + d + e)
+print(a * b * c * d * e)
+'''
+
+
+# Способы подключения библиотек
+
+import math  # - классический способ, но неудобный так как везде нужно таскать с собой имя math
+
+print(16 ** (1/2))  # 4.0
+print(math.sqrt(16))  # 4.0
+print(math.factorial(5))
+
+import math as m  # - подключение библиотеки через короткое имя (любое)
+print(m.sqrt(16))
+print(m.factorial(5))
+
+from math import sqrt, factorial, fabs  # - подключение конкретных функций из библиотеки
+print(sqrt(16))
+print(factorial(5))
+
+
+from math import *  # - подключение всего содержимого библиотеки
+print(sqrt(16))
+print(factorial(5))
+print(fabs(5))
+
+
+
+count = 0
+from itertools import product, permutations
+for p in permutations('abc'):
+    count += 1
+    print(p)
+    # ('a', 'b', 'c')
+    # ('a', 'c', 'b')
+    # ('b', 'a', 'c')
+    # ('b', 'c', 'a')
+    # ('c', 'a', 'b')
+    # ('c', 'b', 'a')
+print(count)
+
+count = 0
+from itertools import *
+for p in permutations('abc'):
+    count += 1
+    print(p)
+    # ('a', 'b', 'c')
+    # ('a', 'c', 'b')
+    # ('b', 'a', 'c')
+    # ('b', 'c', 'a')
+    # ('c', 'a', 'b')
+    # ('c', 'b', 'a')
+print(count)
+# TypeError: unsupported operand type(s) for +=: 'type' and 'int'
+
+
+
 
 
 

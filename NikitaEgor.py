@@ -1,5 +1,4 @@
 # region Домашка: ******************************************************************
-from turtledemo.round_dance import stop
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,209 +6,145 @@ from turtledemo.round_dance import stop
 # region Урок: *************************************************************
 
 
-# № 48393 (Уровень: Базовый)
+
+#  ¬x     (not x)
+# x ∧ y    x and y
+# x ∨ y    x or y
+# x → y    x <= y
+
+
+# № 31361 Пересдача 08.07.26(Уровень: Базовый)
+# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без
+# остатка на натуралиное число m». Для какого наибольшего натурального
+# числа А логическое выражение ДЕЛ(х,33) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,242))
+# истинно (т.е. принимает значение 1) при любом целом положительном значении переменной х?
 '''
-alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alp[:8]:
-    for y in alp[:8]:
-        A = int(f'{y}04{x}5', 11)
-        B = int(f'253{x}{y}', 8)
-'''
+def F(x, A):  # ДЕЛ(х,33) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,242))
+    return (x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))
 
-
-
-
-
-# https://stepik.org/lesson/1038709/step/10?unit=1062775
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
-
-print((F(2024) // 16 - F(2023)) // F(2022))
+RES = []
+for A in range(1, 10000):
+    if all(F(x, A) == False for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
 '''
 
 
-
+# № 31122 Основная волна 18.06.26(Уровень: Базовый)
 '''
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
-    
-for n in range(0, 3000, 1):
-    F(n)
+def F(x, A):  # ДЕЛ(х,А)∨((х∈В)→¬ДЕЛ(х,16))
+    B = 70 <= x <= 90
+    return (x % A == 0) or ((B) <= (x % 16 != 0))
 
-
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n + 1)
-
-for n in range(3000-1, -1, -1):
-    F(n)
-'''
-
-# https://stepik.org/lesson/1038709/step/10?unit=1062775
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
-
-for n in range(0, 3000, 1):
-    F(n)
-
-print((F(2024) // 16 - F(2023)) // F(2022))
-'''
-
-# № 21902 Открытый вариант 2025(Уровень: Базовый)
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 2025:
-        return n
-    if n < 2025:
-        return n * 2 + F(n + 2)
-
-for n in range(100-1, -1, -1):
-    F(n)
-
-print(F(82) - F(81))
+RES = []
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        RES.append(A)
+print(max(RES))
 '''
 
 
-#
-# № 21711 ЕГКР 19.04.25(Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=n при n<20;
-# F(n)=(n−6)×F(n–7), если n≥20.
-# Чему равно значение выражения (F(47872)−290×F(47865))/F(47858)?
+# № 22433 (Уровень: Базовый)
 '''
-from functools import *
-@lru_cache(None)
-def F(n):
-    if n < 20:
-        return n
-    if n >= 20:
-        return (n - 6) * F(n - 7)
+def F(x, A):  # ¬(x&117=0)∧(x&91=0)→¬(x&А=0)
+    return ((x & 117 != 0) and (x & 91 == 0)) <= (x & A != 0)
 
-for n in range(0, 50000, 1):
-    F(n)
-
-print((F(47872) - 290 * F(47865)) // F(47858))
+RES = []
+for A in range(0, 1000):
+    if all(F(x, A) for x in range(0, 10000)):
+        RES.append(A)
+print(min(RES))
 '''
 
 
-# № 18123 (Уровень: Базовый)
-# (Д. Бахтиев) Алгоритм вычисления значения функции
-# F(n), где n – натуральное число, задан следующими соотношениями:
-# F(n)=n, при  n≥2010;
-# F(n)=F(n+3)+F(n+2)+F(n+1), если n<2010
-# Чему равно значения выражения (F(2000)−2⋅(F(2002)+F(2003))) / F(2004)?
+# № 21901 Открытый вариант 2025(Уровень: Базовый)
 '''
-from functools import *
+def F(x, A):  # ((x&52!=0)∧(x&48=0))→¬(x&А=0)
+    return ((x & 52 != 0) and (x & 48 == 0)) <= (x & A != 0)
 
-@lru_cache(None)
-def F(n):
-    if n >= 2010:
-        return n
-    if n < 2010:
-        return F(n + 3) + F(n + 2) + F(n + 1)
-
-for n in range(3000 - 1, -1, -1):
-    F(n)
-
-print((F(2000) - 2 * (F(2002) + F(2003))) // F(2004))
+RES = []
+for A in range(0, 1000):
+    if all(F(x, A) for x in range(0, 10000)):
+        RES.append(A)
+print(min(RES))
 '''
 
 
-# № 25355 ЕГКР 13.12.25(Уровень: Базовый)
-# Алгоритм вычисления функций
-# F(n) и G(n), где n - целое число, задан следующими соотношениями:
-# F(n)=F(n−4)+3580, если n≥19;
-# F(n)=6×(G(n−7)−36), если n<19;
-# G(n)=n/20+28, если n≥248045;
-# G(n)=G(n+9)−4, если n<248045.
-# Чему равно значение функции F(673)?
+# № 29969 Апробация 14.05.26(Уровень: Базовый)
+# Для какого наибольшего целого неотрицательного числа А выражение
+# (x>A)∨(y>A)∨(x+2y<80)
+# истинно (т.е. принимает значение 1) при любых целых неотрицательных х и у?
 '''
-from functools import *
+def F(x, y, A):
+    return (x>A) or (y>A) or (x+2*y < 80)
 
-@lru_cache(None)
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    else:
-        return 6 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 248045:
-        return n / 20 + 28
-    else:
-        return G(n + 9) - 4
-
-for n in range(250_000-1, -1, -1):
-    G(n)
-
-for n in range(1000):
-    F(n)
-
-print(F(673))
+RES = []
+for A in range(0, 1000):
+    if all(F(x, y, A) for x in range(0, 100) for y in range(0, 100)):
+        RES.append(A)
+print(max(RES))
 '''
 
 
-# № 25397 (Уровень: Средний)
 
-from functools import *
+# № 29347 Открытый вариант 2026(Уровень: Базовый)
+'''
+def F(x, a1, a2):  # ¬(x ∈ A) → ((x ∈ B) ≡ (x ∈ C))
+    B = 22 <= x <= 40
+    C = 32 <= x <= 50
+    A = a1 <= x <= a2
+    return (not A) <= ((B) == (C))
 
-@lru_cache(None)
-def F(n):
-    if n > 40:
-        return F(n - 4) + 3020
-    else:
-        return 3 * (G(n - 2) - 15)
-
-@lru_cache(None)
-def G(n):
-    if n >= 301_208:
-        return 10 * n + 50
-    else:
-        return G(n + 7) - 21
-
-for n in range(302_000-1, -1, -1):
-    G(n)
-
-for n in range(2050):
-    F(n)
-
-print(F(2026))
+RES = []
+M = [x / 5 for x in range(10 * 5, 60 * 5)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))  # 28.0 -> 28 
+'''
 
 
+# № 12469 (Уровень: Базовый)
+'''
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return (D) <= (((not C) and (not A)) <= (not D))
+
+RES = []
+M = [x / 10 for x in range(1 * 10, 110 * 10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            RES.append(a2 - a1)
+print(min(RES))  # 21.75 -> 21.8 -> 21.9 -> 22
+'''
+
+
+# № 12247 ЕГКР 16.12.23(Уровень: Базовый)
+# Для какого наибольшего целого положительного числа А выражение
+# (x&А=0) ∨ ¬(x&37=0) ∨ ¬(x&12=0) тождественно истинно, то есть принимает
+# значение 1 при любых целых положительных х?
+'''
+def F(x, A):
+    return (x & A == 0) or (x & 37 != 0) or (x & 12 != 0)
+
+for A in range(1, 10000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # 2027
-# ФИПИ = [1, 5, 14, 16]
+# ФИПИ = [1, 5, 14, 15, 16]
 # КЕГЭ = []
+# на следующем уроке: 2 надо рассмотреть
+
 #
 # 2026
 # ФИПИ = [1, 2, 3, 5, 8, 11, 10, 13, 14, 15, 16, 17, 18, 19-21, 22]
 # КЕГЭ = [1, 2, 3, 12, 10]
-# на следующем уроке: Добиваем 3 прототип 14 номера
