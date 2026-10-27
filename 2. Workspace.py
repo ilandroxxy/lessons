@@ -2988,7 +2988,7 @@ print(alp[1::2])  # ['1', '3', '5', '7', '9', 'B', 'D', 'F', 'H', 'J', 'L', 'N',
 
 
 # № 28760 Досрочная волна 2026(Уровень: Базовый)
-
+'''
 alp = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
 def convert(n, b):
     r = ''
@@ -3023,10 +3023,21 @@ n25 = convert(n, 25)
 print(len([x for x in n25 if x > 'A']))
 print(len([x for x in n25 if x > alp[10]]))
 
+'''
 
+import sys
+sys.setrecursionlimit(10**8)
 
+def F(n):
+    return 2 * (G(n - 3) + 8)
 
+def G(n):
+    if n < 10:
+        return 2 * n
+    if n >= 10:
+        return G(n - 2) + 1
 
+print(F(15548))
 
 
 
