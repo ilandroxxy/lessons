@@ -1,316 +1,180 @@
 # region Домашка: ******************************************************************
 
 
+
+# № 29083 (Уровень: Средний)
+# Алгоритм вычисления значения функции
+# F(n), где n – целое число, задан следующими соотношениями:
+# F(n)=6 при n<17;
+# F(n)=(n+5)×F(n−9), если n≥17.
+# Чему равно значение выражения (F(234561)/436+F(234552)/218)/F(234534)?
+'''
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n < 17:
+        return 6
+    if n >= 17:
+        return (n + 5) * F(n - 9)
+
+for n in range(250_000):
+    F(n)
+
+print( (F(234561) // 436 + F(234552) // 218) // F(234534) )
+'''
+# F(234561) = (234561 + 5) * F(234552)
+# F(234552) = (234552 + 5) * F(234543)
+# F(234543) = (234543 + 5) * F(234534)  // F(234534)
+'''
+r1 =  ((234561 + 5) * (234552 + 5) * (234543 + 5)) / 436
+r2 =  ((234552 + 5) * (234543 + 5)) / 218
+print(r1 + r2)
+'''
+
+
+# № 29348 Открытый вариант 2026(Уровень: Базовый)
+# Алгоритм вычисления значения функции
+# F(n), где n – целое число, задан следующими соотношениями:
+# F(n)=1 при n<10;
+# F(n)=(n+3)×F(n−3), если n≥10.
+# Чему равно значение выражения (F(247563) / 519−477 × F(247560)) / F(247557)?
+
+# todo Почему эта оптимизация сработала
+'''
+import time
+start = time.time()
+
+
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n < 10:
+        return 1
+    if n >= 10:
+        return (n + 3) * F(n - 3)
+
+for n in range(250000):
+    F(n)
+
+a = F(247563)
+b = F(247560)
+c = F(247557)
+print( ( a // 519 - 477 * b) // c )
+
+end = time.time()
+print(end - start)  # 66.72376608848572 -> 24.76407408714294
+'''
+
+
+
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
 
-# № 15 Демоверсия 2021(Уровень: Базовый)
-'''
-def F(n):
-    if n == 1:
-        return 1
-    if n % 2 == 0:
-        return n + F(n - 1)
-    if n > 1 and n % 2 != 0:
-        return 2 * F(n - 2)
 
-print(F(26))
+# Пример использования функции all
+'''
+s = '429380'
+print(all(x in '0123456789' for x in s))  # True
+
+s = '429380a'
+print(all(x in '0123456789' for x in s))  # False
 '''
 
 
-# № 4704 Демоверсия 2023(Уровень: Базовый)
+# № 31361 Пересдача 08.07.26(Уровень: Базовый)
+# Для какого наибольшего натурального числа А логическое выражение
+# ДЕЛ(х,33) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,242))
+# истинно (т.е. принимает значение 1) при любом целом положительном значении переменной х?
 '''
-import sys
-sys.setrecursionlimit(10**8)
+# Вариант 1
+def F(x, A):
+    return (x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))
 
-from sys import *
-setrecursionlimit(10**8)
+R = []
+for A in range(1, 1000):
+    if all( F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
 
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return n * F(n - 1)
+# Вариант 2
 
-print(F(2023) / F(2020))
-'''
-#   [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
-
-
-
-# № 17557 Основная волна 08.06.24(Уровень: Базовый)
-'''
-import sys
-sys.setrecursionlimit(10**8)
-
-def F(n):
-    if n == 1:
-        return 1
-    if n > 1:
-        return 2 * n * F(n - 1)
-
-print( (F(2024) // 16 - F(2023)) // F(2022)   )
-#     print( (F(2024) / 16 - F(2023)) / F(2022)   )
-#             ~~~~~~~~^~~~
-# OverflowError: integer division result too large for a float
+print(max([A for A in range(1, 1000) if all( ((x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))) for x in range(1, 10000))]))
 '''
 
 
-# № 18931 Новогодний вариант 2025(Уровень: Базовый)
+# № 31512 Демоверсия 2027(Уровень: Базовый)
 '''
-from functools import *
+def F(x, A):
+    B = 70 <= x <= 90
+    return (x % A == 0) or ((B) <= (x % 22 != 0))
 
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n - 1
-    if n > 3 and n % 2 == 0:
-        return F(n - 2) + n / 2 - F(n - 4)
-    if n > 3 and n % 2 != 0:
-        return F(n - 1) * n + F(n - 2)
-
-for n in range(0, 5000):
-    F(n)
-
-print(F(4952) + 2 * F(4958) + F(4964))
+R = []
+for A in range(1, 1000):
+    if all( F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
 '''
 
-
-# № 23756 Демоверсия 2026(Уровень: Базовый)
+# № 20577 (Уровень: Базовый)
+# (x & A ≠ 0) → ((x & 698 = 0) → (x & 321 ≠ 0))
 '''
-from functools import *
+def F(x, A):
+    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
 
-def F(n):
-    return 2 * (G(n - 3) + 8)
-
-@lru_cache(None)
-def G(n):
-    if n < 10:
-        return 2 * n
-    if n >= 10:
-        return G(n - 2) + 1
-
-for n in range(16000):
-    G(n)
-
-print(F(15548))
+R = []
+for A in range(1, 10000):
+    if all( F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
 '''
 
 
-# № 25355 ЕГКР 13.12.25(Уровень: Базовый)
+# № 20580 (Уровень: Базовый)
+# (9x + y > A) ∨ (x ≥ 36) ∨ (y ≥ 18)
 '''
-from functools import *
+def F(x, y, A):
+    return (9*x + y > A) or (x >= 36) or (y >= 18)
 
-@lru_cache(None)
-def F(n):
-    if n >= 19:
-        return F(n - 4) + 3580
-    if n < 19:
-        return 6 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 248045:
-        return n / 20 + 28
-    if n < 248045:
-        return G(n + 9) - 4
-
-for n in range(250_000-1, -1, -1):
-    G(n)
-
-for n in range(0, 700):
-    F(n)
-
-print(F(673))
+R = []
+for A in range(1, 10000):
+    if all( F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
+        R.append(A)
+print(max(R))
 '''
 
 
-# № 27076 (Уровень: Средний)
-'''
-from functools import *
+# № 12469 (Уровень: Базовый)
+# На числовой прямой даны два отрезка: D = [7; 68] и C = [29; 100].
+# Укажите наименьшую возможную длину такого отрезка A, для которого
+# логическое выражение: (x∈D)→((¬(x∈C)∧¬(x∈A))→¬(x∈D))
+# истинно (т.е. принимает значение 1) при любом значении переменной х.
 
-@lru_cache(None)
-def F(n):
-    if n < 43:
-        return G(n + 4)
-    if n >= 43:
-        return 2 * F(n - 2) - F(n - 4) + 2
+def F(x, a1, a2):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return (D) <= (((not C) and (not A)) <= (not D))
 
-@lru_cache(None)
-def G(n):
-    if n < 11240:
-        return G(n + 3) + 2
-    if n >= 11240:
-        return Q(n)
-
-@lru_cache(None)
-def Q(n):
-    if n < 21:
-        return n + 4
-    if n >= 21:
-        return Q(n - 4) + 2
-
-for n in range(0, 11250):
-    Q(n)
-
-for n in range(11250-1, -1, -1):
-    G(n)
-
-for n in range(0, 2030):
-    F(n)
-
-print(F(2026))
-'''
+R = []
+M = [x / 4 for x in range(1 * 4, 110 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all( F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
 
 
-
-# № 28937 ЕГКР 18.04.26(Уровень: Базовый)
-# Алгоритм вычисления функций
-# F(n) и G(n), где n - целое число, задан следующими соотношениями:
-# F(n)=F(n−8)+1095, если n≥21;
-# F(n)=10×(G(n−7)−36), если n<21;
-
-# G(n)=n/23+33, если n≥22560;
-# G(n)=G(n+11)−4, если n<22560.
-# Чему равно значение функции F(548)?
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n >= 21:
-        return F(n - 8) + 1095
-    if n < 21:
-        return 10 * (G(n - 7) - 36)
-
-@lru_cache(None)
-def G(n):
-    if n >= 22560:
-        return n / 23 + 33
-    if n < 22560:
-        return G(n + 11) - 4
-
-for n in range(22600 - 1, -1, -1):
-    G(n)
-
-for n in range(0, 600):
-    F(n)
-
-print(F(548))
-'''
-
-
-# № 25397 (Уровень: Средний)
-# (Р. Косов) Алгоритм вычисления функций
-# F(n) и G(n), где n - целое число, задан следующими соотношениями:
-# F(n)=F(n−4)+3020, если n>40;
-# F(n)=3×(G(n−2)−15), если n≤40;
-
-# G(n)=10×n+50, если n≥301208;
-# G(n)=G(n+7)−21, если n<301208.
-# Чему равно значение функции F(2026)?
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n > 40:
-        return F(n - 4) + 3020
-    if n <= 40:
-        return 3 * (G(n - 2) -15)
-
-@lru_cache(None)
-def G(n):
-    if n >= 301208:
-        return 10 * n + 50
-    if n < 301208:
-        return G(n + 7) - 21
-
-for n in range(302000 - 1, -1, -1):
-    G(n)
-
-for n in range(2030):
-    F(n)
-
-print(F(2026))
-'''
-
-
-# № 25398 (Уровень: Средний
-# (Р. Косов) Алгоритм вычисления функций
-# F(n) и G(n), где n - целое число, задан следующими соотношениями:
-# F(n)=F(n−6)+2048, если n>30;
-# F(n)=3×(G(n−5)+13), если n≤30;
-
-# G(n)=2×n+50, если n≥221337;
-# G(n)=G(n+11)−48, если n<221337.
-# Чему равно значение функции F(5078)?
-'''
-from functools import *
-
-@lru_cache(None)
-def f(n):
-    if n <= 30:
-        return 3 * (g(n - 5) + 13)
-    return f(n - 6) + 2048
-
-@lru_cache(None)
-def g(n):
-    if n < 221337:
-        return g(n + 11) - 48
-    return 2 * n + 50
-
-for n in range(230000 - 1, -1, -1):
-    g(n)
-
-for n in range(6000):
-    f(n)
-
-print(f(5078))
-'''
-
-
-# № 25399 (Уровень: Средний)
-# (Р. Косов) Алгоритм вычисления функций
-# F(n) и G(n), где n - целое число, задан следующими соотношениями:
-# F(n)=F(n−5)+1092, если n≥128;
-# F(n)=5×G(n−7)+29,, если n<128;
-
-# G(n)=n−15, если n>303728;
-# G(n)=G(n+8)/2−109, если n≤303728.
-# Чему равно значение функции F(2049)?
-
-from functools import *
-
-@lru_cache(None)
-def f(n):
-    if n < 128:
-        return 5 * g(n - 7) + 29
-    return f(n - 5) + 1092
-
-@lru_cache(None)
-def g(n):
-    if n <= 303728:
-        return g(n + 8) / 2 - 109
-    return n - 15
-
-for n in range(310000-1, -1, -1):
-    g(n)
-
-for n in range(3000):
-    f(n)
-
-print(f(2049))
 
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 13, 16]
+# ФИПИ = [1, 2, 13, 15, 16]
 # КЕГЭ = []
 # todo на следующем уроке:
