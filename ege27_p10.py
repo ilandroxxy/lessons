@@ -219,5 +219,15 @@ print(cnt)   # 483840
 # ФИПИ = [8, ]
 # КЕГЭ = []
 # todo на следующем уроке: 15 - рассказать про all
+# todo разобрать ошибку с домашки:
+'''
+from itertools import product
+n = 0
+for p in product(sorted(‘АЕКНС’), repeat = 6):
+    word = ‘’.join(p)
+    n += 1
+    if word == ‘СЕНЕКА’:
+print(n)
+'''
 
 # 2, 5, 18
