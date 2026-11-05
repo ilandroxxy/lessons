@@ -1,180 +1,110 @@
 # region Домашка: ******************************************************************
 
 
-
-# № 29083 (Уровень: Средний)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=6 при n<17;
-# F(n)=(n+5)×F(n−9), если n≥17.
-# Чему равно значение выражения (F(234561)/436+F(234552)/218)/F(234534)?
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 17:
-        return 6
-    if n >= 17:
-        return (n + 5) * F(n - 9)
-
-for n in range(250_000):
-    F(n)
-
-print( (F(234561) // 436 + F(234552) // 218) // F(234534) )
-'''
-# F(234561) = (234561 + 5) * F(234552)
-# F(234552) = (234552 + 5) * F(234543)
-# F(234543) = (234543 + 5) * F(234534)  // F(234534)
-'''
-r1 =  ((234561 + 5) * (234552 + 5) * (234543 + 5)) / 436
-r2 =  ((234552 + 5) * (234543 + 5)) / 218
-print(r1 + r2)
-'''
-
-
-# № 29348 Открытый вариант 2026(Уровень: Базовый)
-# Алгоритм вычисления значения функции
-# F(n), где n – целое число, задан следующими соотношениями:
-# F(n)=1 при n<10;
-# F(n)=(n+3)×F(n−3), если n≥10.
-# Чему равно значение выражения (F(247563) / 519−477 × F(247560)) / F(247557)?
-
-# todo Почему эта оптимизация сработала
-'''
-import time
-start = time.time()
-
-
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 10:
-        return 1
-    if n >= 10:
-        return (n + 3) * F(n - 3)
-
-for n in range(250000):
-    F(n)
-
-a = F(247563)
-b = F(247560)
-c = F(247557)
-print( ( a // 519 - 477 * b) // c )
-
-end = time.time()
-print(end - start)  # 66.72376608848572 -> 24.76407408714294
-'''
-
-
-
 # endregion Домашка: ******************************************************************
 # #
 # #
 # region Урок: ********************************************************************
 
 
+# s - это кол-во камней в куче которое мы ищем
+# n - это шаг нашей игры
 
-# Пример использования функции all
+# n = 1: Петя первый ход
+# n = 2: Ваня первый ход
+# n = 3: Петя второй ход
+# n = 4: Ваня второй ход
+
+# № 21418 Досрочная волна 2025(Уровень: Базовый)
+# 1 куча: s-2, s/2 меньшего | s <= 87 | s > 88
 '''
-s = '429380'
-print(all(x in '0123456789' for x in s))  # True
+from math import ceil, floor
+def F(s, n):
+    if s <= 87:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 2, n - 1), F(floor(s / 2), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
 
-s = '429380a'
-print(all(x in '0123456789' for x in s))  # False
-'''
-
-
-# № 31361 Пересдача 08.07.26(Уровень: Базовый)
-# Для какого наибольшего натурального числа А логическое выражение
-# ДЕЛ(х,33) → (¬ДЕЛ(х,А) → ¬ДЕЛ(х,242))
-# истинно (т.е. принимает значение 1) при любом целом положительном значении переменной х?
-'''
-# Вариант 1
-def F(x, A):
-    return (x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))
-
-R = []
-for A in range(1, 1000):
-    if all( F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-
-# Вариант 2
-
-print(max([A for A in range(1, 1000) if all( ((x % 33 == 0) <= ((x % A != 0) <= (x % 242 != 0))) for x in range(1, 10000))]))
+print([s for s in range(88+1, 10000) if F(s, n=2)])
+print([s for s in range(88+1, 10000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(88+1, 10000) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 31512 Демоверсия 2027(Уровень: Базовый)
+# № 31365 Пересдача 08.07.26(Уровень: Базовый)
+# 2 кучи: a-2, s-2, a/3, s/3 меньшего | a + s <= 47 | a = 16 | s >= 32
 '''
-def F(x, A):
-    B = 70 <= x <= 90
-    return (x % A == 0) or ((B) <= (x % 22 != 0))
+from math import ceil, floor
+def F(a, s, n):
+    if a + s <= 47:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(a - 2, s, n-1), F(a, s - 2, n-1), F(floor(a / 3), s, n-1), F(a, floor(s / 3), n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
 
-R = []
-for A in range(1, 1000):
-    if all( F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
-
-# № 20577 (Уровень: Базовый)
-# (x & A ≠ 0) → ((x & 698 = 0) → (x & 321 ≠ 0))
-'''
-def F(x, A):
-    return (x & A != 0) <= ((x & 698 == 0) <= (x & 321 != 0))
-
-R = []
-for A in range(1, 10000):
-    if all( F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
+print([s for s in range(32, 1000) if F(16, s, n=2)])
+print([s for s in range(32, 1000) if F(16, s, n=3) and not F(16, s, n=1)])
+print([s for s in range(32, 1000) if F(16, s, n=4) and not F(16, s, n=2)])
 '''
 
 
-# № 20580 (Уровень: Базовый)
-# (9x + y > A) ∨ (x ≥ 36) ∨ (y ≥ 18)
+# № 31157 Основная волна 19.06.26(Уровень: Базовый)
 '''
-def F(x, y, A):
-    return (9*x + y > A) or (x >= 36) or (y >= 18)
+def f(a, s, n):
+    if a + s >= 171:
+        return 0
+    if n == 0:
+        return 0
+    h = [f(a + 1, s, n - 1), f(a * 2, s, n - 1), f(a, s + 1, n - 1), f(a, s * 2, n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else any(h)
 
-R = []
-for A in range(1, 10000):
-    if all( F(x, y, A) for x in range(1, 100) for y in range(1, 100)):
-        R.append(A)
-print(max(R))
+
+print([s for s in range(1, 145 + 1) if f(25, s, n=2)])
+print([s for s in range(1, 145 + 1) if f(25, s, n=3) and not f(25, s, n=1)])
+print([s for s in range(1, 145 + 1) if f(25, s, n=4) and not f(25, s, n=2)])
+'''
+
+# № 29974 Апробация 14.05.26(Уровень: Базовый)
+'''
+from math import ceil, floor
+def F(s, n):
+    if s <= 15:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(s - 7, n - 1), F(floor(s / 4), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+
+print([s for s in range(15 + 1, 10000) if F(s, n=2)])
+print([s for s in range(15 + 1, 10000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(15 + 1, 10000) if F(s, n=4) and not F(s, n=2)])
 '''
 
 
-# № 12469 (Уровень: Базовый)
-# На числовой прямой даны два отрезка: D = [7; 68] и C = [29; 100].
-# Укажите наименьшую возможную длину такого отрезка A, для которого
-# логическое выражение: (x∈D)→((¬(x∈C)∧¬(x∈A))→¬(x∈D))
-# истинно (т.е. принимает значение 1) при любом значении переменной х.
-
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return (D) <= (((not C) and (not A)) <= (not D))
-
-R = []
-M = [x / 4 for x in range(1 * 4, 110 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all( F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 21.75 -> 21.8 -> 21.9 -> 22
+# № 23378 Резервный день 19.06.25(Уровень: Базовый)
+from math import ceil, floor
+def F(s, n):
+    if s <= 27:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [F(s - 3, n - 1), F(s - 6, n - 1), F(floor(s / 3), n - 1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
 
 
-
+print([s for s in range(27 + 1, 10000) if F(s, n=2)])
+print([s for s in range(27 + 1, 10000) if F(s, n=3) and not F(s, n=1)])
+print([s for s in range(27 + 1, 10000) if F(s, n=4) and not F(s, n=2)])
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 13, 15, 16]
+# ФИПИ = [1, 2, 13, 15, 16, 19-21]
 # КЕГЭ = []
 # todo на следующем уроке:
