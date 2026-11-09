@@ -1,5 +1,5 @@
 # region Домашка: ******************************************************************
-
+from random import weibullvariate
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,97 +7,144 @@
 # region Урок: ********************************************************************
 
 
-# a - кол-во камней в первой куче
-# s - кол-во камней во второй куче
-# n - это шаг нашей игры
-
-# n = 1: Петя первый ход
-# n = 2: Ваня первый ход
-# n = 3: Петя второй ход
-# n = 4: Ваня второй ход
-
-# № 31516 Демоверсия 2027(Уровень: Базовый)
-# 2 кучи: a+4, s+4, a*2, s*2 | a + s >= 133 | a = 17 | 1 <= s <= 115
+# № 31505 Демоверсия 2027(Уровень: Базовый)
+# Все пятибуквенные слова, составленные из
+# букв А, К, Ц, Е, Н, Т, записаны в алфавитном
+# порядке и пронумерованы.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААЕ
+# 3. ААААК
+# 4. ААААН
+# 5. ААААТ
+# 6. ААААЦ
+# ……
+# Определите, под каким номером в этом списке стоит
+# первое слово с чётным номером, которое не начинается
+# с букв А, Е или К и при этом содержит в своей записи
+# не менее одной буквы Т.
 '''
-def F(a, s, n):
-    if a + s >= 133:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a + 4, s, n-1), F(a, s + 4, n-1), F(a * 2, s, n-1), F(a, s * 2, n-1)]
-    # return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-
-print(19, [s for s in range(1, 115+1) if F(17, s, n=2)])
-print(20, [s for s in range(1, 115+1) if F(17, s, n=3) and not F(17, s, n=1)])
-print(21, [s for s in range(1, 115+1) if F(17, s, n=4) and not F(17, s, n=2)])
+R = []
+n = 0
+from itertools import product
+for p in product(sorted('АКЦЕНТ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    print(n, word)
+    if n % 2 == 0:
+        if word[0] not in 'АЕК':
+            if word.count('Т') >= 1:
+                R.append(n)
+print(min(R))
 '''
+# ['Ц', 'Ц', 'Ц', 'Ц', 'Е'] -> 'ЦЦЦЦЕ'
 
 
-
-# № 31227 Резерв 22.06.26(Уровень: Базовый)
-# 2 кучи: a-3, s-3, a/3, s/3  a+s <= 53 a = 19  s >= 35
+# № 31354 Пересдача 08.07.26(Уровень: Базовый)
 '''
-from math import ceil, floor
-def F(a, s, n):
-    if a + s <= 53:
-        return n % 2 ==0
-    if n ==0:
-        return 0
-    h = [F(a -3, s, n-1), F(a, s-3,n-1), F(floor(a/3),s,n-1), F(a, floor(s/3),n-1)]
-    return any(h) if (n-1 ) %2==0 else all(h)
-    return any(h) if (n-1 ) %2==0 else any(h)
-
-print(19, [s for s in range(35+1, 1000) if F(19, s, n=2)])
-print(20, [s for s in range(35+1, 1000) if F(19, s,n=3) and not F(19, s,n=1)])
-print(21, [s for s in range(35+1, 1000) if F(19,s,n=4) and not F(19, s, n=2)])
-'''
-
-
-# № 31157 Основная волна 19.06.26(Уровень: Базовый)
-# 2 кучи: а + 1, s + 1, а * 2, s * 2 | а+s >= 171| а = 25| 1 <= s <= 171
-'''
-def F(a, s, n):
-    if a + s >= 171:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a + 1, s, n - 1), F(a, s + 1, n - 1), F(a * 2, s, n - 1), F(a, s * 2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print(19, [s for s in range(1, 145 + 1) if F(25, s, n = 2)])
-print(19, [s for s in range(1, 145 + 1) if F(25, s, n = 3) and not F(25, s, n = 1)])
-print(19, [s for s in range(1, 145 + 1) if F(25, s, n = 4) and not (F(25, s, n = 2))])
+R = []
+n = 0
+from itertools import product
+for p in product(sorted('СОЛНЦЕ'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if word[0] not in 'ЦН':
+            if word.count('Ц') == 1 and word.count('Н') == 1:
+                R.append(n)
+print(max(R))
 '''
 
 
-# № 28940 ЕГКР 18.04.26(Уровень: Базовый)
-# 1 куча: s + 1, s + 5, s * 3,   s >= 124      1 <= s <= 123
+# № 13252 Открытый курс "Слово пацана"(Уровень: Средний)
 '''
-def F(s, n):
-    if s >= 124:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s + 1, n - 1), F(s + 5, n - 1), F(s * 3, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-
-
-print(19, [s for s in range(1, 123 + 1) if F(s, n=2)])
-print(20, [s for s in range(1, 123 + 1) if F(s, n=3) and not F(s, n=1)])
-print(21, [s for s in range(1, 123 + 1) if F(s, n=4) and not (F(s, n=2))])
+R = []
+from itertools import permutations
+for p in permutations('КИДАЛА', r=5):
+    word = ''.join(p)
+    if 'АА' not in word:
+        R.append(word)
+print(len(set(R)))
 '''
 
 
+# № 12453 (Уровень: Базовый)
+'''
+R = []
+from itertools import permutations
+for p in permutations('СОВЕСТЬ'):
+    word = ''.join(p)
+    w = word
+    for x in 'ОЕЬ':
+        w = w.replace(x, 'А')
+    for x in 'СВТ':
+        w = w.replace(x, 'В')
+    if ('АА' in w and 'ВВ' not in w) or ('АА' not in w and 'ВВ' in w) or ('АА' not in w and 'ВВ' not in w):
+        R.append(word)
+print(len(set(R)))
+'''
 
+# № 12097 Новогодний вариант(Уровень: Базовый)
+# (М. Попков) Все шестибуквенные слова, составленные из
+# букв Г, И, Р, Л, Я, Н, Д, А, записаны в алфавитном порядке и пронумерованы.
+# Вот начало списка:
+# 1. АААААА
+# 2. АААААГ
+# 3. АААААД
+# 4. АААААИ
+# 5. АААААЛ
+# 6. АААААН
+# 7. АААААР
+# Под каким номером в списке стоит последнее слово
+# с чётным номером, которое не начинается с буквы Я
+# и содержит ровно три буквы Д?
+'''
+R = []
+n = 0
+from itertools import product
+
+for p in product(sorted('гирлянда'), repeat=6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] != 'я':
+            if word.count('д') == 3:
+                R.append(n)
+print(max(R))
+'''
+
+
+# (Л. Шастин) Все шестибуквенные слова, составленные из букв С, О, Л, Н, Ц, Е,
+# записаны в алфавитном порядке и пронумерованы.
+# Ниже приведено начало списка.
+
+# 1. ЕЕЕЕЕЕ
+# 2. ЕЕЕЕЕЛ
+# 3. ЕЕЕЕЕН
+# 4. ЕЕЕЕЕО
+# 5. ЕЕЕЕЕС
+# 6. ЕЕЕЕЕЦ
+
+# Определите в этом списке количество слов с чётными номерами,
+# которые не начинаются с гласной буквы и при этом содержат в своей записи ровно две буквы Ц.
+'''
+R =[]
+n = 0
+from itertools import product
+for p in product(sorted('солнце'), repeat = 6):
+    word = ''.join(p)
+    n += 1
+    if n % 2 == 0:
+        if word[0] not in 'ое':
+            if word.count('ц') == 2:
+                R.append(n)
+print(len(R))
+'''
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 13, 14, 15, 16, 18, 19-21, 22]
+# ФИПИ = [1, 2, 3, 5, 8.1, 13, 14, 15, 16, 18, 19-21, 22]
 # КЕГЭ = []
-# todo на следующем уроке:
+# todo на следующем уроке: разбираем 8 номера с цифрами
