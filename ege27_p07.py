@@ -1,5 +1,24 @@
 # region Домашка: ******************************************************************
-from random import weibullvariate
+
+
+# https://stepik.org/lesson/2354753/step/4?unit=2390077
+'''
+alp = sorted('QWERTYUIOPASDFGHJKLZXCVBNM1234567890')
+def convert(n,b):
+    r = ''
+    while n> 0:
+        r = alp[n % b]+r
+        n //=b
+    return r
+
+
+n = 5*1296**2021 - 4*216**2022 + 3*36**2023 - 2*6**2024 - 2025
+n36 = convert(n, 36)
+
+print(len([x for x in n36 if int(x, 36) % 2 == 0]))
+print(len([x for x in n36 if x in alp[0::2]]))
+'''
+
 
 # endregion Домашка: ******************************************************************
 # #
@@ -7,144 +26,91 @@ from random import weibullvariate
 # region Урок: ********************************************************************
 
 
-# № 31505 Демоверсия 2027(Уровень: Базовый)
-# Все пятибуквенные слова, составленные из
-# букв А, К, Ц, Е, Н, Т, записаны в алфавитном
-# порядке и пронумерованы.
-# Вот начало списка:
-# 1. ААААА
-# 2. ААААЕ
-# 3. ААААК
-# 4. ААААН
-# 5. ААААТ
-# 6. ААААЦ
-# ……
-# Определите, под каким номером в этом списке стоит
-# первое слово с чётным номером, которое не начинается
-# с букв А, Е или К и при этом содержит в своей записи
-# не менее одной буквы Т.
+# № 22419 (Уровень: Базовый)
+# (Л. Шастин) Сколько существует тринадцатеричных семизначных чисел,
+# в которых все цифры различны и никакая нечётная цифра не стоит
+# рядом с цифрой B?
 '''
-R = []
-n = 0
-from itertools import product
-for p in product(sorted('АКЦЕНТ'), repeat=5):
-    word = ''.join(p)
-    n += 1
-    print(n, word)
-    if n % 2 == 0:
-        if word[0] not in 'АЕК':
-            if word.count('Т') >= 1:
-                R.append(n)
-print(min(R))
-'''
-# ['Ц', 'Ц', 'Ц', 'Ц', 'Е'] -> 'ЦЦЦЦЕ'
-
-
-# № 31354 Пересдача 08.07.26(Уровень: Базовый)
-'''
-R = []
-n = 0
-from itertools import product
-for p in product(sorted('СОЛНЦЕ'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 != 0:
-        if word[0] not in 'ЦН':
-            if word.count('Ц') == 1 and word.count('Н') == 1:
-                R.append(n)
-print(max(R))
-'''
-
-
-# № 13252 Открытый курс "Слово пацана"(Уровень: Средний)
-'''
-R = []
+cnt = 0
 from itertools import permutations
-for p in permutations('КИДАЛА', r=5):
-    word = ''.join(p)
-    if 'АА' not in word:
-        R.append(word)
-print(len(set(R)))
+alp = sorted('QWERTYUIOPASDFGHJKLZXCVBNM1234567890')
+for p in permutations(alp[:13], r=7):
+
+    num = ''.join(p)
+    print(num, p)
+    if num[0] != '0':
+        for x in '13579':
+            num = num.replace(x, '*')
+        if '*B' not in num and 'B*' not in num:
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 12453 (Уровень: Базовый)
+# № 21975 (Уровень: Базовый)
+# (Л. Шастин) Сколько существует шестизначных чисел,
+# записанных в семнадцатеричной системе счисления,
+# в которых все цифры различны и никакие три чётные
+# или три нечётные цифры не стоят рядом?
 '''
-R = []
+cnt = 0
 from itertools import permutations
-for p in permutations('СОВЕСТЬ'):
-    word = ''.join(p)
-    w = word
-    for x in 'ОЕЬ':
-        w = w.replace(x, 'А')
-    for x in 'СВТ':
-        w = w.replace(x, 'В')
-    if ('АА' in w and 'ВВ' not in w) or ('АА' not in w and 'ВВ' in w) or ('АА' not in w and 'ВВ' not in w):
-        R.append(word)
-print(len(set(R)))
+alp = sorted('QWERTYUIOPASDFGHJKLZXCVBNM1234567890')
+for p in permutations(alp[:17], r=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        for x in alp[0::2]:
+            num = num.replace(x, '2')
+        for x in alp[1::2]:
+            num = num.replace(x, '1')
+        if '222' not in num and '111' not in num:
+            cnt += 1
+print(cnt)
 '''
 
-# № 12097 Новогодний вариант(Уровень: Базовый)
-# (М. Попков) Все шестибуквенные слова, составленные из
-# букв Г, И, Р, Л, Я, Н, Д, А, записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. АААААА
-# 2. АААААГ
-# 3. АААААД
-# 4. АААААИ
-# 5. АААААЛ
-# 6. АААААН
-# 7. АААААР
-# Под каким номером в списке стоит последнее слово
-# с чётным номером, которое не начинается с буквы Я
-# и содержит ровно три буквы Д?
+
+# № 20898 Апробация 05.03.25(Уровень: Базовый)
+# Определите количество девятеричных пятизначных чисел,
+# в записи которых ровно одна цифра 0, при этом никакая
+# нечётная цифра не стоит рядом с цифрой 0.
 '''
-R = []
-n = 0
+cnt = 0
 from itertools import product
-
-for p in product(sorted('гирлянда'), repeat=6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] != 'я':
-            if word.count('д') == 3:
-                R.append(n)
-print(max(R))
+alp = sorted('QWERTYUIOPASDFGHJKLZXCVBNM1234567890')
+for p in product(alp[:9], repeat=5):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('0') == 1:
+            for x in alp[1::2]:
+                num = num.replace(x, '1')
+            if '10' not in num and '01' not in num:
+                cnt += 1
+print(cnt)
 '''
 
 
-# (Л. Шастин) Все шестибуквенные слова, составленные из букв С, О, Л, Н, Ц, Е,
-# записаны в алфавитном порядке и пронумерованы.
-# Ниже приведено начало списка.
+# № 18260 (Уровень: Базовый)
+# (Л. Шастин) Определите количество 12-ричных шестизначных
+# чисел, в записи которых содержится ровно одна цифра «B»
+# и равное количество чётных и нечётных цифр.
 
-# 1. ЕЕЕЕЕЕ
-# 2. ЕЕЕЕЕЛ
-# 3. ЕЕЕЕЕН
-# 4. ЕЕЕЕЕО
-# 5. ЕЕЕЕЕС
-# 6. ЕЕЕЕЕЦ
-
-# Определите в этом списке количество слов с чётными номерами,
-# которые не начинаются с гласной буквы и при этом содержат в своей записи ровно две буквы Ц.
-'''
-R =[]
-n = 0
+cnt = 0
 from itertools import product
-for p in product(sorted('солнце'), repeat = 6):
-    word = ''.join(p)
-    n += 1
-    if n % 2 == 0:
-        if word[0] not in 'ое':
-            if word.count('ц') == 2:
-                R.append(n)
-print(len(R))
-'''
+alp = sorted('QWERTYUIOPASDFGHJKLZXCVBNM1234567890')
+for p in product(alp[:12], repeat=6):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('B') == 1:
+            chet = [x for x in num if x in alp[0::2]]
+            nechet = [x for x in num if x in alp[1::2]]
+            if len(chet) == len(nechet):
+                cnt += 1
+print(cnt)
 
 
 # endregion Урок: *************************************************************
 # #
 # #
-# ФИПИ = [1, 2, 3, 5, 8.1, 13, 14, 15, 16, 18, 19-21, 22]
+# ФИПИ = [1, 2, 3, 5, 8, 13, 14, 15, 16, 18, 19-21, 22]
 # КЕГЭ = []
-# todo на следующем уроке: разбираем 8 номера с цифрами
+# todo на следующем уроке:

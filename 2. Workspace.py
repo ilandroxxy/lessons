@@ -3025,26 +3025,21 @@ print(len([x for x in n25 if x > alp[10]]))
 
 '''
 
-import sys
-sys.setrecursionlimit(10**8)
+from functools import lru_cache
+from fractions import Fraction
 
+@lru_cache(None)
 def F(n):
-    return 2 * (G(n - 3) + 8)
+    if n < 2:
+        return Fraction(1)
+    if n % 2 == 0:
+        return Fraction(n, 3) * F(n - 1)
+    return 6 * F(n - 1)
 
-def G(n):
-    if n < 10:
-        return 2 * n
-    if n >= 10:
-        return G(n - 2) + 1
+for n in range(2028):
+    F(n)
 
-print(F(15548))
-
-
-
-print(1500 + 2000 + 3000 + 1500 + 1500 + 2000 + 2000 + 1500 + 1500 + 1500 + 4000 + 2000 + 2000 + 2000 + 1500 + 1500 + 2000 + 2000 + 1500 + 4000 + 1500 + 2000 + 2000)
-
-
-
+print(F(2027) // F(2025))
 
 
 
