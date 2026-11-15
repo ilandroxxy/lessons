@@ -7,93 +7,26 @@
 # region Урок: ********************************************************************
 
 
-# Тип 6 №43771
-'''
-for A in range(1, 100):
-    cnt = 0
-    arr = [(13,2), (11,12), (-12,12), (2,-2), (-10, -10), (6, -5), (2,8), (9,10), (1,13)]
-    for s, t in arr:
-        if (s > A) or (t > 12):
-            # print("YES")
-            pass
-        else:
-            # print("NO")
-            cnt += 1
-    if cnt == 5:
-        print(A)
-'''
+while True:
+    s = input()
+    if len(s) == 0:
+        break
 
+    s = s.lstrip("@#$")
+    s = s.rstrip("!,.")
 
+    if s.startswith("And"):
+        s = s.replace("and", "or")
+    elif s.endswith("end"):
+        s = s.replace("or", "and")
 
-# Тип 6 №10953
-'''
-cnt = 0
-M = [(2, 5), (5, 2), (4, 4), (2, -2), (3, 1), (8, 3), (9, -7), (7, 7), (4, 6)]
-for s, t in M:
-    if s < 5 or t > 5:
-        print("YES")
-        cnt += 1
-    else:
-        print("NO")
-print(cnt)
-'''
+    print(s)
 
-'''
-s = int(input())
-t = int(input())
-if s > -3 and not  t > 5:
-    print("YES")
-else:
-    print("NO")
-
-# (–3, 5); (–2, 2); (–1, –3); (1, 0); (–4, –7); (2, 3); (3, 5); (5, –3); (6, –7).
-# Сколько было запусков, при которых программа напечатала «NO»?
-'''
-
-'''
-s = int(input())
-t = int(input())
-A = int(input())
-if (s > 10) or (t > A):
-    print("YES")
-else:
-    print("NO")
-
-# (1,2); (11,2); (1,12); (11,12); (−11,−12); (−11,12); (−12,11); (10,10); (10,5).
-# Укажите количество целых значений параметра A,
-# при которых для указанных входных данных программа напечатает «YES» семь раз.
-'''
-
-
-# Тип 6 №43428
-
-s = int (input ())
-t = int (input ())
-A = int(input ())
-if (s > A) or (t > 11):
-    print ("YES")
-else:
-    print("NO")
-
-# (–9;11), (2;7), (5;12), (2;–2), (7;–9), (12;6), (9;–1), (7;11), (11;–5).
-#
-# Укажите наибольшее целое значение параметра А,
-# при котором для указанных входных данных программа напечатает «YES» три раза.
-
-# Тип 6 №47995
-
-s = int(input())
-t = int(input())
-A = int(input())
-if (s > 10) or (t > A):
-    print("YES")
-else:
-    print("NO")
-
-# (1,2); (11,2); (1,12); (11,12); (−11,−12); (−11,12); (−12,11); (10,10); (10,5).
-#
-# Укажите целое значение параметра А, при котором
-# для указанных входных данных программа напечатает «YES» пять раз.
+# @@@#And six and little mice were rustling or in the reeds and in the forest.
+# $##$Six sick hicks or and end!!!
+# nick and six slick or bricks,.
+# #@with picks or sticks end
+# forty mice were walking and six found pennies,!
 
 
 # endregion Урок: *************************************************************
