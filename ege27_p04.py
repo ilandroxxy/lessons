@@ -7,282 +7,247 @@
 # region Урок: ********************************************************************
 
 
+# Цикл while отвечает на запросы: "ПОКА условие верное - делаем действие", "бесконечные циклы"
+'''
+i = 0
+while i < 10:
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+    i += 1
+print()
 
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10
+    i += 2
+print()
 
-# Способы подключения библиотек
+print('Конец выполнения прогарммы')
 '''
 
-print(f'Возведение в степень: {2 ** 4}')  # 16
-print(f'Взятие квадратного корня: {16 ** (1 / 2)}')  # 4.0
-print(f'Взятие кубического корня: {27 ** (1 / 3)}')  # 3.0
-
-
-
-import math  # Самое стадратное подключение библиотеки в python
-print(math.sqrt(16))
-
-
-import math as m  # Подключили библиотеку с коротким именем m
-print(m.sqrt(16))
-
-
-from math import sqrt, factorial, prod  # Мы подключили только часть функций из библиотеки
-print(sqrt(16))
-print(factorial(5))
-
-
-from math import *  # Подключение сразу всего содержимого
-print(sqrt(16))
-print(factorial(5))
-print(prod([1, 2, 3, 4, 5]))
+# Бесконечные циклы и операторы break, continue и exit()
 '''
-
-
-# Пример конфликта имен
-'''
-count = 0
-from itertools import permutations
-for p in permutations('abc'):
-    count += 1
-    print(count, p)
-    # 1 ('a', 'b', 'c')
-    # 2 ('a', 'c', 'b')
-    # 3 ('b', 'a', 'c')
-    # 4 ('b', 'c', 'a')
-    # 5 ('c', 'a', 'b')
-    # 6 ('c', 'b', 'a')
-
-count = 0
-from itertools import *
-for p in permutations('abc'):
-    count += 1
-    print(count, p)
-# TypeError: unsupported operand type(s) for +=: 'type' and 'int'
-'''
-
-
-# 🔥 Очень полезные библиотеки Python для ЕГЭ по информатике
-
-# 🐢 turtle - графика (№6)
-# Позволяет рисовать траекторию исполнителя, перемещаться по координатной плоскости и отмечать точки.
-'''
-import turtle as t
-
-t.tracer(0)
-t.fd(100)
-t.rt(90)
-t.goto(50, 30)
-t.dot(5, 'red')
-t.update()
-t.done()
-'''
-
-# 🔄 itertools - комбинаторика (№8/1/9/17/24/25)
-# product() перебирает последовательности с повторениями, а permutations() - перестановки без повторений.
-'''
-from itertools import product, permutations
-
-for x in product('123', repeat=10):
-    print(''.join(x))
-# 11, 12, 13, 21, 22, 23, 31, 32, 33
-
-for x in permutations('ABC', r=3):
-    print(''.join(x))
-# ABC, ACB, BAC, BCA, CAB, CBA
-'''
-
-# ⚠️ Важно! При использовании from itertools import * можно случайно перезаписать переменную count.
-# ⠀
-# 📎 Подробно разбирал эту ошибку в отдельном посте (https://t.me/informatika_kege_itpy/1213).
-
-
-
-# 🌐 ipaddress - компьютерные сети (№10)
-# Позволяет определить адрес сети, маску подсети и количество IP-адресов.
-'''
-from ipaddress import ip_network
-
-net = ip_network('192.168.1.64/26', strict=False)
-
-print(net)                # 192.168.1.64/26
-print(net.netmask)        # 255.255.255.192
-print(net.num_addresses)  # 64
-'''
-
-
-# 🤔 sys + functools - рекурсия (№16)
-
-# setrecursionlimit()
-# Увеличивает допустимую глубину рекурсии.
-# ⠀
-# lru_cache()
-# Запоминает результаты вычислений, чтобы не считать одно и то же повторно.
-'''
-from sys import setrecursionlimit
-from functools import lru_cache
-
-setrecursionlimit(10000)
-
-@lru_cache(None)
-def F(n):
-    if n <= 3:
-        return n
-    return F(n - 1) + F(n - 3)
-'''
-
-# 🎭 fnmatch и re - поиск по маске (№24, №25)⠀
-# Библиотека fnmatch позволяет искать числа по маске. Символ ? обозначает один произвольный символ,
-# а * - любую последовательность символов, в том числе пустую.
-
-# Пример: найдём числа до 10⁸, соответствующие маске 1234*54 и делящиеся на 21.
-'''
-from fnmatch import fnmatch
-for x in range(21, 10**8, 21):
-    if fnmatch(str(x), '1234*54'):
-        print(x, x // 21)
-'''
-# 📎 Альтернативный вариант через re:
-'''
-from re import fullmatch
-for x in range(21, 10**8, 21):
-    if fullmatch(r'1234[0-9]*54', str(x)):
-        print(x, x // 21)
-'''
-# Библиотека re даёт больше возможностей для составления шаблонов и особенно полезна в №24.
-
-
-# 🔤 string - готовые алфавиты (№5, №14)
-# Не нужно вручную выписывать цифры и буквы. В Python уже существуют готовые наборы символов.
-'''
-from string import digits, ascii_uppercase, punctuation
-
-alp = digits + ascii_uppercase
-
-print(alp[:2])  # 01
-print(alp[:8])  # 01234567
-print(alp)      # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-print(ascii_uppercase)  # ABC...XYZ
-print(digits)           # 0123456789
-print(punctuation)      # Знаки пунктуации
-'''
-
-
-# 🔣 math - математические функции
-# ⠀
-# Библиотека содержит полезные функции для округления чисел, вычисления произведений и расстояний между точками.
-'''
-from math import ceil, floor, prod, dist
-
-print(ceil(7 / 2))   # 4
-print(floor(7 / 2))  # 3
-
-print(sum([1, 2, 3, 4, 5]))   # 15
-print(prod([1, 2, 3, 4, 5]))  # 120
-
-print(dist((0, 0), (3, 4)))   # 5.0
-'''
-# 📎 Обратите внимание на несколько моментов:
-# ⠀
-# 1️⃣ ceil() округляет вверх, а floor() вниз.
-# ⠀
-# 2️⃣ prod() вычисляет произведение элементов, а sum() их сумму.
-# ⠀
-# 3️⃣ dist() вычисляет расстояние между точками. Особенно полезно в №27 при работе с кластерами.
-# ⠀
-# ⚠️ Не путайте round() с обычным округлением половины вверх!
-# Например, round(2.5) вернёт 2, а round(3.5) вернёт 4.
-
-
-
-# Условные операторы if, elif, else
-'''
-n = int(input('n: '))
-if n > 0:  # ЕСЛИ 
-    print('Число положительное')
-elif n < 0:  # ИНАЧЕ ЕСЛИ 
-    print('Число отрицательное')
-else:  # ИНАЧЕ
-    print('Число равно нулю')
+password = 'qwerty'
+pas = input('Введите пароль: ')
+while True:
+    if pas == password:
+        print('Пароль верный')
+        break  # - прерывает выполнение цикла в котором лежит
+    pas = input('Пароль неверны, повторите попытку: ')
+print('Добро пожаловать! ')
 '''
 
 '''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:
-    print('Число лежит на осях')
+k = 0
+while True:
+    k += 1
+    if k % 2 != 0:
+        continue  # Прерывает итеррацию (шаг) цикла 
+    if k == 100_000:
+        break  # Прерывает выполнение цикла в котором лежит
+    if k == 50_000:
+        exit()  # Прерывает выполнение всей программы
+    print(k)
+print('Программа закончилась.')
 '''
 
 
-# Логические связки: and, or, not, in, not in, ==, !=
+# Цикл while нужен только в 5 и 14 номерах
 
-a, b, c = 4, 5, -4  # = - присваивание значения элементам
+'''
+n = 8
+b = 2
+r = ''
+while n > 0:
+    r = str(n % b) + r
+    n //= b
+print(r)
+'''
 
-# == - сравнение (равны ли элементы)
-print(a == b)  # False
-print(a == c)  # True
+# Почти универсальная функция для перевода
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
 
-# != - сравнение (не равны ли элементы)
-print(a != b)  # True
-print(a != c)  # False
-
-if a > 0 and b > 0 and c > 0:
-    print('and - проверяет, что все перечисленные элементы верные')
-if a > 0 or b > 0 or c > 0:
-    print('or - проверяет, что хотя бы одно условие верное')
-
-if (a > 0) + (b > 0) + (c > 0) == 2:
-    print('Выполняется только два условия')
-if (a > 0) + (b > 0) + (c > 0) == 3:
-    print('Выполняются все условия')
-if (a > 0) + (b > 0) + (c > 0) >= 1:
-    print('Выполняются хотя бы одно условие')
-if (a > 0) + (b > 0) + (c > 0) <= 2:
-    print('Выполняются не более двух условий')
-
-print(True + True + True + False)  # 3
-print( 1   +   1  +   1  +    0)  # 3
+r = convert(8, 2)
+print(r)
 
 
-s = 'k3j4h3kjh34jh5'
+s = '243897'
+l = len(s)
+print(l)   # 6
+'''
+
+
+#
+# № 14343 (Уровень: Базовый)
+# (Л. Шастин) Значение арифметического выражения
+# 5* 343 ** 2031 + 4 * 49 ** 2142 - 3 * 7 ** 111 + 7 ** 222
+# записали в системе счисления с основанием 7.
+# Определите сумму цифр в записи этого числа.
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r = str(n % b) + r
+        n //= b
+    return r
+
+n = 5 * 343 ** 2031 + 4 * 49 ** 2142 - 3 * 7 ** 111 + 7 ** 222
+n7 = convert(n, 7)
+summa = sum([int(x) for x in n7])
+print(summa) 
+'''
+
+
+
+# Цикл for отвечает на запросы: "повтори N раз", "пробеги от А до B"
+'''
+# Цикл for работает через функцию range()
+
+# range(0, STOP-1, 1)
+# range(START, STOP-1)
+# range(START, STOP-1, STEP)
+
+for i in range(10):
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10):
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for i in range(2, 10+1):
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9 10
+print()
+
+for i in range(2, 10+1, 2):
+    print(i, end=' ')  # 2 4 6 8 10
+print()
+
+for i in range(1, 10+1, 2):
+    print(i, end=' ')  # 1 3 5 7 9
+print()
+
+for i in range(10-1, -1, -1):
+    print(i, end=' ')  # 9 8 7 6 5 4 3 2 1 0
+print()
+'''
+
+# Цикл for работает напрямую с последовательностями
+'''
+# i  0  1  2  3  4  5
+T = (4, 3, 2, 7, 8, 9)
+L = [4, 3, 2, 7, 8, 9]
+s = '432789'
 
 for x in s:
-    print(x, end=' ')  # k 3 j 4 h 3 k j h 3 4 j h 5
+    print(x, end=' ')  # 4 3 2 7 8 9
 print()
+
+
+s = '432fewjilo789'
 
 for x in s:
     if x in '0123456789':
-        print(x, end=' ')  # 3 4 3 3 4 5
+        print(x, end=' ')  # 4 3 2 7 8 9
 print()
-
 
 for x in s:
     if x not in '0123456789':
-        print(x, end=' ')  # k j h k j h j h
+        print(x, end=' ')  # f e w j i l o
 print()
 
+# i  0  1  2  3  4  5
+L = [4, 3, 2, 7, 8, 9]
 
-s = '42378'
-summa = 0
-for x in s:
-    summa += int(x)
-print(summa)  # 24
+print(len(L))  # 6 - кол-во элементов в списке L
 
-s = '42f 37.8'
+for i in range(len(L)):
+    # print(i, end=' ')  # 0 1 2 3 4 5
+    print(L[i], end=' ')  # 4 3 2 7 8 9
+print()
+
+# Через индексы мы можем изменять значения элементов списка (не строк и не кортежей)
+for i in range(len(L)):
+    if L[i] % 2 == 0:
+        L[i] = L[i] ** 2
+print(L)  # [16, 3, 4, 7, 64, 9]
+'''
+
+
+# Напишите программу, которая принимает два числа: a и b.
+# Программа должна вычислить сумму всех целых чисел
+# в диапазоне от a до b включительно и вывести результат.
+'''
+a = int(input())
+b = int(input())
 summa = 0
-for x in s:
-    if x in '0123456789':
-        summa += int(x)
-print(summa)  # 24
+for i in range(a, b+1):
+    summa += i
+print(summa)
+'''
+
+
+# Напишите программу, которая принимает
+# два натуральных числа a и b (a ≤ b)
+# и выводит все целые числа от a до b включительно,
+# удовлетворяющие хотя бы одному из условий:
+#
+# число кратно 73
+# число кратно 15 и 25 одновременно
+# число оканчивается на 3.
+'''
+a = int(input())
+b = int(input())
+for i in range(a, b+1):
+    if (i % 73 == 0) or (i % 15 == 0 and i % 25 == 0) or (i % 10 == 3):
+        print(i)
+'''
+
+# На вход программе подается натуральное число n.
+# Напишите программу, которая подсчитывает сумму
+# тех чисел от 1 до n включительно, куб которых
+# оканчивается на 3, 5 или 9.
+# Необходимо вывести сумму чисел.
+'''
+n = int(input())
+summa = 0
+for i in range(1, n+1):
+    if (i ** 3) % 10 == 3 or (i ** 3) % 10 == 5 or (i ** 3) % 10 == 9:
+        summa += i
+print(summa)
+'''
+
+
+# Напишите программу, которая принимает натуральное
+# число n и вычисляет сумму всех его делителей.
+'''
+n = int(input())
+summa = 0
+for i in range(1, n+1):
+    if n % i == 0:
+        summa += i
+print(summa)
+'''
+
+
+# Почти универсальная функция посика делителей числа
+'''
+def divisaors(n):
+    d = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            d.append(i)
+    return sorted(set(d))
+
+print(divisaors(24))  # [1, 2, 3, 4, 6, 8, 12, 24]
+print(divisaors(16))  # [1, 2, 4, 8, 16]
+'''
+
 
 
 
@@ -291,4 +256,4 @@ print(summa)  # 24
 # #
 # ФИПИ = [18]
 # КЕГЭ = []
-# todo на следующем уроке: циклы while и for 
+# todo на следующем уроке: Домашка циклы while и for, на след уроке разбираем тоерию списков и стрко
