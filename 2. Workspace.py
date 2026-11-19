@@ -3025,22 +3025,23 @@ print(len([x for x in n25 if x > alp[10]]))
 
 '''
 
-from functools import lru_cache
-from fractions import Fraction
 
-@lru_cache(None)
-def F(n):
-    if n < 2:
-        return Fraction(1)
-    if n % 2 == 0:
-        return Fraction(n, 3) * F(n - 1)
-    return 6 * F(n - 1)
+# Вариант 4
+'''
+for n in range(2, 1000):
+    n2 = f'{n:b}'
+    if str(n2).count('1') % 2 == 0:
+        n2 = '11' + n2[2:] + '10'
+    else:
+        n2 = '10' + n2[2:] + '01'
+    r = int(n2, 2)
+    if r <= 852:
+        print(n)
+'''
 
-for n in range(2028):
-    F(n)
-
-print(F(2027) // F(2025))
-
-
-
-
+'''
+pixels = 2176 * 448
+i = 10
+I = (pixels * i) / 8
+print((I + 1024) / 1024)
+'''
