@@ -98,6 +98,7 @@ print([s for s in range(11 + 1, 1000) if f(s, n=4) and not f(s, n=2)])
 
 # № 23278 Основная волна 11.06.25(Уровень: Базовый)
 # s-3|  s - 8 | s / 3
+'''
 from math import floor, ceil
 def f(s, n):
     if s <=  16:
@@ -111,8 +112,25 @@ def f(s, n):
 print([s for s in range(17+1, 1000) if f(s, n=2)])
 print([s for s in range(17+1, 1000) if f(s, n=3) and not f(s, n=1)])
 print([s for s in range(17+1, 1000) if f(s, n=4) and not f(s, n = 2)])
+'''
 
 
+# № 28704 (Уровень: Базовый)
+#1 ≤ S ≤ 73| >= 516| s + 3 |s + 13| a = 7
+'''
+def f (a, s, n):
+    if a * s >= 516:
+        return n % 2 == 0
+    if n == 0:
+        return 0
+    h = [f(a, s +3, n-1), f(a, s + 13, n-1) , f(a + 3,s,  n-1), f(a + 13,s,  n-1)]
+    return any(h) if (n - 1) % 2 == 0 else all(h)
+    return any(h) if (n - 1) % 2 == 0 else any(h)
+
+print(len([s for s in range(1, 73 + 1) if f(7, s, n=2)]))
+print([s for s in range(1,73 + 1) if f(7, s, n=3) and not f(7, s,n=1)])
+print([s for s in range(1, 73 + 1) if f(7, s, n = 4) and not f(7, s, n = 2)])
+'''
 
 
 # endregion Урок: *************************************************************
