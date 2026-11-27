@@ -7,136 +7,178 @@
 # region Урок: ********************************************************************
 
 
-# № 28940 ЕГКР 18.04.26(Уровень: Базовый)
-# 1 куча: s+1, s+5, s*3 | s >= 124 | 1 ≤ s ≤ 123
+# Номер 8: задача 7
 '''
-def F(s, n):
-    if s >= 124:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+1, n-1), F(s+5, n-1), F(s*3, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print([s for s in range(1, 123+1) if F(s, n=2)])
-print([s for s in range(1, 123+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 123+1) if F(s, n=4) and not F(s, n=2)])
-'''
-
-
-# № 25358 ЕГКР 13.12.25(Уровень: Базовый)
-# 1 куча: s+2, s+4, s*2 | s >= 125 | 1 <= s <= 124
-'''
-def F(s, n):
-    if s >= 125:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s+2, n-1), F(s+4, n-1), F(s*2, n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print([s for s in range(1, 124+1) if F(s, n=2)])
-print([s for s in range(1, 124+1) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(1, 124+1) if F(s, n=4) and not F(s, n=2)])
+cnt = 0
+from itertools import product
+for p in product('012345678', repeat=7):
+    num = ''.join(p)
+    if num[0] != '0':
+        if num.count('6') == 1:
+            for x in '1357':
+                num = num.replace(x, '*')
+            if num.count('*') == 2:
+                cnt += 1
+                print(num)
+print(cnt)
 '''
 
 
-# 1 куча: s-2, s-7, s / 3 до меньшего | s <= 20007 | s > 20007
+# Номер 8: задача 6
 '''
-from math import floor, ceil
-def F(s, n):
-    if s <= 20007:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(s-2, n-1), F(s-7, n-1), F(floor(s/3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print([s for s in range(20007+1, 100000) if F(s, n=2)])
-print([s for s in range(20007+1, 100000) if F(s, n=3) and not F(s, n=1)])
-print([s for s in range(20007+1, 30000) if F(s, n=4) and not F(s, n=2)])
+cnt = 0
+from itertools import product
+for p in product('ABCX', repeat=5):
+    word = ''.join(p)
+    # if word.count('X') == 1 and ('X' in word[0] or 'X' in word[-1]):
+    if word.count('X') == 1 and 'X' not in word[1:-1]:
+        cnt += 1
+print(cnt)
 '''
 
 
-# № 31516 Демоверсия 2027(Уровень: Базовый)
-# 2 куча: a+4, s+4, a*2, s*2 | a+s>=133 | a=17 | 1 ≤ s ≤ 115
+# Номер 8: задача 5
 '''
-def F(a, s, n):
-    if a+s >= 133:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [F(a+4, s, n - 1), F(a, s+4, n - 1), F(a*2, s, n - 1), F(a, s*2, n - 1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-a = 17
-print([s for s in range(1, 115 + 1) if F(a, s, n=2)])
-print([s for s in range(1, 115 + 1) if F(a, s, n=3) and not F(a, s, n=1)])
-print([s for s in range(1, 115 + 1) if F(a, s, n=4) and not F(a, s, n=2)])
-'''
-
-'''
-from math import floor, ceil
-def f(s, n):
-    if s <= 11:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [f(s - 3, n-1), f(s - 7, n-1), f(floor(s / 3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print([s for s in range(11 + 1, 1000) if f(s, n=2)])
-print([s for s in range(11 + 1, 1000) if f(s, n=3) and not f(s, n=1)])
-print([s for s in range(11 + 1, 1000) if f(s, n=4) and not f(s, n=2)])
+cnt = 0
+from itertools import product
+for p in product('ABCDXYZ', repeat=4):
+    word = ''.join(p)
+    if word[0] in 'XYZ':
+        if len([x for x in word if x in 'XYZ']) == 1:
+            print(word)
+            cnt += 1
+print(cnt)
 '''
 
 
-# № 23278 Основная волна 11.06.25(Уровень: Базовый)
-# s-3|  s - 8 | s / 3
+# Номер 8: задача 4
 '''
-from math import floor, ceil
-def f(s, n):
-    if s <=  16:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [f(s -3, n-1), f(s - 8, n-1) , f(floor(s / 3), n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    #return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print([s for s in range(17+1, 1000) if f(s, n=2)])
-print([s for s in range(17+1, 1000) if f(s, n=3) and not f(s, n=1)])
-print([s for s in range(17+1, 1000) if f(s, n=4) and not f(s, n = 2)])
+n = 0
+from itertools import product
+for p in product(sorted('БАТЫР'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if 'ЫЫ' not in word and 'АА' not in word:
+        print(n)
+        break
 '''
 
 
-# № 28704 (Уровень: Базовый)
-#1 ≤ S ≤ 73| >= 516| s + 3 |s + 13| a = 7
+# Номер 8: задача 3
 '''
-def f (a, s, n):
-    if a * s >= 516:
-        return n % 2 == 0
-    if n == 0:
-        return 0
-    h = [f(a, s +3, n-1), f(a, s + 13, n-1) , f(a + 3,s,  n-1), f(a + 13,s,  n-1)]
-    return any(h) if (n - 1) % 2 == 0 else all(h)
-    return any(h) if (n - 1) % 2 == 0 else any(h)
-
-print(len([s for s in range(1, 73 + 1) if f(7, s, n=2)]))
-print([s for s in range(1,73 + 1) if f(7, s, n=3) and not f(7, s,n=1)])
-print([s for s in range(1, 73 + 1) if f(7, s, n = 4) and not f(7, s, n = 2)])
+cnt = 0
+n = 0
+from itertools import product
+for p in product(sorted('АЛГОРИТМ'), repeat=5):
+    word = ''.join(p)
+    n += 1
+    if n % 2 != 0:
+        if 'Г' != word[0]:
+            if word.count('И') >= 2:
+                cnt += 1
+print(cnt)
 '''
 
+
+
+
+# Номер 8: задача 2
+# Тип 8 № 59744
+# Евгений составляет 6-буквенные слова из букв М, У, Ж, Ч, И, Н, А.
+# Каждая из букв может встречаться в слове ровно один раз,
+# причём первой буквой не может быть Ч, буква Ж должна встречаться не менее 1 раза
+# и номер слова должен быть нечётный.
+# Сколько различных слов может составить Евгений?
+'''
+n = 0
+cnt = 0
+from itertools import permutations
+for p in permutations('МУЖЧИНА', r=6):
+    word = ''.join(p)
+    if word[0] != 'Ч':
+        if word.count('Ж') >= 1:
+            n += 1
+            if n % 2 != 0:
+                cnt += 1
+print(cnt)
+'''
+
+# Номер 8: задача 1
+'''
+cnt = 0
+s = '0123456'
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                num = a + b + c + d
+                if num[0] != '0':
+                    if a > b > c > d:
+                        cnt += 1
+print(cnt)
+'''
+
+
+# Тип 5 №18708
+# На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.
+# 1.Строится двоичная запись числа N.
+# 2. К этой записи дописываются справа ещё два разряда по следующему правилу:
+# а) складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается
+# в конец числа (справа). Например, запись 11100 преобразуется в запись 111001;
+#
+# б) над этой записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.
+# Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.
+#
+# Укажите минимальное число N, после обработки которого с помощью этого алгоритма получается число, большее, чем 85.
+# В ответе запишите это число в десятичной системе счисления.
+'''
+R = []
+for n in range(1, 10000):
+    n2 = f'{n:b}'  # n2 = bin(n)[2:]
+    n2 = n2 + str(n2.count('1') % 2)
+    n2 = n2 + str(n2.count('1') % 2)
+    r = int(n2, 2)
+    if r > 85:
+        R.append(n)
+print(min(R))
+'''
+
+
+# Тип 5 №84667
+# На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.
+# 1. Строится троичная запись числа N.
+# 2. Далее эта запись обрабатывается по следующему правилу:
+# а) если число N делится на 3, то слева к нему приписывается «1», а справа «02»;
+# б) если число N на 3 не делится, то остаток от деления на 3 умножается на 4, переводится в троичную запись и дописывается в конец числа.
+# 3.Результат переводится в десятичную систему и выводится на экран.
+
+# Укажите максимальное число R, после обработки которого с помощью этого алгоритма получается число R, не превышающее 250.
+'''
+def convert(n, b):
+    r = ''
+    while n > 0:
+        r += str(n % b)
+        n //= b
+    return r[::-1]
+
+RES = []
+for n in range(1, 10000):
+    n3 = convert(n, 3)
+    if n % 3 == 0:
+        n3 = '1' + n3 + '02'
+    else:
+        x = (n % 3) * 4
+        n3 = n3 + convert(x, 3)
+    r = int(n3, 3)
+    if r < 250:
+        RES.append(r)
+print(max(RES))
+'''
 
 # endregion Урок: *************************************************************
 # #
 # #
 # ФИПИ = [8, 13, 15, 16, 19-21, 23]
 # КЕГЭ = []
-# todo на следующем уроке:
+# todo на следующем уроке: 9, 17
 #  5, 14 - что-то смотрели
